@@ -32,10 +32,10 @@ public class TestConexion {
 		String guid = uid.generateGUID(datoPrueba);
 		try {
 			datoPrueba.registraPrueba(guid, pruebas);
-			LogHandler.debug(guid,this.getClass(), "PRUEBA JUNIT");
+			LogHandler.info(guid,this.getClass(), "PRUEBA JUNIT");
 		}
 		catch (Exception ex) {
-			LogHandler.debug(guid,this.getClass(), "Error");
+			LogHandler.info(guid,this.getClass(), "Error");
 		}
 	}
 

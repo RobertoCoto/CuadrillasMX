@@ -46,7 +46,7 @@ public final class FabricaConexiones {
 		SqlSessionFactoryBuilder 	builderTx;
 		SqlSessionFactory 			sqlMapperTx = null;
 		try {
-			readerTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/resources/SqlConfigConsulta.xml" );
+			readerTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/resources/SqlConfigOperaciones.xml" );
 			builderTx 		= new SqlSessionFactoryBuilder( );
 			sqlMapperTx 	= builderTx.build( readerTx );
 		} catch ( Exception e ) {
@@ -67,7 +67,7 @@ public final class FabricaConexiones {
 		SqlSessionFactoryBuilder 	builderNTx;
 		SqlSessionFactory 			sqlMapperNTx = null;
 		try {
-			readerNTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/resources/SqlConfigOperaciones.xml" );
+			readerNTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/resources/SqlConfigConsulta.xml" );
 			builderNTx 		= new SqlSessionFactoryBuilder( );
 			sqlMapperNTx 	= builderNTx.build( readerNTx );
 		} catch ( Exception e ) {

@@ -4,5 +4,7 @@
 	namespace="com.fyg.cuadrillas.dao.resources.ConsultasCuadrillasDAO">
 <!-- Consulta Actividad General -->
 
-
+<select id="consultaPrueba" parameterType="prueba" resultType="prueba">
+SELECT * FROM prueba WHERE id = #{idPrueba}
+</select>
 </mapper>

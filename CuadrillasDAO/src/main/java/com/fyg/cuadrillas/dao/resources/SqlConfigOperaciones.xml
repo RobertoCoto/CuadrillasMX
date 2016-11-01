@@ -5,7 +5,7 @@
 <configuration>
 
 <typeAliases>
-<typeAlias alias="Prueba" type="com.fyg.multisitio.dto.PruebaDTO"/>
+<typeAlias alias="Prueba" type="com.fyg.cuadrillas.dto.PruebaDTO"/>
 </typeAliases>
 
 	<environments default="development">
