@@ -22,7 +22,7 @@ public class ConsultasCuadrillasDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
 			listaPrueba = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaPrueba", prueba);
-			System.out.println(listaPrueba);
+			
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);

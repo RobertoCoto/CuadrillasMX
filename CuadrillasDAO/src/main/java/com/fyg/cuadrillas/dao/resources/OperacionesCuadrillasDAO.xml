@@ -3,7 +3,7 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.resources.OperacionesCuadrillasDAO">
 	
-	<!--- INSERTA EN LA TABLA GIRO-->
+	<!--- INSERTA EN LA TABLA PRUEBA-->
 <insert id="insertaPrueba" parameterType="prueba">
 INSERT INTO prueba(usuario,contraseña,mensaje) VALUES(#{usuario},#{contraseña},#{mensaje})
 </insert>
