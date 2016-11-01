@@ -14,6 +14,8 @@
 			<dataSource type="POOLED">
 				<property name="poolMaximumCheckoutTime" value="2000"/>
 				<property name="poolTimeToWait" value="10000"/>
+				 <property name="poolMaximumIdleConnections" value="5"/>
+                <property name="poolMaximumActiveConnections" value="50"/>
 				<property name="driver" value="com.mysql.jdbc.Driver"/>
 				<property name="url" value="jdbc:mysql://localhost:3306/tatei"/>
 				<property name="username" value="cuadrillas"/>
