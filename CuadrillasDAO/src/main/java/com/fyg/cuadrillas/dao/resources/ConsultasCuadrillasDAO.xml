@@ -4,10 +4,5 @@
 	namespace="com.fyg.cuadrillas.dao.resources.ConsultasCuadrillasDAO">
 <!-- Consulta Actividad General -->
 
-<select id="busquedaActividad" parameterType="actividad" resultType="Actividad">
-SELECT actividad.descripcion, actividad.idGiro, negocio.nombre,negocio.descripcionLarga
-FROM actividad
-INNER JOIN giro ON actividad.idGiro = giro.idGiro
-INNER JOIN negocio ON giro.idGiro = negocio.idGiro WHERE actividad.nombre = #{nombre}
-</select>
+
 </mapper>
