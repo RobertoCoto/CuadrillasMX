@@ -1,6 +1,12 @@
 package com.fyg.cuadrillas.dto;
 
-public class Perfil {
+import com.fyg.cuadrillas.comun.ObjetoValor;
+
+public class Perfil extends ObjetoValor {
+/**
+ * Serial UID
+ */
+private static final long serialVersionUID = 1700620383878923573L;
 /**
  * Id unico de perfil
  */
