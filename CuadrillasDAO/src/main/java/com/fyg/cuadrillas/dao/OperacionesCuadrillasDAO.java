@@ -9,8 +9,12 @@ import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.PruebaDTO;
 
 public class OperacionesCuadrillasDAO {
-	
-	
+/**
+ * Metodo para registrar datos prueba
+ * @param uid id unico de registro
+ * @param prueba , recibe valores de prueba
+ * @return regresa respuesta de registro
+ */
  public EncabezadoRespuesta registraPrueba(String uid, PruebaDTO prueba) {
 	 	SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();

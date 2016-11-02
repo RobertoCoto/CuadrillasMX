@@ -15,7 +15,7 @@ public class PruebaDTO extends ObjetoValor {
 	/**
 	 * contraseña prueba;
 	 */
-	private String contraseña;
+	private String contrasena;
 	/**
 	 * mensaje prueba
 	 */
@@ -24,27 +24,51 @@ public class PruebaDTO extends ObjetoValor {
 	 * id unico prueba
 	 */
 	private Integer idPrueba;
+	/**
+	 * @return obtiene el usuario
+	 */
 	public String getUsuario() {
 		return usuario;
 	}
+	/**
+	 * @param usuario ingresa un usuario
+	 */
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	/**
+	 * @return obtiene la contraseña
+	 */
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	/**
+	 * @param contrasena ingresa la contraseña
+	 */
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
+	/**
+	 * @return obtiene el msj
+	 */
 	public String getMensaje() {
 		return mensaje;
 	}
+	/**
+	 * @param mensaje ingresa un msj
+	 */
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
+	/**
+	 * @return obtiene el id prueba
+	 */
 	public Integer getIdPrueba() {
 		return idPrueba;
 	}
+	/**
+	 * @param idPrueba ingresa el id prueba
+	 */
 	public void setIdPrueba(Integer idPrueba) {
 		this.idPrueba = idPrueba;
 	}

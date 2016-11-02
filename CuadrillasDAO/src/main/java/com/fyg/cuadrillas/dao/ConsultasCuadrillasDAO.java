@@ -9,6 +9,12 @@ import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.PruebaDTO;
 
 public class ConsultasCuadrillasDAO {
+	/**
+	 * Metododo de prueba para consultar
+	 * @param uid Id unico de registro
+	 * @param prueba valores de prueba
+	 * @return regresa una lista de prueba
+	 */
 	@SuppressWarnings("unchecked")
 	public List<PruebaDTO> consultaPrueba(String uid, PruebaDTO prueba) {
 		SqlSession sessionNTx = null;
@@ -22,7 +28,6 @@ public class ConsultasCuadrillasDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
 			listaPrueba = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaPrueba", prueba);
-			
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
