@@ -53,8 +53,9 @@ public abstract class ObjetoValor implements Serializable {
 		try {
             Method m[] = this.getClass().getDeclaredMethods();
             for (Method miM : m) {
-            	if ( stringbuffer.length() > 0 )
-            			stringbuffer.append(" | ");
+            	if ( stringbuffer.length() > 0 ) {
+					stringbuffer.append(" | ");
+				}
             	if ( miM.getName().startsWith("get") ||  miM.getName().startsWith("is") ) {
             		stringbuffer.append( miM.getName() );
             		stringbuffer.append("=" );
@@ -64,16 +65,20 @@ public abstract class ObjetoValor implements Serializable {
             				Object[] array = (Object[]) res;
 
             				for (Object miO : array ) {
-            					if ( stringbufferObjects.length() > 0 )
-            						stringbufferObjects.append( ", " );
-            					if ( miO != null )
-            						stringbufferObjects.append(  miO.toString() );
+            					if ( stringbufferObjects.length() > 0 ) {
+									stringbufferObjects.append( ", " );
+								}
+            					if ( miO != null ) {
+									stringbufferObjects.append(  miO.toString() );
+								}
             				}
             				stringbuffer.append(stringbufferObjects  );
-            			} else
-            				stringbuffer.append(  res.toString() );
-            		} else
-            			stringbuffer.append( res );
+            			} else {
+							stringbuffer.append(  res.toString() );
+						}
+            		} else {
+						stringbuffer.append( res );
+					}
             	}
             }
          }

@@ -11,9 +11,6 @@ import org.apache.log4j.Logger;
  * @author Gerardo Corzo
  */
 public class LogHandler extends Logger {
-   
-	
-	
 	/** The no uid. */
 	private static final String NO_UID = " NO UID ";
 
@@ -28,14 +25,10 @@ public class LogHandler extends Logger {
 
 	/** The log . */
 	private static Logger logger;
-    
-
 	  /**
 	   * fabrica de logger
 	   */
 	  private static final  LoggerFactoryHandler MYFACTORY = new LoggerFactoryHandler();
-	 
-	  
 	  /**
 	     Just calls the parent constuctor.
 	   * @param name .
@@ -43,8 +36,6 @@ public class LogHandler extends Logger {
 	  public LogHandler(final String name) {
 	    super(name);
 	  }
-      
-	  
 
 	  /**
 	     This method overrides {@link Logger#getInstance} by supplying

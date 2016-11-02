@@ -1,6 +1,6 @@
 package com.fyg.cuadrillas.comun;
 
-public class ExcepcionesCuadrillas extends Exception{
+public class ExcepcionesCuadrillas extends Exception {
 
 	/**
 	 * Seial UID generado

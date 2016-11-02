@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.comun;
 
 public class EncabezadoRespuesta extends ObjetoValor {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6856742685439609818L;
 	/**
