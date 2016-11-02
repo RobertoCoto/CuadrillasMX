@@ -7,29 +7,28 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
-import com.fyg.cuadrillas.dto.PruebaDTO;
+import com.fyg.cuadrillas.dto.Parametros;
 
-
-public class ConsultasCuadrillasDAO {
+public class ConsultaParametro {
 	/**
-	 * Metododo de prueba para consultar
-	 * @param uid Id unico de registro
-	 * @param prueba valores de prueba
-	 * @return regresa una lista de prueba
+	 * Metodo para consultar parametros
+	 * @param uid unico
+	 * @param parametro recibe el valor de parametro
+	 * @return regresa el parametro
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PruebaDTO> consultaPrueba(String uid, PruebaDTO prueba) {
+	public List<Parametros> consultaParametro(String uid, Parametros parametro) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<PruebaDTO> listaPrueba = null;
+		List<Parametros> listaParametros = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla contacto
-			listaPrueba = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaPrueba", prueba);
+			//Se hace una consulta a la tabla parametros
+			listaParametros = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaParametro", parametro);
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
@@ -39,6 +38,6 @@ public class ConsultasCuadrillasDAO {
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
-		return listaPrueba;
+		return listaParametros;
 	}
 }

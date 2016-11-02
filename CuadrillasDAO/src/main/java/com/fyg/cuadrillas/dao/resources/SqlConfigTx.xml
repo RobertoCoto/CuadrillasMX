@@ -6,6 +6,7 @@
 
 <typeAliases>
 <typeAlias alias="Prueba" type="com.fyg.cuadrillas.dto.PruebaDTO"/>
+<typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.Perfil"/>
 </typeAliases>
 
 	<environments default="development">

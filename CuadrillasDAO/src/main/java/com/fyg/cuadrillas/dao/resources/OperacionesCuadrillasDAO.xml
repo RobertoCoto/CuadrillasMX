@@ -3,8 +3,19 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.resources.OperacionesCuadrillasDAO">
 
-	<!--- INSERTA EN LA TABLA PRUEBA-->
+<!--- INSERTA EN LA TABLA PRUEBA-->
 <insert id="insertaPrueba" parameterType="prueba">
 INSERT INTO prueba(usuario,contraseña,mensaje) VALUES(#{usuario},#{contraseña},#{mensaje})
+</insert>
+
+<!--- INSERTA EN LA TABLA PERFIL-->
+<insert id="insertaPerfil" parameterType="perfil">
+INSERT INTO perfil(nombre,descripcion,estatus) VALUES(#{nombre},#{descripcion},#{estatus})
+</insert>
+
+<!--- INSERTA EN LA TABLA USUARIO-->
+<insert id="insertaUsuario" parameterType="usuario">
+INSERT INTO usuario(usuario,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nac},#{id_perfil},#{contrasena},#{cambio_contrasena},#{fecha_alta},#{fecha_ult_mod,#{estatus}})
 </insert>
 	</mapper>
