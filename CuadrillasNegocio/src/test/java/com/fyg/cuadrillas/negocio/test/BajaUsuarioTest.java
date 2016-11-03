@@ -42,7 +42,7 @@ public class BajaUsuarioTest {
 	 */
 	@SuppressWarnings("static-access")
 	@Test
-	public void testConsultaNegocio()throws Exception {
+	public void testBajaUsuario()throws Exception {
 		String guid = uid.generateGUID(bajaUsuario);
 		try {
 			bajaUsuario.bajaUsuario(datosUsuario);

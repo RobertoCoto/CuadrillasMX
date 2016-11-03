@@ -6,6 +6,7 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
+import com.fyg.cuadrillas.comun.ValidaCurp;
 import com.fyg.cuadrillas.dto.Usuario;
 import com.fyg.cuadrillas.dao.ConsultasCuadrillasDAO;
 import com.fyg.cuadrillas.dao.OperacionesCuadrillasDAO;
@@ -36,6 +37,8 @@ public class OperacionesCuadrillasNegocio {
 				throw new ExcepcionesCuadrillas("El campo apellido materno no puede ir vacio.");
 			} else if (usuario.getSexo() == null || usuario.getSexo().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El campo sexo no puede ir vacio.");
+			} else if (usuario.getRfc() == null || usuario.getRfc().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo rfc no puede ir vacio.");
 			} else {
 				OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
 				respuesta = dao.altaUsuario(uid, usuario);
