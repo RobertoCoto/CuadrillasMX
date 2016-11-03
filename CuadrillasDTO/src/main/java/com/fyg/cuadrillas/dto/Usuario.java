@@ -68,7 +68,7 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * estatus del usuario
 	 */
-	private char estatus;
+	private String estatus;
 	/**
 	 * @return obtiene el usuario
 	 */
@@ -240,13 +240,13 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * @return obtiene el estatus
 	 */
-	public char getEstatus() {
+	public String getEstatus() {
 		return estatus;
 	}
 	/**
 	 * @param estatus ingresa el estatus
 	 */
-	public void setEstatus(char estatus) {
+	public void setEstatus(String estatus) {
 		this.estatus = estatus;
 	}
 	}

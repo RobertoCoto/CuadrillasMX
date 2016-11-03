@@ -12,4 +12,14 @@ SELECT * FROM prueba WHERE id = #{idPrueba}
 <select id="consultaParametro" parameterType="parametro" resultType="parametro">
 SELECT valor,parametro FROM parametros WHERE parametro = #{parametro}
 </select>
+
+<!-- Consulta Perfil-->
+<select id="consultaPerfil" parameterType="perfil" resultType="perfil">
+SELECT id_perfil FROM perfil WHERE id_perfil = #{id_perfil}
+</select>
+
+<!-- Consulta Parametro-->
+<select id="consultaUsuario" parameterType="usuario" resultType="usuario">
+SELECT * FROM usuarios WHERE usuario = #{usuario}
+</select>
 </mapper>

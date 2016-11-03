@@ -97,7 +97,7 @@ public class OperacionesCuadrillasDAO {
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-  	int registros = sessionTx.update("OperacionesCuadrillasDAO.bajaUsuario", usuario);
+  	        int registros = sessionTx.update("OperacionesCuadrillasDAO.inactivaUsuario", usuario);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al bajar el usuario.");
 			}
