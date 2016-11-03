@@ -131,7 +131,6 @@ public class OperacionesCuadrillasNegocio {
 					 throw new ExcepcionesCuadrillas("no existe el perfil");
 				 }
 			 }
-
 			// se inicia con el calculo del RFC
 				RFCUtil calcularRFC = new RFCUtil();
 				String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(usuario.getNombre(),usuario.getApellido_pat(),usuario.getApellido_mat(),usuario.getFecha_nacimiento());
@@ -147,13 +146,13 @@ public class OperacionesCuadrillasNegocio {
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "registraNegocio - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "altaUsuario- Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "altaUsuario - Daton Salida: " + respuesta);
 		return respuesta;
 	}
 	/**

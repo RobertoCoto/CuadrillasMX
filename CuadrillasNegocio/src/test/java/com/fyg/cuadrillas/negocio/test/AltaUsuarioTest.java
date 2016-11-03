@@ -43,8 +43,8 @@ public class AltaUsuarioTest {
 		datosUsuario.setApellido_pat("Gonzales");
 		datosUsuario.setApellido_mat("Perez");
 		datosUsuario.setSexo("M");
-		datosUsuario.setRfc("GOPM820801HV7");
-		datosUsuario.setCurp("GOPR820801HDFNRC04");
+		datosUsuario.setRfc("GOPM020801HV7");
+		datosUsuario.setCurp("GOPR020801HDFNRC04");
 		datosUsuario.setFecha_nacimiento(fechaNac);
 		datosUsuario.setId_perfil(1);
 		datosUsuario.setContrasena("gonzales22gb");
