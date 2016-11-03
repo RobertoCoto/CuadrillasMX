@@ -7,6 +7,8 @@
 <typeAliases>
 <typeAlias alias="Prueba" type="com.fyg.cuadrillas.dto.PruebaDTO"/>
 <typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.Parametros"/>
+<typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.Parametros"/>
+<typeAlias alias="usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
 </typeAliases>
 
 	<environments default="development">

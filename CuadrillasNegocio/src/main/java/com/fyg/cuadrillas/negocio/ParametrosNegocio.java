@@ -36,7 +36,7 @@ public class ParametrosNegocio {
 	    			 if (listaParametro.get(i).getParametro() == null || listaParametro.get(i).getParametro().isEmpty()) {
 	    				 throw new ExcepcionesCuadrillas("No existe el parametro en la BD.");
 	    			 }
-	    			 LogHandler.debug(uid, this.getClass(), "El valor del parametro es" + listaParametro.get(i).getValor());
+	    			 LogHandler.debug(uid, this.getClass(), "El valor del parametro es: " + listaParametro.get(i).getValor());
 	    			}
 	    	}
 	    } catch (Exception ex) {

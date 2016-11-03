@@ -18,4 +18,12 @@ INSERT INTO perfil(nombre,descripcion,estatus) VALUES(#{nombre},#{descripcion},#
 INSERT INTO usuario(usuario,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_alta,fecha_ult_mod,estatus)
 VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nac},#{id_perfil},#{contrasena},#{cambio_contrasena},#{fecha_alta},#{fecha_ult_mod,#{estatus}})
 </insert>
-	</mapper>
+
+<!--- BAJA EN LA TABLA USUARIO-->
+<update id="bajaUsuario" parameterType="usuario">
+UPDATE usuarios SET
+estatus = #{estatus},
+fecha_ult_mod = #{fecha_ult_mod}
+WHERE usuario = #{usuario}
+</update>
+</mapper>
