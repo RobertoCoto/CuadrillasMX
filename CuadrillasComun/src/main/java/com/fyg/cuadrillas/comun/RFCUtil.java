@@ -121,7 +121,7 @@ public final class RFCUtil {
 	 * Constructor privado, nunca se instanciará la clase, se usará sólo método
 	 * estático
 	 */
-	private RFCUtil() {
+	public RFCUtil() {
 	}
 
 	/**
