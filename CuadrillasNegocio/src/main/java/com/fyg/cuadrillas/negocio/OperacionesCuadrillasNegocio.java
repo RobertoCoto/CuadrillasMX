@@ -120,13 +120,6 @@ public class OperacionesCuadrillasNegocio {
 						throw new ExcepcionesCuadrillas("El año es menor del permitido.");
 					}
 				 }
-				 	// se inicia con el calculo del RFC
-					RFCUtil calcularRFC = new RFCUtil();
-					String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(usuario.getNombre(),usuario.getApellido_pat(),usuario.getApellido_mat(),usuario.getFecha_nacimiento());
-					//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
-					usuario.setRfc_calculado(rfcCalculado);
-					OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
-					respuesta = dao.altaUsuario(uid, usuario);
 			 }
 			 //se incia con la obtencion del perfil
 			 perfilUsuario = new Perfil();
@@ -139,7 +132,13 @@ public class OperacionesCuadrillasNegocio {
 				 }
 			 }
 
-			
+			// se inicia con el calculo del RFC
+				RFCUtil calcularRFC = new RFCUtil();
+				String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(usuario.getNombre(),usuario.getApellido_pat(),usuario.getApellido_mat(),usuario.getFecha_nacimiento());
+				//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
+				usuario.setRfc_calculado(rfcCalculado);
+				OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
+				respuesta = dao.altaUsuario(uid, usuario);
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "altaUsuario - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
