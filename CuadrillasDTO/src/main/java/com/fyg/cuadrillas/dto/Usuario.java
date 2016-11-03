@@ -28,7 +28,7 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * Sexo del usuario
 	 */
-	private char sexo;
+	private String sexo;
 	/**
 	 * RFC del usuario
 	 */
@@ -56,7 +56,7 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * Si cambia contrasena o no
 	 */
-	private char cambio_contrasena;
+	private String cambio_contrasena;
 	/**
 	 * Fecha_alta del usuario
 	 */
@@ -120,13 +120,13 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * @return obtiene el sexo del usuario
 	 */
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 	/**
 	 * @param sexo ingresa el sexo del usuario
 	 */
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 	/**
@@ -204,13 +204,13 @@ public class Usuario extends ObjetoValor {
 	/**
 	 * @return obtiene el cambio de contraseña
 	 */
-	public char getCambio_contrasena() {
+	public String getCambio_contrasena() {
 		return cambio_contrasena;
 	}
 	/**
 	 * @param cambio_contrasena ingresa el cambio de contraseña
 	 */
-	public void setCambio_contrasena(char cambio_contrasena) {
+	public void setCambio_contrasena(String cambio_contrasena) {
 		this.cambio_contrasena = cambio_contrasena;
 	}
 	/**
