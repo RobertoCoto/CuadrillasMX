@@ -15,7 +15,7 @@ SELECT valor,parametro FROM parametros WHERE parametro = #{parametro}
 
 <!-- Consulta Perfil-->
 <select id="consultaPerfil" parameterType="perfil" resultType="perfil">
-SELECT id_perfil FROM perfil WHERE id_perfil = #{id_perfil}
+SELECT id_perfil FROM perfil WHERE id_perfil = #{idPerfil}
 </select>
 
 <!-- Consulta Parametro-->
