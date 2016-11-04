@@ -38,6 +38,9 @@ public class ConsultasCuadrillasNegocio {
 	    		throw new ExcepcionesCuadrillas("Solo es permitido estatus activo.");
 	    	}
 	    	 listaCatalogo = new ConsultasCuadrillasDAO().consultaCatalogo(uid, catalogoOV);
+	    	 for (int i = 0; i < listaCatalogo.size(); i++) {
+	    		 System.out.println(listaCatalogo.get(i).getCodigo() + listaCatalogo.get(i).getDescripcion());
+	    	 }
 	    } catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -45,6 +48,34 @@ public class ConsultasCuadrillasNegocio {
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
+		return listaCatalogo;
+	}
+	/**
+	 * Metodo para buscar todos los catalogos
+	 * @param catalogoOV recibe valores de catalogo
+	 * @return regresa un catalogo
+	 */
+	public List<Catalogos> consultarListaCatalogo(Catalogos catalogoOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(catalogoOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Entrada: " + catalogoOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Catalogos> listaCatalogo = null;
+	    try {
+	    	 listaCatalogo = new ConsultasCuadrillasDAO().consultaListaCatalogo(uid, catalogoOV);
+	    } catch (Exception ex) {
 	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);

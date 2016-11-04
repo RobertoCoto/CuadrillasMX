@@ -134,4 +134,34 @@ public class ConsultasCuadrillasDAO {
 		}
 		return listaCatalogos;
 	}
+	/**
+	 * Metodo para consultar los catalogos
+	 * @param uid unico de registro
+	 * @param catalogoOV valores de catalogos
+	 * @return regresa una lista de catalogos
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Catalogos> consultaListaCatalogo(String uid, Catalogos catalogoOV) {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Catalogos> listaCatalogos = null;
+		try {
+			//Abrimos conexion Transaccional
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			listaCatalogos = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaListaCatalogo", catalogoOV);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+            respuesta.setEstatus(false);
+    		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaCatalogos;
+	}
 }

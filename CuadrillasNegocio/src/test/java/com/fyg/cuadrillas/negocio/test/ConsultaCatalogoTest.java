@@ -45,7 +45,6 @@ private GUIDGenerator uid;
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}
-		
 	}
 
 }
