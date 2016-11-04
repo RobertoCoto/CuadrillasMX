@@ -22,4 +22,10 @@ SELECT id_perfil FROM perfil WHERE id_perfil = #{idPerfil}
 <select id="consultaUsuario" parameterType="usuario" resultType="usuario">
 SELECT * FROM usuarios WHERE usuario = #{usuario}
 </select>
+
+<!-- Consulta Catalogo-->
+<select id="consultaCatalogo" parameterType="catalogo" resultType="catalogo">
+SELECT tipo_catalogo,descripcion,fecha_alta,fecha_ult_mod,estatus FROM catalogo WHERE codigo = #{codigo}
+</select>
+
 </mapper>

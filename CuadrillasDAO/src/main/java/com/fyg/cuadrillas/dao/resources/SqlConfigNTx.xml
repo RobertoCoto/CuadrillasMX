@@ -9,6 +9,7 @@
 <typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.Parametros"/>
 <typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.Perfil"/>
 <typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
+<typeAlias alias="Catalogo" type="com.fyg.cuadrillas.dto.Catalogos"/>
 </typeAliases>
 
 	<environments default="development">
