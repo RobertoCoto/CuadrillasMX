@@ -2,9 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.fyg.cuadrillas.dao.resources.OperacionesCuadrillasDAO">
-	
-	<!--- INSERTA EN LA TABLA GIRO-->
+
+<!--- INSERTA EN LA TABLA PRUEBA-->
 <insert id="insertaPrueba" parameterType="prueba">
 INSERT INTO prueba(usuario,contraseña,mensaje) VALUES(#{usuario},#{contraseña},#{mensaje})
 </insert>
-	</mapper>
+
+<!--- INSERTA EN LA TABLA PERFIL-->
+<insert id="insertaPerfil" parameterType="perfil">
+INSERT INTO perfil(nombre,descripcion,estatus) VALUES(#{nombre},#{descripcion},#{estatus})
+</insert>
+
+<!--- INSERTA EN LA TABLA USUARIO-->
+<insert id="insertaUsuario" parameterType="usuario">
+INSERT INTO usuarios(usuario,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nac},#{id_perfil},#{contrasena},#{cambio_contrasena},#{fecha_alta},#{fecha_ult_mod},#{estatus})
+</insert>
+
+<!--- ALTA EN LA TABLA CATALOGO-->
+<insert id="insertaCatalogo" parameterType="catalogoOV">
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion,,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{tipo_catalogo},#{codigo},#{descripcion},#{fecha_alta},#{fecha_ult_mod},#{estatus})
+</insert>
+
+<!--- BAJA EN LA TABLA USUARIO-->
+<update id="inactivaUsuario" parameterType="usuario">
+UPDATE usuarios SET
+estatus = #{estatus},
+fecha_ult_mod = #{fecha_ult_mod}
+WHERE usuario = #{usuario}
+</update>
+
+<!--- BAJA EN LA TABLA TIPO CATALOGO-->
+<update id="inactivaCatalogo" parameterType="catalogoOV">
+UPDATE catalogo SET
+estatus = #{estatus},
+fecha_ult_mod = #{fecha_ult_mod}
+WHERE codigo = #{codigo}
+</update>
+
+
+</mapper>

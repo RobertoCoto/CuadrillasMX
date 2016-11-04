@@ -25,7 +25,9 @@ SELECT * FROM usuarios WHERE usuario = #{usuario}
 
 <!-- Consulta Catalogo-->
 <select id="consultaCatalogo" parameterType="CatalogoOV" resultType="CatalogoOV">
-SELECT tipo_catalogo,descripcion,fecha_alta,fecha_ult_mod,estatus FROM catalogo WHERE codigo = #{codigo}
+SELECT catalogo.codigo AS codigo, catalogo.descripcion AS descripcion
+FROM catalogo
+INNER JOIN tipo_catalogo ON catalogo.tipo_catalogo = tipo_catalogo.tipo_catalogo
+WHERE tipo_catalogo.orden = #{orden} AND catalogo.estatus =#{estatus}
 </select>
-
 </mapper>

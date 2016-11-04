@@ -28,6 +28,10 @@ public class Catalogos {
   */
  private String estatus;
  /**
+  * Orden
+  */
+ private String orden;
+ /**
   * @return obtiene el tipo de catalogo
   */
 public String getTipo_catalogo() {
@@ -98,5 +102,17 @@ public String getEstatus() {
  */
 public void setEstatus(String estatus) {
 	this.estatus = estatus;
+}
+/**
+ * @return obtiene el orden
+ */
+public String getOrden() {
+	return orden;
+}
+/**
+ * @param orden ingresa el orden
+ */
+public void setOrden(String orden) {
+	this.orden = orden;
 }
 }
