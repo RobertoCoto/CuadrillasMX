@@ -24,7 +24,7 @@ SELECT * FROM usuarios WHERE usuario = #{usuario}
 </select>
 
 <!-- Consulta Catalogo-->
-<select id="consultaCatalogo" parameterType="catalogo" resultType="catalogo">
+<select id="consultaCatalogo" parameterType="CatalogoOV" resultType="CatalogoOV">
 SELECT tipo_catalogo,descripcion,fecha_alta,fecha_ult_mod,estatus FROM catalogo WHERE codigo = #{codigo}
 </select>
 
