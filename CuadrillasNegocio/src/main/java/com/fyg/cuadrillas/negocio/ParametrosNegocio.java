@@ -19,7 +19,7 @@ public class ParametrosNegocio {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(parametro);
 		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Entrada: " + parametro);
+		LogHandler.debug(uid, this.getClass(), "ConsultaParametros - Datos Entrada: " + parametro);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -39,14 +39,20 @@ public class ParametrosNegocio {
 	    			 LogHandler.debug(uid, this.getClass(), "El valor del parametro es: " + listaParametro.get(i).getValor());
 	    			}
 	    	}
-	    } catch (Exception ex) {
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "ConsultaParametro - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
 	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 	    }
-	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
+	    LogHandler.debug(uid, this.getClass(), "consultaParametros - Datos Salida: " + respuesta);
 		return listaParametro;
 	}
 
