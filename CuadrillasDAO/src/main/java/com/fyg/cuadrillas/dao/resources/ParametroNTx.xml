@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.dao.resources.ParametroNTx">
+	<!-- Consulta Parametro-->
+<select id="consultaParametro" parameterType="parametro" resultType="parametro">
+SELECT valor,parametro FROM parametros WHERE parametro = #{parametro}
+</select>
+</mapper>

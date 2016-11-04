@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<typeAliases>
+<typeAlias alias="Prueba" type="com.fyg.cuadrillas.dto.PruebaDTO"/>
+<typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.Parametros"/>
+<typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.Perfil"/>
+<typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
+<typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.Catalogos"/>
+</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="poolMaximumCheckoutTime" value="5000"/>
+                <property name="poolTimeToWait" value="10000"/>
+                <property name="poolMaximumIdleConnections" value="5"/>
+                <property name="poolMaximumActiveConnections" value="50"/>
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/tatei"/>
+				<property name="username" value="cuadrillas"/>
+				<property name="password" value="cuadrillasFyG"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+	<mapper resource="com/fyg/cuadrillas/dao/resources/CatalogoNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/resources/HerramientaNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/resources/ParametroNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/resources/PerfilNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/resources/UsuarioNTx.xml" />
+	</mappers>
+</configuration>
