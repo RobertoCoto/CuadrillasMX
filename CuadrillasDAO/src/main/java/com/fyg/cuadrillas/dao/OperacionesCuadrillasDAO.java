@@ -7,6 +7,7 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.Catalogos;
+import com.fyg.cuadrillas.dto.Herramientas;
 import com.fyg.cuadrillas.dto.PruebaDTO;
 import com.fyg.cuadrillas.dto.Usuario;
 
@@ -134,7 +135,7 @@ public class OperacionesCuadrillasDAO {
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-	        int registros = sessionTx.update("OperacionesCuadrillasDAO.inactivaTipoCatalogo", catalogoOV);
+	        int registros = sessionTx.update("OperacionesCuadrillasDAO.inactivaCatalogo", catalogoOV);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al bajar el catalogo.");
 			}
@@ -173,6 +174,78 @@ public class OperacionesCuadrillasDAO {
 	        int registros = sessionTx.update("OperacionesCuadrillasDAO.registraCatalogo", catalogoOV);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar el catalogo.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+		}
+		catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!!");
+			FabricaConexiones.rollBack(sessionTx);
+LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+respuesta.setEstatus(false);
+		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
+}
+ /**
+  * Metodo para registrar herramientas
+  * @param uid unico de registro
+  * @param herramientaOV recibe valores de herramienta
+  * @return regresa la respuesta de la transaccion
+  */
+ public EncabezadoRespuesta registraHerramientas(String uid, Herramientas herramientaOV) {
+	 	SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("registro correcto.");
+		try {
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("OperacionesCuadrillasDAO.registraHerramientas", herramientaOV);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar la Herramienta.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+		}
+		catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!!");
+			FabricaConexiones.rollBack(sessionTx);
+LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+respuesta.setEstatus(false);
+		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
+}
+ /**
+  * Metodo para dar de baja las herramientas
+  * @param uid unico de registgro
+  * @param herramientaOV recibe valores de herramientas
+  * @return regresa el resultado de la transaccion
+  */
+ public EncabezadoRespuesta eliminarHerramientas(String uid, Herramientas herramientaOV) {
+	 	SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Baja correcta.");
+		try {
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("OperacionesCuadrillasDAO.inactivaHerramientas", herramientaOV);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al bajar la herramienta.");
 			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");

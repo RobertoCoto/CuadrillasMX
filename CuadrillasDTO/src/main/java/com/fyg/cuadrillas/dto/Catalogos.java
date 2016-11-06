@@ -2,7 +2,13 @@ package com.fyg.cuadrillas.dto;
 
 import java.util.Date;
 
-public class Catalogos {
+import com.fyg.cuadrillas.comun.ObjetoValor;
+
+public class Catalogos extends ObjetoValor{
+/**
+ * serial uid
+ */
+ private static final long serialVersionUID = 4652921152042148878L;
 /**
  * tipo catalogo
  */

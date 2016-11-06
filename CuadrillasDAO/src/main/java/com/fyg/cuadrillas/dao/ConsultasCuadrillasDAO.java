@@ -8,6 +8,7 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.Catalogos;
+import com.fyg.cuadrillas.dto.Herramientas;
 import com.fyg.cuadrillas.dto.Perfil;
 import com.fyg.cuadrillas.dto.PruebaDTO;
 import com.fyg.cuadrillas.dto.Usuario;
@@ -163,5 +164,65 @@ public class ConsultasCuadrillasDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaCatalogos;
+	}
+	/**
+	 * Metodo para consultar Herramientas
+	 * @param uid unico de registro
+	 * @param herramientasOV recibe valores de herramienta
+	 * @return regresa lista de herramientas
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Herramientas> consultaHerramientas(String uid, Herramientas herramientasOV) {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Herramientas> listaHerramientas = null;
+		try {
+			//Abrimos conexion Transaccional
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			listaHerramientas = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaHerramientas", herramientasOV);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+            respuesta.setEstatus(false);
+    		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaHerramientas;
+	}
+	/**
+	 * Metodo general para consultar
+	 * @param uid unico de registro
+	 * @param herramientasOV recibe valores de herramientas
+	 * @return regresa una lista de herramientas
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Herramientas> consultaListaHerramientas(String uid, Herramientas herramientasOV) {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Herramientas> listaHerramientas = null;
+		try {
+			//Abrimos conexion Transaccional
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			listaHerramientas = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaListaHerramientas", herramientasOV);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+            respuesta.setEstatus(false);
+    		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaHerramientas;
 	}
 }

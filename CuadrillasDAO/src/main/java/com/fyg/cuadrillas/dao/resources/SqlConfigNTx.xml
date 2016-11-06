@@ -10,6 +10,7 @@
 <typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.Perfil"/>
 <typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
 <typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.Catalogos"/>
+<typeAlias alias="herramientaOV" type="com.fyg.cuadrillas.dto.Herramientas"/>
 </typeAliases>
 
 	<environments default="development">

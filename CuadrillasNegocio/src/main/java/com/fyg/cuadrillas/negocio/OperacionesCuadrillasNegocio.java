@@ -10,6 +10,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dto.Catalogos;
+import com.fyg.cuadrillas.dto.Herramientas;
 import com.fyg.cuadrillas.dto.Perfil;
 import com.fyg.cuadrillas.dto.Usuario;
 import com.fyg.cuadrillas.dto.Parametros;
@@ -255,7 +256,7 @@ public class OperacionesCuadrillasNegocio {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Entrada: " + catalogoOV);
+		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Entrada: " + catalogoOV);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
@@ -272,24 +273,105 @@ public class OperacionesCuadrillasNegocio {
 				throw new ExcepcionesCuadrillas("Es necesario un estatus.");
 			} else {
 				OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
-    			  respuesta = dao.registraCatalogo(uid, catalogoOV);
+    			respuesta = dao.registraCatalogo(uid, catalogoOV);
 			}
 		}
 		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Salida: " + respuesta);
+		return respuesta;
+}
+	public EncabezadoRespuesta registraHerramientas(Herramientas herramientaOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(herramientaOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Entrada: " + herramientaOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			//Validaciones Negocio
+		if(herramientaOV.getNombre() == null || herramientaOV.getNombre().isEmpty()) { 
+			throw new ExcepcionesCuadrillas("El campo nombre es necesario.");
+		} else if(herramientaOV.getDescripcion() == null || herramientaOV.getDescripcion().isEmpty()) {
+			throw new ExcepcionesCuadrillas("El campo descripcion es necesario.");
+		} else if (herramientaOV.getCodigo_tipo_combustible() ==  null || herramientaOV.getCodigo_tipo_combustible().isEmpty()) {
+			throw new ExcepcionesCuadrillas("El campo codigo tipo combustible es necesario.");
+		} else if (herramientaOV.getCodigo_tipo_articulo() == null || herramientaOV.getCodigo_tipo_articulo().isEmpty()) {
+			throw new ExcepcionesCuadrillas("El campo codigo tipo articulo es necesario.");
+		} else if (herramientaOV.getCodigo_estado() == null || herramientaOV.getCodigo_estado().isEmpty()) {
+			throw new ExcepcionesCuadrillas("El campo codigo estado es necesario.");
+		} else if (herramientaOV.getMantenimiento() == null || herramientaOV.getMantenimiento().isEmpty()) {
+			throw new ExcepcionesCuadrillas("El campo mantenimiento es necesario.");
+		} else {
+			OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
+			respuesta = dao.registraHerramientas(uid, herramientaOV);
+		}
+			}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Salida: " + respuesta);
+		return respuesta;
+}
+	public EncabezadoRespuesta eliminaHerramientas(Herramientas herramientaOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(herramientaOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "registraSitio - Daton Entrada: " + herramientaOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		List<Herramientas> listaHerramientas = null;
+		try {
+			//Validaciones Negocio
+			listaHerramientas = new ConsultasCuadrillasDAO().consultaListaHerramientas(uid, herramientaOV);
+			 for (int i = 0; i < listaHerramientas.size(); i++) {
+				 if (listaHerramientas.get(i).getEstatus().equals("A")) {
+	            		//Mandamos a la parte del dao
+	                	  OperacionesCuadrillasDAO dao = new OperacionesCuadrillasDAO();
+	          			  respuesta = dao.eliminarHerramientas(uid, herramientaOV);
+	            	  } else {
+	            		  throw new ExcepcionesCuadrillas("ya se encuentra inactivo.");
+	            	  }
+			 }
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "bajaUsuario - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "bajaUsuario - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "bajaUsuario - Datos Salida: " + respuesta);
 		return respuesta;
 }
 }

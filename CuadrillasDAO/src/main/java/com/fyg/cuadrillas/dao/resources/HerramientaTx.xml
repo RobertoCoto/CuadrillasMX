@@ -1,1 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.dao.resources.HerramientaTx">
+
+<!--- ALTA EN LA TABLA HERRAMIENTA-->
+<insert id="registraHerramientas" parameterType="herramientaOV">
+INSERT INTO herramienta (id_herramienta,nombre,descripcion,fecha_ingresa,codigo_tipo_combustible,codigo_tipo_articulo,codigo_estado,mantenimiento,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{id_herramienta},#{nombre},#{descripcion},#{fecha_ingresa},#{codigo_tipo_combustible},#{codigo_tipo_articulo},
+#{codigo_estado},#{mantenimiento},#{fecha_alta},#{fecha_ult_mod},#{estatus})
+</insert>
+
+<!--- BAJA EN LA TABLA TIPO CATALOGO-->
+<update id="inactivaHerramientas" parameterType="herramientaOV">
+UPDATE herramienta SET
+estatus = #{estatus},
+fecha_ult_mod = #{fecha_ult_mod}
+WHERE id_herramienta = #{id_herramienta}
+</update>
+</mapper>

@@ -8,6 +8,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.dao.ConsultasCuadrillasDAO;
 import com.fyg.cuadrillas.dto.Catalogos;
+import com.fyg.cuadrillas.dto.Herramientas;
 
 public class ConsultasCuadrillasNegocio {
 
@@ -84,5 +85,33 @@ public class ConsultasCuadrillasNegocio {
 	    }
 	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
 		return listaCatalogo;
+	}
+	/**
+	 * Metodo para consultar herramientas
+	 * @param herramientaOV recibe valores de herramientas
+	 * @return regresa lista de herramientas
+	 */
+	public List<Herramientas> consultarHerramientas(Herramientas herramientaOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(herramientaOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "herramientaOV -  Entrada: " + herramientaOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Herramientas> listaHerramientas = null;
+	    try {
+	    	 listaHerramientas = new ConsultasCuadrillasDAO().consultaHerramientas(uid, herramientaOV);
+	    } catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "herramientaOV - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "herramientaOV - Datos Salida: " + respuesta);
+		return listaHerramientas;
 	}
 }
