@@ -64,21 +64,13 @@ CREATE TABLE usuario (
         codigo_tipo_combustible VARCHAR(10) NOT NULL,
         codigo_tipo_articulo VARCHAR(10) NOT NULL,
         codigo_estado VARCHAR(10) NOT NULL,
-        mantenimiento char(1) NOT NULL CHECK(mantenimiento IN('S','N')),
+        mantenimiento CHAR(1) NOT NULL CHECK(mantenimiento IN('S','N')),
         fecha_alta DATETIME NOT NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-        KEY(codigo_tipo_articulo),
-        KEY(codigo_tipo_combustible),
-        KEY(codigo_estado)
+        PRIMARY KEY(id_herramienta)
     );
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
-
-ALTER TABLE herramienta ADD CONSTRAINT FK_herramiento_codigo_tipo_combustible FOREIGN KEY (codigo_tipo_combustible) REFERENCES catalogo(codigo);
-
-ALTER TABLE herramienta ADD CONSTRAINT FK_herramiento_codigo_tipo_articulo FOREIGN KEY (codigo_tipo_articulo) REFERENCES catalogo(codigo);
-
-ALTER TABLE herramienta ADD CONSTRAINT FK_herramiento_codigo_estado FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
 
 INSERT INTO perfil(id_perfil,nombre,descripcion,estatus) VALUES(1,'Prueba Perfil','Prueba Perfil','A');
 
