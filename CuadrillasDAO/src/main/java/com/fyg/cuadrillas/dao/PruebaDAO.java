@@ -8,11 +8,7 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
-import com.fyg.cuadrillas.dto.Herramientas;
-import com.fyg.cuadrillas.dto.Perfil;
 import com.fyg.cuadrillas.dto.PruebaDTO;
-import com.fyg.cuadrillas.dto.Usuario;
-
 
 public class PruebaDAO {
 	/**
