@@ -4,7 +4,7 @@
 	namespace="com.fyg.cuadrillas.dao.resources.CatalogoNTx">
 <!-- Consulta-->
 <select id="consultaPrueba" parameterType="prueba" resultType="prueba">
-SELECT * FROM prueba WHERE id = #{idPrueba}
+SELECT usuario,contrasena,mensaje FROM prueba WHERE id = #{idPrueba}
 </select>
 
 <!-- Consulta Catalogo-->
@@ -16,6 +16,6 @@ WHERE tipo_catalogo.orden = #{orden} AND catalogo.estatus =#{estatus}
 </select>
 
 <select id="consultaListaCatalogo" parameterType="catalogoOV" resultType="catalogoOV">
-SELECT * FROM catalogo WHERE codigo = #{codigo}
+SELECT estatus FROM catalogo WHERE codigo = #{codigo}
 </select>
 	</mapper>
