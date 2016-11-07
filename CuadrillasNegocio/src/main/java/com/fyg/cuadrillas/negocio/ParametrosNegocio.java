@@ -7,7 +7,7 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.dto.Parametros;
-import com.fyg.cuadrillas.dao.ConsultaParametro;
+import com.fyg.cuadrillas.dao.ParametroDAO;
 public class ParametrosNegocio {
 
 	/**
@@ -31,7 +31,7 @@ public class ParametrosNegocio {
 	    	if (parametro.getParametro() == null || parametro.getParametro().isEmpty()) {
 	    		throw new ExcepcionesCuadrillas("Es necesario un parametro.");
 	    	} else {
-	    		listaParametro = new ConsultaParametro().consultaParametro(uid, parametro);
+	    		listaParametro = new ParametroDAO().consultaParametro(uid, parametro);
 	    		 for (int i = 0; i < listaParametro.size(); i++) {
 	    			 if (listaParametro.get(i).getParametro() == null || listaParametro.get(i).getParametro().isEmpty()) {
 	    				 throw new ExcepcionesCuadrillas("No existe el parametro en la BD.");

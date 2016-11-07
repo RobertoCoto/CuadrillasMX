@@ -9,7 +9,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.Parametros;
 
-public class ConsultaParametro {
+public class ParametroDAO {
 	/**
 	 * Metodo para consultar parametros
 	 * @param uid unico

@@ -14,7 +14,7 @@ import com.fyg.cuadrillas.dto.PruebaDTO;
 import com.fyg.cuadrillas.dto.Usuario;
 
 
-public class ConsultasCuadrillasDAO {
+public class PruebaDAO {
 	/**
 	 * Metododo de prueba para consultar
 	 * @param uid Id unico de registro
