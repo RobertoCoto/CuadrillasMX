@@ -133,7 +133,7 @@ public class CatalogoDAO {
 			}
 			catch (Exception ex) {
 				//Realizamos rollBack
-				LogHandler.debug(uid, this.getClass(), "RollBack!!!");
+				LogHandler.debug(uid, this.getClass(), "RollBack!!");
 				FabricaConexiones.rollBack(sessionTx);
 	LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 	respuesta.setEstatus(false);
