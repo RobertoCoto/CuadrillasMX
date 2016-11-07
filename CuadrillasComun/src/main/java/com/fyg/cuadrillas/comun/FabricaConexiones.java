@@ -1,4 +1,4 @@
-package com.fyg.cuadrillas.dao.resources;
+package com.fyg.cuadrillas.comun;
 
 
 import java.io.Reader;
@@ -8,8 +8,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
-import com.fyg.cuadrillas.comun.LogHandler;
 
 
 public final class FabricaConexiones {

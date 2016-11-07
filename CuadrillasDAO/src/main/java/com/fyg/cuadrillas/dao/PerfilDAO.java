@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
+import com.fyg.cuadrillas.comun.FabricaConexiones;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dao.resources.FabricaConexiones;
 import com.fyg.cuadrillas.dto.Perfil;
 
 public class PerfilDAO {
