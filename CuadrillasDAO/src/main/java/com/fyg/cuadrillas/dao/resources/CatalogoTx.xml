@@ -10,14 +10,14 @@ INSERT INTO prueba(usuario,contraseña,mensaje) VALUES(#{usuario},#{contraseña}
 <!--- ALTA EN LA TABLA CATALOGO-->
 <insert id="insertaCatalogo" parameterType="catalogoOV">
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion,,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{tipo_catalogo},#{codigo},#{descripcion},#{fecha_alta},#{fecha_ult_mod},#{estatus})
+VALUES(#{tipo_catalogo},#{codigo},#{descripcion},now(),now(),#{estatus})
 </insert>
 
 <!--- BAJA EN LA TABLA TIPO CATALOGO-->
 <update id="inactivaCatalogo" parameterType="catalogoOV">
 UPDATE catalogo SET
 estatus = #{estatus},
-fecha_ult_mod = #{fecha_ult_mod}
+fecha_ult_mod = now()
 WHERE codigo = #{codigo}
 </update>
 </mapper>

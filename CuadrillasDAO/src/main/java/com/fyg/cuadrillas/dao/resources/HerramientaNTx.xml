@@ -14,6 +14,6 @@ WHERE tipo_catalogo.orden = #{orden} AND herramienta.estatus = #{estatus}
 </select>
 
 <select id="consultaListaHerramientas" parameterType="herramientasOV">
-SELECT * FROM herramienta WHERE id_herramienta = #{id_herramienta}
+SELECT estatus FROM herramienta WHERE id_herramienta = #{id_herramienta}
 </select>
 </mapper>
