@@ -5,7 +5,7 @@
 <!--- INSERTA EN LA TABLA USUARIO-->
 <insert id="insertaUsuario" parameterType="usuario">
 INSERT INTO usuarios(usuario,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nac},#{id_perfil},#{contrasena},#{cambio_contrasena},#{fecha_alta},#{fecha_ult_mod},#{estatus})
+VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nac},#{id_perfil},#{contrasena},#{cambio_contrasena},now(),now(),#{estatus})
 </insert>
 
 <!--- BAJA EN LA TABLA USUARIO-->
@@ -13,7 +13,7 @@ VALUES(#{usuario},#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc
 <update id="inactivaUsuario" parameterType="usuario">
 UPDATE usuarios SET
 estatus = #{estatus},
-fecha_ult_mod = #{fecha_ult_mod}
+fecha_ult_mod = now()
 WHERE usuario = #{usuario}
 </update>
 </mapper>

@@ -4,6 +4,6 @@
 	namespace="com.fyg.cuadrillas.dao.resources.UsuarioNTx">
 <!-- Consulta Usuario-->
 <select id="consultaUsuario" parameterType="usuario" resultType="usuario">
-SELECT * FROM usuarios WHERE usuario = #{usuario}
+SELECT estatus,usuario FROM usuarios WHERE usuario = #{usuario}
 </select>
 </mapper>
