@@ -3,7 +3,7 @@ package com.fyg.cuadrillas.negocio.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fyg.cuadrillas.negocio.OperacionesCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.CatalogosNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Catalogos;
@@ -11,7 +11,7 @@ public class EliminaCatalogoTest {
 	/**
 	 * Objeto operaciones
 	 */
-	private OperacionesCuadrillasNegocio eliminarCatalogo;
+	private CatalogosNegocio eliminarCatalogo;
 	/**
 	 * objeto catalogo
 	 */
@@ -26,7 +26,7 @@ public class EliminaCatalogoTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		eliminarCatalogo = new OperacionesCuadrillasNegocio();
+		eliminarCatalogo = new CatalogosNegocio();
 		datoCatalogos = new Catalogos();
 		datoCatalogos.setCodigo("CABO");
 		datoCatalogos.setEstatus("I");

@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.negocio.OperacionesCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.UsuariosNegocio;
 import com.fyg.cuadrillas.dto.Usuario;
 
 public class AltaUsuarioTest {
 	/**
 	 * objeto OperacionesCuadrillas
 	 */
- private OperacionesCuadrillasNegocio altaUser;
+ private UsuariosNegocio altaUser;
  /**
   * Objeto datos usuario
   */
@@ -31,7 +31,7 @@ public class AltaUsuarioTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		altaUser = new OperacionesCuadrillasNegocio();
+		altaUser = new UsuariosNegocio();
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 		String strFecha = "1982-01-08";
 		Date fechaNac = formato.parse(strFecha);

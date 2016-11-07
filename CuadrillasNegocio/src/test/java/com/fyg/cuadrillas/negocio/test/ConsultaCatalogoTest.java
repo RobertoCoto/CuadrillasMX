@@ -3,7 +3,7 @@ package com.fyg.cuadrillas.negocio.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fyg.cuadrillas.negocio.ConsultasCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.CatalogosNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Catalogos;
@@ -11,7 +11,7 @@ public class ConsultaCatalogoTest {
 /**
 * objeto para enviar al metodo consulta de catalogo
 */
-private ConsultasCuadrillasNegocio catalogoConsulta;
+private CatalogosNegocio catalogoConsulta;
 /**
  * objeto catalogo
  */
@@ -26,7 +26,7 @@ private GUIDGenerator uid;
  */
 	@Before
 	public void setUp() throws Exception {
-		catalogoConsulta = new ConsultasCuadrillasNegocio();
+		catalogoConsulta = new CatalogosNegocio();
 		datoCatalogos = new Catalogos();
 		datoCatalogos.setOrden("D");
 		datoCatalogos.setEstatus("A");

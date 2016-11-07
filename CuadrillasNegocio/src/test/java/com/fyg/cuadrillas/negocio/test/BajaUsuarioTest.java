@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.negocio.OperacionesCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.UsuariosNegocio;
 import com.fyg.cuadrillas.dto.Usuario;
 
 public class BajaUsuarioTest {
 	/**
 	 * objeto OperacionesCuadrillas
 	 */
- private OperacionesCuadrillasNegocio bajaUsuario;
+ private UsuariosNegocio bajaUsuario;
  /**
   * Objeto datos usuario
   */
@@ -29,7 +29,7 @@ public class BajaUsuarioTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		bajaUsuario = new OperacionesCuadrillasNegocio();
+		bajaUsuario = new UsuariosNegocio();
 		datosUsuario = new Usuario();
 		Date fechaMod = new Date();
 		datosUsuario.setEstatus("I");

@@ -5,7 +5,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fyg.cuadrillas.negocio.OperacionesCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.HerramientasNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Herramientas;
@@ -13,7 +13,7 @@ public class AltaHerramientaTest {
 	/**
 	* objeto para enviar al metodo consulta de catalogo
 	*/
-	private OperacionesCuadrillasNegocio altaHerramientas;
+	private HerramientasNegocio altaHerramientas;
 	/**
 	 * Recibe datos de herramientas
 	 */
@@ -28,7 +28,7 @@ public class AltaHerramientaTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		altaHerramientas = new OperacionesCuadrillasNegocio();
+		altaHerramientas = new HerramientasNegocio();
 		datoHerramientas = new Herramientas();
 		
 		Date fecha = new Date();

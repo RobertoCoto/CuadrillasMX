@@ -3,7 +3,7 @@ package com.fyg.cuadrillas.negocio.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fyg.cuadrillas.negocio.ConsultasCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.HerramientasNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Herramientas;
@@ -11,7 +11,7 @@ public class ConsultaHerramientasTest {
 	/**
 	* objeto para enviar al metodo consulta de catalogo
 	*/
-	private ConsultasCuadrillasNegocio consultaHerramienta;
+	private HerramientasNegocio consultaHerramienta;
 	/**
 	 * Recibe datos de herramientas
 	 */
@@ -26,7 +26,7 @@ public class ConsultaHerramientasTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		consultaHerramienta = new ConsultasCuadrillasNegocio();
+		consultaHerramienta = new HerramientasNegocio();
 		datoHerramientas = new Herramientas();
 		datoHerramientas.setOrden("D");
 		datoHerramientas.setEstatus("A");

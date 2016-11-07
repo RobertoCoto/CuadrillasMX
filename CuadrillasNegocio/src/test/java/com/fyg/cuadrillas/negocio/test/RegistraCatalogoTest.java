@@ -5,7 +5,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fyg.cuadrillas.negocio.OperacionesCuadrillasNegocio;
+import com.fyg.cuadrillas.negocio.CatalogosNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Catalogos;
@@ -13,7 +13,7 @@ public class RegistraCatalogoTest {
 	/**
 	 * Objeto operaciones
 	 */
-	private OperacionesCuadrillasNegocio registrarCatalogo;
+	private CatalogosNegocio registrarCatalogo;
 	/**
 	 * objeto catalogo
 	 */
@@ -28,7 +28,7 @@ public class RegistraCatalogoTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		registrarCatalogo = new OperacionesCuadrillasNegocio();
+		registrarCatalogo = new CatalogosNegocio();
 		datoCatalogos = new Catalogos();
 		/**
 		 * se le envia datos
