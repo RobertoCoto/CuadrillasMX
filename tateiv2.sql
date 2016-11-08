@@ -70,9 +70,34 @@ CREATE TABLE usuario (
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
         PRIMARY KEY(id_herramienta)
     );
+
+    CREATE TABLE menu (
+        id_menu INT NOT NULL AUTO_INCREMENT,
+        id_padre INT NULL,
+        menu VARCHAR(50) NOT NULL,
+        descripcion VARCHAR(100) NOT NULL,
+        url  VARCHAR(200) NULL,
+        estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+        PRIMARY KEY(id_menu)
+    );
+
+    CREATE TABLE perfil_menu (
+        id_perfil INT NOT NULL,
+        id_menu INT(100) NOT NULL,
+        orden INT(100) NOT NULL,
+        estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+        KEY(id_perfil),
+        KEY(idmenu)
+    );
+
+
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
 
-INSERT INTO perfil(id_perfil,nombre,descripcion,estatus) VALUES(1,'Prueba Perfil','Prueba Perfil','A');
+ALTER TABLE perfil_menu CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFERENCES menu(id_menu);
+
+ALTER TABLE perfil_menu CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
+
+INSERT INTO perfil(id_perfil,nombre,descripcion,estatus) VALUES(4,'Prueba Perfil','Prueba Perfil','A');
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,orden,fecha_alta,fecha_ult_mod,estatus)
 VALUES("PERFIL_EMP","PERFIL EMPLEADO",'D',now(),now(),'A');
@@ -139,3 +164,16 @@ VALUES("ESTA_HERRA","DESE","Desechado",now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion,fecha_alta,fecha_ult_mod,estatus)
 VALUES("ESTA_HERRA","PERD","Perdida",now(),now(),'A');
+
+INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
+VALUES (0,"Sistemas","Sistemas",'A');
+
+INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
+VALUES (1,"Residente","Residente",'A');
+
+INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
+VALUES (2,"Oficina Central","Oficina Central",'A');
+
+INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
+VALUES (3,"Recursos Humanos","Recursos Humanos",'A');
+
