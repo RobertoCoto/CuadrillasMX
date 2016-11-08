@@ -117,7 +117,7 @@ public class UsuarioDAO {
 	 * Metodo para Hacer Login usuario
 	 * @param uid unico de registro
 	 * @param usuario recibe valores de usuario
-	 * @return regresa lista usuarios
+	 * @return regresa lista usuario
 	 */
 	 @SuppressWarnings("unchecked")
 	public List<Usuario> loginUsuario(String uid, Usuario usuario) {
