@@ -212,20 +212,22 @@ public class UsuariosNegocio {
 			respuesta.setMensajeFuncional("Consulta correcta.");
 			List<Usuario> loginUsuario = null;
 		    try {
+		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
 		    	//validaciones
 		    	if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
 		    		throw new ExcepcionesCuadrillas("Es necesario el campo usuario.");
 		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
 		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
-		    	} else {
-		    		loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
+		    	} else { 
 		    		for (int i = 0; i < loginUsuario.size(); i++) {
-		    			if (loginUsuario.get(i).getUsuario() == null || loginUsuario.get(i).getUsuario().isEmpty()) {
+		    			if (loginUsuario.get(i).getUsuario().equals("")) {
+		    				System.out.println("El usuario no existe.");
 		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
 		    			} else if (loginUsuario.get(i).getContrasena().equals(usuario.getContrasena())) {
+		    				System.out.println("La Contraseña no es correcta.");
 		    				throw new ExcepcionesCuadrillas("La Contraseña no es correcta.");
 		    			}
-		    		}
+		    	}
 		    	}
 		    } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
