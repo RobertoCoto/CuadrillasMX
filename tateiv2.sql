@@ -93,9 +93,9 @@ CREATE TABLE usuario (
 
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
 
-ALTER TABLE perfil_menu CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFERENCES menu(id_menu);
+ALTER TABLE perfil_menu ADD CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFERENCES menu(id_menu);
 
-ALTER TABLE perfil_menu CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
+ALTER TABLE perfil_menu ADD CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
 
 INSERT INTO perfil(id_perfil,nombre,descripcion,estatus) VALUES(4,'Prueba Perfil','Prueba Perfil','A');
 
