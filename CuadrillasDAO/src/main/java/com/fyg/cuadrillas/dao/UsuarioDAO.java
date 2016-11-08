@@ -113,4 +113,34 @@ public class UsuarioDAO {
 			}
 			return respuesta;
 	}
+	/**
+	 * Metodo para Hacer Login usuario
+	 * @param uid unico de registro
+	 * @param usuario recibe valores de usuario
+	 * @return regresa lista usuario
+	 */
+	 @SuppressWarnings("unchecked")
+	public List<Usuario> loginUsuario(String uid, Usuario usuario) {
+			SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<Usuario> loginUsuario = null;
+			try {
+				//Abrimos conexion Transaccional
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				//Se hace una consulta a la tabla contacto
+				loginUsuario = sessionNTx.selectList("UsuarioDAO.loginUsuario", usuario);
+			}
+			catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+	            respuesta.setEstatus(false);
+	    		respuesta.setMensajeFuncional(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return loginUsuario;
+		}
 }
