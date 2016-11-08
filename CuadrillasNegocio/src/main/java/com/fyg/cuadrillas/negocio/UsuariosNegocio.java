@@ -195,5 +195,52 @@ public class UsuariosNegocio {
 			LogHandler.debug(uid, this.getClass(), "bajaUsuario - Datos Salida: " + respuesta);
 			return respuesta;
 	}
-		
+	/**
+	 * Metodo para realizar login de usuario
+	 * @param usuario recibe valores del usuario
+	 * @return retorna los datos del usuario
+	 */
+		public List<Usuario> loginUsuario(Usuario usuario) {
+			//Primero generamos el identificador unico de la transaccion
+			String uid = GUIDGenerator.generateGUID(usuario);
+			//Mandamos a log el objeto de entrada
+			LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Entrada: " + usuario);
+			//Variable de resultado
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<Usuario> loginUsuario = null;
+		    try {
+		    	//validaciones
+		    	if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
+		    		throw new ExcepcionesCuadrillas("Es necesario el campo usuario.");
+		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
+		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
+		    	} else {
+		    		loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
+		    		for (int i = 0; i < loginUsuario.size(); i++) {
+		    			if (loginUsuario.get(i).getUsuario() == null || loginUsuario.get(i).getUsuario().isEmpty()) {
+		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
+		    			} else if (loginUsuario.get(i).getContrasena().equals(usuario.getContrasena())) {
+		    				throw new ExcepcionesCuadrillas("La Contraseña no es correcta.");
+		    			}
+		    		}
+		    	}
+		    } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
+			return loginUsuario;
+		}	
 }
