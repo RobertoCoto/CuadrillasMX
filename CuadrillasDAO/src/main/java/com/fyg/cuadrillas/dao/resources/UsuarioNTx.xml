@@ -4,11 +4,11 @@
 	namespace="com.fyg.cuadrillas.dao.resources.UsuarioNTx">
 <!-- Consulta Usuario-->
 <select id="consultaUsuario" parameterType="usuario" resultType="usuario">
-SELECT estatus,usuario FROM usuarios WHERE usuario = #{usuario}
+SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 </select>
 
 <!-- Consulta Usuario-->
 <select id="loginUsuario" parameterType="usuario" resultType="usuario">
-SELECT usuario,contrasena FROM usuarios WHERE usuario = #{usuario} AND contrasena = #{contrasena}
+SELECT usuario,contrasena FROM usuario WHERE usuario = #{usuario} AND contrasena = #{contrasena}
 </select>
 </mapper>

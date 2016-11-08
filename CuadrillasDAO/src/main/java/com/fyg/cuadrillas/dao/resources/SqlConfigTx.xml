@@ -32,7 +32,6 @@
 	<mappers>
 	<mapper resource="com/fyg/cuadrillas/dao/resources/CatalogoTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/resources/HerramientaTx.xml" />
-	<mapper resource="com/fyg/cuadrillas/dao/resources/ParametroTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/resources/PerfilTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/resources/UsuarioTx.xml" />
 	</mappers>
