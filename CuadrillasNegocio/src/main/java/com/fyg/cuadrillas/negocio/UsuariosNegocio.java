@@ -221,28 +221,26 @@ public class UsuariosNegocio {
 		    	} else { 
 		    		for (int i = 0; i < loginUsuario.size(); i++) {
 		    			if (loginUsuario.get(i).getUsuario().equals("")) {
-		    				System.out.println("El usuario no existe.");
 		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
 		    			} else if (loginUsuario.get(i).getContrasena().equals(usuario.getContrasena())) {
-		    				System.out.println("La Contraseña no es correcta.");
 		    				throw new ExcepcionesCuadrillas("La Contraseña no es correcta.");
 		    			}
 		    	}
 		    	}
 		    } catch  (ExcepcionesCuadrillas ex) {
-				LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
+				LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
 				respuesta.setUid(uid);
 				respuesta.setEstatus(false);
 				respuesta.setMensajeFuncional(ex.getMessage());
 				respuesta.setMensajeTecnico(ex.getMessage());
 			} catch (Exception ex) {
-		    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
+		    	LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
 				respuesta.setUid(uid);
 				respuesta.setEstatus(false);
 				respuesta.setMensajeFuncional(ex.getMessage());
 				respuesta.setMensajeTecnico(ex.getMessage());
 		    }
-		    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
+		    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
 			return loginUsuario;
 		}	
 }
