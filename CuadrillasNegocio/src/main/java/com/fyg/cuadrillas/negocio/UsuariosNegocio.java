@@ -222,10 +222,9 @@ public class UsuariosNegocio {
 		    		for (int i = 0; i < loginUsuario.size(); i++) {
 		    			if (loginUsuario.get(i).getUsuario().isEmpty()) {
 		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
-		    			} else if (loginUsuario.get(i).getContrasena().equals(usuario.getContrasena())) {
-		    				throw new ExcepcionesCuadrillas("La Contraseña no es correcta.");
 		    			}
 		    	}
+		    		System.out.println(loginUsuario);
 		    	}
 		    } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
