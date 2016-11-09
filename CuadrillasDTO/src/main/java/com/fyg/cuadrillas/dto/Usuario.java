@@ -70,6 +70,30 @@ public class Usuario extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * nombre del perfil
+	 */
+	private String perfilNombre;
+	/**
+	 * id del menu
+	 */
+	private Integer perfilMenu;
+	/**
+	 * numero de orden
+	 */
+	private Integer perfilOrden;
+	/**
+	 * Nombre del menu
+	 */
+	private String menu;
+	/**
+	 * descripcion del menu
+	 */
+	private String menuDescripcion;
+	/**
+	 * url del menu
+	 */
+	private String menuUrl;
+	/**
 	 * @return obtiene el usuario
 	 */
 	public String getUsuario() {
@@ -248,5 +272,44 @@ public class Usuario extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return obtiene el nombre del perfil
+	 */
+	public String getPerfilNombre() {
+		return perfilNombre;
+	}
+	public void setPerfilNombre(String perfilNombre) {
+		this.perfilNombre = perfilNombre;
+	}
+	public Integer getPerfilMenu() {
+		return perfilMenu;
+	}
+	public void setPerfilMenu(Integer perfilMenu) {
+		this.perfilMenu = perfilMenu;
+	}
+	public Integer getPerfilOrden() {
+		return perfilOrden;
+	}
+	public void setPerfilOrden(Integer perfilOrden) {
+		this.perfilOrden = perfilOrden;
+	}
+	public String getMenu() {
+		return menu;
+	}
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+	public String getMenuDescripcion() {
+		return menuDescripcion;
+	}
+	public void setMenuDescripcion(String menuDescripcion) {
+		this.menuDescripcion = menuDescripcion;
+	}
+	public String getMenuUrl() {
+		return menuUrl;
+	}
+	public void setMenuUrl(String menuUrl) {
+		this.menuUrl = menuUrl;
 	}
 	}
