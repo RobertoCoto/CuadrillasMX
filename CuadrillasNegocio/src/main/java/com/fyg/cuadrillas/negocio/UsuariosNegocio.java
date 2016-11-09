@@ -220,7 +220,7 @@ public class UsuariosNegocio {
 		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
 		    	} else { 
 		    		for (int i = 0; i < loginUsuario.size(); i++) {
-		    			if (loginUsuario.get(i).getUsuario().equals("")) {
+		    			if (loginUsuario.get(i).getUsuario().isEmpty()) {
 		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
 		    			} else if (loginUsuario.get(i).getContrasena().equals(usuario.getContrasena())) {
 		    				throw new ExcepcionesCuadrillas("La Contraseña no es correcta.");
