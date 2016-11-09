@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
+import com.fyg.cuadrillas.dto.Usuario;
 
 @Path("/userLogin")
 public class JSONServiceUsuario {
@@ -18,6 +19,7 @@ public class JSONServiceUsuario {
 	  @Produces("application/json")
 	  public Response jsonUsuario(@PathParam("i") Integer f) throws JSONException {
 		    JSONObject jsonObject = new JSONObject();
+		    
 		    String result = "" + jsonObject;
 			return Response.status(200).entity(result).build();
 	  }
