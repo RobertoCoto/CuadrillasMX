@@ -11,6 +11,7 @@
 <typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
 <typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.Catalogos"/>
 <typeAlias alias="herramientaOV" type="com.fyg.cuadrillas.dto.Herramientas"/>
+<typeAlias alias="Empleados" type="com.fyg.cuadrillas.dto.Epleado"/>
 </typeAliases>
 
 	<environments default="development">
@@ -34,5 +35,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/resources/ParametroNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/resources/PerfilNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/resources/UsuarioNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/resources/EmpladosNTx.xml" />
 	</mappers>
 </configuration>
