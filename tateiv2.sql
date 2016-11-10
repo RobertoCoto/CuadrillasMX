@@ -89,7 +89,40 @@ CREATE TABLE usuario (
         KEY(id_perfil),
         KEY(idmenu)
     );
+    
+    CREATE TABLE empleado (
+        id_empleado INT NOT NULL AUTO_INCREMENT,
+        nombre VARCHAR(80) NOT NULL,
+        apellido_pat VARCHAR(80) NOT NULL,
+        apellido_mat VARCHAR(80) NOT NULL,
+        sexo  CHAR(1) NOT NULL CHECK(sexo IN('F','M')),
+        rfc VARCHAR(13) NULL,
+         rfc_calculado VARCHAR(15) NULL, 
+         curp VARCHAR(20) NULL,
+         fecha_ingreso DATE NOT NULL,
+         codigo_puesto  VARCHAR(10) NOT NULL,
+         codigo_vialidad VARCHAR(10) NOT NULL,
+         codigo_area VARCHAR(10) NULL,
+         codigo_talla VARCHAR(10) NULL,
+         sueldo double(2),
+         nss VARCHAR(20) NULL,
+         no_credito_infonavit VARCHAR(20)
+         telefono VARCHAR(10) NOT NULL,
+        fecha_alta DATETIME NOT NULL,
+        fecha_baja DATETIME NOT NULL,
+        codigo_tipo_salida VARCHAR(10) NULL,
+        codigo_causa_salida VARCHAR(10) NULL,
+         fecha_ult_mod DATETIME NOT NULL,
+        estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
+    );
 
+    CREATE TABLE empleado_documentos (
+    id_empleado INT NOT NULL,
+    codigo_emp_doc VARCHAR(10) NOT NULL,
+     fecha_alta DATETIME NOT NULL,
+      fecha_ult_mod DATETIME NOT NULL,
+     estatus CHAR(2) NOT NULL CHECK(estatus IN('SI','NO','NA'))
+    );
 
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
 
