@@ -93,6 +93,8 @@ public class Usuario extends ObjetoValor {
 	 * url del menu
 	 */
 	private String menuUrl;
+	private Integer id_padre;
+	private Integer id_menu;
 	/**
 	 * @return obtiene el usuario
 	 */
@@ -311,5 +313,17 @@ public class Usuario extends ObjetoValor {
 	}
 	public void setMenuUrl(String menuUrl) {
 		this.menuUrl = menuUrl;
+	}
+	public Integer getId_padre() {
+		return id_padre;
+	}
+	public void setId_padre(Integer id_padre) {
+		this.id_padre = id_padre;
+	}
+	public Integer getId_menu() {
+		return id_menu;
+	}
+	public void setId_menu(Integer id_menu) {
+		this.id_menu = id_menu;
 	}
 	}

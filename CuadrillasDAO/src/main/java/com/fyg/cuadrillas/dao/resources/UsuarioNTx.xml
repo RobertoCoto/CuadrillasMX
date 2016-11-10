@@ -11,11 +11,12 @@ SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 <select id="loginUsuario" parameterType="usuario" resultType="usuario">
 SELECT usuario.usuario AS usuario,usuario.contrasena AS contrasena, usuario.id_perfil AS perfil,usuario.nombre AS nombre,
 usuario.apellido_pat AS apellido_pat, usuario.apellido_mat AS apellido_mat,perfil.nombre AS perfilNombre,
-perfil_menu.id_menu AS perfilMenu,perfil_menu.orden AS perfilOrden,menu.menu AS menu,menu.descripcion AS menuDescripcion, menu.url AS menuUrl
+perfil_menu.id_menu AS perfilMenu,perfil_menu.orden AS perfilOrden,menu.descripcion AS menuDescripcion, menu.url AS menuUrl,
+menu.menu AS menu, menu.id_padre AS id_padre, menu.id_menu AS id_menu
 FROM usuario
 INNER JOIN  perfil ON usuario.id_perfil = perfil.id_perfil
 INNER JOIN  perfil_menu ON perfil.id_perfil = perfil_menu.id_perfil
-INNER JOIN  menu ON menu.id_menu = perfil_menu.id_menu
+INNER JOIN  menu ON menu.id_menu = perfil_menu.id_menu 
 WHERE usuario = #{usuario} AND contrasena = #{contrasena}
 </select>
 </mapper>
