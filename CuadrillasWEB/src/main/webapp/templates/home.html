@@ -1,13 +1,17 @@
+<h3>Hola {{ username }}, Bienvenido.</h3>
+<br>
 <div id="header">
 			<ul class="nav"  data-ng-repeat="x in dataSitio">
 				<li data-ng-if="x.id_padre == null"><a href="">{{x.menu}}</a>
 					<ul>
-						<li data-ng-repeat="y in dataSitio"><a href="">{{y.menu}}</a></li>
+						<li data-ng-repeat="y in dataSitio">
+						<!--ngIf: x.id_menu == y.id_padre  -->
+						<a href="">{{y.menu}}</a></li>
 					</ul>
 				</li>
 				
 			</ul>
 		</div>
-</br>
-<h3>Hola {{ username }}, Bienvenido.</h3>
+
+
 <button ng-click="logout()">cerrar sesion</button>

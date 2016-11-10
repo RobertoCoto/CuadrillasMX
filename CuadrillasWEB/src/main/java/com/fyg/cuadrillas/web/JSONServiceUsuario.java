@@ -27,19 +27,24 @@ public class JSONServiceUsuario {
 		    
 		    List<Usuario> loginData = new UsuariosNegocio().loginUsuario(user);
 		    JSONArray jsonArray   = new JSONArray();
+		    JSONArray child = new JSONArray();
 		    for(int k = 0; k < loginData.size(); k++) {
 		    	JSONObject TEMP = new JSONObject();
+		    	JSONObject hijo = new JSONObject();
 		    	
-		    	TEMP.put("nombre", loginData.get(k).getNombre());
-		    	TEMP.put("apellidoPat", loginData.get(k).getApellido_pat());
-		    	TEMP.put("apellidoMat", loginData.get(k).getApellido_mat());
-		    	TEMP.put("perfilNombre", loginData.get(k).getPerfilNombre());
-		    	TEMP.put("perfilOrden", loginData.get(k).getPerfilOrden());
-		    	TEMP.put("id_menu", loginData.get(k).getId_menu());
-		    	TEMP.put("id_padre", loginData.get(k).getId_padre());
-		    	TEMP.put("menu", loginData.get(k).getMenu());
-		    	TEMP.put("menuDescripcion", loginData.get(k).getMenuDescripcion());
-		    	TEMP.put("menuUrl", loginData.get(k).getMenuUrl());
+		    	if (loginData.get(k).getId_padre() == null)
+		    	{ 
+		    		TEMP.put("menuPadre", loginData.get(k).getMenu());
+		    		Integer id_menu = loginData.get(k).getId_menu();
+		    		
+		    		if(id_menu.equals(loginData.get(k).getId_padre())) {
+		    			hijo.put("menuHijo",loginData.get(k).getMenu());
+		    			child.put(hijo);
+		    			TEMP.put("child", child);
+		    		}
+		    		
+		    	}
+		    	
 		    	 jsonArray.put(TEMP);
 		    }
 		    String result = "" + jsonArray;
