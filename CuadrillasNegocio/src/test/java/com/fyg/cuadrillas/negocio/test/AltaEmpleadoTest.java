@@ -42,8 +42,8 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setApellido_pat("Marquez");
 		altaEmpleado.setApellido_mat("Hermandez");
 		altaEmpleado.setSexo("H");
-		altaEmpleado.setRfc("JOMH830101");
-		altaEmpleado.setCurp("JOMH830101HASRRR09");
+		altaEmpleado.setRfc("MAHJ830101");
+		altaEmpleado.setCurp("MAHJ830101HASRRR09");
 		altaEmpleado.setFecha_nacimiento(fechaNac);
 		altaEmpleado.setCodigo_puesto("AYGE");
 		altaEmpleado.setCodigo_vialidad("5MAY");
