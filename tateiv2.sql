@@ -102,6 +102,7 @@ CREATE TABLE usuario (
         rfc VARCHAR(13) NULL,
         rfc_calculado VARCHAR(15) NULL, 
         curp VARCHAR(20) NULL,
+        fecha_nacimiento DATE NOT NULL,
         fecha_ingreso DATE NOT NULL,
         codigo_puesto  VARCHAR(10) NOT NULL,
         codigo_vialidad VARCHAR(10) NOT NULL,
