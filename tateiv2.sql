@@ -1,6 +1,13 @@
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS perfil;
 DROP TABLE IF EXISTS parametros;
+DROP TABLE IF EXISTS tipo_catalogo;
+DROP TABLE IF EXISTS catalogo;
+DROP TABLE IF EXISTS herramienta;
+DROP TABLE IF EXISTS menu;
+DROP TABLE IF EXISTS perfil_menu;
+DROP TABLE IF EXISTS empleado;
+DROP TABLE IF EXISTS empleado_documentos;
 
 CREATE TABLE usuario (
     usuario VARCHAR(20) NOT NULL,
