@@ -8,6 +8,12 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Empleado;
 
 public class EmpleadoDAO {
+	/**
+	 * Metodo Para dar de Alta un Empleado
+	 * @param uid unico de registro
+	 * @param empleado recibe los valores del empleado
+	 * @return regresa respuesta de registro
+	 */
 	 public EncabezadoRespuesta registraEmpleado(String uid,Empleado empleado) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
