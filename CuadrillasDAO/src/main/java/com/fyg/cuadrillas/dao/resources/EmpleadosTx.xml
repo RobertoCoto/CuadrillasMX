@@ -10,6 +10,6 @@ fecha_ingreso,codigo_puesto,codigo_vialidad,codigo_area,codigo_talla,sueldo,nss,
 telefono,fecha_alta,fecha_baja,codigo_tipo_salida,codigo_causa_salida,fecha_ult_mod,estatus)
 VALUES(#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nacimiento},
 now(),#{codigo_puesto},#{codigo_vialidad},#{codigo_area},#{codigo_talla},#{sueldo},#{nss],#{no_credito_infonavit},
-#{telefono},now(),#now(),#{codigo_tipo_salida},#{codigo_causa_salida},now(),#{estatus})
+#{telefono},now(),now(),#{codigo_tipo_salida},#{codigo_causa_salida},now(),#{estatus})
 </insert>
 </mapper>
