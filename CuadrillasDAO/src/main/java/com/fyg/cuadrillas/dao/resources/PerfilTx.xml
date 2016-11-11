@@ -6,4 +6,4 @@
 <insert id="insertaPerfil" parameterType="perfil">
 INSERT INTO perfil(nombre,descripcion,estatus) VALUES(#{nombre},#{descripcion},#{estatus})
 </insert>
-	</mapper>
+</mapper>
