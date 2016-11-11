@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
 import com.fyg.cuadrillas.dto.Usuario;
+import com.fyg.cuadrillas.dto.Menus;
+import com.fyg.cuadrillas.negocio.MenuNegocio;
 
 @Path("/userLogin")
 public class JSONServiceUsuario {
@@ -28,23 +30,25 @@ public class JSONServiceUsuario {
 		    List<Usuario> loginData = new UsuariosNegocio().loginUsuario(user);
 		    JSONArray jsonArray   = new JSONArray();
 		    JSONArray child = new JSONArray();
+		    
 		    for(int k = 0; k < loginData.size(); k++) {
 		    	JSONObject TEMP = new JSONObject();
-		    	JSONObject hijo = new JSONObject();
 		    	
-		    	if (loginData.get(k).getId_padre() == null)
-		    	{ 
-		    		TEMP.put("menuPadre", loginData.get(k).getMenu());
-		    		Integer id_menu = loginData.get(k).getId_menu();
+		    	
+		    	
+		    	TEMP.put("menuPadre", loginData.get(k).getMenu());
+                Menus dataMenu = new Menus();
+		    	dataMenu.setId_padre(loginData.get(k).getId_menu());
+		    	List<Menus> menuData = new MenuNegocio().consultarMenu(dataMenu);
+		    	for(int l = 0; l < menuData.size(); l++) {
+		    		JSONObject hijo = new JSONObject();
+		    		hijo.put("menuHijo", menuData.get(l).getMenu());
+		    		hijo.put("descripcionMenu", menuData.get(l).getDescripcion());
+		    		hijo.put("url", menuData.get(l).getUrl());
 		    		
-		    		if(id_menu.equals(loginData.get(k).getId_padre())) {
-		    			hijo.put("menuHijo",loginData.get(k).getMenu());
-		    			child.put(hijo);
-		    			TEMP.put("child", child);
-		    		}
-		    		
+		    	child.put(hijo);
 		    	}
-		    	
+		    	TEMP.put("subMenus", child);
 		    	 jsonArray.put(TEMP);
 		    }
 		    String result = "" + jsonArray;
