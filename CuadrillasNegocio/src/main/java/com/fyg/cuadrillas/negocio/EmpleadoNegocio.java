@@ -71,7 +71,7 @@ public class EmpleadoNegocio {
 				throw new ExcepcionesCuadrillas("CURP NO VALIDO.");
 			}else {
 				//valida Sexo
-				String regex = "[FM]{1}";
+				String regex = "[HM]{1}";
 				Pattern patron = Pattern.compile(regex);
 				 if (!patron.matcher(empleado.getSexo()).matches()) {
 				    	sexoValido = false;
