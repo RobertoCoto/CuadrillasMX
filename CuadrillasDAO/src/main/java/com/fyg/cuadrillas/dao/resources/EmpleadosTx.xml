@@ -4,12 +4,20 @@
 	namespace="com.fyg.cuadrillas.dao.resources.EmpleadosTx">
 
 <!-- Registra en la tabla Empleado -->
-<insert id="registraEmpleado" parameterType="empleado">
+<insert id="registraEmpleado" parameterType="empleado" useGeneratedKeys="true" keyProperty="id_empleado"  keyColumn="id_empleado">
 INSERT INTO empleado(nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,
 fecha_ingreso,codigo_puesto,codigo_vialidad,codigo_area,codigo_talla,sueldo,nss,no_credito_infonavit,
 telefono,fecha_alta,fecha_baja,codigo_tipo_salida,codigo_causa_salida,fecha_ult_mod,estatus)
 VALUES(#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nacimiento},
 now(),#{codigo_puesto},#{codigo_vialidad},#{codigo_area},#{codigo_talla},#{sueldo},#{nss},#{no_credito_infonavit},
 #{telefono},now(),now(),#{codigo_tipo_salida},#{codigo_causa_salida},now(),#{estatus})
+<selectKey keyProperty="id_empleado" resultType="Integer" order="AFTER">
+SELECT LAST_INSERT_ID();
+</selectKey>
+</insert>
+
+<insert id="registraDocumentos" parameterType="empleadoDocumentos">
+INSERT INTO empleado_documentos(id_empleado,codigo_emp_doc,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{id_empleado},#{codigo_emp_doc},now(),now(),#{estatus})
 </insert>
 </mapper>

@@ -5,10 +5,13 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDocumentos;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 
 public class AltaEmpleadoTest {
@@ -20,6 +23,14 @@ public class AltaEmpleadoTest {
 	 * Datos del empleado
 	 */
 	private Empleado altaEmpleado;
+	/**
+	 * Documentos
+	 */
+	private EmpleadoDocumentos docEmpleado;
+	/**
+	 * lista para guardar documentos
+	 */
+	private ArrayList<EmpleadoDocumentos> dataDocumentos;
 	/**
 	  * Guid unico generado
 	  */
@@ -52,6 +63,21 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setSueldo(1200.00);
 		altaEmpleado.setTelefono("5555555555");
 		altaEmpleado.setEstatus("A");
+		
+		
+		dataDocumentos = new ArrayList<EmpleadoDocumentos>();
+		docEmpleado.setCodigo_emp_doc("ACNA");
+		docEmpleado.setEstatus("A");
+		
+		docEmpleado.setCodigo_emp_doc("CURP");
+		docEmpleado.setEstatus("A");
+		
+		docEmpleado.setCodigo_emp_doc("CUVI");
+		docEmpleado.setEstatus("A");
+		
+		docEmpleado.setCodigo_emp_doc("RFC");
+		docEmpleado.setEstatus("A");
+		
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario

@@ -24,34 +24,37 @@ public class JSONServiceUsuario {
 	  @Produces("application/json")
 	  public Response jsonUsuario(@PathParam("i") String f,@PathParam("j") String p) throws JSONException {
 		    Usuario  user = new Usuario();
+		    Menus dataMenu = new Menus();
 		    user.setUsuario(f);
 		    user.setContrasena(p);
 		    
 		    List<Usuario> loginData = new UsuariosNegocio().loginUsuario(user);
 		    JSONArray jsonArray   = new JSONArray();
-		    JSONArray child = new JSONArray();
 		    
 		    for(int k = 0; k < loginData.size(); k++) {
-		    	JSONObject TEMP = new JSONObject();
+			    JSONArray child = new JSONArray();
+			    JSONObject TEMP = new JSONObject();
 		    	
+			     dataMenu.setId_padre(loginData.get(k).getId_menu());
+			     List<Menus> menuData = new MenuNegocio().consultarMenu(dataMenu);
 		    	
-		    	
-		    	TEMP.put("menuPadre", loginData.get(k).getMenu());
-                Menus dataMenu = new Menus();
-		    	dataMenu.setId_padre(loginData.get(k).getId_menu());
-		    	List<Menus> menuData = new MenuNegocio().consultarMenu(dataMenu);
 		    	for(int l = 0; l < menuData.size(); l++) {
-		    		JSONObject hijo = new JSONObject();
-		    		hijo.put("menuHijo", menuData.get(l).getMenu());
-		    		hijo.put("descripcionMenu", menuData.get(l).getDescripcion());
-		    		hijo.put("url", menuData.get(l).getUrl());
-		    		
-		    	child.put(hijo);
+		    		    JSONObject hijo = new JSONObject();
+		    		    TEMP.put("menuPadre", loginData.get(k).getMenu());
+			    		hijo.put("menuHijo", menuData.get(l).getMenu());
+			    		hijo.put("descripcionMenu", menuData.get(l).getDescripcion());
+			    		hijo.put("url", menuData.get(l).getUrl());
+			    		child.put(hijo);
+			    		TEMP.put("subMenus", child);
+				    	
 		    	}
-		    	TEMP.put("subMenus", child);
-		    	 jsonArray.put(TEMP);
+		    	jsonArray.put(TEMP);
+		    	
+		    	System.out.println(jsonArray);
+		    	 
 		    }
 		    String result = "" + jsonArray;
+		   
 			return Response.status(200).entity(result).build();
 	  }
 }

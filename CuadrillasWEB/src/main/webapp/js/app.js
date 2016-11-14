@@ -91,9 +91,24 @@ app.controller('homeController', function($scope, $cookies, auth, $http)
     //la función logout que llamamos en la vista llama a la función
     
      $http.get("json/userLogin/" + $scope.username + $scope.plus +  $scope.password).success(function (dataSitio) {
-	 $scope.dataSitio = dataSitio;
-	 return $scope.dataSitio
+    	 $scope.items = dataSitio;
+    	// Defaults
+        $scope.sublinks = null;
+        $scope.activeItem = null;
+
+        // Default submenu left padding to 0
+        $scope.subLeft = {'padding-left':'0px'};
 	      });
+     
+	       $scope.showSubMenu = function(item,pos) {
+        // Move submenu based on position of parent
+        $scope.subLeft = {'padding-left':(80 * pos)+'px'};
+        // Set activeItem and sublinks to the currectly
+        // selected item.
+        $scope.activeItem = item;
+        $scope.sublinks = item.subMenus;
+    };
+     
     //logout de la factoria auth
     $scope.logout = function()
     {
