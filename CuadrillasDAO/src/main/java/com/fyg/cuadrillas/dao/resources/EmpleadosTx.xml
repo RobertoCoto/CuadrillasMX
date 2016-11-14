@@ -18,6 +18,10 @@ SELECT LAST_INSERT_ID();
 
 <insert id="registraDocumentos" parameterType="empleadoDocumentos">
 INSERT INTO empleado_documentos(id_empleado,codigo_emp_doc,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{id_empleado},#{codigo_emp_doc},now(),now(),#{estatus})
+VALUES 
+<foreach collection="list" item="element" index="index" separator=",">
+ (#{element.id_empleado},#{element.codigo_emp_doc},now(),now(),#{element.estatus}) 
+</foreach>
 </insert>
+
 </mapper>

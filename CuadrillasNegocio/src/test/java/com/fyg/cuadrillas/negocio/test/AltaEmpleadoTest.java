@@ -45,26 +45,10 @@ public class AltaEmpleadoTest {
 	public void setUp() throws Exception {
 		dataEmpleado = new EmpleadoNegocio();
 		altaEmpleado = new Empleado();
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-		String strFecha = "1983-01-01";
-		Date fechaNac = formato.parse(strFecha);
-		/**
-		 * Valores a enviar
-		 */
-		altaEmpleado.setNombre("Jorge Arturo");
-		altaEmpleado.setApellido_pat("Marquez");
-		altaEmpleado.setApellido_mat("Hermandez");
-		altaEmpleado.setSexo("H");
-		altaEmpleado.setRfc("MAHJ830101");
-		altaEmpleado.setCurp("MAHJ830101HASRRR09");
-		altaEmpleado.setFecha_nacimiento(fechaNac);
-		altaEmpleado.setCodigo_puesto("AYGE");
-		altaEmpleado.setCodigo_vialidad("5MAY");
-		altaEmpleado.setCodigo_area("AYGE");
-		altaEmpleado.setCodigo_talla("CHIC");
-		altaEmpleado.setSueldo(1200.00);
-		altaEmpleado.setTelefono("5555555555");
-		altaEmpleado.setEstatus("A");
+		docEmpleado = new EmpleadoDocumentos();
+		docEmpleado2 = new EmpleadoDocumentos();
+		docEmpleado3 = new EmpleadoDocumentos();
+		docEmpleado4 = new EmpleadoDocumentos();
 		
 		/**
 		 * Se crea un ArrayList para recibir varios docs
@@ -86,6 +70,29 @@ public class AltaEmpleadoTest {
 		dataDocumentos.add(docEmpleado2);
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
+		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
+		String strFecha = "1983-01-01";
+		Date fechaNac = formato.parse(strFecha);
+		/**
+		 * Valores a enviar
+		 */
+		altaEmpleado.setNombre("Jorge Arturo");
+		altaEmpleado.setApellido_pat("Marquez");
+		altaEmpleado.setApellido_mat("Hermandez");
+		altaEmpleado.setSexo("H");
+		altaEmpleado.setRfc("MAHJ830101");
+		altaEmpleado.setCurp("MAHJ830101HASRRR09");
+		altaEmpleado.setFecha_nacimiento(fechaNac);
+		altaEmpleado.setCodigo_puesto("AYGE");
+		altaEmpleado.setCodigo_vialidad("5MAY");
+		altaEmpleado.setCodigo_area("AYGE");
+		altaEmpleado.setCodigo_talla("CHIC");
+		altaEmpleado.setSueldo(1200.00);
+		altaEmpleado.setTelefono("5555555555");
+		altaEmpleado.setEstatus("A");
+		altaEmpleado.setObjDocumentos(dataDocumentos);
+		
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario

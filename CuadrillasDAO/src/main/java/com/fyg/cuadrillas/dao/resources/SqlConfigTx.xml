@@ -12,6 +12,7 @@
 <typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.Catalogos"/>
 <typeAlias alias="herramientaOV" type="com.fyg.cuadrillas.dto.Herramientas"/>
 <typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.Empleado"/>
+<typeAlias alias="EmpleadoDocumentos" type="com.fyg.cuadrillas.dto.EmpleadoDocumentos"/>
 </typeAliases>
 
 

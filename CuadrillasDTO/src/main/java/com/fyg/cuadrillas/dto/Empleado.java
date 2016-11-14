@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
@@ -108,7 +109,7 @@ private String estatus;
 /**
  * Recibira los documentos del empleado
  */
-private EmpleadoDocumentos objDocumentos;
+private ArrayList<EmpleadoDocumentos> objDocumentos;
 /**
  * @return regresa el id_empleado
  */
@@ -400,13 +401,13 @@ public void setEstatus(String estatus) {
 /**
  * @return the objDocumentos
  */
-public EmpleadoDocumentos getObjDocumentos() {
+public ArrayList<EmpleadoDocumentos> getObjDocumentos() {
 	return objDocumentos;
 }
 /**
- * @param objDocumentos ingresa los documentos
+ * @param objDocumentos the objDocumentos to set
  */
-public void setObjDocumentos(EmpleadoDocumentos objDocumentos) {
+public void setObjDocumentos(ArrayList<EmpleadoDocumentos> objDocumentos) {
 	this.objDocumentos = objDocumentos;
 }
 }

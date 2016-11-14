@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -8,6 +9,7 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDocumentos;
 import com.fyg.cuadrillas.comun.RFCUtil;
 
 public class EmpleadoNegocio {
@@ -92,20 +94,22 @@ public class EmpleadoNegocio {
 			respuesta = dao.registraEmpleado(uid, empleado);
 		}
 		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
 		return respuesta;
 }
+	
+	
 }

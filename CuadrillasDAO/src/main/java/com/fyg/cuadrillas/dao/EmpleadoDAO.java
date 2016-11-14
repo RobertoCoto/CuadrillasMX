@@ -1,6 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -34,9 +34,13 @@ public class EmpleadoDAO {
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar el empleado.");
 				}
+                
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
 				sessionTx.commit();
+				
+				objDocumentos = empleado;	
+				registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
 			}
 			catch (Exception ex) {
 				//Realizamos rollBack
@@ -52,38 +56,40 @@ public class EmpleadoDAO {
 			return respuesta;
 	}
 	 
-   public EncabezadoRespuesta registraDocumentos(String uid,EmpleadoDocumentos empleadoDocumentos) {
+   public ArrayList<EmpleadoDocumentos> registraDocumentos(String uid,ArrayList<EmpleadoDocumentos> empleadoDocumentos, SqlSession session) throws Exception {
 	   SqlSession sessionTx = null;
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
-		try {
-			//le seteamos el id del empleado
-			empleadoDocumentos.setId_empleado(objDocumentos.getId_empleado());
-			//se abre conexion transaccional
-			sessionTx = FabricaConexiones.obtenerSesionTx();
-			 int registros = sessionTx.update("EmpleadoDAO.registraEmpleado", empleadoDocumentos);
-				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al registrar el empleado.");
-				}
-				//Realizamos commit
-				LogHandler.debug(uid, this.getClass(), "Commit!!!");
-				sessionTx.commit();
+
+		//Logica para saber si es atomica la transaccion
+		if ( session == null ) {
+			 sessionTx = FabricaConexiones.obtenerSesionTx();
+		} else {
+			sessionTx = session;
+		}
+		
+		 for(int k = 0; k < empleadoDocumentos.size(); k++) {
+			 empleadoDocumentos.get(k).setId_empleado(objDocumentos.getId_empleado());
 			
 		}
-		catch (Exception ex) {
-			//Realizamos rollBack
-			LogHandler.debug(uid, this.getClass(), "RollBack!!");
-			FabricaConexiones.rollBack(sessionTx);
-			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-		}
-		finally {
-			FabricaConexiones.close(sessionTx);
-		}
-		return respuesta;
+		//Validamos el registro
+		 int registros = sessionTx.insert("EmpleadoDAO.registraDocumentos", empleadoDocumentos);
+		 if ( registros == 0) {
+				if ( session == null ) {
+					FabricaConexiones.rollBack(sessionTx);
+					FabricaConexiones.close(sessionTx);
+				}
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
+			}
+		//La conexion no es atomica realizamos commit
+			if ( session == null ) {
+				LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+				sessionTx.commit();
+			}
+			//La conexion no es atomica cerramos
+			if ( session == null ) {
+				LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+				FabricaConexiones.close(sessionTx);
+			}
+		return empleadoDocumentos;
 }
    }
 
