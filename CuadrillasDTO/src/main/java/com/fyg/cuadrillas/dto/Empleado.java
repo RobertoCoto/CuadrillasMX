@@ -106,6 +106,10 @@ private Date fecha_ult_mod;
  */
 private String estatus;
 /**
+ * Recibira los documentos del empleado
+ */
+private EmpleadoDocumentos objDocumentos;
+/**
  * @return regresa el id_empleado
  */
 public Integer getId_empleado() {
@@ -392,5 +396,17 @@ public String getEstatus() {
  */
 public void setEstatus(String estatus) {
 	this.estatus = estatus;
+}
+/**
+ * @return the objDocumentos
+ */
+public EmpleadoDocumentos getObjDocumentos() {
+	return objDocumentos;
+}
+/**
+ * @param objDocumentos ingresa los documentos
+ */
+public void setObjDocumentos(EmpleadoDocumentos objDocumentos) {
+	this.objDocumentos = objDocumentos;
 }
 }

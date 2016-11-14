@@ -6,7 +6,6 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -27,6 +26,9 @@ public class AltaEmpleadoTest {
 	 * Documentos
 	 */
 	private EmpleadoDocumentos docEmpleado;
+	private EmpleadoDocumentos docEmpleado2;
+	private EmpleadoDocumentos docEmpleado3;
+	private EmpleadoDocumentos docEmpleado4;
 	/**
 	 * lista para guardar documentos
 	 */
@@ -64,20 +66,26 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setTelefono("5555555555");
 		altaEmpleado.setEstatus("A");
 		
-		
+		/**
+		 * Se crea un ArrayList para recibir varios docs
+		 */
 		dataDocumentos = new ArrayList<EmpleadoDocumentos>();
 		docEmpleado.setCodigo_emp_doc("ACNA");
 		docEmpleado.setEstatus("A");
 		
-		docEmpleado.setCodigo_emp_doc("CURP");
-		docEmpleado.setEstatus("A");
+		docEmpleado2.setCodigo_emp_doc("CURP");
+		docEmpleado2.setEstatus("A");
 		
-		docEmpleado.setCodigo_emp_doc("CUVI");
-		docEmpleado.setEstatus("A");
+		docEmpleado3.setCodigo_emp_doc("CUVI");
+		docEmpleado3.setEstatus("A");
 		
-		docEmpleado.setCodigo_emp_doc("RFC");
-		docEmpleado.setEstatus("A");
+		docEmpleado4.setCodigo_emp_doc("RFC");
+		docEmpleado4.setEstatus("A");
 		
+		dataDocumentos.add(docEmpleado);
+		dataDocumentos.add(docEmpleado2);
+		dataDocumentos.add(docEmpleado3);
+		dataDocumentos.add(docEmpleado4);
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario

@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Catalogos;
 import com.fyg.cuadrillas.dto.Empleado;
 import com.fyg.cuadrillas.dto.EmpleadoDocumentos;
 
@@ -15,7 +14,7 @@ public class EmpleadoDAO {
 	/**
 	 * Objeto que recibira los valores del documento
 	 */
-	private EmpleadoDocumentos objDocumentos;
+	private Empleado objDocumentos;
 	/**
 	 * Metodo Para dar de Alta un Empleado
 	 * @param uid unico de registro
@@ -53,15 +52,25 @@ public class EmpleadoDAO {
 			return respuesta;
 	}
 	 
-   public EncabezadoRespuesta registraDocumentos(String uid,EmpleadoDocumentos EmpleadoDocumentos) {
-	    SqlSession sessionTx = null;
-	    EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+   public EncabezadoRespuesta registraDocumentos(String uid,EmpleadoDocumentos empleadoDocumentos) {
+	   SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("registro correcto.");
-		List<EmpleadoDocumentos> listaDocumentos = null;
 		try {
-			//listaDocumentos = sessionTx.insert("CatalogoDAO.consultaListaCatalogo", EmpleadoDocumentos);
+			//le seteamos el id del empleado
+			empleadoDocumentos.setId_empleado(objDocumentos.getId_empleado());
+			//se abre conexion transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+			 int registros = sessionTx.update("EmpleadoDAO.registraEmpleado", empleadoDocumentos);
+				if ( registros == 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar el empleado.");
+				}
+				//Realizamos commit
+				LogHandler.debug(uid, this.getClass(), "Commit!!!");
+				sessionTx.commit();
+			
 		}
 		catch (Exception ex) {
 			//Realizamos rollBack
