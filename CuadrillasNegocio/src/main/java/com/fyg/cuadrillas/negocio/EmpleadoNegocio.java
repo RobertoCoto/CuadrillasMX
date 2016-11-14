@@ -1,6 +1,6 @@
 package com.fyg.cuadrillas.negocio;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -9,7 +9,6 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dto.Empleado;
-import com.fyg.cuadrillas.dto.EmpleadoDocumentos;
 import com.fyg.cuadrillas.comun.RFCUtil;
 
 public class EmpleadoNegocio {
@@ -110,6 +109,42 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
 		return respuesta;
 }
-	
-	
+	public EncabezadoRespuesta bajaEmpleado(Empleado empleado) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(empleado);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "bajaEmpleado- Datos Entrada: " + empleado);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		List<Empleado> listaEmpleado = null;
+		try {
+			//Validaciones Negocio
+			listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid,empleado);
+			 for (int i = 0; i < listaEmpleado.size(); i++) {
+				 if (listaEmpleado.get(i).getEstatus().equals("A")) {
+	            		//Mandamos a la parte del dao
+					 	  EmpleadoDAO dao = new EmpleadoDAO();
+	          			  respuesta = dao.bajaEmpleado(uid, empleado);
+	            	  } else {
+	            		  throw new ExcepcionesCuadrillas("Ya se encuentra inactivo.");
+	            	  }
+			 }
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "bajaEmpleado - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "bajaEmpleado - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "bajaEmpleado - Datos Salida: " + respuesta);
+		return respuesta;
+}
 }

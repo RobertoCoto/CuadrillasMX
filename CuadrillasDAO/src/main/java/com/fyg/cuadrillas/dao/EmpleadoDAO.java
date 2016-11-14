@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -98,7 +99,12 @@ public class EmpleadoDAO {
 			}
 		return empleadoDocumentos;
 }
-   
+   /**
+    * Metodo para dar de baja un Empleado
+    * @param uid unico de registro
+    * @param empleado recibe los valores de empleado
+    * @return regresa respuesta
+    */
    public EncabezadoRespuesta bajaEmpleado(String uid,Empleado empleado) {
 	 	SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -133,5 +139,35 @@ public class EmpleadoDAO {
 		}
 		return respuesta;
 }
+   /**
+    * Metodo para consultar empleados
+    * @param uid unico de consulta
+    * @param empleado recibe los valores del empleado
+    * @return retorna lista Empleado
+    */
+   @SuppressWarnings("unchecked")
+public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Empleado> listaEmpleado = null;
+		try {
+			//Abrimos conexion Transaccional
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			listaEmpleado = sessionNTx.selectList("EmpleadoDAO.consultaEmpleado", empleado);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+           respuesta.setEstatus(false);
+   		respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaEmpleado;
+	}
    }
 

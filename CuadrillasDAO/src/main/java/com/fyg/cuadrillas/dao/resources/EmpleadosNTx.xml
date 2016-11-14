@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.fyg.cuadrillas.dao.resources.EmpleadosNTx">
-	</mapper>
+	
+<select id="consultaEmpleado" parameterType="empleado">
+SELECT estatus from Empleado WHERE id_empleado = #{id_empleado}
+</select>    
+</mapper>
