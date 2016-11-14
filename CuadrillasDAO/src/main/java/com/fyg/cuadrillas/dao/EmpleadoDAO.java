@@ -30,7 +30,7 @@ public class EmpleadoDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("EmpleadoDAO.registraEmpleado", empleado);
+		        int registros = sessionTx.insert("EmpleadoDAO.registraEmpleado", empleado);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar el empleado.");
 				}
@@ -55,7 +55,14 @@ public class EmpleadoDAO {
 			}
 			return respuesta;
 	}
-	 
+	 /**
+	  * Metodo Para registrar los documentos del empleado
+	  * @param uid uid unico
+	  * @param empleadoDocumentos recibe los documentos del empleado
+	  * @param session crea una session
+	  * @return regresa la respuesta
+	  * @throws Exception si surge alguna excepcion
+	  */
    public ArrayList<EmpleadoDocumentos> registraDocumentos(String uid,ArrayList<EmpleadoDocumentos> empleadoDocumentos, SqlSession session) throws Exception {
 	   SqlSession sessionTx = null;
 
@@ -90,6 +97,41 @@ public class EmpleadoDAO {
 				FabricaConexiones.close(sessionTx);
 			}
 		return empleadoDocumentos;
+}
+   
+   public EncabezadoRespuesta bajaEmpleado(String uid,Empleado empleado) {
+	 	SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("baja correcto.");
+		try {
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("EmpleadoDAO.bajaEmpleado", empleado);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al dar de baja.");
+			}
+           
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+			
+			objDocumentos = empleado;	
+			registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
+		}
+		catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
 }
    }
 

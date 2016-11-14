@@ -24,4 +24,13 @@ VALUES
 </foreach>
 </insert>
 
+<update id="bajaEmpleado" parameterType="empleado">
+UPDATE empleado SET
+     fecha_baja = now(),
+     codigo_tipo_salida = #{codigo_tipo_salida},
+     codigo_causa_salida = #{codigo_causa_salida},
+     fecha_ult_mod = now(),
+     estatus = #{estatus}
+ WHERE id_empleado = #{id_empleado}
+</update>
 </mapper>
