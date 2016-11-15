@@ -38,11 +38,11 @@ UPDATE empleado SET
         apellido_pat = #{apellido_pat},
         apellido_mat = #{apellido_mat}
         fecha_nacimiento = #{fecha_nacimiento},
-        rfc_calculado = #{rfc_calculado},
-        sueldo = #{sueldo]
-        telefono = #{telefono}
-        no_credito_infonavit = #{no_credito_infonavit}
+        sexo = #{sexo},
+        rfc = #{rfc},
+        rfc_calculado = #{rfc_calculado}
  WHERE id_empleado = #{id_empleado}
-<update>
-</update>
+<delete>
+DELETE FROM empleado_documentos WHERE id_empleado = #{id_empleado}
+</delete>
 </mapper>
