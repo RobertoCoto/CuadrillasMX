@@ -109,6 +109,11 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
 		return respuesta;
 }
+	/**
+	 * Metodo para dar de baja un empleado
+	 * @param empleado recibe valores de empleado
+	 * @return regresa respuesta de baja
+	 */
 	public EncabezadoRespuesta bajaEmpleado(Empleado empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -182,4 +187,32 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "modificaEmpleado - Datos Salida: " + respuesta);
 		return respuesta;
 }
+	/**
+	 * Metodo para consultar empleados
+	 * @param empleado recibe valores de empleados
+	 * @return regresa lista de empleado
+	 */
+	public List<Empleado> consultaEmpleado(Empleado empleado) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(empleado);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Entrada: " + empleado);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<Empleado> listaEmpleado = null;
+	    try {
+	    	 listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
+	    } catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Salida: " + respuesta);
+		return listaEmpleado;
+	}
 }

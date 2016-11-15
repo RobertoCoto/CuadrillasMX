@@ -4,6 +4,24 @@
 	namespace="com.fyg.cuadrillas.dao.resources.EmpleadosNTx">
 	
 <select id="consultaEmpleado" parameterType="empleado">
-SELECT estatus from Empleado WHERE id_empleado = #{id_empleado}
-</select>    
+SELECT estatus from Empleado 
+<where>
+<if test="id_empleado !=null">
+ id_empleado = #{id_empleado}
+ </if>
+ <if test="nombre != null">
+ AND nombre like #{nombre}
+  </if>
+ <if test="apellido_pat !=null">
+ AND apellido_pat like #{apellido_pat}
+ </if>
+ <if test="apellido_mat !=null">
+ AND apellido_mat like #{apellido_mat}
+ </if>
+ <if test="rfc !=null">
+ AND rfc like #{rfc}
+ </if>
+</where>
+</select> 
+   
 </mapper>
