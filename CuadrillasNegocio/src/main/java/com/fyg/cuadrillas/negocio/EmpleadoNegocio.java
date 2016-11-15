@@ -152,6 +152,7 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleado
 	 * @return regresa una respuesta
 	 */
+	@SuppressWarnings("static-access")
 	public EncabezadoRespuesta modificaEmpleado(Empleado empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -161,6 +162,13 @@ public class EmpleadoNegocio {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
 			//Validaciones Negocio
+			RFCUtil calcularRFC = new RFCUtil();
+			String nombre = empleado.getNombre();
+			String apellidoPat = empleado.getApellido_pat();
+			String apellidoMat = empleado.getApellido_mat();
+			String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(nombre,apellidoPat,apellidoMat,empleado.getFecha_nacimiento());
+			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
+			empleado.setRfc_calculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
 			  respuesta = dao.modificaEmpleado(uid, empleado);
 		}
