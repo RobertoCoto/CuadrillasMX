@@ -32,5 +32,17 @@ UPDATE empleado SET
      fecha_ult_mod = now(),
      estatus = #{estatus}
  WHERE id_empleado = #{id_empleado}
+</update id="modificaEmpleado" parameterType="empleado">
+UPDATE empleado SET 
+        nombre = #{nombre},
+        apellido_pat = #{apellido_pat},
+        apellido_mat = #{apellido_mat}
+        fecha_nacimiento = #{fecha_nacimiento},
+        rfc_calculado = #{rfc_calculado},
+        sueldo = #{sueldo]
+        telefono = #{telefono}
+        no_credito_infonavit = #{no_credito_infonavit}
+ WHERE id_empleado = #{id_empleado}
+<update>
 </update>
 </mapper>
