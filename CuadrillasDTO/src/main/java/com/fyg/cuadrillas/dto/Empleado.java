@@ -107,6 +107,10 @@ private Date fecha_ult_mod;
  */
 private String estatus;
 /**
+ * observaciones del empleado
+ */
+private String observaciones;
+/**
  * Recibira los documentos del empleado
  */
 private ArrayList<EmpleadoDocumentos> objDocumentos;
@@ -409,5 +413,17 @@ public ArrayList<EmpleadoDocumentos> getObjDocumentos() {
  */
 public void setObjDocumentos(ArrayList<EmpleadoDocumentos> objDocumentos) {
 	this.objDocumentos = objDocumentos;
+}
+/**
+ * @return the observaciones
+ */
+public String getObservaciones() {
+	return observaciones;
+}
+/**
+ * @param observaciones the observaciones to set
+ */
+public void setObservaciones(String observaciones) {
+	this.observaciones = observaciones;
 }
 }
