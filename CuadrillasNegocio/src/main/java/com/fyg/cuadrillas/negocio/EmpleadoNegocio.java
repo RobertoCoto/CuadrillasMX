@@ -159,7 +159,6 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "modificaEmpleado- Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<Empleado> listaEmpleado = null;
 		try {
 			//Validaciones Negocio
 			EmpleadoDAO dao = new EmpleadoDAO();
