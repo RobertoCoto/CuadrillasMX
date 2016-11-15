@@ -118,6 +118,7 @@ CREATE TABLE usuario (
         codigo_causa_salida VARCHAR(10) NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+        observaciones VARCHAR(100) NULL,
 		PRIMARY KEY(id_empleado)
     );
 
