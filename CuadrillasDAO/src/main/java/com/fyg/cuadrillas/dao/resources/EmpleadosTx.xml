@@ -7,10 +7,10 @@
 <insert id="registraEmpleado" parameterType="empleado" useGeneratedKeys="true" keyProperty="id_empleado"  keyColumn="id_empleado">
 INSERT INTO empleado(nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,
 fecha_ingreso,codigo_puesto,codigo_vialidad,codigo_area,codigo_talla,sueldo,nss,no_credito_infonavit,
-telefono,fecha_alta,fecha_baja,codigo_tipo_salida,codigo_causa_salida,fecha_ult_mod,estatus)
+telefono,fecha_alta,fecha_baja,codigo_tipo_salida,codigo_causa_salida,fecha_ult_mod,estatus,observaciones)
 VALUES(#{nombre},#{apellido_pat},#{apellido_mat},#{sexo},#{rfc},#{rfc_calculado},#{curp},#{fecha_nacimiento},
 now(),#{codigo_puesto},#{codigo_vialidad},#{codigo_area},#{codigo_talla},#{sueldo},#{nss},#{no_credito_infonavit},
-#{telefono},now(),now(),#{codigo_tipo_salida},#{codigo_causa_salida},now(),#{estatus})
+#{telefono},now(),now(),#{codigo_tipo_salida},#{codigo_causa_salida},now(),#{estatus},#{observaciones})
 <selectKey keyProperty="id_empleado" resultType="Integer" order="AFTER">
 SELECT LAST_INSERT_ID();
 </selectKey>

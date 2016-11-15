@@ -91,6 +91,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setSueldo(1200.00);
 		altaEmpleado.setTelefono("5555555555");
 		altaEmpleado.setEstatus("A");
+		altaEmpleado.setObservaciones("CORRECTO");
 		altaEmpleado.setObjDocumentos(dataDocumentos);
 		
 	}
