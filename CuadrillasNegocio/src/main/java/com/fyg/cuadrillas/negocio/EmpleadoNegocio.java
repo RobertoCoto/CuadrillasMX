@@ -147,4 +147,32 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "bajaEmpleado - Datos Salida: " + respuesta);
 		return respuesta;
 }
+	/**
+	 * Metodo para modificar empleado
+	 * @param empleado recibe valores de empleado
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta modificaEmpleado(Empleado empleado) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(empleado);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "modificaEmpleado- Datos Entrada: " + empleado);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		List<Empleado> listaEmpleado = null;
+		try {
+			//Validaciones Negocio
+			EmpleadoDAO dao = new EmpleadoDAO();
+			  respuesta = dao.modificaEmpleado(uid, empleado);
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "modificaEmpleado - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "modificaEmpleado - Datos Salida: " + respuesta);
+		return respuesta;
+}
 }
