@@ -16,6 +16,7 @@ public class EmpleadoDAO {
 	 * Objeto que recibira los valores del documento
 	 */
 	private Empleado objDocumentos;
+	private EmpleadoDocumentos documento;
 	/**
 	 * Metodo Para dar de Alta un Empleado
 	 * @param uid unico de registro
@@ -180,15 +181,54 @@ public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("baja correcto.");
+		respuesta.setMensajeFuncional("modificacion correcta.");
 		try {
 			//Abrimos conexion Transaccional
+			documento = new EmpleadoDocumentos();
+			documento.setId_empleado(empleado.getId_empleado());
+			//envia el id al metodo que elimina el documentos
+			eliminaDocumentos(uid,documento);
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("EmpleadoDAO.modificaEmpleado", empleado);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar al empleado.");
 			}
-          
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+			
+			//se envia los nuevos datos para registrar
+			objDocumentos = empleado;
+			registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
+		}
+		catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
+}
+   public EncabezadoRespuesta eliminaDocumentos(String uid,EmpleadoDocumentos empleadoDocumentos) {
+	 	SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("eliminacion correcta.");
+		try {
+			//Abrimos conexion Transaccional
+			
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("EmpleadoDAO.eliminaDocumentos", empleadoDocumentos);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al modificar al empleado.");
+			}
+         
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();

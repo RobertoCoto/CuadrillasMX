@@ -42,7 +42,7 @@ UPDATE empleado SET
         rfc = #{rfc},
         rfc_calculado = #{rfc_calculado}
  WHERE id_empleado = #{id_empleado}
-<delete>
+<delete id="eliminaDocumentos" parameterType="empleadoDocumentos">
 DELETE FROM empleado_documentos WHERE id_empleado = #{id_empleado}
 </delete>
 </mapper>
