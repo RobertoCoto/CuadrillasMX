@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 
 /**
@@ -24,6 +20,7 @@ import org.json.JSONObject;
  */
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDocumentos;
 
 @Path("/operaciones")	
 public class JSONServiceOperaciones {
@@ -86,7 +83,6 @@ public class JSONServiceOperaciones {
 		bajaEmpleado.setCodigo_causa_salida(causa);
 		bajaEmpleado.setCodigo_tipo_salida(tipoSalida);
 		bajaEmpleado.setObservaciones(observacion);
-		
 		 try {
 			 /**
 			  * Se le envian los valores al metodo
@@ -103,12 +99,13 @@ public class JSONServiceOperaciones {
 	}
 		
 		@POST
-		@Path("/altaEmpleado/{i}")
+		@Path("/altaEmpleado/{i}+{j}+{k}+{l}+{m}+{n}+{o}+{p}+{q}+{r}+{s}+{t}+{u}+{v}+{w}+{d1}+{d2}+{d3}+{d4}")
 		public Response jsonAltaEmpleado(@PathParam("i") String nombre, 
 				@PathParam("j") String apePat,@PathParam("k") String apeMat,@PathParam("l") String sexo, @PathParam("m") Date fechaNac
 				,@PathParam("n") String rfc, @PathParam("o") String curp, @PathParam("p") String codPuesto,
 				@PathParam("q")String codVial,@PathParam("r") String codArea,@PathParam("s") String codTalla,
-				@PathParam("t") String tel,@PathParam("u") String nss,@PathParam("v") String infonavit,@PathParam("w") String observaciones) throws JSONException {
+				@PathParam("t") String tel,@PathParam("u") String nss,@PathParam("v") String infonavit,@PathParam("w") String observaciones,
+				@PathParam("d1") String doc1, @PathParam("d2") String doc2, @PathParam("d3")String doc3, @PathParam("d4") String doc4) throws JSONException {
 			/**
 			 * Se crean objetos 
 			 */
@@ -132,7 +129,24 @@ public class JSONServiceOperaciones {
 			datosEmpleado.setNss(nss);
 			datosEmpleado.setNo_credito_infonavit(infonavit);
 			datosEmpleado.setObservaciones(observaciones);
+			/**
+			 * Documentos
+			 */
+		    EmpleadoDocumentos docEmpleado = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado2 = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado3 = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado4  = new EmpleadoDocumentos();
+			ArrayList<EmpleadoDocumentos> dataDocumentos = new ArrayList<EmpleadoDocumentos>();;
 			
+			docEmpleado.setCodigo_emp_doc(doc1);
+			docEmpleado2.setCodigo_emp_doc(doc2);
+			docEmpleado3.setCodigo_emp_doc(doc3);
+			docEmpleado4.setCodigo_emp_doc(doc4);
+			dataDocumentos.add(docEmpleado);
+			dataDocumentos.add(docEmpleado2);
+			dataDocumentos.add(docEmpleado3);
+			dataDocumentos.add(docEmpleado4);
+			datosEmpleado.setObjDocumentos(dataDocumentos);
 			 try {
 				 /**
 				  * Se le envian los valores al metodo
@@ -150,10 +164,11 @@ public class JSONServiceOperaciones {
 	}
 		
 		@POST
-		@Path("/modificaEmpleado/{i}")
+		@Path("/modificaEmpleado/{i}+{j}+{k}+{l}+{m}+{n}+{w}+{d1}+{d2}+{d3}+{d4}")
 		public Response jsonModificaEmpleado(@PathParam("i") String nombre, 
 				@PathParam("j") String apePat,@PathParam("k") String apeMat,@PathParam("l") String sexo, @PathParam("m") Date fechaNac
-				,@PathParam("n") String rfc,@PathParam("w") String observacion) throws JSONException {
+				,@PathParam("n") String rfc,@PathParam("w") String observacion,
+				@PathParam("d1") String doc1, @PathParam("d2") String doc2, @PathParam("d3")String doc3, @PathParam("d4") String doc4) throws JSONException {
 			/**
 			 * Se crean objetos 
 			 */
@@ -166,6 +181,24 @@ public class JSONServiceOperaciones {
 			datosEmpleado.setFecha_nacimiento(fechaNac);
 			datosEmpleado.setRfc(rfc);
 			datosEmpleado.setObservaciones(observacion);
+			/**
+			 * Documentos
+			 */
+		    EmpleadoDocumentos docEmpleado = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado2 = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado3 = new EmpleadoDocumentos();
+			EmpleadoDocumentos docEmpleado4  = new EmpleadoDocumentos();
+			ArrayList<EmpleadoDocumentos> dataDocumentos = new ArrayList<EmpleadoDocumentos>();;
+			
+			docEmpleado.setCodigo_emp_doc(doc1);
+			docEmpleado2.setCodigo_emp_doc(doc2);
+			docEmpleado3.setCodigo_emp_doc(doc3);
+			docEmpleado4.setCodigo_emp_doc(doc4);
+			dataDocumentos.add(docEmpleado);
+			dataDocumentos.add(docEmpleado2);
+			dataDocumentos.add(docEmpleado3);
+			dataDocumentos.add(docEmpleado4);
+			datosEmpleado.setObjDocumentos(dataDocumentos);
 			try {
 				 /**
 				  * Se le envian los valores al metodo
