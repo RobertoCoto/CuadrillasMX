@@ -4,7 +4,8 @@
 	namespace="com.fyg.cuadrillas.dao.resources.EmpleadosNTx">
 	
 <select id="consultaEmpleado" parameterType="empleado" resultType="empleado">
-SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,estatus,nss FROM empleado 
+SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,estatus,nss,fecha_nacimiento,telefono,observaciones,fecha_ingreso,codigo_vialidad,
+codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado 
 <where>
 <if test="id_empleado !=null">
  id_empleado = #{id_empleado}
