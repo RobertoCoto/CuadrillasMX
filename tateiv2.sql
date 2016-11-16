@@ -112,13 +112,13 @@ CREATE TABLE usuario (
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,
         telefono VARCHAR(10) NOT NULL,
+        observaciones VARCHAR(100) NULL,
         fecha_alta DATETIME NOT NULL,
         fecha_baja DATETIME NOT NULL,
         codigo_tipo_salida VARCHAR(10) NULL,
         codigo_causa_salida VARCHAR(10) NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-        observaciones VARCHAR(100) NULL,
 		PRIMARY KEY(id_empleado)
     );
 
