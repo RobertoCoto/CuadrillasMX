@@ -205,6 +205,7 @@ public class EmpleadoNegocio {
 		List<Empleado> listaEmpleado = null;
 	    try {
 	    	 listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
+	    	 System.out.println(listaEmpleado);
 	    } catch (Exception ex) {
 	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
