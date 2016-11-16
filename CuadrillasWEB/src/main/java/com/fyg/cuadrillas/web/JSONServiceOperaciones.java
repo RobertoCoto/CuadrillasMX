@@ -51,9 +51,16 @@ public class JSONServiceOperaciones {
 			  jsonObject.put("RFC", consultaEmpleado.get(k).getRfc());
 			  jsonObject.put("sexo", consultaEmpleado.get(k).getSexo());
 			  jsonObject.put("fechaNac", consultaEmpleado.get(k).getFecha_nacimiento());
+			  jsonObject.put("curp", consultaEmpleado.get(k).getCurp());
+			  jsonObject.put("fechaIngreso", consultaEmpleado.get(k).getFecha_ingreso());
+			  jsonObject.put("codigoPuesto", consultaEmpleado.get(k).getCodigo_puesto());
+			  jsonObject.put("codigoVialidad", consultaEmpleado.get(k).getCodigo_vialidad());
+			  jsonObject.put("codigoArea", consultaEmpleado.get(k).getCodigo_area());
+			  jsonObject.put("sueldo", consultaEmpleado.get(k).getSueldo());
+			  jsonObject.put("telefono", consultaEmpleado.get(k).getTelefono());
+			  jsonObject.put("observaciones", consultaEmpleado.get(k).getObservaciones());
+			  jsonObject.put("estatus", consultaEmpleado.get(k).getEstatus());
 		  }
-		 
-		 
 		 String result = "" + jsonObject;
          return Response.status(200).entity(result).build();
 	 }
