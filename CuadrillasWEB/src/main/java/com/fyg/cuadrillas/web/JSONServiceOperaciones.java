@@ -149,9 +149,34 @@ public class JSONServiceOperaciones {
 	        return Response.status(201).entity(result).build();
 	}
 		
-		@GET
+		@POST
 		@Path("/modificaEmpleado/{i}")
-		public Response jsonModificaEmpleado(@PathParam("i") Integer f) throws JSONException {
+		public Response jsonModificaEmpleado(@PathParam("i") String nombre, 
+				@PathParam("j") String apePat,@PathParam("k") String apeMat,@PathParam("l") String sexo, @PathParam("m") Date fechaNac
+				,@PathParam("n") String rfc,@PathParam("w") String observacion) throws JSONException {
+			/**
+			 * Se crean objetos 
+			 */
+			Empleado datosEmpleado = new Empleado();
+			EmpleadoNegocio modificacion = new EmpleadoNegocio();
+			datosEmpleado.setNombre(nombre);
+			datosEmpleado.setApellido_pat(apePat);
+			datosEmpleado.setApellido_mat(apeMat);
+			datosEmpleado.setSexo(sexo);
+			datosEmpleado.setFecha_nacimiento(fechaNac);
+			datosEmpleado.setRfc(rfc);
+			datosEmpleado.setObservaciones(observacion);
+			try {
+				 /**
+				  * Se le envian los valores al metodo
+				  */
+				 modificacion.modificaEmpleado(datosEmpleado);
+			 } 
+			 catch(Exception e)
+			 {
+				 String alert = "SE HA PRODUCIDO UN ERROR";
+				 return Response.status(400).entity(alert).build();
+			 }
 			String result = "DATOS CORRECTAMENTE ENVIADOS";
 	        return Response.status(200).entity(result).build();
 	}
