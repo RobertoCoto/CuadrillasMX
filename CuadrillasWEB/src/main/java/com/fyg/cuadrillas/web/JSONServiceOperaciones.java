@@ -64,5 +64,52 @@ public class JSONServiceOperaciones {
 		 String result = "" + jsonObject;
          return Response.status(200).entity(result).build();
 	 }
-
+	
+		/**
+		 * Metodo para dar de baja un empleado
+		 */
+		@GET
+		@Path("/bajaEmpleado/{i}+{j}+{k}+{l}+{m}")
+		public Response jsonAltaEmpleado(@PathParam("i") Integer f,@PathParam("j") String status,@PathParam("k") String causa, @PathParam("l") String tipoSalida
+				,@PathParam("m") String observacion) throws JSONException {
+		Empleado bajaEmpleado = new Empleado();
+		EmpleadoNegocio baja = new EmpleadoNegocio();
+		/**
+		 * Se le asignan valores para enviarlo al metodo
+		 */
+		bajaEmpleado.setId_empleado(f);
+		bajaEmpleado.setEstatus(status);
+		bajaEmpleado.setCodigo_causa_salida(causa);
+		bajaEmpleado.setCodigo_tipo_salida(tipoSalida);
+		bajaEmpleado.setObservaciones(observacion);
+		
+		 try {
+			 /**
+			  * Se le envian los valores al metodo
+			  */
+			 baja.bajaEmpleado(bajaEmpleado);
+		 } 
+		 catch(Exception e)
+		 {
+			 String alert = "SE HA PRODUCIDO UN ERROR";
+			 return Response.status(400).entity(alert).build();
+		 }
+		
+		String result = "DATOS CORRECTAMENTE ENVIADOS";
+        return Response.status(200).entity(result).build();
+	}
+		
+		@GET
+		@Path("/altaEmpleado/{i}")
+		public Response jsonBajaEmpleado(@PathParam("i") Integer f) throws JSONException {
+			String result = "DATOS CORRECTAMENTE ENVIADOS";
+	        return Response.status(200).entity(result).build();
+	}
+		
+		@GET
+		@Path("/modificaEmpleado/{i}")
+		public Response jsonModificaEmpleado(@PathParam("i") Integer f) throws JSONException {
+			String result = "DATOS CORRECTAMENTE ENVIADOS";
+	        return Response.status(200).entity(result).build();
+	}
 }
