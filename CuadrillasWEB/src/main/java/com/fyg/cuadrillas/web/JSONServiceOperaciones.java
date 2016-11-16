@@ -1,8 +1,8 @@
 package com.fyg.cuadrillas.web;
 
+import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,9 +10,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONArray;
+
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
 
 
 /**
@@ -68,9 +72,9 @@ public class JSONServiceOperaciones {
 		/**
 		 * Metodo para dar de baja un empleado
 		 */
-		@GET
+		@POST
 		@Path("/bajaEmpleado/{i}+{j}+{k}+{l}+{m}")
-		public Response jsonAltaEmpleado(@PathParam("i") Integer f,@PathParam("j") String status,@PathParam("k") String causa, @PathParam("l") String tipoSalida
+		public Response jsonBajaEmpleado(@PathParam("i") Integer f,@PathParam("j") String status,@PathParam("k") String causa, @PathParam("l") String tipoSalida
 				,@PathParam("m") String observacion) throws JSONException {
 		Empleado bajaEmpleado = new Empleado();
 		EmpleadoNegocio baja = new EmpleadoNegocio();
@@ -94,16 +98,55 @@ public class JSONServiceOperaciones {
 			 String alert = "SE HA PRODUCIDO UN ERROR";
 			 return Response.status(400).entity(alert).build();
 		 }
-		
 		String result = "DATOS CORRECTAMENTE ENVIADOS";
-        return Response.status(200).entity(result).build();
+        return Response.status(201).entity(result).build();
 	}
 		
-		@GET
+		@POST
 		@Path("/altaEmpleado/{i}")
-		public Response jsonBajaEmpleado(@PathParam("i") Integer f) throws JSONException {
+		public Response jsonAltaEmpleado(@PathParam("i") String nombre, 
+				@PathParam("j") String apePat,@PathParam("k") String apeMat,@PathParam("l") String sexo, @PathParam("m") Date fechaNac
+				,@PathParam("n") String rfc, @PathParam("o") String curp, @PathParam("p") String codPuesto,
+				@PathParam("q")String codVial,@PathParam("r") String codArea,@PathParam("s") String codTalla,
+				@PathParam("t") String tel,@PathParam("u") String nss,@PathParam("v") String infonavit,@PathParam("w") String observaciones) throws JSONException {
+			/**
+			 * Se crean objetos 
+			 */
+			Empleado datosEmpleado = new Empleado();
+			EmpleadoNegocio alta = new EmpleadoNegocio();
+			/**
+			 * Se registran los valores
+			 */
+			datosEmpleado.setNombre(nombre);
+			datosEmpleado.setApellido_pat(apePat);
+			datosEmpleado.setApellido_mat(apeMat);
+			datosEmpleado.setSexo(sexo);
+			datosEmpleado.setFecha_nacimiento(fechaNac);
+			datosEmpleado.setRfc(rfc);
+			datosEmpleado.setCurp(curp);
+			datosEmpleado.setCodigo_puesto(codPuesto);
+			datosEmpleado.setCodigo_vialidad(codVial);
+			datosEmpleado.setCodigo_area(codArea);
+			datosEmpleado.setCodigo_talla(codTalla);
+			datosEmpleado.setTelefono(tel);
+			datosEmpleado.setNss(nss);
+			datosEmpleado.setNo_credito_infonavit(infonavit);
+			datosEmpleado.setObservaciones(observaciones);
+			
+			 try {
+				 /**
+				  * Se le envian los valores al metodo
+				  */
+				 alta.registraEmpleado(datosEmpleado);
+			 } 
+			 catch(Exception e)
+			 {
+				 String alert = "SE HA PRODUCIDO UN ERROR";
+				 return Response.status(400).entity(alert).build();
+			 }
+			
 			String result = "DATOS CORRECTAMENTE ENVIADOS";
-	        return Response.status(200).entity(result).build();
+	        return Response.status(201).entity(result).build();
 	}
 		
 		@GET
