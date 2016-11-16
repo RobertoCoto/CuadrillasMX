@@ -32,7 +32,8 @@ UPDATE empleado SET
      fecha_ult_mod = now(),
      estatus = #{estatus}
  WHERE id_empleado = #{id_empleado}
-</update id="modificaEmpleado" parameterType="empleado">
+</update>
+<update id="modificaEmpleado" parameterType="empleado">
 UPDATE empleado SET 
         nombre = #{nombre},
         apellido_pat = #{apellido_pat},
@@ -42,6 +43,7 @@ UPDATE empleado SET
         rfc = #{rfc},
         rfc_calculado = #{rfc_calculado}
  WHERE id_empleado = #{id_empleado}
+ </update>
 <delete id="eliminaDocumentos" parameterType="empleadoDocumentos">
 DELETE FROM empleado_documentos WHERE id_empleado = #{id_empleado}
 </delete>

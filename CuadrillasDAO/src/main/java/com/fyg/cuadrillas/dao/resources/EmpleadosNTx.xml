@@ -3,8 +3,8 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.resources.EmpleadosNTx">
 	
-<select id="consultaEmpleado" parameterType="empleado">
-SELECT estatus from Empleado 
+<select id="consultaEmpleado" parameterType="empleado" resultType="empleado">
+SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,estatus from Empleado 
 <where>
 <if test="id_empleado !=null">
  id_empleado = #{id_empleado}
