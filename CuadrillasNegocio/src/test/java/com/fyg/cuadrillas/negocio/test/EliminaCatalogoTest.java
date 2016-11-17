@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.CatalogoDTO;
+import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 public class EliminaCatalogoTest {
 	/**
 	 * Objeto operaciones

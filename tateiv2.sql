@@ -1,3 +1,5 @@
+USE tatei;
+
 DROP TABLE IF EXISTS perfil_menu;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS menu;

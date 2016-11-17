@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.CatalogoDTO;
+import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 
 public class CatalogoDAO {
 	/**
@@ -15,9 +15,10 @@ public class CatalogoDAO {
 	 * @param uid unico de registro
 	 * @param catalogo valores de catalogos
 	 * @return regresa una lista de catalogos
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<CatalogoDTO> consultaCatalogo(String uid, CatalogoDTO catalogo) {
+	public List<CatalogoDTO> consultaCatalogo(String uid, CatalogoDTO catalogo) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -31,15 +32,14 @@ public class CatalogoDAO {
 			listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogo", catalogo);
 		}
 		catch (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-            respuesta.setEstatus(false);
-    		respuesta.setMensajeFuncional(ex.getMessage());
+			throw new Exception(ex.getMessage());
 		}
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaCatalogos;
 	}
+
 	/**
 	 * Metodo para consultar los catalogos
 	 * @param uid unico de registro

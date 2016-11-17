@@ -1,3 +1,5 @@
+USE tatei;
+
 DELETE FROM catalogo;
 DELETE FROM tipo_catalogo;
 

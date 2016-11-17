@@ -7,7 +7,8 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.CatalogoDAO;
-import com.fyg.cuadrillas.dto.CatalogoDTO;
+import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
+import com.fyg.cuadrillas.dto.catalogo.CatalogoRespuesta;
 
 public class CatalogoNegocio {
 	/**
@@ -15,46 +16,45 @@ public class CatalogoNegocio {
 	 * @param catalogoOV recibe valores del catalogo
 	 * @return regresa los resultados del catalogo
 	 */
-	public List<CatalogoDTO> consultarCatalogo(CatalogoDTO catalogoOV) {
+	public CatalogoRespuesta consultarCatalogo(CatalogoDTO catalogoOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Entrada: " + catalogoOV);
+		LogHandler.debug(uid, this.getClass(), "consultarCatalogo - Daton Entrada: " + catalogoOV);
 		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
+		CatalogoRespuesta respuesta = new CatalogoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
 		List<CatalogoDTO> listaCatalogo = null;
 	    try {
 	    	//validaciones
-	    	 if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
-	    		 throw new ExcepcionesCuadrillas("Es necesario un orden para la busqueda.");
-	    	} else if (catalogoOV.getEstatus() == null || catalogoOV.getEstatus().isEmpty()) {
-	    		throw new ExcepcionesCuadrillas("Es Necesario el estatus para la busqueda.");
-	    	} else if (catalogoOV.getEstatus().equals("I"))
-	    	{
-	    		throw new ExcepcionesCuadrillas("Solo es permitido estatus activo.");
+	    	if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
+	    		throw new ExcepcionesCuadrillas("Es necesario el tipo catalogo para la busqueda.");
+	    	}    		
+	    	if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
+	    		catalogoOV.setOrden("A");
 	    	}
-	    	 listaCatalogo = new CatalogoDAO().consultaCatalogo(uid, catalogoOV);
-	    	 for (int i = 0; i < listaCatalogo.size(); i++) {
+	    	
+	    	listaCatalogo = new CatalogoDAO().consultaCatalogo(uid, catalogoOV);
+	    	for (int i = 0; i < listaCatalogo.size(); i++) {
 	    		 System.out.println(listaCatalogo.get(i).getCodigo() + listaCatalogo.get(i).getDescripcion());
-	    	 }
+	    	}
 	    } catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
+			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);			
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 		} catch (Exception ex) {
-	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
+	    	LogHandler.error(uid, this.getClass(), "consultarCatalogo - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 	    }
-	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
-		return listaCatalogo;
+	    LogHandler.debug(uid, this.getClass(), "consultarCatalogo - Datos Salida: " + respuesta);
+		return respuesta;
 	}
 	/**
 	 * Metodo para buscar todos los catalogos

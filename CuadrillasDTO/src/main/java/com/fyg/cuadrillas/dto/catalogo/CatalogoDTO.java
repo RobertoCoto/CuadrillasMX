@@ -1,4 +1,4 @@
-package com.fyg.cuadrillas.dto;
+package com.fyg.cuadrillas.dto.catalogo;
 
 import java.util.Date;
 

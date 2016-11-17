@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.fyg.cuadrillas.resources.CatalogoNTx">
-<!-- Consulta-->
-<select id="consultaPrueba" parameterType="prueba" resultType="prueba">
-SELECT usuario,contrasena,mensaje FROM prueba WHERE id = #{idPrueba}
-</select>
+<mapper	namespace="com.fyg.cuadrillas.resources.CatalogoNTx">
 
+
+<!-- mapeo catalogo-->
+<resultMap type="catalogoOV" id="catalogoConsulta" >
+<result column="codigo" property="codigo"/>
+<result column="descripcion" property="descripcion"/>
+</resultMap>
 
 <!-- Consulta Catalogo-->
 <select id="consultaCatalogo" parameterType="CatalogoOV"  resultMap="catalogoOV">
@@ -16,18 +17,9 @@ INNER JOIN tipo_catalogo ON catalogo.tipo_catalogo = tipo_catalogo.tipo_catalogo
 WHERE tipo_catalogo.orden = #{orden} AND catalogo.estatus =#{estatus}
 </select>
 
-<!-- mapeo catalogo-->
-<resultMap type="catalogoOV" id="catalogoConsulta" >
-<result column="codigo" property="codigo"/>
-<result column="descripcion" property="descripcion"/>
-</resultMap>
 
 <select id="consultaListaCatalogo" parameterType="catalogoOV" resultMap="catalogoOV">
 SELECT estatus FROM catalogo WHERE codigo = #{codigo}
 </select>
 
-<!-- Mapeo catalogoConsulta-->
-<resultMap type="catalogoOV" id="catalogoLista">
-<result column="estatus" property="estatus"/>
-</resultMap>
-	</mapper>
+</mapper>
