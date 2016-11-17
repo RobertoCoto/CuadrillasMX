@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.resources.HerramientaNTx">
+	
+<!-- Consulta Herramientas-->
+<select id="consultaHerramientas" parameterType="herramientaOV" resultType="herramientaOV">
+SELECT herramienta.nombre AS nombre, herramienta.descripcion herramienta.codigo_tipo_combustible AS codigo_tipo_combustible,
+herramienta.codigo_tipo_articulo AS codigo_tipo_articulo, herramienta.codigo_estado AS codigo_estado
+FROM herramienta 
+INNER JOIN tipo_catalogo ON herramienta.codigo_tipo_combustible = tipo_catalogo.tipo_catalogo
+INNER JOIN tipo_catalogo ON herramienta.codigo_tipo_articulo = tipo_catalogo.tipo_catalogo
+INNER JOIN tipo_catalogo ON herramienta.codigo_estado = tipo_catalogo.tipo_catalogo
+WHERE tipo_catalogo.orden = #{orden} AND herramienta.estatus = #{estatus}
+</select>
+
+<select id="consultaListaHerramientas" parameterType="herramientaOV">
+SELECT estatus FROM herramienta WHERE id_herramienta = #{idHerramienta}
+</select>
+</mapper>

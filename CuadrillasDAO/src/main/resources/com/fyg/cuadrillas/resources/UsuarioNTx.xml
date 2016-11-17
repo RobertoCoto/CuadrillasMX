@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.resources.UsuarioNTx">
+<!-- Consulta Usuario-->
+<select id="consultaUsuario" parameterType="usuario" resultType="usuario">
+SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
+</select>
+
+<!-- Consulta Usuario-->
+<select id="loginUsuario" parameterType="usuario" resultType="usuario">
+SELECT usuario.usuario AS usuario,usuario.contrasena AS contrasena, usuario.id_perfil AS perfil,
+perfil.nombre AS perfilNombre, perfil_menu.id_menu AS perfilMenu,perfil_menu.orden AS perfilOrden,
+menu.descripcion AS menuDescripcion, menu.url AS menuUrl, menu.menu AS menu, 
+menu.id_padre AS id_padre, menu.id_menu AS id_menu 
+FROM usuario 
+INNER JOIN perfil ON usuario.id_perfil = perfil.id_perfil 
+INNER JOIN perfil_menu ON perfil.id_perfil = perfil_menu.id_perfil 
+INNER JOIN menu ON menu.id_menu = perfil_menu.id_menu AND menu.id_padre IS NULL
+WHERE usuario = #{usuario} AND contrasena = #{contrasena}
+</select>
+</mapper>
