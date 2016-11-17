@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class Herramienta extends ObjetoValor{
+public class HerramientaDTO extends ObjetoValor{
 /**
  * Serial UID
  */

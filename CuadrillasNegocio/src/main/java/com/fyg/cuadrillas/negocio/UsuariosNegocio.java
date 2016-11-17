@@ -10,20 +10,20 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
-import com.fyg.cuadrillas.dto.Perfil;
-import com.fyg.cuadrillas.dto.Usuario;
+import com.fyg.cuadrillas.dto.PerfilDTO;
+import com.fyg.cuadrillas.dto.UsuarioDTO;
 
 public class UsuariosNegocio {
 	/**
 	 * Objeto para recibir  datos perfil
 	 */
-	 private Perfil perfilUsuario;
+	 private PerfilDTO perfilUsuario;
 	 /**
 		 * Metodo para dar de alta un usuario
 		 * @param usuario Recibe valores de usuario
 		 * @return regresa la respuesta si fue registrado
 		 */
-		public EncabezadoRespuesta altaUsuario(Usuario usuario) {
+		public EncabezadoRespuesta altaUsuario(UsuarioDTO usuario) {
 			//Primero generamos el identificador unico de la transaccion
 			String uid = GUIDGenerator.generateGUID(usuario);
 			//Mandamos a log el objeto de entrada
@@ -31,14 +31,14 @@ public class UsuariosNegocio {
 			//Variable de resultado
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			//Para perfiles
-			List<Perfil> listaPerfil = null;
+			List<PerfilDTO> listaPerfil = null;
 			try {
 				//Validaciones de campos.
 				if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario especificar un usuario.");
 				} 
 				 //se incia con la obtencion del perfil
-				 perfilUsuario = new Perfil();
+				 perfilUsuario = new PerfilDTO();
 				 perfilUsuario.setIdPerfil(usuario.getIdPerfil());
 				 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
 				 for (int k = 0; k < listaPerfil.size(); k++) {
@@ -71,14 +71,14 @@ public class UsuariosNegocio {
 		 * @param usuario recibe valores de usuario
 		 * @return regresa una respuesta
 		 */
-		public EncabezadoRespuesta bajaUsuario(Usuario usuario) {
+		public EncabezadoRespuesta bajaUsuario(UsuarioDTO usuario) {
 			//Primero generamos el identificador unico de la transaccion
 			String uid = GUIDGenerator.generateGUID(usuario);
 			//Mandamos a log el objeto de entrada
 			LogHandler.debug(uid, this.getClass(), "registraSitio - Daton Entrada: " + usuario);
 			//Variable de resultado
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-			List<Usuario> listaUsuario = null;
+			List<UsuarioDTO> listaUsuario = null;
 			try {
 				//Validaciones Negocio
 				listaUsuario = new UsuarioDAO().consultaUsuario(uid, usuario);
@@ -118,7 +118,7 @@ public class UsuariosNegocio {
 	 * @param usuario recibe valores del usuario
 	 * @return retorna los datos del usuario
 	 */
-		public List<Usuario> loginUsuario(Usuario usuario) {
+		public List<UsuarioDTO> loginUsuario(UsuarioDTO usuario) {
 			//Primero generamos el identificador unico de la transaccion
 			String uid = GUIDGenerator.generateGUID(usuario);
 			//Mandamos a log el objeto de entrada
@@ -128,7 +128,7 @@ public class UsuariosNegocio {
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Consulta correcta.");
-			List<Usuario> loginUsuario = null;
+			List<UsuarioDTO> loginUsuario = null;
 		    try {
 		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
 		    	//validaciones

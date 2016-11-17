@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class Empleado extends ObjetoValor {
+public class EmpleadoDTO extends ObjetoValor {
 /**
  * Serial UID
  */
@@ -113,7 +113,7 @@ private String observaciones;
 /**
  * Recibira los documentos del empleado
  */
-private ArrayList<EmpleadoDocumento> objDocumentos;
+private ArrayList<EmpleadoDocumentoDTO> objDocumentos;
 /**
  * @return regresa el idEmpleado
  */
@@ -405,13 +405,13 @@ public void setEstatus(String estatus) {
 /**
  * @return the objDocumentos
  */
-public ArrayList<EmpleadoDocumento> getObjDocumentos() {
+public ArrayList<EmpleadoDocumentoDTO> getObjDocumentos() {
 	return objDocumentos;
 }
 /**
  * @param objDocumentos the objDocumentos to set
  */
-public void setObjDocumentos(ArrayList<EmpleadoDocumento> objDocumentos) {
+public void setObjDocumentos(ArrayList<EmpleadoDocumentoDTO> objDocumentos) {
 	this.objDocumentos = objDocumentos;
 }
 /**

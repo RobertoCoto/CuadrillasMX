@@ -7,7 +7,7 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.CatalogoDAO;
-import com.fyg.cuadrillas.dto.Catalogo;
+import com.fyg.cuadrillas.dto.CatalogoDTO;
 
 public class CatalogoNegocio {
 	/**
@@ -15,7 +15,7 @@ public class CatalogoNegocio {
 	 * @param catalogoOV recibe valores del catalogo
 	 * @return regresa los resultados del catalogo
 	 */
-	public List<Catalogo> consultarCatalogo(Catalogo catalogoOV) {
+	public List<CatalogoDTO> consultarCatalogo(CatalogoDTO catalogoOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
@@ -25,7 +25,7 @@ public class CatalogoNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Catalogo> listaCatalogo = null;
+		List<CatalogoDTO> listaCatalogo = null;
 	    try {
 	    	//validaciones
 	    	 if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
@@ -61,7 +61,7 @@ public class CatalogoNegocio {
 	 * @param catalogoOV recibe valores de catalogo
 	 * @return regresa un catalogo
 	 */
-	public List<Catalogo> consultarListaCatalogo(Catalogo catalogoOV) {
+	public List<CatalogoDTO> consultarListaCatalogo(CatalogoDTO catalogoOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
@@ -71,7 +71,7 @@ public class CatalogoNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Catalogo> listaCatalogo = null;
+		List<CatalogoDTO> listaCatalogo = null;
 	    try {
 	    	 listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
 	    } catch (Exception ex) {
@@ -90,14 +90,14 @@ public class CatalogoNegocio {
 	 * @param catalogoOV recibe valores del catalogo
 	 * @return regresa el resultado
 	 */
-	public EncabezadoRespuesta eliminaCatalogo(Catalogo catalogoOV) {
+	public EncabezadoRespuesta eliminaCatalogo(CatalogoDTO catalogoOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Entrada: " + catalogoOV);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<Catalogo> listaCatalogo = null;
+		List<CatalogoDTO> listaCatalogo = null;
 		try {
 			//Validaciones Negocio
 			listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
@@ -133,7 +133,7 @@ public class CatalogoNegocio {
 	 * @param catalogoOV recibe valores de catalogo
 	 * @return regresa un resultado
 	 */
-	public EncabezadoRespuesta registraCatalogo(Catalogo catalogoOV) {
+	public EncabezadoRespuesta registraCatalogo(CatalogoDTO catalogoOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada

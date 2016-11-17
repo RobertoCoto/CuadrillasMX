@@ -8,22 +8,22 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Empleado;
-import com.fyg.cuadrillas.dto.EmpleadoDocumento;
+import com.fyg.cuadrillas.dto.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO;
 
 public class EmpleadoDAO {
 	/**
 	 * Objeto que recibira los valores del documento
 	 */
-	private Empleado objDocumentos;
-	private EmpleadoDocumento documento;
+	private EmpleadoDTO objDocumentos;
+	private EmpleadoDocumentoDTO documento;
 	/**
 	 * Metodo Para dar de Alta un Empleado
 	 * @param uid unico de registro
 	 * @param empleado recibe los valores del empleado
 	 * @return regresa respuesta de registro
 	 */
-	 public EncabezadoRespuesta registraEmpleado(String uid,Empleado empleado) {
+	 public EncabezadoRespuesta registraEmpleado(String uid,EmpleadoDTO empleado) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -65,7 +65,7 @@ public class EmpleadoDAO {
 	  * @return regresa la respuesta
 	  * @throws Exception si surge alguna excepcion
 	  */
-   public ArrayList<EmpleadoDocumento> registraDocumentos(String uid,ArrayList<EmpleadoDocumento> empleadoDocumentos, SqlSession session) throws Exception {
+   public ArrayList<EmpleadoDocumentoDTO> registraDocumentos(String uid,ArrayList<EmpleadoDocumentoDTO> empleadoDocumentos, SqlSession session) throws Exception {
 	   SqlSession sessionTx = null;
 
 		//Logica para saber si es atomica la transaccion
@@ -106,7 +106,7 @@ public class EmpleadoDAO {
     * @param empleado recibe los valores de empleado
     * @return regresa respuesta
     */
-   public EncabezadoRespuesta bajaEmpleado(String uid,Empleado empleado) {
+   public EncabezadoRespuesta bajaEmpleado(String uid,EmpleadoDTO empleado) {
 	 	SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -147,13 +147,13 @@ public class EmpleadoDAO {
     * @return retorna lista Empleado
     */
    @SuppressWarnings("unchecked")
-public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
+public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Empleado> listaEmpleado = null;
+		List<EmpleadoDTO> listaEmpleado = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -176,7 +176,7 @@ public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
     * @param empleado recibe valores de empleado
     * @return regresa la respuesta
     */
-   public EncabezadoRespuesta modificaEmpleado(String uid,Empleado empleado) {
+   public EncabezadoRespuesta modificaEmpleado(String uid,EmpleadoDTO empleado) {
 	 	SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -184,7 +184,7 @@ public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
 		respuesta.setMensajeFuncional("modificacion correcta.");
 		try {
 			//Abrimos conexion Transaccional
-			documento = new EmpleadoDocumento();
+			documento = new EmpleadoDocumentoDTO();
 			documento.setIdEmpleado(empleado.getIdEmpleado());
 			//envia el id al metodo que elimina el documentos
 			eliminaDocumentos(uid,documento);
@@ -214,7 +214,7 @@ public List<Empleado> consultaEmpleado(String uid, Empleado empleado) {
 		}
 		return respuesta;
 }
-   public EncabezadoRespuesta eliminaDocumentos(String uid,EmpleadoDocumento empleadoDocumentos) {
+   public EncabezadoRespuesta eliminaDocumentos(String uid,EmpleadoDocumentoDTO empleadoDocumentos) {
 	 	SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);

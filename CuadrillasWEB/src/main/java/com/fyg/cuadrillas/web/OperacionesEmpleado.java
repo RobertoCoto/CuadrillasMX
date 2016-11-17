@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Se agregan clases a usar
  */
-import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 /**
  * Servlet implementation class HolaMundo

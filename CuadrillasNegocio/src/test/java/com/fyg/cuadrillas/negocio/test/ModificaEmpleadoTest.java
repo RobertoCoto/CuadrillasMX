@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Empleado;
-import com.fyg.cuadrillas.dto.EmpleadoDocumento;
+import com.fyg.cuadrillas.dto.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 
 public class ModificaEmpleadoTest {
@@ -21,7 +21,7 @@ public class ModificaEmpleadoTest {
 	/**
 	 * Datos del empleado
 	 */
-	private Empleado modificaEmpleado;
+	private EmpleadoDTO modificaEmpleado;
 	/**
 	  * Guid unico generado
 	  */
@@ -29,14 +29,14 @@ public class ModificaEmpleadoTest {
 	/**
 	 * Documentos
 	 */
-	private EmpleadoDocumento docEmpleado;
-	private EmpleadoDocumento docEmpleado2;
-	private EmpleadoDocumento docEmpleado3;
-	private EmpleadoDocumento docEmpleado4;
+	private EmpleadoDocumentoDTO docEmpleado;
+	private EmpleadoDocumentoDTO docEmpleado2;
+	private EmpleadoDocumentoDTO docEmpleado3;
+	private EmpleadoDocumentoDTO docEmpleado4;
 	/**
 	 * lista para guardar documentos
 	 */
-	private ArrayList<EmpleadoDocumento> dataDocumentos;
+	private ArrayList<EmpleadoDocumentoDTO> dataDocumentos;
 	/**
 	 * SetUp
 	 * @throws Exception
@@ -44,16 +44,16 @@ public class ModificaEmpleadoTest {
 	@Before
 	public void setUp() throws Exception {
 		dataEmpleado = new EmpleadoNegocio();
-		modificaEmpleado = new Empleado();
-		docEmpleado = new EmpleadoDocumento();
-		docEmpleado2 = new EmpleadoDocumento();
-		docEmpleado3 = new EmpleadoDocumento();
-		docEmpleado4 = new EmpleadoDocumento();
+		modificaEmpleado = new EmpleadoDTO();
+		docEmpleado = new EmpleadoDocumentoDTO();
+		docEmpleado2 = new EmpleadoDocumentoDTO();
+		docEmpleado3 = new EmpleadoDocumentoDTO();
+		docEmpleado4 = new EmpleadoDocumentoDTO();
 		
 		/**
 		 * Se crea un ArrayList para recibir varios docs
 		 */
-		dataDocumentos = new ArrayList<EmpleadoDocumento>();
+		dataDocumentos = new ArrayList<EmpleadoDocumentoDTO>();
 		docEmpleado.setCodigoEmpDoc("ACNA");
 		docEmpleado.setEstatus("A");
 		

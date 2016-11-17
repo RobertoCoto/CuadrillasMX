@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Catalogo;
+import com.fyg.cuadrillas.dto.CatalogoDTO;
 public class RegistraCatalogoTest {
 	/**
 	 * Objeto operaciones
@@ -15,7 +15,7 @@ public class RegistraCatalogoTest {
 	/**
 	 * objeto catalogo
 	 */
-	private Catalogo datoCatalogos;
+	private CatalogoDTO datoCatalogos;
 	/**
 	 * Guid unico generado
 	 */
@@ -27,7 +27,7 @@ public class RegistraCatalogoTest {
 	@Before
 	public void setUp() throws Exception {
 		registrarCatalogo = new CatalogoNegocio();
-		datoCatalogos = new Catalogo();
+		datoCatalogos = new CatalogoDTO();
 		/**
 		 * se le envia datos
 		 */

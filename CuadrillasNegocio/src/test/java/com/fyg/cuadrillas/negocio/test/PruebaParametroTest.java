@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.ParametroNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Parametro;
+import com.fyg.cuadrillas.dto.ParametroDTO;
 
 public class PruebaParametroTest {
 	/**
@@ -16,7 +16,7 @@ public class PruebaParametroTest {
 	/**
 	 * Objeto para recibir valores del parametro
 	 */
-	private Parametro buscaParametro;
+	private ParametroDTO buscaParametro;
 	 /**
      * Guid unico generado
      */
@@ -28,7 +28,7 @@ public class PruebaParametroTest {
 	@Before
 	public void setUp() throws Exception {
     datoParametro = new ParametroNegocio();
-	buscaParametro = new Parametro();
+	buscaParametro = new ParametroDTO();
 	buscaParametro.setParametro("usuario.edad.ano.minimo");
 	}
 	/**

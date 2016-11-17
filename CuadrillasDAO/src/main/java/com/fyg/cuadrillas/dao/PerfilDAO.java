@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Perfil;
+import com.fyg.cuadrillas.dto.PerfilDTO;
 
 public class PerfilDAO {
 	/**
@@ -16,13 +16,13 @@ public class PerfilDAO {
 	 * @return regresa resultados
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Perfil> consultaPerfil(String uid, Perfil perfil) {
+	public List<PerfilDTO> consultaPerfil(String uid, PerfilDTO perfil) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Perfil> listaPerfil = null;
+		List<PerfilDTO> listaPerfil = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();

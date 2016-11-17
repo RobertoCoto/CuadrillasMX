@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.dto.Usuario;
+import com.fyg.cuadrillas.dto.UsuarioDTO;
 
 public class BajaUsuarioTest {
 	/**
@@ -17,7 +17,7 @@ public class BajaUsuarioTest {
  /**
   * Objeto datos usuario
   */
- private Usuario datosUsuario;
+ private UsuarioDTO datosUsuario;
  /**
   * Guid unico generado
   */
@@ -29,7 +29,7 @@ public class BajaUsuarioTest {
 	@Before
 	public void setUp() throws Exception {
 		bajaUsuario = new UsuariosNegocio();
-		datosUsuario = new Usuario();
+		datosUsuario = new UsuarioDTO();
 		datosUsuario.setEstatus("I");
 		datosUsuario.setUsuario("gomez22");
 	}

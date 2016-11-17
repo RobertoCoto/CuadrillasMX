@@ -8,12 +8,12 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
-import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDTO;
 import com.fyg.cuadrillas.comun.RFCUtil;
 
 public class EmpleadoNegocio {
 	@SuppressWarnings("static-access")
-	public EncabezadoRespuesta registraEmpleado(Empleado empleado) {
+	public EncabezadoRespuesta registraEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
 		//Mandamos a log el objeto de entrada
@@ -114,14 +114,14 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleado
 	 * @return regresa respuesta de baja
 	 */
-	public EncabezadoRespuesta bajaEmpleado(Empleado empleado) {
+	public EncabezadoRespuesta bajaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "bajaEmpleado- Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<Empleado> listaEmpleado = null;
+		List<EmpleadoDTO> listaEmpleado = null;
 		try {
 			//Validaciones Negocio
 			listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid,empleado);
@@ -158,7 +158,7 @@ public class EmpleadoNegocio {
 	 * @return regresa una respuesta
 	 */
 	@SuppressWarnings("static-access")
-	public EncabezadoRespuesta modificaEmpleado(Empleado empleado) {
+	public EncabezadoRespuesta modificaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
 		//Mandamos a log el objeto de entrada
@@ -192,7 +192,7 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleados
 	 * @return regresa lista de empleado
 	 */
-	public List<Empleado> consultaEmpleado(Empleado empleado) {
+	public List<EmpleadoDTO> consultaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
 		//Mandamos a log el objeto de entrada
@@ -202,7 +202,7 @@ public class EmpleadoNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Empleado> listaEmpleado = null;
+		List<EmpleadoDTO> listaEmpleado = null;
 	    try {
 	    	 listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
 	    	 System.out.println(listaEmpleado);

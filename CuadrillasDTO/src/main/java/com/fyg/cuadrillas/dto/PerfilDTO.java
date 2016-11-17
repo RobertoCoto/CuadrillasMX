@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class Perfil extends ObjetoValor {
+public class PerfilDTO extends ObjetoValor {
 /**
  * Serial UID
  */

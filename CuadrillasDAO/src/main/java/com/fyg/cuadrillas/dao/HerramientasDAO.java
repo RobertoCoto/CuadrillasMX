@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Herramienta;
+import com.fyg.cuadrillas.dto.HerramientaDTO;
 
 public class HerramientasDAO {
 	/**
@@ -17,13 +17,13 @@ public class HerramientasDAO {
 	 * @return regresa lista de herramientas
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Herramienta> consultaHerramientas(String uid, Herramienta herramientasOV) {
+	public List<HerramientaDTO> consultaHerramientas(String uid, HerramientaDTO herramientasOV) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Herramienta> listaHerramientas = null;
+		List<HerramientaDTO> listaHerramientas = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -47,13 +47,13 @@ public class HerramientasDAO {
 	 * @return regresa una lista de herramientas
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Herramienta> consultaListaHerramientas(String uid, Herramienta herramientasOV) {
+	public List<HerramientaDTO> consultaListaHerramientas(String uid, HerramientaDTO herramientasOV) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Herramienta> listaHerramientas = null;
+		List<HerramientaDTO> listaHerramientas = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -76,7 +76,7 @@ public class HerramientasDAO {
 	  * @param herramientaOV recibe valores de herramienta
 	  * @return regresa la respuesta de la transaccion
 	  */
-	 public EncabezadoRespuesta registraHerramientas(String uid, Herramienta herramientaOV) {
+	 public EncabezadoRespuesta registraHerramientas(String uid, HerramientaDTO herramientaOV) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -112,7 +112,7 @@ public class HerramientasDAO {
 	  * @param herramientaOV recibe valores de herramientas
 	  * @return regresa el resultado de la transaccion
 	  */
-	 public EncabezadoRespuesta eliminarHerramientas(String uid, Herramienta herramientaOV) {
+	 public EncabezadoRespuesta eliminarHerramientas(String uid, HerramientaDTO herramientaOV) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);

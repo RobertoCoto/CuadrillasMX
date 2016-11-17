@@ -7,7 +7,7 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.HerramientasDAO;
-import com.fyg.cuadrillas.dto.Herramienta;
+import com.fyg.cuadrillas.dto.HerramientaDTO;
 
 public class HerramientaNegocio {
 	/**
@@ -15,7 +15,7 @@ public class HerramientaNegocio {
 	 * @param herramientaOV recibe valores de herramientas
 	 * @return regresa lista de herramientas
 	 */
-	public List<Herramienta> consultarHerramientas(Herramienta herramientaOV) {
+	public List<HerramientaDTO> consultarHerramientas(HerramientaDTO herramientaOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(herramientaOV);
 		//Mandamos a log el objeto de entrada
@@ -25,7 +25,7 @@ public class HerramientaNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Herramienta> listaHerramientas = null;
+		List<HerramientaDTO> listaHerramientas = null;
 	    try {
 	    	 listaHerramientas = new HerramientasDAO().consultaHerramientas(uid, herramientaOV);
 	    } catch (Exception ex) {
@@ -38,7 +38,7 @@ public class HerramientaNegocio {
 	    LogHandler.debug(uid, this.getClass(), "herramientaOV - Datos Salida: " + respuesta);
 		return listaHerramientas;
 	}
-	public EncabezadoRespuesta registraHerramientas(Herramienta herramientaOV) {
+	public EncabezadoRespuesta registraHerramientas(HerramientaDTO herramientaOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(herramientaOV);
 		//Mandamos a log el objeto de entrada
@@ -86,14 +86,14 @@ public class HerramientaNegocio {
 	 * @param herramientaOV
 	 * @return
 	 */
-	public EncabezadoRespuesta eliminaHerramientas(Herramienta herramientaOV) {
+	public EncabezadoRespuesta eliminaHerramientas(HerramientaDTO herramientaOV) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(herramientaOV);
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "registraSitio - Daton Entrada: " + herramientaOV);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<Herramienta> listaHerramientas = null;
+		List<HerramientaDTO> listaHerramientas = null;
 		try {
 			//Validaciones Negocio
 			listaHerramientas = new HerramientasDAO().consultaListaHerramientas(uid, herramientaOV);

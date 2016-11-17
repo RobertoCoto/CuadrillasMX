@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Herramienta;
+import com.fyg.cuadrillas.dto.HerramientaDTO;
 
 public class EliminaHerramientasTest {
 	/**
@@ -16,7 +16,7 @@ public class EliminaHerramientasTest {
 	/**
 	 * Recibe datos de herramientas
 	 */
-	private Herramienta datoHerramientas;
+	private HerramientaDTO datoHerramientas;
 	/**
 	 * Guid unico generado
 	 */
@@ -28,7 +28,7 @@ public class EliminaHerramientasTest {
 	@Before
 	public void setUp() throws Exception {
 		eliminaHerramienta = new HerramientaNegocio();
-		datoHerramientas = new Herramienta();
+		datoHerramientas = new HerramientaDTO();
 		datoHerramientas.setOrden("D");
 		datoHerramientas.setEstatus("A");
 	}

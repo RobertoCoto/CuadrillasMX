@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Parametro;
+import com.fyg.cuadrillas.dto.ParametroDTO;
 
 public class ParametroDAO {
 	/**
@@ -16,13 +16,13 @@ public class ParametroDAO {
 	 * @return regresa el parametro
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Parametro> consultaParametro(String uid, Parametro parametro) {
+	public List<ParametroDTO> consultaParametro(String uid, ParametroDTO parametro) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Parametro> listaParametros = null;
+		List<ParametroDTO> listaParametros = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();

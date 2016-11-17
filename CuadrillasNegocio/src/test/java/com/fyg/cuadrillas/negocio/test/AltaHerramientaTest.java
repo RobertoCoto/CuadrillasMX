@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Herramienta;
+import com.fyg.cuadrillas.dto.HerramientaDTO;
 public class AltaHerramientaTest {
 	/**
 	* objeto para enviar al metodo consulta de catalogo
@@ -17,7 +17,7 @@ public class AltaHerramientaTest {
 	/**
 	 * Recibe datos de herramientas
 	 */
-	private Herramienta datoHerramientas;
+	private HerramientaDTO datoHerramientas;
 	/**
 	 * Guid unico generado
 	 */
@@ -29,7 +29,7 @@ public class AltaHerramientaTest {
 	@Before
 	public void setUp() throws Exception {
 		altaHerramientas = new HerramientaNegocio();
-		datoHerramientas = new Herramienta();
+		datoHerramientas = new HerramientaDTO();
 		
 		Date fecha = new Date();
 		datoHerramientas.setNombre("ABUS");

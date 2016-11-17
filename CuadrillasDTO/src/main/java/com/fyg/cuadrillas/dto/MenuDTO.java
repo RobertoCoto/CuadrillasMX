@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class Menu extends ObjetoValor {
+public class MenuDTO extends ObjetoValor {
 	/**
 	 * SERIAL IUD
 	 */

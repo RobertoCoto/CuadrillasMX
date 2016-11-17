@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Catalogo;
+import com.fyg.cuadrillas.dto.CatalogoDTO;
 public class ConsultaCatalogoTest {
 /**
 * objeto para enviar al metodo consulta de catalogo
@@ -15,7 +15,7 @@ private CatalogoNegocio catalogoConsulta;
 /**
  * objeto catalogo
  */
-private Catalogo datoCatalogos;
+private CatalogoDTO datoCatalogos;
 /**
  * Guid unico generado
  */
@@ -27,7 +27,7 @@ private GUIDGenerator uid;
 	@Before
 	public void setUp() throws Exception {
 		catalogoConsulta = new CatalogoNegocio();
-		datoCatalogos = new Catalogo();
+		datoCatalogos = new CatalogoDTO();
 		datoCatalogos.setOrden("D");
 		datoCatalogos.setEstatus("A");
 	}

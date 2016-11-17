@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Usuario;
+import com.fyg.cuadrillas.dto.UsuarioDTO;
 
 public class UsuarioDAO {
 	/**
@@ -17,13 +17,13 @@ public class UsuarioDAO {
 	 * @return regresa resultado de usuarios
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Usuario> consultaUsuario(String uid, Usuario usuario) {
+	public List<UsuarioDTO> consultaUsuario(String uid, UsuarioDTO usuario) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Usuario> listaUsuario = null;
+		List<UsuarioDTO> listaUsuario = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -46,7 +46,7 @@ public class UsuarioDAO {
 	  * @param usuario  recibe valores de usuario
 	  * @return regresa si el usuario fue registrado
 	  */
-	 public EncabezadoRespuesta altaUsuario(String uid, Usuario usuario) {
+	 public EncabezadoRespuesta altaUsuario(String uid, UsuarioDTO usuario) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -82,7 +82,7 @@ public class UsuarioDAO {
 	  * @param usuario recibe valores de usuario
 	  * @return regresa la respuesta
 	  */
-	 public EncabezadoRespuesta bajaUsuario(String uid, Usuario usuario) {
+	 public EncabezadoRespuesta bajaUsuario(String uid, UsuarioDTO usuario) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -119,13 +119,13 @@ public class UsuarioDAO {
 	 * @return regresa lista usuario
 	 */
 	 @SuppressWarnings("unchecked")
-	public List<Usuario> loginUsuario(String uid, Usuario usuario) {
+	public List<UsuarioDTO> loginUsuario(String uid, UsuarioDTO usuario) {
 			SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Consulta correcta.");
-			List<Usuario> loginUsuario = null;
+			List<UsuarioDTO> loginUsuario = null;
 			try {
 				//Abrimos conexion Transaccional
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();

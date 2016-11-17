@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.dto.Usuario;
+import com.fyg.cuadrillas.dto.UsuarioDTO;
 
 public class LoginUsuarioTest {
 	/**
@@ -16,7 +16,7 @@ public class LoginUsuarioTest {
 	/**
 	  * Objeto datos usuario
 	  */
-	 private Usuario datosUsuario;
+	 private UsuarioDTO datosUsuario;
 	 /**
 	  * Guid unico generado
 	  */
@@ -29,7 +29,7 @@ public class LoginUsuarioTest {
 	@Before
 	public void setUp() throws Exception {
 		loginUser = new UsuariosNegocio();
-		datosUsuario = new Usuario();
+		datosUsuario = new UsuarioDTO();
 		datosUsuario.setUsuario("Gomez22");
 		datosUsuario.setContrasena("12345678");
 	}

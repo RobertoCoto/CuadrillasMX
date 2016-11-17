@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Catalogo;
+import com.fyg.cuadrillas.dto.CatalogoDTO;
 
 public class CatalogoDAO {
 	/**
@@ -17,13 +17,13 @@ public class CatalogoDAO {
 	 * @return regresa una lista de catalogos
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Catalogo> consultaCatalogo(String uid, Catalogo catalogo) {
+	public List<CatalogoDTO> consultaCatalogo(String uid, CatalogoDTO catalogo) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Catalogo> listaCatalogos = null;
+		List<CatalogoDTO> listaCatalogos = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -47,13 +47,13 @@ public class CatalogoDAO {
 	 * @return regresa una lista de catalogos
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Catalogo> consultaListaCatalogo(String uid, Catalogo catalogoOV) {
+	public List<CatalogoDTO> consultaListaCatalogo(String uid, CatalogoDTO catalogoOV) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Catalogo> listaCatalogos = null;
+		List<CatalogoDTO> listaCatalogos = null;
 		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -77,7 +77,7 @@ public class CatalogoDAO {
 	  * @param catalogoOV recibe los valores del catalogo
 	  * @return regresa el resultado de la baja
 	  */
-	 public EncabezadoRespuesta eliminarCatalogo(String uid, Catalogo catalogoOV) {
+	 public EncabezadoRespuesta eliminarCatalogo(String uid, CatalogoDTO catalogoOV) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -113,7 +113,7 @@ public class CatalogoDAO {
 	  * @param catalogoOV recibe valores de catalogo
 	  * @return regresa si el registro fue correcto
 	  */
-	 public EncabezadoRespuesta registraCatalogo(String uid, Catalogo catalogoOV) {
+	 public EncabezadoRespuesta registraCatalogo(String uid, CatalogoDTO catalogoOV) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);

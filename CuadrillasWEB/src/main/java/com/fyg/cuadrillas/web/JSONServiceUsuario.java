@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.dto.Usuario;
-import com.fyg.cuadrillas.dto.Menu;
+import com.fyg.cuadrillas.dto.UsuarioDTO;
+import com.fyg.cuadrillas.dto.MenuDTO;
 import com.fyg.cuadrillas.negocio.MenuNegocio;
 
 @Path("/userLogin")
@@ -23,12 +23,12 @@ public class JSONServiceUsuario {
 	  @GET
 	  @Produces("application/json")
 	  public Response jsonUsuario(@PathParam("i") String f,@PathParam("j") String p) throws JSONException {
-		    Usuario  user = new Usuario();
-		    Menu dataMenu = new Menu();
+		    UsuarioDTO  user = new UsuarioDTO();
+		    MenuDTO dataMenu = new MenuDTO();
 		    user.setUsuario(f);
 		    user.setContrasena(p);
 		    
-		    List<Usuario> loginData = new UsuariosNegocio().loginUsuario(user);
+		    List<UsuarioDTO> loginData = new UsuariosNegocio().loginUsuario(user);
 		    JSONArray jsonArray   = new JSONArray();
 		    
 		    for(int k = 0; k < loginData.size(); k++) {
@@ -36,7 +36,7 @@ public class JSONServiceUsuario {
 			    JSONObject TEMP = new JSONObject();
 		    	
 			     dataMenu.setIdPadre(loginData.get(k).getIdMenu());
-			     List<Menu> menuData = new MenuNegocio().consultarMenu(dataMenu);
+			     List<MenuDTO> menuData = new MenuNegocio().consultarMenu(dataMenu);
 		    	
 		    	for(int l = 0; l < menuData.size(); l++) {
 		    		    JSONObject hijo = new JSONObject();

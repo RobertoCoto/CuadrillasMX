@@ -6,11 +6,11 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.MenuDAO;
-import com.fyg.cuadrillas.dto.Menu;
+import com.fyg.cuadrillas.dto.MenuDTO;
 
 
 public class MenuNegocio {
-	public List<Menu> consultarMenu(Menu menu) {
+	public List<MenuDTO> consultarMenu(MenuDTO menu) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(menu);
 		//Mandamos a log el objeto de entrada
@@ -20,7 +20,7 @@ public class MenuNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Menu> listaMenus = null;
+		List<MenuDTO> listaMenus = null;
 	    try {
 	    	
 	    	 listaMenus = new MenuDAO().consultaCatalogo(uid, menu);

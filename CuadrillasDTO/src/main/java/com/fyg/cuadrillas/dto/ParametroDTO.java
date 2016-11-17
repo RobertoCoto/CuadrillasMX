@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class Parametro extends ObjetoValor {
+public class ParametroDTO extends ObjetoValor {
 
 	/**
 	 * UID Unico

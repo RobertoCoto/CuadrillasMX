@@ -6,7 +6,7 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
-import com.fyg.cuadrillas.dto.Parametro;
+import com.fyg.cuadrillas.dto.ParametroDTO;
 import com.fyg.cuadrillas.dao.ParametroDAO;
 public class ParametroNegocio {
 
@@ -15,7 +15,7 @@ public class ParametroNegocio {
 	 * @param parametro recibe valores de parametros
 	 * @return regresa el valor del parametro
 	 */
-	public List<Parametro> consultaParametro(Parametro parametro) {
+	public List<ParametroDTO> consultaParametro(ParametroDTO parametro) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(parametro);
 		//Mandamos a log el objeto de entrada
@@ -25,7 +25,7 @@ public class ParametroNegocio {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<Parametro> listaParametro = null;
+		List<ParametroDTO> listaParametro = null;
 	    try {
 	    	//validaciones
 	    	if (parametro.getParametro() == null || parametro.getParametro().isEmpty()) {

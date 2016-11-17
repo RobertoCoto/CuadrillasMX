@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.Empleado;
+import com.fyg.cuadrillas.dto.EmpleadoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 
 public class BajaEmpleadoTest {
@@ -16,7 +16,7 @@ public class BajaEmpleadoTest {
 	/**
 	 * Datos del empleado
 	 */
-	private Empleado bajaEmpleado;
+	private EmpleadoDTO bajaEmpleado;
 	/**
 	  * Guid unico generado
 	  */
@@ -28,7 +28,7 @@ public class BajaEmpleadoTest {
 	@Before
 	public void setUp() throws Exception {
 		dataEmpleado = new EmpleadoNegocio();
-		bajaEmpleado = new Empleado();
+		bajaEmpleado = new EmpleadoDTO();
 		bajaEmpleado.setIdEmpleado(1);
 		bajaEmpleado.setCodigoCausaSalida("CRAP");
 		bajaEmpleado.setCodigoTipoSalida("CRMA");
