@@ -6,13 +6,13 @@
 
 <typeAliases>
 <typeAlias alias="Prueba" type="com.fyg.cuadrillas.dto.PruebaDTO"/>
-<typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.Perfil"/>
-<typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.Parametro"/>
-<typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.Usuario"/>
-<typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.Catalogo"/>
-<typeAlias alias="herramientaOV" type="com.fyg.cuadrillas.dto.Herramienta"/>
-<typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.Empleado"/>
-<typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.EmpleadoDocumento"/>
+<typeAlias alias="Perfil" type="com.fyg.cuadrillas.dto.PerfilDTO"/>
+<typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.ParametroDTO"/>
+<typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.UsuarioDTO"/>
+<typeAlias alias="CatalogoOV" type="com.fyg.cuadrillas.dto.CatalogoDTO"/>
+<typeAlias alias="herramientaOV" type="com.fyg.cuadrillas.dto.HerramientaDTO"/>
+<typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.EmpleadoDTO"/>
+<typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO"/>
 </typeAliases>
 
 
