@@ -7,15 +7,27 @@
 SELECT usuario,contrasena,mensaje FROM prueba WHERE id = #{idPrueba}
 </select>
 
+
 <!-- Consulta Catalogo-->
-<select id="consultaCatalogo" parameterType="CatalogoOV" resultType="CatalogoOV">
+<select id="consultaCatalogo" parameterType="CatalogoOV"  resultMap="catalogoOV">
 SELECT catalogo.codigo AS codigo, catalogo.descripcion AS descripcion
 FROM catalogo
 INNER JOIN tipo_catalogo ON catalogo.tipo_catalogo = tipo_catalogo.tipo_catalogo
 WHERE tipo_catalogo.orden = #{orden} AND catalogo.estatus =#{estatus}
 </select>
 
-<select id="consultaListaCatalogo" parameterType="catalogoOV" resultType="catalogoOV">
+<!-- mapeo catalogo-->
+<resultMap type="catalogoOV" id="catalogoConsulta" >
+<result column="codigo" property="codigo"/>
+<result column="descripcion" property="descripcion"/>
+</resultMap>
+
+<select id="consultaListaCatalogo" parameterType="catalogoOV" resultMap="catalogoOV">
 SELECT estatus FROM catalogo WHERE codigo = #{codigo}
 </select>
+
+<!-- Mapeo catalogoConsulta-->
+<resultMap type="catalogoOV" id="catalogoLista">
+<result column="estatus" property="estatus"/>
+</resultMap>
 	</mapper>
