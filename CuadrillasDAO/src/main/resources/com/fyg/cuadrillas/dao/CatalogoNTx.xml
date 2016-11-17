@@ -11,13 +11,25 @@
 </resultMap>
 
 <!-- Consulta Catalogo-->
-<select id="consultaCatalogo" parameterType="Catalogo"  resultMap="catalogo">
+<select id="consultaCatalogoAsc" parameterType="Catalogo"  resultMap="catalogo">
 SELECT 
 	codigo AS codigo, 
 	descripcion AS descripcion
 FROM catalogo
 WHERE tipo_catalogo = #{tipoCatalogo} 
 AND estatus = 'A'
+ORDER BY descripcion ASC
+</select>
+
+<!-- Consulta Catalogo-->
+<select id="consultaCatalogoDesc" parameterType="Catalogo"  resultMap="catalogo">
+SELECT 
+	codigo AS codigo, 
+	descripcion AS descripcion
+FROM catalogo
+WHERE tipo_catalogo = #{tipoCatalogo} 
+AND estatus = 'A'
+ORDER BY descripcion DESC
 </select>
 
 

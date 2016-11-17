@@ -3,7 +3,7 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.UsuarioNTx">
 
-<resultMap Type="Usuario" id="usuario">
+<resultMap type="Usuario" id="usuario">
 <result column="usuario" property="usuario"/>
 <result column="contrasena" property="contrasena"/>
 <result column="id_perfil" property="idPerfil"/>

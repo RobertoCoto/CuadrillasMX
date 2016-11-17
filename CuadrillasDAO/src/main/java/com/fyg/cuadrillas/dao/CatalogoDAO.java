@@ -31,7 +31,12 @@ public class CatalogoDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			System.out.println("Consultando");
 			//Se hace una consulta a la tabla contacto
-			listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogo", catalogo);
+			if ( catalogo.getOrden().equals("A")) {
+				listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogoAsc", catalogo);
+			} else {
+				listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogoDesc", catalogo);
+			}
+			
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());
