@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoRespuesta;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;
@@ -47,7 +48,7 @@ public class ConsultaCatalogo extends HttpServlet {
 			//Se obtiene parametro idDireccion
 			String tipoCatalogo = request.getParameter("tipoCatalogo");
 			String orden = request.getParameter("orden");
-			System.out.println(tipoCatalogo);
+			
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
