@@ -46,7 +46,7 @@ public final class FabricaConexiones {
 		SqlSessionFactoryBuilder 	builderTx;
 		SqlSessionFactory 			sqlMapperTx = null;
 		try {
-			readerTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/resources/SqlConfigTx.xml" );
+			readerTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/SqlConfigTx.xml" );
 			builderTx 		= new SqlSessionFactoryBuilder( );
 			sqlMapperTx 	= builderTx.build( readerTx );
 		} catch ( Exception e ) {
@@ -67,10 +67,12 @@ public final class FabricaConexiones {
 		SqlSessionFactoryBuilder 	builderNTx;
 		SqlSessionFactory 			sqlMapperNTx = null;
 		try {
-			readerNTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/resources/SqlConfigNTx.xml" );
+			readerNTx 		= Resources.getResourceAsReader( "com/fyg/cuadrillas/dao/SqlConfigNTx.xml" );
 			builderNTx 		= new SqlSessionFactoryBuilder( );
 			sqlMapperNTx 	= builderNTx.build( readerNTx );
 		} catch ( Exception e ) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			LogHandler.error(null, FabricaConexiones.class, "Existio un error en la Fabrica de Conexiones NTx", e);
  		}
 		fACTORY_NTX = sqlMapperNTx;
@@ -120,6 +122,7 @@ public final class FabricaConexiones {
 			}
 		} catch (Exception e) {
 			LogHandler.error(null, FabricaConexiones.class, "Exsitio un erorr al obtenerSesionNTx", e);
+			System.out.println(e.getMessage());
 			throw new SQLException( "Sin conexion NTX a la base de datos" );
 		}
 		return regreso;

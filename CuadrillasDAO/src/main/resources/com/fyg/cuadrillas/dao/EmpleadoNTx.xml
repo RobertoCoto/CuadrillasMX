@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fyg.cuadrillas.resources.EmpleadoNTx">
+
+<resultMap type="Empleado" id="empleado">
+<result column="nombre" property="nombre"/>
+<result column="apellidoPat" property="apellidoPat"/>
+<result column="apellidoMat" property="apellidoMat"/>
+<result column="sexo" property="sexo"/>
+<result column="curp" property="curp"/>
+<result column="rfc" property="rfc"/>
+<result column="rfcCalculado" property="rfcCalculado"/>
+<result column="estatus" property="estatus"/>
+<result column="nss" property="nss"/>
+<result column="fechaNacimiento" property="fechaNacimiento"/>
+<result column="telefono" property="telefono"/>
+<result column="observaciones" property="observaciones"/>
+<result column="fechaIngreso" property="fechaIngreso"/>
+<result column="codigoVialidad" property="codigoVialidad"/>
+<result column="codigoArea" property="codigoArea"/>
+<result column="codigoPuesto" property="codigoPuesto"/>
+<result column="sueldo" property="sueldo"/>
+</resultMap>  
+	
+<select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
+SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
+codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado 
+<where>
+<if test="id_empleado !=null">
+ id_empleado = #{idEmpleado}
+ </if>
+ <if test="nombre != null">
+ AND nombre like #{nombre}
+  </if>
+ <if test="apellido_pat !=null">
+ AND apellido_pat like #{apellidoPat}
+ </if>
+ <if test="apellido_mat !=null">
+ AND apellido_mat like #{apellidoMat}
+ </if>
+ <if test="rfc !=null">
+ AND rfc like #{rfc}
+ </if>
+</where>
+</select> 
+ 
+
+</mapper>

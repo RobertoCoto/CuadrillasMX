@@ -25,10 +25,10 @@ public class LogHandler extends Logger {
 
 	/** The log . */
 	private static Logger logger;
-	  /**
-	   * fabrica de logger
-	   */
-	  private static final  LoggerFactoryHandler MYFACTORY = new LoggerFactoryHandler();
+  /**
+   * fabrica de logger
+   */
+  private static final  LoggerFactoryHandler MYFACTORY = new LoggerFactoryHandler();
 	  /**
 	     Just calls the parent constuctor.
 	   * @param name .
@@ -41,11 +41,9 @@ public class LogHandler extends Logger {
 	     This method overrides {@link Logger#getInstance} by supplying
 	     its own factory type as a parameter.
 	  * @param name .
-	  * @return Logger
+	  * @return Logger	
 	  */
-	  public
-	  static
-	  Category getInstance(final String name) {
+	  public  static  Category getInstance(final String name) {
 	    return Logger.getLogger(name, MYFACTORY);
 	  }
 
@@ -55,9 +53,7 @@ public class LogHandler extends Logger {
 	  * @param name .
 	  * @return Logger
 	  */
-	  public
-	  static
-	  Logger getLogger(final String name) {
+	  public  static  Logger getLogger(final String name) {
 	    return Logger.getLogger(name, MYFACTORY);
 	  }
 
@@ -110,7 +106,8 @@ public class LogHandler extends Logger {
 		 * @param msg the msg
 		 */
 		public static void debug(final String uid, final Class<?> clase, final String msg) {
-			logger = Logger.getLogger(clase);
+			
+			logger = Logger.getLogger(clase);			
 			logger.debug( formatMsg( uid, clase, msg  ) );
 		}
 
@@ -149,6 +146,7 @@ public class LogHandler extends Logger {
 		public static void error(final String uid, final Class<?> clase, final String msg, Exception exception) {
 			logger = Logger.getLogger(clase);
 			logger.error( formatMsg(uid, clase, msg) +  SEPARADOR + formatException(exception));
+			System.out.println("ERROR" + formatMsg(uid, clase, msg) +  SEPARADOR + formatException(exception));
 		}
 
 		/**

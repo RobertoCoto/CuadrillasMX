@@ -27,11 +27,14 @@ public class CatalogoDAO {
 		List<CatalogoDTO> listaCatalogos = null;
 		try {
 			//Abrimos conexion Transaccional
+			System.out.println("Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			System.out.println("Consultando");
 			//Se hace una consulta a la tabla contacto
 			listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogo", catalogo);
 		}
 		catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			throw new Exception(ex.getMessage());
 		}
 		finally {

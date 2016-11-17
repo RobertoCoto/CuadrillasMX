@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.resources.CatalogoNTx">
+
+
+<!-- mapeo catalogo-->
+<resultMap type="Catalogo" id="catalogo" >
+<result column="codigo" property="codigo"/>
+<result column="descripcion" property="descripcion"/>
+<result column="tipo_catalogo" property="tipoCatalogo"/>
+</resultMap>
+
+<!-- Consulta Catalogo-->
+<select id="consultaCatalogo" parameterType="Catalogo"  resultMap="catalogo">
+SELECT 
+	codigo AS codigo, 
+	descripcion AS descripcion
+FROM catalogo
+WHERE tipo_catalogo = #{tipoCatalogo} 
+AND estatus = 'A'
+</select>
+
+
+<select id="consultaListaCatalogo" parameterType="Catalogo" resultMap="catalogo">
+SELECT estatus FROM catalogo WHERE codigo = #{codigo}
+</select>
+
+</mapper>
