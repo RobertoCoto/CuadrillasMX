@@ -3,14 +3,6 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.HerramientaTx">
 
-<resultMap type="Herramienta" id="herramienta">
-<result column="nombre" property="nombre"/>
-<result column="descripcion" property="descripcion"/>
-<result column="codigoTipoCombustible" property="codigoTipoCombustible"/>
-<result column="codigoTipoArticulo" property="codigoTipoArticulo"/>
-<result column="codigoEstado" property="codigoEstado"/>
-</resultMap>	
-
 <!--- ALTA EN LA TABLA HERRAMIENTA-->
 <insert id="registraHerramientas" parameterType="herramienta">
 INSERT INTO herramienta (id_herramienta,nombre,descripcion,fecha_ingresa,codigo_tipo_combustible,codigo_tipo_articulo,codigo_estado,mantenimiento,fecha_alta,fecha_ult_mod,estatus)

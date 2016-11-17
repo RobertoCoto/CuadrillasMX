@@ -3,7 +3,7 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.PerfilTx">
 <!--- INSERTA EN LA TABLA PERFIL-->
-<insert id="insertaPerfil" parameterType="perfil">
+<insert id="insertaPerfil" parameterType="Perfil">
 INSERT INTO perfil(nombre,descripcion,estatus) VALUES(#{nombre},#{descripcion},#{estatus})
 </insert>
 </mapper>

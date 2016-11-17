@@ -16,7 +16,7 @@ SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 </select>
 
 <!-- Consulta Usuario-->
-<select id="loginUsuario" parameterType="usuario" resultType="usuario">
+<select id="loginUsuario" parameterType="Usuario" resultType="usuario">
 SELECT usuario.usuario AS usuario,usuario.contrasena AS contrasena, usuario.id_perfil AS perfil,
 perfil.nombre AS perfilNombre, perfil_menu.id_menu AS perfilMenu,perfil_menu.orden AS perfilOrden,
 menu.descripcion AS menuDescripcion, menu.url AS menuUrl, menu.menu AS menu, 
