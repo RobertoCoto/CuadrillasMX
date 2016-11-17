@@ -40,9 +40,7 @@ public class CatalogoNegocio {
 	    	}
 	    	
 	    	listaCatalogo = new CatalogoDAO().consultaCatalogo(uid, catalogoOV);
-	    	for (int i = 0; i < listaCatalogo.size(); i++) {
-	    		 System.out.println(listaCatalogo.get(i).getCodigo() + listaCatalogo.get(i).getDescripcion());
-	    	}
+	    	respuesta.setCatalogo(listaCatalogo);	    	
 	    } catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);			
 			respuesta.getHeader().setEstatus(false);
