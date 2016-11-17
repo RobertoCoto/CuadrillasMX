@@ -8,7 +8,8 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
-import com.fyg.cuadrillas.dto.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
 import com.fyg.cuadrillas.comun.RFCUtil;
 
 public class EmpleadoNegocio {
@@ -192,28 +193,40 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleados
 	 * @return regresa lista de empleado
 	 */
-	public List<EmpleadoDTO> consultaEmpleado(EmpleadoDTO empleado) {
+	public EmpleadoRespuesta consultaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Entrada: " + empleado);
 		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
+		EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		
 		List<EmpleadoDTO> listaEmpleado = null;
+		
 	    try {
+	    	if(empleado.getIdEmpleado() == null)
+	    	{
+	    		System.out.println("ERROR");
+	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+	    	}
 	    	 listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
-	    	 System.out.println(listaEmpleado);
-	    } catch (Exception ex) {
-	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
+	    	 respuesta.setEmpleado(listaEmpleado);
+	    }catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 	    }
 	    LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Salida: " + respuesta);
-		return listaEmpleado;
+	    return respuesta;
 	}
 }

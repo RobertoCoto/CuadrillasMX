@@ -23,8 +23,10 @@
 </resultMap>  
 	
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
-SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
-codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado 
+SELECT 
+	nombre ,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
+    codigo_area,codigo_puesto,sueldo,telefono,curp 
+FROM empleado 
 <where>
 <if test="id_empleado !=null">
  id_empleado = #{idEmpleado}

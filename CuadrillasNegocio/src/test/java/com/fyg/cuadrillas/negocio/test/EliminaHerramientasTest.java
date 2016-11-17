@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.HerramientaDTO;
+import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
 
 public class EliminaHerramientasTest {
 	/**
@@ -41,7 +41,7 @@ public class EliminaHerramientasTest {
 	public void testEliminaHerramientas() throws Exception {
 		String guid = uid.generateGUID(eliminaHerramienta);
 		try {
-			eliminaHerramienta.consultarHerramientas(datoHerramientas);
+			eliminaHerramienta.consultarHerramienta(datoHerramientas);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

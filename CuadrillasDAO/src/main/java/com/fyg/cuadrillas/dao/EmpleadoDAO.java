@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.EmpleadoDTO;
-import com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 
 public class EmpleadoDAO {
 	/**
@@ -65,7 +65,8 @@ public class EmpleadoDAO {
 	  * @return regresa la respuesta
 	  * @throws Exception si surge alguna excepcion
 	  */
-   public ArrayList<EmpleadoDocumentoDTO> registraDocumentos(String uid,ArrayList<EmpleadoDocumentoDTO> empleadoDocumentos, SqlSession session) throws Exception {
+   public ArrayList<EmpleadoDocumentoDTO> registraDocumentos(String uid,ArrayList<EmpleadoDocumentoDTO> empleadoDocumentos, SqlSession session) 
+		   throws Exception {
 	   SqlSession sessionTx = null;
 
 		//Logica para saber si es atomica la transaccion
@@ -147,7 +148,7 @@ public class EmpleadoDAO {
     * @return retorna lista Empleado
     */
    @SuppressWarnings("unchecked")
-public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado) {
+public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado)throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -156,14 +157,15 @@ public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado) {
 		List<EmpleadoDTO> listaEmpleado = null;
 		try {
 			//Abrimos conexion Transaccional
+			System.out.println("Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla contacto
+			System.out.println("Consultando");
+			//Se hace una consulta a la tabla
 			listaEmpleado = sessionNTx.selectList("EmpleadoDAO.consultaEmpleado", empleado);
 		}
 		catch (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-           respuesta.setEstatus(false);
-   		respuesta.setMensajeFuncional(ex.getMessage());
+			System.out.println(ex.getMessage());
+			throw new Exception(ex.getMessage());
 		}
 		finally {
 			FabricaConexiones.close(sessionNTx);

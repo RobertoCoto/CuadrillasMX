@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.HerramientaDTO;
+import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
 public class AltaHerramientaTest {
 	/**
 	* objeto para enviar al metodo consulta de catalogo
@@ -53,7 +53,7 @@ public class AltaHerramientaTest {
 	public void test() throws Exception {
 		String guid = uid.generateGUID(altaHerramientas);
 		try {
-			altaHerramientas.registraHerramientas(datoHerramientas);
+			altaHerramientas.registrarHerramienta(datoHerramientas);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

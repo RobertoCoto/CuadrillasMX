@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Se agregan clases a usar
  */
-import com.fyg.cuadrillas.dto.EmpleadoDTO;
+
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 /**
  * Servlet implementation class HolaMundo

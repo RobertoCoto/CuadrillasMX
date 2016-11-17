@@ -52,10 +52,10 @@ public class CatalogoDAO {
 	/**
 	  * Metodo para la baja de un catalogo
 	  * @param uid unico de registro
-	  * @param catalogoOV recibe los valores del catalogo
+	  * @param catalogo recibe los valores del catalogo
 	  * @return regresa el resultado de la baja
 	  */
-	 public EncabezadoRespuesta eliminarCatalogo(String uid, CatalogoDTO catalogoOV) {
+	 public EncabezadoRespuesta eliminarCatalogo(String uid, CatalogoDTO catalogo) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -64,7 +64,7 @@ public class CatalogoDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("CatalogoDAO.inactivaCatalogo", catalogoOV);
+		        int registros = sessionTx.update("CatalogoDAO.inactivaCatalogo", catalogo);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al bajar el catalogo.");
 				}
@@ -91,7 +91,7 @@ public class CatalogoDAO {
 	  * @param catalogoOV recibe valores de catalogo
 	  * @return regresa si el registro fue correcto
 	  */
-	 public EncabezadoRespuesta registraCatalogo(String uid, CatalogoDTO catalogoOV) {
+	 public EncabezadoRespuesta registraCatalogo(String uid, CatalogoDTO catalogo) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -100,7 +100,7 @@ public class CatalogoDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("CatalogoDAO.registraCatalogo", catalogoOV);
+		        int registros = sessionTx.update("CatalogoDAO.registraCatalogo", catalogo);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar el catalogo.");
 				}

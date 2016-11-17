@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.EmpleadoDTO;
-import com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 
 public class ModificaEmpleadoTest {

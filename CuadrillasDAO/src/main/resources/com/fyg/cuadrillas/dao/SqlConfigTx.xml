@@ -10,8 +10,8 @@
 <typeAlias alias="Parametro" type="com.fyg.cuadrillas.dto.ParametroDTO"/>
 <typeAlias alias="Usuario" type="com.fyg.cuadrillas.dto.UsuarioDTO"/>
 <typeAlias alias="Catalogo" type="com.fyg.cuadrillas.dto.catalogo.CatalogoDTO"/>
-<typeAlias alias="Herramienta" type="com.fyg.cuadrillas.dto.HerramientaDTO"/>
-<typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.EmpleadoDTO"/>
+<typeAlias alias="Herramienta" type="com.fyg.cuadrillas.dto.herramienta.HerramientaDTO"/>
+<typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDTO"/>
 <typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.EmpleadoDocumentoDTO"/>
 </typeAliases>
 
