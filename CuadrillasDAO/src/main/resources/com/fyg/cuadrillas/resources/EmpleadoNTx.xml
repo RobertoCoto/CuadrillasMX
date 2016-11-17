@@ -3,8 +3,8 @@
 <mapper
 	namespace="com.fyg.cuadrillas.resources.EmpleadoNTx">
 	
-<select id="consultaEmpleado" parameterType="empleado" resultType="empleado">
-SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,estatus,nss,fecha_nacimiento,telefono,observaciones,fecha_ingreso,codigo_vialidad,
+<select id="consultaEmpleado" parameterType="empleado" resultMap="empleado">
+SELECT nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
 codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado 
 <where>
 <if test="id_empleado !=null">
@@ -24,5 +24,24 @@ codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado
  </if>
 </where>
 </select> 
-   
+ 
+<resultMap type="empleado" id="empleadoConsulta">
+<result column="nombre" property="nombre"/>
+<result column="apellidoPat" property="apellidoPat"/>
+<result column="apellidoMat" property="apellidoMat"/>
+<result column="sexo" property="sexo"/>
+<result column="curp" property="curp"/>
+<result column="rfc" property="rfc"/>
+<result column="rfcCalculado" property="rfcCalculado"/>
+<result column="estatus" property="estatus"/>
+<result column="nss" property="nss"/>
+<result column="fechaNacimiento" property="fechaNacimiento"/>
+<result column="telefono" property="telefono"/>
+<result column="observaciones" property="observaciones"/>
+<result column="fechaIngreso" property="fechaIngreso"/>
+<result column="codigoVialidad" property="codigoVialidad"/>
+<result column="codigoArea" property="codigoArea"/>
+<result column="codigoPuesto" property="codigoPuesto"/>
+<result column="sueldo" property="sueldo"/>
+</resultMap>  
 </mapper>
