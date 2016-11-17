@@ -32,9 +32,4 @@ AND estatus = 'A'
 ORDER BY descripcion DESC
 </select>
 
-
-<select id="consultaListaCatalogo" parameterType="Catalogo" resultMap="catalogo">
-SELECT estatus FROM catalogo WHERE codigo = #{codigo}
-</select>
-
 </mapper>

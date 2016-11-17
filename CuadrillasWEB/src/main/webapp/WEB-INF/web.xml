@@ -9,8 +9,18 @@
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+  <servlet>
+  	<servlet-name>ConsultaCatalogo</servlet-name>
+  	<display-name>ConsultaCatalogo</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.catalogos.ConsultaCatalogo</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaCatalogo</servlet-name>
+		<url-pattern>/ConsultaCatalogo</url-pattern>
 	</servlet-mapping>
 </web-app>

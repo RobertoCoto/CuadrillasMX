@@ -57,34 +57,7 @@ public class CatalogoNegocio {
 	    LogHandler.debug(uid, this.getClass(), "consultarCatalogo - Datos Salida: " + respuesta);
 		return respuesta;
 	}
-	/**
-	 * Metodo para buscar todos los catalogos
-	 * @param catalogoOV recibe valores de catalogo
-	 * @return regresa un catalogo
-	 */
-	public List<CatalogoDTO> consultarListaCatalogo(CatalogoDTO catalogoOV) {
-		//Primero generamos el identificador unico de la transaccion
-		String uid = GUIDGenerator.generateGUID(catalogoOV);
-		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Entrada: " + catalogoOV);
-		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<CatalogoDTO> listaCatalogo = null;
-	    try {
-	    	 listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
-	    } catch (Exception ex) {
-	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
-	    }
-	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
-		return listaCatalogo;
-	}
+
 	
 	/**
 	 * Metodo que elimina un catalogo
@@ -101,7 +74,7 @@ public class CatalogoNegocio {
 		List<CatalogoDTO> listaCatalogo = null;
 		try {
 			//Validaciones Negocio
-			listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
+			//listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
 			 for (int i = 0; i < listaCatalogo.size(); i++) {
 				 if (listaCatalogo.get(i).getEstatus().equals("A")) {
 	            		//Mandamos a la parte del dao

@@ -48,36 +48,6 @@ public class CatalogoDAO {
 		return listaCatalogos;
 	}
 
-	/**
-	 * Metodo para consultar los catalogos
-	 * @param uid unico de registro
-	 * @param catalogoOV valores de catalogos
-	 * @return regresa una lista de catalogos
-	 */
-	@SuppressWarnings("unchecked")
-	public List<CatalogoDTO> consultaListaCatalogo(String uid, CatalogoDTO catalogoOV) {
-		SqlSession sessionNTx = null;
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<CatalogoDTO> listaCatalogos = null;
-		try {
-			//Abrimos conexion Transaccional
-			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla contacto
-			listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaListaCatalogo", catalogoOV);
-		}
-		catch (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-            respuesta.setEstatus(false);
-    		respuesta.setMensajeFuncional(ex.getMessage());
-		}
-		finally {
-			FabricaConexiones.close(sessionNTx);
-		}
-		return listaCatalogos;
-	}
 	
 	/**
 	  * Metodo para la baja de un catalogo
