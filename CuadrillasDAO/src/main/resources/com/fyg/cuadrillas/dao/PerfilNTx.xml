@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.fyg.cuadrillas.resources.PerfilNTx">
+	namespace="com.fyg.cuadrillas.dao.PerfilNTx">
+<resultMap Type="Perfil" id="perfil">
+<result column="id_perfil" property="idPerfil"/>
+</resultMap>
+
 	<!-- Consulta Perfil-->
-<select id="consultaPerfil" parameterType="perfil" resultType="perfil">
+<select id="consultaPerfil" parameterType="Perfil" resultMap="perfil">
 SELECT id_perfil FROM perfil WHERE id_perfil = #{idPerfil}
 </select>
 </mapper>

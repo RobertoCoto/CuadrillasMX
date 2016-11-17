@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.fyg.cuadrillas.resources.UsuarioNTx">
+	namespace="com.fyg.cuadrillas.dao.UsuarioNTx">
+
+<resultMap Type="Usuario" id="usuario">
+<result column="usuario" property="usuario"/>
+<result column="contrasena" property="contrasena"/>
+<result column="id_perfil" property="idPerfil"/>
+<result column="estatus"  property="estatus"/>
+</resultMap>
+
 <!-- Consulta Usuario-->
-<select id="consultaUsuario" parameterType="usuario" resultType="usuario">
+<select id="consultaUsuario" parameterType="Usuario" resultMap="usuario">
 SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 </select>
 

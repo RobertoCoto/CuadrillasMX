@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.fyg.cuadrillas.resources.MenuNTx">
+	namespace="com.fyg.cuadrillas.dao.MenuNTx">
+	
+<resultMap type="Menu" id="menu">
+<result column="menu" property="menu"/>
+<result column="descripcion" property="descripcion"/>
+<result column="url" property="url"/>
+</resultMap>
 
-<select id="consultaMenuHijo" parameterType="menu" resultType="menu">
+<select id="consultaMenuHijo" parameterType="Menu" resultMap="menu">
 SELECT menu,descripcion,url FROM menu WHERE id_padre = #{idPadre}
 </select>
-
 </mapper>

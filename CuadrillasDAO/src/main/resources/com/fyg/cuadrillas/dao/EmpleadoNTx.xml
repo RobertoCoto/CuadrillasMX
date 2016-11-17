@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fyg.cuadrillas.resources.EmpleadoNTx">
+<mapper namespace="com.fyg.cuadrillas.dao.EmpleadoNTx">
 
 <resultMap type="Empleado" id="empleado">
 <result column="nombre" property="nombre"/>
-<result column="apellidoPat" property="apellidoPat"/>
-<result column="apellidoMat" property="apellidoMat"/>
+<result column="apellido_pat" property="apellidoPat"/>
+<result column="apellido_mat" property="apellidoMat"/>
 <result column="sexo" property="sexo"/>
 <result column="curp" property="curp"/>
 <result column="rfc" property="rfc"/>
-<result column="rfcCalculado" property="rfcCalculado"/>
+<result column="rfc_calculado" property="rfcCalculado"/>
 <result column="estatus" property="estatus"/>
 <result column="nss" property="nss"/>
-<result column="fechaNacimiento" property="fechaNacimiento"/>
+<result column="fecha_nacimiento" property="fechaNacimiento"/>
 <result column="telefono" property="telefono"/>
 <result column="observaciones" property="observaciones"/>
-<result column="fechaIngreso" property="fechaIngreso"/>
-<result column="codigoVialidad" property="codigoVialidad"/>
-<result column="codigoArea" property="codigoArea"/>
-<result column="codigoPuesto" property="codigoPuesto"/>
+<result column="fecha_ingreso" property="fechaIngreso"/>
+<result column="codigo_vialidad" property="codigoVialidad"/>
+<result column="codigo_area" property="codigoArea"/>
+<result column="codigo_puesto" property="codigoPuesto"/>
 <result column="sueldo" property="sueldo"/>
 </resultMap>  
 	
@@ -43,6 +43,4 @@ codigo_area,codigo_puesto,sueldo,telefono,curp FROM empleado
  </if>
 </where>
 </select> 
- 
-
 </mapper>

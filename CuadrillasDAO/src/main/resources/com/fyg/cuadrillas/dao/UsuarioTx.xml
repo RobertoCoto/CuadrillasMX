@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.fyg.cuadrillas.resources.UsuarioTx">
+	namespace="com.fyg.cuadrillas.dao.UsuarioTx">
 <!--- INSERTA EN LA TABLA USUARIO-->
 <insert id="insertaUsuario" parameterType="usuario">
 INSERT INTO usuarios(usuario,id_empleado,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso,fecha_alta,fecha_ult_mod,estatus)

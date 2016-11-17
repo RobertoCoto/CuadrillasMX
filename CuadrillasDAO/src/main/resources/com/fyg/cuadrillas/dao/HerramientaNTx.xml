@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper	namespace="com.fyg.cuadrillas.resources.HerramientaNTx">
+<mapper	namespace="com.fyg.cuadrillas.dao.HerramientaNTx">
 
 <resultMap type="Herramienta" id="herramienta">
 <result column="nombre" property="nombre"/>
 <result column="descripcion" property="descripcion"/>
-<result column="codigoTipoCombustible" property="codigoTipoCombustible"/>
-<result column="codigoTipoArticulo" property="codigoTipoArticulo"/>
-<result column="codigoEstado" property="codigoEstado"/>
+<result column="codigo_tipo_combustible" property="codigoTipoCombustible"/>
+<result column="codigo_tipo_articulo" property="codigoTipoArticulo"/>
+<result column="codigo_estado" property="codigoEstado"/>
+<result column="estatus" property="estatus"/>
 </resultMap>	
 	
 <!-- Consulta Herramientas-->
@@ -21,11 +22,8 @@ INNER JOIN tipo_catalogo ON herramienta.codigo_estado = tipo_catalogo.tipo_catal
 WHERE tipo_catalogo.orden = #{orden} AND herramienta.estatus = #{estatus}
 </select>
 
-
-
 <select id="consultaListaHerramientas" parameterType="Herramienta" resultMap="herramienta">
 SELECT estatus FROM herramienta WHERE id_herramienta = #{idHerramienta}
 </select>
-
 
 </mapper>
