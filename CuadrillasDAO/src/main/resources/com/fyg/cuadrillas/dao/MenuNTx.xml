@@ -4,9 +4,9 @@
 	namespace="com.fyg.cuadrillas.dao.MenuNTx">
 	
 <resultMap type="Menu" id="menu">
-<result column="menu" property="menu"/>
-<result column="descripcion" property="descripcion"/>
-<result column="url" property="url"/>
+	<result column="menu" property="menu"/>
+	<result column="descripcion" property="descripcion"/>
+	<result column="url" property="url"/>
 </resultMap>
 
 <select id="consultaMenuHijo" parameterType="Menu" resultMap="menu">

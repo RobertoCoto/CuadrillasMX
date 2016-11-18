@@ -41,6 +41,10 @@ public class LoginUsuarioTest {
 	@Test
 	public void testLoginUsuario()  throws Exception{
 		String guid = uid.generateGUID(loginUser);
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
 		try {
 			loginUser.loginUsuario(datosUsuario);
 		}
