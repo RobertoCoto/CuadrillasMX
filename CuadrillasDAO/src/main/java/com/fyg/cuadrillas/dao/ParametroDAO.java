@@ -14,29 +14,29 @@ public class ParametroDAO {
 	 * @param uid unico
 	 * @param parametro recibe el valor de parametro
 	 * @return regresa el parametro
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ParametroDTO> consultaParametro(String uid, ParametroDTO parametro) {
-		SqlSession sessionNTx = null;
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<ParametroDTO> listaParametros = null;
-		try {
+	public String consultaParametro(String uid, String  parametro) throws Exception {
+		SqlSession sessionNTx = null;		
+		String valor = null;
+		try {			
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla parametros
-			listaParametros = sessionNTx.selectList("ConsultasCuadrillasDAO.consultaParametro", parametro);
+			valor = (String) sessionNTx.selectOne("ConsultasCuadrillasDAO.consultaParametro", parametro);
+			
+			if (valor == null || valor.trim().isEmpty()) {
+				throw new Exception("No se encontro el valor en parametros: " + parametro);
+			}
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-            respuesta.setEstatus(false);
-    		respuesta.setMensajeFuncional(ex.getMessage());
+            throw new Exception();
 		}
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
-		return listaParametros;
+		return valor;
 	}
 }

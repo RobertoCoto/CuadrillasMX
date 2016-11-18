@@ -16,7 +16,7 @@ public class PruebaParametroTest {
 	/**
 	 * Objeto para recibir valores del parametro
 	 */
-	private ParametroDTO buscaParametro;
+	private String buscaParametro;
 	 /**
      * Guid unico generado
      */
@@ -27,9 +27,8 @@ public class PruebaParametroTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-    datoParametro = new ParametroNegocio();
-	buscaParametro = new ParametroDTO();
-	buscaParametro.setParametro("usuario.edad.ano.minimo");
+		datoParametro = new ParametroNegocio(); 
+		buscaParametro = "usuario.edad.ano.minimo";
 	}
 	/**
 	 * Metodo test que le envia datos al parametro
@@ -38,12 +37,18 @@ public class PruebaParametroTest {
 	@SuppressWarnings("static-access")
 	@Test
 	public void testConsultaNegocio()throws Exception {
+		
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
+        
 		String guid = uid.generateGUID(datoParametro);
 		try {
-			datoParametro.consultaParametro(buscaParametro);
+			datoParametro.consultaParametro(guid, buscaParametro);
 		}
 		catch (Exception ex) {
-			LogHandler.debug(guid, this.getClass(), "Error");
+			LogHandler.debug(guid, this.getClass(), ex.getMessage());
 		}
 	}
 }

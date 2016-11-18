@@ -13,6 +13,7 @@
 <typeAlias alias="Herramienta" type="com.fyg.cuadrillas.dto.herramienta.HerramientaDTO"/>
 <typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDTO"/>
 <typeAlias alias="Menu" type="com.fyg.cuadrillas.dto.MenuDTO"/>
+<typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO"/>
 </typeAliases>
 
 	<environments default="development">
