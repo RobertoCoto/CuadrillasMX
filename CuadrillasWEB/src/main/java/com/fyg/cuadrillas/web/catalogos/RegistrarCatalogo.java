@@ -47,13 +47,13 @@ public class RegistrarCatalogo extends HttpServlet {
 			//Se obtiene parametro idDireccion
 			String tipoCatalogo = request.getParameter("tipoCatalogo");
 			String codigo = request.getParameter("codigo");
-			String descripcion = request.getParameter("descripcion");			
-			
+			String descripcion = request.getParameter("descripcion");
+
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080");
-	        
+
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();
 
