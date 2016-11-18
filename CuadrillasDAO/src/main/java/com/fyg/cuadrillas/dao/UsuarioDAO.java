@@ -17,7 +17,7 @@ public class UsuarioDAO {
 	 * @return regresa resultado de usuarios
 	 */
 	@SuppressWarnings("unchecked")
-	public List<UsuarioDTO> consultaUsuario(String uid, UsuarioDTO usuario) {
+	public List<UsuarioDTO> consultaUsuario(String uid, UsuarioDTO usuario)throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -26,14 +26,16 @@ public class UsuarioDAO {
 		List<UsuarioDTO> listaUsuario = null;
 		try {
 			//Abrimos conexion Transaccional
+			System.out.println("Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
+			System.out.println("Consultando");
 			listaUsuario = sessionNTx.selectList("UsuarioDAO.consultaUsuario", usuario);
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-            respuesta.setEstatus(false);
-    		respuesta.setMensajeFuncional(ex.getMessage());
+			System.out.println(ex.getMessage());
+			throw new Exception(ex.getMessage());
 		}
 		finally {
 			FabricaConexiones.close(sessionNTx);
@@ -119,7 +121,7 @@ public class UsuarioDAO {
 	 * @return regresa lista usuario
 	 */
 	 @SuppressWarnings("unchecked")
-	public List<UsuarioDTO> loginUsuario(String uid, UsuarioDTO usuario) {
+	public List<UsuarioDTO> loginUsuario(String uid, UsuarioDTO usuario)throws Exception {
 			SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -128,14 +130,16 @@ public class UsuarioDAO {
 			List<UsuarioDTO> loginUsuario = null;
 			try {
 				//Abrimos conexion Transaccional
+				System.out.println("Abriendo");
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				//Se hace una consulta a la tabla contacto
+				System.out.println("Consultando");
 				loginUsuario = sessionNTx.selectList("UsuarioDAO.loginUsuario", usuario);
 			}
 			catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-	            respuesta.setEstatus(false);
-	    		respuesta.setMensajeFuncional(ex.getMessage());
+				System.out.println(ex.getMessage());
+				throw new Exception(ex.getMessage());
 			}
 			finally {
 				FabricaConexiones.close(sessionNTx);

@@ -5,6 +5,10 @@ import java.util.List;
 
 
 
+
+
+
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -13,6 +17,7 @@ import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
 import com.fyg.cuadrillas.dto.PerfilDTO;
 import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 
 public class UsuariosNegocio {
 	/**
@@ -119,46 +124,47 @@ public class UsuariosNegocio {
 	 * @param usuario recibe valores del usuario
 	 * @return retorna los datos del usuario
 	 */
-		public List<UsuarioDTO> loginUsuario(UsuarioDTO usuario) {
+		public UsuarioRespuesta loginUsuario(UsuarioDTO usuario) {
 			//Primero generamos el identificador unico de la transaccion
 			String uid = GUIDGenerator.generateGUID(usuario);
 			//Mandamos a log el objeto de entrada
 			LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Entrada: " + usuario);
 			//Variable de resultado
-			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-			respuesta.setUid(uid);
-			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("Consulta correcta.");
+			UsuarioRespuesta respuesta = new UsuarioRespuesta();
+			respuesta.setHeader( new EncabezadoRespuesta());
+			respuesta.getHeader().setUid(uid);
+			respuesta.getHeader().setEstatus(true);
+			respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 			List<UsuarioDTO> loginUsuario = null;
 		    try {
-		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
 		    	//validaciones
 		    	if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
+		    		System.out.println("ERROR");
 		    		throw new ExcepcionesCuadrillas("Es necesario el campo usuario.");
 		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
+		    		System.out.println("ERROR");
 		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
-		    	} else { 
-		    		for (int i = 0; i < loginUsuario.size(); i++) {
-		    			if (loginUsuario.get(i).getUsuario().isEmpty()) {
-		    				throw new ExcepcionesCuadrillas("El usuario no existe.");
-		    			}
 		    	}
-		    		System.out.println(loginUsuario);
+		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
+		    		for (int i = 0; i < loginUsuario.size(); i++) {
+		    			if (loginUsuario.get(i).getUsuario().isEmpty() || loginUsuario.get(i).getUsuario() == null) {
+		    				System.out.println("ERROR");
+		    				throw new ExcepcionesCuadrillas("El usuario no existe en la BD.");
+		    			}
+		    			respuesta.setUsuario(loginUsuario);
 		    	}
 		    } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
-				respuesta.setUid(uid);
-				respuesta.setEstatus(false);
-				respuesta.setMensajeFuncional(ex.getMessage());
-				respuesta.setMensajeTecnico(ex.getMessage());
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 			} catch (Exception ex) {
 		    	LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
-				respuesta.setUid(uid);
-				respuesta.setEstatus(false);
-				respuesta.setMensajeFuncional(ex.getMessage());
-				respuesta.setMensajeTecnico(ex.getMessage());
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 		    }
 		    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
-			return loginUsuario;
+		    return respuesta;
 		}	
 }
