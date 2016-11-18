@@ -15,6 +15,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.catalogos.ConsultaCatalogo</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaUsuarioLogin</servlet-name>
+  	<display-name>ConsultaUsuarioLogin</display-name>
+  	<description>consulta del usuario</description>
+  	<servlet-class>com.fyg.cuadrillas.web.usuario.ConsultaUsuarioLogin</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -22,5 +28,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaCatalogo</servlet-name>
 		<url-pattern>/ConsultaCatalogo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaUsuarioLogin</servlet-name>
+		<url-pattern>/ConsultaUsuarioLogin</url-pattern>
 	</servlet-mapping>
 </web-app>

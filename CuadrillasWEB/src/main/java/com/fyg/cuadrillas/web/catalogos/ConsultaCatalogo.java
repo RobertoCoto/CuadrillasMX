@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fyg.cuadrillas.comun.LogHandler;
+
 import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoRespuesta;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;

@@ -30,8 +30,8 @@ public class LoginUsuarioTest {
 	public void setUp() throws Exception {
 		loginUser = new UsuariosNegocio();
 		datosUsuario = new UsuarioDTO();
-		datosUsuario.setUsuario("Gomez22");
-		datosUsuario.setContrasena("12345678");
+		datosUsuario.setUsuario("rcoto");
+		datosUsuario.setContrasena("rcoto");
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario
