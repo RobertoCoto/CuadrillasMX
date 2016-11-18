@@ -137,22 +137,28 @@ public class UsuariosNegocio {
 			respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 			List<UsuarioDTO> loginUsuario = null;
 		    try {
-		    	//validaciones
-		    	if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
+		    	//validaciones de los campos
+		    	if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
 		    		System.out.println("ERROR");
 		    		throw new ExcepcionesCuadrillas("Es necesario el campo usuario.");
-		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
+		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
 		    		System.out.println("ERROR");
 		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
 		    	}
 		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
-		    		for (int i = 0; i < loginUsuario.size(); i++) {
-		    			if (loginUsuario.get(i).getUsuario().isEmpty() || loginUsuario.get(i).getUsuario() == null) {
-		    				System.out.println("ERROR");
-		    				throw new ExcepcionesCuadrillas("El usuario no existe en la BD.");
+		    	for (int i = 0; i < loginUsuario.size(); i++) {
+		    		// Comparacion de la contraseña 
+		    		if( loginUsuario.get(i).getContrasena().equals(usuario.getContrasena()))
+		    		{   //Compara si el estatus es activo
+		    			if(loginUsuario.get(i).getEstatus().equals("A"))
+		    			{
+		    				//nos devuelve la respuesta
+		    				respuesta.setUsuario(loginUsuario);
+		    			} else {
+		    				throw new ExcepcionesCuadrillas("El usuario esta inactivo y no puede logearse.");
 		    			}
-		    			respuesta.setUsuario(loginUsuario);
-		    	}
+		    		} 
+		    	}	
 		    } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
 				respuesta.getHeader().setEstatus(false);
