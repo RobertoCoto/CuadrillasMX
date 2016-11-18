@@ -5,12 +5,18 @@
 
 <!-- mapeo catalogo-->
 <resultMap type="Catalogo" id="catalogo" >
-<result column="codigo" property="codigo"/>
-<result column="descripcion" property="descripcion"/>
-<result column="tipo_catalogo" property="tipoCatalogo"/>
+	<result column="codigo" property="codigo"/>
+	<result column="descripcion" property="descripcion"/>
+	<result column="tipo_catalogo" property="tipoCatalogo"/>
 </resultMap>
 
-<!-- Consulta Catalogo-->
+<!-- mapeo catalogo-->
+<resultMap type="TipoCatalogo" id="tipoCatalogo" >
+	<result column="tipo_catalogo" property="tipoCatalogo"/>
+	<result column="descripcion" property="descripcion"/>
+</resultMap>
+
+<!-- Consulta Catalogo Ascendente-->
 <select id="consultaCatalogoAsc" parameterType="Catalogo"  resultMap="catalogo">
 SELECT 
 	codigo AS codigo, 
@@ -21,7 +27,7 @@ AND estatus = 'A'
 ORDER BY descripcion ASC
 </select>
 
-<!-- Consulta Catalogo-->
+<!-- Consulta Catalogo Descendente-->
 <select id="consultaCatalogoDesc" parameterType="Catalogo"  resultMap="catalogo">
 SELECT 
 	codigo AS codigo, 
@@ -30,6 +36,13 @@ FROM catalogo
 WHERE tipo_catalogo = #{tipoCatalogo} 
 AND estatus = 'A'
 ORDER BY descripcion DESC
+</select>
+
+<!-- Consulta Tipo de Catalogos-->
+<select id="consultaTipoCatalogos" parameterType="TipoCatalogo"  resultMap="tipoCatalogo">
+	SELECT tipo_catalogo, descripcion 
+	FROM tipo_catalogo WHERE estatus = 'A'
+	ORDER BY descripcion
 </select>
 
 </mapper>

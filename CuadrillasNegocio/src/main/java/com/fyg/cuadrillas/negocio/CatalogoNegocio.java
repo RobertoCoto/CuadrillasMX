@@ -9,8 +9,52 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.CatalogoDAO;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoRespuesta;
+import com.fyg.cuadrillas.dto.catalogo.TipoCatalogoDTO;
+import com.fyg.cuadrillas.dto.catalogo.TipoCatalogoRespuesta;
 
 public class CatalogoNegocio {
+
+	/** The LONGITUD_CODIGO_CATALOGO. */
+	private static final  int LONGITUD_CODIGO_CATALOGO = 10;
+	/** The LONGITUD_DESCRIPCION_CATALOGO. */
+	private static final  int LONGITUD_DESCRIPCION_CATALOGO = 100;
+
+	/**
+	 * Metodo para la consulta de catalogos
+	 * @param catalogoOV recibe valores
+	 * @return regresa los resultados del catalogo
+	 */
+	public TipoCatalogoRespuesta consultarTipoCatalogos() {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(new String(""));
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultarTipoCatalogos - Daton Entrada: ");
+		//Variable de resultado
+		TipoCatalogoRespuesta respuesta = new TipoCatalogoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
+		List<TipoCatalogoDTO> listaTipoCatalogo = null;
+	    try {
+	    	listaTipoCatalogo = new CatalogoDAO().consultaTipoCatalogos(uid);
+	    	respuesta.setCatalogo(listaTipoCatalogo);
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultarTipoCatalogos - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultarTipoCatalogos - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultarTipoCatalogos - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+
 	/**
 	 * Metodo para la consulta de catalogos
 	 * @param catalogoOV recibe valores del catalogo
@@ -34,15 +78,15 @@ public class CatalogoNegocio {
 	    	if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
 	    		System.out.println("ERROR");
 	    		throw new ExcepcionesCuadrillas("Es necesario el tipo catalogo para la busqueda.");
-	    	}    		
+	    	}
 	    	if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
 	    		catalogoOV.setOrden("A");
 	    	}
-	    	
+
 	    	listaCatalogo = new CatalogoDAO().consultaCatalogo(uid, catalogoOV);
-	    	respuesta.setCatalogo(listaCatalogo);	    	
+	    	respuesta.setCatalogo(listaCatalogo);
 	    } catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);			
+			LogHandler.error(uid, this.getClass(), "ConsultaCatalogo - Error: " + ex.getMessage(), ex);
 			respuesta.getHeader().setEstatus(false);
 			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
@@ -56,7 +100,61 @@ public class CatalogoNegocio {
 		return respuesta;
 	}
 
-	
+	/**
+	 * Metodo para registrar un catalogo
+	 * @param catalogoOV recibe valores de catalogo
+	 * @return regresa un resultado
+	 */
+	public EncabezadoRespuesta registraCatalogo(CatalogoDTO catalogoOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(catalogoOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Entrada: " + catalogoOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			//Validaciones Negocio
+			if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo tipo catalogo es necesario.");
+			}
+			if (catalogoOV.getCodigo() == null || catalogoOV.getCodigo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el campo codigo.");
+			}
+			if (catalogoOV.getDescripcion() == null || catalogoOV.getDescripcion().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el campo descripcion.");
+			}
+			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
+				throw new ExcepcionesCuadrillas("El codigo del catalogo puede ser maximo de 10 caracteres.");
+			}
+			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
+				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede ser maximo de "
+						+ LONGITUD_CODIGO_CATALOGO + " caracteres.");
+			}
+			if (catalogoOV.getDescripcion().length() > LONGITUD_DESCRIPCION_CATALOGO) {
+				throw new ExcepcionesCuadrillas("La descripcion del catalogo NO puede ser maximo de "
+						+ LONGITUD_DESCRIPCION_CATALOGO + " caracteres.");
+			}
+			CatalogoDAO dao = new CatalogoDAO();
+			respuesta = dao.registraCatalogo(uid, catalogoOV);
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+
 	/**
 	 * Metodo que elimina un catalogo
 	 * @param catalogoOV recibe valores del catalogo
@@ -99,51 +197,6 @@ public class CatalogoNegocio {
 		}
 		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Salida: " + respuesta);
 		return respuesta;
-}
-	/**
-	 * Metodo para registrar un catalogo
-	 * @param catalogoOV recibe valores de catalogo
-	 * @return regresa un resultado
-	 */
-	public EncabezadoRespuesta registraCatalogo(CatalogoDTO catalogoOV) {
-		//Primero generamos el identificador unico de la transaccion
-		String uid = GUIDGenerator.generateGUID(catalogoOV);
-		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Entrada: " + catalogoOV);
-		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try {
-			//Validaciones Negocio
-			if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().isEmpty()) {
-				throw new ExcepcionesCuadrillas("El campo tipo catalogo es necesario.");
-			} else if (catalogoOV.getCodigo() == null || catalogoOV.getCodigo().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el campo codigo.");
-			} else if (catalogoOV.getDescripcion() == null || catalogoOV.getDescripcion().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el campo descripcion.");
-			} else if (catalogoOV.getFechaAlta() == null) {
-				throw new ExcepcionesCuadrillas("es necesaria la fecha.");
-			} else if (catalogoOV.getEstatus() == null || catalogoOV.getEstatus().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario un estatus.");
-			} else {
-				CatalogoDAO dao = new CatalogoDAO();
-    			respuesta = dao.registraCatalogo(uid, catalogoOV);
-			}
-		}
-		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
-		}
-		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "registraCatalogo - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
-		}
-		LogHandler.debug(uid, this.getClass(), "registraCatalogo - Datos Salida: " + respuesta);
-		return respuesta;
-}
+	}
+
 }

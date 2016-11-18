@@ -11,8 +11,10 @@
 
 <!--- ALTA EN LA TABLA CATALOGO-->
 <insert id="insertaCatalogo" parameterType="catalogo">
-INSERT INTO catalogo(tipo_catalogo,codigo,descripcion,,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{tipoCatalogo},#{codigo},#{descripcion},now(),now(),#{estatus})
+	INSERT INTO catalogo
+	(tipo_catalogo, codigo, descripcion, fecha_alta, fecha_ult_mod, estatus)
+	VALUES
+	(#{tipoCatalogo}, #{codigo}, #{descripcion}, now(), now(), 'A')
 </insert>
 
 <!--- BAJA EN LA TABLA TIPO CATALOGO-->

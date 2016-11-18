@@ -51,7 +51,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
 	        respuesta = negocio.loginUsuario(usuario);
-	      //convierte  a formato Json
+	        //convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		} catch(Exception e) {
