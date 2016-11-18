@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
+import com.fyg.cuadrillas.dto.menu.MenuDTO;
+import com.fyg.cuadrillas.dto.menu.MenuRespuesta;
 import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
+import com.fyg.cuadrillas.negocio.MenuNegocio;
 import com.google.gson.Gson;
 /**
  * Servlet implementation class ConsultaUsuarioLogin
@@ -30,6 +33,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UsuarioRespuesta respuesta = new UsuarioRespuesta();
+		MenuRespuesta respuestaMenu = new MenuRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -45,14 +49,21 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        
 	        //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
+	        final MenuNegocio negocioMenu = new MenuNegocio();
 	        
 	        //usuarios
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
 	        respuesta = negocio.loginUsuario(usuario);
+	        
+	        for (int i = 0; i < respuesta.getUsuario().size(); i++) {
+	        	MenuDTO menu = new MenuDTO();
+	        	menu.setIdPerfil(respuesta.getUsuario().get(i).getIdPerfil());
+	        	respuestaMenu = negocioMenu.consultarMenu(menu);
+	        }
 	        //convierte  a formato Json
-			out.println(sg.toJson(respuesta));
+			out.println(sg.toJson(respuestaMenu));
 			out.flush();
 		} catch(Exception e) {
 			System.out.println("errores" + e);
