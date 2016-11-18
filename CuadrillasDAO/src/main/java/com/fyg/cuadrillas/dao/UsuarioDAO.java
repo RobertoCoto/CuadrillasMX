@@ -135,6 +135,10 @@ public class UsuarioDAO {
 				//Se hace una consulta a la tabla contacto
 				System.out.println("Consultando");
 				loginUsuario = sessionNTx.selectList("UsuarioDAO.loginUsuario", usuario);
+				if(loginUsuario.size() == 0)
+				{
+					throw new ExcepcionesCuadrillas("No existe el usuario y / O contraseña incorrecta");
+				}
 			}
 			catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
