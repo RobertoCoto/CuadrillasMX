@@ -1,15 +1,20 @@
 USE tatei;
 
-DROP TABLE IF EXISTS perfil_menu;
-DROP TABLE IF EXISTS usuario;
-DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS parametros;
-DROP TABLE IF EXISTS herramienta;
 DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
-DROP TABLE IF EXISTS perfil;
+DROP TABLE IF EXISTS herramienta;
+
+
+
 DROP TABLE IF EXISTS catalogo;
 DROP TABLE IF EXISTS tipo_catalogo;
+
+
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS perfil_menu;
+DROP TABLE IF EXISTS perfil;
+DROP TABLE IF EXISTS menu;
 
 CREATE TABLE usuario (
     usuario VARCHAR(20) NOT NULL,
@@ -22,7 +27,7 @@ CREATE TABLE usuario (
 	fecha_ult_mod DATETIME NOT NULL,
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
     PRIMARY KEY(usuario),
-    KEY(id_perfil)
+    KEY(usuario)
     );
     
     CREATE TABLE perfil (
@@ -42,9 +47,9 @@ CREATE TABLE usuario (
     );
 
     CREATE TABLE tipo_catalogo (
-        tipo_catalogo VARCHAR(10) NOT NULL,
+        tipo_catalogo VARCHAR(10) NOT NULL,        
         descripcion VARCHAR(100) NOT NULL,
-        orden char(1) NOT NULL CHECK(orden IN('C','D')),
+        administracion CHAR(1) NOT NULL,
         fecha_alta DATETIME NOT NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
@@ -55,7 +60,9 @@ CREATE TABLE usuario (
         tipo_catalogo VARCHAR(10) NOT NULL,
         codigo VARCHAR(10) NOT NULL,
         descripcion VARCHAR(100) NOT NULL,
+        usuario_alta VARCHAR(20) NOT NULL,
         fecha_alta DATETIME NOT NULL,
+        usuario_ult_mod VARCHAR(20) NOT NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(codigo)
@@ -133,7 +140,10 @@ CREATE TABLE usuario (
     );
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
-	
+
+ALTER TABLE catalogo ADD CONSTRAINT FK_cat_usuario FOREIGN KEY(usuario_alta) REFERENCES usuario(usuario);
+
+ALTER TABLE catalogo ADD CONSTRAINT FK_cat_usuariom FOREIGN KEY(usuario_ult_mod) REFERENCES usuario(usuario);
 	
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
 
@@ -158,3 +168,5 @@ ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_combustible  FOREIGN KEY (
 ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_articulo  FOREIGN KEY (codigo_tipo_articulo) REFERENCES catalogo(codigo);
 
 ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
+
+ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);

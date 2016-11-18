@@ -18,31 +18,44 @@
 
 <!-- Consulta Catalogo Ascendente-->
 <select id="consultaCatalogoAsc" parameterType="Catalogo"  resultMap="catalogo">
-SELECT 
-	codigo AS codigo, 
-	descripcion AS descripcion
-FROM catalogo
-WHERE tipo_catalogo = #{tipoCatalogo} 
-AND estatus = 'A'
-ORDER BY descripcion ASC
+	SELECT
+		codigo AS codigo,
+		descripcion AS descripcion
+	FROM catalogo
+	WHERE tipo_catalogo = #{tipoCatalogo}
+	AND estatus = 'A'
+	ORDER BY descripcion ASC
 </select>
 
 <!-- Consulta Catalogo Descendente-->
 <select id="consultaCatalogoDesc" parameterType="Catalogo"  resultMap="catalogo">
-SELECT 
-	codigo AS codigo, 
-	descripcion AS descripcion
-FROM catalogo
-WHERE tipo_catalogo = #{tipoCatalogo} 
-AND estatus = 'A'
-ORDER BY descripcion DESC
+	SELECT
+		codigo AS codigo,
+		descripcion AS descripcion
+	FROM catalogo
+	WHERE tipo_catalogo = #{tipoCatalogo}
+	AND estatus = 'A'
+	ORDER BY descripcion DESC
 </select>
 
 <!-- Consulta Tipo de Catalogos-->
 <select id="consultaTipoCatalogos" parameterType="TipoCatalogo"  resultMap="tipoCatalogo">
-	SELECT tipo_catalogo, descripcion 
+	SELECT tipo_catalogo, descripcion
 	FROM tipo_catalogo WHERE estatus = 'A'
 	ORDER BY descripcion
+</select>
+
+
+<select id="existeCatalogoCodigo" parameterType="Catalogo"  resultType="Integer">
+	SELECT count(*) from catalogo
+	WHERE tipo_catalogo =  #{tipoCatalogo}
+	AND codigo  =  #{codigo}
+</select>
+
+<select id="existeCatalogoDescripcion" parameterType="Catalogo"  resultType="Integer">
+	SELECT count(*) from catalogo
+	WHERE tipo_catalogo =  #{tipoCatalogo}
+	AND descripcion  =  #{descripcion}
 </select>
 
 </mapper>

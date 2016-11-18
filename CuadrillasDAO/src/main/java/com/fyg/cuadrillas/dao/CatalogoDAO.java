@@ -11,14 +11,13 @@ import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 import com.fyg.cuadrillas.dto.catalogo.TipoCatalogoDTO;
 
 public class CatalogoDAO {
-	
+
 
 	/**
 	 * Metodo para consultar los tipos de catalogos
 	 * @param uid unico de registro
-	 * @param catalogo valores de catalogos
 	 * @return regresa una lista de catalogos
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	public List<TipoCatalogoDTO> consultaTipoCatalogos(String uid) throws Exception {
@@ -55,7 +54,7 @@ public class CatalogoDAO {
 	 * @param uid unico de registro
 	 * @param catalogo valores de catalogos
 	 * @return regresa una lista de catalogos
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	public List<CatalogoDTO> consultaCatalogo(String uid, CatalogoDTO catalogo) throws Exception {
@@ -76,7 +75,7 @@ public class CatalogoDAO {
 			} else {
 				listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogoDesc", catalogo);
 			}
-			
+
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -88,7 +87,7 @@ public class CatalogoDAO {
 		return listaCatalogos;
 	}
 
-	
+
 	/**
 	  * Metodo para la baja de un catalogo
 	  * @param uid unico de registro
@@ -128,16 +127,27 @@ public class CatalogoDAO {
 	 /**
 	  * Metodo para registrar Catalogos
 	  * @param uid unico de registro
-	  * @param catalogoOV recibe valores de catalogo
+	  * @param catalogo recibe valores de catalogo
 	  * @return regresa si el registro fue correcto
 	  */
 	 public EncabezadoRespuesta registraCatalogo(String uid, CatalogoDTO catalogo) {
 		 	SqlSession sessionTx = null;
+		 	SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("registro correcto.");
 			try {
+				//Validamos si el catalogo ya existe
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeCodigo = (Integer) sessionNTx.selectOne("CatalogoDAO.existeCatalogoCodigo", catalogo);
+				if (existeCodigo > 0) {
+					throw new ExcepcionesCuadrillas("Error en registrar catalogo, el codigo ya existe.");
+				}
+				int existeDes = (Integer) sessionNTx.selectOne("CatalogoDAO.existeCatalogoDescripcion", catalogo);
+				if (existeDes > 0) {
+					throw new ExcepcionesCuadrillas("Error en registrar catalogo, la descripcion ya existe.");
+				}				
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("CatalogoDAO.registraCatalogo", catalogo);
@@ -158,6 +168,7 @@ public class CatalogoDAO {
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	}

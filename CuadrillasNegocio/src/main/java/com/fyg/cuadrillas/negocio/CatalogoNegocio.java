@@ -130,6 +130,9 @@ public class CatalogoNegocio {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede ser maximo de "
 						+ LONGITUD_CODIGO_CATALOGO + " caracteres.");
 			}
+			if (catalogoOV.getCodigo().contains(" ")) {
+				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede tener espacios.");
+			}
 			if (catalogoOV.getDescripcion().length() > LONGITUD_DESCRIPCION_CATALOGO) {
 				throw new ExcepcionesCuadrillas("La descripcion del catalogo NO puede ser maximo de "
 						+ LONGITUD_DESCRIPCION_CATALOGO + " caracteres.");

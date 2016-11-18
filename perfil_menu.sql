@@ -20,14 +20,17 @@ VALUES (3,'Recursos Humanos','Recursos Humanos','A');
 
 
 
+INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
+VALUES  ('SISTEMAS', 1, 1, 'SISTEMAS', 'N', now(), now(), now(), 'A');
 
+
+/* QUITAR */
 INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
 VALUES  ('rcoto', 1, 1, 'rcoto', 'N', now(), now(), now(), 'A');
 
 INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
 VALUES  ('mimejorada', 2, 2, 'mimejorada', 'N', now(), now(), now(), 'A');
-
-
+/* QUITAR */
 
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
