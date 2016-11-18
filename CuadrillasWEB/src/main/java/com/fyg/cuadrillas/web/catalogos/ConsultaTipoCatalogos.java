@@ -44,16 +44,14 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			
+
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080");
-	        
+
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();
-
-			//Lista de direcciones			
 			respuesta = negocio.consultarTipoCatalogos();
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));

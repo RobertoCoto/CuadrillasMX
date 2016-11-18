@@ -41,7 +41,9 @@
 <!-- Consulta Tipo de Catalogos-->
 <select id="consultaTipoCatalogos" parameterType="TipoCatalogo"  resultMap="tipoCatalogo">
 	SELECT tipo_catalogo, descripcion
-	FROM tipo_catalogo WHERE estatus = 'A'
+	FROM tipo_catalogo
+	WHERE estatus = 'A'
+	AND administracion = 'S'
 	ORDER BY descripcion
 </select>
 

@@ -42,6 +42,11 @@ public class CatalogoDTO extends ObjetoValor{
   */
  private String usuarioAlta;
  /**
+  * usuarioUltMod
+  */
+ private String usuarioUltMod;
+ 
+ /**
   * @return obtiene el tipo de catalogo
   */
 public String getTipoCatalogo() {
@@ -136,6 +141,18 @@ public String getUsuarioAlta() {
  */
 public void setUsuarioAlta(String usuarioAlta) {
 	this.usuarioAlta = usuarioAlta;
+}
+/**
+ * @return the usuarioUltMod
+ */
+public String getUsuarioUltMod() {
+	return usuarioUltMod;
+}
+/**
+ * @param usuarioUltMod the usuarioUltMod to set
+ */
+public void setUsuarioUltMod(String usuarioUltMod) {
+	this.usuarioUltMod = usuarioUltMod;
 }
 
 }

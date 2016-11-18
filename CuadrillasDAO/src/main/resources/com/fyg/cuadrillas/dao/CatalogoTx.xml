@@ -8,21 +8,26 @@
 	<result column="descripcion" property="descripcion"/>
 	<result column="tipo_catalogo" property="tipoCatalogo"/>
 	<result column="usuario_alta" property="usuarioAlta"/>
+	<result column="usuario_ult_mod" property="usuarioUltMod"/>
 </resultMap>
 
 <!--- ALTA EN LA TABLA CATALOGO-->
 <insert id="registraCatalogo" parameterType="catalogo">
 	INSERT INTO catalogo
-	(tipo_catalogo, codigo, descripcion, usuario_alta, fecha_alta, fecha_ult_mod, estatus)
+	(tipo_catalogo, codigo, descripcion, usuario_alta, fecha_alta, usuario_ult_mod, fecha_ult_mod, estatus)
 	VALUES
-	(#{tipoCatalogo}, upper(#{codigo}),  upper(#{descripcion}), #{usuarioAlta}, now(), now(), 'A')
+	(#{tipoCatalogo}, upper(#{codigo}),  upper(#{descripcion}), #{usuarioAlta}, now(),  #{usuarioAlta}, now(), 'A')
 </insert>
 
 <!--- BAJA EN LA TABLA TIPO CATALOGO-->
 <update id="inactivaCatalogo" parameterType="catalogo">
-UPDATE catalogo SET
-estatus = #{estatus},
-fecha_ult_mod = now()
-WHERE codigo = #{codigo}
+	UPDATE catalogo
+	SET
+	estatus = 'I',
+	fecha_ult_mod = now(),
+	usuario_ult_mod = #{usuarioUltMod}
+	WHERE  tipo_catalogo = #{tipoCatalogo}
+	AND    codigo = #{codigo}
+	AND estatus = 'A'
 </update>
 </mapper>

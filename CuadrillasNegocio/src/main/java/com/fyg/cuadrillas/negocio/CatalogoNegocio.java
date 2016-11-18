@@ -123,6 +123,9 @@ public class CatalogoNegocio {
 			if (catalogoOV.getDescripcion() == null || catalogoOV.getDescripcion().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el campo descripcion.");
 			}
+			if (catalogoOV.getUsuarioAlta() == null || catalogoOV.getUsuarioAlta().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
+			}
 			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo puede ser maximo de 10 caracteres.");
 			}
@@ -169,20 +172,22 @@ public class CatalogoNegocio {
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Entrada: " + catalogoOV);
 		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<CatalogoDTO> listaCatalogo = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();		
 		try {
+			
 			//Validaciones Negocio
-			//listaCatalogo = new CatalogoDAO().consultaListaCatalogo(uid, catalogoOV);
-			 for (int i = 0; i < listaCatalogo.size(); i++) {
-				 if (listaCatalogo.get(i).getEstatus().equals("A")) {
-	            		//Mandamos a la parte del dao
-					 	  CatalogoDAO dao = new CatalogoDAO();
-	          			  respuesta = dao.eliminarCatalogo(uid, catalogoOV);
-	            	  } else {
-	            		  throw new ExcepcionesCuadrillas("Ya se encuentra inactivo.");
-	            	  }
-			 }
+			if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo tipo catalogo es necesario.");
+			}
+			if (catalogoOV.getCodigo() == null || catalogoOV.getCodigo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el campo codigo.");
+			}
+			if (catalogoOV.getUsuarioUltMod() == null || catalogoOV.getUsuarioUltMod().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
+			}			
+	 	    CatalogoDAO dao = new CatalogoDAO();
+		    respuesta = dao.eliminarCatalogo(uid, catalogoOV);
+	        
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);

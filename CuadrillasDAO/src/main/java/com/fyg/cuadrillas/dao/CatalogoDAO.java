@@ -99,13 +99,13 @@ public class CatalogoDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("Baja correcta.");
+			respuesta.setMensajeFuncional("La baja del catalogo fue correcta.");
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.update("CatalogoDAO.inactivaCatalogo", catalogo);
 				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al bajar el catalogo.");
+					throw new ExcepcionesCuadrillas("No fue posible dar de baja el catalogo.");
 				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -115,9 +115,9 @@ public class CatalogoDAO {
 				//Realizamos rollBack
 				LogHandler.debug(uid, this.getClass(), "RollBack!!!");
 				FabricaConexiones.rollBack(sessionTx);
-	   LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-	   respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
@@ -147,7 +147,7 @@ public class CatalogoDAO {
 				int existeDes = (Integer) sessionNTx.selectOne("CatalogoDAO.existeCatalogoDescripcion", catalogo);
 				if (existeDes > 0) {
 					throw new ExcepcionesCuadrillas("Error en registrar catalogo, la descripcion ya existe.");
-				}				
+				}
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("CatalogoDAO.registraCatalogo", catalogo);
