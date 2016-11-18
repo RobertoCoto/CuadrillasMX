@@ -34,29 +34,29 @@ INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (1,NULL,'Menu Padre','Menu Padre','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (2,1,'Menu Hijo 1.1','Menu Hijo 1','/Hijo1.html','A');
+VALUES  (2,1,'Menu Hijo 1.1','Menu Hijo 1.1','/Hijo1.html','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (3,1,'Menu Hijo 1.2','Menu Hijo 2','/Hijo2.html','A');
+VALUES  (3,1,'Menu Hijo 1.2','Menu Hijo 1.2','/Hijo2.html','A');
 
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (4,NULL,'Menu Padre 2','Menu Padre','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (5,4,'Menu Hijo 2.1','Menu Hijo 1','/Hijo1.html','A');
+VALUES  (5,4,'Menu Hijo 2.1','Menu Hijo 2.1','/Hijo1.html','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (6,4,'Menu Hijo 2.2','Menu Hijo 2','/Hijo2.html','A');
+VALUES  (6,4,'Menu Hijo 2.2','Menu Hijo 2.2','/Hijo2.html','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (7,4,'Menu Hijo 2.3','Menu Hijo 2','/Hijo3.html','A');
+VALUES  (7,4,'Menu Hijo 2.3','Menu Hijo 2.3','/Hijo3.html','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (8,NULL,'Menu Padre 3','Menu Padre','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (9,8,'Menu Hijo 3.1','Menu Hijo 1','/Hijo1.html','A');
+VALUES  (9,8,'Menu Hijo 3.1','Menu Hijo 3.1','/Hijo1.html','A');
 
 
 
