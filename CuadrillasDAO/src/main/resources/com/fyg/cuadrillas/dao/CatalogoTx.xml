@@ -30,4 +30,17 @@
 	AND    codigo = #{codigo}
 	AND estatus = 'A'
 </update>
+
+<!--- ACTUALIZA LA DESCRIPCION DEL CATALOGO-->
+<update id="actualizarCatalogo" parameterType="catalogo">
+	UPDATE catalogo
+	SET
+	descripcion = upper(#{descripcion}),
+	fecha_ult_mod = now(),
+	usuario_ult_mod = #{usuarioUltMod}
+	WHERE  tipo_catalogo = #{tipoCatalogo}
+	AND    codigo = #{codigo}
+	AND estatus = 'A'
+</update>
+
 </mapper>

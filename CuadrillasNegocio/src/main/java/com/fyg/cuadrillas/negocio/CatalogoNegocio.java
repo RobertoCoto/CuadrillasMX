@@ -128,11 +128,7 @@ public class CatalogoNegocio {
 			}
 			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo puede ser maximo de 10 caracteres.");
-			}
-			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
-				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede ser maximo de "
-						+ LONGITUD_CODIGO_CATALOGO + " caracteres.");
-			}
+			}			
 			if (catalogoOV.getCodigo().contains(" ")) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede tener espacios.");
 			}
@@ -172,9 +168,9 @@ public class CatalogoNegocio {
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Entrada: " + catalogoOV);
 		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();		
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
-			
+
 			//Validaciones Negocio
 			if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El campo tipo catalogo es necesario.");
@@ -184,10 +180,63 @@ public class CatalogoNegocio {
 			}
 			if (catalogoOV.getUsuarioUltMod() == null || catalogoOV.getUsuarioUltMod().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
-			}			
+			}
 	 	    CatalogoDAO dao = new CatalogoDAO();
 		    respuesta = dao.eliminarCatalogo(uid, catalogoOV);
-	        
+
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+
+	/**
+	 * Metodo que elimina un catalogo
+	 * @param catalogoOV recibe valores del catalogo
+	 * @return regresa el resultado
+	 */
+	public EncabezadoRespuesta actualizarCatalogo(CatalogoDTO catalogoOV) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(catalogoOV);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Entrada: " + catalogoOV);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+
+			//Validaciones Negocio
+			if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo tipo catalogo es necesario.");
+			}
+			if (catalogoOV.getCodigo() == null || catalogoOV.getCodigo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el campo codigo.");
+			}
+			if (catalogoOV.getDescripcion() == null || catalogoOV.getDescripcion().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la nueva descripcion.");
+			}
+			if (catalogoOV.getUsuarioUltMod() == null || catalogoOV.getUsuarioUltMod().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
+			}
+			if (catalogoOV.getDescripcion().length() > LONGITUD_DESCRIPCION_CATALOGO) {
+				throw new ExcepcionesCuadrillas("La descripcion del catalogo NO puede ser maximo de "
+						+ LONGITUD_DESCRIPCION_CATALOGO + " caracteres.");
+			}
+	 	    CatalogoDAO dao = new CatalogoDAO();
+		    respuesta = dao.actualizarCatalogo(uid, catalogoOV);
+
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);

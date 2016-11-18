@@ -77,7 +77,9 @@ CREATE TABLE usuario (
         codigo_tipo_articulo VARCHAR(10) NOT NULL,
         codigo_estado VARCHAR(10) NOT NULL,
         mantenimiento CHAR(1) NOT NULL CHECK(mantenimiento IN('S','N')),
+        usuario_alta VARCHAR(20) NOT NULL,
         fecha_alta DATETIME NOT NULL,
+        usuario_ult_mod VARCHAR(20) NOT NULL,
         fecha_ult_mod DATETIME NOT NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
         PRIMARY KEY(id_herramienta)

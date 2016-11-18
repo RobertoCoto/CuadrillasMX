@@ -14,15 +14,15 @@ import com.fyg.cuadrillas.negocio.CatalogoNegocio;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class EliminarCatalogo
+ * Servlet implementation class ActualizarCatalogo
  */
-public class EliminarCatalogo extends HttpServlet {
+public class ActualizarCatalogo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EliminarCatalogo() {
+    public ActualizarCatalogo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,6 +47,7 @@ public class EliminarCatalogo extends HttpServlet {
 			//Se obtiene parametro idDireccion
 			String tipoCatalogo = request.getParameter("tipoCatalogo");
 			String codigo = request.getParameter("codigo");
+			String descripcion = request.getParameter("descripcion");
 			String usuario = request.getParameter("usuario");
 
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -61,8 +62,9 @@ public class EliminarCatalogo extends HttpServlet {
 			CatalogoDTO catalogo = new CatalogoDTO();
 			catalogo.setTipoCatalogo(tipoCatalogo);
 			catalogo.setCodigo(codigo);
+			catalogo.setDescripcion(descripcion);
 			catalogo.setUsuarioUltMod(usuario);
-			respuesta = negocio.eliminaCatalogo(catalogo);
+			respuesta = negocio.actualizarCatalogo(catalogo);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();

@@ -39,6 +39,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.catalogos.EliminarCatalogo</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ActualizarCatalogo</servlet-name>
+  	<display-name>ActualizarCatalogo</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.catalogos.ActualizarCatalogo</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -62,5 +68,9 @@
 	<servlet-mapping>
 		<servlet-name>EliminarCatalogo</servlet-name>
 		<url-pattern>/EliminarCatalogo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActualizarCatalogo</servlet-name>
+		<url-pattern>/ActualizarCatalogo</url-pattern>
 	</servlet-mapping>
 </web-app>
