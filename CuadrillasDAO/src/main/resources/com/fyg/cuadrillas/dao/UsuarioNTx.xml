@@ -8,6 +8,10 @@
 <result column="contrasena" property="contrasena"/>
 <result column="id_perfil" property="idPerfil"/>
 <result column="estatus"  property="estatus"/>
+<result column="cambio_contrasena" property="cambioContrasena"/>
+<result column="fecha_alta" property="fechaAlta"/>
+<result column="fecha_ult_acceso" property="fechaUltimoAcceso"/>
+<result column="fecha_ult_mod" property="fechaUltMod"/>
 </resultMap>
 
 <!-- Consulta Usuario-->
@@ -16,15 +20,9 @@ SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 </select>
 
 <!-- Consulta Usuario-->
-<select id="loginUsuario" parameterType="Usuario" resultType="usuario">
-SELECT usuario.usuario AS usuario,usuario.contrasena AS contrasena, usuario.id_perfil AS perfil,
-perfil.nombre AS perfilNombre, perfil_menu.id_menu AS perfilMenu,perfil_menu.orden AS perfilOrden,
-menu.descripcion AS menuDescripcion, menu.url AS menuUrl, menu.menu AS menu, 
-menu.id_padre AS id_padre, menu.id_menu AS id_menu 
-FROM usuario 
-INNER JOIN perfil ON usuario.id_perfil = perfil.id_perfil 
-INNER JOIN perfil_menu ON perfil.id_perfil = perfil_menu.id_perfil 
-INNER JOIN menu ON menu.id_menu = perfil_menu.id_menu AND menu.id_padre IS NULL
-WHERE usuario = #{usuario} AND contrasena = #{contrasena}
+<select id="loginUsuario" parameterType="Usuario" resultMap="usuario">
+SELECT usuario,contrasena,id_perfil,estatus,cambio_contrasena,fecha_alta,fecha_ult_acceso,fecha_ult_mod 
+FROM usuario WHERE usuario = #{usuario} 
+AND contrasena = #{contrasena}
 </select>
 </mapper>

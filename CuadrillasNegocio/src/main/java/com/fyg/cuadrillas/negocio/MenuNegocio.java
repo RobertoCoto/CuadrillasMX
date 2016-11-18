@@ -6,33 +6,34 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.MenuDAO;
-import com.fyg.cuadrillas.dto.MenuDTO;
+import com.fyg.cuadrillas.dto.menu.MenuDTO;
+import com.fyg.cuadrillas.dto.menu.MenuRespuesta;
 
 
 public class MenuNegocio {
-	public List<MenuDTO> consultarMenu(MenuDTO menu) {
+	public MenuRespuesta consultarMenu(MenuDTO menu) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(menu);
 		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "registraNegocio - Daton Entrada: " + menu);
+		LogHandler.debug(uid, this.getClass(), "MenuNegocio - Datos Entrada: " + menu);
 		//Variable de resultado
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<MenuDTO> listaMenus = null;
+		MenuRespuesta respuesta = new MenuRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		List<MenuDTO> listaMenu = null;
 	    try {
 	    	
-	    	 listaMenus = new MenuDAO().consultaCatalogo(uid, menu);
-	    	 
+	    	 listaMenu = new MenuDAO().consultaMenu(uid, menu);
+	    	 respuesta.setMenu(listaMenu);
 	    }  catch (Exception ex) {
-	    	LogHandler.error(uid, this.getClass(), "ParametrosNegocio - Error: " + ex.getMessage(), ex);
-			respuesta.setUid(uid);
-			respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
-			respuesta.setMensajeTecnico(ex.getMessage());
+	    	LogHandler.error(uid, this.getClass(), "MenuNegocio - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 	    }
-	    LogHandler.debug(uid, this.getClass(), "consultaNegocio - Datos Salida: " + respuesta);
-		return listaMenus;
+	    LogHandler.debug(uid, this.getClass(), "MenuNegocio - Datos Salida: " + respuesta);
+		return respuesta;
 	}
 }

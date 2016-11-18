@@ -4,12 +4,27 @@
 	namespace="com.fyg.cuadrillas.dao.MenuNTx">
 	
 <resultMap type="Menu" id="menu">
+    <result column="id_perfil" property="idPerfil"/>
+    <result column="id_menu_perfil" property="idMenuPerfil"/>
+    <result column="orden" property="orden"/>
+    <result column="estatus_perfil" property="estatusPerfil"/>
+    <result column="id_menu" property="idMenu"/>
+    <result column="id_padre" property="idPadre"/>
 	<result column="menu" property="menu"/>
 	<result column="descripcion" property="descripcion"/>
 	<result column="url" property="url"/>
+	<result column="estatus" property="estatus"/>
 </resultMap>
 
-<select id="consultaMenuHijo" parameterType="Menu" resultMap="menu">
-SELECT menu,descripcion,url FROM menu WHERE id_padre = #{idPadre}
+<select id="consultaMenu" parameterType="Menu" resultMap="menu">
+SELECT pm.id_perfil AS id_perfil,pm.id_menu AS id_menu_perfil,pm.orden AS orden,
+pm.estatus AS estatus_perfil,m.id_menu AS id_menu,m.id_padre AS id_padre, m.menu AS menu,
+m.descripcion AS descripcion,m.url AS url,m.estatus AS estatus
+FROM perfil_menu pm
+INNER JOIN menu m  ON m.id_menu = pm.id_menu
+WHERE pm.id_perfil = #{idPerfil}
+AND pm.estatus = 'A'
+AND m.estatus = 'A'
+ORDER BY id_padre, orden;
 </select>
 </mapper>

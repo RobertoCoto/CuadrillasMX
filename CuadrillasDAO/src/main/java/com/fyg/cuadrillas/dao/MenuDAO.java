@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.MenuDTO;
+import com.fyg.cuadrillas.dto.menu.MenuDTO;
 
 public class MenuDAO {
 	/**
@@ -16,7 +16,7 @@ public class MenuDAO {
 	 * @return regresa los menus
 	 */
 	@SuppressWarnings("unchecked")
-	public List<MenuDTO> consultaCatalogo(String uid, MenuDTO menu) {
+	public List<MenuDTO> consultaMenu(String uid, MenuDTO menu) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -25,9 +25,11 @@ public class MenuDAO {
 		List<MenuDTO> listaMenus = null;
 		try {
 			//Abrimos conexion Transaccional
+			System.out.println("Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			listaMenus = sessionNTx.selectList("CatalogoDAO.consultaMenuHijo", menu);
+			System.out.println("Consultando");
+			listaMenus = sessionNTx.selectList("MenuDAO.consultaMenu", menu);
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
