@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.dto.UsuarioDTO;
 import com.fyg.cuadrillas.dto.MenuDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 import com.fyg.cuadrillas.negocio.MenuNegocio;
 
 @Path("/userLogin")

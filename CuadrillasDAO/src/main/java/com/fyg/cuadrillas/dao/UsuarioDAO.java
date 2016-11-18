@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.UsuarioDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 
 public class UsuarioDAO {
 	/**

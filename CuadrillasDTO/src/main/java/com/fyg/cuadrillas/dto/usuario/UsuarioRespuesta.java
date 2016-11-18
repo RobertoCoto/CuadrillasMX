@@ -1,22 +1,24 @@
-package com.fyg.cuadrillas.dto.herramienta;
+package com.fyg.cuadrillas.dto.usuario;
 
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class HerramientaRespuesta extends ObjetoValor {
-
+public class UsuarioRespuesta extends ObjetoValor {
+	
 	/**
 	 * Serial UID
 	 */
-	private static final long serialVersionUID = -6464456034296854303L;
+	private static final long serialVersionUID = -7062681654828548047L;
 	/**
 	 * Header
 	 */
 	private EncabezadoRespuesta header;
-	/** Herramienta */
-	private List<HerramientaDTO> herramienta;
+	/**
+	 * Lista DTO usuario
+	 */
+    private List<UsuarioDTO> usuario;
 	/**
 	 * @return the header
 	 */
@@ -30,15 +32,15 @@ public class HerramientaRespuesta extends ObjetoValor {
 		this.header = header;
 	}
 	/**
-	 * @return the herramienta
+	 * @return the usuario
 	 */
-	public List<HerramientaDTO> getHerramienta() {
-		return herramienta;
+	public List<UsuarioDTO> getUsuario() {
+		return usuario;
 	}
 	/**
-	 * @param herramienta the herramienta to set
+	 * @param usuario the usuario to set
 	 */
-	public void setHerramienta(List<HerramientaDTO> herramienta) {
-		this.herramienta = herramienta;
+	public void setUsuario(List<UsuarioDTO> usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.dto.UsuarioDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 
 public class LoginUsuarioTest {
 	/**

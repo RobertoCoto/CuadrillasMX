@@ -4,6 +4,7 @@ package com.fyg.cuadrillas.negocio;
 import java.util.List;
 
 
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -11,7 +12,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
 import com.fyg.cuadrillas.dto.PerfilDTO;
-import com.fyg.cuadrillas.dto.UsuarioDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 
 public class UsuariosNegocio {
 	/**
