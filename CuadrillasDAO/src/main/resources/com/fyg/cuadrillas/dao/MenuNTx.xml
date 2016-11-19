@@ -16,15 +16,18 @@
 	<result column="estatus" property="estatus"/>
 </resultMap>
 
-<select id="consultaMenu" parameterType="Menu" resultMap="menu">
-SELECT pm.id_perfil AS id_perfil,pm.id_menu AS id_menu_perfil,pm.orden AS orden,
-pm.estatus AS estatus_perfil,m.id_menu AS id_menu,m.id_padre AS id_padre, m.menu AS menu,
-m.descripcion AS descripcion,m.url AS url,m.estatus AS estatus
-FROM perfil_menu pm
-INNER JOIN menu m  ON m.id_menu = pm.id_menu
-WHERE pm.id_perfil = #{idPerfil}
-AND pm.estatus = 'A'
-AND m.estatus = 'A'
-ORDER BY id_padre, orden;
+<select id="consultaMenu" parameterType="Integer" resultMap="menu">
+
+	SELECT m.id_menu AS idMenu,
+			m.id_padre AS idPadre,
+			m.menu AS menu,
+			m.descripcion AS descripcion,m.url AS url
+	FROM perfil_menu pm
+	INNER JOIN menu m  ON m.id_menu = pm.id_menu
+	WHERE pm.id_perfil = #{idPerfil}
+	AND pm.estatus = 'A'
+	AND m.estatus = 'A'
+	ORDER BY id_padre, orden;
 </select>
+
 </mapper>

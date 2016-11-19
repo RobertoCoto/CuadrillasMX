@@ -47,29 +47,32 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 			//se obtiene valores de usuario y contrasena
 			String user = request.getParameter("usuario");
 			String password = request.getParameter("contrasena");
-			
+
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080");
-	        
+
 	        //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
-	        final MenuNegocio negocioMenu = new MenuNegocio();
-	        
-	        //usuarios
+
+	        //Login usuario
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
 	        respuesta = negocio.loginUsuario(usuario);
+	        
+	        /*
+	        final MenuNegocio negocioMenu = new MenuNegocio();
 	        
 	        for (int i = 0; i < respuesta.getUsuario().size(); i++) {
 	        	MenuDTO menu = new MenuDTO();
 	        	menu.setIdPerfil(respuesta.getUsuario().get(i).getIdPerfil());
 	        	respuestaMenu = negocioMenu.consultarMenu(menu);
 	        }
+	        */
 	        //convierte  a formato Json
-			out.println(sg.toJson(respuestaMenu));
+			out.println(sg.toJson(respuesta));
 			out.flush();
 		} catch(Exception e) {
 			System.out.println("errores" + e);
@@ -78,7 +81,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
-		
+
 	}
 
 }

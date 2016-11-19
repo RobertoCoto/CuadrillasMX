@@ -18,7 +18,7 @@ import com.google.gson.Gson;
  */
 public class ConsultaTipoCatalogos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */

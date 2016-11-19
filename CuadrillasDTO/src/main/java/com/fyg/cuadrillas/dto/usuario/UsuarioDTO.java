@@ -14,9 +14,17 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	private String usuario;
 	/**
+	 * nombreUsuario
+	 */
+	private String nombreUsuario;
+	/**
 	 * Id unico del perfil
 	 */
 	private Integer idPerfil;
+	/**
+	 * nombreUsuario
+	 */
+	private String nombrePerfil;	
 	/**
 	 * Contrasena del usuario
 	 */
@@ -137,4 +145,29 @@ public class UsuarioDTO extends ObjetoValor {
 	public void setFechaUltimoAcceso(Date fechaUltimoAcceso) {
 		this.fechaUltimoAcceso = fechaUltimoAcceso;
 	}
+	/**
+	 * @return the nombreUsuario
+	 */
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
+	/**
+	 * @param nombreUsuario the nombreUsuario to set
+	 */
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	/**
+	 * @return the nombrePerfil
+	 */
+	public String getNombrePerfil() {
+		return nombrePerfil;
+	}
+	/**
+	 * @param nombrePerfil the nombrePerfil to set
+	 */
+	public void setNombrePerfil(String nombrePerfil) {
+		this.nombrePerfil = nombrePerfil;
+	}
+
+}

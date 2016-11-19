@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
-import com.fyg.cuadrillas.dto.menu.MenuDTO;
 
 public class MenuRespuesta extends ObjetoValor {
 	/**
@@ -19,15 +18,27 @@ public class MenuRespuesta extends ObjetoValor {
 	 * Lista DTO usuario
 	 */
     private List<MenuDTO> menu;
+	/**
+	 * @return the header
+	 */
 	public EncabezadoRespuesta getHeader() {
 		return header;
 	}
+	/**
+	 * @param header the header to set
+	 */
 	public void setHeader(EncabezadoRespuesta header) {
 		this.header = header;
 	}
+	/**
+	 * @return the menu
+	 */
 	public List<MenuDTO> getMenu() {
 		return menu;
 	}
+	/**
+	 * @param menu the menu to set
+	 */
 	public void setMenu(List<MenuDTO> menu) {
 		this.menu = menu;
 	}

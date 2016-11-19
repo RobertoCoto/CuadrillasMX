@@ -27,7 +27,7 @@ public class PruebaParametroTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		datoParametro = new ParametroNegocio(); 
+		datoParametro = new ParametroNegocio();
 		buscaParametro = "usuario.edad.ano.minimo";
 	}
 	/**
@@ -37,15 +37,16 @@ public class PruebaParametroTest {
 	@SuppressWarnings("static-access")
 	@Test
 	public void testConsultaNegocio()throws Exception {
-		
+
 		System.setProperty("http.proxyHost", "169.169.4.85");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");
-        
+
 		String guid = uid.generateGUID(datoParametro);
 		try {
-			datoParametro.consultaParametro(guid, buscaParametro);
+			//datoParametro.consultaParametro(guid, buscaParametro);
+			datoParametro.consultaParametro(guid, "sueldo.puesto.maximo");
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), ex.getMessage());

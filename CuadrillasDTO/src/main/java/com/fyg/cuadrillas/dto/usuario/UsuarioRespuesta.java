@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
+import com.fyg.cuadrillas.dto.menu.MenuDTO;
 
 public class UsuarioRespuesta extends ObjetoValor {
-	
+
 	/**
 	 * Serial UID
 	 */
@@ -18,7 +19,11 @@ public class UsuarioRespuesta extends ObjetoValor {
 	/**
 	 * Lista DTO usuario
 	 */
-    private List<UsuarioDTO> usuario;
+    private UsuarioDTO usuario;
+    /**
+	 * Lista DTO usuario
+	 */
+    private List<MenuDTO> menu;
 	/**
 	 * @return the header
 	 */
@@ -34,13 +39,25 @@ public class UsuarioRespuesta extends ObjetoValor {
 	/**
 	 * @return the usuario
 	 */
-	public List<UsuarioDTO> getUsuario() {
+	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
 	/**
 	 * @param usuario the usuario to set
 	 */
-	public void setUsuario(List<UsuarioDTO> usuario) {
+	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+	/**
+	 * @return the menu
+	 */
+	public List<MenuDTO> getMenu() {
+		return menu;
+	}
+	/**
+	 * @param menu the menu to set
+	 */
+	public void setMenu(List<MenuDTO> menu) {
+		this.menu = menu;
 	}
 }

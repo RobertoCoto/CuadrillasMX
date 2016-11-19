@@ -121,23 +121,22 @@ public class UsuarioDAO {
 	 * @return regresa lista usuario
 	 */
 	 @SuppressWarnings("unchecked")
-	public List<UsuarioDTO> loginUsuario(String uid, UsuarioDTO usuario)throws Exception {
+	public UsuarioDTO loginUsuario(String uid, UsuarioDTO usuario) throws Exception {
 			SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Consulta correcta.");
-			List<UsuarioDTO> loginUsuario = null;
+			UsuarioDTO loginUsuario = null;
 			try {
 				//Abrimos conexion Transaccional
 				System.out.println("Abriendo");
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				//Se hace una consulta a la tabla contacto
 				System.out.println("Consultando");
-				loginUsuario = sessionNTx.selectList("UsuarioDAO.loginUsuario", usuario);
-				if(loginUsuario.size() == 0)
-				{
-					throw new ExcepcionesCuadrillas("No existe el usuario y / O contraseña incorrecta");
+				loginUsuario = (UsuarioDTO) sessionNTx.selectOne("UsuarioDAO.loginUsuario", usuario);
+				if (loginUsuario == null) {
+					throw new ExcepcionesCuadrillas("Usuario y/o contraseña incorrecta.");
 				}
 			}
 			catch (Exception ex) {

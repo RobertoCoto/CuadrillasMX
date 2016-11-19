@@ -16,7 +16,7 @@ public class MenuDAO {
 	 * @return regresa los menus
 	 */
 	@SuppressWarnings("unchecked")
-	public List<MenuDTO> consultaMenu(String uid, MenuDTO menu) {
+	public List<MenuDTO> consultaMenu(String uid, Integer idPerfil) {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -29,7 +29,7 @@ public class MenuDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
 			System.out.println("Consultando");
-			listaMenus = sessionNTx.selectList("MenuDAO.consultaMenu", menu);
+			listaMenus = sessionNTx.selectList("MenuDAO.consultaMenu", idPerfil);
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);

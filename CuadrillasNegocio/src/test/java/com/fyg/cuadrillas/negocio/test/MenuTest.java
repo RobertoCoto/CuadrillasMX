@@ -27,9 +27,7 @@ private MenuDTO menu;
 	 */
 @Before
 public void setUp() throws Exception {
-	menuDatos = new MenuNegocio();
-	menu = new MenuDTO();
-	menu.setIdPerfil(1);
+	menuDatos = new MenuNegocio();	
 }
 /**
  * Manda los valores al metodo 
@@ -44,7 +42,7 @@ public void setUp() throws Exception {
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");
 		try {
-			menuDatos.consultarMenu(menu);
+			menuDatos.consultarMenuIdPerfil(guid, 1);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

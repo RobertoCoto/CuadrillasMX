@@ -3,12 +3,6 @@ package com.fyg.cuadrillas.negocio;
 
 import java.util.List;
 
-
-
-
-
-
-
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -16,6 +10,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
 import com.fyg.cuadrillas.dto.PerfilDTO;
+import com.fyg.cuadrillas.dto.menu.MenuRespuesta;
 import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 
@@ -135,30 +130,28 @@ public class UsuariosNegocio {
 			respuesta.getHeader().setUid(uid);
 			respuesta.getHeader().setEstatus(true);
 			respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
-			List<UsuarioDTO> loginUsuario = null;
+			UsuarioDTO loginUsuario = null;
 		    try {
 		    	//validaciones de los campos
 		    	if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
-		    		System.out.println("ERROR");
-		    		throw new ExcepcionesCuadrillas("Es necesario el campo usuario.");
-		    	} else if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
-		    		System.out.println("ERROR");
-		    		throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
+		    		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+		    	}
+		    	if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
+		    		throw new ExcepcionesCuadrillas("Es necesaria la contraseña.");
 		    	}
 		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
-		    	for (int i = 0; i < loginUsuario.size(); i++) {
-		    		// Comparacion de la contraseña 
-		    		if( loginUsuario.get(i).getContrasena().equals(usuario.getContrasena()))
-		    		{   //Compara si el estatus es activo
-		    			if(loginUsuario.get(i).getEstatus().equals("A"))
-		    			{
-		    				//nos devuelve la respuesta
-		    				respuesta.setUsuario(loginUsuario);
-		    			} else {
-		    				throw new ExcepcionesCuadrillas("El usuario esta inactivo y no puede logearse.");
-		    			}
-		    		} 
-		    	}	
+
+		    	if (!loginUsuario.getEstatus().equals("A")) {
+		    		throw new ExcepcionesCuadrillas("El usuario esta inactivo.");
+		    	}
+
+		    	final MenuNegocio menu = new MenuNegocio();
+		    	MenuRespuesta respuestaMenu = menu.consultarMenuIdPerfil(uid, loginUsuario.getIdPerfil());
+		    	if (!respuestaMenu.getHeader().isEstatus()) {
+		    		throw new ExcepcionesCuadrillas("No fue posible cargar el menu del perfil solicitado.");
+		    	}
+		    	respuesta.setUsuario(loginUsuario);
+		    	respuesta.setMenu(respuestaMenu.getMenu());
 		    } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
 				respuesta.getHeader().setEstatus(false);
@@ -172,5 +165,5 @@ public class UsuariosNegocio {
 		    }
 		    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
 		    return respuesta;
-		}	
+		}
 }

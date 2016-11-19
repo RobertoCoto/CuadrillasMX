@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dto.menu;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
 public class MenuDTO extends ObjetoValor {
@@ -8,31 +10,15 @@ public class MenuDTO extends ObjetoValor {
 	 */
 	private static final long serialVersionUID = 4344121314586766381L;
 	/**
-	 * ID perfil
+	 * Nombre del menu
 	 */
-	private Integer idPerfil;
+	private Integer idMenu;
 	/**
-	 * id menu
-	 */
-	private Integer idMenuPerfil;
-	/**
-	 * Orden
-	 */
-	private Integer orden;
-	/**
-	 * Estatus del perfil
-	 */
-	private String estatusPerfil;
-	/***
-	 * id del menu 
-	 */
-	private String idMenu;
-	/**
-	 * ID padre
+	 * Nombre del menu
 	 */
 	private Integer idPadre;
 	/**
-	 * Menu
+	 * Nombre del menu
 	 */
 	private String menu;
 	/**
@@ -43,128 +29,78 @@ public class MenuDTO extends ObjetoValor {
 	 * Url del menu
 	 */
 	private String url;
-	/**
-	 * estatus
-	 */
-	private String estatus;
-	/**
-	 * @return obtiene el id padre
-	 */
-	public Integer getIdPadre() {
-		return idPadre;
-	}
-	/**
-	 * @param idPadre ingresa el id_padre
-	 */
-	public void setIdPadre(Integer idPadre) {
-		this.idPadre = idPadre;
-	}
-	/**
-	 * @return obtiene el menu
-	 */
-	public String getMenu() {
-		return menu;
-	}
-	/**
-	 * @param menu ingresa el menu
-	 */
-	public void setMenu(String menu) {
-		this.menu = menu;
-	}
-	/**
-	 * @return obtiene la descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
-	/**
-	 * @param descripcion ingresa la descripcion
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	/**
-	 * @return obtiene la url
-	 */
-	public String getUrl() {
-		return url;
-	}
-	/**
-	 * @param url ingresa la url
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	/**
-	 * @return the idPerfil
-	 */
-	public Integer getIdPerfil() {
-		return idPerfil;
-	}
-	/**
-	 * @param idPerfil the idPerfil to set
-	 */
-	public void setIdPerfil(Integer idPerfil) {
-		this.idPerfil = idPerfil;
-	}
-	/**
-	 * @return the idMenuPerfil
-	 */
-	public Integer getIdMenuPerfil() {
-		return idMenuPerfil;
-	}
-	/**
-	 * @param idMenuPerfil the idMenuPerfil to set
-	 */
-	public void setIdMenuPerfil(Integer idMenuPerfil) {
-		this.idMenuPerfil = idMenuPerfil;
-	}
-	/**
-	 * @return the orden
-	 */
-	public Integer getOrden() {
-		return orden;
-	}
-	/**
-	 * @param orden the orden to set
-	 */
-	public void setOrden(Integer orden) {
-		this.orden = orden;
-	}
-	/**
-	 * @return the estatusPerfil
-	 */
-	public String getEstatusPerfil() {
-		return estatusPerfil;
-	}
-	/**
-	 * @param estatusPerfil the estatusPerfil to set
-	 */
-	public void setEstatusPerfil(String estatusPerfil) {
-		this.estatusPerfil = estatusPerfil;
-	}
+	/** hijos Menu */
+	private List<MenuDTO> hijos;
 	/**
 	 * @return the idMenu
 	 */
-	public String getIdMenu() {
+	public Integer getIdMenu() {
 		return idMenu;
 	}
 	/**
 	 * @param idMenu the idMenu to set
 	 */
-	public void setIdMenu(String idMenu) {
+	public void setIdMenu(Integer idMenu) {
 		this.idMenu = idMenu;
 	}
 	/**
-	 * @return the estatus
+	 * @return the idPadre
 	 */
-	public String getEstatus() {
-		return estatus;
+	public Integer getIdPadre() {
+		return idPadre;
 	}
 	/**
-	 * @param estatus the estatus to set
+	 * @param idPadre the idPadre to set
 	 */
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
+	public void setIdPadre(Integer idPadre) {
+		this.idPadre = idPadre;
+	}
+	/**
+	 * @return the menu
+	 */
+	public String getMenu() {
+		return menu;
+	}
+	/**
+	 * @param menu the menu to set
+	 */
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+	/**
+	 * @return the descripcion
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
+	/**
+	 * @param descripcion the descripcion to set
+	 */
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	/**
+	 * @return the hijos
+	 */
+	public List<MenuDTO> getHijos() {
+		return hijos;
+	}
+	/**
+	 * @param hijos the hijos to set
+	 */
+	public void setHijos(List<MenuDTO> hijos) {
+		this.hijos = hijos;
 	}
 }

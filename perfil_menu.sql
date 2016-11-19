@@ -1,9 +1,10 @@
 USE tatei;
 
+DELETE FROM menu;
 DELETE FROM perfil_menu;
 DELETE FROM usuario;
 DELETE FROM perfil;
-DELETE FROM menu;
+
 
 
 INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
@@ -21,7 +22,7 @@ VALUES (3,'Recursos Humanos','Recursos Humanos','A');
 
 
 INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES  ('SISTEMAS', 1, 1, 'SISTEMAS', 'N', now(), now(), now(), 'A');
+VALUES  ('SISTEMAS', NULL , 1, 'SISTEMAS', 'N', now(), now(), now(), 'A');
 
 
 /* QUITAR */
@@ -56,7 +57,7 @@ INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (7,4,'Menu Hijo 2.3','Menu Hijo 2.3','/Hijo3.html','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
-VALUES (8,NULL,'Menu Padre 3','Menu Padre','A');
+VALUES (8,NULL,'Menu Padre 3','Menu Padre 3','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (9,8,'Menu Hijo 3.1','Menu Hijo 3.1','/Hijo1.html','A');
