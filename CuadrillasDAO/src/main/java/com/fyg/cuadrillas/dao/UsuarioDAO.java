@@ -120,7 +120,6 @@ public class UsuarioDAO {
 	 * @param usuario recibe valores de usuario
 	 * @return regresa lista usuario
 	 */
-	 @SuppressWarnings("unchecked")
 	public UsuarioDTO loginUsuario(String uid, UsuarioDTO usuario) throws Exception {
 			SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();

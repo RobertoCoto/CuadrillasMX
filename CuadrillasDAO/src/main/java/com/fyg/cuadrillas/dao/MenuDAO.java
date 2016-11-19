@@ -11,8 +11,8 @@ import com.fyg.cuadrillas.dto.menu.MenuDTO;
 public class MenuDAO {
 	/**
 	 * Metodo para consultar el menu Hijo
-	 * @param uid  uid unico 
-	 * @param menu Recibe valores de menu
+	 * @param uid  id unico
+	 * @param idPerfil  id Perfil
 	 * @return regresa los menus
 	 */
 	@SuppressWarnings("unchecked")

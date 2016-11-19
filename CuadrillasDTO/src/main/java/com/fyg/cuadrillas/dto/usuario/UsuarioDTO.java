@@ -24,7 +24,7 @@ public class UsuarioDTO extends ObjetoValor {
 	/**
 	 * nombreUsuario
 	 */
-	private String nombrePerfil;	
+	private String nombrePerfil;
 	/**
 	 * Contrasena del usuario
 	 */

@@ -37,7 +37,7 @@ public class UsuariosNegocio {
 				//Validaciones de campos.
 				if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario especificar un usuario.");
-				} 
+				}
 				 //se incia con la obtencion del perfil
 				 perfilUsuario = new PerfilDTO();
 				 perfilUsuario.setIdPerfil(usuario.getIdPerfil());
