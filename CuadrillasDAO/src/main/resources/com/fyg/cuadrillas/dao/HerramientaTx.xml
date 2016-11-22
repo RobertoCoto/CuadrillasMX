@@ -5,9 +5,11 @@
 
 <!--- ALTA EN LA TABLA HERRAMIENTA-->
 <insert id="registraHerramientas" parameterType="herramienta">
-INSERT INTO herramienta (id_herramienta,nombre,descripcion,fecha_ingresa,codigo_tipo_combustible,codigo_tipo_articulo,codigo_estado,mantenimiento,fecha_alta,fecha_ult_mod,estatus)
+INSERT INTO herramienta (
+	   id_herramienta,nombre,descripcion,fecha_ingresa,codigo_tipo_combustible,codigo_tipo_articulo,codigo_estado,
+	   mantenimiento,usuario_alta,fecha_alta,estatus)
 VALUES(#{idHerramienta},#{nombre},#{descripcion},now(),#{codigoTipoCombustible},#{codigoTipoArticulo},
-#{codigoEstado},#{mantenimiento},now(),now(),#{estatus})
+#{codigoEstado},#{mantenimiento},#{usuarioAlta},now(),'A')
 </insert>
 
 <!--- BAJA EN LA TABLA TIPO CATALOGO-->

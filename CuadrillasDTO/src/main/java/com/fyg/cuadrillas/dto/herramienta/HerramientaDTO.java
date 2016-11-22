@@ -42,9 +42,17 @@ public class HerramientaDTO extends ObjetoValor{
   */
  private String mantenimiento;
  /**
+  * Usuario alta
+  */
+ private String usuarioAlta;
+ /**
   * Fecha de alta
   */
  private Date fechaAlta;
+ /**
+  * usuario ultima mod
+  */
+ private String usuarioUltMod;
  /**
   * fecha ultima mod
   */
@@ -201,5 +209,28 @@ public String getOrden() {
 public void setOrden(String orden) {
 	this.orden = orden;
 }
-
+/**
+ * @return the usuarioAlta
+ */
+public String getUsuarioAlta() {
+	return usuarioAlta;
+}
+/**
+ * @param usuarioAlta the usuarioAlta to set
+ */
+public void setUsuarioAlta(String usuarioAlta) {
+	this.usuarioAlta = usuarioAlta;
+}
+/**
+ * @return the usuarioUltMod
+ */
+public String getUsuarioUltMod() {
+	return usuarioUltMod;
+}
+/**
+ * @param usuarioUltMod the usuarioUltMod to set
+ */
+public void setUsuarioUltMod(String usuarioUltMod) {
+	this.usuarioUltMod = usuarioUltMod;
+}
 }

@@ -11,6 +11,15 @@ import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
 import com.fyg.cuadrillas.dto.herramienta.HerramientaRespuesta;
 
 public class HerramientaNegocio {
+	/** The LONGITUD_CODIGO_TIPO_COMBUSTIBLE. */
+	private static final  int LONGITUD_CODIGO_TIPO_COMBUSTIBLE = 10;
+	/** LA LONGITUD DEL CODIGO DE TIPO ARTICULO */
+	private static final int LONGITUD_CODIGO_TIPO_ARTICULO = 10;
+	/** LA LONGITUD DEL CODIGO ESTADO*/
+	private static final int LONGITUD_CODIGO_ESTADO = 10;
+	/** The LONGITUD_DESCRIPCION_HERRAMIENTA. */
+	private static final  int LONGITUD_DESCRIPCION_HERRAMIENTA = 100;
+	
 	/**
 	 * Metodo para consultar herramientas
 	 * @param herramientaOV recibe valores de herramientas
@@ -69,39 +78,67 @@ public class HerramientaNegocio {
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
-			//Validaciones Negocio
-		if(herramienta.getNombre() == null || herramienta.getNombre().isEmpty()) { 
-			throw new ExcepcionesCuadrillas("El campo nombre es necesario.");
-		} else if(herramienta.getDescripcion() == null || herramienta.getDescripcion().isEmpty()) {
-			throw new ExcepcionesCuadrillas("El campo descripcion es necesario.");
-		} else if (herramienta.getCodigoTipoCombustible() ==  null || herramienta.getCodigoTipoCombustible().isEmpty()) {
-			throw new ExcepcionesCuadrillas("El campo codigo tipo combustible es necesario.");
-		} else if (herramienta.getCodigoTipoArticulo() == null || herramienta.getCodigoTipoArticulo().isEmpty()) {
-			throw new ExcepcionesCuadrillas("El campo codigo tipo articulo es necesario.");
-		} else if (herramienta.getCodigoEstado() == null || herramienta.getCodigoEstado().isEmpty()) {
-			throw new ExcepcionesCuadrillas("El campo codigo estado es necesario.");
-		} else if (herramienta.getMantenimiento() == null || herramienta.getMantenimiento().isEmpty()) {
-			throw new ExcepcionesCuadrillas("El campo mantenimiento es necesario.");
-		} else {
-			HerramientasDAO dao = new HerramientasDAO();
-			respuesta = dao.registraHerramienta(uid, herramienta);
-		}
+			   //Validaciones Negocio
+				if(herramienta.getNombre() == null || herramienta.getNombre().trim().isEmpty()) { 
+					throw new ExcepcionesCuadrillas("El campo nombre es necesario.");
+				} 
+		        if(herramienta.getDescripcion() == null || herramienta.getDescripcion().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo descripcion es necesario.");
+				} 
+		        if (herramienta.getCodigoTipoCombustible() ==  null || herramienta.getCodigoTipoCombustible().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo codigo tipo combustible es necesario.");
+				} 
+		        if (herramienta.getCodigoTipoArticulo() == null || herramienta.getCodigoTipoArticulo().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo codigo tipo articulo es necesario.");
+				} 
+		        if (herramienta.getCodigoEstado() == null || herramienta.getCodigoEstado().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo codigo estado es necesario.");
+				} 
+		        if (herramienta.getMantenimiento() == null || herramienta.getMantenimiento().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo mantenimiento es necesario.");
+				}
+		        if (herramienta.getDescripcion().length() > LONGITUD_DESCRIPCION_HERRAMIENTA)
+		        {
+		        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser maximo de "
+							+ LONGITUD_DESCRIPCION_HERRAMIENTA + " caracteres.");
+		        }
+		        if (herramienta.getCodigoTipoCombustible().length() > LONGITUD_CODIGO_TIPO_COMBUSTIBLE) 
+		        {
+		        	throw new ExcepcionesCuadrillas("El codigo del tipo combustible puede ser maximo de 10 caracteres.");
+		        }
+		        if (herramienta.getCodigoTipoCombustible().contains(" ")) {
+		        	throw new ExcepcionesCuadrillas("El codigo del tipo combustible NO puede tener espacios.");
+		        }
+		        if (herramienta.getCodigoTipoArticulo().length() > LONGITUD_CODIGO_TIPO_ARTICULO) {
+		        	throw new ExcepcionesCuadrillas("El codigo del tipo articulo puede ser maximo de 10 caracteres.");
+		        }
+		        if (herramienta.getCodigoTipoArticulo().contains(" ")) {
+		        	throw new ExcepcionesCuadrillas("El codigo del tipo articulo NO puede tener espacios.");
+		        }
+		        if (herramienta.getCodigoEstado().length() > LONGITUD_CODIGO_ESTADO) {
+		        	throw new ExcepcionesCuadrillas("El codigo estado puede ser maximo de 10 caracteres.");
+		        }
+		        if (herramienta.getCodigoEstado().contains(" ")) {
+		        	throw new ExcepcionesCuadrillas("El codigo estado NO puede tener espacios.");
+		        }
+        HerramientasDAO dao = new HerramientasDAO();
+		respuesta = dao.registraHerramienta(uid, herramienta);
 			}
 		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraHerramienta - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "registraHerramientas - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "registraHerramienta - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "registraHerramientas - Datos Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "registraHerramienta - Datos Salida: " + respuesta);
 		return respuesta;
 }
 	/**

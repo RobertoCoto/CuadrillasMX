@@ -45,6 +45,30 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.catalogos.ActualizarCatalogo</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RegistrarHerramientas</servlet-name>
+  	<display-name>RegistrarHerramientas</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.herramientas.RegistrarHerramientas</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EliminarHerramienta</servlet-name>
+  	<display-name>EliminarHerramienta</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.herramientas.EliminarHerramienta</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ActualizarHerramienta</servlet-name>
+  	<display-name>ActualizarHerramienta</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.herramientas.ActualizarHerramienta</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ConsultaHerramienta</servlet-name>
+  	<display-name>ConsultaHerramienta</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.herramientas.ConsultaHerramienta</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -72,5 +96,21 @@
 	<servlet-mapping>
 		<servlet-name>ActualizarCatalogo</servlet-name>
 		<url-pattern>/ActualizarCatalogo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistrarHerramientas</servlet-name>
+		<url-pattern>/RegistrarHerramientas</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EliminarHerramienta</servlet-name>
+		<url-pattern>/EliminarHerramienta</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActualizarHerramienta</servlet-name>
+		<url-pattern>/ActualizarHerramienta</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaHerramienta</servlet-name>
+		<url-pattern>/ConsultaHerramienta</url-pattern>
 	</servlet-mapping>
 </web-app>
