@@ -166,20 +166,80 @@ public class HerramientaNegocio {
 			 }
 		}
 		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "bajaUsuario - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "eliminaHerramienta - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "bajaUsuario - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "eliminaHerramienta - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "bajaUsuario - Datos Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "eliminaHerramienta - Datos Salida: " + respuesta);
 		return respuesta;
 }
+	/**
+	 * Metodo para actualizar la info de una herramienta
+	 * @param herramienta recibe valores de herramienta
+	 * @return regresa la respuesta de modificacion
+	 */
+	public EncabezadoRespuesta actualizaHerramienta(HerramientaDTO herramienta) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(herramienta);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "actualizaHerramienta - Datos Entrada: " + herramienta);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				
+				try {
+					//Validaciones Negocio
+					if(herramienta.getNombre() == null || herramienta.getNombre().trim().isEmpty()) { 
+						throw new ExcepcionesCuadrillas("El campo nombre es necesario.");
+					} 
+			        if(herramienta.getDescripcion() == null || herramienta.getDescripcion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("El campo descripcion es necesario.");
+					} 
+			        if (herramienta.getCodigoTipoCombustible() ==  null || herramienta.getCodigoTipoCombustible().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("El campo codigo tipo combustible es necesario.");
+					} 
+			        if (herramienta.getCodigoTipoArticulo() == null || herramienta.getCodigoTipoArticulo().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("El campo codigo tipo articulo es necesario.");
+					} 
+			        if (herramienta.getCodigoEstado() == null || herramienta.getCodigoEstado().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("El campo codigo estado es necesario.");
+					} 
+			        if (herramienta.getMantenimiento() == null || herramienta.getMantenimiento().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("El campo mantenimiento es necesario.");
+					}
+			        if (herramienta.getDescripcion().length() > LONGITUD_DESCRIPCION_HERRAMIENTA)
+			        {
+			        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser maximo de "
+								+ LONGITUD_DESCRIPCION_HERRAMIENTA + " caracteres.");
+			        }
+			        HerramientasDAO dao = new HerramientasDAO();
+					respuesta = dao.actualizaHerramienta(uid, herramienta);
+					
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "actualizaHerramienta - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "actualizaHerramienta - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				
+		LogHandler.debug(uid, this.getClass(), "actualizaHerramienta - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+	
 }

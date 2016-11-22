@@ -19,4 +19,17 @@ estatus = #{estatus},
 fecha_ult_mod = now()
 WHERE id_herramienta = #{idHerramienta}
 </update>
+
+<update id="actualizarHerramienta" parameterType="herramienta">
+UPDATE herramienta
+SET
+descripcion = upper(#{descripcion}),
+fecha_ult_mod = now(),
+usuario_ult_mod = #{usuarioUltMod}
+WHERE nombre = #{nombre}
+AND codigo_tipo_combustible = #{codigoTipoCombustible}
+AND codigo_tipo_articulo = #{codigoTipoArticulo}
+AND codigo_estado = #{codigoEstado}
+AND estatus = 'A'
+</update>
 </mapper>

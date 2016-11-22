@@ -151,4 +151,39 @@ public class HerramientasDAO {
 			}
 			return respuesta;
 	}
+	 /**
+	  * Metodo para actualizar herramientas
+	  * @param uid unico de registro
+	  * @param herramienta recibe valores de la herramienta
+	  * @return regresa una respuesta
+	  */
+	 public EncabezadoRespuesta actualizaHerramienta(String uid, HerramientaDTO herramienta) {
+		 	SqlSession sessionTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("La actualizacion de la herramienta fue correcta.");
+			try {
+				//Abrimos conexion Transaccional
+				sessionTx = FabricaConexiones.obtenerSesionTx();
+		        int registros = sessionTx.update("HerramientaDAO.actualizarHerramienta", herramienta);
+				if ( registros == 0) {
+					throw new ExcepcionesCuadrillas("No fue posible actualizar la herramienta.");
+				}
+				//Realizamos commit
+				LogHandler.debug(uid, this.getClass(), "Commit!!!");
+				sessionTx.commit();
+			} catch (Exception ex) {
+				//Realizamos rollBack
+				LogHandler.debug(uid, this.getClass(), "RollBack!!!");
+				FabricaConexiones.rollBack(sessionTx);
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionTx);
+			}
+			return respuesta;
+	 }
 }
