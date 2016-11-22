@@ -79,16 +79,27 @@ public class HerramientasDAO {
 	  */
 	 public EncabezadoRespuesta registraHerramienta(String uid, HerramientaDTO herramienta) {
 		 	SqlSession sessionTx = null;
+		 	SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("registro correcto.");
 			try {
+				//Validamos si la herramienta ya existe
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeHerramientaCodigo = (Integer) sessionNTx.selectOne("HerramientasDAO.existeHerramientaCodigo", herramienta);
+				if (existeHerramientaCodigo > 0) {
+					throw new ExcepcionesCuadrillas("Error en registrar herramienta, el codigo ya existe.");
+				}
+				int existeHerramientaDes = (Integer) sessionNTx.selectOne("HerramientasDAO.existeHerramientaDescripcion", herramienta);
+				if (existeHerramientaDes > 0) {
+					throw new ExcepcionesCuadrillas("Error en registrar herramienta, la descripcion ya existe.");
+				}
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.update("HerramientasDAO.registraHerramientas", herramienta);
 				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al registrar la Herramienta.");
+					throw new ExcepcionesCuadrillas("Error al registrar la herramienta.");
 				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -98,12 +109,13 @@ public class HerramientasDAO {
 				//Realizamos rollBack
 				LogHandler.debug(uid, this.getClass(), "RollBack!!!");
 				FabricaConexiones.rollBack(sessionTx);
-	LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-	respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	}
