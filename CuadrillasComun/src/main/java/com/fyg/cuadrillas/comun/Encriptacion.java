@@ -11,7 +11,7 @@ public class Encriptacion {
 	 * @return String SHA-256
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static String getSHA256(final String cadena) throws NoSuchAlgorithmException {
+	public static String obtenerEncriptacionSHA256(final String cadena) throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         try {
