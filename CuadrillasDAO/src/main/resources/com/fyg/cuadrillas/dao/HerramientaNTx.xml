@@ -12,14 +12,32 @@
 </resultMap>	
 	
 <!-- Consulta Herramientas-->
-<select id="consultaHerramientas" parameterType="Herramienta" resultMap="herramienta">
-SELECT herramienta.nombre AS nombre, herramienta.descripcion herramienta.codigo_tipo_combustible AS codigoTipoCombustible,
-herramienta.codigo_tipo_articulo AS codigoTipoArticulo, herramienta.codigo_estado AS codigoEstado
+<select id="consultaHerramientaAsc" parameterType="Herramienta" resultMap="herramienta">
+SELECT 
+     nombre,
+     descripcion,
+     codigo_tipo_combustible,
+     codigo_tipo_articulo,
+     codigo_estado,
+     estatus
 FROM herramienta 
-INNER JOIN tipo_catalogo ON herramienta.codigo_tipo_combustible = tipo_catalogo.tipo_catalogo
-INNER JOIN tipo_catalogo ON herramienta.codigo_tipo_articulo = tipo_catalogo.tipo_catalogo
-INNER JOIN tipo_catalogo ON herramienta.codigo_estado = tipo_catalogo.tipo_catalogo
-WHERE tipo_catalogo.orden = #{orden} AND herramienta.estatus = #{estatus}
+WHERE nombre = #{nombre} 
+AND estatus = 'A'
+ORDER BY descripcion ASC
+</select>
+
+<select id="consultaHerramientaDesc" parameterType="Herramienta" resultMap="herramienta">
+SELECT 
+     nombre,
+     descripcion,
+     codigo_tipo_combustible,
+     codigo_tipo_articulo,
+     codigo_estado,
+     estatus
+FROM herramienta 
+WHERE nombre = #{nombre} 
+AND estatus = 'A'
+ORDER BY descripcion DESC
 </select>
 
 <select id="consultaListaHerramientas" parameterType="Herramienta" resultMap="herramienta">

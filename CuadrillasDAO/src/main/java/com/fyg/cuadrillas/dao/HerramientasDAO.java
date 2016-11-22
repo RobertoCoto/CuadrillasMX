@@ -28,7 +28,15 @@ public class HerramientasDAO {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientas", herramienta);
+			 if(herramienta.getOrden().equals("A")) {
+				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaAsc", herramienta);
+			 } else {
+				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaDesc", herramienta);
+			 }
+			
+			if ( listaHerramientas.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen herramientas definidas.");
+			}
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());

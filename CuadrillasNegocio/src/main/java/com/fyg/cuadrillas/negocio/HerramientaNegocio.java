@@ -40,13 +40,11 @@ public class HerramientaNegocio {
 		List<HerramientaDTO> listaHerramienta = null;
 	    try {
 	    	//validacion
-	    	if(herramienta.getEstatus() == null || herramienta.getEstatus().trim().isEmpty())
-	    	{
-	    		System.out.println("ERROR");
-	    		throw new ExcepcionesCuadrillas("Es necesario el estatus para la busqueda.");
-	    	} else if(herramienta.getOrden() == null || herramienta.getOrden().trim().isEmpty()) {
-	    		System.out.println("ERROR");
-	    		throw new ExcepcionesCuadrillas("Es necesario la orden para la busqueda.");
+	    	if (herramienta.getNombre() == null || herramienta.getNombre().trim().isEmpty()) {
+	    		throw new ExcepcionesCuadrillas("Es necesario el nombre de la herramienta.");
+	    	}
+	    	if(herramienta.getOrden() == null || herramienta.getOrden().isEmpty()) {
+	    		herramienta.setOrden("A");
 	    	}
 	    	 listaHerramienta = new HerramientasDAO().consultaHerramienta(uid, herramienta);
 	    	 respuesta.setHerramienta(listaHerramienta);
