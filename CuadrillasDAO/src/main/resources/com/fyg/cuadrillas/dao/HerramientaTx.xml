@@ -15,9 +15,15 @@ VALUES(#{idHerramienta},#{nombre},#{descripcion},now(),#{codigoTipoCombustible},
 <!--- BAJA EN LA TABLA TIPO CATALOGO-->
 <update id="inactivaHerramientas" parameterType="herramienta">
 UPDATE herramienta SET
-estatus = #{estatus},
+estatus = 'I',
+usuario_ult_mod = #{usuarioUltMod},
 fecha_ult_mod = now()
-WHERE id_herramienta = #{idHerramienta}
+WHERE nombre = #{nombre}
+AND codigo_tipo_combustible = #{codigoTipoCombustible}
+AND codigo_tipo_articulo = #{codigoTipoArticulo}
+AND codigo_estado = #{codigoEstado}
+AND estatus = 'A'
+
 </update>
 
 <update id="actualizarHerramienta" parameterType="herramienta">

@@ -132,7 +132,7 @@ public class HerramientasDAO {
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.update("HerramientaDAO.inactivaHerramientas", herramienta);
 				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al bajar la herramienta.");
+					throw new ExcepcionesCuadrillas("Error al inactivar la herramienta.");
 				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -142,9 +142,9 @@ public class HerramientasDAO {
 				//Realizamos rollBack
 				LogHandler.debug(uid, this.getClass(), "RollBack!!!");
 				FabricaConexiones.rollBack(sessionTx);
-	LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-	respuesta.setEstatus(false);
-			respuesta.setMensajeFuncional(ex.getMessage());
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);

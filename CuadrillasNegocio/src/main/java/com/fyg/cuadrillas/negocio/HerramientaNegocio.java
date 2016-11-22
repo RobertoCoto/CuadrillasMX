@@ -151,19 +151,26 @@ public class HerramientaNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraSitio - Daton Entrada: " + herramienta);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<HerramientaDTO> listaHerramientas = null;
+		
 		try {
 			//Validaciones Negocio
-			listaHerramientas = new HerramientasDAO().consultaListaHerramienta(uid, herramienta);
-			 for (int i = 0; i < listaHerramientas.size(); i++) {
-				 if (listaHerramientas.get(i).getEstatus().equals("A")) {
-	            		//Mandamos a la parte del dao
-					 HerramientasDAO dao = new HerramientasDAO();
-	          			  respuesta = dao.eliminarHerramienta(uid, herramienta);
-	            	  } else {
-	            		  throw new ExcepcionesCuadrillas("ya se encuentra inactivo.");
-	            	  }
-			 }
+			if(herramienta.getNombre() == null || herramienta.getNombre().trim().isEmpty()) { 
+				throw new ExcepcionesCuadrillas("El campo nombre es necesario.");
+			} 
+	        if(herramienta.getDescripcion() == null || herramienta.getDescripcion().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo descripcion es necesario.");
+			} 
+	        if (herramienta.getCodigoTipoCombustible() ==  null || herramienta.getCodigoTipoCombustible().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo codigo tipo combustible es necesario.");
+			} 
+	        if (herramienta.getCodigoTipoArticulo() == null || herramienta.getCodigoTipoArticulo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo codigo tipo articulo es necesario.");
+			} 
+	        if (herramienta.getCodigoEstado() == null || herramienta.getCodigoEstado().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El campo codigo estado es necesario.");
+			} 
+	        HerramientasDAO dao = new HerramientasDAO();
+			respuesta = dao.eliminarHerramienta(uid, herramienta);
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "eliminaHerramienta - Error: " + ex.getMessage(), ex);
