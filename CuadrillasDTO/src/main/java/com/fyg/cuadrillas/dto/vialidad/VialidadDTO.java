@@ -20,11 +20,11 @@ public class VialidadDTO extends ObjetoValor {
 	/**
 	 * latitud
 	 */
-	private Float latitud;
+	private String latitud;
 	/**
 	 * longitud
 	 */
-	private Float longitud;
+	private String longitud;
 	/**
 	 * usuario alta
 	 */
@@ -84,25 +84,25 @@ public class VialidadDTO extends ObjetoValor {
 	/**
 	 * @return the latitud
 	 */
-	public Float getLatitud() {
+	public String getLatitud() {
 		return latitud;
 	}
 	/**
 	 * @param latitud the latitud to set
 	 */
-	public void setLatitud(Float latitud) {
+	public void setLatitud(String latitud) {
 		this.latitud = latitud;
 	}
 	/**
 	 * @return the longitud
 	 */
-	public Float getLongitud() {
+	public String getLongitud() {
 		return longitud;
 	}
 	/**
 	 * @param longitud the longitud to set
 	 */
-	public void setLongitud(Float longitud) {
+	public void setLongitud(String longitud) {
 		this.longitud = longitud;
 	}
 	/**
