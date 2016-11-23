@@ -69,6 +69,24 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.herramientas.ConsultaHerramienta</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RegistraVialidad</servlet-name>
+  	<display-name>RegistraVialidad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.vialidad.RegistraVialidad</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ConsultaVialidad</servlet-name>
+  	<display-name>ConsultaVialidad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.vialidad.ConsultaVialidad</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EliminaVialidad</servlet-name>
+  	<display-name>EliminaVialidad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.vialidad.EliminaVialidad</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -112,5 +130,17 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaHerramienta</servlet-name>
 		<url-pattern>/ConsultaHerramienta</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistraVialidad</servlet-name>
+		<url-pattern>/RegistraVialidad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaVialidad</servlet-name>
+		<url-pattern>/ConsultaVialidad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EliminaVialidad</servlet-name>
+		<url-pattern>/EliminaVialidad</url-pattern>
 	</servlet-mapping>
 </web-app>
