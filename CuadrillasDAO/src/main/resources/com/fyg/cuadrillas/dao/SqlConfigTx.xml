@@ -13,6 +13,7 @@
 <typeAlias alias="Herramienta" type="com.fyg.cuadrillas.dto.herramienta.HerramientaDTO"/>
 <typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDTO"/>
 <typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO"/>
+<typeAlias alias="Vialidad" type="com.fyg.cuadrillas.dto.vialidad.VialidadDTO"/>
 </typeAliases>
 
 
@@ -37,6 +38,7 @@
 	<mapper resource="com/fyg/cuadrillas/dao/PerfilTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/UsuarioTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/EmpleadoTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/VialidadTx.xml" />
 	</mappers>
 
 </configuration>

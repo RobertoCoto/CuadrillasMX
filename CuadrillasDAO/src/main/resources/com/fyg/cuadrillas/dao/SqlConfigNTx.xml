@@ -15,6 +15,7 @@
 <typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDTO"/>
 <typeAlias alias="Menu" type="com.fyg.cuadrillas.dto.menu.MenuDTO"/>
 <typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO"/>
+<typeAlias alias="Vialidad" type="com.fyg.cuadrillas.dto.vialidad.VialidadDTO"/>
 </typeAliases>
 
 	<environments default="development">
@@ -40,5 +41,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/UsuarioNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/EmpleadoNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/MenuNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/VialidadNTx.xml" />
 	</mappers>
 </configuration>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.dao.VialidadTx">
+<insert id="registraVialidad" parameterType="Vialidad">
+INSERT INTO vialidad(nombre,latitud,longitud,usuario_alta,fecha_alta,usuario_ult_mod,fecha_ult_mod,estatus)
+VALUES(#{nombre},#{latitud},#{longitud},#{usuarioAlta},now(),#{usuarioUltMod},now(),'A')
+</insert>
+
+<update id="inactivaVialidad" parameterType="Vialidad">
+UPDATE vialidad
+    SET
+    usuario_baja = #{usuarioBaja},
+    fecha_baja = now(),
+    usuario_ult_mod = #{usuarioUltMod},
+    fecha_ult_mod = now(),
+    estatus = 'I'
+WHERE latitud = #{latitud}
+AND longitud = #{longitud}
+AND estatus = 'A'
+</update> 
+</mapper>

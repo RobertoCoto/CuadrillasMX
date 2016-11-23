@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fyg.cuadrillas.dao.VialidadNTx">
+<resultMap type="Vialidad" id="vialidad">
+<result column="id_vialidad" property="idVialidad"/>
+<result column="nombre"  property="nombre"/>
+<result column="latitud" property="latitud"/>
+<result column="longitud" property="longitud"/>
+<result column="usuario_alta" property="usuarioAlta"/>
+<result column="fecha_alta" property="fechaAlta"/>
+<result column="usuario_baja" property="usuarioBaja"/>
+<result column="fecha_baja" property="fechaBaja"/>
+<result column="usuario_ult_mod" property="usuarioUltMod"/>
+<result column="fecha_ult_mod" property="fechaUltMod"/>
+<result column="estatus" property="estatus"/>
+</resultMap>
+
+<select id="consultaVialidadAsc" parameterType="Vialidad" resultMap="vialidad">
+SELECT 
+    nombre,
+    latitud,
+    longitud,
+    estatus
+FROM vialidad
+WHERE latitud = #{latitud}
+AND longitud = #{longitud}
+AND estatus = 'A'
+ORDER BY nombre ASC
+</select>
+
+<select id="consultaVialidadDesc" parameterType="Vialidad" resultMap="vialidad">
+SELECT 
+    nombre,
+    latitud,
+    longitud,
+    estatus
+FROM vialidad
+WHERE latitud = #{latitud}
+AND longitud = #{longitud}
+AND estatus = 'A'
+ORDER BY nombre DESC
+</select>
+</mapper>
