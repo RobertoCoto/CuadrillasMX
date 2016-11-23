@@ -80,7 +80,7 @@ public class ModificaEmpleadoTest {
 		modificaEmpleado.setApellidoMat("PEREZ");
 		modificaEmpleado.setFechaNacimiento(fechaNac);
 		modificaEmpleado.setRfc("GOPA19830101");
-		modificaEmpleado.setObjDocumentos(dataDocumentos);
+		modificaEmpleado.setDocumentos(dataDocumentos);
 		modificaEmpleado.setObservaciones("CORRECTO");
 	}
 	/**

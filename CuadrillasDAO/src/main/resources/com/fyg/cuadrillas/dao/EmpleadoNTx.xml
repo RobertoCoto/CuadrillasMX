@@ -7,7 +7,6 @@
 <result column="apellido_pat" property="apellidoPat"/>
 <result column="apellido_mat" property="apellidoMat"/>
 <result column="sexo" property="sexo"/>
-<result column="curp" property="curp"/>
 <result column="rfc" property="rfc"/>
 <result column="rfc_calculado" property="rfcCalculado"/>
 <result column="estatus" property="estatus"/>
@@ -20,29 +19,30 @@
 <result column="codigo_area" property="codigoArea"/>
 <result column="codigo_puesto" property="codigoPuesto"/>
 <result column="sueldo" property="sueldo"/>
-</resultMap>  
-	
+</resultMap> 
+
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
-SELECT 
-	nombre ,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
-    codigo_area,codigo_puesto,sueldo,telefono,curp 
-FROM empleado 
-<where>
-<if test="id_empleado !=null">
- id_empleado = #{idEmpleado}
- </if>
- <if test="nombre != null">
- AND nombre like #{nombre}
-  </if>
- <if test="apellido_pat !=null">
- AND apellido_pat like #{apellidoPat}
- </if>
- <if test="apellido_mat !=null">
- AND apellido_mat like #{apellidoMat}
- </if>
- <if test="rfc !=null">
- AND rfc like #{rfc}
- </if>
-</where>
-</select> 
+	SELECT 
+		nombre ,apellido_pat,apellido_mat,sexo,rfc,rfc_generado,estatus,nss,fecha_nacimiento,observaciones,fecha_ingreso,codigo_vialidad,
+	    codigo_area,codigo_puesto,sueldo,telefono,curp 
+	FROM empleado
+	<where>
+	<if test="id_empleado !=null">
+	 id_empleado = #{idEmpleado}
+	 </if>
+	 <if test="nombre != null">
+	 AND nombre like #{nombre}
+	  </if>
+	 <if test="apellido_pat !=null">
+	 AND apellido_pat like #{apellidoPat}
+	 </if>
+	 <if test="apellido_mat !=null">
+	 AND apellido_mat like #{apellidoMat}
+	 </if>
+	 <if test="rfc !=null">
+	 AND rfc like #{rfc}
+	 </if>
+	</where>
+</select>
+
 </mapper>

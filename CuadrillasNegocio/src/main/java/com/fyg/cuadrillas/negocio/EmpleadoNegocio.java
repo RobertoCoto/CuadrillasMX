@@ -1,19 +1,24 @@
 package com.fyg.cuadrillas.negocio;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
-import com.fyg.cuadrillas.comun.RFCUtil;
 
 public class EmpleadoNegocio {
-	@SuppressWarnings("static-access")
+
+	/** The LONGITUD_RFC. */
+	private static final  int LONGITUD_RFC = 10;
+	/** The LONGITUD_TELEFONO. */
+	private static final  int LONGITUD_TELEFONO = 10;
+
 	public EncabezadoRespuesta registraEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -21,75 +26,70 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		//Para validar curp
-		Boolean curpValidado = null;
-		//Para validar Sexo
-		Boolean sexoValido = null;
-		//Para validar rfc
-		Boolean rfcValido = null;
+
 		try {
 			//Validaciones Negocio
-			if (empleado.getNombre() == null || empleado.getNombre().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el nombre del empleado");
-			} else if (empleado.getApellidoPat() == null || empleado.getApellidoPat().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el apellido paterno");
-			} else if (empleado.getApellidoMat() == null || empleado.getApellidoMat().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el apellido materno");
-			} else if (empleado.getSexo() == null || empleado.getSexo().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario expecificar el sexo.");
-			} else if (empleado.getRfc() == null || empleado.getRfc().isEmpty()) {
-				rfcValido = false;
-				if (rfcValido.equals(false)) {
-                	throw new ExcepcionesCuadrillas("RFC no valido o esta vacio.");
-				}
-			}else if (empleado.getRfc().trim().length() < 10) {
-				rfcValido = true;
-			} else if (empleado.getCurp() == null ||empleado.getCurp().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario la curp");
-			} else if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el codigo puesto");
-			} else if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().isEmpty()) {
+			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del empleado.");
+			}
+			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del empleado.");
+			}
+			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del empleado.");
+			}
+			if (!(empleado.getSexo().equalsIgnoreCase("F") || empleado.getSexo().equalsIgnoreCase("M"))) {
+				throw new ExcepcionesCuadrillas("El sexo del empleado es incorrecto.");
+			}
+			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
+			}
+			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
+				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
+			}
+			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El puesto es necesario en el alta del empleado.");
+			}
+			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo de vialidad.");
 			} else if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
-			} else {
-				//validar curp
-				String regex =
-				 	    "[A-Z]{1}[A-Z]{1}[A-Z]{2}[0-9]{2}"
-				 	    + "(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])"
-				 	    + "[HM]{1}"
-				 		+ "(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)"
-				 	    + "[B-DF-HJ-NP-TV-Z]{3}"
-				 		+ "[0-9A-Z]{1}[0-9]{1}$";
+			}
+			if (empleado.getSueldo() <= 0) {
+				throw new ExcepcionesCuadrillas("El sueldo es necesario en el alta del empleado.");
+			}
+			if (!empleado.getTelefono().trim().isEmpty()) {
+				if (empleado.getTelefono().trim().length() != LONGITUD_TELEFONO) {
+					throw new ExcepcionesCuadrillas("La longitud del telefono debe ser de " + LONGITUD_TELEFONO + " caracteres.");
+				}
+			}
 
-				 	    Pattern patron = Pattern.compile(regex);
-				 	    if (!patron.matcher(empleado.getCurp()).matches()) {
-				 	    	curpValidado = false;
-				 	    } else {
-				 	    	curpValidado = true;
-				 	    }
+			if (empleado.getFrecuenciaPago() == null) {
+				empleado.setFrecuenciaPago("");
 			}
-			if (curpValidado.equals( false)) {
-				throw new ExcepcionesCuadrillas("CURP NO VALIDO.");
-			}else {
-				//valida Sexo
-				String regex = "[HM]{1}";
-				Pattern patron = Pattern.compile(regex);
-				 if (!patron.matcher(empleado.getSexo()).matches()) {
-				    	sexoValido = false;
-				    }
-				        sexoValido = true;
+
+			if (empleado.getDocumentos().size() == 0) {
+				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de alta del empleado.");
 			}
-			if (sexoValido.equals(false)) {
-				throw new ExcepcionesCuadrillas("SEXO NO VALIDO.");
+			for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
+				if (documento.getCodigoEmpDoc() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
+				}
+				if (documento.getEstatus() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
+				}
 			}
-			RFCUtil calcularRFC = new RFCUtil();
-			String nombre = empleado.getNombre();
-			String apellidoPat = empleado.getApellidoPat();
-			String apellidoMat = empleado.getApellidoPat();
-			String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(nombre,apellidoPat,apellidoMat,empleado.getFechaNacimiento());
+			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
+			}
+			//RFC Calculado
+			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
+						empleado.getApellidoPat(),
+						empleado.getApellidoMat(),
+						empleado.getFechaNacimiento());
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
+
 			EmpleadoDAO dao = new EmpleadoDAO();
 			respuesta = dao.registraEmpleado(uid, empleado);
 		}
@@ -124,8 +124,20 @@ public class EmpleadoNegocio {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		List<EmpleadoDTO> listaEmpleado = null;
 		try {
+			
+			if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
+				throw new ExcepcionesCuadrillas("El No de empleado es necesario para la baja.");
+			}
+			if (empleado.getUsuarioBaja() == null || empleado.getUsuarioBaja().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El Usuario es necesario para la baja.");
+			}
+
+			empleado.setNombre(null);
+			empleado.setApellidoPat(null);
+			empleado.setApellidoMat(null);
+			
 			//Validaciones Negocio
-			listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid,empleado);
+			listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
 			 for (int i = 0; i < listaEmpleado.size(); i++) {
 				 if (listaEmpleado.get(i).getEstatus().equals("A")) {
 	            		//Mandamos a la parte del dao

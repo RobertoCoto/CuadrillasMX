@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.fyg.cuadrillas.dao.EmpleadoTx">
+<mapper	namespace="com.fyg.cuadrillas.dao.EmpleadoTx">
 
 <!-- Registra en la tabla Empleado -->
 <insert id="registraEmpleado" parameterType="empleado" useGeneratedKeys="true" keyProperty="id_empleado"  keyColumn="id_empleado">
-INSERT INTO empleado(nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,curp,fecha_nacimiento,
-fecha_ingreso,codigo_puesto,codigo_vialidad,codigo_area,codigo_talla,sueldo,nss,no_credito_infonavit,
-telefono,fecha_alta,fecha_baja,codigo_tipo_salida,codigo_causa_salida,fecha_ult_mod,estatus,observaciones)
-VALUES(#{nombre},#{apellidoPat},#{apellidoMat},#{sexo},#{rfc},#{rfcCalculado},#{curp},#{fechaNacimiento},
-now(),#{codigoPuesto},#{codigoVialidad},#{codigoArea},#{codigoTalla},#{sueldo},#{nss},#{noCreditoInfonavit},
-#{telefono},now(),now(),#{codigoTipoSalida},#{codigoCausaSalida},now(),#{estatus},#{observaciones})
-<selectKey keyProperty="id_empleado" resultType="Integer" order="AFTER">
-SELECT LAST_INSERT_ID();
-</selectKey>
+	INSERT INTO empleado
+		(
+		nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento,
+		fecha_ingreso, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, sueldo, frecuencia_pago,
+		nss, no_credito_infonavit, telefono, observaciones, usuario_alta, fecha_alta,
+		usuario_ult_mod, fecha_ult_mod, estatus
+		)
+	VALUES
+		(
+		upper(#{nombre}), upper(#{apellidoPat}), upper(#{apellidoMat}), upper(#{sexo}), upper(#{rfc}), upper(#{rfcCalculado}), #{fechaNacimiento},
+		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla}, #{sueldo}, #{frecuenciaPago},
+		#{nss},#{noCreditoInfonavit}, #{telefono}, #{observaciones}, #{usuarioAlta}, now(),
+		 #{usuarioAlta}, now(), 'A'
+		)
+	<selectKey keyProperty="idEmpleado" resultType="Integer" order="AFTER">
+	SELECT LAST_INSERT_ID();
+	</selectKey>
 </insert>
 
 <insert id="registraDocumentos" parameterType="empleadoDocumento">
-INSERT INTO empleado_documentos(id_empleado,codigo_emp_doc,fecha_alta,fecha_ult_mod,estatus)
-VALUES 
-<foreach collection="list" item="element" index="index" separator=",">
- (#{element.idEmpleado},#{element.codigoEmpDoc},now(),now(),#{element.estatus}) 
-</foreach>
+	INSERT INTO empleado_documentos
+		(
+		id_empleado, codigo_emp_doc, fecha_alta, estatus
+		)
+	VALUES
+	<foreach collection="list" item="element" index="index" separator=",">
+	 	(
+	 	#{element.idEmpleado}, #{element.codigoEmpDoc}, now(), #{element.estatus}
+	 	)
+	</foreach>
 </insert>
 
 <update id="bajaEmpleado" parameterType="empleado">

@@ -12,18 +12,14 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 
 public class EmpleadoDAO {
-	/**
-	 * Objeto que recibira los valores del documento
-	 */
-	private EmpleadoDTO objDocumentos;
-	private EmpleadoDocumentoDTO documento;
+
 	/**
 	 * Metodo Para dar de Alta un Empleado
 	 * @param uid unico de registro
 	 * @param empleado recibe los valores del empleado
 	 * @return regresa respuesta de registro
 	 */
-	 public EncabezadoRespuesta registraEmpleado(String uid,EmpleadoDTO empleado) {
+	 public EncabezadoRespuesta registraEmpleado(String uid, EmpleadoDTO empleado) {
 		 	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -36,13 +32,16 @@ public class EmpleadoDAO {
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar el empleado.");
 				}
-                
+
+				if (empleado.getDocumentos().size() > 0) {
+					for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
+						documento.setIdEmpleado(empleado.getIdEmpleado());
+					}
+					registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
+				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
 				sessionTx.commit();
-				
-				objDocumentos = empleado;	
-				registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
 			}
 			catch (Exception ex) {
 				//Realizamos rollBack
@@ -65,42 +64,36 @@ public class EmpleadoDAO {
 	  * @return regresa la respuesta
 	  * @throws Exception si surge alguna excepcion
 	  */
-   public ArrayList<EmpleadoDocumentoDTO> registraDocumentos(String uid,ArrayList<EmpleadoDocumentoDTO> empleadoDocumentos, SqlSession session) 
+   public void registraDocumentos(String uid, List<EmpleadoDocumentoDTO> empleadoDocumentos, SqlSession session) 
 		   throws Exception {
 	   SqlSession sessionTx = null;
-
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
 			 sessionTx = FabricaConexiones.obtenerSesionTx();
 		} else {
 			sessionTx = session;
 		}
-		
-		 for(int k = 0; k < empleadoDocumentos.size(); k++) {
-			 empleadoDocumentos.get(k).setIdEmpleado(objDocumentos.getIdEmpleado());
-			
-		}
+	
 		//Validamos el registro
-		 int registros = sessionTx.insert("EmpleadoDAO.registraDocumentos", empleadoDocumentos);
-		 if ( registros == 0) {
-				if ( session == null ) {
-					FabricaConexiones.rollBack(sessionTx);
-					FabricaConexiones.close(sessionTx);
-				}
-				throw new ExcepcionesCuadrillas("No se pudo registrar.");
-			}
-		//La conexion no es atomica realizamos commit
+		int registros = sessionTx.insert("EmpleadoDAO.registraDocumentos", empleadoDocumentos);
+		if ( registros == 0) {
 			if ( session == null ) {
-				LogHandler.debug(uid, this.getClass(), "Commit conexion.");
-				sessionTx.commit();
-			}
-			//La conexion no es atomica cerramos
-			if ( session == null ) {
-				LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+				FabricaConexiones.rollBack(sessionTx);
 				FabricaConexiones.close(sessionTx);
 			}
-		return empleadoDocumentos;
-}
+			throw new ExcepcionesCuadrillas("No se pudo registrar.");
+		}
+		//La conexion no es atomica realizamos commit
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+			sessionTx.commit();
+		}
+		//La conexion no es atomica cerramos
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+			FabricaConexiones.close(sessionTx);
+		}		
+   }
    /**
     * Metodo para dar de baja un Empleado
     * @param uid unico de registro
@@ -125,8 +118,8 @@ public class EmpleadoDAO {
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
 			
-			objDocumentos = empleado;	
-			registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
+				
+			registraDocumentos(uid,empleado.getDocumentos(), sessionTx);
 		}
 		catch (Exception ex) {
 			//Realizamos rollBack
@@ -186,10 +179,10 @@ public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado)throw
 		respuesta.setMensajeFuncional("modificacion correcta.");
 		try {
 			//Abrimos conexion Transaccional
-			documento = new EmpleadoDocumentoDTO();
-			documento.setIdEmpleado(empleado.getIdEmpleado());
+			//documento = new EmpleadoDocumentoDTO();
+			//documento.setIdEmpleado(empleado.getIdEmpleado());
 			//envia el id al metodo que elimina el documentos
-			eliminaDocumentos(uid,documento);
+			//eliminaDocumentos(uid,documento);
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("EmpleadoDAO.modificaEmpleado", empleado);
 			if ( registros == 0) {
@@ -200,8 +193,8 @@ public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado)throw
 			sessionTx.commit();
 			
 			//se envia los nuevos datos para registrar
-			objDocumentos = empleado;
-			registraDocumentos(uid,empleado.getObjDocumentos(), sessionTx);
+			//objDocumentos = empleado;
+			registraDocumentos(uid,empleado.getDocumentos(), sessionTx);
 		}
 		catch (Exception ex) {
 			//Realizamos rollBack

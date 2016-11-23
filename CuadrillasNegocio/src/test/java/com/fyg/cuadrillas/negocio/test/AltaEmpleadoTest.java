@@ -71,19 +71,18 @@ public class AltaEmpleadoTest {
 		dataDocumentos.add(docEmpleado2);
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
-		
+
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-		String strFecha = "1983-01-01";
+		String strFecha = "1985-03-06";
 		Date fechaNac = formato.parse(strFecha);
 		/**
 		 * Valores a enviar
 		 */
-		altaEmpleado.setNombre("Jorge Arturo");
-		altaEmpleado.setApellidoPat("Marquez");
-		altaEmpleado.setApellidoMat("Hermandez");
-		altaEmpleado.setSexo("H");
-		altaEmpleado.setRfc("MAHJ830101");
-		altaEmpleado.setCurp("MAHJ830101HASRRR09");
+		altaEmpleado.setNombre("MARIO IVAN");
+		altaEmpleado.setApellidoPat("MEJORADA");
+		altaEmpleado.setApellidoMat("HERRERA");
+		altaEmpleado.setSexo("M");
+		altaEmpleado.setRfc("MAHJ830101");		
 		altaEmpleado.setFechaNacimiento(fechaNac);
 		altaEmpleado.setCodigoPuesto("AYGE");
 		altaEmpleado.setCodigoVialidad("5MAY");
@@ -93,7 +92,9 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setTelefono("5555555555");
 		altaEmpleado.setEstatus("A");
 		altaEmpleado.setObservaciones("CORRECTO");
-		altaEmpleado.setObjDocumentos(dataDocumentos);
+		altaEmpleado.setDocumentos(dataDocumentos);
+		altaEmpleado.setFechaIngreso(new Date(2016,10,10));
+		altaEmpleado.setUsuarioAlta("usuario");
 		
 	}
 	/**
@@ -104,6 +105,10 @@ public class AltaEmpleadoTest {
 	@Test
 	public void testRegistraEmpleado() throws Exception {
 		String guid = uid.generateGUID(altaEmpleado);
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
 		try {
 			dataEmpleado.registraEmpleado(altaEmpleado);
 		}
