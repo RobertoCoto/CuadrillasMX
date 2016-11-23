@@ -142,6 +142,21 @@ CREATE TABLE usuario (
 		fecha_alta DATETIME NOT NULL,	 
 		estatus CHAR(2) NOT NULL CHECK(estatus IN('SI','NO','NA'))
     );
+	
+	CREATE TABLE vialidad (
+	id_vialidad INTEGER AUTO_INCREMENT NOT NULL,
+	nombre varchar(40) NOT NULL,
+	latitud float NOT NULL,
+	longitud float NOT NULL,
+	usuario_alta varchar(20)NOT NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_baja varchar(20) NULL,
+	fecha_baja  DATETIME NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+    PRIMARY KEY(id_vialidad)
+	);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
