@@ -17,7 +17,7 @@ public class VialidadNegocio {
  * @return regresa un resultado
  */
 	public VialidadRespuesta consultaVialidad (VialidadDTO vialidad) {
-		//Primero generamos el identificador unico de la transaccion
+		       //Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(vialidad);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "consultaVialidad - Datos Entrada: " + vialidad);
@@ -53,5 +53,85 @@ public class VialidadNegocio {
 			    }
 			    LogHandler.debug(uid, this.getClass(), "consultaVialidad - Datos Salida: " + respuesta);
 				return respuesta;
+	}
+	/**
+	 * Metodo para registrar vialidades
+	 * @param vialidad recibe valores de vialidad
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta altaVialidad(VialidadDTO vialidad) {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(vialidad);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "altaVialidad - Datos Entrada: " + vialidad);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if(vialidad.getNombre() == null || vialidad.getNombre().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el nombre de la vialidad.");
+					}
+					if(vialidad.getLatitud() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario la latitud.");
+					}
+					if (vialidad.getLongitud() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario la longitud.");
+					}
+					VialidadDAO dao = new VialidadDAO();
+					respuesta = dao.altaVialidad(uid, vialidad);
+				}catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "altaVialidad - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "altaVialidad - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "altaVialidad - Datos Salida: " + respuesta);
+				return respuesta;
+	}
+	/**
+	 * Metodo para dar de baja una vialidad
+	 * @param vialidad recibe valores de vialidad
+	 * @return regresa una repsuesta
+	 */
+	public EncabezadoRespuesta eliminaVialidad(VialidadDTO  vialidad) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(vialidad);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "eliminaVialidad - Datos Entrada: " + vialidad);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			if(vialidad.getLatitud() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario la latitud para la baja.");
+			}
+			if (vialidad.getLongitud() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario la longitud para la baja.");
+			}
+			VialidadDAO dao = new VialidadDAO();
+			respuesta = dao.bajaVialidad(uid, vialidad);
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "altaVialidad - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "altaVialidad - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "altaVialidad - Datos Salida: " + respuesta);
+		return respuesta;
 	}
 }
