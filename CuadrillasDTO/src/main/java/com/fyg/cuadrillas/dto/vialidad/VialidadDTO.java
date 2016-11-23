@@ -54,6 +54,10 @@ public class VialidadDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * Orden 
+	 */
+	private String orden;
+	/**
 	 * @return the idVialidad
 	 */
 	public Integer getIdVialidad() {
@@ -184,5 +188,17 @@ public class VialidadDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the orden
+	 */
+	public String getOrden() {
+		return orden;
+	}
+	/**
+	 * @param orden the orden to set
+	 */
+	public void setOrden(String orden) {
+		this.orden = orden;
 	}
 }
