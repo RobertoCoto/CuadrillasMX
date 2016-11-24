@@ -3,35 +3,43 @@
 <mapper namespace="com.fyg.cuadrillas.dao.EmpleadoNTx">
 
 <resultMap type="Empleado" id="empleado">
-<result column="id_empleado" property="idEmpleado"/>
-<result column="nombre" property="nombre"/>
-<result column="apellido_pat" property="apellidoPat"/>
-<result column="apellido_mat" property="apellidoMat"/>
-<result column="sexo" property="sexo"/>
-<result column="rfc" property="rfc"/>
-<result column="rfc_calculado" property="rfcCalculado"/>
-<result column="estatus" property="estatus"/>
-<result column="nss" property="nss"/>
-<result column="fecha_nacimiento" property="fechaNacimiento"/>
-<result column="telefono" property="telefono"/>
-<result column="observaciones" property="observaciones"/>
-<result column="fecha_ingreso" property="fechaIngreso"/>
-<result column="codigo_vialidad" property="codigoVialidad"/>
-<result column="codigo_area" property="codigoArea"/>
-<result column="codigo_puesto" property="codigoPuesto"/>
-<result column="sueldo" property="sueldo"/>
+	<result column="id_empleado" property="idEmpleado"/>
+	<result column="nombre" property="nombre"/>
+	<result column="apellido_pat" property="apellidoPat"/>
+	<result column="apellido_mat" property="apellidoMat"/>
+	<result column="sexo" property="sexo"/>
+	<result column="rfc" property="rfc"/>
+	<result column="rfc_calculado" property="rfcCalculado"/>
+	<result column="fecha_nacimiento" property="fechaNacimiento"/>
+	<result column="fecha_ingreso" property="fechaIngreso"/>
+	<result column="codigo_puesto" property="codigoPuesto"/>
+	<result column="codigo_vialidad" property="codigoVialidad"/>
+	<result column="codigo_area" property="codigoArea"/>
+	<result column="codigo_talla" property="codigoTalla"/>
+	<result column="sueldo" property="sueldo"/>
+	<result column="frecuencia_pago" property="frecuenciaPago"/>
+	<result column="nss" property="nss"/>
+	<result column="no_credito_infonavit" property="noCreditoInfonavit"/>
+	<result column="telefono" property="telefono"/>
+	<result column="observaciones" property="observaciones"/>
+	<result column="fecha_baja" property="fechaBaja"/>
+	<result column="codigo_tipo_salida" property="codigoTipoSalida"/>
+	<result column="codigo_causa_salida" property="codigoCausaSalida"/>
+	<result column="estatus" property="estatus"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
 	SELECT
-		nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, estatus,
-		nss, fecha_nacimiento, observaciones, fecha_ingreso, codigo_vialidad,
-	    codigo_area, codigo_puesto, sueldo, telefono
+		id_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento, fecha_ingreso,
+		codigo_puesto, codigo_vialidad, codigo_area,  codigo_talla, sueldo, frecuencia_pago,
+		nss, no_credito_infonavit, telefono, observaciones,
+		fecha_baja, codigo_tipo_salida, codigo_causa_salida, estatus
 	FROM empleado
 	<where>
 	<if test="idEmpleado !=null">
 	 id_empleado = #{idEmpleado}
 	 </if>
+	 <!-- 
 	 <if test="nombre != null">
 	 AND nombre like #{nombre}
 	  </if>
@@ -44,6 +52,7 @@
 	 <if test="rfc !=null">
 	 AND rfc like #{rfc}
 	 </if>
+	  -->
 	</where>
 </select>
 

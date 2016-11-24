@@ -65,7 +65,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	/**
 	 * Sueldo del empleado
 	 */
-	private Double sueldo;
+	private double sueldo;
 	/**
 	 * frecuenciaPago
 	 */
@@ -285,7 +285,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	/**
 	 * @param sueldo the sueldo to set
 	 */
-	public void setSueldo(Double sueldo) {
+	public void setSueldo(double sueldo) {
 		this.sueldo = sueldo;
 	}
 	/**

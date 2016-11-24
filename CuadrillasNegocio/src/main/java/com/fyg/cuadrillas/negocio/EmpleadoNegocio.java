@@ -19,6 +19,11 @@ public class EmpleadoNegocio {
 	/** The LONGITUD_TELEFONO. */
 	private static final  int LONGITUD_TELEFONO = 10;
 
+	/**
+	 * Metodo para dar de alta un empleado
+	 * @param empleado recibe valores de empleado
+	 * @return regresa respuesta de baja
+	 */
 	public EncabezadoRespuesta registraEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -28,7 +33,6 @@ public class EmpleadoNegocio {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 
 		try {
-			//Validaciones Negocio
 			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del empleado.");
 			}
@@ -57,6 +61,9 @@ public class EmpleadoNegocio {
 			}
 			if (empleado.getSueldo() <= 0) {
 				throw new ExcepcionesCuadrillas("El sueldo es necesario en el alta del empleado.");
+			}
+			if ( empleado.getTelefono() == null) {
+				empleado.setTelefono("");
 			}
 			if (!empleado.getTelefono().trim().isEmpty()) {
 				if (empleado.getTelefono().trim().length() != LONGITUD_TELEFONO) {
@@ -177,8 +184,7 @@ public class EmpleadoNegocio {
 	 * Metodo para modificar empleado
 	 * @param empleado recibe valores de empleado
 	 * @return regresa una respuesta
-	 */
-	@SuppressWarnings("static-access")
+	 */	
 	public EncabezadoRespuesta modificaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -187,16 +193,84 @@ public class EmpleadoNegocio {
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
-			//Validaciones Negocio
-			RFCUtil calcularRFC = new RFCUtil();
-			String nombre = empleado.getNombre();
-			String apellidoPat = empleado.getApellidoPat();
-			String apellidoMat = empleado.getApellidoMat();
-			String rfcCalculado  = calcularRFC.calcularRFCPersonaFisica(nombre,apellidoPat,apellidoMat,empleado.getFechaNacimiento());
+			if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
+				throw new ExcepcionesCuadrillas("El No de empleado es necesario para la actualizacion.");
+			}
+			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El nombre es necesario en la actualizacion del empleado.");
+			}
+			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en la actualizacion del empleado.");
+			}
+			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El sexo es necesario en la actualizacion del empleado.");
+			}
+			if (!(empleado.getSexo().equalsIgnoreCase("F") || empleado.getSexo().equalsIgnoreCase("M"))) {
+				throw new ExcepcionesCuadrillas("El sexo del empleado es incorrecto.");
+			}
+			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El RFC es necesario en la actualizacion del empleado.");
+			}
+			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
+				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
+			}
+			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El puesto es necesario en la actualizacion del empleado.");
+			}
+			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el codigo de vialidad en la actualizacion del empleado.");
+			} else if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el codigo area en la actualizacion del empleado.");
+			}
+			if (empleado.getSueldo() <= 0) {
+				throw new ExcepcionesCuadrillas("El sueldo es necesario en en la actualizacion del empleado. del empleado.");
+			}
+			if ( empleado.getTelefono() == null) {
+				empleado.setTelefono("");
+			}
+			if (!empleado.getTelefono().trim().isEmpty()) {
+				if (empleado.getTelefono().trim().length() != LONGITUD_TELEFONO) {
+					throw new ExcepcionesCuadrillas("La longitud del telefono debe ser de " + LONGITUD_TELEFONO + " caracteres.");
+				}
+			}
+			if (empleado.getFrecuenciaPago() == null) {
+				empleado.setFrecuenciaPago("");
+			}
+			if (empleado.getDocumentos().size() == 0) {
+				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de actualizacion del empleado. del empleado.");
+			}
+			for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
+				documento.setIdEmpleado(empleado.getIdEmpleado());
+				if (documento.getCodigoEmpDoc() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
+				}
+				if (documento.getEstatus() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
+				}
+			}
+			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
+			}
+			//RFC Calculado
+			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
+						empleado.getApellidoPat(),
+						empleado.getApellidoMat(),
+						empleado.getFechaNacimiento());
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
-			  respuesta = dao.modificaEmpleado(uid, empleado);
+
+			//Validaciones Negocio
+			EmpleadoDTO emp = dao.consultaEmpleado(uid, empleado);
+			if (emp == null) {
+				throw new ExcepcionesCuadrillas("El empleado solicitado no existe.");
+			}
+			if (emp.getEstatus().equals("I")) {
+				throw new ExcepcionesCuadrillas("El empleado ya se encuentra dado de baja.");
+			}
+
+			//Modificacion
+ 		    respuesta = dao.modificaEmpleado(uid, empleado);
 		}
 		catch  (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "modificaEmpleado - Error: " + ex.getMessage(), ex);

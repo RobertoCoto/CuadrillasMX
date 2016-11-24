@@ -74,7 +74,7 @@ public class ModificaEmpleadoTest {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 		String strFecha = "1983-01-01";
 		Date fechaNac = formato.parse(strFecha);
-		
+		modificaEmpleado.setIdEmpleado(3);
 		modificaEmpleado.setNombre("ARMANDO");
 		modificaEmpleado.setApellidoPat("GONZALEZ");
 		modificaEmpleado.setApellidoMat("PEREZ");
@@ -82,6 +82,15 @@ public class ModificaEmpleadoTest {
 		modificaEmpleado.setRfc("GOPA19830101");
 		modificaEmpleado.setDocumentos(dataDocumentos);
 		modificaEmpleado.setObservaciones("CORRECTO");
+		modificaEmpleado.setSexo("M");
+		modificaEmpleado.setCodigoPuesto("AYGE");
+		modificaEmpleado.setCodigoVialidad("5MAY");
+		modificaEmpleado.setCodigoArea("AYGE");
+		modificaEmpleado.setCodigoTalla("CHIC");
+		modificaEmpleado.setSueldo(10);
+		modificaEmpleado.setNss("xxx");
+		modificaEmpleado.setNoCreditoInfonavit("1213");
+		modificaEmpleado.setUsuarioAlta("MAYITO");
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario
@@ -91,8 +100,13 @@ public class ModificaEmpleadoTest {
 	@Test
 	public void testModificaEmpleado() throws Exception {
 		String guid = uid.generateGUID(modificaEmpleado);
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
 		try {
-			dataEmpleado.bajaEmpleado(modificaEmpleado);
+			
+			dataEmpleado.modificaEmpleado(modificaEmpleado);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

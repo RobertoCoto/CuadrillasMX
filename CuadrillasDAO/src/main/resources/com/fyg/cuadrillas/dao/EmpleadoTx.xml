@@ -46,18 +46,35 @@
 	     estatus = 'I'
 	 WHERE id_empleado = #{idEmpleado}
 </update>
+
 <update id="modificaEmpleado" parameterType="empleado">
-UPDATE empleado SET 
-        nombre = #{nombre},
-        apellido_pat = #{apellidoPat},
-        apellido_mat = #{apellidoMat}
-        fecha_nacimiento = #{fechaNacimiento},
-        sexo = #{sexo},
-        rfc = #{rfc},
-        rfc_calculado = #{rfcCalculado}
- WHERE id_empleado = #{idEmpleado}
- </update>
+	UPDATE empleado
+	SET
+	   nombre = upper(#{nombre}),
+	   apellido_pat = upper(#{apellidoPat}),
+	   apellido_mat = upper(#{apellidoMat}),
+	   fecha_nacimiento = #{fechaNacimiento},
+	   sexo = upper(#{sexo}),
+	   rfc = upper(#{rfc}),
+	   rfc_calculado = upper(#{rfcCalculado}),
+	   codigo_puesto = upper(#{codigoPuesto}),
+	   codigo_vialidad = upper(#{codigoVialidad}),
+	   codigo_area = upper(#{codigoArea}),
+	   codigo_talla = upper(#{codigoTalla}),
+	   sueldo = #{sueldo},
+	   frecuencia_pago =  upper(#{frecuenciaPago}),
+	   nss = #{nss},
+	   no_credito_infonavit = #{noCreditoInfonavit},
+	   telefono = #{telefono},
+	   observaciones = #{observaciones},
+	   usuario_ult_mod = #{usuarioAlta},
+	   fecha_ult_mod = now()
+	 WHERE id_empleado = #{idEmpleado}
+
+</update>
+
 <delete id="eliminaDocumentos" parameterType="empleadoDocumento">
-DELETE FROM empleado_documentos WHERE id_empleado = #{idEmpleado}
+	DELETE FROM empleado_documentos WHERE id_empleado = #{idEmpleado}
 </delete>
+
 </mapper>
