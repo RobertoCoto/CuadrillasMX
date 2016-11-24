@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
+import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.catalogo.CatalogoDTO;
 import com.fyg.cuadrillas.negocio.CatalogoNegocio;
 import com.google.gson.Gson;
@@ -69,7 +70,7 @@ public class ActualizarCatalogo extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		} catch (Exception e) {
-			System.out.println("errores" + e);
+			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
 			out.println(sg.toJson(respuesta));
