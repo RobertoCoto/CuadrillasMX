@@ -304,7 +304,6 @@ public class EmpleadoNegocio {
 	    try {
 	    	if(empleado.getIdEmpleado() == null)
 	    	{
-	    		System.out.println("ERROR");
 	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 	    	}
 	    	 listaEmpleado = null;//new EmpleadoDAO().consultaEmpleado(uid, empleado);

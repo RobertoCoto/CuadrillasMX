@@ -76,7 +76,7 @@ public class CatalogoNegocio {
 	    try {
 	    	//validaciones
 	    	if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
-	    		System.out.println("ERROR");
+	    		
 	    		throw new ExcepcionesCuadrillas("Es necesario el tipo catalogo para la busqueda.");
 	    	}
 	    	if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
