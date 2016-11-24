@@ -25,10 +25,10 @@ public class MenuDAO {
 		List<MenuDTO> listaMenus = null;
 		try {
 			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			System.out.println("Consultando");
+			LogHandler.debug(uid, this.getClass(), "Consultando");
 			listaMenus = sessionNTx.selectList("MenuDAO.consultaMenu", idPerfil);
 		}
 		catch (Exception ex) {

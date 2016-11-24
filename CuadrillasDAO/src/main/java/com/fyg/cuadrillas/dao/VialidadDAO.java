@@ -109,7 +109,9 @@ public class VialidadDAO {
 			}
 		}
 		catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
 			throw new Exception(ex.getMessage());
 		}
 		finally {

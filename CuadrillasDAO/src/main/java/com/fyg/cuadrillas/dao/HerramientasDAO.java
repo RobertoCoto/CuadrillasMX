@@ -39,7 +39,9 @@ public class HerramientasDAO {
 			}
 		}
 		catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+            respuesta.setEstatus(false);
+    		respuesta.setMensajeFuncional(ex.getMessage());
 			throw new Exception(ex.getMessage());
 		}
 		finally {
@@ -63,10 +65,10 @@ public class HerramientasDAO {
 		List<HerramientaDTO> listaHerramientas = null;
 		try {
 			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
-			System.out.println("Consultando");
+			LogHandler.debug(uid, this.getClass(), "Consultando");
 			listaHerramientas = sessionNTx.selectList("HerramientaDAO.consultaListaHerramientas", herramienta);
 		}
 		catch (Exception ex) {

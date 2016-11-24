@@ -29,9 +29,9 @@ public class CatalogoDAO {
 		List<TipoCatalogoDTO> listaTipoCatalogos = null;
 		try {
 			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			System.out.println("Consultando");
+			LogHandler.debug(uid, this.getClass(), "Consultando");
 			//Se hace una consulta a la tabla contacto
 			listaTipoCatalogos = sessionNTx.selectList("CatalogoDAO.consultaTipoCatalogos");
 			if ( listaTipoCatalogos.size() == 0) {
@@ -39,7 +39,7 @@ public class CatalogoDAO {
 			}
 		}
 		catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
 		}
 		finally {
@@ -66,9 +66,9 @@ public class CatalogoDAO {
 		List<CatalogoDTO> listaCatalogos = null;
 		try {
 			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			System.out.println("Consultando");
+			LogHandler.debug(uid, this.getClass(), "Consultando");
 			//Se hace una consulta a la tabla contacto
 			if ( catalogo.getOrden().equals("A")) {
 				listaCatalogos = sessionNTx.selectList("CatalogoDAO.consultaCatalogoAsc", catalogo);
@@ -78,7 +78,7 @@ public class CatalogoDAO {
 
 		}
 		catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
 		}
 		finally {

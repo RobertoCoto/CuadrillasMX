@@ -26,15 +26,14 @@ public class UsuarioDAO {
 		List<UsuarioDTO> listaUsuario = null;
 		try {
 			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			System.out.println("Consultando");
+			LogHandler.debug(uid, this.getClass(), "Consultando");
 			listaUsuario = sessionNTx.selectList("UsuarioDAO.consultaUsuario", usuario);
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-			System.out.println(ex.getMessage());
 			throw new Exception(ex.getMessage());
 		}
 		finally {
@@ -129,10 +128,10 @@ public class UsuarioDAO {
 			UsuarioDTO loginUsuario = null;
 			try {
 				//Abrimos conexion Transaccional
-				System.out.println("Abriendo");
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				//Se hace una consulta a la tabla contacto
-				System.out.println("Consultando");
+				LogHandler.debug(uid, this.getClass(), "Consultando");
 				loginUsuario = (UsuarioDTO) sessionNTx.selectOne("UsuarioDAO.loginUsuario", usuario);
 				if (loginUsuario == null) {
 					throw new ExcepcionesCuadrillas("Usuario y/o contraseña incorrecta.");
@@ -140,7 +139,6 @@ public class UsuarioDAO {
 			}
 			catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-				System.out.println(ex.getMessage());
 				throw new Exception(ex.getMessage());
 			}
 			finally {

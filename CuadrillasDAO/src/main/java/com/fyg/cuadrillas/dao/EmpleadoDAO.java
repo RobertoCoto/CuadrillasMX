@@ -108,12 +108,15 @@ public class EmpleadoDAO {
 		EmpleadoDTO emp = null;
 		try {
 			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
+			LogHandler.debug(uid, this.getClass(), "consultando");
 			emp = (EmpleadoDTO) sessionNTx.selectOne("EmpleadoDAO.consultaEmpleado", empleado);
 			LogHandler.info(uid, this.getClass(), "consultaEmpleado: " + emp);
 		}
 		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
 		}
 		finally {
