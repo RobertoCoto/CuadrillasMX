@@ -88,10 +88,10 @@
   	<servlet-class>com.fyg.cuadrillas.web.vialidad.EliminaVialidad</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>AltaEmpleado</servlet-name>
-  	<display-name>AltaEmpleado</display-name>
+  	<servlet-name>RegistraEmpleado</servlet-name>
+  	<display-name>RegistraEmpleado</display-name>
   	<description></description>
-  	<servlet-class>com.fyg.cuadrillas.web.empleado.AltaEmpleado</servlet-class>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.RegistraEmpleado</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>BajaEmpleado</servlet-name>
@@ -162,8 +162,8 @@
 		<url-pattern>/EliminaVialidad</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AltaEmpleado</servlet-name>
-		<url-pattern>/AltaEmpleado</url-pattern>
+		<servlet-name>RegistraEmpleado</servlet-name>
+		<url-pattern>/RegistraEmpleado</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>BajaEmpleado</servlet-name>
