@@ -87,6 +87,18 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.vialidad.EliminaVialidad</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AltaEmpleado</servlet-name>
+  	<display-name>AltaEmpleado</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.AltaEmpleado</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BajaEmpleado</servlet-name>
+  	<display-name>BajaEmpleado</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.BajaEmpleado</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -142,5 +154,13 @@
 	<servlet-mapping>
 		<servlet-name>EliminaVialidad</servlet-name>
 		<url-pattern>/EliminaVialidad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AltaEmpleado</servlet-name>
+		<url-pattern>/AltaEmpleado</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BajaEmpleado</servlet-name>
+		<url-pattern>/BajaEmpleado</url-pattern>
 	</servlet-mapping>
 </web-app>
