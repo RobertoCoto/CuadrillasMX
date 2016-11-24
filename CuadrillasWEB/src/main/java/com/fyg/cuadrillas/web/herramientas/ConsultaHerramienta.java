@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
 import com.fyg.cuadrillas.dto.herramienta.HerramientaRespuesta;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
@@ -66,7 +67,7 @@ public class ConsultaHerramienta extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}  catch (Exception e) {
-			System.out.println("errores" + e);
+			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);
 			out.println(sg.toJson(respuesta));

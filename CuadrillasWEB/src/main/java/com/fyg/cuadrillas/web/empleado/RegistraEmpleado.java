@@ -126,7 +126,6 @@ public class RegistraEmpleado extends HttpServlet {
 			out.flush();
 		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
-			System.out.println("errores" + e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
 			out.println(sg.toJson(respuesta));

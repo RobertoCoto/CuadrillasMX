@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
+import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
 import com.google.gson.Gson;
@@ -76,7 +77,7 @@ public class RegistrarHerramienta extends HttpServlet {
 			out.flush();
 			
 		} catch (Exception e) {
-			System.out.println("errores" + e);
+			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
 			out.println(sg.toJson(respuesta));
