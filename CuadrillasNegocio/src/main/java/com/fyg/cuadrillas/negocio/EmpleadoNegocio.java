@@ -122,11 +122,17 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "bajaEmpleado- Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List<EmpleadoDTO> listaEmpleado = null;
+		EmpleadoDTO emp = null;
 		try {
-			
+
 			if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
 				throw new ExcepcionesCuadrillas("El No de empleado es necesario para la baja.");
+			}
+			if (empleado.getCodigoCausaSalida() == null || empleado.getCodigoCausaSalida().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La causa de la salida es necesario para la baja.");
+			}
+			if (empleado.getCodigoTipoSalida() == null || empleado.getCodigoTipoSalida().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La tipo de la salida es necesario para la baja.");
 			}
 			if (empleado.getUsuarioBaja() == null || empleado.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El Usuario es necesario para la baja.");
@@ -135,18 +141,20 @@ public class EmpleadoNegocio {
 			empleado.setNombre(null);
 			empleado.setApellidoPat(null);
 			empleado.setApellidoMat(null);
-			
+			EmpleadoDAO dao = new EmpleadoDAO();
 			//Validaciones Negocio
-			listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
-			 for (int i = 0; i < listaEmpleado.size(); i++) {
-				 if (listaEmpleado.get(i).getEstatus().equals("A")) {
-	            		//Mandamos a la parte del dao
-					 	  EmpleadoDAO dao = new EmpleadoDAO();
-	          			  respuesta = dao.bajaEmpleado(uid, empleado);
-	            	  } else {
-	            		  throw new ExcepcionesCuadrillas("Ya se encuentra inactivo.");
-	            	  }
-			 }
+			emp = dao.consultaEmpleado(uid, empleado);
+
+			if (emp == null) {
+				throw new ExcepcionesCuadrillas("El empleado solicitado no existe.");
+			}
+
+			if (emp.getEstatus().equals("I")) {
+				throw new ExcepcionesCuadrillas("El empleado ya se encuentra dado de baja.");
+			}
+
+	        respuesta = dao.bajaEmpleado(uid, empleado);
+
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "bajaEmpleado - Error: " + ex.getMessage(), ex);
@@ -216,16 +224,16 @@ public class EmpleadoNegocio {
 		respuesta.getHeader().setUid(uid);
 		respuesta.getHeader().setEstatus(true);
 		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
-		
+
 		List<EmpleadoDTO> listaEmpleado = null;
-		
+
 	    try {
 	    	if(empleado.getIdEmpleado() == null)
 	    	{
 	    		System.out.println("ERROR");
 	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 	    	}
-	    	 listaEmpleado = new EmpleadoDAO().consultaEmpleado(uid, empleado);
+	    	 listaEmpleado = null;//new EmpleadoDAO().consultaEmpleado(uid, empleado);
 	    	 respuesta.setEmpleado(listaEmpleado);
 	    }catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			

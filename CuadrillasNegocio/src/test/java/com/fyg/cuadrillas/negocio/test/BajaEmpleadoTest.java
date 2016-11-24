@@ -29,10 +29,11 @@ public class BajaEmpleadoTest {
 	public void setUp() throws Exception {
 		dataEmpleado = new EmpleadoNegocio();
 		bajaEmpleado = new EmpleadoDTO();
-		bajaEmpleado.setIdEmpleado(1);
+		bajaEmpleado.setIdEmpleado(2);
 		bajaEmpleado.setCodigoCausaSalida("CRAP");
 		bajaEmpleado.setCodigoTipoSalida("CRMA");
-		bajaEmpleado.setEstatus("A");
+		bajaEmpleado.setUsuarioBaja("MARIO M");
+
 		}
 	/**
 	 * Manda los valores al metodo de alta usuario
@@ -42,6 +43,10 @@ public class BajaEmpleadoTest {
 	@Test
 	public void testBajaEmpleado() throws Exception {
 		String guid = uid.generateGUID(bajaEmpleado);
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
 		try {
 			dataEmpleado.bajaEmpleado(bajaEmpleado);
 		}

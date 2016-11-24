@@ -37,13 +37,14 @@
 </insert>
 
 <update id="bajaEmpleado" parameterType="empleado">
-UPDATE empleado SET
-     fecha_baja = now(),
-     codigo_tipo_salida = #{codigoTipoSalida},
-     codigo_causa_salida = #{codigoCausaSalida},
-     fecha_ult_mod = now(),
-     estatus = #{estatus}
- WHERE id_empleado = #{idEmpleado}
+	UPDATE empleado SET
+	     fecha_baja = now(),
+	     usuario_baja = #{usuarioBaja},
+	     codigo_tipo_salida = #{codigoTipoSalida},
+	     codigo_causa_salida = #{codigoCausaSalida},
+	     fecha_ult_mod = now(),
+	     estatus = 'I'
+	 WHERE id_empleado = #{idEmpleado}
 </update>
 <update id="modificaEmpleado" parameterType="empleado">
 UPDATE empleado SET 

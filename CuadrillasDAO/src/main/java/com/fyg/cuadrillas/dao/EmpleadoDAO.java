@@ -113,13 +113,10 @@ public class EmpleadoDAO {
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja.");
 			}
-           
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
 			
-				
-			registraDocumentos(uid,empleado.getDocumentos(), sessionTx);
 		}
 		catch (Exception ex) {
 			//Realizamos rollBack
@@ -140,21 +137,18 @@ public class EmpleadoDAO {
     * @param empleado recibe los valores del empleado
     * @return retorna lista Empleado
     */
-   @SuppressWarnings("unchecked")
-public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado)throws Exception {
+public EmpleadoDTO consultaEmpleado(String uid, EmpleadoDTO empleado) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<EmpleadoDTO> listaEmpleado = null;
+		EmpleadoDTO emp = null;
 		try {
-			//Abrimos conexion Transaccional
-			System.out.println("Abriendo");
-			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			System.out.println("Consultando");
+			//Abrimos conexion Transaccional			
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();			
 			//Se hace una consulta a la tabla
-			listaEmpleado = sessionNTx.selectList("EmpleadoDAO.consultaEmpleado", empleado);
+			emp = (EmpleadoDTO) sessionNTx.selectOne("EmpleadoDAO.consultaEmpleado", empleado);
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -163,7 +157,7 @@ public List<EmpleadoDTO> consultaEmpleado(String uid, EmpleadoDTO empleado)throw
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
-		return listaEmpleado;
+		return emp;
 	}
    /**
     * Metodo para modificar los datos del empleado
