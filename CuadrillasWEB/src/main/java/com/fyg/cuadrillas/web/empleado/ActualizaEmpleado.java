@@ -71,10 +71,8 @@ public class ActualizaEmpleado extends HttpServlet {
 			String noCreditoInfonavit = request.getParameter("noCreditoInfonavit");
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
-			String codigoDocumento1 = request.getParameter("codigoDocumento1");
-			String codigoDocumento2 = request.getParameter("codigoDocumento2");
-			String codigoDocumento3 = request.getParameter("codigoDocumento3");
-			String codigoDocumento4 = request.getParameter("codigoDocumento4");
+			String[]  codigoDocumento = request.getParameterValues("codigoDocumento");
+			String[] estatusDocumento = request.getParameterValues("estatusDocumento");
 			
 
 			/* proxy fisa
@@ -113,11 +111,13 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 		    
 			//documentos
+			for (int i=0; i< codigoDocumento.length;i++) {
+				codigo.setCodigoEmpDoc(codigoDocumento[i]);
+			}
 			
-			codigo.setCodigoEmpDoc(codigoDocumento1);
-			codigo.setCodigoEmpDoc(codigoDocumento2);
-			codigo.setCodigoEmpDoc(codigoDocumento3);
-			codigo.setCodigoEmpDoc(codigoDocumento4);
+			for(int k=0; k < estatusDocumento.length; k++) {
+				codigo.setEstatus(estatusDocumento[k]);
+			}	
 			documentos.add(codigo);
 			empleado.setDocumentos(documentos);
 			respuesta = negocio.modificaEmpleado(empleado);

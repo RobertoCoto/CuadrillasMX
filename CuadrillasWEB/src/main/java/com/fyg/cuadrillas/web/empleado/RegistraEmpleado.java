@@ -47,6 +47,8 @@ public class RegistraEmpleado extends HttpServlet {
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
+		EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 		
 		try {
 			//Se obtiene parametros
@@ -68,10 +70,11 @@ public class RegistraEmpleado extends HttpServlet {
 			String noCreditoInfonavit = request.getParameter("noCreditoInfonavit");
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
-			String codigoDocumento = request.getParameter("codigoDocumento");
-			String estatusDocumento = request.getParameter("estatusDocumento");
+		   String[]  codigoDocumento = request.getParameterValues("codigoDocumento");
+		   String[] estatusDocumento = request.getParameterValues("estatusDocumento");
 			
-			
+		  
+		   
 			/* proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -111,13 +114,17 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 		    
 			//documentos
-			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
-			EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 			
-			codigo.setCodigoEmpDoc(codigoDocumento);
-			codigo.setEstatus(estatusDocumento);
+			for (int i=0; i< codigoDocumento.length;i++) {
+				codigo.setCodigoEmpDoc(codigoDocumento[i]);
+			}
+			
+			for(int k=0; k < estatusDocumento.length; k++) {
+				codigo.setEstatus(estatusDocumento[k]);
+			}	
 			documentos.add(codigo);
 			empleado.setDocumentos(documentos);
+			
 			respuesta = negocio.registraEmpleado(empleado);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
