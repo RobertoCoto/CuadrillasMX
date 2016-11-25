@@ -56,16 +56,16 @@ public class AltaEmpleadoTest {
 		 */
 		dataDocumentos = new ArrayList<EmpleadoDocumentoDTO>();
 		docEmpleado.setCodigoEmpDoc("ACNA");
-		docEmpleado.setEstatus("A");
+		docEmpleado.setEstatus("SI");
 		
 		docEmpleado2.setCodigoEmpDoc("CURP");
-		docEmpleado2.setEstatus("A");
+		docEmpleado2.setEstatus("NO");
 		
 		docEmpleado3.setCodigoEmpDoc("CUVI");
-		docEmpleado3.setEstatus("A");
+		docEmpleado3.setEstatus("NA");
 		
 		docEmpleado4.setCodigoEmpDoc("RFC");
-		docEmpleado4.setEstatus("A");
+		docEmpleado4.setEstatus("NA");
 		
 		dataDocumentos.add(docEmpleado);
 		dataDocumentos.add(docEmpleado2);
