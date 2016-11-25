@@ -44,10 +44,6 @@ public class RegistraEmpleado extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		List <EmpleadoDocumentoDTO> documentos;
-		documentos = new ArrayList<EmpleadoDocumentoDTO>();
-		EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
-		
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -71,10 +67,8 @@ public class RegistraEmpleado extends HttpServlet {
 			String noCreditoInfonavit = request.getParameter("noCreditoInfonavit");
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
-			String codigoDocumento1 = request.getParameter("codigoDocumento1");
-			String codigoDocumento2 = request.getParameter("codigoDocumento2");
-			String codigoDocumento3 = request.getParameter("codigoDocumento3");
-			String codigoDocumento4 = request.getParameter("codigoDocumento4");
+			String codigoDocumento = request.getParameter("codigoDocumento");
+			
 			
 			
 			/* proxy fisa
@@ -113,12 +107,12 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 		    
 			//documentos
+			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
+			EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 			
-			codigo.setCodigoEmpDoc(codigoDocumento1);
-			codigo.setCodigoEmpDoc(codigoDocumento2);
-			codigo.setCodigoEmpDoc(codigoDocumento3);
-			codigo.setCodigoEmpDoc(codigoDocumento4);
+			codigo.setCodigoEmpDoc(codigoDocumento);
 			documentos.add(codigo);
+			
 			empleado.setDocumentos(documentos);
 			respuesta = negocio.registraEmpleado(empleado);
 			//convierte  a formato Json
