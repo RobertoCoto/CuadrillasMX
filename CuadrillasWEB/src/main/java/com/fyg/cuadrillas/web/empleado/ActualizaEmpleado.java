@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 /**
  * Servlet implementation class ActualizaEmpleado
@@ -71,8 +74,11 @@ public class ActualizaEmpleado extends HttpServlet {
 			String noCreditoInfonavit = request.getParameter("noCreditoInfonavit");
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
-			String[]  codigoDocumento = request.getParameterValues("codigoDocumento");
-			String[] estatusDocumento = request.getParameterValues("estatusDocumento");
+			
+			//se parsea json
+			JsonParser parser = new JsonParser();
+			Object documentoEmpleado = parser.parse(request.getParameter("documentoEmpleado"));
+			JSONObject jsonObject = (JSONObject) documentoEmpleado;
 			
 
 			/* proxy fisa
@@ -111,13 +117,12 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 		    
 			//documentos
-			for (int i=0; i< codigoDocumento.length;i++) {
-				codigo.setCodigoEmpDoc(codigoDocumento[i]);
-			}
+			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
+			String estatusDocumento = (String) jsonObject.get("estatusDocumento");
+		    
+			codigo.setCodigoEmpDoc(codigoDocumento);
+			codigo.setEstatus(estatusDocumento);
 			
-			for(int k=0; k < estatusDocumento.length; k++) {
-				codigo.setEstatus(estatusDocumento[k]);
-			}	
 			documentos.add(codigo);
 			empleado.setDocumentos(documentos);
 			respuesta = negocio.modificaEmpleado(empleado);
