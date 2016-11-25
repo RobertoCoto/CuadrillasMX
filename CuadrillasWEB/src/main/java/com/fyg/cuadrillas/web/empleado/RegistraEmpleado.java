@@ -56,6 +56,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String sexo = request.getParameter("sexo");
 			String rfc = request.getParameter("rfc");
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
+			String fechaIngreso = request.getParameter("fechaIngreso");
 			String codigoPuesto = request.getParameter("codigoPuesto");
 			String codigoVialidad = request.getParameter("codigoVialidad");
 			String codigoArea = request.getParameter("codigoArea");
@@ -68,7 +69,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
 			String codigoDocumento = request.getParameter("codigoDocumento");
-			
+			String estatusDocumento = request.getParameter("estatusDocumento");
 			
 			
 			/* proxy fisa
@@ -91,8 +92,11 @@ public class RegistraEmpleado extends HttpServlet {
 			// conversor de fecha
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 			String strFecha = fechaNacimiento;
+			String strFechaIngreso = fechaIngreso;
 			Date fechaNac = formato.parse(strFecha);
+			Date fechaIng = formato.parse(strFechaIngreso);
 			empleado.setFechaNacimiento(fechaNac);
+			empleado.setFechaIngreso(fechaIng);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCodigoArea(codigoArea);
@@ -111,8 +115,8 @@ public class RegistraEmpleado extends HttpServlet {
 			EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 			
 			codigo.setCodigoEmpDoc(codigoDocumento);
+			codigo.setEstatus(estatusDocumento);
 			documentos.add(codigo);
-			
 			empleado.setDocumentos(documentos);
 			respuesta = negocio.registraEmpleado(empleado);
 			//convierte  a formato Json
