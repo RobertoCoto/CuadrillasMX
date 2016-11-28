@@ -63,7 +63,7 @@ public class AsistenciaDAO {
 			//Validamos si la hora de entrada ya fue registrada
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeHoraEntrada= (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
-			if (existeHoraEntrada > 0) {
+			if (existeHoraEntrada == 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
 			}
 			//Abrimos conexion Transaccional
