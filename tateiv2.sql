@@ -157,6 +157,17 @@ CREATE TABLE usuario (
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
     PRIMARY KEY(id_vialidad)
 	);
+	
+	CREATE TABLE asistencia (
+	lista_asistencia INTEGER NOT NULL AUTO_INCREMENT, 
+	nombres  VARCHAR(50) NOT NULL,
+	puesto VARCHAR(50) NOT NULL,
+	fecha DATE NOT NULL,
+	comentarios VARCHAR(200) NULL,
+	hora_entrada TIME NULL,
+	hora_salida  TIME NULL,
+	PRIMARY KEY(lista_asistencia)
+	);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
