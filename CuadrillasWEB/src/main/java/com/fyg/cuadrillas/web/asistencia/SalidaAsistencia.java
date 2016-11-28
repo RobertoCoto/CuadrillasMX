@@ -45,9 +45,7 @@ public class SalidaAsistencia extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			String listaAsistencia = request.getParameter("listaAsistencia");
-			String nombres = request.getParameter("nombres");
-			String puesto = request.getParameter("puesto");
+			Integer numAsistencia = Integer.parseInt(request.getParameter("numAsistencia"));
 			String comentarios = request.getParameter("comentarios");
 			
 			/* descomentar para proxy FISA
@@ -59,11 +57,9 @@ public class SalidaAsistencia extends HttpServlet {
 			//crea objeto de negocio
 			final AsistenciaNegocio  negocio = new AsistenciaNegocio();
 			
+			
 			AsistenciaDTO asistencia = new AsistenciaDTO();
-			Integer numAsistencia = Integer.parseInt(listaAsistencia);
 			asistencia.setListaAsistencia(numAsistencia);
-			asistencia.setNombres(nombres);
-			asistencia.setPuesto(puesto);
 			asistencia.setComentarios(comentarios);
 			respuesta = negocio.salidaAsistencia(asistencia);
 			//convierte  a formato Json

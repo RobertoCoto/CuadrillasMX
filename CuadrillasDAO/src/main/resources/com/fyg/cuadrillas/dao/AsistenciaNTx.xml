@@ -9,8 +9,8 @@
 <result column="hora_entrada" property="horaEntrada"/>
 </resultMap>
 
-<select id="consultaHoraAsistencia" parameterType="Asistencia" resultMap="asistencia">
-SELECT count(hora_entrada) 
+<select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
+SELECT count(hora_entrada) AS hora_entrada
 FROM asistencia 
 WHERE lista_asistencia = #{listaAsistencia}
 </select>
