@@ -105,6 +105,18 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.empleado.ActualizaEmpleado</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>EntradaAsistencia</servlet-name>
+  	<display-name>EntradaAsistencia</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.asistencia.EntradaAsistencia</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SalidaAsistencia</servlet-name>
+  	<display-name>SalidaAsistencia</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.asistencia.SalidaAsistencia</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -172,5 +184,13 @@
 	<servlet-mapping>
 		<servlet-name>ActualizaEmpleado</servlet-name>
 		<url-pattern>/ActualizaEmpleado</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EntradaAsistencia</servlet-name>
+		<url-pattern>/EntradaAsistencia</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SalidaAsistencia</servlet-name>
+		<url-pattern>/SalidaAsistencia</url-pattern>
 	</servlet-mapping>
 </web-app>
