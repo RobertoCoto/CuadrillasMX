@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.AsistenciaNTx">
+
+<resultMap type="Asistencia" id="asistencia">
+<result column="lista_asistencia" property="listaAsistencia"/>
+<result column="nombres" property="nombres"/>
+<result column="puesto" property="puesto"/>
+<result column="hora_entrada" property="horaEntrada"/>
+</resultMap>
+
+<select id="consultaHoraAsistencia" parameterType="Asistencia" resultMap="asistencia">
+SELECT count(hora_entrada) 
+FROM asistencia 
+WHERE lista_asistencia = #{listaAsistencia}
+</select>
+</mapper>

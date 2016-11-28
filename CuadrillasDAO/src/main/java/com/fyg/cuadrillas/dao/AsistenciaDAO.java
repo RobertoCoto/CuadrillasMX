@@ -53,12 +53,19 @@ public class AsistenciaDAO {
 	 */
 	public EncabezadoRespuesta salidaAsistencia(String uid, AsistenciaDTO asistencia) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("actualización salida correcta.");
 		
 		try { 
+			//Validamos si la hora de entrada ya fue registrada
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeHoraEntrada= (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
+			if (existeHoraEntrada > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("AsistenciaDAO.salidaAsistencia", asistencia);
@@ -79,6 +86,7 @@ public class AsistenciaDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 	}
