@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.AsistenciaTx">
+
+<insert id="entradaAsistencia" parameterType="Asistencia">
+INSERT INTO asistencia(nombres,puesto,fecha,comentarios,hora_entrada)
+VALUES(#{nombres},#{puesto},now(),#{comentarios},now())
+</insert>
+
+<update id="salidaAsistencia" parameterType="Asistencia">
+UPDATE asistencia SET
+	   comentarios = #{comentarios},
+	   hora_salida = now()
+WHERE lista_asistencia = #{listaAsistencia}
+</update>
+</mapper>

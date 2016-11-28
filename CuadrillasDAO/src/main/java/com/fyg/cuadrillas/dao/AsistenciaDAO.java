@@ -24,7 +24,7 @@ public class AsistenciaDAO {
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-	        int registros = sessionTx.update("AsistenciaDAO.entradaAsistencia", asistencia);
+	        int registros = sessionTx.insert("AsistenciaDAO.entradaAsistencia", asistencia);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("No fue posible registrar la entrada.");
 			}
