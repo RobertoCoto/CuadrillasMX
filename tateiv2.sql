@@ -161,7 +161,6 @@ CREATE TABLE usuario (
 	CREATE TABLE asistencia (
 	lista_asistencia INTEGER NOT NULL AUTO_INCREMENT,
 	id_empleado INTEGER NOT NULL,
-	nombres  VARCHAR(50) NOT NULL,
 	puesto VARCHAR(50) NOT NULL,
 	fecha DATE NOT NULL,
 	comentarios VARCHAR(200) NULL,
