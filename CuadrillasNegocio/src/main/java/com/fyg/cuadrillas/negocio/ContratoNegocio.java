@@ -49,4 +49,39 @@ public class ContratoNegocio {
 				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Salida: " + respuesta);
 				return respuesta;
 	}
+	
+	public EncabezadoRespuesta bajaContrato (ContratoDTO contrato) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(contrato);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "bajaContrato - Datos Entrada: " + contrato);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			if(contrato.getNumeroContrato() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el numero de contrato.");
+			}
+			if(contrato.getIdEmpleado() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el id empleado.");
+			}
+			ContratoDAO dao = new ContratoDAO();
+			respuesta = dao.bajaContrato(uid, contrato);
+			
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "bajaContrato - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "bajaContrato - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "bajaContrato - Datos Salida: " + respuesta);
+		return respuesta;
+	}
 }

@@ -123,6 +123,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.AltaContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BajaContrato</servlet-name>
+  	<display-name>BajaContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.BajaContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -202,5 +208,9 @@
 	<servlet-mapping>
 		<servlet-name>AltaContrato</servlet-name>
 		<url-pattern>/AltaContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BajaContrato</servlet-name>
+		<url-pattern>/BajaContrato</url-pattern>
 	</servlet-mapping>
 </web-app>

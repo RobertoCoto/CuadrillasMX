@@ -6,4 +6,12 @@
 INSERT INTO contrato(numero_contrato,id_empleado,fecha_registro,id_vialidad,tramo_inicial,tramo_final, estatus)
 VALUES (#{numeroContrato},#{idEmpleado},now(),#{idVialidad},#{tramoInicial},#{tramoFinal},'A')
 </insert>
+
+<update id="bajaContrato" parameterType="Contrato">
+UPDATE contrato SET
+    estatus = 'I'
+WHERE numero_contrato = #{numeroContrato} 
+AND id_empleado = #{id_empleado}
+AND estatus = 'A'
+</update>
 </mapper>
