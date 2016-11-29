@@ -168,6 +168,18 @@ CREATE TABLE usuario (
 	hora_salida  TIME NULL,
 	PRIMARY KEY(lista_asistencia)
 	);
+	
+	CREATE TABLE contrato (
+	id_contrato INTEGER NOT NULL AUTO_INCREMENT,
+	numero_contrato INTEGER NOT NULL,
+	id_empleado INTEGER NOT NULL,
+	fecha_registro DATE NOT NULL,
+	id_vialidad integer NOT NULL,
+	tramo_inicial VARCHAR(200) NOT NULL,
+	tramo_final VARCHAR(200) NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY(id_contrato)
+	);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
