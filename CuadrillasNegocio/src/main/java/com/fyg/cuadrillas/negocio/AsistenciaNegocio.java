@@ -21,9 +21,6 @@ public class AsistenciaNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		        try {
-		        	if(asistencia.getNombres() == null || asistencia.getNombres().trim().isEmpty()) {
-		        		throw new ExcepcionesCuadrillas("Es necesario el campo nombres.");
-		        	}
 		        	if(asistencia.getPuesto() == null || asistencia.getPuesto().trim().isEmpty()) {
 		        		throw new ExcepcionesCuadrillas("Es necesario el campo puesto.");
 		        	}

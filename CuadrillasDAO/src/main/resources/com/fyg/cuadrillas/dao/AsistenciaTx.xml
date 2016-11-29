@@ -3,8 +3,8 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.AsistenciaTx">
 
 <insert id="entradaAsistencia" parameterType="Asistencia">
-INSERT INTO asistencia(id_empleado,nombres,puesto,fecha,comentarios,hora_entrada)
-VALUES(#{idEmpleado},#{nombres},#{puesto},now(),#{comentarios},now())
+INSERT INTO asistencia(id_empleado,puesto,fecha,comentarios,hora_entrada)
+VALUES(#{idEmpleado},#{puesto},now(),#{comentarios},now())
 </insert>
 
 <update id="salidaAsistencia" parameterType="Asistencia">

@@ -46,7 +46,6 @@ public class EntradaAsistencia extends HttpServlet {
 		
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String nombres = request.getParameter("nombres");
 			String puesto = request.getParameter("puesto");
 			String comentarios = request.getParameter("comentarios");
 			
@@ -61,7 +60,6 @@ public class EntradaAsistencia extends HttpServlet {
 			
 			AsistenciaDTO asistencia = new AsistenciaDTO();
 			asistencia.setIdEmpleado(idEmpleado);
-			asistencia.setNombres(nombres);
 			asistencia.setPuesto(puesto);
 			asistencia.setComentarios(comentarios);
 			respuesta = negocio.entradaAsistencia(asistencia);
