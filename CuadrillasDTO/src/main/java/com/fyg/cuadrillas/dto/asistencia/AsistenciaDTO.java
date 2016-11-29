@@ -39,6 +39,10 @@ public class AsistenciaDTO extends ObjetoValor {
  	 */
 	private Time horaSalida;
 	/**
+	 * obtiene el idEmpleado
+	 */
+	private Integer idEmpleado;
+	/**
 	 * @return the listaAsistencia
 	 */
 	public Integer getListaAsistencia() {
@@ -121,5 +125,17 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	public void setHoraSalida(Time horaSalida) {
 		this.horaSalida = horaSalida;
+	}
+	/**
+	 * @return the idEmpleado
+	 */
+	public Integer getIdEmpleado() {
+		return idEmpleado;
+	}
+	/**
+	 * @param idEmpleado the idEmpleado to set
+	 */
+	public void setIdEmpleado(Integer idEmpleado) {
+		this.idEmpleado = idEmpleado;
 	}
 }

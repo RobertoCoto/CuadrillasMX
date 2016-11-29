@@ -56,4 +56,11 @@
 	</where>
 </select>
 
+<select id="empleadoActivo" parameterType="asistencia" resultType="int">
+SELECT count(estatus) as estatus
+FROM empleado 
+WHERE id_empleado = #{idEmpleado}
+AND estatus ='I'
+</select>
+
 </mapper>

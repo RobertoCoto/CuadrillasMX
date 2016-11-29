@@ -16,12 +16,19 @@ public class AsistenciaDAO {
 	 */
 	public EncabezadoRespuesta entradaAsistencia(String uid, AsistenciaDTO asistencia) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("registro de entrada correcto.");
 		
 		try {
+			//Validamos si el empleado esta activo
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int activoEmpleado= (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
+			if (activoEmpleado > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("AsistenciaDAO.entradaAsistencia", asistencia);
@@ -65,6 +72,10 @@ public class AsistenciaDAO {
 			int existeHoraEntrada= (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
 			if (existeHoraEntrada <= 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
+			}
+			int activoEmpleado= (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
+			if (activoEmpleado > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
