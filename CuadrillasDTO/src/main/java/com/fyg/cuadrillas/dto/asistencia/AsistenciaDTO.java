@@ -13,15 +13,8 @@ public class AsistenciaDTO extends ObjetoValor {
 	/**
 	 * Lista Asistencia
 	 */
-	private Integer listaAsistencia;
-	/**
-	 * Nombres
-	 */
-	private String nombres;
-	/**
-	 * Puesto del empleado
-	 */
-	private String puesto;
+	private Integer idAsistencia;
+	
 	/**
 	 * Fecha
 	 */
@@ -43,40 +36,44 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	private Integer idEmpleado;
 	/**
-	 * @return the listaAsistencia
+	 * usuario Alta
 	 */
-	public Integer getListaAsistencia() {
-		return listaAsistencia;
+	private String usuarioAlta;
+	/**
+	 * fecha Alta
+	 */
+	private Date fechaAlta;
+	/**
+	 * usuario baja
+	 */
+	private String usuarioBaja;
+	/**
+	 * fecha baja
+	 */
+	private Date fechaBaja;
+	/**
+	 * fecha ult mod
+	 */
+	private Date fechaUltMod;
+	/**
+	 * usuario ultima mod
+	 */
+	private String usuarioUltMod;
+	/**
+	 * estatus
+	 */
+	private String estatus;
+	/**
+	 * @return the idAsistencia
+	 */
+	public Integer getIdAsistencia() {
+		return idAsistencia;
 	}
 	/**
-	 * @param listaAsistencia the listaAsistencia to set
+	 * @param idAsistencia the idAsistencia to set
 	 */
-	public void setListaAsistencia(Integer listaAsistencia) {
-		this.listaAsistencia = listaAsistencia;
-	}
-	/**
-	 * @return the nombres
-	 */
-	public String getNombres() {
-		return nombres;
-	}
-	/**
-	 * @param nombres the nombres to set
-	 */
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-	/**
-	 * @return the puesto
-	 */
-	public String getPuesto() {
-		return puesto;
-	}
-	/**
-	 * @param puesto the puesto to set
-	 */
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
+	public void setIdAsistencia(Integer idAsistencia) {
+		this.idAsistencia = idAsistencia;
 	}
 	/**
 	 * @return the fecha
@@ -137,5 +134,89 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;
+	}
+	/**
+	 * @return the usuarioAlta
+	 */
+	public String getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	/**
+	 * @param usuarioAlta the usuarioAlta to set
+	 */
+	public void setUsuarioAlta(String usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+	/**
+	 * @return the fechaAlta
+	 */
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	/**
+	 * @return the usuarioBaja
+	 */
+	public String getUsuarioBaja() {
+		return usuarioBaja;
+	}
+	/**
+	 * @param usuarioBaja the usuarioBaja to set
+	 */
+	public void setUsuarioBaja(String usuarioBaja) {
+		this.usuarioBaja = usuarioBaja;
+	}
+	/**
+	 * @return the fechaBaja
+	 */
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+	/**
+	 * @param fechaBaja the fechaBaja to set
+	 */
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	/**
+	 * @return the fechaUltMod
+	 */
+	public Date getFechaUltMod() {
+		return fechaUltMod;
+	}
+	/**
+	 * @param fechaUltMod the fechaUltMod to set
+	 */
+	public void setFechaUltMod(Date fechaUltMod) {
+		this.fechaUltMod = fechaUltMod;
+	}
+	/**
+	 * @return the usuarioUltMod
+	 */
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
+	}
+	/**
+	 * @param usuarioUltMod the usuarioUltMod to set
+	 */
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
+	}
+	/**
+	 * @return the estatus
+	 */
+	public String getEstatus() {
+		return estatus;
+	}
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
 	}
 }
