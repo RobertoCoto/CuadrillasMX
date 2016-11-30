@@ -16,11 +16,18 @@ public class ContratoDAO {
 	 */
 	public EncabezadoRespuesta altaContrato(String uid, ContratoDTO contrato) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("registro correcto.");
 		try {
+			//Validamos si ya existe un contrato
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
+			if (existeContrato <= 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un contrato vigente.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("ContratoDAO.altaContrato", contrato);
@@ -41,6 +48,7 @@ public class ContratoDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 	}
@@ -52,11 +60,18 @@ public class ContratoDAO {
 	 */
 	public EncabezadoRespuesta bajaContrato (String uid, ContratoDTO contrato) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("baja correcto.");
 		try {
+			//Validamos si ya esta dado de baja el contrato
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeBajaContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeBajaContrato", contrato);
+			if (existeBajaContrato <= 0) {
+				throw new ExcepcionesCuadrillas("Error al dar de baja, el contrato ya se encuentra inactivo.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("ContratoDAO.bajaContrato", contrato);
@@ -76,6 +91,7 @@ public class ContratoDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 		

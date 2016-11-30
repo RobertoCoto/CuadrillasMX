@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.ContratoNTx">
+
+<select id="existeContrato" parameterType="Contrato" resultType="int">
+SELECT count(*)
+FROM contrato 
+WHERE id_empleado = #{idEmpleado}
+AND estatus = 'A'
+</select>
+
+<select id="existeBajaContrato" parameterType="Contrato" resultType="int">
+SELECT count(estatus) AS estatus
+FROM contrato 
+WHERE id_empleado = #{idEmpleado}
+AND estatus = 'I'
+</select>
+</mapper>

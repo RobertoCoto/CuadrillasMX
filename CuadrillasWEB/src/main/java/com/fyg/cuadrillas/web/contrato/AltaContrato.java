@@ -48,8 +48,14 @@ public class AltaContrato extends HttpServlet {
 			Integer numeroContrato = Integer.parseInt(request.getParameter("numeroContrato"));
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
-			String tramoInicial = request.getParameter("tramoInicial");
-			String tramoFinal = request.getParameter("tramoFinal");
+			String direccionInicial = request.getParameter("direccionInicial");
+			float latitudInicial = Float.parseFloat(request.getParameter("latitudInicial"));
+			float longitudInicial = Float.parseFloat(request.getParameter("longitudInicial"));
+			String direccionFinal = request.getParameter("direccionInicial");
+			float latitudFinal = Float.parseFloat(request.getParameter("latitudFinal"));
+			float longitudFinal = Float.parseFloat(request.getParameter("longitudFinal"));
+			String observaciones = request.getParameter("observaciones");
+			String url = request.getParameter("url");
 			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
@@ -65,8 +71,14 @@ public class AltaContrato extends HttpServlet {
 			contrato.setNumeroContrato(numeroContrato);
 			contrato.setIdEmpleado(idEmpleado);
 			contrato.setIdVialidad(idVialidad);
-			contrato.setTramoInicial(tramoInicial);
-			contrato.setTramoFinal(tramoFinal);
+			contrato.setDireccionInicial(direccionInicial);
+			contrato.setLatitudInicial(latitudInicial);
+			contrato.setLongitudInicial(longitudInicial);
+			contrato.setDireccionFinal(direccionFinal);
+			contrato.setLatitudFinal(latitudFinal);
+			contrato.setLongitudFinal(longitudFinal);
+			contrato.setUrl(url);
+			contrato.setObservaciones(observaciones);
 			contrato.setUsuarioAlta(usuario);
 			respuesta = negocio.altaContrato(contrato);
 			//convierte  a formato Json
