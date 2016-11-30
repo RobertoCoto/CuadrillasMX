@@ -21,8 +21,16 @@ public class AsistenciaNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		        try {
-		        	if(asistencia.getPuesto() == null || asistencia.getPuesto().trim().isEmpty()) {
-		        		throw new ExcepcionesCuadrillas("Es necesario el campo puesto.");
+		        	if(asistencia.getIdEmpleado() == null) {
+		        		throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
+		        	}
+		        	if(asistencia.getUsuarioAlta() == null || asistencia.getUsuarioAlta().trim().isEmpty())
+		        	{
+		        		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+		        	}
+		        	if(asistencia.getUsuarioUltMod() == null || asistencia.getUsuarioUltMod().trim().isEmpty())
+		        	{
+		        		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 		        	}
 		        	AsistenciaDAO  dao = new AsistenciaDAO();
 		        	respuesta = dao.entradaAsistencia(uid, asistencia);
@@ -50,15 +58,28 @@ public class AsistenciaNegocio {
 	 * @return regresa una respuesta 
 	 */
 	public EncabezadoRespuesta salidaAsistencia (AsistenciaDTO asistencia) {
-		//Primero generamos el identificador unico de la transaccion
+				//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(asistencia);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "salidaAsistencia - Datos Entrada: " + asistencia);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
+					if(asistencia.getIdEmpleado() == null) {
+		        		throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
+		        	}
+		        	if(asistencia.getUsuarioUltMod() == null || asistencia.getUsuarioUltMod().trim().isEmpty())
+		        	{
+		        		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+		        	}
 		        	AsistenciaDAO  dao = new AsistenciaDAO();
 		        	respuesta = dao.salidaAsistencia(uid, asistencia);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "salidaAsistencia - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
 				}
 				catch  (Exception ex) {
 					LogHandler.error(uid, this.getClass(), "salidaAsistencia - Error: " + ex.getMessage(), ex);
@@ -69,5 +90,49 @@ public class AsistenciaNegocio {
 				}
 				LogHandler.debug(uid, this.getClass(), "salidaAsistencia - Datos Salida: " + respuesta);
 				return respuesta;
+	}
+	/**
+	 * Metodo para dar de baja una asistencia
+	 * @param asistencia recibe valores de asistencia
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta bajaAsistencia(AsistenciaDTO asistencia) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(asistencia);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "bajaAsistencia - Datos Entrada: " + asistencia);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try { 
+			if(asistencia.getIdEmpleado() == null) {
+        		throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
+        	}
+        	if(asistencia.getUsuarioBaja() == null || asistencia.getUsuarioBaja().trim().isEmpty())
+        	{
+        		throw new ExcepcionesCuadrillas("Es necesario el usuario para la baja.");
+        	}
+        	if(asistencia.getUsuarioUltMod() == null || asistencia.getUsuarioUltMod().trim().isEmpty())
+        	{
+        		throw new ExcepcionesCuadrillas("Es necesario el usuario para la modificacion.");
+        	}
+        	AsistenciaDAO  dao = new AsistenciaDAO();
+        	respuesta = dao.bajaAsistencia(uid, asistencia);
+		}
+		catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "bajaAsistencia - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "bajaAsistencia - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "bajaAsistencia - Datos Salida: " + respuesta);
+		return respuesta;
 	}
 }
