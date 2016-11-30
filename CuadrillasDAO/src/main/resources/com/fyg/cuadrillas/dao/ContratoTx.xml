@@ -3,12 +3,16 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.ContratoTx">
 
 <insert id="altaContrato" parameterType="Contrato">
-INSERT INTO contrato(numero_contrato,id_empleado,fecha_registro,id_vialidad,tramo_inicial,tramo_final, estatus)
-VALUES (#{numeroContrato},#{idEmpleado},now(),#{idVialidad},#{tramoInicial},#{tramoFinal},'A')
+INSERT INTO contrato(numero_contrato,id_empleado,fecha_registro,id_vialidad,tramo_inicial,tramo_final,fecha_alta,usuario_alta,estatus)
+VALUES (#{numeroContrato},#{idEmpleado},now(),#{idVialidad},#{tramoInicial},#{tramoFinal},now(),#{usuarioAlta},'A')
 </insert>
 
 <update id="bajaContrato" parameterType="Contrato">
 UPDATE contrato SET
+	fecha_baja = now(),
+	usuario_baja = now(),
+	fecha_ult_mod = now(),
+	usuario_ult_mod = #{usuarioUltMod},
     estatus = 'I'
 WHERE numero_contrato = #{numeroContrato} 
 AND id_empleado = #{id_empleado}

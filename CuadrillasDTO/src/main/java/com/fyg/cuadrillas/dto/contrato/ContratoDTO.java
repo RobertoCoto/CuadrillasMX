@@ -43,6 +43,30 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * usuario Alta
+	 */
+	private String usuarioAlta;
+	/**
+	 * fecha Alta
+	 */
+	private Date fechaAlta;
+	/**
+	 * usuario baja
+	 */
+	private String usuarioBaja;
+	/**
+	 * fecha baja
+	 */
+	private Date fechaBaja;
+	/**
+	 * fecha ult mod
+	 */
+	private Date fechaUltMod;
+	/**
+	 * usuario ultima mod
+	 */
+	private String usuarioUltMod;
+	/**
 	 * @return the idContrato
 	 */
 	public Integer getIdContrato() {
@@ -137,5 +161,77 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the usuarioAlta
+	 */
+	public String getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	/**
+	 * @param usuarioAlta the usuarioAlta to set
+	 */
+	public void setUsuarioAlta(String usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+	/**
+	 * @return the fechaAlta
+	 */
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	/**
+	 * @return the usuarioBaja
+	 */
+	public String getUsuarioBaja() {
+		return usuarioBaja;
+	}
+	/**
+	 * @param usuarioBaja the usuarioBaja to set
+	 */
+	public void setUsuarioBaja(String usuarioBaja) {
+		this.usuarioBaja = usuarioBaja;
+	}
+	/**
+	 * @return the fechaBaja
+	 */
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+	/**
+	 * @param fechaBaja the fechaBaja to set
+	 */
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	/**
+	 * @return the fechaUltMod
+	 */
+	public Date getFechaUltMod() {
+		return fechaUltMod;
+	}
+	/**
+	 * @param fechaUltMod the fechaUltMod to set
+	 */
+	public void setFechaUltMod(Date fechaUltMod) {
+		this.fechaUltMod = fechaUltMod;
+	}
+	/**
+	 * @return the usuarioUltMod
+	 */
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
+	}
+	/**
+	 * @param usuarioUltMod the usuarioUltMod to set
+	 */
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
 	}
 }

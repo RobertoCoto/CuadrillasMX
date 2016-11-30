@@ -47,7 +47,7 @@ public class BajaContrato extends HttpServlet {
 		try {
 			Integer numeroContrato = Integer.parseInt(request.getParameter("numeroContrato"));
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			
+			String usuario = request.getParameter("usuario");
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -60,6 +60,8 @@ public class BajaContrato extends HttpServlet {
 			ContratoDTO contrato = new ContratoDTO();
 			contrato.setNumeroContrato(numeroContrato);
 			contrato.setIdEmpleado(idEmpleado);
+			contrato.setUsuarioBaja(usuario);
+			contrato.setUsuarioUltMod(usuario);
 			respuesta = negocio.bajaContrato(contrato);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));

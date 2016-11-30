@@ -30,6 +30,9 @@ public class ContratoNegocio {
 					if (contrato.getTramoFinal() == null || contrato.getTramoFinal().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el tramo Final.");
 					}
+					if (contrato.getUsuarioAlta() == null || contrato.getUsuarioAlta().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario alta.");
+					}
 					ContratoDAO dao = new ContratoDAO();
 					respuesta = dao.altaContrato(uid, contrato);
 				} catch  (ExcepcionesCuadrillas ex) {
@@ -63,6 +66,12 @@ public class ContratoNegocio {
 			}
 			if(contrato.getIdEmpleado() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id empleado.");
+			}
+			if (contrato.getUsuarioBaja() == null || contrato.getUsuarioBaja().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el usuario baja.");
+			}
+			if (contrato.getUsuarioUltMod() == null || contrato.getUsuarioUltMod().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 			}
 			ContratoDAO dao = new ContratoDAO();
 			respuesta = dao.bajaContrato(uid, contrato);

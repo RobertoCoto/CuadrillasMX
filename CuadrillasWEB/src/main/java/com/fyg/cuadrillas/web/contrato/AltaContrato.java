@@ -50,6 +50,7 @@ public class AltaContrato extends HttpServlet {
 			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
 			String tramoInicial = request.getParameter("tramoInicial");
 			String tramoFinal = request.getParameter("tramoFinal");
+			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -66,6 +67,7 @@ public class AltaContrato extends HttpServlet {
 			contrato.setIdVialidad(idVialidad);
 			contrato.setTramoInicial(tramoInicial);
 			contrato.setTramoFinal(tramoFinal);
+			contrato.setUsuarioAlta(usuario);
 			respuesta = negocio.altaContrato(contrato);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
