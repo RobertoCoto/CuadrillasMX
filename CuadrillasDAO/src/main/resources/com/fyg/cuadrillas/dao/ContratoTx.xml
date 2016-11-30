@@ -10,7 +10,7 @@ VALUES (#{numeroContrato},#{idEmpleado},now(),#{idVialidad},#{tramoInicial},#{tr
 <update id="bajaContrato" parameterType="Contrato">
 UPDATE contrato SET
 	fecha_baja = now(),
-	usuario_baja = now(),
+	usuario_baja = #{usuarioBaja},
 	fecha_ult_mod = now(),
 	usuario_ult_mod = #{usuarioUltMod},
     estatus = 'I'
