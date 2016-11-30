@@ -3,9 +3,7 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.AsistenciaNTx">
 
 <resultMap type="Asistencia" id="asistencia">
-<result column="lista_asistencia" property="listaAsistencia"/>
-<result column="nombres" property="nombres"/>
-<result column="puesto" property="puesto"/>
+<result column="id_asistencia" property="idAsistencia"/>
 <result column="hora_entrada" property="horaEntrada"/>
 </resultMap>
 
