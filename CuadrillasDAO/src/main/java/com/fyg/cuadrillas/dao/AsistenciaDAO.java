@@ -29,6 +29,10 @@ public class AsistenciaDAO {
 			if (activoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
 			}
+			int existeEntradaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia");
+			if(existeEntradaAsistencia > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar,El empleado no puede registrar su entrada 2 veces.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("AsistenciaDAO.entradaAsistencia", asistencia);
@@ -73,6 +77,10 @@ public class AsistenciaDAO {
 			if (existeHoraEntrada <= 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
 			}
+			int existeSalidaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeSalidaAsistencia");
+			if(existeSalidaAsistencia > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar,El Empleado no puede registrar su salida 2 veces.");
+			}
 			int activoEmpleado= (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
 			if (activoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
@@ -109,12 +117,19 @@ public class AsistenciaDAO {
 	 */
 	public EncabezadoRespuesta bajaAsistencia (String uid, AsistenciaDTO asistencia) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("baja correcta.");
 		
 		try {
+			//Validamos si la hora de entrada ya fue registrada
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeBajaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeBajaAsistencia");
+			if(existeBajaAsistencia > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar,El Empleado no puede registrar su baja 2 veces.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("AsistenciaDAO.bajaAsistencia", asistencia);

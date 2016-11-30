@@ -12,4 +12,17 @@ SELECT count(hora_entrada) AS hora_entrada
 FROM asistencia 
 WHERE id_empleado = #{idEmpleado}
 </select>
+
+<select id="existeSalidaAsistencia" parameterType="Asistencia" resultType="int">
+SELECT count(hora_salida) AS hora_salida
+FROM asistencia
+WHERE id_empleado = #{idEmpleado}
+</select>
+
+<select id="existeBajaAsistencia" parameterType="Asistencia" resultType="int">
+SELECT count(estatus) AS estatus
+FROM asistencia
+WHERE id_empleado = #{idEmpleado}
+AND estatus = 'I'
+</select>
 </mapper>
