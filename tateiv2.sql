@@ -159,14 +159,20 @@ CREATE TABLE usuario (
 	);
 	
 	CREATE TABLE asistencia (
-	lista_asistencia INTEGER NOT NULL AUTO_INCREMENT,
+	id_asistencia INTEGER NOT NULL AUTO_INCREMENT,
 	id_empleado INTEGER NOT NULL,
-	puesto VARCHAR(50) NOT NULL,
 	fecha DATE NOT NULL,
 	comentarios VARCHAR(200) NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
 	hora_entrada TIME NULL,
 	hora_salida  TIME NULL,
-	PRIMARY KEY(lista_asistencia)
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY(id_asistencia)
 	);
 	
 	CREATE TABLE contrato (
@@ -177,6 +183,12 @@ CREATE TABLE usuario (
 	id_vialidad integer NOT NULL,
 	tramo_inicial VARCHAR(200) NOT NULL,
 	tramo_final VARCHAR(200) NOT NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	PRIMARY KEY(id_contrato)
 	);
