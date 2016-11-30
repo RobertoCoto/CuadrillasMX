@@ -46,8 +46,8 @@ public class EntradaAsistencia extends HttpServlet {
 		
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String puesto = request.getParameter("puesto");
 			String comentarios = request.getParameter("comentarios");
+			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -60,8 +60,8 @@ public class EntradaAsistencia extends HttpServlet {
 			
 			AsistenciaDTO asistencia = new AsistenciaDTO();
 			asistencia.setIdEmpleado(idEmpleado);
-			asistencia.setPuesto(puesto);
 			asistencia.setComentarios(comentarios);
+			asistencia.setUsuarioAlta(usuario);
 			respuesta = negocio.entradaAsistencia(asistencia);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));

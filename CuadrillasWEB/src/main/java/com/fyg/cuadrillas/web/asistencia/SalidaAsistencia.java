@@ -45,8 +45,9 @@ public class SalidaAsistencia extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			Integer numAsistencia = Integer.parseInt(request.getParameter("numAsistencia"));
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String comentarios = request.getParameter("comentarios");
+			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -59,8 +60,9 @@ public class SalidaAsistencia extends HttpServlet {
 			
 			
 			AsistenciaDTO asistencia = new AsistenciaDTO();
-			asistencia.setListaAsistencia(numAsistencia);
+			asistencia.setIdEmpleado(idEmpleado);
 			asistencia.setComentarios(comentarios);
+			asistencia.setUsuarioUltMod(usuario);
 			respuesta = negocio.salidaAsistencia(asistencia);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));

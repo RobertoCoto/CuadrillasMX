@@ -129,6 +129,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.BajaContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>bajaAsistencia</servlet-name>
+  	<display-name>bajaAsistencia</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.asistencia.bajaAsistencia</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -212,5 +218,9 @@
 	<servlet-mapping>
 		<servlet-name>BajaContrato</servlet-name>
 		<url-pattern>/BajaContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>bajaAsistencia</servlet-name>
+		<url-pattern>/bajaAsistencia</url-pattern>
 	</servlet-mapping>
 </web-app>

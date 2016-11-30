@@ -10,6 +10,6 @@
 <select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
 SELECT count(hora_entrada) AS hora_entrada
 FROM asistencia 
-WHERE lista_asistencia = #{listaAsistencia}
+WHERE id_empleado = #{idEmpleado}
 </select>
 </mapper>
