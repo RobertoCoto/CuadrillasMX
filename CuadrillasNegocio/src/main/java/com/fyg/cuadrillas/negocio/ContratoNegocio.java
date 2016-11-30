@@ -24,11 +24,26 @@ public class ContratoNegocio {
 					if (contrato.getNumeroContrato() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el numero de contrato.");
 					}
-					if (contrato.getTramoInicial() == null || contrato.getTramoInicial().trim().isEmpty()) {
-						throw new ExcepcionesCuadrillas("Es necesario el tramo inicial.");
+					if (contrato.getDireccionInicial() == null || contrato.getDireccionInicial().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la direccion inicial.");
 					}
-					if (contrato.getTramoFinal() == null || contrato.getTramoFinal().trim().isEmpty()) {
-						throw new ExcepcionesCuadrillas("Es necesario el tramo Final.");
+					if (contrato.getDireccionFinal() == null || contrato.getDireccionFinal().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la direccion Final.");
+					}
+					if (contrato.getLatitudInicial() < 0 ) {
+						throw new ExcepcionesCuadrillas("Es necesario la latitud inicial.");
+					}
+					if (contrato.getLongitudInicial() < 0 ) {
+						throw new ExcepcionesCuadrillas("Es necesario la longitud inicial.");
+					}
+					if (contrato.getLatitudFinal() < 0 ) {
+						throw new ExcepcionesCuadrillas("Es necesario la latitud Final.");
+					}
+					if (contrato.getLongitudFinal() < 0 ) {
+						throw new ExcepcionesCuadrillas("Es necesario la longitud final.");
+					}
+					if (contrato.getUrl() == null || contrato.getUrl().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario adjuntar la localizacion del documento.");
 					}
 					if (contrato.getUsuarioAlta() == null || contrato.getUsuarioAlta().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario alta.");

@@ -31,13 +31,30 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	private Integer idVialidad;
 	/**
-	 * tramo inicial
+	 * latitud inicial
 	 */
-	private String tramoInicial;
+	private float latitudInicial;
 	/**
-	 * tramo final
+	 * longitud inicial
 	 */
-	private String tramoFinal;
+	private float longitudInicial;
+	/**
+	 * latitud final
+	 */
+	private float latitudFinal;
+	/**
+	 * longitud final
+	 */
+	private float longitudFinal;
+	/**
+	 * observaciones
+	 */
+	private String observaciones;
+	/**
+	 * url
+	 */
+	private String url;
+	
 	/**
 	 * estatus
 	 */
@@ -66,6 +83,14 @@ public class ContratoDTO extends ObjetoValor {
 	 * usuario ultima mod
 	 */
 	private String usuarioUltMod;
+	/**
+	 * direccion inicial
+	 */
+	private String direccionInicial;
+	/**
+	 * direccion final
+	 */
+	private String direccionFinal;
 	/**
 	 * @return the idContrato
 	 */
@@ -126,30 +151,7 @@ public class ContratoDTO extends ObjetoValor {
 	public void setIdVialidad(Integer idVialidad) {
 		this.idVialidad = idVialidad;
 	}
-	/**
-	 * @return the tramoInicial
-	 */
-	public String getTramoInicial() {
-		return tramoInicial;
-	}
-	/**
-	 * @param tramoInicial the tramoInicial to set
-	 */
-	public void setTramoInicial(String tramoInicial) {
-		this.tramoInicial = tramoInicial;
-	}
-	/**
-	 * @return the tramoFinal
-	 */
-	public String getTramoFinal() {
-		return tramoFinal;
-	}
-	/**
-	 * @param tramoFinal the tramoFinal to set
-	 */
-	public void setTramoFinal(String tramoFinal) {
-		this.tramoFinal = tramoFinal;
-	}
+	
 	/**
 	 * @return the estatus
 	 */
@@ -234,4 +236,100 @@ public class ContratoDTO extends ObjetoValor {
 	public void setUsuarioUltMod(String usuarioUltMod) {
 		this.usuarioUltMod = usuarioUltMod;
 	}
+	/**
+	 * @return the latitudInicial
+	 */
+	public float getLatitudInicial() {
+		return latitudInicial;
+	}
+	/**
+	 * @param latitudInicial the latitudInicial to set
+	 */
+	public void setLatitudInicial(float latitudInicial) {
+		this.latitudInicial = latitudInicial;
+	}
+	/**
+	 * @return the longitudInicial
+	 */
+	public float getLongitudInicial() {
+		return longitudInicial;
+	}
+	/**
+	 * @param longitudInicial the longitudInicial to set
+	 */
+	public void setLongitudInicial(float longitudInicial) {
+		this.longitudInicial = longitudInicial;
+	}
+	/**
+	 * @return the latitudFinal
+	 */
+	public float getLatitudFinal() {
+		return latitudFinal;
+	}
+	/**
+	 * @param latitudFinal the latitudFinal to set
+	 */
+	public void setLatitudFinal(float latitudFinal) {
+		this.latitudFinal = latitudFinal;
+	}
+	/**
+	 * @return the longitudFinal
+	 */
+	public float getLongitudFinal() {
+		return longitudFinal;
+	}
+	/**
+	 * @param longitudFinal the longitudFinal to set
+	 */
+	public void setLongitudFinal(float longitudFinal) {
+		this.longitudFinal = longitudFinal;
+	}
+	/**
+	 * @return the observaciones
+	 */
+	public String getObservaciones() {
+		return observaciones;
+	}
+	/**
+	 * @param observaciones the observaciones to set
+	 */
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	/**
+	 * @return the direccionInicial
+	 */
+	public String getDireccionInicial() {
+		return direccionInicial;
+	}
+	/**
+	 * @param direccionInicial the direccionInicial to set
+	 */
+	public void setDireccionInicial(String direccionInicial) {
+		this.direccionInicial = direccionInicial;
+	}
+	/**
+	 * @return the direccionFinal
+	 */
+	public String getDireccionFinal() {
+		return direccionFinal;
+	}
+	/**
+	 * @param direccionFinal the direccionFinal to set
+	 */
+	public void setDireccionFinal(String direccionFinal) {
+		this.direccionFinal = direccionFinal;
+	} 
 }
