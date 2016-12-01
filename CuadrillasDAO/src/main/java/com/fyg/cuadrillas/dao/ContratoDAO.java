@@ -25,7 +25,7 @@ public class ContratoDAO {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
-			if (existeContrato <= 0) {
+			if (existeContrato > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un contrato vigente.");
 			}
 			//Abrimos conexion Transaccional
@@ -69,7 +69,7 @@ public class ContratoDAO {
 			//Validamos si ya esta dado de baja el contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeBajaContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeBajaContrato", contrato);
-			if (existeBajaContrato <= 0) {
+			if (existeBajaContrato > 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja, el contrato ya se encuentra inactivo.");
 			}
 			//Abrimos conexion Transaccional
