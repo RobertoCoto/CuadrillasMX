@@ -198,6 +198,30 @@ CREATE TABLE usuario (
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	PRIMARY KEY(id_contrato)
 	);
+	
+	CREATE TABLE cuadrillas (
+	id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
+	numero_cuadrilla INTEGER NOT NULL,
+	nombre_cuadrilla VARCHAR(50) NOT NULL,
+	id_vialidad INTEGER NOT NULL,
+	residente VARCHAR(50) NOT NULL,
+	numero_personas INTEGER NOT NULL,
+	calificacion INTEGER NOT NULL,
+	direccion_inicial VARCHAR(150) NOT NULL,
+	latitud_inicial float NOT NULL,
+	longitud_incial float NOT NULL,
+	direccion_final VARCHAR(150) NOT NULL,
+	latitud_final  float NOT NULL,
+	longitud_final float NOT NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY(id_cuadrilla)
+	);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
