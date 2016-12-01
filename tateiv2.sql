@@ -201,7 +201,6 @@ CREATE TABLE usuario (
 	
 	CREATE TABLE cuadrillas (
 	id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
-	numero_cuadrilla INTEGER NOT NULL,
 	nombre_cuadrilla VARCHAR(50) NOT NULL,
 	id_vialidad INTEGER NOT NULL,
 	residente VARCHAR(50) NOT NULL,
