@@ -69,7 +69,7 @@ public class CuadrillaDAO {
 		try {
 			//Validamos si ya esta dado de baja el contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeBaja= (Integer) sessionNTx.selectOne("CuadrillaDAO.existeBaja", cuadrilla);
+			int existeBaja= (Integer) sessionNTx.selectOne("CuadrillaDAO.existeBajaCuadrilla", cuadrilla);
 			if (existeBaja > 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja, la cuadrilla ya se encuentra inactiva.");
 			}

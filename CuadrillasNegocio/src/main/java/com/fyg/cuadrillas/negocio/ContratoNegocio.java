@@ -30,18 +30,6 @@ public class ContratoNegocio {
 					if (contrato.getDireccionFinal() == null || contrato.getDireccionFinal().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario la direccion Final.");
 					}
-					if (contrato.getLatitudInicial() < 0 ) {
-						throw new ExcepcionesCuadrillas("Es necesario la latitud inicial.");
-					}
-					if (contrato.getLongitudInicial() < 0 ) {
-						throw new ExcepcionesCuadrillas("Es necesario la longitud inicial.");
-					}
-					if (contrato.getLatitudFinal() < 0 ) {
-						throw new ExcepcionesCuadrillas("Es necesario la latitud Final.");
-					}
-					if (contrato.getLongitudFinal() < 0 ) {
-						throw new ExcepcionesCuadrillas("Es necesario la longitud final.");
-					}
 					if (contrato.getUrl() == null || contrato.getUrl().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario adjuntar la localizacion del documento.");
 					}

@@ -25,7 +25,21 @@ public class CuadrillaNegocio {
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
 			}
-			
+			if (cuadrilla.getResidente() == null || cuadrilla.getResidente().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el nombre del residente.");
+			}
+			if (cuadrilla.getNumeroPersonas() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el numero de personas.");
+			}
+			if (cuadrilla.getCalificacion() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario la calificación.");
+			}
+			if (cuadrilla.getDireccionInicial() == null || cuadrilla.getDireccionInicial().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la direccion inicial.");
+			}
+			if (cuadrilla.getDireccionFinal() == null || cuadrilla.getDireccionFinal().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la direccion Final.");
+			}
 			CuadrillaDAO dao = new CuadrillaDAO();
 			respuesta = dao.altaCuadrilla(uid, cuadrilla);
 			
