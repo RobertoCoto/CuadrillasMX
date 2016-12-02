@@ -14,7 +14,7 @@ public class ContratoNegocio {
 	 * @return regresa la respuesta
 	 */
 	public EncabezadoRespuesta altaContrato(ContratoDTO contrato) {
-		//Primero generamos el identificador unico de la transaccion
+				//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(contrato);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Entrada: " + contrato);
