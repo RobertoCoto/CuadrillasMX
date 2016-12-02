@@ -18,7 +18,7 @@ UPDATE contrato SET
 	usuario_ult_mod = #{usuarioUltMod},
     estatus = 'I'
 WHERE numero_contrato = #{numeroContrato} 
-AND id_empleado = #{id_empleado}
+AND id_empleado = #{idEmpleado}
 AND estatus = 'A'
 </update>
 </mapper>
