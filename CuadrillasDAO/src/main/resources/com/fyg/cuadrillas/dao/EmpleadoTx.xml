@@ -7,14 +7,14 @@
 	INSERT INTO empleado
 		(
 		nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento,
-		fecha_ingreso, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, sueldo, frecuencia_pago,
+		fecha_ingreso, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla,id_cuadrilla, sueldo, frecuencia_pago,
 		nss, no_credito_infonavit, telefono, observaciones, usuario_alta, fecha_alta,
 		usuario_ult_mod, fecha_ult_mod, estatus
 		)
 	VALUES
 		(
 		upper(#{nombre}), upper(#{apellidoPat}), upper(#{apellidoMat}), upper(#{sexo}), upper(#{rfc}), upper(#{rfcCalculado}), #{fechaNacimiento},
-		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla}, #{sueldo}, #{frecuenciaPago},
+		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo}, #{frecuenciaPago},
 		#{nss},#{noCreditoInfonavit}, #{telefono}, #{observaciones}, #{usuarioAlta}, now(),
 		 #{usuarioAlta}, now(), 'A'
 		)

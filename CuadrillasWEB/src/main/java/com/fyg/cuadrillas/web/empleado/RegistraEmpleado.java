@@ -66,6 +66,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String codigoVialidad = request.getParameter("codigoVialidad");
 			String codigoArea = request.getParameter("codigoArea");
 			String codigoTalla = request.getParameter("codigoTalla");
+			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
 			String sueldo = request.getParameter("sueldo");
 			String frecuenciaPago = request.getParameter("frecuenciaPago");
 			String nss = request.getParameter("nss");
@@ -108,6 +109,7 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCodigoArea(codigoArea);
 			empleado.setCodigoTalla(codigoTalla);
+			empleado.setIdCuadrilla(idCuadrilla);
 			empleado.setNss(nss);
 			double  sueldoEmpleado = Double.parseDouble(sueldo);
 			empleado.setSueldo(sueldoEmpleado);

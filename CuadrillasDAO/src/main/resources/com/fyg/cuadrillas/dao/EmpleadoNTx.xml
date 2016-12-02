@@ -16,6 +16,7 @@
 	<result column="codigo_vialidad" property="codigoVialidad"/>
 	<result column="codigo_area" property="codigoArea"/>
 	<result column="codigo_talla" property="codigoTalla"/>
+	<result column="id_cuadrilla" property="idCuadrilla"/>
 	<result column="sueldo" property="sueldo"/>
 	<result column="frecuencia_pago" property="frecuenciaPago"/>
 	<result column="nss" property="nss"/>
