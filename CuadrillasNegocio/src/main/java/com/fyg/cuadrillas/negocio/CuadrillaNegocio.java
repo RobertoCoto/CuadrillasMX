@@ -31,12 +31,6 @@ public class CuadrillaNegocio {
 			if (cuadrilla.getCalificacion() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario la calificación.");
 			}
-			if (cuadrilla.getDireccionInicial() == null || cuadrilla.getDireccionInicial().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario la direccion inicial.");
-			}
-			if (cuadrilla.getDireccionFinal() == null || cuadrilla.getDireccionFinal().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario la direccion Final.");
-			}
 			CuadrillaDAO dao = new CuadrillaDAO();
 			respuesta = dao.altaCuadrilla(uid, cuadrilla);
 			

@@ -35,30 +35,6 @@ public class CuadrillaDTO extends ObjetoValor {
 	 */
 	private Integer calificacion;
 	/**
-	 * latitud
-	 */
-	private float latitudInicial;
-	/**
-	 * direccion inicial
-	 */
-	private String direccionInicial;
-	/**
-	 * direccion final
-	 */
-	private String direccionFinal;
-	/**
-	 * longitud inicial
-	 */
-	private float longitudInicial;
-	/**
-	 * latitud final
-	 */
-	private float latitudFinal;
-	/**
-	 * longitud final
-	 */
-	private float longitudFinal;
-	/**
 	 * estatus
 	 */
 	private String estatus;
@@ -157,78 +133,6 @@ public class CuadrillaDTO extends ObjetoValor {
 	 */
 	public void setCalificacion(Integer calificacion) {
 		this.calificacion = calificacion;
-	}
-	/**
-	 * @return the latitudInicial
-	 */
-	public float getLatitudInicial() {
-		return latitudInicial;
-	}
-	/**
-	 * @param latitudInicial the latitudInicial to set
-	 */
-	public void setLatitudInicial(float latitudInicial) {
-		this.latitudInicial = latitudInicial;
-	}
-	/**
-	 * @return the direccionInicial
-	 */
-	public String getDireccionInicial() {
-		return direccionInicial;
-	}
-	/**
-	 * @param direccionInicial the direccionInicial to set
-	 */
-	public void setDireccionInicial(String direccionInicial) {
-		this.direccionInicial = direccionInicial;
-	}
-	/**
-	 * @return the direccionFinal
-	 */
-	public String getDireccionFinal() {
-		return direccionFinal;
-	}
-	/**
-	 * @param direccionFinal the direccionFinal to set
-	 */
-	public void setDireccionFinal(String direccionFinal) {
-		this.direccionFinal = direccionFinal;
-	}
-	/**
-	 * @return the longitudInicial
-	 */
-	public float getLongitudInicial() {
-		return longitudInicial;
-	}
-	/**
-	 * @param longitudInicial the longitudInicial to set
-	 */
-	public void setLongitudInicial(float longitudInicial) {
-		this.longitudInicial = longitudInicial;
-	}
-	/**
-	 * @return the latitudFinal
-	 */
-	public float getLatitudFinal() {
-		return latitudFinal;
-	}
-	/**
-	 * @param latitudFinal the latitudFinal to set
-	 */
-	public void setLatitudFinal(float latitudFinal) {
-		this.latitudFinal = latitudFinal;
-	}
-	/**
-	 * @return the longitudFinal
-	 */
-	public float getLongitudFinal() {
-		return longitudFinal;
-	}
-	/**
-	 * @param longitudFinal the longitudFinal to set
-	 */
-	public void setLongitudFinal(float longitudFinal) {
-		this.longitudFinal = longitudFinal;
 	}
 	/**
 	 * @return the estatus

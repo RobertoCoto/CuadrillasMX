@@ -49,12 +49,6 @@ public class AltaCuadrilla extends HttpServlet {
 			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
 			Integer numeroPersonas = Integer.parseInt(request.getParameter("numeroPersonas"));
 			Integer calificacion = Integer.parseInt(request.getParameter("calificacion"));
-			String direccionInicial = request.getParameter("direccionInicial");
-			float latitudInicial = Float.parseFloat(request.getParameter("latitudInicial"));
-			float longitudInicial = Float.parseFloat(request.getParameter("longitudInicial"));
-			String direccionFinal = request.getParameter("direccionInicial");
-			float latitudFinal = Float.parseFloat(request.getParameter("latitudFinal"));
-			float longitudFinal = Float.parseFloat(request.getParameter("longitudFinal"));
 			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
@@ -71,12 +65,6 @@ public class AltaCuadrilla extends HttpServlet {
 			cuadrilla.setIdVialidad(idVialidad);
 			cuadrilla.setNumeroPersonas(numeroPersonas);
 			cuadrilla.setCalificacion(calificacion);
-			cuadrilla.setDireccionInicial(direccionInicial);
-			cuadrilla.setLatitudInicial(latitudInicial);
-			cuadrilla.setLongitudInicial(longitudInicial);
-			cuadrilla.setDireccionFinal(direccionFinal);
-			cuadrilla.setLatitudFinal(latitudFinal);
-			cuadrilla.setLongitudFinal(longitudFinal);
 			cuadrilla.setUsuarioAlta(usuario);
 			respuesta = negocio.altaCuadrilla(cuadrilla);
 			//convierte  a formato Json
