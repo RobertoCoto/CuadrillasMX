@@ -10,4 +10,14 @@ VALUES(#{nombreCuadrilla},#{idCuadrillas},#{idVialidad},#{residente},#{numeroPer
 #{direccionInicial},#{latitudInicial},#{longitudInicial},#{direccionFinal},#{latitudFinal},#{longitudFinal},now(),#{usuarioAlta},'A')
 </insert>
 
+<update id="bajaCuadrilla" parameterType="Cuadrilla">
+UPDATE cuadrillas SET
+		fecha_baja = now(),
+		usuario_baja = #{usuarioBaja},
+		fecha_ult_mod = now(),
+		usuario_ult_mod #{usuarioUltMod}
+		estatus = 'I'
+WHERE id_cuadrilla = #{id_cuadrilla}
+AND estatus = 'A'
+</update>
 </mapper>
