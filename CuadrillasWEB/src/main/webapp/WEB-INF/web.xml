@@ -141,6 +141,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.cuadrilla.AltaCuadrilla</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BajaCuadrilla</servlet-name>
+  	<display-name>BajaCuadrilla</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.cuadrilla.BajaCuadrilla</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -232,5 +238,9 @@
 	<servlet-mapping>
 		<servlet-name>AltaCuadrilla</servlet-name>
 		<url-pattern>/AltaCuadrilla</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BajaCuadrilla</servlet-name>
+		<url-pattern>/BajaCuadrilla</url-pattern>
 	</servlet-mapping>
 </web-app>
