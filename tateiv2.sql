@@ -221,6 +221,24 @@ CREATE TABLE usuario (
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	PRIMARY KEY(id_cuadrilla)
 	);
+	
+	CREATE TABLE colaborador (
+	id_colaborador INTEGER NOT NULL AUTO_INCREMENT,
+	id_cuadrilla INTEGER NOT NULL,
+	id_perfil INTEGER NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	calificacion  INTEGER NOT NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY (id_colaborador),
+	KEY (id_cuadrilla),
+	KEY (id_perfil)
+	);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
@@ -253,3 +271,7 @@ ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_articulo  FOREIGN KEY (cod
 ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
 
 ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
+
+ALTER TABLE colaborador ADD CONSTRAINT FK_colaborador  FOREIGN KEY (id_cuadrilla) REFERENCES cuadrillas(id_cuadrilla);
+
+ALTER TABLE colaborador ADD CONSTRAINT FK_colaborador_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
