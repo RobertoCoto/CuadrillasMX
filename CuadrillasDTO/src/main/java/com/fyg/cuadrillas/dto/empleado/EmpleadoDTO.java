@@ -111,6 +111,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private String observaciones;
 	/**
+	 * id de la cuadrilla
+	 */
+	private Integer idCuadrilla;
+	/**
 	 * Recibira los documentos del empleado
 	 */
 	private List<EmpleadoDocumentoDTO> documentos;
@@ -468,5 +472,16 @@ public class EmpleadoDTO extends ObjetoValor {
 	public void setUsuarioUltMod(String usuarioUltMod) {
 		this.usuarioUltMod = usuarioUltMod;
 	}
-
+	/**
+	 * @return the idCuadrilla
+	 */
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
+	}
+	/**
+	 * @param idCuadrilla the idCuadrilla to set
+	 */
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
+	}
 }

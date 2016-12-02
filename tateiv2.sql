@@ -118,6 +118,7 @@ CREATE TABLE usuario (
         codigo_vialidad VARCHAR(10) NOT NULL,
         codigo_area VARCHAR(10) NULL,
         codigo_talla VARCHAR(10) NULL,
+		id_cuadrilla INTEGER NOT NULL,
 		sueldo DECIMAL(10,2) NOT NULL DEFAULT 0,
 		frecuencia_pago  CHAR(1) NOT NULL CHECK(frecuencia IN('M','Q','S','')),
         nss VARCHAR(20) NULL,
@@ -199,11 +200,10 @@ CREATE TABLE usuario (
 	PRIMARY KEY(id_contrato)
 	);
 	
-	CREATE TABLE cuadrillas (
+	CREATE TABLE cuadrilla (
 	id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 	nombre_cuadrilla VARCHAR(50) NOT NULL,
 	id_vialidad INTEGER NOT NULL,
-	residente VARCHAR(50) NOT NULL,
 	numero_personas INTEGER NOT NULL,
 	calificacion INTEGER NOT NULL,
 	direccion_inicial VARCHAR(150) NOT NULL,

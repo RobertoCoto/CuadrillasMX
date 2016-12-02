@@ -25,9 +25,6 @@ public class CuadrillaNegocio {
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
 			}
-			if (cuadrilla.getResidente() == null || cuadrilla.getResidente().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el nombre del residente.");
-			}
 			if (cuadrilla.getNumeroPersonas() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el numero de personas.");
 			}

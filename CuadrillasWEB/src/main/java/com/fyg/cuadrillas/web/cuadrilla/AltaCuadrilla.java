@@ -47,7 +47,6 @@ public class AltaCuadrilla extends HttpServlet {
 		try {
 			String nombreCuadrilla = request.getParameter("nombreCuadrilla");
 			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
-			String residente = request.getParameter("residente");
 			Integer numeroPersonas = Integer.parseInt(request.getParameter("numeroPersonas"));
 			Integer calificacion = Integer.parseInt(request.getParameter("calificacion"));
 			String direccionInicial = request.getParameter("direccionInicial");
@@ -70,7 +69,6 @@ public class AltaCuadrilla extends HttpServlet {
 			CuadrillaDTO cuadrilla = new CuadrillaDTO();
 			cuadrilla.setNombreCuadrilla(nombreCuadrilla);
 			cuadrilla.setIdVialidad(idVialidad);
-			cuadrilla.setResidente(residente);
 			cuadrilla.setNumeroPersonas(numeroPersonas);
 			cuadrilla.setCalificacion(calificacion);
 			cuadrilla.setDireccionInicial(direccionInicial);

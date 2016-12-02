@@ -3,10 +3,10 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.CuadrillaTx">
 
 <insert id="altaCuadrilla" parameterType="Cuadrilla">
-INSERT INTO cuadrillas(nombre_cuadrilla,id_vialidad,residente,numero_personas,calificacion,
+INSERT INTO cuadrillas(nombre_cuadrilla,id_vialidad,numero_personas,calificacion,
 direccion_inicial,latitud_inicial,longitud_inicial,direccion_final,latitud_final,
 longitud_final,fecha_alta,usuario_alta,estatus)
-VALUES(#{nombreCuadrilla},#{idCuadrillas},#{idVialidad},#{residente},#{numeroPersonas},#{calificacion},
+VALUES(#{nombreCuadrilla},#{idCuadrillas},#{idVialidad},#{numeroPersonas},#{calificacion},
 #{direccionInicial},#{latitudInicial},#{longitudInicial},#{direccionFinal},#{latitudFinal},#{longitudFinal},now(),#{usuarioAlta},'A')
 </insert>
 
