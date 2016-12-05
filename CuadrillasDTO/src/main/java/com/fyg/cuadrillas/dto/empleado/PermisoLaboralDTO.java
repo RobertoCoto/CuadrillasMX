@@ -1,6 +1,5 @@
 package com.fyg.cuadrillas.dto.empleado;
 
-import java.sql.Time;
 import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
@@ -38,11 +37,11 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	/**
 	 * rango de la hora minimo
 	 */
-	private Time horaSolicitudMinimo;
+	private Date horaSolicitudMinimo;
 	/**
 	 * rango de la hora maxima
 	 */
-	private Time horaSolicitudMaxima;
+	private Date horaSolicitudMaxima;
 	/**
 	 * tipo de permiso
 	 */
@@ -163,30 +162,7 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	public void setFechaSolicitudMaximo(Date fechaSolicitudMaximo) {
 		this.fechaSolicitudMaximo = fechaSolicitudMaximo;
 	}
-	/**
-	 * @return the horaSolicitudMinimo
-	 */
-	public Time getHoraSolicitudMinimo() {
-		return horaSolicitudMinimo;
-	}
-	/**
-	 * @param horaSolicitudMinimo the horaSolicitudMinimo to set
-	 */
-	public void setHoraSolicitudMinimo(Time horaSolicitudMinimo) {
-		this.horaSolicitudMinimo = horaSolicitudMinimo;
-	}
-	/**
-	 * @return the horaSolicitudMaxima
-	 */
-	public Time getHoraSolicitudMaxima() {
-		return horaSolicitudMaxima;
-	}
-	/**
-	 * @param horaSolicitudMaxima the horaSolicitudMaxima to set
-	 */
-	public void setHoraSolicitudMaxima(Time horaSolicitudMaxima) {
-		this.horaSolicitudMaxima = horaSolicitudMaxima;
-	}
+	
 	/**
 	 * @return the tipoPermiso
 	 */
@@ -330,5 +306,29 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	public void setEstatusAutorizacion(String estatusAutorizacion) {
 		this.estatusAutorizacion = estatusAutorizacion;
-	}  
+	}
+	/**
+	 * @return the horaSolicitudMinimo
+	 */
+	public Date getHoraSolicitudMinimo() {
+		return horaSolicitudMinimo;
+	}
+	/**
+	 * @param horaSolicitudMinimo the horaSolicitudMinimo to set
+	 */
+	public void setHoraSolicitudMinimo(Date horaSolicitudMinimo) {
+		this.horaSolicitudMinimo = horaSolicitudMinimo;
+	}
+	/**
+	 * @return the horaSolicitudMaxima
+	 */
+	public Date getHoraSolicitudMaxima() {
+		return horaSolicitudMaxima;
+	}
+	/**
+	 * @param horaSolicitudMaxima the horaSolicitudMaxima to set
+	 */
+	public void setHoraSolicitudMaxima(Date horaSolicitudMaxima) {
+		this.horaSolicitudMaxima = horaSolicitudMaxima;
+	} 
 }

@@ -147,6 +147,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.cuadrilla.BajaCuadrilla</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RegistraPermiso</servlet-name>
+  	<display-name>RegistraPermiso</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.RegistraPermiso</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -242,5 +248,9 @@
 	<servlet-mapping>
 		<servlet-name>BajaCuadrilla</servlet-name>
 		<url-pattern>/BajaCuadrilla</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistraPermiso</servlet-name>
+		<url-pattern>/RegistraPermiso</url-pattern>
 	</servlet-mapping>
 </web-app>
