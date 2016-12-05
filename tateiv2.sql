@@ -216,6 +216,28 @@ CREATE TABLE usuario (
 	PRIMARY KEY(id_cuadrilla)
 	);
 	
+	CREATE TABLE permiso_laboral (
+	id_permiso INTEGER NOT NULL AUTO_INCREMENT,
+	id_empleado INTEGER NOT NULL,
+	comentarios VARCHAR(150) NULL,
+	fecha_solicitud DATE NOT NULL,
+	fecha_solicitud_minimo DATE NOT NULL,
+	fecha_solicitud_maximo DATE NOT NULL,
+	hora_solicitud_minimo TIME NOT NULL,
+	hora_solicitud_maxima TIME NOT NULL,
+	tipo_permiso VARCHAR(50) NOT NULL,
+	autorizacion CHAR(1) NOT NULL CHECK(autorizacion IN('S','N')),
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY(id_permiso),
+	KEY(id_empleado)
+	);
+	
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
