@@ -153,6 +153,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.empleado.RegistraPermiso</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AutorizacionPermiso</servlet-name>
+  	<display-name>AutorizacionPermiso</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.AutorizacionPermiso</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -252,5 +258,9 @@
 	<servlet-mapping>
 		<servlet-name>RegistraPermiso</servlet-name>
 		<url-pattern>/RegistraPermiso</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AutorizacionPermiso</servlet-name>
+		<url-pattern>/AutorizacionPermiso</url-pattern>
 	</servlet-mapping>
 </web-app>
