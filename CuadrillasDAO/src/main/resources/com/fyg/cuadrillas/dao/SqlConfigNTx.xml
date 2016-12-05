@@ -19,6 +19,7 @@
 <typeAlias alias="Asistencia" type="com.fyg.cuadrillas.dto.asistencia.AsistenciaDTO"/>
 <typeAlias alias="Contrato" type="com.fyg.cuadrillas.dto.contrato.ContratoDTO"/>
 <typeAlias alias="Cuadrilla" type="com.fyg.cuadrillas.dto.cuadrilla.CuadrillaDTO"/>
+<typeAlias alias="Permiso" type="com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO"/>
 </typeAliases>
 
 	<environments default="development">
@@ -48,5 +49,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/AsistenciaNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/ContratoNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/CuadrillaNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/PermisoNTx.xml" />
 	</mappers>
 </configuration>
