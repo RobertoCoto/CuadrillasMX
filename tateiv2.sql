@@ -227,6 +227,8 @@ CREATE TABLE usuario (
 	hora_solicitud_maxima TIME NOT NULL,
 	tipo_permiso VARCHAR(50) NOT NULL,
 	autorizacion CHAR(1) NOT NULL CHECK(autorizacion IN('S','N')),
+	fecha_autorizacion DATETIME NULL,
+	usuario_autorizacion VARCHAR(20) NULL,
 	fecha_alta DATETIME NOT NULL,
 	usuario_alta VARCHAR(20) NOT NULL,
 	fecha_baja DATETIME NULL,
