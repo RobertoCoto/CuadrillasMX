@@ -80,6 +80,14 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * Usuario Autorizacion
+	 */
+	private String usuarioAutorizacion;
+	/**
+	 * fecha de la autorizacion
+	 */
+	private Date  fechaAutorizacion;
+	/**
 	 * @return the idPermiso
 	 */
 	public Integer getIdPermiso() {
@@ -283,4 +291,28 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
 	}
+	/**
+	 * @return the usuarioAutorizacion
+	 */
+	public String getUsuarioAutorizacion() {
+		return usuarioAutorizacion;
+	}
+	/**
+	 * @param usuarioAutorizacion the usuarioAutorizacion to set
+	 */
+	public void setUsuarioAutorizacion(String usuarioAutorizacion) {
+		this.usuarioAutorizacion = usuarioAutorizacion;
+	}
+	/**
+	 * @return the fechaAutorizacion
+	 */
+	public Date getFechaAutorizacion() {
+		return fechaAutorizacion;
+	}
+	/**
+	 * @param fechaAutorizacion the fechaAutorizacion to set
+	 */
+	public void setFechaAutorizacion(Date fechaAutorizacion) {
+		this.fechaAutorizacion = fechaAutorizacion;
+	} 
 }
