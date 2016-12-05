@@ -1,1 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.PermisoNTx">
+
+<select id="existePermiso" parameterType="Permiso" resultType="int">
+SELECT count(*)
+FROM permiso_laboral
+WHERE id_empleado = #{idEmpleado}
+AND estatus = 'A'
+</select>
+
+<select id="existeAutorizacion" parameterType="Permiso" resultType="int">
+SELECT count(autorizacion) 
+FROM permiso_laboral
+WHERE id_permiso = #{idPermiso}
+AND id_empleado = #{idEmpleado}
+AND autorizacion = 'S'
+</select>
+
+<select id="existeBajaPermiso" parameterType="Permiso" resultType="int">
+SELECT count(estatus)
+FROM permiso_laboral
+WHERE id_permiso = #{idPermiso}
+AND id_empleado = #{idEmpleado} 
+AND estatus = 'I'
+</select>
+</mapper>
