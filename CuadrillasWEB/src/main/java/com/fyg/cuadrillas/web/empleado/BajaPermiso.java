@@ -14,17 +14,16 @@ import com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO;
 import com.fyg.cuadrillas.negocio.PermisoLaboralNegocio;
 import com.google.gson.Gson;
 
-
 /**
- * Servlet implementation class AutorizacionPermiso
+ * Servlet implementation class BajaPermiso
  */
-public class AutorizacionPermiso extends HttpServlet {
+public class BajaPermiso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutorizacionPermiso() {
+    public BajaPermiso() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,8 +47,6 @@ public class AutorizacionPermiso extends HttpServlet {
 		try {
 			Integer idPermiso = Integer.parseInt(request.getParameter("idPermiso"));
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String comentario = request.getParameter("comentario");
-			String estatusAutorizacion = request.getParameter("estatusAutorizacion");
 			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
@@ -64,11 +61,9 @@ public class AutorizacionPermiso extends HttpServlet {
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
 			permiso.setIdPermiso(idPermiso);
 			permiso.setIdEmpleado(idEmpleado);
-			permiso.setComentarios(comentario);
-			permiso.setEstatusAutorizacion(estatusAutorizacion);
-			permiso.setUsuarioAutorizacion(usuario);
+			permiso.setUsuarioBaja(usuario);
 			permiso.setUsuarioUltMod(usuario);
-			respuesta = negocio.autorizacionPermiso(permiso);
+			respuesta = negocio.bajaPermiso(permiso);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
