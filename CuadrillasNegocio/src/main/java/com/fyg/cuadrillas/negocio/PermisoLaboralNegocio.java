@@ -1,11 +1,14 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.PermisoLaboralDAO;
 import com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO;
+import com.fyg.cuadrillas.dto.empleado.PermisoLaboralRespuesta;
 
 
 public class PermisoLaboralNegocio {
@@ -137,5 +140,42 @@ public class PermisoLaboralNegocio {
 		}
 		LogHandler.debug(uid, this.getClass(), "bajaPermiso - Datos Salida: " + respuesta);
 		return respuesta;
+	}
+	/**
+	 * Metodo para consultar permiso temporal
+	 * @param permiso recibe valores de permiso
+	 * @return regresa respuesta
+	 */
+	public PermisoLaboralRespuesta consultaPermisoTemporal(PermisoLaboralDTO permiso) {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(permiso);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaPermisoTemporal - Datos Entrada: " + permiso);
+				//Variable de resultado
+				PermisoLaboralRespuesta respuesta = new PermisoLaboralRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				List<PermisoLaboralDTO> listaPermiso = null;
+				try {
+					if(permiso.getIdEmpleado() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+					}
+					listaPermiso = null;
+					respuesta.setPermiso(listaPermiso);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Salida: " + respuesta);
+			    return respuesta;
 	}
 }

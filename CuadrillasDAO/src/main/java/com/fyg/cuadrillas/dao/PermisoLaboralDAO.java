@@ -9,6 +9,39 @@ import com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO;
 
 public class PermisoLaboralDAO {
 	/**
+	 * Metodo para consultar un permiso del empleado
+	 * @param uid unico de registro
+	 * @param permiso recibe valores de registro
+	 * @return regresa respuesta
+	 * @throws Exception se crea excepciones
+	 */
+	public PermisoLaboralDTO consultaPermisoTemporal(String uid, PermisoLaboralDTO permiso) throws Exception{
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		PermisoLaboralDTO permisoTemporal = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			LogHandler.debug(uid, this.getClass(), "consultando");
+			permisoTemporal = (PermisoLaboralDTO) sessionNTx.selectOne("PermisoLaboralDAO.consultaPermiso", permiso);
+			LogHandler.info(uid, this.getClass(), "consultaPermiso: " + permisoTemporal);
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return permisoTemporal;
+	}
+	
+	
+	/**
 	 * Metodo para dar de alta el permiso.
 	 * @param uid unico de registro
 	 * @param permiso recibe valores de permiso

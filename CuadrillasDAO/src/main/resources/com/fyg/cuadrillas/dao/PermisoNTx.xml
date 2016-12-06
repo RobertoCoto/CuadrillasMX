@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.PermisoNTx">
 
+<resultMap type="Permiso" id="permiso">
+<result column="id_permiso" property="idPermiso"/>
+<result column="id_empleado" property="idEmpleado"/>
+<result column="comentarios" property="comentarios"/>
+<result column="fecha_solicitud" property="fechaSolicitud"/>
+<result column="fecha_solicitud_minimo" property="fechaSolicitudMinimo"/>
+<result column="fecha_solicitud_maximo" property="fechaSolicitudMaximo"/>
+<result column="hora_solicitud_minimo" property="horaSolicitudMinimo"/>
+<result column="hora_solicitud_maxima" property="horaSolicitudMaxima"/>
+<result column="tipo_permiso" property="tipoPermiso"/>
+<result column="autorizacion" property="autorizacion"/>
+<result column="fecha_autorizacion" property="fechaAutorizacion"/>
+<result column="usuario_autorizacion" property="usuarioAutorizacion"/>
+<result column="fecha_alta" property="fechaAlta"/>
+<result column="usuario_alta" property="usuarioAlta"/>
+<result columnt="estatus" property="estatus"/>
+
+</resultMap>
 <select id="existePermiso" parameterType="Permiso" resultType="int">
 SELECT count(*)
 FROM permiso_laboral
@@ -23,5 +41,26 @@ FROM permiso_laboral
 WHERE id_permiso = #{idPermiso}
 AND id_empleado = #{idEmpleado} 
 AND estatus = 'I'
+</select>
+
+<select id="consultaPermiso" parameterType="Permiso" resultMap="permiso">
+SELECT id_permiso,
+		id_empleado,
+		comentarios,
+		fecha_solicitud,
+		fecha_solicitud_minimo,
+		fecha_solicitud_maximo,
+		hora_solicitud_minimo,
+		hora_solicitud_maxima,
+		tipo_permiso,
+		autorizacion,
+		fecha_autorizacion,
+		usuario_autorizacion,
+		fecha_alta,
+		usuario_alta,
+		estatus
+FROM permiso_laboral
+WHERE id_empleado = #{idEmpleado}
+AND estatus = 'A'
 </select>
 </mapper>

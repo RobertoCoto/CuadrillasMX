@@ -165,6 +165,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.empleado.BajaPermiso</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaPermisoTemporal</servlet-name>
+  	<display-name>ConsultaPermisoTemporal</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.ConsultaPermisoTemporal</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -272,5 +278,9 @@
 	<servlet-mapping>
 		<servlet-name>BajaPermiso</servlet-name>
 		<url-pattern>/BajaPermiso</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaPermisoTemporal</servlet-name>
+		<url-pattern>/ConsultaPermisoTemporal</url-pattern>
 	</servlet-mapping>
 </web-app>

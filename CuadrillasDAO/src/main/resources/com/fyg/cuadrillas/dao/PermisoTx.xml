@@ -3,9 +3,9 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.PermisoTx">
 
 <insert id="altaPermiso" parameterType="Permiso">
-INSERT INTO permiso_laboral(id_empleado,comentarios,fecha_solicitud,fecha_solicitud_minimo,fecha_solicitud_maximo,hora_solicitud_minima,
+INSERT INTO permiso_laboral(id_empleado,comentarios,fecha_solicitud,fecha_solicitud_minimo,fecha_solicitud_maximo,hora_solicitud_minimo,
 hora_solicitud_maxima,tipo_permiso,fecha_alta,usuario_alta,estatus)
-VALUES(#{idEmpleado},#{comentarios},now(),#{fechaSolicitudMinimo},#{fechaSolicitudMaxima},#{horaSolicitudMinima},#{horaSolicitudMaxima},#{tipoPermiso},
+VALUES(#{idEmpleado},#{comentarios},now(),#{fechaSolicitudMinimo},#{fechaSolicitudMaximo},#{horaSolicitudMinimo},#{horaSolicitudMaxima},#{tipoPermiso},
 now(),#{usuarioAlta},'A')
 </insert>
 
