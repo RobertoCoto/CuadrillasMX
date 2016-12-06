@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -15,21 +17,25 @@ public class PermisoLaboralDAO {
 	 * @return regresa respuesta
 	 * @throws Exception se crea excepciones
 	 */
-	public PermisoLaboralDTO consultaPermisoTemporal(String uid, PermisoLaboralDTO permiso) throws Exception{
+	@SuppressWarnings("unchecked")
+	public List<PermisoLaboralDTO> consultaPermisoTemporal(String uid, PermisoLaboralDTO permiso) throws Exception{
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		PermisoLaboralDTO permisoTemporal = null;
+		List<PermisoLaboralDTO> permisoTemporal = null;
 		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "consultando");
-			permisoTemporal = (PermisoLaboralDTO) sessionNTx.selectOne("PermisoLaboralDAO.consultaPermiso", permiso);
+			permisoTemporal = sessionNTx.selectList("PermisoLaboralDAO.consultaPermiso");
 			LogHandler.info(uid, this.getClass(), "consultaPermiso: " + permisoTemporal);
+			if ( permisoTemporal.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existe el permiso actualmente.");
+			}
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());

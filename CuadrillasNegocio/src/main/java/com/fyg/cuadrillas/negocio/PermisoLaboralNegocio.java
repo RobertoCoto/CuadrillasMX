@@ -162,7 +162,7 @@ public class PermisoLaboralNegocio {
 					if(permiso.getIdEmpleado() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 					}
-					listaPermiso = null;
+					listaPermiso = new PermisoLaboralDAO().consultaPermisoTemporal(uid, permiso);
 					respuesta.setPermiso(listaPermiso);
 				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			
