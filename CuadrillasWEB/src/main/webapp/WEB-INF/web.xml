@@ -171,6 +171,18 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.empleado.ConsultaPermisoTemporal</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RegistraUsuario</servlet-name>
+  	<display-name>RegistraUsuario</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.usuario.RegistraUsuario</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BajaUsuario</servlet-name>
+  	<display-name>BajaUsuario</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.usuario.BajaUsuario</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -282,5 +294,13 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaPermisoTemporal</servlet-name>
 		<url-pattern>/ConsultaPermisoTemporal</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistraUsuario</servlet-name>
+		<url-pattern>/RegistraUsuario</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BajaUsuario</servlet-name>
+		<url-pattern>/BajaUsuario</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -22,6 +22,10 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	private Integer idPerfil;
 	/**
+	 * id del empleado
+	 */
+	private Integer idEmpleado;
+	/**
 	 * nombreUsuario
 	 */
 	private String nombrePerfil;
@@ -169,5 +173,16 @@ public class UsuarioDTO extends ObjetoValor {
 	public void setNombrePerfil(String nombrePerfil) {
 		this.nombrePerfil = nombrePerfil;
 	}
-
+	/**
+	 * @return the idEmpleado
+	 */
+	public Integer getIdEmpleado() {
+		return idEmpleado;
+	}
+	/**
+	 * @param idEmpleado the idEmpleado to set
+	 */
+	public void setIdEmpleado(Integer idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
 }
