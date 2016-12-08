@@ -4,8 +4,8 @@
 	namespace="com.fyg.cuadrillas.dao.UsuarioTx">
 <!--- INSERTA EN LA TABLA USUARIO-->
 <insert id="insertaUsuario" parameterType="Usuario">
-INSERT INTO usuarios(usuario,id_empleado,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{usuario},#{idEmpleado},#{id_perfil},#{contrasena},#{cambio_contrasena},now(),now(),now(),#{estatus})
+INSERT INTO usuarios(usuario,id_empleado,nombre,apellido_paterno,apellido_materno,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{usuario},#{idEmpleado},#{nombre},#{apellidoPat},#{apellidoMat},#{sexo},#{rfc},#{rfcCalculado},#{fechaNac},#{id_perfil},#{contrasena},#{cambio_contrasena},now(),now(),now(),#{estatus})
 </insert>
 
 <!--- BAJA EN LA TABLA USUARIO-->
