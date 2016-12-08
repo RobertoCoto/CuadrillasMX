@@ -1,12 +1,13 @@
 package com.fyg.cuadrillas.negocio;
 
-
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.comun.RFCUtil;
+import com.fyg.cuadrillas.comun.Encriptacion;
 import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
 import com.fyg.cuadrillas.dto.PerfilDTO;
@@ -19,6 +20,8 @@ public class UsuariosNegocio {
 	 * Objeto para recibir  datos perfil
 	 */
 	 private PerfilDTO perfilUsuario;
+	 /** The LONGITUD_RFC. */
+		private static final  int LONGITUD_RFC = 10;
 	 /**
 		 * Metodo para dar de alta un usuario
 		 * @param usuario Recibe valores de usuario
@@ -38,6 +41,27 @@ public class UsuariosNegocio {
 				if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario especificar un usuario.");
 				}
+				if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del usuario.");
+				}
+				if (usuario.getApellidoPat() == null || usuario.getApellidoPat().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del usuario.");
+				}
+				if (usuario.getApellidoMat() == null || usuario.getApellidoMat().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El apellido materno es necesario en el alta del usuario.");
+				}
+				if (usuario.getSexo() == null || usuario.getSexo().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del usuario.");
+				}
+				if (!(usuario.getSexo().equalsIgnoreCase("F") || usuario.getSexo().equalsIgnoreCase("M"))) {
+					throw new ExcepcionesCuadrillas("El sexo del usuario es incorrecto.");
+				}
+				if (usuario.getRfc() == null || usuario.getRfc().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del usuario.");
+				}
+				if (usuario.getRfc().trim().length() < LONGITUD_RFC) {
+					throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
+				}
 				 //se incia con la obtencion del perfil
 				 perfilUsuario = new PerfilDTO();
 				 perfilUsuario.setIdPerfil(usuario.getIdPerfil());
@@ -48,6 +72,20 @@ public class UsuariosNegocio {
 						 throw new ExcepcionesCuadrillas("no existe el perfil");
 					 }
 				 }
+				 
+				//RFC Calculado
+					String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(usuario.getNombre(),
+								usuario.getApellidoPat(),
+								usuario.getApellidoMat(),
+								usuario.getFechaNacimiento());
+					//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
+					usuario.setRfcCalculado(rfcCalculado);
+				//encriptacion de contraseña
+				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+				//Se le asigna la contrasena encriptada
+				usuario.setContrasena(encriptaContrasena);
+				
+				//se le envian los datos al DAO
 					UsuarioDAO dao = new UsuarioDAO();
 					respuesta = dao.altaUsuario(uid, usuario);
 			} catch  (ExcepcionesCuadrillas ex) {

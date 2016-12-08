@@ -30,6 +30,34 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	private String nombrePerfil;
 	/**
+	 * nombre
+	 */
+	private String nombre;
+	/**
+	 * apellido paterno
+	 */
+	private String apellidoPat;
+	/**
+	 * apeliido materno
+	 */
+	private String apellidoMat;
+	/**
+	 * sexo
+	 */
+	private String sexo;
+	/**
+	 * rfc
+	 */
+	private String rfc;
+	/**
+	 * rfc calculado
+	 */
+	private String rfcCalculado;
+	/**
+	 * fecha de nacimiento
+	 */
+	private Date fechaNacimiento;
+	/**
 	 * Contrasena del usuario
 	 */
 	private String contrasena;
@@ -184,5 +212,89 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;
+	}
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	/**
+	 * @return the apellidoPat
+	 */
+	public String getApellidoPat() {
+		return apellidoPat;
+	}
+	/**
+	 * @param apellidoPat the apellidoPat to set
+	 */
+	public void setApellidoPat(String apellidoPat) {
+		this.apellidoPat = apellidoPat;
+	}
+	/**
+	 * @return the apellidoMat
+	 */
+	public String getApellidoMat() {
+		return apellidoMat;
+	}
+	/**
+	 * @param apellidoMat the apellidoMat to set
+	 */
+	public void setApellidoMat(String apellidoMat) {
+		this.apellidoMat = apellidoMat;
+	}
+	/**
+	 * @return the sexo
+	 */
+	public String getSexo() {
+		return sexo;
+	}
+	/**
+	 * @param sexo the sexo to set
+	 */
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	/**
+	 * @return the rfc
+	 */
+	public String getRfc() {
+		return rfc;
+	}
+	/**
+	 * @param rfc the rfc to set
+	 */
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
+	}
+	/**
+	 * @return the rfcCalculado
+	 */
+	public String getRfcCalculado() {
+		return rfcCalculado;
+	}
+	/**
+	 * @param rfcCalculado the rfcCalculado to set
+	 */
+	public void setRfcCalculado(String rfcCalculado) {
+		this.rfcCalculado = rfcCalculado;
+	}
+	/**
+	 * @return the fechaNacimiento
+	 */
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	/**
+	 * @param fechaNacimiento the fechaNacimiento to set
+	 */
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 }
