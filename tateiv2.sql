@@ -19,6 +19,13 @@ DROP TABLE IF EXISTS menu;
 CREATE TABLE usuario (
     usuario VARCHAR(20) NOT NULL,
 	id_empleado INT NULL,
+	nombre VARCHAR(80) NOT NULL,
+    apellido_pat VARCHAR(80) NOT NULL,
+    apellido_mat VARCHAR(80) NOT NULL,
+    sexo  CHAR(1) NOT NULL CHECK(sexo IN('F','M')),
+    rfc VARCHAR(13) NULL,
+    rfc_calculado VARCHAR(15) NULL,         
+    fecha_nacimiento DATE NOT NULL,
     id_perfil INT NOT NULL,
     contrasena VARCHAR(100) NOT NULL,
     cambio_contrasena CHAR(1) NOT NULL CHECK(cambio_contrasena IN('S','N')),
