@@ -1,7 +1,7 @@
 USE tatei;
 
-DELETE FROM menu;
 DELETE FROM perfil_menu;
+DELETE FROM menu;
 DELETE FROM usuario;
 DELETE FROM perfil;
 
