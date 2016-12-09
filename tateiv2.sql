@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS perfil_menu;
 DROP TABLE IF EXISTS perfil;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS cuadrilla;
+DROP TABLE IF EXISTS actividad_diaria;
 
 
 
@@ -248,6 +249,33 @@ CREATE TABLE usuario (
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	PRIMARY KEY(id_permiso),
 	KEY(id_empleado)
+	);
+	
+	CREATE TABLE actividad_diaria(
+	id_actividad INTEGER NOT NULL AUTO_INCREMENT,
+	id_cuadrilla INTEGER NOT NULL,
+	actividad VARCHAR(80) NOT NULL,
+	prioridad VARCHAR(10) NOT NULL,
+	estado  VARCHAR(15) NOT NULL,
+	tiempo_destinado  INTEGER NOT NULL,
+	numero_personas INTEGER NOT NULL,
+	numero_unidades INTEGER NOT NULL,
+	porcentaje_contemplado FLOAT NOT NULL,
+	listo_vencido VARCHAR(20) NOT NULL,
+	observaciones_actividad VARCHAR(50) NULL,
+	horas_total_trabajadas FLOAT NOT NULL,
+	actividades_completas FLOAT NOT NULL,
+	horas_restantes INTEGER NOT NULL,
+	actividades_dia FLOAT NOT NULL,
+	observaciones VARCHAR(100) NULL,
+	fecha_alta DATETIME NOT NULL,
+	usuario_alta VARCHAR(20) NOT NULL,
+	fecha_baja DATETIME NULL,
+	usuario_baja VARCHAR(20) NULL,
+	usuario_ult_mod varchar(20) NOT NULL,
+	fecha_ult_mod  DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	PRIMARY KEY(id_actividad)
 	);
 	
 
