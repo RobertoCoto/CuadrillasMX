@@ -53,6 +53,7 @@ public class AsistenciaDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 	}
