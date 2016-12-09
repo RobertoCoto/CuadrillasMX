@@ -17,13 +17,13 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class bajaAsistencia
  */
-public class bajaAsistencia extends HttpServlet {
+public class BajaAsistencia extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public bajaAsistencia() {
+    public BajaAsistencia() {
         super();
         // TODO Auto-generated constructor stub
     }
