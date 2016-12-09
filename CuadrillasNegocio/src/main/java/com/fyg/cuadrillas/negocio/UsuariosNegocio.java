@@ -20,8 +20,6 @@ public class UsuariosNegocio {
 	 * Objeto para recibir  datos perfil
 	 */
 	 private PerfilDTO perfilUsuario;
-	 /** The LONGITUD_RFC. */
-		private static final  int LONGITUD_RFC = 10;
 	 /**
 		 * Metodo para dar de alta un usuario
 		 * @param usuario Recibe valores de usuario
@@ -40,27 +38,6 @@ public class UsuariosNegocio {
 				//Validaciones de campos.
 				if (usuario.getUsuario() == null || usuario.getUsuario().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario especificar un usuario.");
-				}
-				if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del usuario.");
-				}
-				if (usuario.getApellidoPat() == null || usuario.getApellidoPat().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del usuario.");
-				}
-				if (usuario.getApellidoMat() == null || usuario.getApellidoMat().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El apellido materno es necesario en el alta del usuario.");
-				}
-				if (usuario.getSexo() == null || usuario.getSexo().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del usuario.");
-				}
-				if (!(usuario.getSexo().equalsIgnoreCase("F") || usuario.getSexo().equalsIgnoreCase("M"))) {
-					throw new ExcepcionesCuadrillas("El sexo del usuario es incorrecto.");
-				}
-				if (usuario.getRfc() == null || usuario.getRfc().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del usuario.");
-				}
-				if (usuario.getRfc().trim().length() < LONGITUD_RFC) {
-					throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
 				}
 				 //se incia con la obtencion del perfil
 				 perfilUsuario = new PerfilDTO();
