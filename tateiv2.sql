@@ -254,6 +254,12 @@ CREATE TABLE usuario (
 	CREATE TABLE actividad_diaria(
 	id_actividad INTEGER NOT NULL AUTO_INCREMENT,
 	id_cuadrilla INTEGER NOT NULL,
+	tramo_inicial_planificado VARCHAR(100) NULL,
+	tramo_final_planificado VARCHAR(100) NULL,
+	alcance_planificado FLOAT NULL,
+	tramo_inicial_real VARCHAR(100) NULL,
+	tramo_final_real VARCHAR(100) NULL,
+	alcance_real FLOAT NULL,
 	actividad VARCHAR(80) NOT NULL,
 	prioridad VARCHAR(10) NOT NULL,
 	estado  VARCHAR(15) NOT NULL,
