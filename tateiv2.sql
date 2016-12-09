@@ -1,25 +1,23 @@
 USE tatei;
 
 DROP TABLE IF EXISTS parametros;
+DROP TABLE IF EXISTS permiso_laboral;
+DROP TABLE IF EXISTS vialidad;
+DROP TABLE IF EXISTS contrato;
+DROP TABLE IF EXISTS asistencia;
 DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
 DROP TABLE IF EXISTS herramienta;
-
-
-
 DROP TABLE IF EXISTS catalogo;
 DROP TABLE IF EXISTS tipo_catalogo;
-
-
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS perfil_menu;
 DROP TABLE IF EXISTS perfil;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS cuadrilla;
-DROP TABLE IF EXISTS asistencia;
-DROP TABLE IF EXISTS permiso_laboral;
-DROP TABLE IF EXISTS vialidad;
-DROP TABLE IF EXISTS contrato;
+
+
+
 
 CREATE TABLE usuario (
     usuario VARCHAR(20) NOT NULL,
