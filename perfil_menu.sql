@@ -1,7 +1,7 @@
 USE tatei;
 
-DELETE FROM menu;
 DELETE FROM perfil_menu;
+DELETE FROM menu;
 DELETE FROM usuario;
 DELETE FROM perfil;
 
@@ -21,16 +21,16 @@ VALUES (3,'Recursos Humanos','Recursos Humanos','A');
 
 
 
-INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
+INSERT INTO usuario (usuario, id_empleado,id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
 VALUES  ('SISTEMAS', NULL , 1, 'SISTEMAS', 'N', now(), now(), now(), 'A');
 
 
 /* QUITAR */
-INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES  ('rcoto', 1, 1, 'rcoto', 'N', now(), now(), now(), 'A');
+INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
+VALUES('rcoto', 1,'ROBERTO ANTONIO','COTO','IXTEPAN','H','COIR920801JE9','COIR920801JE9','1992-08-01',1,'rcoto', 'N', now(), now(), now(), 'A');
 
-INSERT INTO usuario (usuario, id_empleado, id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES  ('mimejorada', 2, 2, 'mimejorada', 'N', now(), now(), now(), 'A');
+INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
+VALUES('mimejorada', 2,'MARIO IVAN','MEJORADA','HERRERA','H','MEHM770921JK1','MEHM770921JK','1977-09-21',2,'mimejorada', 'N', now(), now(), now(), 'A');
 /* QUITAR */
 
 
