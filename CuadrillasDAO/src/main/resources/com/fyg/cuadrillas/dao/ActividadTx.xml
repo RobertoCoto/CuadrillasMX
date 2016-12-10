@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.ActividadTx">
+
+<insert id="registraActividad" parameterType="Actividad">
+INSERT INTO actividad_diaria()
+VALUES()
+</insert>
+</mapper>
