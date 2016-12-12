@@ -3,7 +3,13 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.ActividadTx">
 
 <insert id="registraActividad" parameterType="Actividad">
-INSERT INTO actividad_diaria()
-VALUES()
+INSERT INTO actividad_diaria(id_cuadrilla,tramo_inicial_planificado,tramo_final_planificado,alcance_planificado,
+tramo_inicial_real,tramo_final_real,alcance_real,actividad,prioridad,estado,tiempo_destinado,numero_personas,numero_unidades,
+porcentaje_contemplado,listo_vencido,observaciones_actividad,fecha_alta,usuario_alta,estatus)
+VALUES(#{idCuadrilla},#{tramoInicialPlanificado},#{tramoFinalPlanificado},#{alcancePlanificado},#{tramoInicialReal},#{tramoFinalReal},#{alcanceReal},
+#{actividad},#{prioridad},#{estado},#{tiempoDestinado},#{numeroPersonas},#{numeroUnidades},#{porcentajeContemplado},#{listoVencido},#{obsevracionesActividad},
+now(),#{usuarioAlta},'A')
 </insert>
+
+
 </mapper>
