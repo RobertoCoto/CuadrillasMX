@@ -80,4 +80,49 @@ public class ActividadNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraActividad - Datos Salida: " + respuesta);
 		return respuesta;
 	}
+	/**
+	 * metodo para autorizar una actividad
+	 * @param actividad recibe valores de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta autorizaActividad (ActividadDTO actividad) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(actividad);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "autorizaActividad - Datos Entrada: " + actividad);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				
+				try {
+					if (actividad.getAutorizacion() == null || actividad.getAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario especificar la autorizacion.");	
+					}
+					if (actividad.getIdActividad() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario especificar el id de la actividad.");
+					}
+					if (actividad.getIdCuadrilla() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario especificar el id de la cuadrilla.");
+					}
+					if(actividad.getUsuarioAutorizacion() == null || actividad.getUsuarioAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario especificar el usuario que autoriza.");
+					}
+					ActividadDAO dao = new ActividadDAO();
+					respuesta = dao.autorizaActividad(uid, actividad);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "autorizaActividad - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "autorizaActividad - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "autorizaActividad - Datos Salida: " + respuesta);
+				return respuesta;
+	}
 }
