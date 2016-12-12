@@ -127,6 +127,18 @@ public class ActividadDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * estatus de la autorizacion
+	 */
+	private String autorizacion;
+	/**
+	 * Usuario Autorizacion
+	 */
+	private String usuarioAutorizacion;
+	/**
+	 * fecha de la autorizacion
+	 */
+	private Date  fechaAutorizacion;
+	/**
 	 * @return the idActividad
 	 */
 	public Integer getIdActividad() {
@@ -473,5 +485,41 @@ public class ActividadDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the autorizacion
+	 */
+	public String getAutorizacion() {
+		return autorizacion;
+	}
+	/**
+	 * @param autorizacion the autorizacion to set
+	 */
+	public void setAutorizacion(String autorizacion) {
+		this.autorizacion = autorizacion;
+	}
+	/**
+	 * @return the usuarioAutorizacion
+	 */
+	public String getUsuarioAutorizacion() {
+		return usuarioAutorizacion;
+	}
+	/**
+	 * @param usuarioAutorizacion the usuarioAutorizacion to set
+	 */
+	public void setUsuarioAutorizacion(String usuarioAutorizacion) {
+		this.usuarioAutorizacion = usuarioAutorizacion;
+	}
+	/**
+	 * @return the fechaAutorizacion
+	 */
+	public Date getFechaAutorizacion() {
+		return fechaAutorizacion;
+	}
+	/**
+	 * @param fechaAutorizacion the fechaAutorizacion to set
+	 */
+	public void setFechaAutorizacion(Date fechaAutorizacion) {
+		this.fechaAutorizacion = fechaAutorizacion;
 	} 
 }
