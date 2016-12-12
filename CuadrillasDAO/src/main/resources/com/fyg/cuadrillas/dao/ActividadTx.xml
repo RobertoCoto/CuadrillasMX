@@ -22,4 +22,16 @@ WHERE id_Actividad = #{idActividad}
 AND id_cuadrilla = {idCuadrilla}
 AND estatus = 'A'
 </update>
+
+<update id="bajaActividad" parameterType="Actividad">
+UPDATE actividad_diaria SET
+estatus = 'I',
+fecha_baja = now(),
+fecha_ult_mod= now()
+usuario_baja = #{usuarioBaja},
+usuario_ult_mod =#{usuarioUltMod}
+WHERE id_Actividad = #{idActividad}
+AND id_cuadrilla = {idCuadrilla}
+AND estatus = 'A'
+</update>
 </mapper>

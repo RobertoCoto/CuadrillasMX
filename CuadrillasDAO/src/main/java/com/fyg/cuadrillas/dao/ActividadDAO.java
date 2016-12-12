@@ -89,7 +89,12 @@ public class ActividadDAO {
 		return respuesta;
 		
 	}
-	
+	/**
+	 * metodo para dar de baja una actividad
+	 * @param uid unico de registro
+	 * @param actividad recibe valores d actividad
+	 * @return regresa una respuesta
+	 */
 	public EncabezadoRespuesta bajaActividad (String uid, ActividadDTO actividad) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;

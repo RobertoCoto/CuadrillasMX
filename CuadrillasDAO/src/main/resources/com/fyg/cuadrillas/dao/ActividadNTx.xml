@@ -2,11 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.ActividadNTx">
 
-<select id="existeAutorizacion" parameterType="Autorizacion" resultType="int">
+<select id="existeActividad" parameterType="Actividad" resultType="int">
 SELECT count(autorizacion)
 FROM actividad_diaria
 WHERE id_actividad = #{idActividad}
 AND id_cuadrilla = #{idCuadrilla}
 AND estatus = 'A'
+</select>
+
+<select id="existeBajaActividad" parameterType="Actividad" resultType="int">
+SELECT count(estatus)
+FROM actividad_diaria
+WHERE id_actividad = #{idActividad}
+AND id_cuadrilla = #{idCuadrilla}
+AND estatus = 'I'
 </select>
 </mapper>
