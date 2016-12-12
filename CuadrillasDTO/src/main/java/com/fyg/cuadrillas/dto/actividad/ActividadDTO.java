@@ -69,7 +69,7 @@ public class ActividadDTO extends ObjetoValor {
 	/**
 	 * porcentaje contemplado
 	 */
-	private Float porcentajeContemplado;
+	private Float porcentajeCompletado;
 	/**
 	 * listo /vencido
 	 */
@@ -297,14 +297,14 @@ public class ActividadDTO extends ObjetoValor {
 	/**
 	 * @return the porcentajeContemplado
 	 */
-	public Float getPorcentajeContemplado() {
-		return porcentajeContemplado;
+	public Float getPorcentajeCompletado() {
+		return porcentajeCompletado;
 	}
 	/**
 	 * @param porcentajeContemplado the porcentajeContemplado to set
 	 */
-	public void setPorcentajeContemplado(Float porcentajeContemplado) {
-		this.porcentajeContemplado = porcentajeContemplado;
+	public void setPorcentajeCompletado(Float porcentajeCompletado) {
+		this.porcentajeCompletado = porcentajeCompletado;
 	}
 	/**
 	 * @return the listoVencido
