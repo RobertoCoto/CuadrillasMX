@@ -189,6 +189,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.AltaActividad</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AutorizaActividad</servlet-name>
+  	<display-name>AutorizaActividad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.AutorizaActividad</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -312,5 +318,9 @@
 	<servlet-mapping>
 		<servlet-name>AltaActividad</servlet-name>
 		<url-pattern>/AltaActividad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AutorizaActividad</servlet-name>
+		<url-pattern>/AutorizaActividad</url-pattern>
 	</servlet-mapping>
 </web-app>
