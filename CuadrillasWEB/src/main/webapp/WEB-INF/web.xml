@@ -183,6 +183,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.usuario.BajaUsuario</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AltaActividad</servlet-name>
+  	<display-name>AltaActividad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.AltaActividad</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -302,5 +308,9 @@
 	<servlet-mapping>
 		<servlet-name>BajaUsuario</servlet-name>
 		<url-pattern>/BajaUsuario</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AltaActividad</servlet-name>
+		<url-pattern>/AltaActividad</url-pattern>
 	</servlet-mapping>
 </web-app>
