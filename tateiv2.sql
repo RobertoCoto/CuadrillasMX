@@ -14,8 +14,9 @@ DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS perfil_menu;
 DROP TABLE IF EXISTS perfil;
 DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS cuadrilla;
 DROP TABLE IF EXISTS actividad_diaria;
+DROP TABLE IF EXISTS cuadrilla;
+
 
 
 
@@ -284,7 +285,8 @@ CREATE TABLE usuario (
 	usuario_ult_mod varchar(20)  NULL,
 	fecha_ult_mod  DATETIME  NULL,
 	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-	PRIMARY KEY(id_actividad)
+	PRIMARY KEY(id_actividad),
+	KEY(id_cuadrilla)
 	);
 	
 
@@ -321,3 +323,5 @@ ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_est
 ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
+
+ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);
