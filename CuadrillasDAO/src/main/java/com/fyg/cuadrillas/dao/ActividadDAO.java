@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -131,7 +133,37 @@ public class ActividadDAO {
 			FabricaConexiones.close(sessionTx);
 			FabricaConexiones.close(sessionNTx);
 		}
-		return respuesta;
-		
+		return respuesta;	
+	}
+	/**
+	 * Metodo para consultar actividades
+	 * @param uid unico de registro
+	 * @param actividad recibe valores de actividad
+	 * @return regresa respuesta
+	 * @throws Exception si surgen excepciones
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ActividadDTO> consultaActividad (String uid, ActividadDTO actividad) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<ActividadDTO> listaActividad = null;
+		try { 
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			listaActividad = sessionNTx.selectList("ActividadDAO.consultaActividad", actividad);
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaActividad;
 	}
 }
