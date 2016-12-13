@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.ActividadNTx">
 
+<resultMap type="Actividad" id="actividad">
+<result column="id_actividad" property="idActividad"/>
+<result column="id_cuadrilla" property="idCuadrilla"/>
+<result column="tramo_inicial_planificado" property="tramoInicialPlanificado"/>
+<result column="tramo_final_planificado" property="tramoFinalPlanificado"/>
+<result	column="alcance_planificado" property="alcancePlanificado"/>
+<result column="tramo_inicial_real" property="tramoInicialReal"/>
+<result column="tramo_final_real" property="tramoFinalReal"/>
+<result column="alcance_real" property="alcanceReal"/>
+<result	column="actividad" property="actividad"/>
+<result column="prioridad" property="prioridad"/>
+<result column="estado" property="estado"/>
+<result column="tiempo_destinado" property="tiempoEstimado"/>
+<result column="numero_personas" property="numeroPersonas"/>
+<result column="numero_unidades" property="numeroUnidades"/>
+<result column="porcentaje_completado" property="porcentajeCompletado"/>
+<result column="listo_vencido" property="listoVencido"/>
+<result column="observaciones_actividad" property="observacionesActividades"/>
+<result column="estatus" property="estatus"/>
+</resultMap>
+
 <select id="existeActividad" parameterType="Actividad" resultType="int">
 SELECT count(autorizacion)
 FROM actividad_diaria
@@ -16,5 +37,28 @@ FROM actividad_diaria
 WHERE id_actividad = #{idActividad}
 AND id_cuadrilla = #{idCuadrilla}
 AND estatus = 'I'
+</select>
+
+<select id="consultaActividad" parameterType="Actividad" resultMap="actividad">
+SELECT id_cuadrilla,
+	   tramo_inicial_planificado,
+	   tramo_final_planificado,
+	   alcance_planificado,
+	   tramo_inicial_real,
+	   tramo_final_real,
+	   alcance_real,
+	   actividad,
+	   prioridad,
+	   estado,
+	   tiempo_destinado,
+	   numero_personas,
+	   numero_unidades,
+	   porcentaje_completado,
+	   listo_vencido,
+	   observaciones_actividad,
+	   estatus
+FROM actividad_diaria
+WHERE id_cuadrilla = #{cuadrilla}
+AND estatus = 'A'
 </select>
 </mapper>
