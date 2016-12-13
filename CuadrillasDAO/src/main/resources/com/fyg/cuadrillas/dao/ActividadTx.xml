@@ -7,7 +7,7 @@ INSERT INTO actividad_diaria(id_cuadrilla,tramo_inicial_planificado,tramo_final_
 tramo_inicial_real,tramo_final_real,alcance_real,actividad,prioridad,estado,tiempo_destinado,numero_personas,numero_unidades,
 porcentaje_completado,listo_vencido,observaciones_actividad,fecha_alta,usuario_alta,estatus)
 VALUES(#{idCuadrilla},#{tramoInicialPlanificado},#{tramoFinalPlanificado},#{alcancePlanificado},#{tramoInicialReal},#{tramoFinalReal},#{alcanceReal},
-#{actividad},#{prioridad},#{estado},#{tiempoDestinado},#{numeroPersonas},#{numeroUnidades},#{porcentajeCompletado},#{listoVencido},#{obsevracionesActividad},
+#{actividad},#{prioridad},#{estado},#{tiempoDestinado},#{numeroPersonas},#{numeroUnidades},#{porcentajeCompletado},#{listoVencido},#{observacionesActividades},
 now(),#{usuarioAlta},'A')
 </insert>
 
