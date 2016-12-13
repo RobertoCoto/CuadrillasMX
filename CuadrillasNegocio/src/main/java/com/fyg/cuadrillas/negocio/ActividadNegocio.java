@@ -1,11 +1,14 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.ActividadDAO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadRespuesta;
 
 public class ActividadNegocio {
 	/**
@@ -166,5 +169,43 @@ public class ActividadNegocio {
 		}
 		LogHandler.debug(uid, this.getClass(), "bajaActividad - Datos Salida: " + respuesta);
 		return respuesta;
+	}
+	/**
+	 * metodo para consultar las actividades
+	 * @param actividad resibe valores de actividad
+	 * @return regresa respuesta
+	 */
+	public ActividadRespuesta consultaActividad (ActividadDTO actividad) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(actividad);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaActividad - Datos Entrada: " + actividad);
+		//Variable de resultado
+		ActividadRespuesta respuesta = new ActividadRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		List<ActividadDTO> listaActividad = null;
+		try {
+			if(actividad.getIdCuadrilla() == null)
+	    	{
+	    		throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la busqueda.");
+	    	}
+			listaActividad = new ActividadDAO().consultaActividad(uid, actividad);
+			respuesta.setActividad(listaActividad);
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultaActividad - Error: " + ex.getMessage(), ex);			
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaActividad - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaActividad - Datos Salida: " + respuesta);
+	    return respuesta;
 	}
 }
