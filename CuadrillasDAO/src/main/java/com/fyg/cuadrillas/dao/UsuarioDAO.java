@@ -146,4 +146,47 @@ public class UsuarioDAO {
 			}
 			return loginUsuario;
 		}
+	/**
+	 * Metodo para actualizar la contraseña
+	 * @param uid unico de registro
+	 * @param usuario recibe valores de usuario
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta modificaContrasena(String uid,UsuarioDTO usuario) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Modificacion correcta.");
+		try {
+			//Validamos si el usuario esta activo
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeUsuarioActivo= (Integer) sessionNTx.selectOne("UsuarioDAO.existeUsuarioActivo", usuario);
+			if (existeUsuarioActivo > 0) {
+				throw new ExcepcionesCuadrillas("Error al modificar, el usuario esta inactivo.");
+			}
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.insert("UsuarioDAO.modificaContrasena", usuario);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al modificar la contraseña.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+		} 
+		catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
+	}
 }
