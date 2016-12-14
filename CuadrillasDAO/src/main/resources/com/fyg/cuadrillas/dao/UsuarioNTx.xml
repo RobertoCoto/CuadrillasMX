@@ -46,4 +46,21 @@ SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 	WHERE u.usuario = #{usuario}
 	AND u.contrasena =  #{contrasena}
 </select>
+
+<select id="existeUsuarioActivo" parameterType="Usuario" resultType="int">
+SELECT count(estatus)
+FROM usuario
+WHERE usuario = #{usuario}
+AND contrasena = #{contrasena}
+AND estatus = 'I'
+</select>
+
+<select id="verificaContrasena" parameterType="Usuario" resultType="int">
+SELECT count(contrasena)
+FROM usuario
+WHERE usuario = #{usuario}
+AND contrasena = #{contrasena}
+AND estatus = 'A'
+</select>
+
 </mapper>
