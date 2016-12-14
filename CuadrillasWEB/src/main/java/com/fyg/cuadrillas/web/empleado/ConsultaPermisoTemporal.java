@@ -57,6 +57,11 @@ public class ConsultaPermisoTemporal extends HttpServlet {
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
 			permiso.setIdEmpleado(idEmpleado);
 			respuesta = negocio.consultaPermisoTemporal(permiso);
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -64,6 +69,7 @@ public class ConsultaPermisoTemporal extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

@@ -54,6 +54,11 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();
 			respuesta = negocio.consultarTipoCatalogos();
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -61,6 +66,7 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

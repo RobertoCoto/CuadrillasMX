@@ -64,6 +64,12 @@ public class BajaPermiso extends HttpServlet {
 			permiso.setUsuarioBaja(usuario);
 			permiso.setUsuarioUltMod(usuario);
 			respuesta = negocio.bajaPermiso(permiso);
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
+			
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -71,6 +77,7 @@ public class BajaPermiso extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

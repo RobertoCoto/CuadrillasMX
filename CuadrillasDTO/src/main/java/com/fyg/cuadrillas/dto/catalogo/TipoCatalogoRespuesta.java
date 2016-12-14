@@ -16,6 +16,23 @@ public class TipoCatalogoRespuesta extends ObjetoValor{
 	/** catalogo */
 	private List<TipoCatalogoDTO> catalogo;
 	/**
+	 * Estatus
+	 */
+	private boolean estatus;
+	/**
+	 * @return the estatus
+	 */
+	public boolean isEstatus() {
+		return estatus;
+	}
+
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
+	/**
 	 * @return the header
 	 */
 	public EncabezadoRespuesta getHeader() {

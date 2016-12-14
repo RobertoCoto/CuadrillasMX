@@ -16,6 +16,23 @@ public class PermisoLaboralRespuesta extends ObjetoValor {
 	/** permiso */
 	private List<PermisoLaboralDTO> permiso;
 	/**
+	 * Estatus
+	 */
+	private boolean estatus;
+	/**
+	 * @return the estatus
+	 */
+	public boolean isEstatus() {
+		return estatus;
+	}
+
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
+	/**
 	 * @return the header
 	 */
 	public EncabezadoRespuesta getHeader() {

@@ -62,6 +62,11 @@ public class ConsultaCatalogo extends HttpServlet {
 			catalogo.setTipoCatalogo(tipoCatalogo);
 			catalogo.setOrden(orden);
 			respuesta = negocio.consultarCatalogo(catalogo);
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -69,6 +74,7 @@ public class ConsultaCatalogo extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

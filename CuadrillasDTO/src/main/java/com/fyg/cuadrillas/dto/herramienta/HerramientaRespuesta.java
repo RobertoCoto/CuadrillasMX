@@ -18,6 +18,23 @@ public class HerramientaRespuesta extends ObjetoValor {
 	/** Herramienta */
 	private List<HerramientaDTO> herramienta;
 	/**
+	 * Estatus
+	 */
+	private boolean estatus;
+	/**
+	 * @return the estatus
+	 */
+	public boolean isEstatus() {
+		return estatus;
+	}
+
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
+	/**
 	 * @return the header
 	 */
 	public EncabezadoRespuesta getHeader() {

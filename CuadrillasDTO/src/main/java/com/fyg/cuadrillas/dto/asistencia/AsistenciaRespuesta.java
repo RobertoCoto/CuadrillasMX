@@ -16,6 +16,23 @@ public class AsistenciaRespuesta extends ObjetoValor {
 	/** Lista asistencia */
 	private List<AsistenciaDTO> asistencia;
 	/**
+	 * Estatus
+	 */
+	private boolean estatus;
+	/**
+	 * @return the estatus
+	 */
+	public boolean isEstatus() {
+		return estatus;
+	}
+
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
+	/**
 	 * @return the header
 	 */
 	public EncabezadoRespuesta getHeader() {

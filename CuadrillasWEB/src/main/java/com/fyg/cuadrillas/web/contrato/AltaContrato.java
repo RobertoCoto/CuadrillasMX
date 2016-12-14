@@ -81,6 +81,11 @@ public class AltaContrato extends HttpServlet {
 			contrato.setObservaciones(observaciones);
 			contrato.setUsuarioAlta(usuario);
 			respuesta = negocio.altaContrato(contrato);
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -89,6 +94,7 @@ public class AltaContrato extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

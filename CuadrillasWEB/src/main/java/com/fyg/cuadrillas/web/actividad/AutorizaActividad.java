@@ -67,7 +67,11 @@ public class AutorizaActividad extends HttpServlet {
 			actividad.setUsuarioAutorizacion(usuario);
 			actividad.setUsuarioUltMod(usuario);
 			respuesta = negocio.autorizaActividad(actividad);
-			
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -75,6 +79,7 @@ public class AutorizaActividad extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}

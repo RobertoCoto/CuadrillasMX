@@ -92,7 +92,11 @@ public class AltaActividad extends HttpServlet {
 			actividad.setObservacionesActividades(observacionesActividad);
 			actividad.setUsuarioAlta(usuario);
 			respuesta= negocio.registraActividad(actividad);
-			
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
@@ -100,6 +104,7 @@ public class AltaActividad extends HttpServlet {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
