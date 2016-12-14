@@ -166,6 +166,11 @@ public class UsuarioDAO {
 			if (existeUsuarioActivo > 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar, el usuario esta inactivo.");
 			}
+			int verificaContrasena = (Integer) sessionNTx.selectOne("UsuarioDAO.verificaContrasena", usuario);
+			if (verificaContrasena > 0) {
+				throw new ExcepcionesCuadrillas("Error al modificar la contraseña, no coinciden.");
+			}
+			
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("UsuarioDAO.modificaContrasena", usuario);
