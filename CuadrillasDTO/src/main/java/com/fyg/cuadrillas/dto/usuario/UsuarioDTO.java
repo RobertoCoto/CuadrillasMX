@@ -66,6 +66,18 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	private String cambioContrasena;
 	/**
+	 * contrasena Anterior
+	 */
+	private String contrasenaAnterior;
+	/**
+	 * contrasena Nueva
+	 */
+	private String contrasenaNueva;
+	/**
+	 * repetir contrasena nueva
+	 */
+	private String repetirContrasenaNueva;
+	/**
 	 * Fecha de ultimo acceso
 	 */
 	private Date fechaUltimoAcceso;
@@ -297,4 +309,40 @@ public class UsuarioDTO extends ObjetoValor {
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	/**
+	 * @return the contrasenaAnterior
+	 */
+	public String getContrasenaAnterior() {
+		return contrasenaAnterior;
+	}
+	/**
+	 * @param contrasenaAnterior the contrasenaAnterior to set
+	 */
+	public void setContrasenaAnterior(String contrasenaAnterior) {
+		this.contrasenaAnterior = contrasenaAnterior;
+	}
+	/**
+	 * @return the contrasenaNueva
+	 */
+	public String getContrasenaNueva() {
+		return contrasenaNueva;
+	}
+	/**
+	 * @param contrasenaNueva the contrasenaNueva to set
+	 */
+	public void setContrasenaNueva(String contrasenaNueva) {
+		this.contrasenaNueva = contrasenaNueva;
+	}
+	/**
+	 * @return the repetirContrasenaNueva
+	 */
+	public String getRepetirContrasenaNueva() {
+		return repetirContrasenaNueva;
+	}
+	/**
+	 * @param repetirContrasenaNueva the repetirContrasenaNueva to set
+	 */
+	public void setRepetirContrasenaNueva(String repetirContrasenaNueva) {
+		this.repetirContrasenaNueva = repetirContrasenaNueva;
+	} 
 }

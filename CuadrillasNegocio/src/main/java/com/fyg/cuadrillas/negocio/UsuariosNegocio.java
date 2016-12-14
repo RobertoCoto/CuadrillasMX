@@ -181,4 +181,56 @@ public class UsuariosNegocio {
 		    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
 		    return respuesta;
 		}
+		
+		public EncabezadoRespuesta modificaContrasena(UsuarioDTO usuario) {
+			//Primero generamos el identificador unico de la transaccion
+			String uid = GUIDGenerator.generateGUID(usuario);
+			//Mandamos a log el objeto de entrada
+			LogHandler.debug(uid, this.getClass(), "modificaContrasena - Datos Entrada: " + usuario);
+			//Variable de resultado
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			
+			try {
+				if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+				}
+				if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
+				}
+				if (usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario especificar una nueva contrasena.");
+				}
+				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario repetir la nueva contraseña.");
+				}
+				if (usuario.getContrasenaNueva() != usuario.getRepetirContrasenaNueva()) {
+					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
+				}
+				//encriptacion de contraseña
+				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+				String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+				//Se le asigna la contrasena encriptada
+				usuario.setContrasena(encriptaContrasena);
+				usuario.setContrasenaNueva(contrasenaNueva);
+				UsuarioDAO dao = new UsuarioDAO();
+				respuesta = dao.modificaContrasena(uid, usuario);
+				
+			} catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "modificaContrasena - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+			}
+			catch  (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "modificaContrasena - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+			}
+			LogHandler.debug(uid, this.getClass(), "modificaContrasena - Datos Salida: " + respuesta);
+			return respuesta;
+			
+		}
 }
