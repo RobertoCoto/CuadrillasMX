@@ -203,17 +203,19 @@ public class UsuariosNegocio {
 				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario repetir la nueva contraseña.");
 				}
-				if (usuario.getContrasenaNueva() != usuario.getRepetirContrasenaNueva()) {
-					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
+				if (usuario.getContrasenaNueva().equals(usuario.getRepetirContrasenaNueva())) {
+					//encriptacion de contraseña
+					String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+					//Se le asigna la contrasena encriptada
+					usuario.setContrasena(encriptaContrasena);
+					usuario.setContrasenaNueva(contrasenaNueva);
+					UsuarioDAO dao = new UsuarioDAO();
+					respuesta = dao.modificaContrasena(uid, usuario);
+				} else {
+					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
 				}
-				//encriptacion de contraseña
-				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
-				String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
-				//Se le asigna la contrasena encriptada
-				usuario.setContrasena(encriptaContrasena);
-				usuario.setContrasenaNueva(contrasenaNueva);
-				UsuarioDAO dao = new UsuarioDAO();
-				respuesta = dao.modificaContrasena(uid, usuario);
+				
 				
 			} catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "modificaContrasena - Error: " + ex.getMessage(), ex);
