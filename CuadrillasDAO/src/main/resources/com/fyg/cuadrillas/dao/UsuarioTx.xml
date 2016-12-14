@@ -19,7 +19,7 @@ WHERE usuario = #{usuario}
 
 <update id="modificaContrasena" parameterType="Usuario">
 UPDATE usuario SET
-contrasena = #{contrasena},
+contrasena = #{contrasenaNueva},
 cambio_contrasena = 'S'
 WHERE usuario = #{usuario}
 AND contrasena = #{contrasena}

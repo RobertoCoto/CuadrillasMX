@@ -207,6 +207,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividad</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CambioContrasena</servlet-name>
+  	<display-name>CambioContrasena</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.usuario.CambioContrasena</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -342,5 +348,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaActividad</servlet-name>
 		<url-pattern>/ConsultaActividad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CambioContrasena</servlet-name>
+		<url-pattern>/CambioContrasena</url-pattern>
 	</servlet-mapping>
 </web-app>
