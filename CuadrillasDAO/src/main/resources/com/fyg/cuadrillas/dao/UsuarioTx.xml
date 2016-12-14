@@ -16,4 +16,13 @@ estatus = #{estatus},
 fecha_ult_mod = now()
 WHERE usuario = #{usuario}
 </update>
+
+<update id="modificaContrasena" parameterType="Usuario">
+UPDATE usuario SET
+contrasena = #{contrasena},
+cambio_contrasena = 'S'
+WHERE usuario = #{usuario}
+AND contrasena = #{contrasena}
+AND estatus ='A'
+</update>
 </mapper>
