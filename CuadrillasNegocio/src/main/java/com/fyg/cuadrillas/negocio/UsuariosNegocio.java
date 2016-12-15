@@ -210,12 +210,12 @@ public class UsuariosNegocio {
 					//Se le asigna la contrasena encriptada
 					usuario.setContrasena(encriptaContrasena);
 					usuario.setContrasenaNueva(contrasenaNueva);
-					UsuarioDAO dao = new UsuarioDAO();
-					respuesta = dao.modificaContrasena(uid, usuario);
 				} else {
 					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
 				}
-				
+				//se envia al dao
+				UsuarioDAO dao = new UsuarioDAO();
+				respuesta = dao.modificaContrasena(uid, usuario);
 				
 			} catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "modificaContrasena - Error: " + ex.getMessage(), ex);
