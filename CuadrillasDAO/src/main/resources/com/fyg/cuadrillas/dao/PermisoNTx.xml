@@ -17,7 +17,7 @@
 <result column="usuario_autorizacion" property="usuarioAutorizacion"/>
 <result column="fecha_alta" property="fechaAlta"/>
 <result column="usuario_alta" property="usuarioAlta"/>
-<result columnt="estatus" property="estatus"/>
+<result column="estatus" property="estatus"/>
 
 </resultMap>
 <select id="existePermiso" parameterType="Permiso" resultType="int">
