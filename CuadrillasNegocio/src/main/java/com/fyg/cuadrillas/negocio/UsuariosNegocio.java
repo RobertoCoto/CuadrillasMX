@@ -205,14 +205,14 @@ public class UsuariosNegocio {
 				}
 				if (usuario.getContrasenaNueva().equals(usuario.getRepetirContrasenaNueva())) {
 					//encriptacion de contraseña
-					String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
-					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
-					//Se le asigna la contrasena encriptada
-					usuario.setContrasena(encriptaContrasena);
+					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
 					usuario.setContrasenaNueva(contrasenaNueva);
 				} else {
 					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
 				}
+				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+				//Se le asigna la contrasena encriptada
+				usuario.setContrasena(encriptaContrasena);
 				//se envia al dao
 				UsuarioDAO dao = new UsuarioDAO();
 				respuesta = dao.modificaContrasena(uid, usuario);

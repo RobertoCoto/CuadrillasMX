@@ -10,7 +10,7 @@ public class EncriptacionTest {
 	@Test
 	public void test() throws Exception {
 		try {
-			Encriptacion.obtenerEncriptacionSHA256("cuadrillas");
+			Encriptacion.obtenerEncriptacionSHA256("rcoto");
 			
 		} catch (Exception ex) {
 			System.out.println("Error");

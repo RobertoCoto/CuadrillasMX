@@ -167,7 +167,7 @@ public class UsuarioDAO {
 				throw new ExcepcionesCuadrillas("Error al modificar, el usuario esta inactivo.");
 			}
 			int verificaContrasena = (Integer) sessionNTx.selectOne("UsuarioDAO.verificaContrasena", usuario);
-			if (verificaContrasena > 0) {
+			if (verificaContrasena == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar la contraseña, no coinciden.");
 			}
 			
