@@ -64,6 +64,9 @@ public class VialidadNegocio {
 					if(vialidad.getNombre() == null || vialidad.getNombre().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el nombre de la vialidad.");
 					}
+					if(vialidad.getCoordenadas().size() == 0) {
+						throw new ExcepcionesCuadrillas("Es necesario las coordenadas para la vialidad.");
+					}
 					VialidadDAO dao = new VialidadDAO();
 					respuesta = dao.altaVialidad(uid, vialidad);
 				}catch  (ExcepcionesCuadrillas ex) {
