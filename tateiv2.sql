@@ -293,6 +293,8 @@ CREATE TABLE usuario (
 	id_vialidad INTEGER NOT  NULL,
 	latitud FLOAT NOT NULL,
 	longitud FLOAT NOT NULL,
+	fecha_alta DATETIME NOT NULL,
+	estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	PRIMARY KEY(id_coordenada),
 	KEY (id_vialidad)
 	);
