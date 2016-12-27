@@ -29,12 +29,6 @@ public class VialidadNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<VialidadDTO> listaVialidad = null;
 				try {
-					if(vialidad.getLatitud() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario la latitud para la busqueda.");
-					}
-					if (vialidad.getLongitud() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario la longitud para la busqueda.");
-					}
 					if (vialidad.getOrden() == null || vialidad.getOrden().isEmpty()) {
 			    		vialidad.setOrden("A");
 			    	}
@@ -70,12 +64,6 @@ public class VialidadNegocio {
 					if(vialidad.getNombre() == null || vialidad.getNombre().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el nombre de la vialidad.");
 					}
-					if(vialidad.getLatitud() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario la latitud.");
-					}
-					if (vialidad.getLongitud() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario la longitud.");
-					}
 					VialidadDAO dao = new VialidadDAO();
 					respuesta = dao.altaVialidad(uid, vialidad);
 				}catch  (ExcepcionesCuadrillas ex) {
@@ -108,11 +96,8 @@ public class VialidadNegocio {
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
-			if(vialidad.getLatitud() == null) {
-				throw new ExcepcionesCuadrillas("Es necesario la latitud para la baja.");
-			}
-			if (vialidad.getLongitud() == null) {
-				throw new ExcepcionesCuadrillas("Es necesario la longitud para la baja.");
+			if(vialidad.getIdVialidad() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el id de la vialidad.");
 			}
 			VialidadDAO dao = new VialidadDAO();
 			respuesta = dao.bajaVialidad(uid, vialidad);

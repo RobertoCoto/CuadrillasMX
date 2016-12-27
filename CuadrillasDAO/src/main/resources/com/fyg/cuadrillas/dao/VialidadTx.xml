@@ -3,7 +3,7 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.VialidadTx">
 <insert id="registraVialidad" parameterType="Vialidad">
-INSERT INTO vialidad(nombre,latitud,longitud,usuario_alta,fecha_alta,usuario_ult_mod,fecha_ult_mod,estatus)
+INSERT INTO vialidad(nombre,usuario_alta,fecha_alta,usuario_ult_mod,fecha_ult_mod,estatus)
 VALUES(#{nombre},#{latitud},#{longitud},#{usuarioAlta},now(),#{usuarioUltMod},now(),'A')
 </insert>
 
@@ -15,8 +15,7 @@ UPDATE vialidad
     usuario_ult_mod = #{usuarioUltMod},
     fecha_ult_mod = now(),
     estatus = 'I'
-WHERE latitud = #{latitud}
-AND longitud = #{longitud}
+WHERE id_vialidad = #{idVialidad}
 AND estatus = 'A'
 </update> 
 </mapper>
