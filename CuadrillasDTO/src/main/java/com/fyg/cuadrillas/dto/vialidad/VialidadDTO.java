@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dto.vialidad;
 
+import java.util.List;
 import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
@@ -49,6 +50,7 @@ public class VialidadDTO extends ObjetoValor {
 	 * Orden 
 	 */
 	private String orden;
+	private List<VialidadCoordenadasDTO> coordenadas;
 	/**
 	 * @return the idVialidad
 	 */
@@ -168,5 +170,17 @@ public class VialidadDTO extends ObjetoValor {
 	 */
 	public void setOrden(String orden) {
 		this.orden = orden;
+	}
+	/**
+	 * @return the coordenadas
+	 */
+	public List<VialidadCoordenadasDTO> getCoordenadas() {
+		return coordenadas;
+	}
+	/**
+	 * @param coordenadas the coordenadas to set
+	 */
+	public void setCoordenadas(List<VialidadCoordenadasDTO> coordenadas) {
+		this.coordenadas = coordenadas;
 	}
 }
