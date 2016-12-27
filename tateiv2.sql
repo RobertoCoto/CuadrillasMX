@@ -1,6 +1,7 @@
 USE tatei;
 
 DROP TABLE IF EXISTS parametros;
+DROP TABLE IF EXISTS vialidad_coordenadas;
 DROP TABLE IF EXISTS permiso_laboral;
 DROP TABLE IF EXISTS vialidad;
 DROP TABLE IF EXISTS contrato;
@@ -159,8 +160,6 @@ CREATE TABLE usuario (
 	CREATE TABLE vialidad (
 	id_vialidad INTEGER AUTO_INCREMENT NOT NULL,
 	nombre varchar(40) NOT NULL,
-	latitud float NOT NULL,
-	longitud float NOT NULL,
 	usuario_alta varchar(20)NOT NULL,
 	fecha_alta DATETIME NOT NULL,
 	usuario_baja varchar(20) NULL,
@@ -289,6 +288,15 @@ CREATE TABLE usuario (
 	KEY(id_cuadrilla)
 	);
 	
+	CREATE TABLE vialidad_coordenadas (
+	id_coordenada INTEGER NOT NULL AUTO_INCREMENT,
+	id_vialidad INTEGER NOT  NULL,
+	latitud FLOAT NOT NULL,
+	longitud FLOAT NOT NULL,
+	PRIMARY KEY(id_coordenada),
+	KEY (id_vialidad)
+	);
+	
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
@@ -325,3 +333,5 @@ ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empl
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
 ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);
+
+ALTER TABLE vialidad_coordenadas ADD CONSTRAINT FK_id_vialidad FOREIGN KEY (id_vialidad) REFERENCES vialidad(id_vialidad);
