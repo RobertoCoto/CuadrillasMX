@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.web.vialidad;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -8,11 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.vialidad.VialidadCoordenadasDTO;
 import com.fyg.cuadrillas.dto.vialidad.VialidadDTO;
 import com.fyg.cuadrillas.negocio.VialidadNegocio;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 /**
  * Servlet implementation class RegistraVialidad
@@ -43,12 +49,18 @@ public class RegistraVialidad extends HttpServlet {
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		List<VialidadCoordenadasDTO> coordenada = new ArrayList<VialidadCoordenadasDTO>();
+		VialidadCoordenadasDTO datos = new VialidadCoordenadasDTO();
+		
 		
 		try {
 			String nombre = request.getParameter("nombre");
-			String latitud = request.getParameter("latitud");
-			String longitud = request.getParameter("longitud");
 			String usuario = request.getParameter("usuario");
+			
+			//se parsea json
+			JsonParser parser = new JsonParser();
+			Object coordenadasVialidad = parser.parse(request.getParameter("coordenadasVialidad"));
+			JSONObject jsonObject = (JSONObject) coordenadasVialidad;
 			
 			/*Proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -63,10 +75,19 @@ public class RegistraVialidad extends HttpServlet {
 			//Lista de direcciones
 			VialidadDTO vialidad = new VialidadDTO();
 			vialidad.setNombre(nombre);
-			vialidad.setLatitud(latitud);
-			vialidad.setLongitud(longitud);
 			vialidad.setUsuarioAlta(usuario);
 			vialidad.setUsuarioUltMod(usuario);
+			
+			//coordenadas
+			Float latitud = (Float) jsonObject.get("latitud");
+			Float longitud = (Float) jsonObject.get("longitud");
+			
+			datos.setLatitud(latitud);
+			datos.setLongitud(longitud);
+			
+			coordenada.add(datos);
+			vialidad.setCoordenadas(coordenada);
+			
 			respuesta = negocio.altaVialidad(vialidad);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

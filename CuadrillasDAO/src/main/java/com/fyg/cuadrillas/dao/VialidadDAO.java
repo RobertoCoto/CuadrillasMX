@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.vialidad.VialidadCoordenadasDTO;
 import com.fyg.cuadrillas.dto.vialidad.VialidadDTO;
 
 public class VialidadDAO {
@@ -30,6 +31,13 @@ public class VialidadDAO {
 	        int registros = sessionTx.insert("VialidadDAO.registraVialidad", vialidad);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar el catalogo.");
+			}
+			//registramos nuestras coordenadas
+			if(vialidad.getCoordenadas().size() > 0) {
+				for (VialidadCoordenadasDTO coordenadas : vialidad.getCoordenadas()) {
+					coordenadas.setIdVialidad(vialidad.getIdVialidad());
+				}
+				registraCoordenadas(uid, vialidad.getCoordenadas(), sessionTx);
 			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -118,5 +126,51 @@ public class VialidadDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaVialidad;
+	}
+	/**
+	 * Metodo para registrar coordenadas de las vialidades
+	 * @param uid unico de registro
+	 * @param coordenadas recibe valores de coordenadas
+	 * @param session indica session
+	 * @throws Exception si surge una excepcion
+	 */
+	public void registraCoordenadas (String uid, List<VialidadCoordenadasDTO> coordenadas, SqlSession session) throws Exception{
+		  SqlSession sessionTx = null;
+			//Logica para saber si es atomica la transaccion
+			if ( session == null ) {
+				 sessionTx = FabricaConexiones.obtenerSesionTx();
+			} else {
+				sessionTx = session;
+			}
+			//Validamos el registro
+			int registros = sessionTx.insert("VialidadDAO.registraCoordenadas", coordenadas);
+			if ( registros == 0) {
+				if ( session == null ) {
+					FabricaConexiones.rollBack(sessionTx);
+					FabricaConexiones.close(sessionTx);
+				}
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
+			}
+			//La conexion no es atomica realizamos commit
+			if ( session == null ) {
+				LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+				sessionTx.commit();
+			}
+			//La conexion no es atomica cerramos
+			if ( session == null ) {
+				LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+				FabricaConexiones.close(sessionTx);
+			}
+	}
+	/**
+	 * Metodo para eliminar coordenadas
+	 * @param uid unico de registro
+	 * @param vialidad recibe valores de vialidad
+	 * @param session crea una session
+	 * @throws Exception si surge un error
+	 */
+	public void eliminaCoordenadas(String uid,VialidadDTO vialidad,  SqlSession session) throws Exception  {
+		int registros = session.delete("VialidadDAO.eliminaCoordenadas", vialidad);
+		LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 	}
 }

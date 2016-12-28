@@ -44,8 +44,7 @@ public class EliminaVialidad extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			String latitud = request.getParameter("latitud");
-			String longitud = request.getParameter("longitud");
+			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
 			String usuario = request.getParameter("usuario");
 			/*Proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -59,8 +58,7 @@ public class EliminaVialidad extends HttpServlet {
 			
 			//Lista de direcciones
 			VialidadDTO vialidad = new VialidadDTO();
-			vialidad.setLatitud(latitud);
-			vialidad.setLongitud(longitud);
+			vialidad.setIdVialidad(idVialidad);
 			vialidad.setUsuarioBaja(usuario);
 			vialidad.setUsuarioUltMod(usuario);
 			respuesta = negocio.eliminaVialidad(vialidad);

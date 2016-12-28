@@ -45,8 +45,7 @@ public class ConsultaVialidad extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			String latitud = request.getParameter("latitud");
-			String longitud = request.getParameter("longitud");
+			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
 			
 			/*Proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -60,8 +59,7 @@ public class ConsultaVialidad extends HttpServlet {
 			
 			//Lista de direcciones
 			VialidadDTO vialidad = new VialidadDTO();
-			vialidad.setLatitud(latitud);
-			vialidad.setLongitud(longitud);
+			vialidad.setIdVialidad(idVialidad);
 			respuesta = negocio.consultaVialidad(vialidad);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

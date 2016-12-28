@@ -19,12 +19,9 @@
 <select id="consultaVialidadAsc" parameterType="Vialidad" resultMap="vialidad">
 SELECT 
     nombre,
-    latitud,
-    longitud,
     estatus
 FROM vialidad
-WHERE latitud = #{latitud}
-AND longitud = #{longitud}
+WHERE id_vialidad = #{idVialidad}
 AND estatus = 'A'
 ORDER BY nombre ASC
 </select>
@@ -32,12 +29,9 @@ ORDER BY nombre ASC
 <select id="consultaVialidadDesc" parameterType="Vialidad" resultMap="vialidad">
 SELECT 
     nombre,
-    latitud,
-    longitud,
     estatus
 FROM vialidad
-WHERE latitud = #{latitud}
-AND longitud = #{longitud}
+WHERE id_vialidad = #{idVialidad}
 AND estatus = 'A'
 ORDER BY nombre DESC
 </select>
