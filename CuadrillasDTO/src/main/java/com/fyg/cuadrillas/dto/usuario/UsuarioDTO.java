@@ -344,5 +344,5 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	public void setRepetirContrasenaNueva(String repetirContrasenaNueva) {
 		this.repetirContrasenaNueva = repetirContrasenaNueva;
-	} 
+	}
 }
