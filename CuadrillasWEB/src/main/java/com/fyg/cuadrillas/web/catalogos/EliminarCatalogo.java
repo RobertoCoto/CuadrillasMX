@@ -50,10 +50,10 @@ public class EliminarCatalogo extends HttpServlet {
 			String codigo = request.getParameter("codigo");
 			String usuario = request.getParameter("usuario");
 
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
+//			System.setProperty("http.proxyHost", "169.169.4.85");
+//	        System.setProperty("http.proxyPort", "8080");
+//	        System.setProperty("https.proxyHost", "169.169.4.85");
+//	        System.setProperty("https.proxyPort", "8080");
 
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();

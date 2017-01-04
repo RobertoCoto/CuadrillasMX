@@ -46,15 +46,15 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 
 		try {
 
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
+//			System.setProperty("http.proxyHost", "169.169.4.85");
+//	        System.setProperty("http.proxyPort", "8080");
+//	        System.setProperty("https.proxyHost", "169.169.4.85");
+//	        System.setProperty("https.proxyPort", "8080");
 
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();
 			respuesta = negocio.consultarTipoCatalogos();
-			if (respuesta.isEstatus()) {
+			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

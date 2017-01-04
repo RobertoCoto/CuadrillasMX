@@ -49,10 +49,10 @@ public class ConsultaCatalogo extends HttpServlet {
 			String tipoCatalogo = request.getParameter("tipoCatalogo");
 			String orden = request.getParameter("orden");
 			
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
+//			System.setProperty("http.proxyHost", "169.169.4.85");
+//	        System.setProperty("http.proxyPort", "8080");
+//	        System.setProperty("https.proxyHost", "169.169.4.85");
+//	        System.setProperty("https.proxyPort", "8080");
 	        
 			//crea objeto de negocio
 			final CatalogoNegocio negocio = new CatalogoNegocio();
@@ -62,7 +62,7 @@ public class ConsultaCatalogo extends HttpServlet {
 			catalogo.setTipoCatalogo(tipoCatalogo);
 			catalogo.setOrden(orden);
 			respuesta = negocio.consultarCatalogo(catalogo);
-			if (respuesta.isEstatus()) {
+			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

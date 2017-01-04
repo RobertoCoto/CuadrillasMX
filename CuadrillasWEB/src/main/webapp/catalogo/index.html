@@ -1,0 +1,202 @@
+<html>
+  <head>
+    <title> Catalogo </title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+  </head>
+  <body ng-app="tatei">
+    <script>
+    var app = angular.module('tatei', []);
+
+    app.controller('myCtrl', function ($scope, $http) {
+
+      var tipoCataloPadre = undefined;
+      var option1Options = ["option1 - 1", "option1 - 2", "option1 - 3"];
+      var option2Options = [["option2 - 1-1","option2 - 1-2","option2 - 1-3"],
+                     ["option2 - 2-1","option2 - 2-2","option2 - 2-3"],
+                     ["option2 - 3-1","option2 - 3-2","option2 - 3-3"]];
+      //$scope.options1 = option1Options;
+
+      $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaTipoCatalogos',
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultado = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+
+      $scope.options2 = []; // we'll get these later
+
+      $scope.saveOptions = function(objecto) {
+        $http({
+                method: 'GET',
+                url: 'http://localhost:8080/CuadrillasWEB/RegistrarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
+                params: {
+                  "tipoCatalogo": tipoCataloPadre,
+                  "codigo": document.getElementById("codigof").value.toUpperCase(),
+                  "usuario": 'SISTEMAS',
+                  "descripcion": document.getElementById("descripcionf").value.toUpperCase()
+                 }
+        }).then(function mySucces(response) {
+            var fila = {};
+            fila.descripcion = document.getElementById("descripcionf").value.toUpperCase();
+            fila.codigo = document.getElementById("codigof").value.toUpperCase();
+            fila.tipo = 0;
+            $scope.resultado2.push(fila);
+              console.info(response);
+        }, function myError(response) {
+            console.error(response);
+            alert(response.data.mensajeFuncional);
+            //$scope.resultado2.push(objecto);
+        });
+
+
+      }
+
+      $scope.getOptions2 = function(aaa){
+        tipoCataloPadre = aaa;
+        console.log(aaa);
+
+        $http({
+                method: 'GET',
+                url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                params: { "tipoCatalogo": aaa }
+            }).success(function (result) {
+                $scope.resultado2 = result.catalogo;
+
+                $scope.editingData = {};
+
+                 for (var i = 0, length = $scope.resultado2.length; i < length; i++) {
+                   $scope.editingData[$scope.resultado2[i].codigo] = false;
+                 }
+
+
+                 $scope.modify = function(catalogo){
+                     $scope.editingData[catalogo.codigo] = true;
+                 };
+
+
+                 $scope.update = function(catalogo){
+                    console.warn(catalogo);
+                    //TODO ----- ACTUALIZAR HTTP
+                    $http({
+                           method: 'GET',
+                           url: 'http://localhost:8080/CuadrillasWEB/ActualizarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
+                           params: {
+                             "tipoCatalogo": tipoCataloPadre,
+                             "descripcion": catalogo.descripcion,
+                             "codigo": catalogo.codigo,
+                             "usuario": 'SISTEMAS'
+                            }
+                   }).then(function mySucces(response) {
+                	   $scope.editingData[catalogo.codigo] = false;
+                         console.info(response);
+                   }, function myError(response) {
+                       console.error(response);
+                       alert(response.data.mensajeFuncional);
+                       //$scope.resultado2.push(objecto);
+                   });
+                     
+                 };
+
+                 $scope.remove = function(catalogo) {
+                   console.info(catalogo);
+                   $http({
+                           method: 'GET',
+                           url: 'http://localhost:8080/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
+                           params: {
+                             "tipoCatalogo": tipoCataloPadre,
+                             "codigo": catalogo.codigo,
+                             "usuario": 'SISTEMAS'
+                            }
+                   }).then(function mySucces(response) {
+                       removeByAttr($scope.resultado2, 'codigo',catalogo.codigo);
+                         console.info(response);
+                   }, function myError(response) {
+                       console.error(response);
+                       alert(response.data.mensajeFuncional);
+                       //$scope.resultado2.push(objecto);
+                   });
+
+
+                 }
+                console.log(result);
+        });
+      };
+    });
+
+    var removeByAttr = function(arr, attr, value){
+    var i = arr.length;
+    while(i--){
+       if( arr[i]
+           && arr[i].hasOwnProperty(attr)
+           && (arguments.length > 2 && arr[i][attr] === value ) ){
+
+           arr.splice(i,1);
+       }
+    }
+    return arr;
+}
+
+    </script>
+    <h2> Catalogo </h2>
+    <div ng-controller="myCtrl">
+      <span>catalogo:</span>
+      <select ng-model="seleccion.tipoCatalogo" ng-options="catalogo.tipoCatalogo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(seleccion.tipoCatalogo)"></select>
+
+            <span> {{seleccion.tipoCatalogo}}</span>
+    <!--select ng-model="seleccion2.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado2" ng-show='resultado2.length'>
+      <span ng-show='resultado2.length'>Seleccion 2do catalogo {{seleccion2.codigo}}</span>
+    </select -->
+
+    <div class="wraper" ng-show='resultado2.length' >
+
+               <table>
+                   <thead>
+                       <tr>
+                           <th>Codigo:</th>
+                           <th>Descripcion</th>
+                           <th>tipo</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                      <tr>
+                        <td><input id="codigof" type="text" /></td>
+                        <td><input id="descripcionf" type="text" /></td>
+                        <td><input type="text" value="0" disabled="true" /></td>
+                        <td><button ng-click="saveOptions()">Agregar</button></td>
+                      <tr>
+                       <tr ng-repeat="catalogo in resultado2">
+                           <td>
+                               <div>{{catalogo.codigo | uppercase}}</div>
+
+                           </td>
+                           <td>
+                               <div ng-hide="editingData[catalogo.codigo]">{{catalogo.descripcion}}</div>
+                               <div ng-show="editingData[catalogo.codigo]"><input type="text" ng-model="catalogo.descripcion" /></div>
+                           </td>
+                           <td>
+                               <div>{{catalogo.tipo}}</div>
+
+                           <td>
+                               <button ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Modificar</button>
+                               <button ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
+                               <!--button ng-hide="viewField">Agregar</button-->
+                               <button ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+
+           </div>
+
+   </div>
+  </div>
+
+  </body>
+</html>
