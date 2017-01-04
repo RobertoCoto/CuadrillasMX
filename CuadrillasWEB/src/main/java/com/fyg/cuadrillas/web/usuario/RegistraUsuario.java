@@ -83,6 +83,7 @@ public class RegistraUsuario extends HttpServlet {
 	        usuario.setIdPerfil(idPerfil);
 	        usuario.setIdEmpleado(idEmpleado);
 	        respuesta = negocio.altaUsuario(usuario);
+	        
 	        if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
