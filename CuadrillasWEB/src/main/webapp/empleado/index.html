@@ -3,8 +3,86 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Administración de Empleados</title>
+<script type="text/javascript" src="js/angular.min.js"></script>
 </head>
-<body>
+<body ng-app="tatei">
+<h2>Administración de Empleados</h2>
+<table>
+<tr>
+<td>Número de Empleado: </td>
+<td><input type="text" name="idEmpleado"/></td>
+</tr>
 
+<tr>
+<td>Nombre(s):</td>
+<td><input type="text" name="nombre"></td>
+</tr>
+
+<tr>
+<td>Apellido Paterno: <input type="text" name="apellidoPat"/></td>
+<td>Apellido Materno: <input type="text" name="apellidoMat"/></td>
+</tr>
+
+<tr>
+<td>Puesto: <select></select></td>
+<td>Fecha de Ingreso: <input type="date" name="fechaIngreso"/></td>
+</tr>
+
+<tr>
+<td>NSS: <input type="text" name="nss"></td>
+<td>Credito Infonavit: <input type="text" name="creditoInfonavit"></td>
+</tr>
+
+<tr>
+<td>RFC: <input type="text" name="rfc"></td>
+<td>Estatus: <select></select></td>
+</tr>
+
+<tr>
+<td>Sueldo: <input type="text" name="sueldo" placeholder="$"></td>
+<td>Frecuencia: <input type="radio" name="mes"><input type="radio"><input type="radio"></td>
+</tr>
+
+<tr>
+<td>Teléfono:<input type="text" name="telefono"/> </td>
+<td>Talla: <select></select></td>
+</tr>
+
+<tr>
+<td colspan="2">Cuadrilla: <select></select></td>
+</tr>
+
+<tr>
+<td colspan="2">Comentarios:<textarea rows="" cols=""></textarea> </td>
+</tr>
+
+<tr>
+<td colspan="2">Documentación
+<br/>
+<span>Solicitud con fotografia(100% complementada) <input type="radio"><input type="radio"><input type="radio"></span>
+<br>
+<span>Credencial de Elector (copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>CURP <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Acta de Nacimiento(copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Comprobante de Domicilio Reciente(copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Documento IMSS (pre-registro) <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>RFC(Dado de alta en hacienda como asalariado) <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>No Credito INFONAVIT <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Curriculum Vitae <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Documentacion Probatoria del CV <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+<span>Contrato Firmado <input type="radio"><input type="radio"><input type="radio"></span>
+<br/>
+</td>
+</tr>
+</table>
 </body>
 </html>
