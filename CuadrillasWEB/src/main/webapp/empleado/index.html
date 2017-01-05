@@ -4,48 +4,68 @@
 <meta charset="ISO-8859-1">
 <title>Administración de Empleados</title>
 <script type="text/javascript" src="js/angular.min.js"></script>
+<script>
+    var app = angular.module('tatei', []);
+	 app.controller('registraEmpleado', function ($scope, $http) {
+	 
+	 
+	 
+	 
+	 });
+</script>
 </head>
-<body ng-app="tatei">
+<body ng-app="tatei" ng-controller="registraEmpleado">
 <h2>Administración de Empleados</h2>
 <table>
 <tr>
 <td>Número de Empleado: </td>
-<td><input type="text" name="idEmpleado"/></td>
+<td><input type="text" name="idEmpleado" ng-model="empleado.idEmpleado"/>{{empleado.idEmpleado}}</td>
 </tr>
 
 <tr>
 <td>Nombre(s):</td>
-<td><input type="text" name="nombre"></td>
+<td><input type="text" name="nombre" ng-model="empleado.nombre">{{empleado.nombre}}</td>
 </tr>
 
 <tr>
-<td>Apellido Paterno: <input type="text" name="apellidoPat"/></td>
-<td>Apellido Materno: <input type="text" name="apellidoMat"/></td>
+<td>Apellido Paterno: <input type="text" name="apellidoPat" ng-model="empleado.apellidoPaterno"/></td>
+<td>Apellido Materno: <input type="text" name="apellidoMat" ng-model="empleado.apellidoMaterno"/></td>
 </tr>
 
 <tr>
 <td>Puesto: <select></select></td>
-<td>Fecha de Ingreso: <input type="date" name="fechaIngreso"/></td>
+<td>Fecha de Ingreso: <input type="date" name="fechaIngreso" ng-model="empleado.fechaIngreso"/></td>
 </tr>
 
 <tr>
-<td>NSS: <input type="text" name="nss"></td>
-<td>Credito Infonavit: <input type="text" name="creditoInfonavit"></td>
+<td>NSS: <input type="text" name="nss" ng-model="empleado.nss"></td>
+<td>Credito Infonavit: <input type="text" name="creditoInfonavit" ng-model="empleado.infonavit"></td>
 </tr>
 
 <tr>
-<td>RFC: <input type="text" name="rfc"></td>
-<td>Estatus: <select></select></td>
+<td>RFC: <input type="text" name="rfc" ng-model="empleado.rfc"></td>
+<td>Estatus: <select name="Estatus" ng-model="empleado.estatus">
+<option value="">--Seleccione el estatus--</option>
+<option value="A">Activo</option>
+<option value="I">Inactivo</option>
+</select>
+</td>
 </tr>
 
 <tr>
-<td>Sueldo: <input type="text" name="sueldo" placeholder="$"></td>
-<td>Frecuencia: <input type="radio" name="mes"><input type="radio"><input type="radio"></td>
+<td>Sueldo: <input type="text" name="sueldo" placeholder="$" ng-model="empleado.sueldo"></td>
+<td>Frecuencia: <input type="radio" name="pago" value="M" ng-model="empleado.tipoPago">Mes &nbsp <input type="radio" name="pago" value="Q" ng-model="empleado.tipoPago">Quincena &nbsp <input type="radio" name="pago" value="S" ng-model="empleado.tipoPago">Semanal</td>
 </tr>
 
 <tr>
-<td>Teléfono:<input type="text" name="telefono"/> </td>
-<td>Talla: <select></select></td>
+<td>Teléfono:<input type="text" name="telefono" ng-model="empleado.telefono"/> </td>
+<td>Talla: <select ng-model="empleado.talla">
+<option value="EXCH">Extra Chica</option>
+<option value="CHIC">Chica</option>
+<option value="MEDI">Mediana</option>
+<option value="GRAN">Grande</option>
+<option value="EXGR">Extra Grande</option>
+</select></td>
 </tr>
 
 <tr>
@@ -53,37 +73,38 @@
 </tr>
 
 <tr>
-<td colspan="2">Comentarios:<textarea rows="" cols=""></textarea> </td>
+<td colspan="2">Comentarios:<textarea rows="" cols="" ng-model="empleado.comentarios"></textarea> </td>
 </tr>
 
 <tr>
 <td colspan="2">Documentación
 <br/>
-<span>Solicitud con fotografia(100% complementada) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Solicitud con fotografia(100% complementada) <input type="radio" name="fotografia" value="">Si &nbsp <input type="radio" name="fotografia" value="">No &nbsp <input type="radio" name="fotografia" value="">N/A</span>
 <br>
-<span>Credencial de Elector (copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Credencial de Elector (copia) <input type="radio" name="credencial" value="">Si &nbsp <input type="radio" name="credencial" value="">No &nbsp <input type="radio" name="credencial" value="">N/A</span>
 <br/>
-<span>CURP <input type="radio"><input type="radio"><input type="radio"></span>
+<span>CURP <input type="radio" name="curp" value="">Si &nbsp <input type="radio" name="curp" value="">No &nbsp <input type="radio" name="curp" value="">N/A</span>
 <br/>
-<span>Acta de Nacimiento(copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Acta de Nacimiento(copia) <input type="radio" name="acta" value="">Si &nbsp <input type="radio" name="acta" value="">No &nbsp <input type="radio" name="acta" value="">N/A</span>
 <br/>
-<span>Comprobante de Domicilio Reciente(copia) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Comprobante de Domicilio Reciente(copia) <input type="radio" name="domicilio" value="">Si &nbsp <input type="radio" name="domicilio" value="">No &nbsp <input type="radio" name="domicilio" value="">N/A</span>
 <br/>
-<span>Documento IMSS (pre-registro) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Documento IMSS (pre-registro) <input type="radio" name="imss" value="">Si &nbsp <input type="radio" name="imss" value="">No &nbsp <input type="radio" name="imss" value="">N/A</span>
 <br/>
-<span>RFC(Dado de alta en hacienda como asalariado) <input type="radio"><input type="radio"><input type="radio"></span>
+<span>RFC(Dado de alta en hacienda como asalariado) <input type="radio" name="documentoRFC" value="">Si &nbsp <input type="radio" name="documentoRFC" value="">No &nbsp <input type="radio" name="documentoRFC" value="">N/A</span>
 <br/>
-<span>No Credito INFONAVIT <input type="radio"><input type="radio"><input type="radio"></span>
+<span>No Credito INFONAVIT <input type="radio" name="documentoInfonavit" value="">Si &nbsp <input type="radio" name="documentoInfonavit" value="">No &nbsp <input type="radio" name="documentoInfonavit" value="">N/A</span>
 <br/>
-<span>Curriculum Vitae <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Curriculum Vitae <input type="radio" name="CV" value="">Si &nbsp <input type="radio" name="CV" value="">No &nbsp <input type="radio" name="CV" value="">N/A</span>
 <br/>
-<span>Documentacion Probatoria del CV <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Documentacion Probatoria del CV <input type="radio" name="documentoCV" value="">Si &nbsp <input type="radio" name="documentoCV" value="">No &nbsp <input type="radio" name="documentoCV" value="">N/A</span>
 <br/>
-<span>Contrato Firmado <input type="radio"><input type="radio"><input type="radio"></span>
+<span>Contrato Firmado <input type="radio" name="contrato" value="">Si &nbsp <input type="radio" name="contrato" value="">No &nbsp <input type="radio" name="contrato" value="">N/A</span>
 <br/>
 </td>
 </tr>
 </table>
+<button type="reset" value="Reset">Reset</button>
 <input type="submit" name="guardar" value="Guardar Datos">
 </body>
 </html>
