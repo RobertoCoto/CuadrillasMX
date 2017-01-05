@@ -8,7 +8,12 @@
     var app = angular.module('tatei', []);
 	 app.controller('registraEmpleado', function ($scope, $http) {
 	 
+	   $scope.nombre = document.getElementById("nombre");
 	 
+	   $http.get("RegistraEmpleado?" + $scope.nombre).success(function (dataSitio) {
+    	 $scope.items = dataSitio;
+    	
+	      });
 	 
 	 
 	 });
@@ -16,7 +21,8 @@
 </head>
 <body ng-app="tatei" ng-controller="registraEmpleado">
 <h2>Administración de Empleados</h2>
-<table>
+<form action ="" method="post" ng-submit="guardar(empleado)">
+<table >
 <tr>
 <td>Número de Empleado: </td>
 <td><input type="text" name="idEmpleado" ng-model="empleado.idEmpleado"/>{{empleado.idEmpleado}}</td>
@@ -24,7 +30,7 @@
 
 <tr>
 <td>Nombre(s):</td>
-<td><input type="text" name="nombre" ng-model="empleado.nombre">{{empleado.nombre}}</td>
+<td><input type="text" name="nombre" id="nombre" ng-model="empleado.nombre">{{empleado.nombre}}</td>
 </tr>
 
 <tr>
@@ -106,5 +112,6 @@
 </table>
 <button type="reset" value="Reset">Reset</button>
 <input type="submit" name="guardar" value="Guardar Datos">
+</form>
 </body>
 </html>
