@@ -4,20 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>Administración de Empleados</title>
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script>
-    var app = angular.module('tatei', []);
-	 app.controller('registraEmpleado', function ($scope, $http) {
-	 
-	   $scope.nombre = document.getElementById("nombre");
-	 
-	   $http.get("RegistraEmpleado?" + $scope.nombre).success(function (dataSitio) {
-    	 $scope.items = dataSitio;
-    	
-	      });
-	 
-	 
-	 });
-</script>
+
 </head>
 <body ng-app="tatei" ng-controller="registraEmpleado">
 <h2>Administración de Empleados</h2>
@@ -114,4 +101,18 @@
 <input type="submit" name="guardar" value="Guardar Datos">
 </form>
 </body>
+<script>
+    var app = angular.module('tatei', []);
+	 app.controller('registraEmpleado', function ($scope, $http) {
+	 
+	   $scope.nombre = document.getElementById("nombre").value;
+	 
+	   $http.get("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" +"nombre=" + $scope.nombre).success(function (dataSitio) {
+    	 $scope.items = dataSitio;
+    	
+	      });
+	 
+	 
+	 });
+</script>
 </html>
