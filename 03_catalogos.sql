@@ -145,6 +145,17 @@ VALUES('DOCU_EMPLE','DRFC',upper('RFC'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('DOCU_EMPLE','CUVI',upper('Curriculum Vitae'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCU_EMPLE','CREL',upper('Credencial de Elector'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCU_EMPLE','CDOM',upper('Comprobante de Domicilio'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCU_EMPLE','NINF',upper('No de Credito Infonavit'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCU_EMPLE','DOCM',upper('Documentacion Comprobatoria'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCU_EMPLE','CNFR',upper('Contrato Firmado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
 /*CATALOGO DOCUMENTOS EMPLEADOS*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
