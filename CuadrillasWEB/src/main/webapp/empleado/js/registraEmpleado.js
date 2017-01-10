@@ -15,7 +15,7 @@ $scope.empleado = {};
 	   $scope.fechaNacimiento = empleado.fechaNacimiento;
 	   $scope.fechaIngreso = empleado.fechaIngreso;
 	   $scope.codigoPuesto = empleado.puesto;
-	   $scope.codigoVialidad = empleado.codigoVialidad;
+	   $scope.codigoVialidad = "1";
 	   $scope.codigoArea = empleado.codigoArea;
 	   $scope.codigoTalla = empleado.codigoTalla;
 	   $scope.idCuadrilla = empleado.idCuadrilla;
@@ -25,16 +25,15 @@ $scope.empleado = {};
 	   $scope.telefono = empleado.telefono;
 	   $scope.noCreditoInfonavit = empleado.infonavit;
 	   $scope.observaciones = empleado.comentarios;
-	   $scope.usuario = empleado.usuario;
+	   $scope.usuario = "SISTEMAS";
 	   $scope.documentos = {"codigoDocumento": "ACNA" , "estatusDocumento" : "A"};
 	   
-	   $http.get("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
+	   $http.post("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
 		 +$scope.apellidoMaterno +"&sexo=" + $scope.sexo + "&rfc=" + $scope.rfc + "&fechaNacimiento=" + $scope.fechaNacimiento + "&fechaIngreso="
 		 + $scope.fechaIngreso + "&codigoPuesto=" + $scope.codigoPuesto + "&codigoVialidad =" + $scope.codigoVialidad + "&codigoTalla=" + $scope.codigoTalla
-		 + "&idCuadrilla=" +$scope.idCuadrilla + "&sueldo=" +$scope.sueldo +"&frecuenciaPago=" + $scope.frecuenciaPago + "&nss=" +$scope.nss 
-		 + "&telefono=" + $scope.telefono + "&noCreditoInfonavit=" + $scope.noCreditoInfonavit + "&observaciones=" +$scope.observaciones
-		 + "&documentoEmpleado=" + $scope.documentos).success(function (dataSitio) {
-	    	 $scope.items = dataSitio;
+		 + "&idCuadrilla=" +$scope.idCuadrilla + "&sueldo=" +$scope.sueldo +"&frecuenciaPago=" + $scope.frecuenciaPago + "&nss=" + $scope.nss 
+		 + "&telefono=" + $scope.telefono + "&noCreditoInfonavit=" + $scope.noCreditoInfonavit + "&observaciones=" + $scope.observaciones + "&usuario=" + $scope.usuario + "&documentoEmpleado=" + $scope.documentos).success(function (dataSitio) {
+	     $scope.items = dataSitio;
 	    	
 		      });
 	   }
