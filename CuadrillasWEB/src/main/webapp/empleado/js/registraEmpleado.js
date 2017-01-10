@@ -26,7 +26,7 @@ $scope.empleado = {};
 	   $scope.noCreditoInfonavit = empleado.infonavit;
 	   $scope.observaciones = empleado.comentarios;
 	   $scope.usuario = empleado.usuario;
-	   $scope.documentos = {"codigoDocumento": "ACNA" , "estatusDocumento" : "A"} , {"codigoDocumento": "CREL" , "estatusDocumento" : "A"};
+	   $scope.documentos = {"codigoDocumento": "ACNA" , "estatusDocumento" : "A"};
 	   
 	   $http.get("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
 		 +$scope.apellidoMaterno +"&sexo=" + $scope.sexo + "&rfc=" + $scope.rfc + "&fechaNacimiento=" + $scope.fechaNacimiento + "&fechaIngreso="
