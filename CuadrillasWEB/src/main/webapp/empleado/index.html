@@ -26,7 +26,11 @@
 </tr>
 
 <tr>
-<td>Puesto: <select></select> &nbsp Fecha de Nacimiento: <input type="date" name="fechaNac" ng-model="empleado.fechaNacimiento"/> </td>
+<td>Puesto: <select ng-model="empleado.puesto">
+<option value="CABO">CABO</option>
+<option value="CHOF">CHOFER</option>
+<option value="AYGE">AYUDANTE EN GENERAL</option>
+</select> &nbsp Fecha de Nacimiento: <input type="date" name="fechaNac" ng-model="empleado.fechaNacimiento"/> </td>
 <td>Fecha de Ingreso: <input type="date" name="fechaIngreso" ng-model="empleado.fechaIngreso"/></td>
 </tr>
 
@@ -65,7 +69,10 @@
 </tr>
 
 <tr>
-<td colspan="2">Cuadrilla: <select></select></td>
+<td colspan="2">Cuadrilla: <select ng-model="empleado.idCuadrilla">
+<option value="1">av insurgentes</option>
+<option value="2">Balderas</option>
+</select></td>
 </tr>
 
 <tr>
@@ -100,9 +107,10 @@
 </td>
 </tr>
 </table>
-<button type="reset" value="Reset">Reset</button>
 <input type="submit" name="guardar" value="Registrar">
 </form>
+
+Mensaje : {{datasitio.mensajeFuncional}}
 </body>
 
 </html>

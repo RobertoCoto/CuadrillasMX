@@ -26,12 +26,14 @@ $scope.empleado = {};
 	   $scope.noCreditoInfonavit = empleado.infonavit;
 	   $scope.observaciones = empleado.comentarios;
 	   $scope.usuario = empleado.usuario;
+	   $scope.documentos = {"codigoDocumento": "ACNA" , "estatusDocumento" : "A"} , {"codigoDocumento": "CREL" , "estatusDocumento" : "A"};
 	   
 	   $http.get("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
 		 +$scope.apellidoMaterno +"&sexo=" + $scope.sexo + "&rfc=" + $scope.rfc + "&fechaNacimiento=" + $scope.fechaNacimiento + "&fechaIngreso="
 		 + $scope.fechaIngreso + "&codigoPuesto=" + $scope.codigoPuesto + "&codigoVialidad =" + $scope.codigoVialidad + "&codigoTalla=" + $scope.codigoTalla
 		 + "&idCuadrilla=" +$scope.idCuadrilla + "&sueldo=" +$scope.sueldo +"&frecuenciaPago=" + $scope.frecuenciaPago + "&nss=" +$scope.nss 
-		 + "&telefono=" + $scope.telefono + "&noCreditoInfonavit=" + $scope.noCreditoInfonavit + "&observaciones=" +$scope.observaciones).success(function (dataSitio) {
+		 + "&telefono=" + $scope.telefono + "&noCreditoInfonavit=" + $scope.noCreditoInfonavit + "&observaciones=" +$scope.observaciones
+		 + "&documentoEmpleado=" + $scope.documentos).success(function (dataSitio) {
 	    	 $scope.items = dataSitio;
 	    	
 		      });
