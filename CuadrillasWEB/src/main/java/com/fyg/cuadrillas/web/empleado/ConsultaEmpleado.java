@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
-import com.fyg.cuadrillas.dto.empleado.PermisoLaboralRespuesta;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.google.gson.Gson;
 
