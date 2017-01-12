@@ -57,11 +57,7 @@ public class ConsultaEmpleado extends HttpServlet {
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setIdEmpleado(idEmpleado);
 			respuesta = negocio.consultaEmpleado(empleado);
-			if (respuesta.isEstatus()) {
-				response.setStatus(HttpServletResponse.SC_OK);
-			} else {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			}
+			
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();

@@ -28,10 +28,6 @@ public class AsistenciaNegocio {
 		        	{
 		        		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 		        	}
-		        	if(asistencia.getUsuarioUltMod() == null || asistencia.getUsuarioUltMod().trim().isEmpty())
-		        	{
-		        		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
-		        	}
 		        	AsistenciaDAO  dao = new AsistenciaDAO();
 		        	respuesta = dao.entradaAsistencia(uid, asistencia);
 		        	

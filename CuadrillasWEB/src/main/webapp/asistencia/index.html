@@ -3,46 +3,65 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Toma de Asistencia</title>
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/entradaAsistencia.js"></script>
 <script type="text/javascript">
  	function mueveReloj(){ 
    	momentoActual = new Date() 
+   	hoy = new Date()
+   	dd = hoy.getDate()
+	mm = hoy.getMonth()+1 //hoy es 0!
+    yyyy = hoy.getFullYear()
+    
+    if(dd<10) {
+    dd='0'+dd
+	} 
+
+	if(mm<10) {
+    mm='0'+mm
+	} 
+
    	hora = momentoActual.getHours() 
    	minuto = momentoActual.getMinutes() 
    	str_minuto = new String (minuto) 
    	if (str_minuto.length == 1) 
       	minuto = "0" + minuto 
-
    	str_hora = new String (hora) 
    	if (str_hora.length == 1) 
       	hora = "0" + hora 
-
    	horaImprimible = hora + " : " + minuto 
-
+   	hoy = dd+'/'+mm+'/'+yyyy;
    	document.form_reloj.reloj.value = horaImprimible 
-
+   	document.form_reloj.fecha.value = hoy
    	setTimeout("mueveReloj()",1000) 
 } 
 </script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/entradaAsistencia.js"></script>
+
 </head>
-<body onload="mueveReloj()" ng-app="tatei" ng-controller="entradaAsistencia">
+<body onload="mueveReloj()" data-ng-app="tatei" data-ng-controller="entradaAsistencia">
 <h2>Toma de Asistencia</h2>
-<form name="form_reloj" ng-submit="registrar(asistencia)">
-<table>
-<tr>
-<td>Nombres: <input type="text" name="nombre" disabled ng-model="asistencia.nombre"></td>
-<td>Fecha: <input type="text" ng-model="asistencia.fecha"></td>
+<form data-ng-submit="registrar(asistencia)" name="form_reloj" >
+<table >
+<tr >
+<td ng-repeat="empleado in resultado">Nombres: <input type="text" name="nombre" disabled value={{empleado.nombre}}></td>
+<td>Fecha: <input type="text" name="fecha" ng-model="asistencia.fecha"></td>
 </tr>
 
 <tr>
-<td>Puesto: <input type="text" disabled ng-model="asistencia.puesto"></td>
+<td ng-repeat="emp in resultado">Puesto: <input type="text" disabled value={{emp.codigoPuesto}}></td>
 <td>Horario <input type="text" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" disabled ng-model="asistencia.horario"> </td>
 </tr>
 <tr>
-<td>Comentarios: <textarea rows="" cols="" ng-model="asistencia.comentario"></textarea></td>
+<td>Comentarios: <textarea rows="" cols="" data-ng-model="asistencia.comentario"></textarea>{{asistencia.comentario}}</td>
 </tr>
 </table>
+<p ng-repeat="id in resultado">
+<input type="hidden" id="idEmpleado" value={{id.idEmpleado}}>
+</p>
+<input type="submit" name="registrar" value="Registrar">
 </form>
+
+
+
 </body>
 </html>
