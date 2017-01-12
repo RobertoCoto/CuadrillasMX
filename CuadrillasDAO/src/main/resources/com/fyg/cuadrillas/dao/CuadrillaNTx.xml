@@ -2,16 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.CuadrillaNTx">
 
+<resultMap type="Cuadrilla" id="cuadrilla" >
+<result column="id_cuadrilla" property="idCuadrilla"/>
+<result column="nombre_cuadrilla" property="nombreCuadrilla"/>
+</resultMap>
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
-FROM cuadrillas
+FROM cuadrilla
 WHERE nombre_cuadrilla = #{nombre_cuadrilla}
 </select>
 
 <select  id="existeBajaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(estatus) AS estatus
-FROM cuadrillas 
+FROM cuadrilla
 WHERE id_cuadrilla = #{idCuadrilla}
 AND estatus = 'I'
+</select>
+
+<select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
+SELECT id_cuadrilla, nombre_cuadrilla 
+FROM cuadrilla
 </select>
 </mapper>

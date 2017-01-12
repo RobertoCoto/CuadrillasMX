@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -96,5 +98,39 @@ public class CuadrillaDAO {
 				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
+	}
+	/**
+	 * Metodo para consultar Cuadrillas
+	 * @param uid unico de registro
+	 * @param cuadrilla recibo valores de cuadrilla
+	 * @return regresa lista de cuadrillas
+	 * @throws Exception se genera excepcion
+	 */
+	@SuppressWarnings("unchecked")
+	public List<CuadrillaDTO> consultaCuadrilla(String uid)throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<CuadrillaDTO> listaCuadrilla = null;
+		try { 
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			//Se hace una consulta a la tabla contacto
+			listaCuadrilla = sessionNTx.selectList("CuadrillaDAO.consultaCuadrilla");
+			if ( listaCuadrilla.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen cuadrillas definidas.");
+			}
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaCuadrilla;
 	}
 }

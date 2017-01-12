@@ -54,9 +54,7 @@ public class EmpleadoNegocio {
 			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en el alta del empleado.");
 			}
-			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el codigo de vialidad.");
-			} else if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
+			 if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
 			}
 			if (empleado.getSueldo() <= 0) {

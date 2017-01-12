@@ -1,6 +1,67 @@
 var app = angular.module('tatei', []);
 app.controller('registraEmpleado', function ($scope, $http) {
-	   
+
+	 $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'PERFIL_EMP'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultado = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+	 
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'ROPA_TALLA'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultadoRopa = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+		    
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'DOCU_EMPLE'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultadoDocumentos = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+		    
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultadoCuadrilla = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+
 $scope.empleado = {};
 	   $scope.datoempleado = [];
 	   
