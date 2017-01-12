@@ -348,6 +348,6 @@ ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuad
 
 ALTER TABLE vialidad_coordenadas ADD CONSTRAINT FK_id_vialidad FOREIGN KEY (id_vialidad) REFERENCES vialidad(id_vialidad);
 
-ALTER TABLE asistencia ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
+ALTER TABLE asistencia ADD CONSTRAINT FK_idEmpleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
-ALTER TABLE contrato ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado);
+ALTER TABLE contrato ADD CONSTRAINT FK_id_emp FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado);
