@@ -28,19 +28,19 @@
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="entradaAsistencia">
 <h2>Toma de Asistencia</h2>
-<form name="form_reloj">
+<form name="form_reloj" ng-submit="registrar(asistencia)">
 <table>
 <tr>
-<td>Nombres: <input type="text" name="nombre" disabled/></td>
-<td>Fecha: <input type="date"></td>
+<td>Nombres: <input type="text" name="nombre" disabled/ ng-model="asistencia.nombre"></td>
+<td>Fecha: <input type="text" ng-model="asistencia.fecha"></td>
 </tr>
 
 <tr>
-<td>Puesto: <input type="text" disabled></td>
-<td>Horario <input type="text" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" disabled> </td>
+<td>Puesto: <input type="text" disabled ng-model="asistencia.puesto"></td>
+<td>Horario <input type="text" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" disabled ng-model="asistencia.horario"> </td>
 </tr>
 <tr>
-<td>Comentarios: <textarea rows="" cols=""></textarea></td>
+<td>Comentarios: <textarea rows="" cols="" ng-model="asistencia.comentario"></textarea></td>
 </tr>
 </table>
 </form>
