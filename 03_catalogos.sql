@@ -46,7 +46,7 @@ VALUES('TIPO_COMBU','PREP',upper('Preparado'),'SISTEMAS', 'SISTEMAS',now(),now()
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('TIPO_COMBU','NAPL',upper('No Aplica'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
-/*CATALOGO TIPO COMBUSTIBLE*/
+/*CATALOGO TIPO ARTICULO*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
 VALUES('TIPO_ARTIC','TIPO ARTICULO','N',now(),now(),'A');
@@ -144,7 +144,6 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('DOCU_EMPLE','DRFC',upper('RFC'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('DOCU_EMPLE','CUVI',upper('Curriculum Vitae'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
-
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('DOCU_EMPLE','CREL',upper('Credencial de Elector'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
@@ -156,7 +155,7 @@ VALUES('DOCU_EMPLE','DOCM',upper('Documentacion Comprobatoria'),'SISTEMAS', 'SIS
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('DOCU_EMPLE','CNFR',upper('Contrato Firmado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
-/*CATALOGO DOCUMENTOS EMPLEADOS*/
+/*CATALOGO BAJA EMPLEADO TIPO SALIDA*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
 VALUES('TIPO_SALID','BAJA EMPLEADO TIPO SALIDA','N',now(),now(),'A');
@@ -168,7 +167,7 @@ VALUES('TIPO_SALID','TSRE',upper('Renuncia'),'SISTEMAS', 'SISTEMAS',now(),now(),
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('TIPO_SALID','TSAB',upper('Abandono'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
-/*CATALOGO DOCUMENTOS EMPLEADOS*/
+/*CATALOGO BAJA EMPLEADO CAUSA RENUNCIA*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
 VALUES('CAUSA_RENU','BAJA EMPLEADO CAUSA RENUNCIA','N',now(),now(),'A');
@@ -181,7 +180,13 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('CAUSA_RENU','CREN',upper('Enfermedad'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('CAUSA_RENU','CRAP',upper('Asunto Personal'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+	
+/*CATALOGO BAJA EMPLEADO CAUSA RENUNCIA*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PERMI_LABO','TIPO PERMISO LABORAL','N',now(),now(),'A');
+
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('CAUSA_RENU','CROT',upper('Otro'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
-	
-	
+VALUES('PERMI_LABO','ENFE',upper('Enfermedad'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PERMI_LABO','JUES',upper('Juntas Escolares'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
