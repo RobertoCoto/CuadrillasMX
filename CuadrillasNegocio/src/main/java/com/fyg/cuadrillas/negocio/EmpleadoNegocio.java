@@ -306,7 +306,7 @@ public class EmpleadoNegocio {
 	    	{
 	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 	    	}
-	    	 listaEmpleado = null;//new EmpleadoDAO().consultaEmpleado(uid, empleado);
+	    	 listaEmpleado = new EmpleadoDAO().consultaGeneral(uid, empleado);
 	    	 respuesta.setEmpleado(listaEmpleado);
 	    }catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			

@@ -124,7 +124,37 @@ public class EmpleadoDAO {
 		}
 		return emp;
 	}
-
+   /**
+    * Metodo para consultar empleados para asistencia
+    * @param uid unico de registro
+    * @param empleado recibe valores de empleado
+    * @return regresa una lista de empleado
+    * @throws Exception se crea una excepcion
+    */
+   @SuppressWarnings("unchecked")
+public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws Exception{
+	   SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<EmpleadoDTO> listaEmpleado = null;
+		try { 
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla 
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			listaEmpleado = sessionNTx.selectList("EmpleadoDAO.consultaEmpleado", empleado);
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaEmpleado;
+   }
    /**
     * Metodo para modificar los datos del empleado
     * @param uid unico de registro
