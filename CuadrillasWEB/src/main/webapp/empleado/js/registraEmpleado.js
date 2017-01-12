@@ -86,7 +86,7 @@ app.controller('registraEmpleado', function ($scope, $http) {
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
               data: { }
 		    }).then(function mySucces(result) {
-		    	$scope.resultadoCuadrilla = result.data.catalogo;
+		    	$scope.resultadoCuadrilla = result.data.cuadrilla;
 	              console.log(result);
 		    }, function myError(response) {
 		        console.error(response);
@@ -119,7 +119,7 @@ $scope.empleado = {};
 	   $scope.noCreditoInfonavit = empleado.infonavit;
 	   $scope.observaciones = empleado.comentarios;
 	   $scope.usuario = "SISTEMAS";
-	   $scope.documentos = {"codigoDocumento": "ACNA" , "estatusDocumento" : "A"};
+	   $scope.documentos = document.getElementById("documento").value;
 	   
 	   $http.post("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
 		 +$scope.apellidoMaterno +"&sexo=" + $scope.sexo + "&rfc=" + $scope.rfc + "&fechaNacimiento=" + $scope.fechaNacimiento + "&fechaIngreso="
