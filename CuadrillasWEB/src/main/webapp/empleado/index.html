@@ -61,7 +61,9 @@
 
 <tr>
 <td colspan="2">Cuadrilla: <select ng-model="empleado.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cadrilla.nombreCuadrilla for cuadrilla in resultadoCuadrilla" ng-change="getOptions2(empleado.idCuadrilla)">
-</select></td>
+</select>
+Vialidad: <select ng-model="empleado.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(empleado.codigoVialidad)"></select>
+Area: <select ng-model="empleado.codigoArea" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(empleado.codigoArea)"></select></td>
 </tr>
 
 <tr>
@@ -76,12 +78,12 @@
 </tr>
 <tr ng-repeat="documentos  in resultadoDocumentos">
 <td>{{documentos.descripcion}}</td>
-<td></td>
+<td><input type="radio" name={{documentos.codigo}} value={{documentos.codigo}}>Si <input type="radio" name={{documentos.codigo}} value="">No<input type="radio" name={{documentos.codigo}} value="">N/A </td>
 </tr>
 </table>
 <input type="submit" name="guardar" value="Registrar">
 </form>
-Mensaje : {{items.mensajeFuncional}}
+
 </body>
 
 </html>

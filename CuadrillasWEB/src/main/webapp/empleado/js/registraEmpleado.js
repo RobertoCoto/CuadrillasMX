@@ -37,6 +37,38 @@ app.controller('registraEmpleado', function ($scope, $http) {
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
               params : {
+		 		"tipoCatalogo": 'VIALIDAD'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultadoVialidad = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+		    
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'AREA_INC'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$scope.resultadoArea = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		        //$scope.resultado2.push(objecto);
+		    });
+		    
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
 		 		"tipoCatalogo": 'DOCU_EMPLE'
 		 },
               data: { }
@@ -76,7 +108,7 @@ $scope.empleado = {};
 	   $scope.fechaNacimiento = empleado.fechaNacimiento;
 	   $scope.fechaIngreso = empleado.fechaIngreso;
 	   $scope.codigoPuesto = empleado.puesto;
-	   $scope.codigoVialidad = "1";
+	   $scope.codigoVialidad = empleado.codigoVialidad;
 	   $scope.codigoArea = empleado.codigoArea;
 	   $scope.codigoTalla = empleado.codigoTalla;
 	   $scope.idCuadrilla = empleado.idCuadrilla;
