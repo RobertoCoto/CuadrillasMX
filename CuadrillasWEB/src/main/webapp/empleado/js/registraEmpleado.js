@@ -121,7 +121,7 @@ $scope.empleado = {};
 	   $scope.usuario = "SISTEMAS";
 	   $scope.documentos = document.getElementById("documento").value;
 	   
-	   $http.post("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
+	   $http.get("http://localhost:8080/CuadrillasWEB/RegistraEmpleado?" + "nombre=" + $scope.nombre +"&apellidoPat="+$scope.apellidoPaterno +"&apellidoMat="
 		 +$scope.apellidoMaterno +"&sexo=" + $scope.sexo + "&rfc=" + $scope.rfc + "&fechaNacimiento=" + $scope.fechaNacimiento + "&fechaIngreso="
 		 + $scope.fechaIngreso + "&codigoPuesto=" + $scope.codigoPuesto + "&codigoVialidad =" + $scope.codigoVialidad + "&codigoTalla=" + $scope.codigoTalla
 		 + "&idCuadrilla=" +$scope.idCuadrilla + "&sueldo=" +$scope.sueldo +"&frecuenciaPago=" + $scope.frecuenciaPago + "&nss=" + $scope.nss 
