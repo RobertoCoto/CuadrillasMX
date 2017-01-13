@@ -3,24 +3,45 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Permiso Laboral</title>
+<script type="text/javascript">
+ 	function mueveReloj(){ 
+   	 
+   	hoy = new Date()
+   	dd = hoy.getDate()
+	mm = hoy.getMonth()+1 //hoy es 0!
+    yyyy = hoy.getFullYear()
+    
+    if(dd<10) {
+    dd='0'+dd
+	} 
+
+	if(mm<10) {
+    mm='0'+mm
+	} 
+
+   hoy = yyyy+'-'+mm+'-'+dd;
+   	document.form_reloj.fechaSolicitud.value = hoy
+   	
+} 
+</script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/permisoLaboral.js"></script>
 </head>
-<body ng-app="tatei" ng-controller="registraPermiso">
+<body onload="mueveReloj()" ng-app="tatei" ng-controller="registraPermiso">
 <h2>Permiso Laboral</h2>
-<table>
-<tr >
-<td colspan="2">Número de Empleado: <input type="text"></td>
+<form name="form_reloj"><table>
+<tr ng-repeat="empleado in resultado">
+<td colspan="2">Número de Empleado: <input type="text" value={{empleado.noEmpleado}}></td>
 </tr>
-<tr ><td colspan="2">Nombres: <input type="text"></td></tr>
-<tr>
-<td>Puesto: <input type="text"></td>
-<td>Fecha Ingreso: <input type="text"></td>
+<tr ng-repeat="emp1 in resultado" ><td colspan="2">Nombres: <input type="text" value={{emp1.nombre}}></td></tr>
+<tr ng-repeat="emp2 in resultado">
+<td>Puesto: <input type="text" value={{emp2.codigoPuesto}}></td>
+<td>Fecha Ingreso: <input type="text" value={{emp2.fechaIngreso}}></td>
 </tr>
 <tr>
 <td colspan="2">Comentarios: <textarea></textarea></td>
 </tr>
-<tr><td colspan="2">Fecha de Solicitud: <input type="date"></td></tr>
+<tr><td colspan="2">Fecha de Solicitud: <input type="date" name="fechaSolicitud"></td></tr>
 <tr><td colspan="2">Fecha Ausencia: <input type="date"> a <input type="date"></td></tr>
 <tr>
 <td colspan="2">Horario Solicitado: <input type="time">a <input type="time"></td>
@@ -32,7 +53,8 @@
 Goce de sueldo: <input type="checkbox">
 </td></tr>
 </table> 
-<input type="button" value="Autorizar">
-<input type="button" value="rechazar">
+<input type="button" value="Autorizar"></form>
+
+
 </body>
 </html>

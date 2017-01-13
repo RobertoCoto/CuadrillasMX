@@ -55,6 +55,23 @@
 <td>Comentarios: <textarea rows="" cols="" data-ng-model="asistencia.comentario"></textarea>{{asistencia.comentario}}</td>
 </tr>
 </table>
+
+<table border="1" cellpading="1" cellspacing="1">
+<tr>
+<td>Número</td>
+<td>Nombre</td>
+<td>Puesto</td>
+<td>Entrada</td>
+<td>Salida</td>
+</tr>
+<tr ng-repeat="registro in resultadoAsistencia">
+<td >{{registro.idAsistencia}}</td>
+<td>{{registro.nombre}}</td>
+<td>{{registro.codigoPuesto}}</td>
+<td>{{registro.horaEntrada}}</td>
+<td >{{registro.horaSalida}}</td>
+</tr>
+</table>
 <p ng-repeat="id in resultado">
 <input type="hidden" id="idEmpleado" value={{id.idEmpleado}}>
 </p>

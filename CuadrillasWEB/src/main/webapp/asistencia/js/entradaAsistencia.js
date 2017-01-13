@@ -15,6 +15,18 @@ app.controller('entradaAsistencia', function ($scope, $http) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
 		    });
+	
+		    $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
+              data: { }
+		    }).then(function (result) {
+		    	$scope.resultadoAsistencia = result.data.asistencia;
+	            console.log($scope.resultadoAsistencia);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.header.mensajeFuncional);
+		    });
             
             $scope.datosAsistencia = [];
             

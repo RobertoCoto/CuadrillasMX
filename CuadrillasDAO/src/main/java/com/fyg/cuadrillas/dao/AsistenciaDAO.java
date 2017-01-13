@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -153,5 +155,39 @@ public class AsistenciaDAO {
 			FabricaConexiones.close(sessionTx);
 		}
 		return respuesta;
- }
+ } 
+	/**
+	 * Metodo para consultar lista de Asistencia
+	 * @param uid unico de registro
+	 * @return regresa lista de asistencia
+	 * @throws Exception crea una excepcion
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AsistenciaDTO> consultaAsistencia (String uid) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<AsistenciaDTO> listaAsistencia = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			//Se hace una consulta a la tabla contacto
+			listaAsistencia = sessionNTx.selectList("AsistenciaDAO.consultaAsistencia");
+			if ( listaAsistencia.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen registros de asistencia.");
+			}
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaAsistencia;
+	}
 }

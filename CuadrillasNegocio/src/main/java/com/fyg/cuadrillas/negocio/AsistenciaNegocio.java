@@ -1,11 +1,14 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.AsistenciaDAO;
 import com.fyg.cuadrillas.dto.asistencia.AsistenciaDTO;
+import com.fyg.cuadrillas.dto.asistencia.AsistenciaRespuesta;
 
 public class AsistenciaNegocio {
 	/**
@@ -130,5 +133,38 @@ public class AsistenciaNegocio {
 		}
 		LogHandler.debug(uid, this.getClass(), "bajaAsistencia - Datos Salida: " + respuesta);
 		return respuesta;
+	}
+	/**
+	 * Metodo para consultar una lista de asistencia
+	 * @return regresa lista de asistencia
+	 */
+	public AsistenciaRespuesta consultaAsistencia() {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaAsistencia - Datos Entrada: ");
+				//Variable de resultado
+				AsistenciaRespuesta respuesta = new AsistenciaRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				List<AsistenciaDTO> listaAsistencia = null;
+				 try {
+					 listaAsistencia = new AsistenciaDAO().consultaAsistencia(uid);
+				    	respuesta.setAsistencia(listaAsistencia);
+				    } catch  (ExcepcionesCuadrillas ex) {
+						LogHandler.error(uid, this.getClass(), "consultaAsistencia - Error: " + ex.getMessage(), ex);
+						respuesta.getHeader().setEstatus(false);
+						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+					} catch (Exception ex) {
+				    	LogHandler.error(uid, this.getClass(), "consultaAsistencia - Error: " + ex.getMessage(), ex);
+				    	respuesta.getHeader().setEstatus(false);
+						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				    }
+				    LogHandler.debug(uid, this.getClass(), "consultaAsistencia - Datos Salida: " + respuesta);
+					return respuesta;
 	}
 }

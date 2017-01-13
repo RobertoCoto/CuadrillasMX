@@ -5,6 +5,9 @@
 <resultMap type="Asistencia" id="asistencia">
 <result column="id_asistencia" property="idAsistencia"/>
 <result column="hora_entrada" property="horaEntrada"/>
+<result column="hora_salida" property="horaSalida"/>
+<result column="nombre" property="nombre"/>
+<result column="codigo_puesto" property="codigoPuesto"/>
 </resultMap>
 
 <select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
@@ -24,5 +27,12 @@ SELECT count(estatus) AS estatus
 FROM asistencia
 WHERE id_empleado = #{idEmpleado}
 AND estatus = 'I'
+</select>
+
+<select id="consultaAsistencia" parameterType="Asistencia" resultMap="asistencia">
+select empleado.nombre AS nombre,empleado.codigo_puesto AS codigo_puesto, asistencia.id_asistencia AS id_asistencia,
+asistencia.id_empleado AS id_empleado,asistencia.hora_entrada AS hora_entrada, asistencia.hora_salida AS hora_salida
+FROM asistencia
+INNER JOIN empleado ON asistencia.id_empleado = empleado.id_empleado
 </select>
 </mapper>

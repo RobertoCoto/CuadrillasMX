@@ -14,7 +14,14 @@ public class AsistenciaDTO extends ObjetoValor {
 	 * Lista Asistencia
 	 */
 	private Integer idAsistencia;
-	
+	/**
+	 * nombre
+	 */
+	private String nombre;
+	/**
+	 * codigo_puesto
+	 */
+	private String codigoPuesto;
 	/**
 	 * Fecha
 	 */
@@ -218,5 +225,29 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	/**
+	 * @return the codigoPuesto
+	 */
+	public String getCodigoPuesto() {
+		return codigoPuesto;
+	}
+	/**
+	 * @param codigoPuesto the codigoPuesto to set
+	 */
+	public void setCodigoPuesto(String codigoPuesto) {
+		this.codigoPuesto = codigoPuesto;
 	}
 }
