@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -132,11 +132,7 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setDocumentos(documentos);
 			
 			respuesta = negocio.registraEmpleado(empleado);
-			if (respuesta.isEstatus()) {
-				response.setStatus(HttpServletResponse.SC_OK);
-			} else {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			}
+			
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
