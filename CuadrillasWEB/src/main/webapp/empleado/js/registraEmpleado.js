@@ -98,23 +98,20 @@ app.controller('registraEmpleado', function ($scope, $http) {
 	   $scope.datoempleado = [];
 	   
 	   $scope.registrar = function(empleado) {
-		   var properties = new Object();
-		   properties.version = "1";
-		   properties.finish = "0";
-		   properties.number = 2;
+		   var documentoEmpleado = new Object();
+		   documentoEmpleado.codigoDocumento = document.getElementById("documento").value;
+		   documentoEmpleado.estatusDocumento = document.getElementById("estatusDocumento").value;
 		   
 		   var arrayProperties = new Array();
-		   arrayProperties.push(properties);
+		   arrayProperties.push(documentoEmpleado);
 		   
 		   var objetoDocumento= new Object();
-		   objetoDocumento.codigoDocumento = document.getElementById("documento").value;
-		   objetoDocumento.estatusDocumento = document.getElementById("estatusDocumento").value;
-		   objetoDocumento.properties = arrayProperties;
+		   objetoDocumento.documentoEmpleado = arrayProperties;
 		   
 		   var jsonDocumento = JSON.stringify(objetoDocumento);
 		   
 		   $scope.json = jsonDocumento;
-		   console.log($scope.jsonDocumento);
+		   console.log($scope.json);
 		   $http({
 	              method: 'GET',
 	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
