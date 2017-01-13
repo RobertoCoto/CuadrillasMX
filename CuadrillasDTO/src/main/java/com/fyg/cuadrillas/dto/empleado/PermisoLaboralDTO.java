@@ -45,7 +45,7 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	/**
 	 * tipo de permiso
 	 */
-	private String tipoPermiso;
+	private String codigoPermiso;
 	/**
 	 * estatus de la autorizacion
 	 */
@@ -162,18 +162,17 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	public void setFechaSolicitudMaximo(Date fechaSolicitudMaximo) {
 		this.fechaSolicitudMaximo = fechaSolicitudMaximo;
 	}
-	
 	/**
-	 * @return the tipoPermiso
+	 * @return the codigoPermiso
 	 */
-	public String getTipoPermiso() {
-		return tipoPermiso;
+	public String getCodigoPermiso() {
+		return codigoPermiso;
 	}
 	/**
-	 * @param tipoPermiso the tipoPermiso to set
+	 * @param codigoPermiso the codigoPermiso to set
 	 */
-	public void setTipoPermiso(String tipoPermiso) {
-		this.tipoPermiso = tipoPermiso;
+	public void setCodigoPermiso(String codigoPermiso) {
+		this.codigoPermiso = codigoPermiso;
 	}
 	/**
 	 * @return the autorizacion

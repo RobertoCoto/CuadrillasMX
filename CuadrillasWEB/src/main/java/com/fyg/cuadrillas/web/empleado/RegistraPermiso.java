@@ -57,7 +57,7 @@ public class RegistraPermiso extends HttpServlet {
 			
 			//conversor hora y fecha
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-			SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
+			SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
 			Date fechaMin = formato.parse(fechaSolicitudMinima);
 			Date fechaMax = formato.parse(fechaSolicitudMaxima);
 			Date horaMin = formatoHora.parse(horaSolicitudMinima);
@@ -79,7 +79,7 @@ public class RegistraPermiso extends HttpServlet {
 			permiso.setFechaSolicitudMaximo(fechaMax);
 			permiso.setHoraSolicitudMinimo(horaMin);
 			permiso.setHoraSolicitudMaxima(horaMax);
-			permiso.setTipoPermiso(tipoPermiso);
+			permiso.setCodigoPermiso(tipoPermiso);
 			permiso.setUsuarioAlta(usuario);
 			respuesta = negocio.altaPermiso(permiso);
 			

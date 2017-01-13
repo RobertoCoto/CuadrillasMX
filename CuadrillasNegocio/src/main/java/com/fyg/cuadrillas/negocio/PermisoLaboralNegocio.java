@@ -29,7 +29,7 @@ public class PermisoLaboralNegocio {
 			if (permiso.getIdEmpleado() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
 			}
-			if (permiso.getTipoPermiso() == null || permiso.getTipoPermiso().trim().isEmpty()) {
+			if (permiso.getCodigoPermiso() == null || permiso.getCodigoPermiso().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el tipo de permiso.");
 			}
 			if (permiso.getUsuarioAlta() == null || permiso.getUsuarioAlta().trim().isEmpty()) {

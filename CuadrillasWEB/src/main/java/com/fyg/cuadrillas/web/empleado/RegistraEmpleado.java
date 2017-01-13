@@ -102,11 +102,11 @@ public class RegistraEmpleado extends HttpServlet {
 			// conversor de fecha
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 			String strFecha = fechaNacimiento;
-			String strFechaIngreso = fechaIngreso;
+			//String strFechaIngreso = fechaIngreso;
 			Date fechaNac = formato.parse(strFecha);
-			Date fechaIng = formato.parse(strFechaIngreso);
+			//Date fechaIng = formato.parse(strFechaIngreso);
 			empleado.setFechaNacimiento(fechaNac);
-			empleado.setFechaIngreso(fechaIng);
+			empleado.setFechaIngreso(fechaIngreso);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCodigoArea(codigoArea);

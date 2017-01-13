@@ -49,7 +49,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	/**
 	 * Fecha de ingreso del empleado
 	 */
-	private Date fechaIngreso;
+	private String fechaIngreso;
 	/**
 	 * codigo puesto
 	 */
@@ -229,13 +229,13 @@ public class EmpleadoDTO extends ObjetoValor {
 	/**
 	 * @return the fechaIngreso
 	 */
-	public Date getFechaIngreso() {
+	public String getFechaIngreso() {
 		return fechaIngreso;
 	}
 	/**
 	 * @param fechaIngreso the fechaIngreso to set
 	 */
-	public void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(String fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 	/**
