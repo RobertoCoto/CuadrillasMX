@@ -98,10 +98,20 @@ app.controller('registraEmpleado', function ($scope, $http) {
 	   $scope.datoempleado = [];
 	   
 	   $scope.registrar = function(empleado) {
-		   var miObjeto = new Object();
-		   miObjeto.codigoDocumento = "ACNA";
-		   miObjeto.estatusDocumento = "A";
-		   var myString = JSON.stringify(miObjeto);
+		   var properties = new Object();
+		   properties.version = "1";
+		   properties.finish = "0";
+		   properties.number = 2;
+		   
+		   var arrayProperties = new Array();
+		   arrayProperties.push(properties);
+		   
+		   var objetoDocumento= new Object();
+		   objetoDocumento.codigoDocumento = empleado.documento;
+		   objetoDocumento.estatusDocumento = document.getElementById("estatusDocumento").value;
+		   objetoDocumento.properties = arrayProperties;
+		   
+		   var jsonDocumento = JSON.stringify(objetoDocumento);
 		   
 		   $scope.json = myString;
 		   console.log(myString);
@@ -127,7 +137,7 @@ app.controller('registraEmpleado', function ($scope, $http) {
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
-	              "documentoEmpleado" : myString
+	              "documentoEmpleado" : jsonDocumento
 			         }
 			    }).then(function mySucces(response) {
 			    	 console.info(response);
@@ -136,6 +146,5 @@ app.controller('registraEmpleado', function ($scope, $http) {
 			        alert(response.data.header.mensajeFuncional);
 			    });
 	   }
-	   
-	   
+ 
 	 });
