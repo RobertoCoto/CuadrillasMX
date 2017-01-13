@@ -107,14 +107,14 @@ app.controller('registraEmpleado', function ($scope, $http) {
 		   arrayProperties.push(properties);
 		   
 		   var objetoDocumento= new Object();
-		   objetoDocumento.codigoDocumento = empleado.documento;
+		   objetoDocumento.codigoDocumento = document.getElementById("documento").value;
 		   objetoDocumento.estatusDocumento = document.getElementById("estatusDocumento").value;
 		   objetoDocumento.properties = arrayProperties;
 		   
 		   var jsonDocumento = JSON.stringify(objetoDocumento);
 		   
-		   $scope.json = myString;
-		   console.log(myString);
+		   $scope.json = jsonDocumento;
+		   console.log($scope.jsonDocumento);
 		   $http({
 	              method: 'GET',
 	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
@@ -137,7 +137,7 @@ app.controller('registraEmpleado', function ($scope, $http) {
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
-	              "documentoEmpleado" : jsonDocumento
+	              "documentoEmpleado" : $scope.json
 			         }
 			    }).then(function mySucces(response) {
 			    	 console.info(response);
