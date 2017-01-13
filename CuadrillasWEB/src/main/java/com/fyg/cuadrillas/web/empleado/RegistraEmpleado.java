@@ -55,6 +55,7 @@ public class RegistraEmpleado extends HttpServlet {
 		
 		try {
 			//Se obtiene parametros
+			String noEmpleado = request.getParameter("noEmpleado");
 			String nombre = request.getParameter("nombre");
 			String apellidoPaterno = request.getParameter("apellidoPaterno");
 			String apellidoMaterno = request.getParameter("apellidoMaterno");
@@ -92,6 +93,7 @@ public class RegistraEmpleado extends HttpServlet {
 			
 			//Lista de direcciones
 			EmpleadoDTO empleado = new EmpleadoDTO();
+			empleado.setNoEmpleado(noEmpleado);
 			empleado.setNombre(nombre);
 			empleado.setApellidoPat(apellidoPaterno);
 			empleado.setApellidoMat(apellidoMaterno);

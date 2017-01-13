@@ -33,6 +33,9 @@ public class EmpleadoNegocio {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 
 		try {
+			if (empleado.getNoEmpleado() == null || empleado.getNoEmpleado().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El numero de empleado es necesario en el alta del empleado.");
+			}
 			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del empleado.");
 			}
@@ -96,6 +99,9 @@ public class EmpleadoNegocio {
 			empleado.setRfcCalculado(rfcCalculado);
 
 			EmpleadoDAO dao = new EmpleadoDAO();
+			
+			//Consultamos si ya existe
+			
 			respuesta = dao.registraEmpleado(uid, empleado);
 		}
 		catch  (ExcepcionesCuadrillas ex) {

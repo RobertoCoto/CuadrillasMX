@@ -15,6 +15,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private Integer idEmpleado;
 	/**
+	 * Numero del empleado tatei
+	 */
+	private String noEmpleado;
+	/**
 	 * Nombre del empleado
 	 */
 	private String nombre;
@@ -124,6 +128,8 @@ public class EmpleadoDTO extends ObjetoValor {
 	private String usuarioBaja;
 	/** usuarioUltMod	 */
 	private String usuarioUltMod;
+	/** altaImss	 */
+	private String altaImss;
 	/**
 	 * @return the idEmpleado
 	 */
@@ -483,5 +489,29 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setIdCuadrilla(Integer idCuadrilla) {
 		this.idCuadrilla = idCuadrilla;
+	}
+	/**
+	 * @return the noEmpleado
+	 */
+	public String getNoEmpleado() {
+		return noEmpleado;
+	}
+	/**
+	 * @param noEmpleado the noEmpleado to set
+	 */
+	public void setNoEmpleado(String noEmpleado) {
+		this.noEmpleado = noEmpleado;
+	}
+	/**
+	 * @return the altaImss
+	 */
+	public String getAltaImss() {
+		return altaImss;
+	}
+	/**
+	 * @param altaImss the altaImss to set
+	 */
+	public void setAltaImss(String altaImss) {
+		this.altaImss = altaImss;
 	}
 }

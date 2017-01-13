@@ -4,6 +4,7 @@
 
 <resultMap type="Empleado" id="empleado">
 	<result column="id_empleado" property="idEmpleado"/>
+	<result column="no_empleado" property="noEmpleado"/>
 	<result column="nombre" property="nombre"/>
 	<result column="apellido_pat" property="apellidoPat"/>
 	<result column="apellido_mat" property="apellidoMat"/>
@@ -27,14 +28,15 @@
 	<result column="codigo_tipo_salida" property="codigoTipoSalida"/>
 	<result column="codigo_causa_salida" property="codigoCausaSalida"/>
 	<result column="estatus" property="estatus"/>
+	<result column="alta_imss" property="altaImss"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
 	SELECT
-		id_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento, fecha_ingreso,
+		id_empleado, no_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento, fecha_ingreso,
 		codigo_puesto, codigo_vialidad, codigo_area,  codigo_talla, sueldo, frecuencia_pago,
 		nss, no_credito_infonavit, telefono, observaciones,
-		fecha_baja, codigo_tipo_salida, codigo_causa_salida, estatus
+		fecha_baja, codigo_tipo_salida, codigo_causa_salida, estatus, alta_imss
 	FROM empleado
 	<where>
 	<if test="idEmpleado !=null">
