@@ -127,7 +127,7 @@ app.controller('registraEmpleado', function ($scope, $http) {
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
-	             
+	              "documentoEmpleado" : myString
 			         }
 			    }).then(function mySucces(response) {
 			    	 console.info(response);
