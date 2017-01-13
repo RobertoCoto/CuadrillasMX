@@ -180,6 +180,7 @@ public class CatalogoDAO {
 	  */
 	 public EncabezadoRespuesta actualizarCatalogo(String uid, CatalogoDTO catalogo) {
 		 	SqlSession sessionTx = null;
+		 	SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
@@ -187,6 +188,11 @@ public class CatalogoDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeDes = (Integer) sessionNTx.selectOne("CatalogoDAO.existeCatalogoDescripcion", catalogo);
+				if (existeDes > 0) {
+					throw new ExcepcionesCuadrillas("Error en registrar catalogo, la descripcion ya existe.");
+				}				
 		        int registros = sessionTx.update("CatalogoDAO.actualizarCatalogo", catalogo);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("No fue posible actualizar el catalogo.");
@@ -205,6 +211,7 @@ public class CatalogoDAO {
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	}

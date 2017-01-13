@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
+import com.fyg.cuadrillas.comun.Funciones;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.CatalogoDAO;
@@ -15,7 +16,7 @@ import com.fyg.cuadrillas.dto.catalogo.TipoCatalogoRespuesta;
 public class CatalogoNegocio {
 
 	/** The LONGITUD_CODIGO_CATALOGO. */
-	private static final  int LONGITUD_CODIGO_CATALOGO = 10;
+	private static final  int LONGITUD_CODIGO_CATALOGO = 4;
 	/** The LONGITUD_DESCRIPCION_CATALOGO. */
 	private static final  int LONGITUD_DESCRIPCION_CATALOGO = 100;
 
@@ -125,10 +126,7 @@ public class CatalogoNegocio {
 			}
 			if (catalogoOV.getUsuarioAlta() == null || catalogoOV.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
-			}
-			if (catalogoOV.getCodigo().length() > LONGITUD_CODIGO_CATALOGO) {
-				throw new ExcepcionesCuadrillas("El codigo del catalogo puede ser maximo de 10 caracteres.");
-			}			
+			}	
 			if (catalogoOV.getCodigo().contains(" ")) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede tener espacios.");
 			}
@@ -136,6 +134,13 @@ public class CatalogoNegocio {
 				throw new ExcepcionesCuadrillas("La descripcion del catalogo NO puede ser maximo de "
 						+ LONGITUD_DESCRIPCION_CATALOGO + " caracteres.");
 			}
+			if (catalogoOV.getCodigo().trim().length() != LONGITUD_CODIGO_CATALOGO) {
+				throw new ExcepcionesCuadrillas("El codigo del catalogo debe ser de 4 caracteres.");
+			}			
+			if (!Funciones.checkAlpha(catalogoOV.getCodigo().trim())) {
+				throw new ExcepcionesCuadrillas("El codigo del catalogo solo puede contener letras A-Z.");
+			}
+			catalogoOV.setCodigo(catalogoOV.getCodigo().trim());
 			CatalogoDAO dao = new CatalogoDAO();
 			respuesta = dao.registraCatalogo(uid, catalogoOV);
 		}
