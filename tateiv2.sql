@@ -73,8 +73,8 @@ DROP TABLE IF EXISTS cuadrilla;
         descripcion VARCHAR(100) NOT NULL,
         usuario_alta VARCHAR(20) NOT NULL,
         fecha_alta DATETIME NOT NULL,
-        usuario_ult_mod VARCHAR(20) NOT NULL,
-        fecha_ult_mod DATETIME NOT NULL,
+        usuario_ult_mod VARCHAR(20)  NULL,
+        fecha_ult_mod DATETIME  NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(codigo)
     );
@@ -90,8 +90,8 @@ DROP TABLE IF EXISTS cuadrilla;
         mantenimiento CHAR(1) NOT NULL CHECK(mantenimiento IN('S','N')),
         usuario_alta VARCHAR(20) NOT NULL,
         fecha_alta DATETIME NOT NULL,
-        usuario_ult_mod VARCHAR(20) NOT NULL,
-        fecha_ult_mod DATETIME NOT NULL,
+        usuario_ult_mod VARCHAR(20) NULL,
+        fecha_ult_mod DATETIME  NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
         PRIMARY KEY(id_herramienta)
     );
@@ -148,8 +148,8 @@ DROP TABLE IF EXISTS cuadrilla;
         codigo_tipo_salida VARCHAR(10) NULL,
         codigo_causa_salida VARCHAR(10) NULL,
         
-        usuario_ult_mod VARCHAR(20) NOT NULL,
-        fecha_ult_mod DATETIME NOT NULL,
+        usuario_ult_mod VARCHAR(20)  NULL,
+        fecha_ult_mod DATETIME  NULL,
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_empleado)
     );
@@ -172,8 +172,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		hora_solicitud_maxima TIME NOT NULL,
 		codigo_permiso VARCHAR(50) NOT NULL,
 		
-		goce_sueldo CHAR(1) NOT NULL CHECK(goce_sueldo IN('S','N')),
-		autorizacion CHAR(1) NOT NULL CHECK(autorizacion IN('S','N')),
+		goce_sueldo CHAR(1)  NULL CHECK(goce_sueldo IN('S','N')),
+		autorizacion CHAR(1) NULL CHECK(autorizacion IN('S','N')),
 		fecha_autorizacion DATETIME NULL,
 		usuario_autorizacion VARCHAR(20) NULL,
 		
@@ -181,8 +181,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_baja DATETIME NULL,
 		usuario_baja VARCHAR(20) NULL,
-		usuario_ult_mod varchar(20) NOT NULL,
-		fecha_ult_mod  DATETIME NOT NULL,
+		usuario_ult_mod varchar(20) NULL,
+		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_permiso),
 		KEY(id_empleado)
@@ -195,8 +195,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		fecha_alta DATETIME NOT NULL,
 		usuario_baja varchar(20) NULL,
 		fecha_baja  DATETIME NULL,
-		usuario_ult_mod varchar(20) NOT NULL,
-		fecha_ult_mod  DATETIME NOT NULL,
+		usuario_ult_mod varchar(20)  NULL,
+		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	    PRIMARY KEY(id_vialidad)
 	);
@@ -235,8 +235,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_baja DATETIME NULL,
 		usuario_baja VARCHAR(20) NULL,
-		usuario_ult_mod varchar(20) NOT NULL,
-		fecha_ult_mod  DATETIME NOT NULL,
+		usuario_ult_mod varchar(20)  NULL,
+		fecha_ult_mod  DATETIME  NULL,
 		observaciones VARCHAR(150) NULL,
 		url VARCHAR(200) NOT NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
@@ -254,8 +254,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_baja DATETIME NULL,
 		usuario_baja VARCHAR(20) NULL,
-		usuario_ult_mod varchar(20) NOT NULL,
-		fecha_ult_mod  DATETIME NOT NULL,
+		usuario_ult_mod varchar(20) NULL,
+		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_cuadrilla)
 	);
