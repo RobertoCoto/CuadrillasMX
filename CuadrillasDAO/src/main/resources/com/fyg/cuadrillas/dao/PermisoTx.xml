@@ -9,9 +9,11 @@ VALUES(#{idEmpleado},#{comentarios},now(),#{fechaSolicitudMinimo},#{fechaSolicit
 now(),#{usuarioAlta},'A')
 </insert>
 
-<update id="autorizacionPermiso" parameterType="Permiso">
+<update id="autorizaPermiso" parameterType="Permiso">
 UPDATE permiso_laboral SET
-autorizacion = 'S',
+comentarios = #{comentarios},
+goce_sueldo = #{goceSueldo},
+autorizacion = #{estatusAutorizacion},
 fecha_autorizacion = now(),
 usuario_autorizacion = #{usuarioAutorizacion},
 fecha_ult_mod = now(),

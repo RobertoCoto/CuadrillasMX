@@ -80,6 +80,7 @@ public class PermisoLaboralNegocio {
 					if (permiso.getComentarios() == null || permiso.getComentarios().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario un comentario.");
 					}
+					
 					PermisoLaboralDAO dao = new PermisoLaboralDAO();
 					respuesta = dao.autorizacionPermiso(uid, permiso);
 					

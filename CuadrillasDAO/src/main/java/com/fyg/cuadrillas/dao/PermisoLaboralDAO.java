@@ -31,7 +31,7 @@ public class PermisoLaboralDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "consultando");
-			permisoTemporal = sessionNTx.selectList("PermisoLaboralDAO.consultaPermiso");
+			permisoTemporal = sessionNTx.selectList("PermisoLaboralDAO.consultaPermiso", permiso);
 			LogHandler.info(uid, this.getClass(), "consultaPermiso: " + permisoTemporal);
 			if ( permisoTemporal.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existe el permiso actualmente.");
@@ -103,7 +103,7 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("autorizacion correcta.");	
+		respuesta.setMensajeFuncional("Registro En la BD correcta.");	
 		try {
 			//Validamos si ya existe una autorizacion
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -129,8 +129,9 @@ public class PermisoLaboralDAO {
 			respuesta.setMensajeFuncional(ex.getMessage());
 		}
 		finally {
-			FabricaConexiones.close(sessionTx);
 			FabricaConexiones.close(sessionNTx);
+			FabricaConexiones.close(sessionTx);
+			
 		}
 		return respuesta;
 	}

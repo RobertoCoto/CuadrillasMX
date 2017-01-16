@@ -47,6 +47,7 @@ public class BajaEmpleado extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String codigoTipoSalida = request.getParameter("codigoTipoSalida");
 			String codigoCausaSalida = request.getParameter("codigoCausaSalida");
+			String comentario = request.getParameter("comentario");
 			String idEmpleado = request.getParameter("idEmpleado");
 			
 			/* proxy fisa
@@ -64,6 +65,7 @@ public class BajaEmpleado extends HttpServlet {
 			empleado.setUsuarioBaja(usuario);
 			empleado.setCodigoTipoSalida(codigoTipoSalida);
 			empleado.setCodigoCausaSalida(codigoCausaSalida);
+			empleado.setObservaciones(comentario);
 			Integer id = Integer.parseInt(idEmpleado);
 			empleado.setIdEmpleado(id);
 			respuesta = negocio.bajaEmpleado(empleado);
