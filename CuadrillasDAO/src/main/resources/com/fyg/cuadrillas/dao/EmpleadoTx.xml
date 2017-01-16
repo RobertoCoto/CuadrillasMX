@@ -40,6 +40,7 @@
 	UPDATE empleado SET
 	     fecha_baja = now(),
 	     usuario_baja = #{usuarioBaja},
+	     observaciones = #{observaciones},
 	     codigo_tipo_salida = #{codigoTipoSalida},
 	     codigo_causa_salida = #{codigoCausaSalida},
 	     fecha_ult_mod = now(),

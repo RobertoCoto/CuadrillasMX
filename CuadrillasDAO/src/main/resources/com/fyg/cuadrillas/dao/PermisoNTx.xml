@@ -11,7 +11,7 @@
 <result column="fecha_solicitud_maximo" property="fechaSolicitudMaximo"/>
 <result column="hora_solicitud_minimo" property="horaSolicitudMinimo"/>
 <result column="hora_solicitud_maxima" property="horaSolicitudMaxima"/>
-<result column="tipo_permiso" property="tipoPermiso"/>
+<result column="codigo_permiso" property="codigoPermiso"/>
 <result column="autorizacion" property="autorizacion"/>
 <result column="fecha_autorizacion" property="fechaAutorizacion"/>
 <result column="usuario_autorizacion" property="usuarioAutorizacion"/>
@@ -52,7 +52,7 @@ SELECT id_permiso,
 		fecha_solicitud_maximo,
 		hora_solicitud_minimo,
 		hora_solicitud_maxima,
-		tipo_permiso,
+		codigo_permiso,
 		autorizacion,
 		fecha_autorizacion,
 		usuario_autorizacion,

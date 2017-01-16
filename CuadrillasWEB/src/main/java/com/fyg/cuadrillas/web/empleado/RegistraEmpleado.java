@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -20,7 +21,6 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 /**
  * Servlet implementation class AltaEmpleado
  */
@@ -77,7 +77,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			
 			//se parsea json
-			JsonParser parser = new JsonParser();
+			JSONParser parser = new JSONParser();
 			Object documentoEmpleado = parser.parse(request.getParameter("documentoEmpleado"));
 			JSONObject jsonObject = (JSONObject) documentoEmpleado;
 
@@ -102,11 +102,11 @@ public class RegistraEmpleado extends HttpServlet {
 			// conversor de fecha
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 			String strFecha = fechaNacimiento;
-			String strFechaIngreso = fechaIngreso;
+			//String strFechaIngreso = fechaIngreso;
 			Date fechaNac = formato.parse(strFecha);
-			Date fechaIng = formato.parse(strFechaIngreso);
+			//Date fechaIng = formato.parse(strFechaIngreso);
 			empleado.setFechaNacimiento(fechaNac);
-			empleado.setFechaIngreso(fechaIng);
+			empleado.setFechaIngreso(fechaIngreso);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCodigoArea(codigoArea);
@@ -124,7 +124,8 @@ public class RegistraEmpleado extends HttpServlet {
 			//documentos
 			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
 			String estatusDocumento = (String) jsonObject.get("estatusDocumento");
-		    
+			
+			
 			codigo.setCodigoEmpDoc(codigoDocumento);
 			codigo.setEstatus(estatusDocumento);
 			

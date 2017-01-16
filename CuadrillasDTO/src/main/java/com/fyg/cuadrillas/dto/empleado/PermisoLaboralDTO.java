@@ -23,29 +23,33 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	private String  comentarios;
 	/**
+	 * goce de sueldo
+	 */
+	private String goceSueldo;
+	/**
 	 * fecha de la solicitud
 	 */
-	private Date fechaSolicitud;
+	private String fechaSolicitud;
 	/**
 	 * rango de la fecha minima
 	 */
-	private Date fechaSolicitudMinimo;
+	private String fechaSolicitudMinimo;
 	/**
 	 * rango de la fecha maximo
 	 */
-	private Date fechaSolicitudMaximo;
+	private String fechaSolicitudMaximo;
 	/**
 	 * rango de la hora minimo
 	 */
-	private Date horaSolicitudMinimo;
+	private String horaSolicitudMinimo;
 	/**
 	 * rango de la hora maxima
 	 */
-	private Date horaSolicitudMaxima;
+	private String horaSolicitudMaxima;
 	/**
 	 * tipo de permiso
 	 */
-	private String tipoPermiso;
+	private String codigoPermiso;
 	/**
 	 * estatus de la autorizacion
 	 */
@@ -126,54 +130,18 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
-	/**
-	 * @return the fechaSolicitud
-	 */
-	public Date getFechaSolicitud() {
-		return fechaSolicitud;
-	}
-	/**
-	 * @param fechaSolicitud the fechaSolicitud to set
-	 */
-	public void setFechaSolicitud(Date fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
-	}
-	/**
-	 * @return the fechaSolicitudMinimo
-	 */
-	public Date getFechaSolicitudMinimo() {
-		return fechaSolicitudMinimo;
-	}
-	/**
-	 * @param fechaSolicitudMinimo the fechaSolicitudMinimo to set
-	 */
-	public void setFechaSolicitudMinimo(Date fechaSolicitudMinimo) {
-		this.fechaSolicitudMinimo = fechaSolicitudMinimo;
-	}
-	/**
-	 * @return the fechaSolicitudMaximo
-	 */
-	public Date getFechaSolicitudMaximo() {
-		return fechaSolicitudMaximo;
-	}
-	/**
-	 * @param fechaSolicitudMaximo the fechaSolicitudMaximo to set
-	 */
-	public void setFechaSolicitudMaximo(Date fechaSolicitudMaximo) {
-		this.fechaSolicitudMaximo = fechaSolicitudMaximo;
-	}
 	
 	/**
-	 * @return the tipoPermiso
+	 * @return the codigoPermiso
 	 */
-	public String getTipoPermiso() {
-		return tipoPermiso;
+	public String getCodigoPermiso() {
+		return codigoPermiso;
 	}
 	/**
-	 * @param tipoPermiso the tipoPermiso to set
+	 * @param codigoPermiso the codigoPermiso to set
 	 */
-	public void setTipoPermiso(String tipoPermiso) {
-		this.tipoPermiso = tipoPermiso;
+	public void setCodigoPermiso(String codigoPermiso) {
+		this.codigoPermiso = codigoPermiso;
 	}
 	/**
 	 * @return the autorizacion
@@ -308,27 +276,75 @@ public class PermisoLaboralDTO extends ObjetoValor {
 		this.estatusAutorizacion = estatusAutorizacion;
 	}
 	/**
+	 * @return the fechaSolicitud
+	 */
+	public String getFechaSolicitud() {
+		return fechaSolicitud;
+	}
+	/**
+	 * @param fechaSolicitud the fechaSolicitud to set
+	 */
+	public void setFechaSolicitud(String fechaSolicitud) {
+		this.fechaSolicitud = fechaSolicitud;
+	}
+	/**
+	 * @return the fechaSolicitudMinimo
+	 */
+	public String getFechaSolicitudMinimo() {
+		return fechaSolicitudMinimo;
+	}
+	/**
+	 * @param fechaSolicitudMinimo the fechaSolicitudMinimo to set
+	 */
+	public void setFechaSolicitudMinimo(String fechaSolicitudMinimo) {
+		this.fechaSolicitudMinimo = fechaSolicitudMinimo;
+	}
+	/**
+	 * @return the fechaSolicitudMaximo
+	 */
+	public String getFechaSolicitudMaximo() {
+		return fechaSolicitudMaximo;
+	}
+	/**
+	 * @param fechaSolicitudMaximo the fechaSolicitudMaximo to set
+	 */
+	public void setFechaSolicitudMaximo(String fechaSolicitudMaximo) {
+		this.fechaSolicitudMaximo = fechaSolicitudMaximo;
+	}
+	/**
 	 * @return the horaSolicitudMinimo
 	 */
-	public Date getHoraSolicitudMinimo() {
+	public String getHoraSolicitudMinimo() {
 		return horaSolicitudMinimo;
 	}
 	/**
 	 * @param horaSolicitudMinimo the horaSolicitudMinimo to set
 	 */
-	public void setHoraSolicitudMinimo(Date horaSolicitudMinimo) {
+	public void setHoraSolicitudMinimo(String horaSolicitudMinimo) {
 		this.horaSolicitudMinimo = horaSolicitudMinimo;
 	}
 	/**
 	 * @return the horaSolicitudMaxima
 	 */
-	public Date getHoraSolicitudMaxima() {
+	public String getHoraSolicitudMaxima() {
 		return horaSolicitudMaxima;
 	}
 	/**
 	 * @param horaSolicitudMaxima the horaSolicitudMaxima to set
 	 */
-	public void setHoraSolicitudMaxima(Date horaSolicitudMaxima) {
+	public void setHoraSolicitudMaxima(String horaSolicitudMaxima) {
 		this.horaSolicitudMaxima = horaSolicitudMaxima;
-	} 
+	}
+	/**
+	 * @return the goceSueldo
+	 */
+	public String getGoceSueldo() {
+		return goceSueldo;
+	}
+	/**
+	 * @param goceSueldo the goceSueldo to set
+	 */
+	public void setGoceSueldo(String goceSueldo) {
+		this.goceSueldo = goceSueldo;
+	}
 }

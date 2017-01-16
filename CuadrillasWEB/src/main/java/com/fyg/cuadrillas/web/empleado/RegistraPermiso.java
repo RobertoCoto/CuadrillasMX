@@ -2,8 +2,6 @@ package com.fyg.cuadrillas.web.empleado;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -54,14 +52,7 @@ public class RegistraPermiso extends HttpServlet {
 			String horaSolicitudMaxima = request.getParameter("horaSolicitudMaxima");
 			String tipoPermiso = request.getParameter("tipoPermiso");
 			String usuario = request.getParameter("usuario");
-			
-			//conversor hora y fecha
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-			SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
-			Date fechaMin = formato.parse(fechaSolicitudMinima);
-			Date fechaMax = formato.parse(fechaSolicitudMaxima);
-			Date horaMin = formatoHora.parse(horaSolicitudMinima);
-			Date horaMax = formatoHora.parse(horaSolicitudMaxima);
+		
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -75,11 +66,11 @@ public class RegistraPermiso extends HttpServlet {
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
 			permiso.setIdEmpleado(idEmpleado);
 			permiso.setComentarios(comentario);
-			permiso.setFechaSolicitudMinimo(fechaMin);
-			permiso.setFechaSolicitudMaximo(fechaMax);
-			permiso.setHoraSolicitudMinimo(horaMin);
-			permiso.setHoraSolicitudMaxima(horaMax);
-			permiso.setTipoPermiso(tipoPermiso);
+			permiso.setFechaSolicitudMinimo(fechaSolicitudMinima);
+			permiso.setFechaSolicitudMaximo(fechaSolicitudMaxima);
+			permiso.setHoraSolicitudMinimo(horaSolicitudMinima);
+			permiso.setHoraSolicitudMaxima(horaSolicitudMaxima);
+			permiso.setCodigoPermiso(tipoPermiso);
 			permiso.setUsuarioAlta(usuario);
 			respuesta = negocio.altaPermiso(permiso);
 			

@@ -29,31 +29,33 @@
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="registraPermiso">
 <h2>Permiso Laboral</h2>
-<form name="form_reloj"><table>
+<form ng-submit="registrar(permiso)" name="form_reloj"><table>
 <tr ng-repeat="empleado in resultado">
-<td colspan="2">Número de Empleado: <input type="text" value={{empleado.noEmpleado}}></td>
+<td colspan="2">Número de Empleado: <input type="text" id="noEmpleado" value={{empleado.noEmpleado}} disabled>
+<input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}}>
+</td>
+
 </tr>
-<tr ng-repeat="emp1 in resultado" ><td colspan="2">Nombres: <input type="text" value={{emp1.nombre}}></td></tr>
+<tr ng-repeat="emp1 in resultado" ><td colspan="2">Nombres: <input type="text"  value={{emp1.nombre}}></td></tr>
 <tr ng-repeat="emp2 in resultado">
-<td>Puesto: <input type="text" value={{emp2.codigoPuesto}}></td>
-<td>Fecha Ingreso: <input type="text" value={{emp2.fechaIngreso}}></td>
+<td>Puesto: <input type="text" value={{emp2.codigoPuesto}} disabled></td>
+<td>Fecha Ingreso: <input type="date" value={{emp2.fechaIngreso}} disabled></td>
 </tr>
 <tr>
-<td colspan="2">Comentarios: <textarea></textarea></td>
+<td colspan="2">Comentarios: <textarea id="comentario"></textarea></td>
 </tr>
-<tr><td colspan="2">Fecha de Solicitud: <input type="date" name="fechaSolicitud"></td></tr>
-<tr><td colspan="2">Fecha Ausencia: <input type="date"> a <input type="date"></td></tr>
+<tr><td colspan="2">Fecha de Solicitud: <input type="date" id="fechaSolicitud" name="fechaSolicitud"></td></tr>
+<tr><td colspan="2">Fecha Ausencia: <input type="date" id="fechaSolicitudMinima"> a <input type="date" id="fechaSolicitudMaxima"></td></tr>
 <tr>
-<td colspan="2">Horario Solicitado: <input type="time">a <input type="time"></td>
+<td colspan="2">Horario Solicitado: <input type="time" id="horaSolicitudMinima">a <input type="time" id="horaSolicitudMaxima"></td>
 </tr>
 <tr>
-<td colspan="2">Tipo de Permiso: <input type="text"></td>
+<td colspan="2">Tipo de Permiso: <select  ng-model="permiso.codigo" ng-options="catalogo.descripcion as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
+</select></td>
 </tr>
-<tr><td colspan="2">
-Goce de sueldo: <input type="checkbox">
-</td></tr>
 </table> 
-<input type="button" value="Autorizar"></form>
+<input type="submit" value="Registrar">
+</form>
 
 
 </body>

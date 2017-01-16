@@ -94,7 +94,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setEstatus("A");
 		altaEmpleado.setObservaciones("CORRECTO");
 		altaEmpleado.setDocumentos(dataDocumentos);
-		altaEmpleado.setFechaIngreso(new Date(2016,10,10));
+		//altaEmpleado.setFechaIngreso(new Date(2016,10,10));
 		altaEmpleado.setUsuarioAlta("usuario");
 		altaEmpleado.setFrecuenciaPago("S");
 		

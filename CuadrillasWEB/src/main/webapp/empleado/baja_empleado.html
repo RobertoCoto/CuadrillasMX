@@ -3,8 +3,71 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Baja de Empleado</title>
-</head>
-<body>
+<script type="text/javascript">
+ 	function mueveReloj(){ 
+   	 
+   	hoy = new Date()
+   	dd = hoy.getDate()
+	mm = hoy.getMonth()+1 //hoy es 0!
+    yyyy = hoy.getFullYear()
+    
+    if(dd<10) {
+    dd='0'+dd
+	} 
 
+	if(mm<10) {
+    mm='0'+mm
+	} 
+
+   hoy = yyyy+'-'+mm+'-'+dd;
+   	document.form_reloj.fechaBaja.value = hoy
+   	
+} 
+</script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/baja.js"></script>
+</head>
+<body onload="mueveReloj()" ng-app="tatei" ng-controller="bajaEmpleado">
+<h2>Baja de Empleados</h2>
+<form name="form_reloj" ng-submit="grabar(empleado)">
+<table>
+<tr ng-repeat="empleado in resultado">
+<td colspan="2">Número Empleado: <input type="text"  value={{empleado.noEmpleado}} disabled> <input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}}></td>
+</tr>
+
+<tr ng-repeat="emp1 in resultado">
+<td colspan="2">Nombres: <input type="text" disabled value={{emp1.nombre}}></td>
+</tr>
+
+<tr ng-repeat="emple in resultado">
+<td>Puesto: <input type="text" value={{emple.codigoPuesto}} disabled></td>
+<td>Fecha de Ingreso: <input type="date" disabled value={{emple.fechaIngreso}}></td>
+</tr>
+
+<tr ng-repeat="datos in resultado">
+<td>RFC: <input type="text" disabled value={{datos.rfc}}></td>
+<td>NSS: <input type="text" disabled value={{datos.nss}}></td>
+</tr>
+
+<tr ng-repeat="suel in resultado">
+<td colspan="2">Sueldo: <input type="text" disabled value={{suel.sueldo}}></td>
+</tr>
+
+<tr> 
+<td colspan="2">Comentarios: <textarea id="comentario"></textarea></td>
+</tr>
+
+<tr>
+<td colspan="2">Tipo Salida <select ng-model="empleado.codigoTipoSalida" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoSalida" ng-change="getOptions2(empleado.codigoTipoSalida)"></select></td>
+</tr>
+<tr>
+<td colspan="2">Causa Renuncia: <select ng-model="empleado.codigoCausaSalida" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRenuncia" ng-change="getOptions2(empleado.codigoCausaSalida)"></select></td>
+</tr>
+<tr>
+<td>Fecha Baja: <input type="date" name="fechaBaja" id="fechaBaja"></td>
+</tr>
+</table>
+<input type="submit" value="Grabar">
+</form>
 </body>
 </html>

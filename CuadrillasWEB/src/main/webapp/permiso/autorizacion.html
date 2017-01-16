@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Autorizacion Permiso Laboral</title>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/autorizacion.js"></script>
+</head>
+<body ng-app="tatei" ng-controller="autorizacionLaboral">
+<h2>Autorizacion Permiso Laboral</h2>
+<form ><table>
+<tr ng-repeat="empleado in resultadoEmpleado">
+<td colspan="2">Número de Empleado: <input type="text" id="noEmpleado"  value={{empleado.noEmpleado}} disabled>
+<input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}} >
+</td>
+
+</tr>
+<tr ng-repeat="emp1 in resultadoEmpleado"><td colspan="2">Nombres: <input type="text" value={{emp1.nombre}} disabled>
+</td>
+</tr>
+<tr ng-repeat="emp2 in resultadoEmpleado">
+<td>Puesto: <input type="text" value={{emp2.codigoPuesto}}  disabled></td>
+<td>Fecha Ingreso: <input type="date" value={{emp2.fechaIngreso}} disabled></td>
+</tr>
+</br>
+<tr ng-repeat="asistencia in resultado">
+<td colspan="2">
+Comentarios:<textarea id="comentario"></textarea>
+</br>
+<input type="hidden"  id="idPermiso" value={{asistencia.idPermiso}}>
+</br>
+Fecha de Solicitud: <input type="date" id="fechaSolicitud" name="fechaSolicitud" disabled value={{asistencia.fechaSolicitud}}></td></tr>
+<tr ng-repeat="asis1 in resultado"><td colspan="2">Fecha Ausencia: <input type="date" id="fechaSolicitudMinima" disabled value={{asis1.fechaSolicitudMinimo}}> a <input type="date" id="fechaSolicitudMaxima" disabled value={{asis1.fechaSolicitudMaximo}}></td></tr>
+<tr ng-repeat="asis2 in resultado">
+<td colspan="2">Horario Solicitado: <input type="time" id="horaSolicitudMinimo" disabled value={{asis2.horaSolicitudMinimo}}> a <input type="time" id="horaSolicitudMaxima" disabled value={{asis2.horaSolicitudMaxima}}>
+</br>
+</br>
+Tipo de Permiso: <input type="text"  disabled value={{asis2.codigoPermiso}}>
+</td>
+
+</tr>
+<tr><td colspan="2">Goce de Sueldo : <input type="checkbox" id="goce"></td></tr>
+</table> 
+<button type="submit" data-ng-click="aceptar(permiso)">Autorizar</button>
+<button data-ng-click="rechazar(permiso)">Rechazar</button>
+</form>
+
+
+</body>
+</html>
