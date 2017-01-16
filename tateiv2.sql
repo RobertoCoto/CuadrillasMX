@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS cuadrilla;
     CREATE TABLE empleado (
         id_empleado INT NOT NULL AUTO_INCREMENT,
         no_empleado VARCHAR(80) NOT NULL,
-        id_cuadrilla INTEGER NOT NULL,
+        id_cuadrilla INTEGER NULL,
         nombre VARCHAR(80) NOT NULL,
         apellido_pat VARCHAR(80) NOT NULL,
         apellido_mat VARCHAR(80) NOT NULL,
@@ -132,6 +132,7 @@ DROP TABLE IF EXISTS cuadrilla;
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,        
         telefono VARCHAR(10) NOT NULL,
+        
         alta_imss CHAR(1) NOT NULL,
         observaciones VARCHAR(100) NULL,
         

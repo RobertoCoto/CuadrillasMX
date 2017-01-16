@@ -39,8 +39,14 @@
 		fecha_baja, codigo_tipo_salida, codigo_causa_salida, estatus, alta_imss
 	FROM empleado
 	<where>
-	<if test="idEmpleado !=null">
-	 id_empleado = #{idEmpleado}
+	 <if test="idEmpleado !=null">
+	 	id_empleado = #{idEmpleado}
+	 </if>
+	 <if test="noEmpleado !=null">
+	 	no_empleado = #{noEmpleado}
+	 </if>
+	 <if test="rfcCalculado !=null">
+	 	AND rfc_calculado like #{rfcCalculado}
 	 </if>
 	 <!-- 
 	 <if test="nombre != null">
@@ -52,9 +58,7 @@
 	 <if test="apellidoMat !=null">
 	 AND apellido_mat like #{apellidoMat}
 	 </if>
-	 <if test="rfc !=null">
-	 AND rfc like #{rfc}
-	 </if>
+	 
 	  -->
 	</where>
 </select>

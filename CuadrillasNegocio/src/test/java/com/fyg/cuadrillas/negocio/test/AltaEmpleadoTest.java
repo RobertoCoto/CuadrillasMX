@@ -78,6 +78,7 @@ public class AltaEmpleadoTest {
 		/**
 		 * Valores a enviar
 		 */
+		altaEmpleado.setNoEmpleado("11111");
 		altaEmpleado.setNombre("MARIO IVAN");
 		altaEmpleado.setApellidoPat("MEJORADA");
 		altaEmpleado.setApellidoMat("HERRERA");
@@ -95,6 +96,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setDocumentos(dataDocumentos);
 		altaEmpleado.setFechaIngreso(new Date(2016,10,10));
 		altaEmpleado.setUsuarioAlta("usuario");
+		altaEmpleado.setFrecuenciaPago("S");
 		
 	}
 	/**

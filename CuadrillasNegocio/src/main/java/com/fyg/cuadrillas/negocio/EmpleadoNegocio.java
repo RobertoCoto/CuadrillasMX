@@ -51,6 +51,12 @@ public class EmpleadoNegocio {
 			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
 			}
+			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
+			}
+			if (empleado.getFrecuenciaPago() == null || empleado.getFrecuenciaPago().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La frecuencia de pago es necesario en el alta del empleado.");
+			}
 			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
 				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
 			}
