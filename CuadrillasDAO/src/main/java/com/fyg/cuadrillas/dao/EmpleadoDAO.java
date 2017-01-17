@@ -219,7 +219,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			LogHandler.debug(uid, this.getClass(), "Consultando");
 			//Se hace una consulta a la tabla contacto
-			listaEmpleado = sessionNTx.selectList("empleadoDAO.consultaconsultaEmpleado");
+			listaEmpleado = sessionNTx.selectList("empleadoDAO.consultaEmpleado");
 			if ( listaEmpleado.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
 			}
