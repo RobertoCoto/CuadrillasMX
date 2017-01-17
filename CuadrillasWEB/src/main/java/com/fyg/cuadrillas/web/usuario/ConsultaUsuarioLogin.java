@@ -46,13 +46,13 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			//se obtiene valores de usuario y contrasena
-			String user = request.getParameter("usuario");
-			String password = request.getParameter("contrasena");
+			String user = request.getParameter("user");
+			String password = request.getParameter("password");
 
-			System.setProperty("http.proxyHost", "169.169.4.85");
+			/*System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
+	        System.setProperty("https.proxyPort", "8080");*/
 
 	        //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
@@ -62,11 +62,11 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
 	        respuesta = negocio.loginUsuario(usuario);
-	        if (respuesta.isEstatus()) {
+	       /* if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			}
+			}*/
 	        /*
 	        final MenuNegocio negocioMenu = new MenuNegocio();
 	        
