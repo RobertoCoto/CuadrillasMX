@@ -111,13 +111,13 @@ Area: <select id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalog
 
 
 <table>
+<div class="wraper" ng-show='resultadoDatos.length' >
 <tr>
 <td>Numero</td>
 <td>Puesto</td>
 <td>Nombre</td>
 <td>Fecha Ingreso</td>
 <td>Estatus</td>
-<div class="wraper" ng-show='resultadoDatos.length' >
 <tr ng-repeat="general in resultadoDatos">
 <td>{{general.noEmpleado}}</td>
 <td>{{general.puesto}}</td>

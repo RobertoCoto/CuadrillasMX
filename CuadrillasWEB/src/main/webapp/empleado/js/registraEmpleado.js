@@ -94,20 +94,7 @@ app.controller('registraEmpleado', function ($scope, $http) {
 		        //$scope.resultado2.push(objecto);
 		    });
 
-		$scope.consultar = function(empleado) {
-			$http({
-	              method: 'GET',
-	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralEmpleado',
-	              data: { }
-			    }).then(function mySucces(result) {
-			    	$scope.resultadoDatos = result.data.cuadrilla;
-		              console.log(result);
-			    }, function myError(response) {
-			        console.error(response);
-			        alert(response.data.header.mensajeFuncional);
-			        //$scope.resultado2.push(objecto);
-			    });
-		}
+		
 		
 	  
 	  var datosDocumentos = [];
@@ -177,5 +164,23 @@ console.log(datosDocumentos);
 			        alert(response.data.header.mensajeFuncional);
 			    });
 	   }
+	   
+	   $scope.consultar = function(empleado) {
+		   $http({
+               method: 'GET',
+               url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralEmpleado',
+               
+           }).success(function (result) {
+               $scope.resultadoDatos = result.empleado;
+
+               $scope.editingData = {};
+
+                for (var i = 0, length = $scope.resultadoDatos.length; i < length; i++) {
+                  $scope.editingData[$scope.resultadoDatos[i].idEmpleado] = false;
+                }
+                });
+		}
+	   
+		
  
 	 });
