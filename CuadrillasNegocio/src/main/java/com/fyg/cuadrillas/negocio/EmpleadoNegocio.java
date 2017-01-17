@@ -51,12 +51,6 @@ public class EmpleadoNegocio {
 			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
 			}
-			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
-			}
-			if (empleado.getFrecuenciaPago() == null || empleado.getFrecuenciaPago().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("La frecuencia de pago es necesario en el alta del empleado.");
-			}
 			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
 				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
 			}
@@ -331,5 +325,38 @@ public class EmpleadoNegocio {
 	    }
 	    LogHandler.debug(uid, this.getClass(), "consultaEmpleado - Datos Salida: " + respuesta);
 	    return respuesta;
+	}
+	/**
+	 * Devuelve lista general de empleados sin consultar ID
+	 * @return regresa lista de empleado
+	 * @throws Exception si se crea un error
+	 */
+	public EmpleadoRespuesta consultaGeneral() throws Exception {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaGeneral - Daton Entrada: ");
+				EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				List<EmpleadoDTO> listaEmpleado = null;
+						try {
+							listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleado(uid);
+							respuesta.setEmpleado(listaEmpleado);
+						}catch  (ExcepcionesCuadrillas ex) {
+							LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+							respuesta.getHeader().setEstatus(false);
+							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+						} catch (Exception ex) {
+					    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+					    	respuesta.getHeader().setEstatus(false);
+							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+					    }
+					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
+						return respuesta;
 	}
 }
