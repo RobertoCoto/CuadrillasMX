@@ -117,7 +117,7 @@ Area: <select id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalog
 <td>Nombre</td>
 <td>Fecha Ingreso</td>
 <td>Estatus</td>
-
+<div class="wraper" ng-show='resultadoDatos.length' >
 <tr ng-repeat="general in resultadoDatos">
 <td>{{general.noEmpleado}}</td>
 <td>{{general.puesto}}</td>
@@ -125,6 +125,7 @@ Area: <select id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalog
 <td>{{general.fechaIngreso}}</td>
 <td>{{general.estatus}}</td>
 </tr>
+</div>
 </table>
 <input type="reset" value="Borrar información">
 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)">
