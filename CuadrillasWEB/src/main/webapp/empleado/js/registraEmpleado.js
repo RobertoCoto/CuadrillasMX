@@ -94,21 +94,54 @@ app.controller('registraEmpleado', function ($scope, $http) {
 		        //$scope.resultado2.push(objecto);
 		    });
 
-
-	   $scope.datoempleado = [];
-	   
+		$scope.consultar = function(empleado) {
+			$http({
+	              method: 'GET',
+	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralEmpleado',
+	              data: { }
+			    }).then(function mySucces(result) {
+			    	$scope.resultadoDatos = result.data.cuadrilla;
+		              console.log(result);
+			    }, function myError(response) {
+			        console.error(response);
+			        alert(response.data.header.mensajeFuncional);
+			        //$scope.resultado2.push(objecto);
+			    });
+		}
+		
+	  
+	  var datosDocumentos = [];
+	 
 	   $scope.registrar = function(empleado) {
+		   
+
+$(document).ready(function(){
+
+	$('input[type=submit]').click(function(){
+
+		$('input[data-form=document]:checked').each(function(){
+			var $Name  =  $(this).attr('name');
+			var $Value =  $(this).val();
+			datosDocumentos = { $Name : $Value };
+			  
+		});
+
+	});
+
+});
+console.log(datosDocumentos);
+
 		   var documentoEmpleado = new Object();
 		   documentoEmpleado.codigoDocumento = document.getElementById("documento").value;
 		   documentoEmpleado.estatusDocumento = document.getElementById("estatusDocumento").value;
-		   
+		  
 		   var arrayProperties = new Array();
 		   arrayProperties.push(documentoEmpleado);
 		   
 		   var objetoDocumento= new Object();
 		   objetoDocumento.documentoEmpleado = arrayProperties;
 		   
-		   var jsonDocumento = JSON.stringify(objetoDocumento);
+		   var jsonDocumento = JSON.stringify(documentoEmpleado);
 		   
 		   $scope.json = jsonDocumento;
 		   console.log($scope.json);
@@ -123,11 +156,12 @@ app.controller('registraEmpleado', function ($scope, $http) {
 			 		"sexo": document.getElementById("sexo").value,
 	              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
 	              "fechaIngreso": document.getElementById("fechaIngreso").value,
-	              "codigoPuesto": empleado.codigoPuesto,
+	              "codigoPuesto": empleado.puesto,
 	              "codigoVialidad": empleado.codigoVialidad,
 	              "codigoArea": empleado.codigoArea,
 	              "codigoTalla": empleado.codigoTalla,
 	              "idCuadrilla": empleado.idCuadrilla,
+	              "rfc" : document.getElementById("rfc").value,
 	              "sueldo": document.getElementById("sueldo").value,
 	              "frecuenciaPago": document.getElementById("frecuenciaPago").value,
 	              "nss": document.getElementById("nss").value,
