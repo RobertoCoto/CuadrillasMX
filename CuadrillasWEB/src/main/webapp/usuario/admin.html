@@ -3,14 +3,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Administracion de Usuarios</title>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/adminUser.js"></script>
 </head>
-<body>
+<body ng-app="tatei" data-ng-controller="adminDatos">
 <h2>Administración de Usuarios</h2>
 
 <form>
 <table>
 <tr>
-<td>Seleccione Usuario a consultar: <select></select></td>
+<td>Seleccione Usuario a consultar: <select ng-model="user.select" ng-options="datos.usuario as datos.nombre for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select></td>
 </tr>
 
 <tr>
