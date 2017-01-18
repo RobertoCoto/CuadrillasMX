@@ -194,4 +194,37 @@ public class UsuarioDAO {
 		}
 		return respuesta;
 	}
+	/**Metodo para consultar todos los usuarios existentes
+	 * @param uid unico de registro
+	 * @return regresa lista de usuarios
+	 * @throws Exception crea una excepcion
+	 */
+	@SuppressWarnings("unchecked")
+	public List<UsuarioDTO> consultaListaUsuario(String uid) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<UsuarioDTO> listaUsuario = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			//Se hace una consulta a la tabla contacto
+			listaUsuario = sessionNTx.selectList("UsuarioDAO.consultaListaUsuario");
+			if ( listaUsuario.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
+			}
+		}catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaUsuario;
+		
+	}
 }
