@@ -68,4 +68,8 @@ AND contrasena = #{contrasena}
 AND estatus = 'A'
 </select>
 
+<select id="consultaListaUsuario" parameterType="Usuario" resultMap="usuario">
+SELECT usuario,nombre,apellido_pat,apellido_mat
+FROM usuario
+</select>
 </mapper>
