@@ -14,7 +14,9 @@
 <result column="fecha_ult_mod" property="fechaUltMod"/>
 <result column="nombre_usuario" property="nombreUsuario"/>
 <result column="nombre_perfil" property="nombrePerfil"/>
-
+<result column="nombre" property="nombre"/>
+<result column="apellido_pat" property="apellidoPat"/>
+<result column="apellido_mat" property="apellidoMat"/>
 </resultMap>
 
 <!-- Consulta Usuario-->
@@ -26,6 +28,9 @@ SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 <select id="loginUsuario" parameterType="Usuario" resultMap="usuario">
 	SELECT
 		u.usuario,
+		u.nombre,
+		u.apellido_pat,
+		u.apellido_mat,
 		u.contrasena,
 		u.id_perfil,
 		u.estatus,

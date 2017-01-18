@@ -3,18 +3,88 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cambio de Contraseña</title>
+<script>
+function validarPass() {
+var p1 = document.getElementById("contraNueva").value;
+var p2 = document.getElementById("repetirContraNueva").value;
+var p3 = document.getElementById("contraAnterior").value;
+var espacios = false;
+var cont = 0;
+ 
+while (!espacios && (cont < p1.length)) {
+  if (p1.charAt(cont) == " ")
+    espacios = true;
+  cont++;
+}
+ 
+if (espacios) {
+  alert ("La contraseña no puede contener espacios en blanco");
+  return false;
+}
+
+if (p1.length == 0 || p2.length == 0 || p3.length == 0) {
+  alert("Los campos de la password no pueden quedar vacios");
+  return false;
+}
+
+if (p1 != p2) {
+  alert("Las passwords deben de coincidir");
+  return false;
+} else {
+  alert("Todo esta correcto");
+  return true; 
+}
+}
+</script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/cambioContra.js"></script>
 </head>
 
 <body ng-app="tatei" data-ng-controller="cambioDatos">
+<article>
+<p>* para probar con usuario y pss que esta en la bd</p>
+<form ng-submit="iniciar(user)">
+Usuario : <input type="text" id="us">
+Contraseña: <input type="password" id="pass">
+<input type="submit" value="login">
+</form>
 
-<div ng-repeat="datos in resultadoUsuario">
-Nombre: {{datos.nombre}}
-Perfil: {{datos.nombrePerfil}}
+</article>
+</br>
+<div >
+ <b>Nombre:</b> {{resultadoUsuario.nombre}} {{resultadoUsuario.apellidoPat}} {{resultadoUsuario.apellidoMat}}
+<b>Perfil:</b> {{resultadoUsuario.nombrePerfil}}
+<input type="hidden" id="usuario" value={{resultadoUsuario.usuario}}>
 </div>
 
 <h2>Cambio de Contraseña</h2>
 
+<form ng-submit="actualizar(user)" onSubmit="return validarPass()">
+<table border="1" cellpadding="2" cellspacing="2">
+<tr>
+<th colspan="2">Favor de llenar los campos solicitados con *</th>
+</tr>
+<tr>
+<td>*Contraseña Anterior:</td>
+<td><input type="password" id="contraAnterior" requiered ></td>
+</tr>
+
+<tr>
+<td>*Contraseña Nueva:</td>
+<td><input type="password" id="contraNueva" requiered>
+
+</td>
+</tr>
+
+<tr>
+<td>*Repetir Contraseña Nueva:</td>
+<td><input type="password"  id="repetirContraNueva" requiered>
+
+</td>
+</tr>
+</table> 
+</br>
+<input type="submit" value="Actualizar Contraseña">
+</form>
 </body>
 </html>

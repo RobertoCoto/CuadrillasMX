@@ -22,15 +22,15 @@ VALUES (3,'Recursos Humanos','Recursos Humanos','A');
 
 
 INSERT INTO usuario (usuario, id_empleado,id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES  ('SISTEMAS', NULL , 1, 'SISTEMAS', 'N', now(), now(), now(), 'A');
+VALUES  ('SISTEMAS', NULL , 1, '2047011011010121213034305014141272007567403172f0a7h905i5gnig4oqf', 'N', now(), now(), now(), 'A');
 
 
 /* QUITAR */
 INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES('rcoto', 1,'ROBERTO ANTONIO','COTO','IXTEPAN','H','COIR920801JE9','COIR920801JE9','1992-08-01',1,'rcoto', 'N', now(), now(), now(), 'A');
+VALUES('rcoto', 1,'ROBERTO ANTONIO','COTO','IXTEPAN','H','COIR920801JE9','COIR920801JE9','1992-08-01',1,'898401110010002200022044311314421267a6326db26372c4a3a7059139q2sbm', 'N', now(), now(), now(), 'A');
 
 INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES('mimejorada', 2,'MARIO IVAN','MEJORADA','HERRERA','H','MEHM770921JK1','MEHM770921JK','1977-09-21',2,'mimejorada', 'N', now(), now(), now(), 'A');
+VALUES('mimejorada', 2,'MARIO IVAN','MEJORADA','HERRERA','H','MEHM770921JK1','MEHM770921JK','1977-09-21',2,'821610101001110220100012301263064791216bc07a5b6c8206cf634lg104sgs', 'N', now(), now(), now(), 'A');
 /* QUITAR */
 
 

@@ -154,6 +154,9 @@ public class UsuariosNegocio {
 		    	if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
 		    		throw new ExcepcionesCuadrillas("Es necesaria la contraseña.");
 		    	}
+		    	String encriptaPass = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+		    	//se le asigna para iniciar sesion
+		    	usuario.setContrasena(encriptaPass);
 		    	loginUsuario = new UsuarioDAO().loginUsuario(uid, usuario);
 
 		    	if (!loginUsuario.getEstatus().equals("A")) {
@@ -165,6 +168,8 @@ public class UsuariosNegocio {
 		    	if (!respuestaMenu.getHeader().isEstatus()) {
 		    		throw new ExcepcionesCuadrillas("No fue posible cargar el menu del perfil solicitado.");
 		    	}
+		    	
+		    	
 		    	respuesta.setUsuario(loginUsuario);
 		    	respuesta.setMenu(respuestaMenu.getMenu());
 		    } catch  (ExcepcionesCuadrillas ex) {
@@ -181,7 +186,11 @@ public class UsuariosNegocio {
 		    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
 		    return respuesta;
 		}
-		
+		/**
+		 * Metodo para modificar la contraseña
+		 * @param usuario recibe el valor del usuario
+		 * @return regresa respuesta
+		 */
 		public EncabezadoRespuesta modificaContrasena(UsuarioDTO usuario) {
 			//Primero generamos el identificador unico de la transaccion
 			String uid = GUIDGenerator.generateGUID(usuario);
@@ -203,7 +212,7 @@ public class UsuariosNegocio {
 				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario repetir la nueva contraseña.");
 				}
-				if (usuario.getContrasenaNueva().equals(usuario.getRepetirContrasenaNueva())) {
+				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
 					//encriptacion de contraseña
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
 					usuario.setContrasenaNueva(contrasenaNueva);
