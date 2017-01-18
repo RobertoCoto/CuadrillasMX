@@ -21,6 +21,10 @@ public class UsuarioRespuesta extends ObjetoValor {
 	 */
     private UsuarioDTO usuario;
     /**
+     * lista de usuarios
+     */
+    private List<UsuarioDTO> lista;
+    /**
 	 * Lista DTO usuario
 	 */
     private List<MenuDTO> menu;
@@ -77,4 +81,11 @@ public class UsuarioRespuesta extends ObjetoValor {
 	public void setMenu(List<MenuDTO> menu) {
 		this.menu = menu;
 	}
+	public List<UsuarioDTO> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<UsuarioDTO> lista) {
+		this.lista = lista;
+	} 
 }

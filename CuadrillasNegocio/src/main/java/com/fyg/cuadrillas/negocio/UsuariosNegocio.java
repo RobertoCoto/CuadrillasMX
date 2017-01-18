@@ -244,4 +244,37 @@ public class UsuariosNegocio {
 			return respuesta;
 			
 		}
+		/**
+		 * Metodo para consultar todos los usuarios
+		 * @return regresa lista de usuarios
+		 */
+		public UsuarioRespuesta consultaListaUsuario() {
+			//Primero generamos el identificador unico de la transaccion
+			String uid = GUIDGenerator.generateGUID(new String(""));
+			//Mandamos a log el objeto de entrada
+			LogHandler.debug(uid, this.getClass(), "consultarTipoCatalogos - Daton Entrada: ");
+			//Variable de resultado
+			UsuarioRespuesta respuesta = new UsuarioRespuesta();
+			respuesta.setHeader( new EncabezadoRespuesta());
+			respuesta.getHeader().setUid(uid);
+			respuesta.getHeader().setEstatus(true);
+			respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+			List<UsuarioDTO> listaUsuario = null;
+			try {
+				listaUsuario = new UsuarioDAO().consultaListaUsuario(uid);
+				respuesta.setLista(listaUsuario);
+			} catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultarTipoCatalogos - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultarTipoCatalogos - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultarTipoCatalogos - Datos Salida: " + respuesta);
+			return respuesta;
+		}
 }
