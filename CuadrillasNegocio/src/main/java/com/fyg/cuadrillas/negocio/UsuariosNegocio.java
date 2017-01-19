@@ -201,7 +201,7 @@ public class UsuariosNegocio {
 			
 			try {
 				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña.");
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña anterior.");
 				}
 				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
@@ -216,7 +216,7 @@ public class UsuariosNegocio {
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
 					usuario.setContrasenaNueva(contrasenaNueva);
 				} else {
-					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
+					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
 				}
 				if(usuario.getContrasenaNueva().equals(usuario.getContrasena())) {
 					throw new ExcepcionesCuadrillas("No se permite utilizar la misma contraseña anterior.");
@@ -247,6 +247,56 @@ public class UsuariosNegocio {
 			return respuesta;
 			
 		}
+		
+		/**
+		 * Metodo para recuperar la contraseña
+		 * @param usuario recibe el valor del usuario
+		 * @return regresa respuesta
+		 */
+		public EncabezadoRespuesta recuperaContrasena(UsuarioDTO usuario) {
+			//Primero generamos el identificador unico de la transaccion
+			String uid = GUIDGenerator.generateGUID(usuario);
+			//Mandamos a log el objeto de entrada
+			LogHandler.debug(uid, this.getClass(), "recuperaContrasena - Datos Entrada: " + usuario);
+			//Variable de resultado
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			
+			try {
+				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
+				}
+				if(usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de repetir la nueva contraseña.");
+				}
+				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
+					//encriptacion de contraseña
+					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
+					usuario.setContrasenaNueva(contrasenaNueva);
+				} else {
+					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
+				}
+				//se envia al dao
+				UsuarioDAO dao = new UsuarioDAO();
+				respuesta = dao.recuperaContrasena(uid, usuario);
+				
+			} catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "recuperaContrasena - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+			}
+			catch  (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "recuperaContrasena - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+			}
+			LogHandler.debug(uid, this.getClass(), "recuperaContrasena - Datos Salida: " + respuesta);
+			return respuesta;
+			
+		} 
 		/**
 		 * Metodo para consultar todos los usuarios
 		 * @return regresa lista de usuarios

@@ -4,26 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>Cambio de Contraseña</title>
 <script type="text/javascript" src="js/angular.min.js"></script>
+ <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js'></script>
 <script type="text/javascript" src="js/cambioContra.js"></script>
 </head>
 
 <body ng-app="tatei" data-ng-controller="cambioDatos">
-<article>
-<p>* para probar con usuario y pss que esta en la bd</p>
-<form ng-submit="iniciar(user)">
-Ingresar Id Empleado: <input type="number" id="idEmpleado"> 
-<input type="submit" value="ingresar">
-</form>
-
-</article>
-</br>
 <div ng-repeat="datos in resultadoEmpleado">
  <b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}}
 <b>Perfil:</b> {{datos.nombrePerfil}}
 <input type="hidden" id="usuario" value={{datos.idEmpleado}}>
 <input type="hidden" id="contra" value={{datos.contrasena}}>
 </div>
-
+{{mensaje}}
 <h2>Cambio de Contraseña</h2>
 
 <form ng-submit="actualizar(user)">
