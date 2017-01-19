@@ -1,11 +1,11 @@
 var app = angular.module('tatei', []);
 app.controller('cambioDatos', function ($scope, $http) {  
-	$scope.iniciar = function (user) {
-		$http({
+	
+	$http({
             method: 'GET',
             url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
             params: {
-		 		"idEmpleado": document.getElementById("idEmpleado").value,
+		 		"idEmpleado": "1",
 		         }
 		    }).then(function (result) {
 		    	$scope.resultadoEmpleado = result.data.empleado;
@@ -14,8 +14,6 @@ app.controller('cambioDatos', function ($scope, $http) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
 		    });
-		}
-	
 	
 
 		    $scope.actualizar = function(user) {
