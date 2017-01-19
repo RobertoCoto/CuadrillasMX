@@ -44,6 +44,7 @@ public class CambioContrasena extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
+			String contrasena = request.getParameter("contrasena");
 			String contrasenaAnterior = request.getParameter("contrasenaAnterior");
 			String contrasenaNueva = request.getParameter("contrasenaNueva");
 			String repiteContrasena = request.getParameter("repiteContrasena");
@@ -61,7 +62,8 @@ public class CambioContrasena extends HttpServlet {
 	        //Login usuario
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setIdEmpleado(idEmpleado);
-	        usuario.setContrasena(contrasenaAnterior);
+	        usuario.setContrasena(contrasena);
+	        usuario.setContrasenaAnterior(contrasenaAnterior);
 	        usuario.setContrasenaNueva(contrasenaNueva);
 	        usuario.setRepetirContrasenaNueva(repiteContrasena);
 	        respuesta = negocio.modificaContrasena(usuario);

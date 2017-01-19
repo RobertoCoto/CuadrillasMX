@@ -3,14 +3,13 @@ app.controller('cambioDatos', function ($scope, $http) {
 	$scope.iniciar = function (user) {
 		$http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWEB/ConsultaUsuarioLogin',
+            url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
             params: {
-		 		"user": document.getElementById("us").value,
-		 		"password": document.getElementById("pass").value
+		 		"idEmpleado": document.getElementById("idEmpleado").value,
 		         }
 		    }).then(function (result) {
-		    	$scope.resultadoUsuario = result.data.usuario;
-	            console.log($scope.resultadoUsuario);
+		    	$scope.resultadoEmpleado = result.data.empleado;
+	            console.log($scope.resultadoEmpleado);
 		    }, function myError(response) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
@@ -24,17 +23,19 @@ app.controller('cambioDatos', function ($scope, $http) {
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/CambioContrasena',
 		              params: {
+		    			"contrasena" : document.getElementById("contra").value,
 				 		"contrasenaAnterior": document.getElementById("contraAnterior").value,
 				 		"contrasenaNueva": document.getElementById("contraNueva").value,
-		              "repiteContrasena": document.getElementById("repetirContraNueva").value,
-		              "user": document.getElementById("usuario").value
+				 		"repiteContrasena": document.getElementById("repetirContraNueva").value,
+				 		"idEmpleado": document.getElementById("idEmpleado").value
 				         }
 				    }).then(function (result) {
 				    	$scope.resultadoUsuario = result.data.usuario;
 			            console.log($scope.resultadoUsuario);
+			            
 				    }, function myError(response) {
 				        console.error(response);
-				        alert(response.data.header.mensajeFuncional);
+				        alert(response.data.mensajeFuncional);
 				    });
 		    }
 		    

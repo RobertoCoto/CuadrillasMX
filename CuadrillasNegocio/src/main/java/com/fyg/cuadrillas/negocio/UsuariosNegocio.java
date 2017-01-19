@@ -222,7 +222,7 @@ public class UsuariosNegocio {
 					throw new ExcepcionesCuadrillas("No se permite utilizar la misma contraseña anterior.");
 				}
 				//Se encripta la contraseña anterior
-				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaAnterior());
 				//Se le asigna la contrasena encriptada
 				usuario.setContrasenaAnterior(encriptaContrasena);
 				//se envia al dao
