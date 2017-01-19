@@ -29,24 +29,30 @@
 	<result column="codigo_causa_salida" property="codigoCausaSalida"/>
 	<result column="estatus" property="estatus"/>
 	<result column="alta_imss" property="altaImss"/>
+	<result column="usuario" property="usuario"/>
+	<result column="contrasena" property="contrasena"/>
+	<result column="id_perfil" property="idPerfil"/>
+	<result column="nombre_perfil" property="nombrePerfil"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
 	SELECT
-		id_empleado, no_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento, fecha_ingreso,
-		codigo_puesto, codigo_vialidad, codigo_area,  codigo_talla, sueldo, frecuencia_pago,
-		nss, no_credito_infonavit, telefono, observaciones,
-		fecha_baja, codigo_tipo_salida, codigo_causa_salida, estatus, alta_imss
-	FROM empleado
+		e.id_empleado, e.no_empleado, e.nombre, e.apellido_pat, e.apellido_mat, e.sexo, e.rfc, e.rfc_calculado, e.fecha_nacimiento, e.fecha_ingreso,
+		e.codigo_puesto, e.codigo_vialidad, e.codigo_area,  e.codigo_talla, e.sueldo, e.frecuencia_pago,
+		e.nss, e.no_credito_infonavit, e.telefono, e.observaciones,
+		e.fecha_baja, e.codigo_tipo_salida, e.codigo_causa_salida, e.estatus, e.alta_imss,u.usuario,u.contrasena,u.id_perfil,p.nombre AS nombre_perfil
+	FROM empleado e
+	LEFT JOIN usuario u ON u.id_empleado = e.id_empleado
+	LEFT JOIN perfil p ON p.id_perfil = u.id_perfil
 	<where>
 	 <if test="idEmpleado !=null">
-	 	id_empleado = #{idEmpleado}
+	 	e.id_empleado = #{idEmpleado}
 	 </if>
 	 <if test="noEmpleado !=null">
-	 	no_empleado = #{noEmpleado}
+	 	e.no_empleado = #{noEmpleado}
 	 </if>
 	 <if test="rfcCalculado !=null">
-	 	AND rfc_calculado like #{rfcCalculado}
+	 	AND e.rfc_calculado like #{rfcCalculado}
 	 </if>
 	 <!-- 
 	 <if test="nombre != null">

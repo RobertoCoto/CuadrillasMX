@@ -21,8 +21,7 @@ WHERE usuario = #{usuario}
 UPDATE usuario SET
 contrasena = #{contrasenaNueva},
 cambio_contrasena = 'S'
-WHERE usuario = #{usuario}
-AND contrasena = #{contrasena}
+WHERE id_empleado = #{idEmpleado}
 AND estatus ='A'
 </update>
 </mapper>

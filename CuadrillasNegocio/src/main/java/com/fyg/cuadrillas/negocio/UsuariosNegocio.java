@@ -200,18 +200,17 @@ public class UsuariosNegocio {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			
 			try {
-				if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña.");
 				}
-				if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("Es necesario la contraseña.");
+				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
 				}
-				if (usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("Es necesario especificar una nueva contrasena.");
+				if(usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de repetir la nueva contraseña.");
 				}
-				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("Es necesario repetir la nueva contraseña.");
-				}
+				
+				
 				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
 					//encriptacion de contraseña
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
@@ -219,9 +218,13 @@ public class UsuariosNegocio {
 				} else {
 					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
 				}
+				if(usuario.getContrasenaNueva().equals(usuario.getContrasena())) {
+					throw new ExcepcionesCuadrillas("No se permite utilizar la misma contraseña anterior.");
+				}
+				//Se encripta la contraseña anterior
 				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
 				//Se le asigna la contrasena encriptada
-				usuario.setContrasena(encriptaContrasena);
+				usuario.setContrasenaAnterior(encriptaContrasena);
 				//se envia al dao
 				UsuarioDAO dao = new UsuarioDAO();
 				respuesta = dao.modificaContrasena(uid, usuario);
