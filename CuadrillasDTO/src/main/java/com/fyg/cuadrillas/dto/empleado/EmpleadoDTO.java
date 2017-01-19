@@ -118,6 +118,22 @@ public class EmpleadoDTO extends ObjetoValor {
 	 * id de la cuadrilla
 	 */
 	private Integer idCuadrilla;
+	/** 
+	 * usuario
+	 */
+	private String usuario;
+	/**
+	 * conttasena
+	 */
+	private String contrasena;
+	/**
+	 * id del perfil
+	 */
+	private Integer idPerfil;
+	/**
+	 * nombre del perfil
+	 */
+	private String nombrePerfil;
 	/**
 	 * Recibira los documentos del empleado
 	 */
@@ -513,5 +529,53 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setAltaImss(String altaImss) {
 		this.altaImss = altaImss;
+	}
+	/**
+	 * @return the usuario
+	 */
+	public String getUsuario() {
+		return usuario;
+	}
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	/**
+	 * @return the contrasena
+	 */
+	public String getContrasena() {
+		return contrasena;
+	}
+	/**
+	 * @param contrasena the contrasena to set
+	 */
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+	/**
+	 * @return the idPerfil
+	 */
+	public Integer getIdPerfil() {
+		return idPerfil;
+	}
+	/**
+	 * @param idPerfil the idPerfil to set
+	 */
+	public void setIdPerfil(Integer idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+	/**
+	 * @return the nombrePerfil
+	 */
+	public String getNombrePerfil() {
+		return nombrePerfil;
+	}
+	/**
+	 * @param nombrePerfil the nombrePerfil to set
+	 */
+	public void setNombrePerfil(String nombrePerfil) {
+		this.nombrePerfil = nombrePerfil;
 	}
 }
