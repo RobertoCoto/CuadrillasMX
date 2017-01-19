@@ -47,7 +47,7 @@ public class CambioContrasena extends HttpServlet {
 			String contrasenaAnterior = request.getParameter("contrasenaAnterior");
 			String contrasenaNueva = request.getParameter("contrasenaNueva");
 			String repiteContrasena = request.getParameter("repiteContrasena");
-			String user = request.getParameter("user");
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -60,7 +60,7 @@ public class CambioContrasena extends HttpServlet {
 	        
 	        //Login usuario
 	        UsuarioDTO usuario = new UsuarioDTO();
-	        usuario.setUsuario(user);
+	        usuario.setIdEmpleado(idEmpleado);
 	        usuario.setContrasena(contrasenaAnterior);
 	        usuario.setContrasenaNueva(contrasenaNueva);
 	        usuario.setRepetirContrasenaNueva(repiteContrasena);
