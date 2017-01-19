@@ -201,7 +201,7 @@ public class UsuariosNegocio {
 			
 			try {
 				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña.");
+					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña anterior.");
 				}
 				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
@@ -216,7 +216,7 @@ public class UsuariosNegocio {
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
 					usuario.setContrasenaNueva(contrasenaNueva);
 				} else {
-					throw new ExcepcionesCuadrillas("no coincide la nueva contraseña, intente de nuevo");
+					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
 				}
 				if(usuario.getContrasenaNueva().equals(usuario.getContrasena())) {
 					throw new ExcepcionesCuadrillas("No se permite utilizar la misma contraseña anterior.");

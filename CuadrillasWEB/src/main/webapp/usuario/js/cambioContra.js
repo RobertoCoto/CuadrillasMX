@@ -1,11 +1,26 @@
 var app = angular.module('tatei', []);
-app.controller('cambioDatos', function ($scope, $http) {  
+
+app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {  
 	
-	$http({
+	//obtener el id enviado por GET
+   $scope.obtainGet = function getGET(){
+	   var loc = document.location.href;
+	   var getString = loc.split('?')[1];
+	   var GET = getString.split('&');
+	   var get = {};
+
+	   for(var i = 0, l = GET.length; i < l; i++){
+	      var tmp = GET[i].split('=');
+	      get[tmp[0]] = unescape(decodeURI(tmp[1]));
+	   }
+	   return get;
+	};
+	$scope.get = $scope.obtainGet();
+   $http({
             method: 'GET',
             url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
             params: {
-		 		"idEmpleado": "1",
+		 		"idEmpleado": $scope.get.idEmpleado,
 		         }
 		    }).then(function (result) {
 		    	$scope.resultadoEmpleado = result.data.empleado;
@@ -14,8 +29,7 @@ app.controller('cambioDatos', function ($scope, $http) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
 		    });
-	
-
+    
 		    $scope.actualizar = function(user) {
 		    	$http({
 		              method: 'GET',
@@ -37,4 +51,4 @@ app.controller('cambioDatos', function ($scope, $http) {
 				    });
 		    }
 		    
-});
+}]);
