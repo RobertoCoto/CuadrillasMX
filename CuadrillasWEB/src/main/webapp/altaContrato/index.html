@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Alta de Contrato </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <!--script type="text/javascript" src="js/angular.min.js"></script-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc"></script>
+  </head>
+  <body ng-app="tatei">
+    <div class="container">
+      <h2> Alta de Contrato </h2>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form action="#">
+            <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="tipoContrato" class="control-label">Tipo de Contrato</label>
+                            <select id="tipoContrato" class="form-control" placeholder="Tipo de Contrato"><option>A</option><option>B</option></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="documento" class="control-label">Documento</label>
+                            <select id="documento" class="form-control"><option>A</option><option>B</option></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="numDocumento" class="control-label">Número de Documento</label>
+                            <input type="number" class="form-control" id="numDocumento" placeholder="#">
+                        </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label for="empresa" class="control-label">Empresa</label>
+                    <select id="empresa" class="form-control"><option>A</option><option>B</option></select>
+                  </div>
+                </div>
+                  <div class="col-sm-3">
+                      <label for="monto" class="control-label">Monto</label>
+                      <div class="input-group">
+                          <span class="input-group-addon">$</span>
+                          <input type="number" class="form-control" id="monto" placeholder=" 0.00">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <label for="subtotal" class="control-label">Subtotal</label>
+                      <div class="input-group">
+                          <span class="input-group-addon">$</span>
+                          <input type="number" class="form-control" id="subtotal" placeholder="0.00">
+                      </div>
+                  </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="fechaInicio" class="control-label">Fecha de Inicio</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  <input class="form-control" id="fechaInicio" name="fechaInicio" placeholder="MM/DD/YYYY" type="text"/>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                 <label for="fechaTermino" class="control-label">Fecha de Término</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  <input class="form-control" id="fechaTermino" name="fechaTermino" placeholder="MM/DD/YYYY" type="text"/>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <label for="diasDuracion" class="control-label">Días de duración</label>
+                  <input type="number" id="diasDuracion" class="form-control" placeholder="0">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <label for="avance" class="control-label">Avance</label>
+                <div class="input-group">
+                  <span class="input-group-addon">%</span>
+                  <input type="number" id="avance" class="form-control" placeholder="0.0">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="fechaRegistro" class="control-label">Fecha de Registro</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  <input class="form-control" id="fechaRegistro" name="fechaRegistro" placeholder="MM/DD/YYYY" type="text"/>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="vialidad" class="control-label">Vialidad</label>
+                  <select id="vialidad" class="form-control"><option>A</option><option>B</option></select>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <button class="btn btn-primary" style="margin: 25px;"> Nueva Vialidad</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Tramo Inicial</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label for="direccionInicial" class="control-label">Dirección</label>
+                              <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="latitudInicial" class="control-label">Latitud</label>
+                              <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="longitudInicial" class="control-label">Longitud</label>
+                              <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Tramo Final</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label for="direccionTermino" class="control-label">Dirección</label>
+                              <input type="text" id="direccionTermino" class="form-control" placeholder="Av. Morelos S/N Col 10 Abril">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="latitudTermino" class="control-label">Latitud</label>
+                              <input type="text" id="latitudTermino" class="form-control" placeholder="-0.9999999">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="longitudTermino" class="control-label">Longitud</label>
+                              <input type="text" id="longitudTermino" class="form-control" placeholder="1.2366526">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div id="map_canvas" style="width:100%; height:550px"></div> 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-offset-4 col-sm-4"><button class="btn btn-success" style="margin: 25px;">Nueva Cuadrilla</button></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <label for="estatus" class="control-label">Estatus</label>
+                <select id="estatus" class="form-control"><option>Activo</option><option>Inactivo</option></select>
+              </div>
+              <div class="col-sm-2">
+                <label for="cuadrilla" class="control-label">Cuadrilla</label>
+                <select id="cuadrilla" class="form-control"><option>A</option><option>B</option></select>
+              </div>
+              <div class="col-sm-2">
+                <label for="noPer" class="control-label">#Per</label>
+                <input type="number" id="noPer" class="form-control" placeholder="0">
+              </div>
+              <div class="col-sm-6">
+                <!-- Form Estandar -->
+                <h4>Adjuntar Contrato</h4>
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <input type="file" id="adjuntarContrato">
+                      <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
+                    </div>
+                  </div>
+                <!-- Zona de Drop -->
+                <!--h4>Arrastrar los archivos a esta zona</h4>
+                <div class="upload-drop-zone" id="drop-zone">
+                  Solo arrastrar y soltar
+                </div-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-offset-3"></div>
+              <div class="col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                  <label for="comentarios">Comentarios</label>
+                  <textarea id="comentarios" class="form-control" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr class="success">
+                        <td>Num</td>
+                        <td>Fch Registro</td>
+                        <td>Vialidad</td>
+                        <td>Vialidad</td>
+                        <td>Tramo Inicial</td>
+                        <td>Tramo Final</td>
+                        <td>Estatus</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>001</td>
+                        <td>01/01/2014</td>
+                        <td>Zaragoza</td>
+                        <td>Zaragoza</td>
+                        <td>Canal de San Juan</td>
+                        <td>Distribuidor la Concordia</td>
+                        <td>Activa</td>
+                      </tr>
+                      <tr>
+                        <td>002</td>
+                        <td>01/06/2014</td>
+                        <td>Universidad</td>
+                        <td>Universidad</td>
+                        <td>Miguel Angel de Quevedo</td>
+                        <td>Calle 10</td>
+                        <td>Activa</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-offset-3 col-sm-2">
+                <button type="button" class="btn btn-block btn-success">Alta</button>
+              </div>
+              <div class="col-sm-2 col-sm-offset-3">
+                <button type="button" class="btn btn-block btn-warning">Guardar</button>
+              </div>
+            </div>
+        </form>
+        </div>
+      </div>
+      
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        var fechaInicioForm=$('input[name="fechaInicio"]');
+        var fechaTerminoForm=$('input[name="fechaTermino"]');
+        var fechaRegistroForm=$('input[name="fechaRegistro"]');
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        fechaInicioForm.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+        fechaTerminoForm.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+        fechaRegistroForm.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+      })
+
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+
+      var map;
+        var markers = [];
+
+        initialize();
+
+        function initialize() {
+          var myOptions = {
+            zoom: 10,
+            center: new google.maps.LatLng(100.090, -100.536),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+          addMarker(new google.maps.LatLng(100.0747, -100.6274), "Tramo Inicial");
+          addMarker(new google.maps.LatLng(100.0758, -100.6254), "Tramo Final");
+
+        }
+
+        function addMarker(latlng, myTitle) {
+          markers.push(new google.maps.Marker({
+            position: latlng, 
+            map: map,
+            title: myTitle,
+            icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
+          }));    
+        }
+    </script>
+
+  </body>
+</html>
