@@ -9,16 +9,30 @@
 <body ng-app="tatei" data-ng-controller="adminDatos">
 <h2>Administración de Usuarios</h2>
 
-<form>
-<table>
+
+<table border="1" cellpading="1" cellspacing="2">
 <tr>
-<td>Seleccione Usuario a consultar: <select ng-model="user.select" ng-options="datos.usuario as datos.nombre for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select></td>
+<td>Seleccione Usuario a consultar: <select ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select></td>
 </tr>
 
+</table>
+<br>
+
+<form ng-submit="actualizar(usuario)">
+<div class="wraper" data-ng-show='resultadoAdmin'>
+<p>id Empleado: {{user.select}} </p>
+<input type="hidden" value={{user.select}} id="idEmpleado">
+<table border="1" cellpading="2" cellspacing="2">
 <tr>
-<td></td>
+<td>Contraseña Nueva: <input type="password" id="contraNueva"></td>
+</tr>
+<tr>
+<td>Repetir Contraseña nueva: <input type="password" id="repetirContraNueva"></td>
 </tr>
 </table>
+<input type="reset" value="Limpiar campos">
+<input type="submit" value="Actualizar Contraseña"/>
+</div>
 </form>
 </body>
 </html>
