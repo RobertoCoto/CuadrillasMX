@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Administracion de Usuarios</title>
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/adminUser.js"></script>
+	<meta charset="ISO-8859-1">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+	<title>Administracion de Usuarios</title>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/adminUser.js"></script>
 </head>
 <body ng-app="tatei" data-ng-controller="adminDatos">
-<h2>Administración de Usuarios</h2>
-
-
-<table border="1" cellpading="1" cellspacing="2">
-<tr>
-<td>Seleccione Usuario a consultar: <select ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select></td>
-</tr>
-
-</table>
-<br>
-
-<form ng-submit="actualizar(usuario)">
-<div class="wraper" data-ng-show='resultadoAdmin'>
-<p>id Empleado: {{user.select}} </p>
-<input type="hidden" value={{user.select}} id="idEmpleado">
-<table border="1" cellpading="2" cellspacing="2">
-<tr>
-<td>Contraseña Nueva: <input type="password" id="contraNueva"></td>
-</tr>
-<tr>
-<td>Repetir Contraseña nueva: <input type="password" id="repetirContraNueva"></td>
-</tr>
-</table>
-<input type="reset" value="Limpiar campos">
-<input type="submit" value="Actualizar Contraseña"/>
-</div>
-</form>
+		<div class="container">
+		<h2>Administración de Usuarios</h2>
+		
+		<div class="row">
+		<label for="estatus" class="control-label">Seleccione Usuario a consultar:</label>
+		<select class="form-control" ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select>
+		</div>
+		<br>
+		<form class="form-horizontal">
+		<div class="wraper" data-ng-show='resultadoAdmin'>
+		
+			<div class="form-group">
+    		<label class="col-sm-2 control-label">Id Empleado</label>
+    		<div class="col-sm-10">
+      		{{user.select}}
+      		<input type="hidden" value={{user.select}} id="idEmpleado">
+    		</div>
+  			</div>
+  			
+			<div class="form-group">
+    		<label class="col-sm-2 control-label">Contraseña Nueva:</label>
+    		<div class="col-sm-10">
+      		<input type="password" id="contraNueva" class="form-control" placeholder="********">
+    		</div>
+  			</div>
+  			
+  			<div class="form-group">
+   		 	<label for="inputPassword" class="col-sm-2 control-label">Repetir Contraseña nueva:</label>
+    		<div class="col-sm-10">
+      		<input type="password"  class="form-control" id="repetirContraNueva" placeholder="********">
+    		</div>
+  			</div>
+  			<input type="reset" value="Limpiar campos" class="btn btn-success">
+			<input type="submit" value="Actualizar Contraseña" class="btn btn-success"/>
+  			</div>
+		</form>
+		</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
