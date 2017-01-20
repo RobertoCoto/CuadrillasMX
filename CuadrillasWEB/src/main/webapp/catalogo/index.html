@@ -1,7 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title> Catalogo </title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="js/angular.min.js"></script>
   </head>
   <body ng-app="tatei">
@@ -144,16 +149,64 @@
 }
 
     </script>
-    <h2> Catalogo </h2>
+    <div class="container" ng-controller="myCtrl">
+      <h2> Catalogos </h2>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                  <label for="catalogo" class="control-label">Catalogo</label>
+                  <select id="catalogo" class="form-control" ng-model="seleccion.tipoCatalogo" ng-options="catalogo.tipoCatalogo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(seleccion.tipoCatalogo)"></select>
+                </div>
+            </div>
+          </div>
+          <div class="wraper" ng-show='resultado2.length' >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                      <thead>
+                         <tr>
+                             <th>Codigo:</th>
+                             <th>Descripcion</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                          <td><input id="codigof" type="text" /></td>
+                          <td><input id="descripcionf" type="text" /></td>
+                          <td><button ng-click="saveOptions()">Agregar</button></td>
+                        <tr>
+                         <tr ng-repeat="catalogo in resultado2">
+                             <td>
+                                 <div>{{catalogo.codigo | uppercase}}</div>
+
+                             </td>
+                             <td>
+                                 <div ng-hide="editingData[catalogo.codigo]">{{catalogo.descripcion}}</div>
+                                 <div ng-show="editingData[catalogo.codigo]"><input type="text" ng-model="catalogo.descripcion" /></div>
+                             </td>
+                             <td>
+                                 <button ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Modificar</button>
+                                 <button ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
+                                 <button ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
+                             </td>
+                         </tr>
+                     </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--h2> Catalogo </h2>
     <div ng-controller="myCtrl">
       <span>catalogo:</span>
       <select ng-model="seleccion.tipoCatalogo" ng-options="catalogo.tipoCatalogo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(seleccion.tipoCatalogo)"></select>
 
             <span> {{seleccion.tipoCatalogo}}</span>
-    <!--select ng-model="seleccion2.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado2" ng-show='resultado2.length'>
-      <span ng-show='resultado2.length'>Seleccion 2do catalogo {{seleccion2.codigo}}</span>
-    </select -->
-
     <div class="wraper" ng-show='resultado2.length' >
 
                <table>
@@ -186,7 +239,6 @@
                            <td>
                                <button ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Modificar</button>
                                <button ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
-                               <!--button ng-hide="viewField">Agregar</button-->
                                <button ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
                            </td>
                        </tr>
@@ -196,7 +248,7 @@
            </div>
 
    </div>
-  </div>
+  </div-->
 
   </body>
 </html>
