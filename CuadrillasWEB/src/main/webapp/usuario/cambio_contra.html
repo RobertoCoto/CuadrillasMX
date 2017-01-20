@@ -12,7 +12,7 @@
 <div ng-repeat="datos in resultadoEmpleado">
  <b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}}
 <b>Perfil:</b> {{datos.nombrePerfil}}
-<input type="hidden" id="usuario" value={{datos.idEmpleado}}>
+<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
 <input type="hidden" id="contra" value={{datos.contrasena}}>
 </div>
 {{mensaje}}
