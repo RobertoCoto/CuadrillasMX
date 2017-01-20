@@ -8,7 +8,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
     <!--script type="text/javascript" src="js/angular.min.js"></script-->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc"></script>
   </head>
   <body ng-app="tatei">
     <div class="container">
@@ -183,7 +182,7 @@
               <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div id="map_canvas" style="width:100%; height:550px"></div> 
+                    <div id="map" style="width:100%; height:550px"></div> 
                   </div>
                 </div>
                 <div class="row">
@@ -242,6 +241,7 @@
                         <td>Tramo Inicial</td>
                         <td>Tramo Final</td>
                         <td>Estatus</td>
+                        <td></td>
                       </tr>
                     </thead>
                     <tbody>
@@ -253,6 +253,7 @@
                         <td>Canal de San Juan</td>
                         <td>Distribuidor la Concordia</td>
                         <td>Activa</td>
+                        <td><button type="button" class="btn btn-info">Editar</button></td>
                       </tr>
                       <tr>
                         <td>002</td>
@@ -262,6 +263,7 @@
                         <td>Miguel Angel de Quevedo</td>
                         <td>Calle 10</td>
                         <td>Activa</td>
+                        <td><button type="button" class="btn btn-info">Editar</button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -281,9 +283,7 @@
       </div>
       
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
@@ -316,13 +316,18 @@
       })
 
       function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
+          zoom: 10,
+          center: mx1
         });
         var marker = new google.maps.Marker({
-          position: uluru,
+          position: mx1,
+          map: map
+        });
+        var marker = new google.maps.Marker({
+          position: mx2,
           map: map
         });
       }
@@ -330,7 +335,7 @@
       var map;
         var markers = [];
 
-        initialize();
+        //initialize();
 
         function initialize() {
           var myOptions = {
@@ -354,6 +359,6 @@
           }));    
         }
     </script>
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&callback=initMap"></script>
   </body>
 </html>
