@@ -20,7 +20,7 @@
 		<select class="form-control" ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select>
 		</div>
 		<br>
-		<form class="form-horizontal">
+		<form class="form-horizontal" ng-submit="actualizar(usuario)">
 		<div class="wraper" data-ng-show='resultadoAdmin'>
 		
 			<div class="form-group">
