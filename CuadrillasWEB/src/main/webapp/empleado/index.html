@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Administración de Empleados</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+	<title>AdministraciÃ³n de Empleados</title>
 <script type="text/javascript">
  	function mueveReloj(){ 
    	 
@@ -27,112 +31,257 @@
 
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/registraEmpleado.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="registraEmpleado">
-<h2>Administración de Empleados</h2>
-<form name="form_reloj">
-<table >
-<tr>
-<td>Número de Empleado: </td>
-<td><input type="text" name="numeroEmpleado" id="noEmpleado" required/></td>
-</tr>
+	<div class="container">
+	<h2>AdministraciÃ³n de Empleados</h2>
+		<div class="panel panel-default">
+		<div class="panel-body">
+			<form name="form_reloj">
+			     <div class="row">
+			       <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
+                            <input type="text" name="numeroEmpleado" id="noEmpleado" required class="form-control"/>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			      <div class="col-sm-12">
+                        <div class="form-group form-group-sm">
+                            <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
+                            <input type="text" name="nombre" id="nombre"  required class="form-control">
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
+                            <input type="text" name="apellidoPat" id="apellidoPaterno" required class="form-control"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
+                            <input type="text" name="apellidoMat" id="apellidoMaterno" required class="form-control"/>
+                        </div>
+                    </div>
+			     </div>
+			     
+			      <div class="row">
+			     <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="puesto" class="control-label">Puesto</label>
+                            <select class="form-control" required id="codigoPuesto" ng-model="empleado.puesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(empleado.puesto)"> </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="fechaNaciomiento" class="control-label">Fecha de Nacimiento</label>
+                            <div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  			<input class="form-control" type="date" name="fechaNac" id="fechaNacimiento"/>
+               				 </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="fechaIngreso" class="control-label">Fecha de Ingreso</label>
+                            <div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  			<input type="date" name="fechaIngreso" id="fechaIngreso" requiered  class="form-control">
+               				 </div>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="nss" class="control-label">NSS</label>
+                            <input type="number" name="nss" id="nss" requiered class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="noCreinfonavit" class="control-label">Credito Infonavit</label>
+                            <input type="number" name="creditoInfonavit" id="noCreditoInfonavit" requiered class="form-control">
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="rfc" class="control-label">RFC</label>
+                            <input type="text" name="rfc" id="rfc" requiered class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="estatus" class="control-label">Estatus</label>
+                           <select name="Estatus" id="estatus" requiered class="form-control">
+								<option value="">--Seleccione el estatus--</option>
+								<option value="A">Activo</option>
+								<option value="I">Inactivo</option>
+							</select>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			      <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="sueldo" class="control-label">Sueldo</label>
+                            <input type="number" name="sueldo" placeholder="$" id="sueldo" requiered class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="frecuencia" class="control-label">Frecuencia :</label>
+                           <input type="radio" name="pago" id="frecuenciaPago" value="M">Mes &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="Q">Quincena &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="S">Semanal
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="telefono" class="control-label">Telefono</label>
+                            <input type="tel" name="telefono" id="telefono" requiered class="form-control"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="talla" class="control-label">Talla</label>
+                           <select  class="form-control" id="codigoTalla" ng-model="empleado.codigoTalla" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRopa" ng-change="getOptions2(empleado.codigoTalla)">
+							</select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="sexo" class="control-label">Sexo</label>
+                           <select id="sexo" requiered class="form-control">
+								<option value="">-----Selecione sexo-----</option>
+								<option value="M">Hombre</option>
+								<option value="F">Mujer</option>
+						</select>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="cuadrilla" class="control-label">Cuadrilla</label>
+                           <select class="form-control" id="idCuadrilla" ng-model="empleado.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in resultadoCuadrilla" ng-change="getOptions2(empleado.idCuadrilla)" >
+						  </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="vialidad" class="control-label">Vialidad</label>
+                            <select  class="form-control" id="codigoVialidad" ng-model="empleado.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(empleado.codigoVialidad)"></select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="area" class="control-label">Area</label>
+                            <select class="form-control" id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(empleado.codigoArea)"></select>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			     <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="alta" class="control-label">Notificar Alta IMSS</label>
+                            <input type="checkbox" class="form-control" >
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="comentarios" class="control-label">Comentarios</label>
+                           <textarea rows="3" cols="60" id="observaciones" class="form-comtrol"></textarea>
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row" ng-repeat="documentos  in resultadoDocumentos">
+			      <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="documento" class="control-label">{{documentos.descripcion}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                           	<input type="hidden" id="estatusDocumento" value="A">
+							<input type="radio" id="documento"  name={{documentos.codigo}} value={{documentos.codigo}} data-form="document">Si 
+							<input type="radio"  name={{documentos.codigo}} value="NO" data-form="document">No
+							<input type="radio" name={{documentos.codigo}} value="N/A" data-form="document">N/A 
+                        </div>
+                    </div>
+			     </div>
+			     
+			     <div class="row">
+			    		 <div class="col-sm-12">
+                			<div class="table-responsive">
+                			<table class="table table-bordered">
+								<div class="wraper" ng-show='resultadoDatos.length' >
+								<tr class="success">
+								<td>Numero</td>
+								<td>Puesto</td>
+								<td>Nombre</td>
+								<td>Fecha Ingreso</td>
+								<td>Estatus</td>
+								<td>operaciones</td>
+								</tr>
+							<tr ng-repeat="general in resultadoDatos">
+							<td>{{general.noEmpleado}}</td>
+							<td>{{general.puesto}}</td>
+							<td>{{general.nombre}}</td>
+							<td>{{general.fechaIngreso}}</td>
+							<td>{{general.estatus}}</td>
+							<td><button class="btn btn-info">Editar</button></td>
+							</tr>
+							</div>
+							</table>
+                			</div>
+               			 </div>
+			     </div>
+			     <input type="reset" value="Borrar informaciÃ³n" class="btn btn-info">
+				 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)" class="btn btn-info">
+				 <input type="button" value="Consultar" data-ng-click="consultar(empleado)" class="btn btn-info">
+			</form>
+		</div>
+		</div>
+	</div>
 
-<tr>
-<td>Nombre(s):</td>
-<td><input type="text" name="nombre" id="nombre"  required></td>
-</tr>
-
-<tr>
-<td>Apellido Paterno: <input type="text" name="apellidoPat" id="apellidoPaterno" required/></td>
-<td>Apellido Materno: <input type="text" name="apellidoMat" id="apellidoMaterno" required/></td>
-</tr>
-
-<tr>
-<td>Puesto: <select required id="codigoPuesto" ng-model="empleado.puesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(empleado.puesto)"> </select> &nbsp Fecha de Nacimiento: <input type="date" name="fechaNac" id="fechaNacimiento" required/> </td>
-<td>Fecha de Ingreso: <input type="date" name="fechaIngreso" id="fechaIngreso" requiered ></td>
-</tr>
-
-<tr>
-<td>NSS: <input type="number" name="nss" id="nss" requiered></td>
-<td>Credito Infonavit: <input type="number" name="creditoInfonavit" id="noCreditoInfonavit" requiered></td>
-</tr>
-
-<tr>
-<td>RFC: <input type="text" name="rfc" id="rfc" requiered></td>
-<td>Estatus: <select name="Estatus" id="estatus" requiered >
-<option value="">--Seleccione el estatus--</option>
-<option value="A">Activo</option>
-<option value="I">Inactivo</option>
-</select>
-</td>
-</tr>
-
-<tr>
-<td>Sueldo: <input type="number" name="sueldo" placeholder="$" id="sueldo" requiered></td>
-<td>Frecuencia: <input type="radio" name="pago" id="frecuenciaPago" value="M">Mes &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="Q">Quincena &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="S">Semanal</td>
-</tr>
-
-<tr>
-<td>Teléfono:<input type="tel" name="telefono" id="telefono" requiered/> </td>
-<td>Talla: <select id="codigoTalla" ng-model="empleado.codigoTalla" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRopa" ng-change="getOptions2(empleado.codigoTalla)">
-</select>&nbsp Sexo: <select id="sexo" requiered>
-<option value="">-----selecione sexo-----</option>
-<option value="M">Hombre</option>
-<option value="F">Mujer</option>
-</select></td>
-</tr>
-
-<tr>
-<td colspan="2">Cuadrilla: <select id="idCuadrilla" ng-model="empleado.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in resultadoCuadrilla" ng-change="getOptions2(empleado.idCuadrilla)" >
-</select>
-Vialidad: <select id="codigoVialidad" ng-model="empleado.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(empleado.codigoVialidad)"></select>
-Area: <select id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(empleado.codigoArea)"></select></td>
-</tr>
-
-<tr>
-<td colspan="2">Comentarios:<textarea rows="" cols="" id="observaciones"></textarea> </td>
-</tr>
-
-<tr>
-<td colspan="2">Documentación
-<br/>
-
-</td>
-</tr>
-<tr ng-repeat="documentos  in resultadoDocumentos">
-<td>{{documentos.descripcion}}</td>
-<td><input type="hidden" id="estatusDocumento" value="A">
-<input type="radio" id="documento"  name={{documentos.codigo}} value={{documentos.codigo}} data-form="document">Si 
-<input type="radio"  name={{documentos.codigo}} value="NO" data-form="document">No
-<input type="radio" name={{documentos.codigo}} value="N/A" data-form="document">N/A </td>
-</tr>
-</table>
 
 
-<table>
-<div class="wraper" ng-show='resultadoDatos.length' >
-<tr>
-<td>Numero</td>
-<td>Puesto</td>
-<td>Nombre</td>
-<td>Fecha Ingreso</td>
-<td>Estatus</td>
-<tr ng-repeat="general in resultadoDatos">
-<td>{{general.noEmpleado}}</td>
-<td>{{general.puesto}}</td>
-<td>{{general.nombre}}</td>
-<td>{{general.fechaIngreso}}</td>
-<td>{{general.estatus}}</td>
-</tr>
-</div>
-</table>
-<input type="reset" value="Borrar información">
-<input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)">
-<input type="button" value="Consultar" data-ng-click="consultar(empleado)">
-<input type="button" onclick=" location.href='http://localhost:8080/CuadrillasWEB/permiso/index.html' " value="Permiso Laboral" name="boton" /> 
-</form>
 
+
+
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </body>
 
 </html>
