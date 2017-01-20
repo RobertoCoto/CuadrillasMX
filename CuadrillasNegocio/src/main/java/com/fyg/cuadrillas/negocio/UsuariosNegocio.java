@@ -268,12 +268,6 @@ public class UsuariosNegocio {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			
 			try {
-				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
-					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}
-				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
-					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}
 				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
 				}
@@ -286,6 +280,12 @@ public class UsuariosNegocio {
 					usuario.setContrasenaNueva(contrasenaNueva);
 				} else {
 					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
+				}
+				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
+				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
 				}
 				//se envia al dao
 				UsuarioDAO dao = new UsuarioDAO();
