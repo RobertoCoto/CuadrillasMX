@@ -23,8 +23,10 @@ app.controller('adminDatos', function ($scope, $http) {
 				 		"idEmpleado": document.getElementById("idEmpleado").value
 				         }
 				    }).then(function mySucces(response) {
-	                	  // $scope.editingData[catalogo.codigo] = false;
 	                         console.info(response);
+	                         alert(response.data.mensajeFuncional);
+	                         document.getElementById("contraNueva").value="";
+	                         document.getElementById("repetirContraNueva").value="";
 	                   }, function myError(response) {
 	                       console.error(response);
 	                       alert(response.data.mensajeFuncional);

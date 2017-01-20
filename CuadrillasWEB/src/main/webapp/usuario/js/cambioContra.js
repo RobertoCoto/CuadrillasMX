@@ -41,11 +41,13 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 				 		"repiteContrasena": document.getElementById("repetirContraNueva").value,
 				 		"idEmpleado": document.getElementById("idEmpleado").value
 				         }
-				    }).then(function (result) {
-				    	$scope.resultadoUsuario = result.data.usuario;
-			            console.log($scope.resultadoUsuario);
-			            
-				    }, function myError(response) {
+				    }).then(function mySucces(response) {
+                        console.info(response);
+                        alert(response.data.mensajeFuncional);
+                        document.getElementById("contraNueva").value="";
+                        document.getElementById("contraAnterior").value="";
+                        document.getElementById("repetirContraNueva").value="";
+                  }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
 				    });
