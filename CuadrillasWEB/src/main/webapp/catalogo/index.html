@@ -174,9 +174,9 @@
                      </thead>
                      <tbody>
                         <tr>
-                          <td><input id="codigof" type="text" /></td>
-                          <td><input id="descripcionf" type="text" /></td>
-                          <td><button ng-click="saveOptions()">Agregar</button></td>
+                          <td><input class="form-control" id="codigof" type="text" /></td>
+                          <td><input class="form-control" id="descripcionf" type="text" /></td>
+                          <td><button class="btn btn-default" ng-click="saveOptions()">Agregar</button></td>
                         <tr>
                          <tr ng-repeat="catalogo in resultado2">
                              <td>
@@ -185,12 +185,12 @@
                              </td>
                              <td>
                                  <div ng-hide="editingData[catalogo.codigo]">{{catalogo.descripcion}}</div>
-                                 <div ng-show="editingData[catalogo.codigo]"><input type="text" ng-model="catalogo.descripcion" /></div>
+                                 <div ng-show="editingData[catalogo.codigo]"><input class="form-control" type="text" ng-model="catalogo.descripcion" /></div>
                              </td>
                              <td>
-                                 <button ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Modificar</button>
-                                 <button ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
-                                 <button ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
+                                 <button class="btn btn-warning" ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Modificar</button>
+                                 <button class="btn btn-success" ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
+                                 <button class="btn btn-danger" ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
                              </td>
                          </tr>
                      </tbody>
