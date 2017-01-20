@@ -201,16 +201,7 @@ public class UsuariosNegocio {
 			//Variable de resultado
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			
-			try {
-				if (usuario.getContrasenaAnterior().trim().length() < LONGITUD_PSSWD) {
-					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}
-				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
-					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}
-				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
-					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}
+			try {				
 				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña anterior.");
 				}
@@ -219,9 +210,13 @@ public class UsuariosNegocio {
 				}
 				if(usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de repetir la nueva contraseña.");
+				}				
+				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
 				}
-				
-				
+				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}							
 				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
 					//encriptacion de contraseña
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
