@@ -16,6 +16,8 @@ import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 
 public class UsuariosNegocio {
+	/** The LONGITUD_RFC. */
+	private static final  int LONGITUD_PSSWD= 8;
 	/**
 	 * Objeto para recibir  datos perfil
 	 */
@@ -200,6 +202,15 @@ public class UsuariosNegocio {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			
 			try {
+				if (usuario.getContrasenaAnterior().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
+				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
+				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
 				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña anterior.");
 				}
@@ -262,6 +273,12 @@ public class UsuariosNegocio {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			
 			try {
+				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
+				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
+					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
+				}
 				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
 				}
