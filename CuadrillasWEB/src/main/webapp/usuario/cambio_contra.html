@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Cambio de Contraseña</title>
-<script type="text/javascript" src="js/angular.min.js"></script>
- <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js'></script>
-<script type="text/javascript" src="js/cambioContra.js"></script>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+<title>Cambio de ContraseÃ±a</title>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+ 	<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js'></script>
+	<script type="text/javascript" src="js/cambioContra.js"></script>
 </head>
 
 <body ng-app="tatei" data-ng-controller="cambioDatos">
-<div ng-repeat="datos in resultadoEmpleado">
- <b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}}
-<b>Perfil:</b> {{datos.nombrePerfil}}
-<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
-<input type="hidden" id="contra" value={{datos.contrasena}}>
-</div>
-{{mensaje}}
-<h2>Cambio de Contraseña</h2>
+	<div class="container">
+		<div ng-repeat="datos in resultadoEmpleado">
+ 		<b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}}
+		<b>Perfil:</b> {{datos.nombrePerfil}}
+		<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
+		<input type="hidden" id="contra" value={{datos.contrasena}}>
+		</div>
+				<h2>Cambio de ContraseÃ±a</h2>
 
-<form ng-submit="actualizar(user)">
-<table border="1" cellpadding="2" cellspacing="2">
-<tr>
-<th colspan="2">Favor de llenar los campos solicitados con *</th>
-</tr>
-<tr>
-<td>*Contraseña Anterior:</td>
-<td><input type="password" id="contraAnterior" requiered ></td>
-</tr>
+				<form ng-submit="actualizar(user)">
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*ContraseÃ±a Anterior:</label>
+				 <input type="password" id="contraAnterior" requiered class="form-control">
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*ContraseÃ±a Nueva:</label>
+				 <input type="password" id="contraNueva" requiered class="form-control">
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Repetir ContraseÃ±a Nueva:</label>
+				 <input type="password"  id="repetirContraNueva" requiered class="form-control">
+				 </div>
+				 <br>
+				<input type="submit" value="Actualizar ContraseÃ±a" class="btn btn-success">
+				</form>
+				
+		</div>
 
-<tr>
-<td>*Contraseña Nueva:</td>
-<td><input type="password" id="contraNueva" requiered>
-
-</td>
-</tr>
-
-<tr>
-<td>*Repetir Contraseña Nueva:</td>
-<td><input type="password"  id="repetirContraNueva" requiered>
-
-</td>
-</tr>
-</table> 
-</br>
-<input type="submit" value="Actualizar Contraseña">
-</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </body>
 </html>
