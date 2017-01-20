@@ -17,16 +17,16 @@
 		
 		<div class="row">
 		<label for="estatus" class="control-label">Seleccione Usuario a consultar:</label>
-		<select class="form-control" ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select>
+		<select class="form-control" ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario  for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select>
 		</div>
 		<br>
 		<form class="form-horizontal" ng-submit="actualizar(usuario)">
 		<div class="wraper" data-ng-show='resultadoAdmin'>
-		
+		  
 			<div class="form-group">
-    		<label class="col-sm-2 control-label">Id Empleado</label>
-    		<div class="col-sm-10">
-      		{{user.select}}
+    		<label class="col-sm-2 control-label">Nombre Empleado:</label>
+    		<div class="col-sm-10" ng-repeat="data in resultadoAdmin">
+      		<span ng-if="data.idEmpleado == user.select">{{data.nombre}} {{data.apellidoPat}} {{data.apellidoMat}}</span>
       		<input type="hidden" value={{user.select}} id="idEmpleado">
     		</div>
   			</div>

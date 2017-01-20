@@ -12,6 +12,9 @@ app.controller('adminDatos', function ($scope, $http) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
 		    });
+			
+		    
+		    
 			 
 		    $scope.actualizar = function(usuario) {
 		    	$http({

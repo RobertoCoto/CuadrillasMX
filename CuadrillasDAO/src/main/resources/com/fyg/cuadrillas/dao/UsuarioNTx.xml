@@ -70,7 +70,7 @@ AND estatus = 'A'
 </select>
 
 <select id="consultaListaUsuario" parameterType="Usuario" resultMap="usuario">
-	SELECT usuario,contrasena,id_empleado 
+	SELECT usuario,contrasena,id_empleado,nombre,apellido_pat,apellido_mat 
 	FROM usuario
 	WHERE estatus = 'A'
 	AND usuario <![CDATA[<>]]> 'SISTEMAS'
