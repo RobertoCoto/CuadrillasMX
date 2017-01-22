@@ -298,7 +298,7 @@ DROP TABLE IF EXISTS contrato;
 		id_agenda_detalle INTEGER NOT NULL AUTO_INCREMENT,
 		id_agenda INTEGER NOT NULL,
 		fecha DATE NOT NULL,
-		avance_espérado INTEGER NOT NULL,
+		avance_esperado INTEGER NOT NULL,
 		observaciones VARCHAR(150) NULL,		
 		fecha_alta DATETIME NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
@@ -429,5 +429,3 @@ ALTER TABLE agenda_coordenadas ADD CONSTRAINT FK_id_agenda_detalle FOREIGN KEY (
 ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
-
-
