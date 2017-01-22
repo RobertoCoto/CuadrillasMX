@@ -307,7 +307,7 @@ DROP TABLE IF EXISTS cuadrilla;
 
 	CREATE TABLE agenda_coordenadas (
 		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,
-		id_agenda INTEGER NOT  NULL,
+		id_agenda_detalle INTEGER NOT  NULL,
 		orden INTEGER NOT NULL,
 		direccion VARCHAR(150) NOT NULL,
 		latitud FLOAT NOT NULL,
@@ -320,7 +320,7 @@ DROP TABLE IF EXISTS cuadrilla;
 	);
 
 	CREATE TABLE agenda_actividades (		
-		id_agenda INTEGER NOT NULL,
+		id_agenda_detalle INTEGER NOT NULL,
 		codigo_actividad VARCHAR(10) NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_alta DATETIME NOT NULL,
@@ -328,7 +328,7 @@ DROP TABLE IF EXISTS cuadrilla;
 	);
 
 	CREATE TABLE agenda_materiales (		
-		id_agenda INTEGER NOT NULL,
+		id_agenda_detalle INTEGER NOT NULL,
 		codigo_material VARCHAR(10) NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_alta DATETIME NOT NULL,
@@ -415,3 +415,15 @@ ALTER TABLE vialidad_coordenadas ADD CONSTRAINT FK_id_contrato FOREIGN KEY (id_c
 ALTER TABLE asistencia ADD CONSTRAINT FK_idEmpleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
 ALTER TABLE contrato ADD CONSTRAINT FK_id_emp FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado);
+
+ALTER TABLE agenda ADD CONSTRAINT FK_a_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);
+
+ALTER TABLE agenda_detalle ADD CONSTRAINT FK_d_id_agenda FOREIGN KEY (id_agenda) REFERENCES agenda (id_agenda);
+
+ALTER TABLE agenda_coordenadas ADD CONSTRAINT FK_id_agenda_detalle FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+
+ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+
+ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+
+
