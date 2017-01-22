@@ -1,13 +1,11 @@
 USE tatei;
 
-DROP TABLE IF EXISTS parametros;
-DROP TABLE IF EXISTS vialidad_coordenadas;
-DROP TABLE IF EXISTS permiso_laboral;
 
+DROP TABLE IF EXISTS parametros;
+DROP TABLE IF EXISTS permiso_laboral;
 DROP TABLE IF EXISTS asistencia;
 DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
-DROP TABLE IF EXISTS herramienta;
 DROP TABLE IF EXISTS catalogo;
 DROP TABLE IF EXISTS tipo_catalogo;
 DROP TABLE IF EXISTS usuario;
