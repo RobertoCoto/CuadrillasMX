@@ -69,10 +69,10 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('ESTA_HERRA','REGU',upper('Regular'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ESTA_HERRA','DANA',upper('Dañado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ESTA_HERRA','DANA',upper('DaÃ±ado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ESTA_HERRA','ENRE',upper('En reparación'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ESTA_HERRA','ENRE',upper('En reparaciÃ³n'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ESTA_HERRA','DESE',upper('Desechado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
@@ -181,7 +181,7 @@ VALUES('CAUSA_RENU','CREN',upper('Enfermedad'),'SISTEMAS', 'SISTEMAS',now(),now(
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('CAUSA_RENU','CRAP',upper('Asunto Personal'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 	
-/*CATALOGO BAJA EMPLEADO CAUSA RENUNCIA*/
+/*CATALOGO TIPO PERMISO LABORAL*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
 VALUES('PERMI_LABO','TIPO PERMISO LABORAL','N',now(),now(),'A');
@@ -191,3 +191,76 @@ VALUES('PERMI_LABO','ENFE',upper('Enfermedad'),'SISTEMAS', 'SISTEMAS',now(),now(
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('PERMI_LABO','JUES',upper('Juntas Escolares'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
+
+/*CATALOGO TIPO DE CONTRATOS*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','TIPO DE CONTRATO','N',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','HIDR',upper('Hidro-Lavado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','FUMI',upper('Fumigacion'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','SUPE',upper('Supervision'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','CEHI',upper('Centro Historico'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONTR_TIPO','ARVE',upper('Areas Verdes'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+
+/*CATALOGO DOCUMENTO*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCUMENTO','TIPO DE DOCUMENTOS','N',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCUMENTO','CONT',upper('Contrato'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCUMENTO','POLI',upper('Poliza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('DOCUMENTO','FACT',upper('Factura'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+
+/*CATALOGO EMPRESAS*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('EMPRESAS','EMPRESAS','S',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('EMPRESAS','TATE',upper('Grupo Tatei'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+/*CATALOGO ACTIVIDADES*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','ACTIVIDADES','S',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','DESH',upper('Deshierbe M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','POAR',upper('Poda de Arbol Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','AMUL',upper('Aplicacion de Mulch M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+
+/*CATALOGO ARTICULOS*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ARTICULOS','S',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','BIEL',upper('Bieldo 4 Puntas'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CU12',upper('Cuerda 1/2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CAMI',upper('Camioneta'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');

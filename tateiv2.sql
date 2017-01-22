@@ -3,7 +3,6 @@ USE tatei;
 DROP TABLE IF EXISTS parametros;
 DROP TABLE IF EXISTS vialidad_coordenadas;
 DROP TABLE IF EXISTS permiso_laboral;
-DROP TABLE IF EXISTS vialidad;
 DROP TABLE IF EXISTS contrato;
 DROP TABLE IF EXISTS asistencia;
 DROP TABLE IF EXISTS empleado_documentos;
@@ -19,29 +18,7 @@ DROP TABLE IF EXISTS actividad_diaria;
 DROP TABLE IF EXISTS cuadrilla;
 
 
-
-	CREATE TABLE usuario (
-	    usuario VARCHAR(20) NOT NULL,
-		id_empleado INT NULL,
-		nombre VARCHAR(80) NULL,
-	    apellido_pat VARCHAR(80) NULL,
-	    apellido_mat VARCHAR(80) NULL,
-	    sexo  CHAR(1)  NULL CHECK(sexo IN('F','M')),
-	    rfc VARCHAR(13) NULL,
-	    rfc_calculado VARCHAR(15) NULL,         
-	    fecha_nacimiento DATE NULL,
-	    id_perfil INT NOT NULL,
-	    contrasena VARCHAR(100) NOT NULL,
-	    cambio_contrasena CHAR(1) NOT NULL CHECK(cambio_contrasena IN('S','N')),
-		fecha_ult_acceso DATETIME NOT NULL,
-	    fecha_alta DATETIME NOT NULL,
-		fecha_ult_mod DATETIME NOT NULL,
-		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-	    PRIMARY KEY(usuario),
-	    KEY(usuario)
-    );
-    
-    CREATE TABLE perfil (
+	CREATE TABLE perfil (
 	    id_perfil INT NOT NULL,
 	    nombre VARCHAR(100) NOT NULL,
 	    descripcion VARCHAR(100) NOT NULL,
@@ -79,6 +56,28 @@ DROP TABLE IF EXISTS cuadrilla;
 		PRIMARY KEY(codigo)
     );
 
+	CREATE TABLE usuario (
+	    usuario VARCHAR(20) NOT NULL,
+		id_empleado INT NULL,
+		nombre VARCHAR(80) NULL,
+	    apellido_pat VARCHAR(80) NULL,
+	    apellido_mat VARCHAR(80) NULL,
+	    sexo  CHAR(1)  NULL CHECK(sexo IN('F','M')),
+	    rfc VARCHAR(13) NULL,
+	    rfc_calculado VARCHAR(15) NULL,         
+	    fecha_nacimiento DATE NULL,
+	    id_perfil INT NOT NULL,
+	    contrasena VARCHAR(100) NOT NULL,
+	    cambio_contrasena CHAR(1) NOT NULL CHECK(cambio_contrasena IN('S','N')),
+		fecha_ult_acceso DATETIME NOT NULL,
+	    fecha_alta DATETIME NOT NULL,
+		fecha_ult_mod DATETIME NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+	    PRIMARY KEY(usuario),
+	    KEY(usuario)
+    );
+
+	/*
     CREATE TABLE herramienta (
         id_herramienta INT NOT NULL AUTO_INCREMENT,
         nombre VARCHAR(100) NOT NULL,
@@ -95,7 +94,9 @@ DROP TABLE IF EXISTS cuadrilla;
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
         PRIMARY KEY(id_herramienta)
     );
+	*/
 
+	/* MENU */
     CREATE TABLE menu (
         id_menu INT NOT NULL AUTO_INCREMENT,
         id_padre INT NULL,
@@ -114,7 +115,8 @@ DROP TABLE IF EXISTS cuadrilla;
         KEY(id_perfil),
         KEY(id_menu)
     );
-    
+    /* MENU */
+	
     CREATE TABLE empleado (
         id_empleado INT NOT NULL AUTO_INCREMENT,
         no_empleado VARCHAR(80) NOT NULL,
@@ -132,8 +134,8 @@ DROP TABLE IF EXISTS cuadrilla;
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,        
         telefono VARCHAR(10) NOT NULL,
-        
-        alta_imss CHAR(1) NOT NULL,
+        huella  VARCHAR(200) NOT NULL,
+        alta_imss CHAR(1) NULL,
         observaciones VARCHAR(100) NULL,
         
         codigo_puesto  VARCHAR(10) NOT NULL,                
@@ -148,6 +150,9 @@ DROP TABLE IF EXISTS cuadrilla;
         fecha_baja DATETIME NULL,        
         codigo_tipo_salida VARCHAR(10) NULL,
         codigo_causa_salida VARCHAR(10) NULL,
+        
+		usuario_aut_imss VARCHAR(20)  NULL,
+        fecha_aut_imss DATETIME  NULL,
         
         usuario_ult_mod VARCHAR(20)  NULL,
         fecha_ult_mod DATETIME  NULL,
@@ -171,7 +176,7 @@ DROP TABLE IF EXISTS cuadrilla;
 		fecha_solicitud_maximo DATE NOT NULL,
 		hora_solicitud_minimo TIME NOT NULL,
 		hora_solicitud_maxima TIME NOT NULL,
-		codigo_permiso VARCHAR(50) NOT NULL,
+		codigo_permiso VARCHAR(10) NOT NULL,
 		
 		goce_sueldo CHAR(1)  NULL CHECK(goce_sueldo IN('S','N')),
 		autorizacion CHAR(1) NULL CHECK(autorizacion IN('S','N')),
@@ -189,18 +194,6 @@ DROP TABLE IF EXISTS cuadrilla;
 		KEY(id_empleado)
 	);
 	
-	CREATE TABLE vialidad (
-		id_vialidad INTEGER AUTO_INCREMENT NOT NULL,
-		nombre varchar(40) NOT NULL,
-		usuario_alta varchar(20)NOT NULL,
-		fecha_alta DATETIME NOT NULL,
-		usuario_baja varchar(20) NULL,
-		fecha_baja  DATETIME NULL,
-		usuario_ult_mod varchar(20)  NULL,
-		fecha_ult_mod  DATETIME  NULL,
-		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-	    PRIMARY KEY(id_vialidad)
-	);
 	
 	CREATE TABLE asistencia (
 		id_asistencia INTEGER NOT NULL AUTO_INCREMENT,
@@ -219,37 +212,54 @@ DROP TABLE IF EXISTS cuadrilla;
 		PRIMARY KEY(id_asistencia),
 		KEY(id_empleado)
 	);
+
 	
 	CREATE TABLE contrato (
 		id_contrato INTEGER NOT NULL AUTO_INCREMENT,
-		numero_contrato INTEGER NOT NULL,
-		id_empleado INTEGER NOT NULL,
+		codigo_vialidad VARCHAR(10) NOT NULL,
+		codigo_contrato VARCHAR(10) NOT NULL, 
+		codigo_documento VARCHAR(10) NOT NULL,
+		codigo_empresa VARCHAR(10) NOT NULL,
+		numero_documento INTEGER NOT NULL,
+		monto DECIMAL(10,2) NULL,
+		subtotal DECIMAL(10,2) NULL,
+		fecha_inicio DATE NOT NULL,
+		fecha_fin DATE NOT NULL,
+		dias_duracion INTEGER NULL,
+		pct_avance DECIMAL(2,2) NOT NULL,		
 		fecha_registro DATE NOT NULL,
-		id_vialidad integer NOT NULL,
-		direccion_inicial VARCHAR(150) NOT NULL,
-		latitud_inicial float NOT NULL,
-		longitud_incial float NOT NULL,
-		direccion_final VARCHAR(150) NOT NULL,
-		latitud_final  float NOT NULL,
-		longitud_final float NOT NULL,
-		fecha_alta DATETIME NOT NULL,
-		usuario_alta VARCHAR(20) NOT NULL,
-		fecha_baja DATETIME NULL,
-		usuario_baja VARCHAR(20) NULL,
-		usuario_ult_mod varchar(20)  NULL,
-		fecha_ult_mod  DATETIME  NULL,
+		id_cuadrilla integer NULL,
 		observaciones VARCHAR(150) NULL,
 		url VARCHAR(200) NOT NULL,
+
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		usuario_baja VARCHAR(20) NULL,
+		fecha_baja DATETIME NULL,
+		usuario_ult_mod varchar(20)  NULL,
+		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_contrato),
 		KEY(id_empleado)
 	);
-	
+
+	CREATE TABLE contrato_coordenadas (
+		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,
+		id_contrato INTEGER NOT  NULL,
+		orden INTEGER NOT NULL,
+		direccion VARCHAR(150) NOT NULL,
+		latitud FLOAT NOT NULL,
+		longitud FLOAT NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_coordenada),
+		KEY (id_vialidad)
+	);
+
 	CREATE TABLE cuadrilla (
 		id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 		nombre_cuadrilla VARCHAR(50) NOT NULL,
-		id_vialidad INTEGER NOT NULL,
-		numero_personas INTEGER NOT NULL,
+		id_contrato INTEGER NULL,
 		calificacion INTEGER NOT NULL,
 		fecha_alta DATETIME NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
@@ -260,7 +270,70 @@ DROP TABLE IF EXISTS cuadrilla;
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_cuadrilla)
 	);
+
+	CREATE TABLE agenda (
+		id_agenda INTEGER NOT NULL AUTO_INCREMENT,
+		id_contrato INTEGER NOT NULL,
+		fecha_inicio DATE NOT NULL,
+		fecha_fin DATE NOT NULL,
+		no_semana INTEGER NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_baja DATETIME NULL,
+		usuario_baja VARCHAR(20) NULL,
+		usuario_ult_mod varchar(20) NULL,
+		fecha_ult_mod  DATETIME  NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_agenda),
+		KEY (id_agenda)
+	);
 	
+	CREATE TABLE agenda_detalle (
+		id_agenda_detalle INTEGER NOT NULL AUTO_INCREMENT,
+		id_agenda INTEGER NOT NULL,
+		fecha DATE NOT NULL,
+		avance_espérado INTEGER NOT NULL,
+		observaciones VARCHAR(150) NULL,		
+		fecha_alta DATETIME NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_baja DATETIME NULL,
+		usuario_baja VARCHAR(20) NULL,
+		usuario_ult_mod varchar(20) NULL,
+		fecha_ult_mod  DATETIME  NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_agenda_detalle),
+		KEY (id_agenda_detalle)
+	);
+
+	CREATE TABLE agenda_coordenadas (
+		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,
+		id_agenda INTEGER NOT  NULL,
+		orden INTEGER NOT NULL,
+		direccion VARCHAR(150) NOT NULL,
+		latitud FLOAT NOT NULL,
+		longitud FLOAT NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_coordenada),
+		KEY (id_coordenada)
+	);
+
+	CREATE TABLE agenda_actividades (		
+		id_agenda INTEGER NOT NULL,
+		codigo_actividad VARCHAR(10) NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
+	);
+
+	CREATE TABLE agenda_materiales (		
+		id_agenda INTEGER NOT NULL,
+		codigo_material VARCHAR(10) NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_alta DATETIME NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
+	);
 	
 	CREATE TABLE actividad_diaria(
 		id_actividad INTEGER NOT NULL AUTO_INCREMENT,
@@ -299,18 +372,8 @@ DROP TABLE IF EXISTS cuadrilla;
 		KEY(id_cuadrilla)
 	);
 	
-	CREATE TABLE vialidad_coordenadas (
-		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,
-		id_vialidad INTEGER NOT  NULL,
-		latitud FLOAT NOT NULL,
-		longitud FLOAT NOT NULL,
-		fecha_alta DATETIME NOT NULL,
-		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-		PRIMARY KEY(id_coordenada),
-		KEY (id_vialidad)
-	);
-	
 
+	
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
 
 ALTER TABLE catalogo ADD CONSTRAINT FK_cat_usuario FOREIGN KEY(usuario_alta) REFERENCES usuario(usuario);
@@ -347,7 +410,7 @@ ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_emplea
 
 ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);
 
-ALTER TABLE vialidad_coordenadas ADD CONSTRAINT FK_id_vialidad FOREIGN KEY (id_vialidad) REFERENCES vialidad(id_vialidad);
+ALTER TABLE vialidad_coordenadas ADD CONSTRAINT FK_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
 
 ALTER TABLE asistencia ADD CONSTRAINT FK_idEmpleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
