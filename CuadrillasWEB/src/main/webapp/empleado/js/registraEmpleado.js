@@ -185,5 +185,10 @@ console.log(datosDocumentos);
       $scope.bajaEmpleado = function(url) {
     	     window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
     	  };
+    	  
+      $scope.permisoEmpleado = function(url) {
+    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
+    	  };
+      
       
 	 });
