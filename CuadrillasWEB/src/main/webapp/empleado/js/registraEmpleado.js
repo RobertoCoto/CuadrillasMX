@@ -1,5 +1,5 @@
 var app = angular.module('tatei', []);
-app.controller('registraEmpleado', function ($scope, $http) {
+app.controller('registraEmpleado', function ($scope, $http, $window) {
 
 	 $http({
               method: 'GET',
@@ -182,5 +182,8 @@ console.log(datosDocumentos);
 		}
 	   
 		
- 
+      $scope.bajaEmpleado = function(url) {
+    	     window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
+    	  };
+      
 	 });

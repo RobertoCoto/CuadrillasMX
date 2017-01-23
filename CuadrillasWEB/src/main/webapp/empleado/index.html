@@ -254,12 +254,13 @@
 								<td>Operaciones</td>
 								</tr>
 							<tr ng-repeat="general in resultadoDatos">
-							<td>{{general.noEmpleado}}</td>
+							<td><input type="hidden" value={{general.idEmpleado}} id="idEmpleado">{{general.noEmpleado}}</td>
 							<td>{{general.codigoPuesto}}</td>
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
-							<td><button class="btn btn-info">Editar</button></td>
+							
+							<td><button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button></td>
 							</tr>
 							</div>
 							</table>
