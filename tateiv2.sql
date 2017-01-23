@@ -402,11 +402,11 @@ ALTER TABLE empleado ADD CONSTRAINT FK_codigo_tipo_salida FOREIGN KEY(codigo_tip
 
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_causa_salida FOREIGN KEY(codigo_causa_salida) REFERENCES catalogo(codigo);
 
---ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_combustible  FOREIGN KEY (codigo_tipo_combustible) REFERENCES catalogo(codigo);
+/*ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_combustible  FOREIGN KEY (codigo_tipo_combustible) REFERENCES catalogo(codigo);
 
 --ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_articulo  FOREIGN KEY (codigo_tipo_articulo) REFERENCES catalogo(codigo);
 
---ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
+--ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);*/
 
 ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
