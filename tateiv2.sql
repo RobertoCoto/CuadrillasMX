@@ -6,11 +6,7 @@ DROP TABLE IF EXISTS permiso_laboral;
 DROP TABLE IF EXISTS asistencia;
 DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
-DROP TABLE IF EXISTS catalogo;
-DROP TABLE IF EXISTS tipo_catalogo;
-DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS perfil_menu;
-DROP TABLE IF EXISTS perfil;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS actividad_diaria;
 DROP TABLE IF EXISTS cuadrilla;
@@ -21,6 +17,11 @@ DROP TABLE IF EXISTS agenda_detalle;
 DROP TABLE IF EXISTS agenda;
 DROP TABLE IF EXISTS contrato_coordenadas;
 DROP TABLE IF EXISTS contrato;
+DROP TABLE IF EXISTS catalogo;
+DROP TABLE IF EXISTS tipo_catalogo;
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS perfil;
+
 
 	CREATE TABLE perfil (
 	    id_perfil INT NOT NULL,
@@ -62,6 +63,7 @@ DROP TABLE IF EXISTS contrato;
 
 	CREATE TABLE usuario (
 	    usuario VARCHAR(20) NOT NULL,
+	    id_perfil INT NOT NULL,
 		id_empleado INT NULL,
 		nombre VARCHAR(80) NULL,
 	    apellido_pat VARCHAR(80) NULL,
@@ -69,8 +71,7 @@ DROP TABLE IF EXISTS contrato;
 	    sexo  CHAR(1)  NULL CHECK(sexo IN('F','M')),
 	    rfc VARCHAR(13) NULL,
 	    rfc_calculado VARCHAR(15) NULL,         
-	    fecha_nacimiento DATE NULL,
-	    id_perfil INT NOT NULL,
+	    fecha_nacimiento DATE NULL,	   
 	    contrasena VARCHAR(100) NOT NULL,
 	    cambio_contrasena CHAR(1) NOT NULL CHECK(cambio_contrasena IN('S','N')),
 		fecha_ult_acceso DATETIME NOT NULL,
@@ -263,7 +264,7 @@ DROP TABLE IF EXISTS contrato;
 	CREATE TABLE cuadrilla (
 		id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 		nombre_cuadrilla VARCHAR(50) NOT NULL,
-		id_contrato INTEGER NULL,
+		id_contrato INTEGER NOT NULL,
 		calificacion INTEGER NOT NULL,
 		fecha_alta DATETIME NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
@@ -379,36 +380,28 @@ DROP TABLE IF EXISTS contrato;
 
 	
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
-
 ALTER TABLE catalogo ADD CONSTRAINT FK_cat_usuario FOREIGN KEY(usuario_alta) REFERENCES usuario(usuario);
-
 ALTER TABLE catalogo ADD CONSTRAINT FK_cat_usuariom FOREIGN KEY(usuario_ult_mod) REFERENCES usuario(usuario);
 	
 ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
 
 ALTER TABLE perfil_menu ADD CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFERENCES menu(id_menu);
-
 ALTER TABLE perfil_menu ADD CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
 
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_puesto FOREIGN KEY(codigo_puesto) REFERENCES catalogo(codigo);
-
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_vialidad FOREIGN KEY(codigo_vialidad) REFERENCES catalogo(codigo);
-
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_area FOREIGN KEY(codigo_area) REFERENCES catalogo(codigo);
-
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_talla FOREIGN KEY(codigo_talla) REFERENCES catalogo(codigo);
-
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_tipo_salida FOREIGN KEY(codigo_tipo_salida) REFERENCES catalogo(codigo);
-
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_causa_salida FOREIGN KEY(codigo_causa_salida) REFERENCES catalogo(codigo);
-
-/*ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_combustible  FOREIGN KEY (codigo_tipo_combustible) REFERENCES catalogo(codigo);
-
---ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_tipo_articulo  FOREIGN KEY (codigo_tipo_articulo) REFERENCES catalogo(codigo);
-
---ALTER TABLE herramienta ADD CONSTRAINT FK_codigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);*/
+		
+ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_vialidad  FOREIGN KEY (codigo_vialidad) REFERENCES catalogo(codigo);
+ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_contrato  FOREIGN KEY (codigo_contrato) REFERENCES catalogo(codigo);
+ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_documento  FOREIGN KEY (codigo_documento) REFERENCES catalogo(codigo);
+ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_empresa  FOREIGN KEY (codigo_empresa) REFERENCES catalogo(codigo);
 
 ALTER TABLE empleado_documentos ADD CONSTRAINT FK_empleado  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
+ALTER TABLE empleado_documentos ADD CONSTRAINT FK_emp_codigo_emp_doc  FOREIGN KEY (codigo_emp_doc) REFERENCES catalogo(codigo);
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
@@ -427,3 +420,9 @@ ALTER TABLE agenda_coordenadas ADD CONSTRAINT FK_id_agenda_detalle FOREIGN KEY (
 ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+
+
+ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);
+
+ALTER TABLE permiso_laboral ADD CONSTRAINT FK_codigo_permiso  FOREIGN KEY (codigo_permiso) REFERENCES catalogo(codigo);
+
