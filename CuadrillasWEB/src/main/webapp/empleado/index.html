@@ -30,6 +30,7 @@
 </script>
 
 <script type="text/javascript" src="js/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
 <script type="text/javascript" src="js/registraEmpleado.js"></script>
 
 </head>
@@ -43,7 +44,7 @@
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
-                            <input type="text" name="numeroEmpleado" id="noEmpleado" required class="form-control"/>
+                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" data-ng-bind-html="data"/>
                         </div>
                     </div>
 			     </div>
@@ -260,7 +261,8 @@
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
 							
-							<td><button class="btn btn-info">Editar</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
+							<td><button class="btn btn-info" data-ng-click="editarDatos()">Editar</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
+							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							</tr>
 							</div>
 							</table>

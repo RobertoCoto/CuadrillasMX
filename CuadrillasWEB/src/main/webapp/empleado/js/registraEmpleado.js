@@ -1,4 +1,4 @@
-var app = angular.module('tatei', []);
+var app = angular.module('tatei', ['ngSanitize']);
 app.controller('registraEmpleado', function ($scope, $http, $window) {
 
 	 $http({
@@ -190,5 +190,9 @@ console.log(datosDocumentos);
     	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
     	  };
       
-      
+       $scope.editarDatos = function() {
+    	   $scope.data = document.getElementById("noEmpleado").value = document.getElementById("noEmpleadoData").value;
+    	   
+    	   };
+       
 	 });
