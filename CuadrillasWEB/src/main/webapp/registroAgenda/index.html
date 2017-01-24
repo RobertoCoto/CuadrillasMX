@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Registro Agenda Semanal </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <!--script type="text/javascript" src="js/angular.min.js"></script-->
+    <style>
+      .datepicker-semana .datepicker tbody tr:hover {
+      background-color: #eee;
+      }
+      .datepicker-semana .datepicker tbody tr:hover td,
+      .datepicker-semana .datepicker tbody tr td.active {
+      border-radius: 0;
+      }
+      .datepicker-semana .datepicker tbody tr:hover td:last-child,
+      .datepicker-semana .datepicker tbody tr td.active:last-child {
+      border-radius: 0 3px 3px 0;
+      }
+      .datepicker-semana .datepicker tbody tr:hover td:first-child,
+      .datepicker-semana .datepicker tbody tr  td.active:nth-child(2) {
+      border-radius: 3px 0 0 3px;
+      }
+    </style>
+  </head>
+  <body ng-app="tatei">
+    <div class="container">
+      <h2> Registro agenda semanal </h2>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form action="#">
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="form-group form-group-sm">
+                  <label class="control-label" for="vialidad">Vialidad</label>
+                  <select class="form-control" id="vialidad"><option value="A">A </option><<option value="B">B</option></select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label" for="presidente">Presidente</label>
+                  <input type="text" class="form-control" placeholder="Juan Elias Cue"></input>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="fecha" class="control-label">Fecha</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    <input class="form-control" id="fecha" name="fecha" placeholder="DD/MM/YYYY" type="text"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="numPersonas" class="control-label">Num Personas</label>
+                  <input type="number" class="form-control" name="numPeraonas" id="numPersonas" placeholder="0">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="totalHrsHombre" class="control-label">Tot. hrs hombre</label>
+                  <input type="number" class="form-control" name="totalHrsHombre" id="totalHrsHombre" placeholder="0">
+                </div>
+              </div>
+              <div class="col-sm-offset-1 col-sm-4">
+                <h4>Semana Registro:</h4>
+                <div class="datepicker-semana"></div>
+              </div>
+              <div class="col-sm-3">
+                <div class="row">
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <label for="semana" class="control-label">Num. Semana</label>
+                      <input id="semana" type="text" name="semana" class="form-control" disabled="true" placeholder="--">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="ini" class="control-label">Dia Inicio</label>
+                      <input id="ini" type="text" name="ini" class="form-control" disabled="true" placeholder="dd/mm/yyyy">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="fin" class="control-label">Dia Fin</label>
+                      <input id="fin" type="text" name="fin" class="form-control" disabled="true" placeholder="dd/mm/yyyy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="panel panel-default" style="margin: 5px;">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Plan de Actividades</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <label for="diaActividad" class="control-label">Día</label>
+                        <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                          <input class="form-control" id="diaActividad" name="diaActividad" placeholder="DD/MM/YYYY" type="text"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-9">
+                            <label for="actividadCombo" class="control-label">Actividad</label>
+                            <select class="form-control" name="actividadCombo" id="actividadCombo">
+                              <option>A</option>
+                              <option>B</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary" name="agregarActividadBtn" id="agregarActividadBtn" style="margin-top: 25px;">Agregar</button>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <thead>
+                                  <tr class="info">
+                                    <td>Num</td>
+                                    <td>Actividad</td>
+                                    <td></td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>001</td>
+                                    <td>Poda de cesped</td>
+                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd;"></span></center></td>
+                                  </tr>
+                                  <tr>
+                                    <td>002</td>
+                                    <td>Poda de arbol</td>
+                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-9">
+                            <label for="materialesCombo" class="control-label">Materiales</label>
+                            <select class="form-control" name="materialesCombo" id="materialesCombo">
+                              <option>A</option>
+                              <option>B</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary" name="agregarMaterialesBtn" id="agregarMaterialesBtn" style="margin-top: 25px;">Agregar</button>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <thead>
+                                  <tr class="info">
+                                    <td>Num</td>
+                                    <td>Materiales</td>
+                                    <td></td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>001</td>
+                                    <td>Conos</td>
+                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd;"></span></center></td>
+                                  </tr>
+                                  <tr>
+                                    <td>002</td>
+                                    <td>Desmalezadora</td>
+                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                                  </tr>
+                                  <tr>
+                                    <td>003</td>
+                                    <td>Camioneta</td>
+                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <h5>Avance esperado</h5>
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="m2">
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="m">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h3 class="panel-title">Tramo Inicial</h3>
+                              </div>
+                              <div class="panel-body">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="direccionInicial" class="control-label">Dirección</label>
+                                      <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-sm-3">
+                                      <label for="" class="control-label">Coordenadas</label>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h3 class="panel-title">Tramo Final</h3>
+                              </div>
+                              <div class="panel-body">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="direccionTermino" class="control-label">Dirección</label>
+                                      <input type="text" id="direccionTermino" class="form-control" placeholder="Av. Morelos S/N Col 10 Abril">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-sm-3">
+                                      <label for="" class="control-label">Coordenadas</label>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="latitudTermino" class="form-control" placeholder="-0.9999999">
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="longitudTermino" class="form-control" placeholder="1.2366526">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-offset-8 col-sm-4"><button class="btn btn-warning" style="margin: 25px;">Agregar</button></div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="map" style="width:100%; height:450px;"></div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="observaciones" class="control-label">Observaciones</label>
+                          <textarea name="observaciones" class="form-control" rows="3" ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-offset-9 col-sm-3">
+                        <button type="button" class="btn btn-success btn-block" name="agregarAgenda">Agregar agenda</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr class="success">
+                        <td>Dia</td>
+                        <td>Avance</td>
+                        <td>Tramo</td>
+                        <td>Edicion</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Lun 14 Nov</td>
+                        <td>1,500 m2</td>
+                        <td>San Juan a Santa Teresa</td>
+                        <td><center><span class="fa fa-pencil fa-2x" aria-hidden="true" style="color: #E57A2D;"></span>  <span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                      </tr>
+                      <tr>
+                        <td>Mar 15 Nov</td>
+                        <td>1,800 m2</td>
+                        <td>Santa Teresa a San Joaquin Haro</td>
+                        <td><center><span class="fa fa-pencil fa-2x" aria-hidden="true" style="color: #E57A2D;"></span>  <span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <h5>Avance esperado</h5>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="m2">
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="m">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Tramo Inicial</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label for="direccionInicial" class="control-label">Dirección</label>
+                              <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="latitudInicial" class="control-label">Latitud</label>
+                              <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="longitudInicial" class="control-label">Longitud</label>
+                              <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Tramo Final</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label for="direccionTermino" class="control-label">Dirección</label>
+                              <input type="text" id="direccionTermino" class="form-control" placeholder="Av. Morelos S/N Col 10 Abril">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="latitudTermino" class="control-label">Latitud</label>
+                              <input type="text" id="latitudTermino" class="form-control" placeholder="-0.9999999">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label for="longitudTermino" class="control-label">Longitud</label>
+                              <input type="text" id="longitudTermino" class="form-control" placeholder="1.2366526">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div id="map2" style="width:100%; height:600px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"><button class="btn btn-block btn-danger" style="margin: 25px;">Limpiar</button></div>
+              <div class="col-sm-offset-1 col-sm-2"><button class="btn btn-block btn-success" style="margin: 25px;">Guardar</button></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/locales/bootstrap-datepicker.es.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    </script>
+
+    <script>
+      var actualizacion = false;
+      $(document).ready(function(){
+        var fecha=$('input[name="fecha"]');
+        var diaActividad = $('input[name="diaActividad"]');
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        fecha.datepicker({
+          format: 'dd/mm/yyyy',
+          container: container,
+          todayHighlight: true,
+          weekStart: 1,
+          language: "es",
+      		calendarWeeks: false,
+          autoclose: true,
+        });
+        diaActividad.datepicker({
+          format: 'dd/mm/yyyy',
+          language: "es",
+          container: container,
+          todayHighlight: true,
+          calendarWeeks: false,
+          autoclose: true
+        });
+        $('.datepicker-semana').datepicker(
+      	{
+      		weekStart: 1,
+          language: "es",
+      		calendarWeeks: false
+      	}).on('changeDate', function (e)
+      	{
+      		if (actualizacion)
+      			return;
+      		actualizacion = true;
+      		var value = e.date;
+      		var iniSemana = moment(value).day(1);
+      		var finSemana =  moment(value).day(7);
+      		$(this).datepicker('clearDate');
+      		$(this).datepicker('setDates', [
+      			moment(value).day(1).toDate(),
+      			moment(value).day(2).toDate(),
+      			moment(value).day(3).toDate(),
+      			moment(value).day(4).toDate(),
+      			moment(value).day(5).toDate(),
+      			moment(value).day(6).toDate(),
+      			moment(value).day(7).toDate()
+      		]);
+          var semanaInicioDate = moment(iniSemana.toDate());
+          var semanaFinDate = moment(finSemana.toDate());
+          $('#ini').val(semanaInicioDate.format("DD/MM/YYYY"));
+          $('#fin').val(semanaFinDate.format("DD/MM/YYYY"));
+          $('#semana').val(moment(iniSemana.toDate()).week());
+      		actualizacion = false;
+      	});
+      })
+
+      function initMap() {
+        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
+        var mx3 = {lat: 19.51262144393955, lng: -99.04332534816899};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: mx1
+        });
+        var marker = new google.maps.Marker({
+          position: mx1,
+          map: map
+        });
+        var marker2 = new google.maps.Marker({
+          position: mx2,
+          map: map
+        });
+        var marker22 = new google.maps.Marker({
+          position: mx3,
+          map: map
+        });
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+          zoom: 10,
+          center: mx1
+        });
+        var marker3 = new google.maps.Marker({
+          position: mx1,
+          map: map2
+        });
+        var marker4 = new google.maps.Marker({
+          position: mx2,
+          map: map2
+        });
+        var marker44 = new google.maps.Marker({
+          position: mx3,
+          map: map2
+        });
+      }
+
+      var map;
+        var markers = [];
+
+        function initialize() {
+          var myOptions = {
+            zoom: 10,
+            center: new google.maps.LatLng(100.090, -100.536),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+          addMarker(new google.maps.LatLng(100.0747, -100.6274), "Tramo Inicial");
+          addMarker(new google.maps.LatLng(100.0758, -100.6254), "Tramo Final");
+
+        }
+
+        function addMarker(latlng, tit) {
+          markers.push(new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: tit,
+            icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
+          }));
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&callback=initMap"></script>
+  </body>
+</html>
