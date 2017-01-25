@@ -53,7 +53,7 @@
 			      <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
-                            <input type="text" name="nombre" id="nombre"  required class="form-control">
+                            <input type="text" name="nombre" id="nombre" class="form-control" data-ng-bind-html="dataNombre">
                         </div>
                     </div>
 			     </div>
@@ -263,6 +263,14 @@
 							
 							<td><button class="btn btn-info" data-ng-click="editarDatos()">Editar</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
+							<input type="hidden" id="nombreData" value={{general.nombre}}>
+							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
+							<input type="hidden" id="apellidoMatData" value={{general.apellidoMat}}>
+							<input type="hidden" id="fechaNacimientoData" value={{general.fechaNacimiento}}>
+							<input type="hidden" id="nssData" value={{general.nss}}>
+							<input type="hidden" id="rfcData" value={{general.rfc}}>
+							<input type="hidden" id="creditoInfoData" value={{general.noCreditoInfonavit}}>
+							<input type="hidden" id="sueldoData" value={{general.sueldo}}>
 							</tr>
 							</div>
 							</table>

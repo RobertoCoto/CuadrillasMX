@@ -191,8 +191,15 @@ console.log(datosDocumentos);
     	  };
       
        $scope.editarDatos = function() {
-    	   $scope.data = document.getElementById("noEmpleado").value = document.getElementById("noEmpleadoData").value;
-    	   
+    	   $scope.dataNoEmpleado = document.getElementById("noEmpleado").value = document.getElementById("noEmpleadoData").value;
+    	   $scope.dataNombre = document.getElementById("nombre").value = document.getElementById("nombreData").value;
+    	   $scope.dataApellidoPat = document.getElementById("apellidoPaterno").value = document.getElementById("apellidoPatData").value;
+    	   $scope.dataApellidoMat = document.getElementById("apellidoMaterno").value = document.getElementById("apellidoMatData").value;
+    	   $scope.dataFechaNacimiento = document.getElementById("fechaNacimiento").value = document.getElementById("fechaNacimientoData").value;
+    	   $scope.dataNss = document.getElementById("nss").value = document.getElementById("nssData").value;
+    	   $scope.dataRfc = document.getElementById("rfc").value = document.getElementById("rfcData").value;
+    	   $scope.dataCredito = document.getElementById("noCreditoInfonavit").value = document.getElementById("creditoInfoData").value;
+    	   $scope.dataSueldo = document.getElementById("sueldo").value = document.getElementById("sueldoData").value;
     	   };
        
 	 });
