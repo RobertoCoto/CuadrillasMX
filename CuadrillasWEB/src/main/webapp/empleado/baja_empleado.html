@@ -28,6 +28,21 @@
    	
 } 
 </script>
+<script language="Javascript"> 
+function confirmar(){ 
+confirmar=confirm("¿Esta seguro de dar de baja al empleado?"); 
+if (confirmar) {
+// si pulsamos en aceptar
+alert('datos modificados correctamente.');
+return true;
+} else {
+// si pulsamos en cancelar
+alert('se ha cancelado la operacion.'); 
+return false;
+} 
+
+} 
+</script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/baja.js"></script>
 </head>
@@ -140,7 +155,7 @@
                         </div>
                     </div>
 			 </div>
-			 <input type="submit" value="Grabar" class="btn btn-success">
+			 <input type="submit" value="Grabar" class="btn btn-success" onclick="confirmar()">
 			</form>
 			</div>
 			</div>
