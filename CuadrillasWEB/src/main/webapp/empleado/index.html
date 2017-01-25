@@ -261,7 +261,8 @@
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
 							
-							<td><button class="btn btn-info" data-ng-click="editarDatos()">Editar</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
+							<td><button class="btn btn-info" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
+							<button class="btn btn-info" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar Empleado</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
 							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
@@ -269,6 +270,7 @@
 							<input type="hidden" id="fechaNacimientoData" value={{general.fechaNacimiento}}>
 							<input type="hidden" id="nssData" value={{general.nss}}>
 							<input type="hidden" id="rfcData" value={{general.rfc}}>
+							<input type="hidden" id="telefonoData" value={{general.telefono}}>
 							<input type="hidden" id="creditoInfoData" value={{general.noCreditoInfonavit}}>
 							<input type="hidden" id="sueldoData" value={{general.sueldo}}>
 							</tr>
@@ -277,7 +279,7 @@
                 			</div>
                			 </div>
 			     </div>
-			     <input type="reset" value="Borrar información" class="btn btn-info">
+			     <input type="reset" value="Borrar información" class="btn btn-info" >
 				 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)" class="btn btn-info">
 				 <input type="button" value="Consultar" data-ng-click="consultar(empleado)" class="btn btn-info">
 			</form>

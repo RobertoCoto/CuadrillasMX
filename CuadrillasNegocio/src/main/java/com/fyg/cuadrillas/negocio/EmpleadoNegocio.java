@@ -95,7 +95,7 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
-			 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
 			//RFC Calculado
@@ -263,7 +263,7 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
 			}
-			 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
 			//RFC Calculado
@@ -274,15 +274,6 @@ public class EmpleadoNegocio {
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
-
-			//Validaciones Negocio
-			EmpleadoDTO emp = dao.consultaEmpleado(uid, empleado);
-			if (emp == null) {
-				throw new ExcepcionesCuadrillas("El empleado solicitado no existe.");
-			}
-			if (emp.getEstatus().equals("I")) {
-				throw new ExcepcionesCuadrillas("El empleado ya se encuentra dado de baja.");
-			}
 
 			//Modificacion
  		    respuesta = dao.modificaEmpleado(uid, empleado);

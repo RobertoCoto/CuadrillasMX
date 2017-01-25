@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -18,7 +19,7 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
+
 
 /**
  * Servlet implementation class ActualizaEmpleado
@@ -55,6 +56,8 @@ public class ActualizaEmpleado extends HttpServlet {
 		
 		try {
 			//Se obtiene parametros
+			String noEmpleado = request.getParameter("noEmpleado");
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String nombre = request.getParameter("nombre");
 			String apellidoPaterno = request.getParameter("apellidoPaterno");
 			String apellidoMaterno = request.getParameter("apellidoMaterno");
@@ -74,7 +77,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			
 			//se parsea json
-			JsonParser parser = new JsonParser();
+			JSONParser parser = new JSONParser();
 			Object documentoEmpleado = parser.parse(request.getParameter("documentoEmpleado"));
 			JSONObject jsonObject = (JSONObject) documentoEmpleado;
 			
@@ -91,6 +94,8 @@ public class ActualizaEmpleado extends HttpServlet {
 			
 			//Lista de direcciones
 			EmpleadoDTO empleado = new EmpleadoDTO();
+			empleado.setNoEmpleado(noEmpleado);
+			empleado.setIdEmpleado(idEmpleado);
 			empleado.setNombre(nombre);
 			empleado.setApellidoPat(apellidoPaterno);
 			empleado.setApellidoMat(apellidoMaterno);
