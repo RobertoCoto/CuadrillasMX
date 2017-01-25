@@ -58,10 +58,10 @@ public class BajaContrato extends HttpServlet {
 			final ContratoNegocio negocio = new ContratoNegocio();
 			
 			ContratoDTO contrato = new ContratoDTO();
-			contrato.setNumeroContrato(numeroContrato);
+			/*contrato.setNumeroContrato(numeroContrato);
 			contrato.setIdEmpleado(idEmpleado);
 			contrato.setUsuarioBaja(usuario);
-			contrato.setUsuarioUltMod(usuario);
+			contrato.setUsuarioUltMod(usuario);*/
 			respuesta = negocio.bajaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

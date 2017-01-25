@@ -77,6 +77,11 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        }
 	        */
 	        //convierte  a formato Json
+	        if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		} catch(Exception e) {

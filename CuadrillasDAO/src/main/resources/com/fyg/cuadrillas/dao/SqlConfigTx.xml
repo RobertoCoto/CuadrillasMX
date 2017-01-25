@@ -20,6 +20,7 @@
 <typeAlias alias="Permiso" type="com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO"/>
 <typeAlias alias="Actividad" type="com.fyg.cuadrillas.dto.actividad.ActividadDTO"/>
 <typeAlias alias="VialidadCoordenadas" type="com.fyg.cuadrillas.dto.vialidad.VialidadCoordenadasDTO"/>
+<typeAlias alias="Coordenada" type="com.fyg.cuadrillas.dto.CoordenadaDTO"/>
 </typeAliases>
 
 

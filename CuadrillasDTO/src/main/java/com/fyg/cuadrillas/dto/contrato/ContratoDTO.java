@@ -1,96 +1,39 @@
 package com.fyg.cuadrillas.dto.contrato;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
+import com.fyg.cuadrillas.dto.cuadrilla.CuadrillaDTO;
 
 public class ContratoDTO extends ObjetoValor {
 
-	/**
-	 * Serial UID
-	 */
+	/** Serial UID */
 	private static final long serialVersionUID = -1670407171238552004L;
-	/**
-	 * idContrato
-	 */
-	private Integer idContrato;
-	/**
-	 * numero del contrato
-	 */
-	private Integer numeroContrato;
-	/**
-	 * id del empleado
-	 */
-	private Integer idEmpleado;
-	/**
-	 * fecha del registro
-	 */
+	/** idContrato */
+	private Integer idContrato;	
+	private String codigoVialidad;
+	private String codigoContrato;
+	private String codigoDocumento;
+	private String codigoEmpresa;
+	/** numero del contrato */
+	private String numeroDocumento;
+	private double monto;
+	private double subtotal;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private int diasDuracion;
+	private double pctAvance;
 	private Date fechaRegistro;
-	/**
-	 * id vialidad
-	 */
-	private Integer idVialidad;
-	/**
-	 * latitud inicial
-	 */
-	private float latitudInicial;
-	/**
-	 * longitud inicial
-	 */
-	private float longitudInicial;
-	/**
-	 * latitud final
-	 */
-	private float latitudFinal;
-	/**
-	 * longitud final
-	 */
-	private float longitudFinal;
-	/**
-	 * observaciones
-	 */
+	private Integer idCuadrilla;
+	private CuadrillaDTO cuadrilla;
 	private String observaciones;
-	/**
-	 * url
-	 */
 	private String url;
-	
-	/**
-	 * estatus
-	 */
+	private int metros;
+	private List<CoordenadaDTO> coordenadas;
 	private String estatus;
-	/**
-	 * usuario Alta
-	 */
 	private String usuarioAlta;
-	/**
-	 * fecha Alta
-	 */
-	private Date fechaAlta;
-	/**
-	 * usuario baja
-	 */
-	private String usuarioBaja;
-	/**
-	 * fecha baja
-	 */
-	private Date fechaBaja;
-	/**
-	 * fecha ult mod
-	 */
-	private Date fechaUltMod;
-	/**
-	 * usuario ultima mod
-	 */
-	private String usuarioUltMod;
-	/**
-	 * direccion inicial
-	 */
-	private String direccionInicial;
-	/**
-	 * direccion final
-	 */
-	private String direccionFinal;
 	/**
 	 * @return the idContrato
 	 */
@@ -104,28 +47,136 @@ public class ContratoDTO extends ObjetoValor {
 		this.idContrato = idContrato;
 	}
 	/**
-	 * @return the numeroContrato
+	 * @return the codigoVialidad
 	 */
-	public Integer getNumeroContrato() {
-		return numeroContrato;
+	public String getCodigoVialidad() {
+		return codigoVialidad;
 	}
 	/**
-	 * @param numeroContrato the numeroContrato to set
+	 * @param codigoVialidad the codigoVialidad to set
 	 */
-	public void setNumeroContrato(Integer numeroContrato) {
-		this.numeroContrato = numeroContrato;
+	public void setCodigoVialidad(String codigoVialidad) {
+		this.codigoVialidad = codigoVialidad;
 	}
 	/**
-	 * @return the idEmpleado
+	 * @return the codigoContrato
 	 */
-	public Integer getIdEmpleado() {
-		return idEmpleado;
+	public String getCodigoContrato() {
+		return codigoContrato;
 	}
 	/**
-	 * @param idEmpleado the idEmpleado to set
+	 * @param codigoContrato the codigoContrato to set
 	 */
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
+	public void setCodigoContrato(String codigoContrato) {
+		this.codigoContrato = codigoContrato;
+	}
+	/**
+	 * @return the codigoDocumento
+	 */
+	public String getCodigoDocumento() {
+		return codigoDocumento;
+	}
+	/**
+	 * @param codigoDocumento the codigoDocumento to set
+	 */
+	public void setCodigoDocumento(String codigoDocumento) {
+		this.codigoDocumento = codigoDocumento;
+	}
+	/**
+	 * @return the codigoEmpresa
+	 */
+	public String getCodigoEmpresa() {
+		return codigoEmpresa;
+	}
+	/**
+	 * @param codigoEmpresa the codigoEmpresa to set
+	 */
+	public void setCodigoEmpresa(String codigoEmpresa) {
+		this.codigoEmpresa = codigoEmpresa;
+	}
+	/**
+	 * @return the numeroDocumento
+	 */
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+	/**
+	 * @param numeroDocumento the numeroDocumento to set
+	 */
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+	/**
+	 * @return the monto
+	 */
+	public double getMonto() {
+		return monto;
+	}
+	/**
+	 * @param monto the monto to set
+	 */
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+	/**
+	 * @return the subtotal
+	 */
+	public double getSubtotal() {
+		return subtotal;
+	}
+	/**
+	 * @param subtotal the subtotal to set
+	 */
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+	/**
+	 * @return the fechaInicio
+	 */
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+	/**
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	/**
+	 * @return the fechaFin
+	 */
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+	/**
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	/**
+	 * @return the diasDuracion
+	 */
+	public int getDiasDuracion() {
+		return diasDuracion;
+	}
+	/**
+	 * @param diasDuracion the diasDuracion to set
+	 */
+	public void setDiasDuracion(int diasDuracion) {
+		this.diasDuracion = diasDuracion;
+	}
+	/**
+	 * @return the pctAvance
+	 */
+	public double getPctAvance() {
+		return pctAvance;
+	}
+	/**
+	 * @param pctAvance the pctAvance to set
+	 */
+	public void setPctAvance(double pctAvance) {
+		this.pctAvance = pctAvance;
 	}
 	/**
 	 * @return the fechaRegistro
@@ -140,149 +191,28 @@ public class ContratoDTO extends ObjetoValor {
 		this.fechaRegistro = fechaRegistro;
 	}
 	/**
-	 * @return the idVialidad
+	 * @return the idCuadrilla
 	 */
-	public Integer getIdVialidad() {
-		return idVialidad;
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
 	}
 	/**
-	 * @param idVialidad the idVialidad to set
+	 * @param idCuadrilla the idCuadrilla to set
 	 */
-	public void setIdVialidad(Integer idVialidad) {
-		this.idVialidad = idVialidad;
-	}
-	
-	/**
-	 * @return the estatus
-	 */
-	public String getEstatus() {
-		return estatus;
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
 	}
 	/**
-	 * @param estatus the estatus to set
+	 * @return the cuadrilla
 	 */
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
+	public CuadrillaDTO getCuadrilla() {
+		return cuadrilla;
 	}
 	/**
-	 * @return the usuarioAlta
+	 * @param cuadrilla the cuadrilla to set
 	 */
-	public String getUsuarioAlta() {
-		return usuarioAlta;
-	}
-	/**
-	 * @param usuarioAlta the usuarioAlta to set
-	 */
-	public void setUsuarioAlta(String usuarioAlta) {
-		this.usuarioAlta = usuarioAlta;
-	}
-	/**
-	 * @return the fechaAlta
-	 */
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
-	/**
-	 * @param fechaAlta the fechaAlta to set
-	 */
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-	/**
-	 * @return the usuarioBaja
-	 */
-	public String getUsuarioBaja() {
-		return usuarioBaja;
-	}
-	/**
-	 * @param usuarioBaja the usuarioBaja to set
-	 */
-	public void setUsuarioBaja(String usuarioBaja) {
-		this.usuarioBaja = usuarioBaja;
-	}
-	/**
-	 * @return the fechaBaja
-	 */
-	public Date getFechaBaja() {
-		return fechaBaja;
-	}
-	/**
-	 * @param fechaBaja the fechaBaja to set
-	 */
-	public void setFechaBaja(Date fechaBaja) {
-		this.fechaBaja = fechaBaja;
-	}
-	/**
-	 * @return the fechaUltMod
-	 */
-	public Date getFechaUltMod() {
-		return fechaUltMod;
-	}
-	/**
-	 * @param fechaUltMod the fechaUltMod to set
-	 */
-	public void setFechaUltMod(Date fechaUltMod) {
-		this.fechaUltMod = fechaUltMod;
-	}
-	/**
-	 * @return the usuarioUltMod
-	 */
-	public String getUsuarioUltMod() {
-		return usuarioUltMod;
-	}
-	/**
-	 * @param usuarioUltMod the usuarioUltMod to set
-	 */
-	public void setUsuarioUltMod(String usuarioUltMod) {
-		this.usuarioUltMod = usuarioUltMod;
-	}
-	/**
-	 * @return the latitudInicial
-	 */
-	public float getLatitudInicial() {
-		return latitudInicial;
-	}
-	/**
-	 * @param latitudInicial the latitudInicial to set
-	 */
-	public void setLatitudInicial(float latitudInicial) {
-		this.latitudInicial = latitudInicial;
-	}
-	/**
-	 * @return the longitudInicial
-	 */
-	public float getLongitudInicial() {
-		return longitudInicial;
-	}
-	/**
-	 * @param longitudInicial the longitudInicial to set
-	 */
-	public void setLongitudInicial(float longitudInicial) {
-		this.longitudInicial = longitudInicial;
-	}
-	/**
-	 * @return the latitudFinal
-	 */
-	public float getLatitudFinal() {
-		return latitudFinal;
-	}
-	/**
-	 * @param latitudFinal the latitudFinal to set
-	 */
-	public void setLatitudFinal(float latitudFinal) {
-		this.latitudFinal = latitudFinal;
-	}
-	/**
-	 * @return the longitudFinal
-	 */
-	public float getLongitudFinal() {
-		return longitudFinal;
-	}
-	/**
-	 * @param longitudFinal the longitudFinal to set
-	 */
-	public void setLongitudFinal(float longitudFinal) {
-		this.longitudFinal = longitudFinal;
+	public void setCuadrilla(CuadrillaDTO cuadrilla) {
+		this.cuadrilla = cuadrilla;
 	}
 	/**
 	 * @return the observaciones
@@ -309,27 +239,52 @@ public class ContratoDTO extends ObjetoValor {
 		this.url = url;
 	}
 	/**
-	 * @return the direccionInicial
+	 * @return the metros
 	 */
-	public String getDireccionInicial() {
-		return direccionInicial;
+	public int getMetros() {
+		return metros;
 	}
 	/**
-	 * @param direccionInicial the direccionInicial to set
+	 * @param metros the metros to set
 	 */
-	public void setDireccionInicial(String direccionInicial) {
-		this.direccionInicial = direccionInicial;
+	public void setMetros(int metros) {
+		this.metros = metros;
 	}
 	/**
-	 * @return the direccionFinal
+	 * @return the coordenadas
 	 */
-	public String getDireccionFinal() {
-		return direccionFinal;
+	public List<CoordenadaDTO> getCoordenadas() {
+		return coordenadas;
 	}
 	/**
-	 * @param direccionFinal the direccionFinal to set
+	 * @param coordenadas the coordenadas to set
 	 */
-	public void setDireccionFinal(String direccionFinal) {
-		this.direccionFinal = direccionFinal;
-	} 
+	public void setCoordenadas(List<CoordenadaDTO> coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+	/**
+	 * @return the estatus
+	 */
+	public String getEstatus() {
+		return estatus;
+	}
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
+	/**
+	 * @return the usuarioAlta
+	 */
+	public String getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	/**
+	 * @param usuarioAlta the usuarioAlta to set
+	 */
+	public void setUsuarioAlta(String usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+
 }

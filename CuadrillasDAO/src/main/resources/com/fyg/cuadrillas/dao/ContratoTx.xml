@@ -2,12 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.ContratoTx">
 
-<insert id="altaContrato" parameterType="Contrato">
-INSERT INTO contrato(numero_contrato,id_empleado,fecha_registro,id_vialidad,direccion_inicial,latitud_inicial,longitud_inicial,direccion_final,
-latitud_final,longitud_final,fecha_alta,usuario_alta,observaciones,url,estatus)
-VALUES (#{numeroContrato},#{idEmpleado},now(),#{idVialidad},#{direccionInicial},#{latitudInicial},#{longitudInicial},
-#{direccioFinal},#{latitudFinal},#{longitudFinal},
-now(),#{usuarioAlta},#{observaciones},#{url},'A')
+<insert id="altaContrato" parameterType="Contrato" useGeneratedKeys="true" keyProperty="id_contrato"  keyColumn="id_contrato">
+	INSERT INTO contrato
+	(
+		codigo_vialidad, codigo_contrato,	codigo_documento, codigo_empresa,
+		numero_documento, monto, subtotal, fecha_inicio, fecha_fin,	dias_duracion,
+		pct_avance,	fecha_registro,	id_cuadrilla, observaciones, url, metros,
+		usuario_alta, fecha_alta, usuario_ult_mod, fecha_ult_mod, estatus
+	)
+VALUES 
+	(
+		#{codigoVialidad}, #{codigoContrato},	#{codigoDocumento}, #{codigoEmpresa},
+		#{numeroDocumento}, #{monto}, #{subtotal}, #{fechaInicio}, #{fechaFin},	#{diasDuracion},
+		#{pctAvance},	#{fechaRegistro},	#{idCuadrilla}, #{observaciones}, #{url}, #{metros},
+		#{usuarioAlta}, now(), #{usuarioAlta}, now(), #{estatus}
+	)
+	<selectKey keyProperty="idContrato" resultType="Integer" order="AFTER">
+		SELECT LAST_INSERT_ID();
+	</selectKey>
+</insert>
+
+<insert id="registraCoordenadasContrato" parameterType="Coordenada">
+	INSERT INTO contrato_coordenadas
+		(
+			id_contrato,	orden,	direccion,	
+			latitud,	longitud,	fecha_alta,	estatus
+		)
+	VALUES
+	<foreach collection="list" item="element" index="index" separator=",">
+	 	(
+	 	 	#{element.idContrato},	 #{element.orden},	#{element.direccion},	
+			#{element.latitud},	#{element.longitud}, now(),	'A'
+	 	)
+	</foreach>
 </insert>
 
 <update id="bajaContrato" parameterType="Contrato">

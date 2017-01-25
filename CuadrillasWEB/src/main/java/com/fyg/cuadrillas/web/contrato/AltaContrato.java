@@ -68,7 +68,7 @@ public class AltaContrato extends HttpServlet {
 			final ContratoNegocio negocio = new ContratoNegocio();
 			
 			ContratoDTO contrato = new ContratoDTO();
-			contrato.setNumeroContrato(numeroContrato);
+		/*	contrato.setNumeroContrato(numeroContrato);
 			contrato.setIdEmpleado(idEmpleado);
 			contrato.setIdVialidad(idVialidad);
 			contrato.setDireccionInicial(direccionInicial);
@@ -79,7 +79,7 @@ public class AltaContrato extends HttpServlet {
 			contrato.setLongitudFinal(longitudFinal);
 			contrato.setUrl(url);
 			contrato.setObservaciones(observaciones);
-			contrato.setUsuarioAlta(usuario);
+			contrato.setUsuarioAlta(usuario);*/
 			respuesta = negocio.altaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

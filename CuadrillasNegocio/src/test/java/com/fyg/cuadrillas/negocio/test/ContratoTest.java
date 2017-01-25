@@ -1,0 +1,77 @@
+package com.fyg.cuadrillas.negocio.test;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
+import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
+import com.fyg.cuadrillas.negocio.ContratoNegocio;
+import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
+
+public class ContratoTest {
+	
+
+	private ContratoDTO contrato;
+	
+	@Before
+	public void setUp() throws Exception {		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
+		contrato = new ContratoDTO();
+		contrato.setNumeroDocumento("A-1234556");
+		contrato.setUsuarioAlta("usuario");
+		contrato.setCodigoDocumento("CONT");
+		contrato.setCodigoContrato("ARVE");
+		contrato.setCodigoVialidad("UNIV");
+		contrato.setCodigoEmpresa("TATE");
+		contrato.setFechaInicio(formato.parse("2015-12-01"));
+		contrato.setFechaFin(formato.parse("2016-12-01"));
+		
+		CoordenadaDTO coordenada1 = new CoordenadaDTO();
+		coordenada1.setOrden(1);
+		coordenada1.setLatitud(19.3507338f);
+		coordenada1.setLongitud(-99.0747743f);
+		
+		CoordenadaDTO coordenada2 = new CoordenadaDTO();
+		coordenada2.setOrden(2);
+		coordenada2.setLatitud(19.3556158f);
+		coordenada2.setLongitud(-99.0967412f);		
+		
+		List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
+		coordenadas.add(coordenada1);
+		coordenadas.add(coordenada2);
+		contrato.setCoordenadas(coordenadas);
+		
+	}
+	/**
+	 * Manda los valores al metodo de alta usuario
+	 * @throws Exception
+	 */
+	@SuppressWarnings("static-access")
+	@Test
+	public void testRegistraContrato() throws Exception {		
+		String guid = "123456789";
+		
+		System.setProperty("http.proxyHost", "169.169.4.85");
+        System.setProperty("http.proxyPort", "8080");
+        System.setProperty("https.proxyHost", "169.169.4.85");
+        System.setProperty("https.proxyPort", "8080");
+
+        ContratoNegocio negocio = new ContratoNegocio();
+        
+		try {
+			negocio.altaContrato(contrato);
+		}
+		catch (Exception ex) {
+			LogHandler.debug(guid, this.getClass(), "Error");
+		}
+	}
+
+}

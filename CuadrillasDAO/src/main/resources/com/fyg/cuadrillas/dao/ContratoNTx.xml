@@ -2,17 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.ContratoNTx">
 
+<resultMap type="Contrato" id="contrato">
+	<result column="id_contrato" property="idContrato"/>
+	<result column="codigo_vialidad" property="codigoVialidad"/>
+	<result column="codigo_contrato" property="codigoContrato"/>
+	<result column="codigo_documento" property="codigoDocumento"/>
+	<result column="codigo_empresa" property="codigoEmpresa"/>
+	<result column="numero_documento" property="numeroDocumento"/>
+	<result column="monto" property="monto"/>
+	<result column="subtotal" property="subtotal"/>
+	<result column="fecha_inicio" property="fechaInicio"/>
+	<result column="fecha_fin" property="fechaFin"/>
+	<result column="dias_duracion" property="diasDuracion"/>
+	<result column="pct_avance" property="pctAvance"/>
+	<result column="fecha_registro" property="fechaRegistro"/>
+	<result column="id_cuadrilla" property="idCuadrilla"/>
+	<result column="observaciones" property="observaciones"/>
+	<result column="url" property="url"/>
+	<result column="metros" property="metros"/>	
+	<result column="estatus" property="estatus"/>
+	<result column="usuarioAlta" property="estatus"/>	
+</resultMap>
+
+<resultMap type="Coordenada" id="coordenada">	
+	<result column="id_contrato" property="idContrato"/>
+	<result column="orden" property="orden"/>
+	<result column="direccion" property="direccion"/>
+	<result column="latitud" property="latitud"/>
+	<result column="longitud" property="longitud"/>	
+</resultMap>
+
 <select id="existeContrato" parameterType="Contrato" resultType="int">
-SELECT count(*)
-FROM contrato 
-WHERE id_empleado = #{idEmpleado}
-AND estatus = 'A'
+	SELECT count(*)
+	FROM contrato 
+	WHERE 1 = 1
+	<if test="idContrato !=null">
+	 	AND id_contrato = #{idContrato}
+	</if>
+	<if test="numeroDocumento !=null">
+	 	AND numero_documento = #{numeroDocumento}
+	</if>	
+	<if test="codigoDocumento !=null">
+	 	AND codigo_documento = #{codigoDocumento}
+	</if>	
+	AND estatus = 'A'
 </select>
 
 <select id="existeBajaContrato" parameterType="Contrato" resultType="int">
-SELECT count(estatus) AS estatus
-FROM contrato 
-WHERE id_empleado = #{idEmpleado}
-AND estatus = 'I'
+	SELECT count(estatus) AS estatus
+	FROM contrato 
+	WHERE id_empleado = #{idEmpleado}
+	AND estatus = 'I'
 </select>
+
 </mapper>

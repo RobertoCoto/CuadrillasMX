@@ -225,7 +225,7 @@ DROP TABLE IF EXISTS perfil;
 		codigo_contrato VARCHAR(10) NOT NULL, 
 		codigo_documento VARCHAR(10) NOT NULL,
 		codigo_empresa VARCHAR(10) NOT NULL,
-		numero_documento INTEGER NOT NULL,
+		numero_documento VARCHAR(20) NOT NULL,
 		monto DECIMAL(10,2) NULL,
 		subtotal DECIMAL(10,2) NULL,
 		fecha_inicio DATE NOT NULL,
@@ -236,6 +236,7 @@ DROP TABLE IF EXISTS perfil;
 		id_cuadrilla integer NULL,
 		observaciones VARCHAR(150) NULL,
 		url VARCHAR(200) NOT NULL,
+		metros INTEGER NOT NULL,
 
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_alta DATETIME NOT NULL,
@@ -264,7 +265,7 @@ DROP TABLE IF EXISTS perfil;
 	CREATE TABLE cuadrilla (
 		id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 		nombre_cuadrilla VARCHAR(50) NOT NULL,
-		id_contrato INTEGER NOT NULL,
+		id_contrato INTEGER NULL,
 		calificacion INTEGER NOT NULL,
 		fecha_alta DATETIME NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
@@ -421,8 +422,7 @@ ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_age
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
-
-ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);
+--ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_codigo_permiso  FOREIGN KEY (codigo_permiso) REFERENCES catalogo(codigo);
 

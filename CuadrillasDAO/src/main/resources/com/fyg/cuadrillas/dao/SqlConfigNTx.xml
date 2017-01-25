@@ -21,6 +21,7 @@
 <typeAlias alias="Cuadrilla" type="com.fyg.cuadrillas.dto.cuadrilla.CuadrillaDTO"/>
 <typeAlias alias="Permiso" type="com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO"/>
 <typeAlias alias="Actividad" type="com.fyg.cuadrillas.dto.actividad.ActividadDTO"/>
+<typeAlias alias="Coordenada" type="com.fyg.cuadrillas.dto.CoordenadaDTO"/>
 </typeAliases>
 
 	<environments default="development">
