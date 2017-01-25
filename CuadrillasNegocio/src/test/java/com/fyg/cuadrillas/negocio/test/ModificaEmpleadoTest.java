@@ -1,8 +1,7 @@
 package com.fyg.cuadrillas.negocio.test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -71,14 +70,13 @@ public class ModificaEmpleadoTest {
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
 		
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 		String strFecha = "1983-01-01";
-		Date fechaNac = formato.parse(strFecha);
+		
 		modificaEmpleado.setIdEmpleado(3);
 		modificaEmpleado.setNombre("ARMANDO");
 		modificaEmpleado.setApellidoPat("GONZALEZ");
 		modificaEmpleado.setApellidoMat("PEREZ");
-		modificaEmpleado.setFechaNacimiento(fechaNac);
+		modificaEmpleado.setFechaNacimiento(strFecha);
 		modificaEmpleado.setRfc("GOPA19830101");
 		modificaEmpleado.setDocumentos(dataDocumentos);
 		modificaEmpleado.setObservaciones("CORRECTO");

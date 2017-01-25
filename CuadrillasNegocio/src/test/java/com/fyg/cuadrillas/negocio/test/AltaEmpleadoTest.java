@@ -1,8 +1,5 @@
 package com.fyg.cuadrillas.negocio.test;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,9 +69,9 @@ public class AltaEmpleadoTest {
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
 
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
+		
 		String strFecha = "1985-03-06";
-		Date fechaNac = formato.parse(strFecha);
+	
 		/**
 		 * Valores a enviar
 		 */
@@ -84,7 +81,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setApellidoMat("HERRERA");
 		altaEmpleado.setSexo("M");
 		altaEmpleado.setRfc("MAHJ830101");		
-		altaEmpleado.setFechaNacimiento(fechaNac);
+		altaEmpleado.setFechaNacimiento(strFecha);
 		altaEmpleado.setCodigoPuesto("AYGE");
 		altaEmpleado.setCodigoVialidad("5MAY");
 		altaEmpleado.setCodigoArea("AYGE");

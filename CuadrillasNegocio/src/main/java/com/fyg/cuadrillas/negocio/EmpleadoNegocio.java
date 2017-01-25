@@ -1,6 +1,11 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+
+
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
@@ -90,11 +95,14 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
+			 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		     String strFecha = empleado.getFechaNacimiento();
+		     Date fechaDate = formato.parse(strFecha);
 			//RFC Calculado
 			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
 						empleado.getApellidoPat(),
 						empleado.getApellidoMat(),
-						empleado.getFechaNacimiento());
+						fechaDate);
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 
@@ -255,11 +263,14 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
 			}
+			 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		     String strFecha = empleado.getFechaNacimiento();
+		     Date fechaDate = formato.parse(strFecha);
 			//RFC Calculado
 			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
 						empleado.getApellidoPat(),
 						empleado.getApellidoMat(),
-						empleado.getFechaNacimiento());
+						fechaDate);
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
