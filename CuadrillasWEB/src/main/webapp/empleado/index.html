@@ -44,29 +44,27 @@
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
-                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" data-ng-bind-html="data"/>
+                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" data-ng-bind-html="data" pattern="[A-Z0-9]"/>
                         </div>
                     </div>
 			     </div>
 			     
+	
 			     <div class="row">
-			      <div class="col-sm-12">
+			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
                             <input type="text" name="nombre" id="nombre" class="form-control" data-ng-bind-html="dataNombre">
                         </div>
                     </div>
-			     </div>
-			     
-			     <div class="row">
-			     <div class="col-sm-6">
+			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
                             <input type="text" name="apellidoPat" id="apellidoPaterno" required class="form-control"/>
                         </div>
                     </div>
                     
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
                             <input type="text" name="apellidoMat" id="apellidoMaterno" required class="form-control"/>
@@ -132,8 +130,8 @@
                             <label for="estatus" class="control-label">Estatus</label>
                            <select name="Estatus" id="estatus" requiered class="form-control">
 								<option value="">--Seleccione el estatus--</option>
-								<option value="A">Activo</option>
-								<option value="I">Inactivo</option>
+								<option value="A">ACTIVO</option>
+								<option value="I">INACTIVO</option>
 							</select>
                         </div>
                     </div>
@@ -176,8 +174,8 @@
                             <label for="sexo" class="control-label">Sexo</label>
                            <select id="sexo" requiered class="form-control">
 								<option value="">-----Selecione sexo-----</option>
-								<option value="M">Hombre</option>
-								<option value="F">Mujer</option>
+								<option value="M">HOMBRE</option>
+								<option value="F">MUJER</option>
 						</select>
                         </div>
                     </div>
@@ -211,18 +209,18 @@
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="alta" class="control-label">Notificar Alta IMSS</label>
-                            <input type="checkbox" class="form-control" >
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <div class="form-group form-group-sm">
-                            <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea rows="3" cols="60" id="observaciones" class="form-comtrol"></textarea>
+                            <input type="checkbox" class="form-control" checked  disabled >
                         </div>
                     </div>
 			     </div>
-			     
+			     <div class="row">
+			     <div class="col-sm-12">
+                        <div class="form-group form-group-sm">
+                            <label for="comentarios" class="control-label">Comentarios</label>
+                           <textarea rows="5" cols="120" id="observaciones" class="form-comtrol"></textarea>
+                        </div>
+                    </div>
+			     </div>
 			     <p class="control-label">Documentacion</p>
 			     <div class="row" ng-repeat="documentos  in resultadoDocumentos">
 			      <div class="col-sm-6">
@@ -234,8 +232,8 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                            	<input type="hidden" id="estatusDocumento" value="A">
-							<input type="radio" id="documento"  name={{documentos.codigo}} value={{documentos.codigo}} data-form="document">Si 
-							<input type="radio"  name={{documentos.codigo}} value="NO" data-form="document">No
+							<input type="radio" id="documento"  name={{documentos.codigo}} value={{documentos.codigo}} data-form="document">SI 
+							<input type="radio"  name={{documentos.codigo}} value="NO" data-form="document">NO
 							<input type="radio" name={{documentos.codigo}} value="N/A" data-form="document">N/A 
                         </div>
                     </div>
