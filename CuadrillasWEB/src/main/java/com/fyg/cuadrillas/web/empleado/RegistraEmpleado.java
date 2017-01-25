@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -99,13 +97,7 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setApellidoMat(apellidoMaterno);
 			empleado.setSexo(sexo);
 			empleado.setRfc(rfc);
-			// conversor de fecha
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-			String strFecha = fechaNacimiento;
-			//String strFechaIngreso = fechaIngreso;
-			Date fechaNac = formato.parse(strFecha);
-			//Date fechaIng = formato.parse(strFechaIngreso);
-			empleado.setFechaNacimiento(fechaNac);
+			empleado.setFechaNacimiento(fechaNacimiento);
 			empleado.setFechaIngreso(fechaIngreso);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);

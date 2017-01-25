@@ -2,9 +2,7 @@ package com.fyg.cuadrillas.web.empleado;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -98,11 +96,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setApellidoMat(apellidoMaterno);
 			empleado.setSexo(sexo);
 			empleado.setRfc(rfc);
-			// conversor de fecha
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-			String strFecha = fechaNacimiento;
-			Date fechaNac = formato.parse(strFecha);
-			empleado.setFechaNacimiento(fechaNac);
+			empleado.setFechaNacimiento(fechaNacimiento);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCodigoArea(codigoArea);

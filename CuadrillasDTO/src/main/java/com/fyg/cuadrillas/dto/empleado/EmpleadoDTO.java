@@ -45,7 +45,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	/**
 	 * Fecha_nacimiento del empleado
 	 */
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	/**
 	 * Fecha de ingreso del empleado
 	 */
@@ -230,18 +230,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	public void setRfcCalculado(String rfcCalculado) {
 		this.rfcCalculado = rfcCalculado;
 	}
-	/**
-	 * @return the fechaNacimiento
-	 */
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	/**
-	 * @param fechaNacimiento the fechaNacimiento to set
-	 */
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+	
 	/**
 	 * @return the fechaIngreso
 	 */
@@ -577,5 +566,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setNombrePerfil(String nombrePerfil) {
 		this.nombrePerfil = nombrePerfil;
+	}
+	/**
+	 * @return the fechaNacimiento
+	 */
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	/**
+	 * @param fechaNacimiento the fechaNacimiento to set
+	 */
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 }
