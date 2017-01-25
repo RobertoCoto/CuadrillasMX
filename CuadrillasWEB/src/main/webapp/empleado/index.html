@@ -258,6 +258,12 @@
                 			<div class="table-responsive">
                 			<table class="table table-bordered">
 								<div class="wraper" ng-show='resultadoDatos.length' >
+								<tr>
+								<th colspan="6">Busqueda<div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-search"></i></div>
+                  			<input class="form-control" type="search" id="busqueda" size="45" ng-model="busqueda">
+               				 </div></th>
+								</tr>
 								<tr class="success">
 								<td>Numero</td>
 								<td>Puesto</td>
@@ -266,15 +272,15 @@
 								<td>Estatus</td>
 								<td>Operaciones</td>
 								</tr>
-							<tr ng-repeat="general in resultadoDatos">
+							<tr ng-repeat="general in resultadoDatos | filter: busqueda">
 							<td><input type="hidden" value={{general.idEmpleado}} id="idEmpleado">{{general.noEmpleado}}</td>
 							<td>{{general.codigoPuesto}}</td>
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
 							
-							<td><button class="btn btn-info" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
-							<button class="btn btn-info" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar Empleado</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">BajaEmpleado</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso Autorizacion</button></td>
+							<td><button class="btn btn-info" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>&nbsp
+							<button class="btn btn-info" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>&nbsp<button class="btn btn-info" data-ng-click="bajaEmpleado()">Baja</button>&nbsp<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso</button></td>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
 							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
