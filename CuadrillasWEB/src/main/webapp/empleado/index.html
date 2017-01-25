@@ -28,7 +28,12 @@
    	
 } 
 </script>
-
+<style>
+.inpurError
+	{
+		background: #FF0000;
+	}
+</style>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
 <script type="text/javascript" src="js/registraEmpleado.js"></script>
@@ -44,7 +49,8 @@
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
-                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" data-ng-bind-html="data" pattern="[A-Z0-9]"/>
+                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" data-ng-bind-html="data" data-form="nEmpleado"/>
+                            <div class="amt_err"></div>
                         </div>
                     </div>
 			     </div>
@@ -54,20 +60,23 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" data-ng-bind-html="dataNombre">
+                            <input type="text" name="nombre" id="nombre" class="form-control" data-ng-bind-html="dataNombre" data-form="nombreE">
+                            <div class="amt_error"></div>
                         </div>
                     </div>
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
-                            <input type="text" name="apellidoPat" id="apellidoPaterno" required class="form-control"/>
+                            <input type="text" name="apellidoPat" id="apellidoPaterno" required class="form-control" data-form="apellidoP"/>
+                            <div class="amt_errorApellidoP"></div>
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
-                            <input type="text" name="apellidoMat" id="apellidoMaterno" required class="form-control"/>
+                            <input type="text" name="apellidoMat" id="apellidoMaterno" required class="form-control" data-form="apellidoM"/>
+                            <div class="amt_errorApellidoM"></div>
                         </div>
                     </div>
 			     </div>
@@ -105,14 +114,16 @@
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="nss" class="control-label">NSS</label>
-                            <input type="number" name="nss" id="nss" requiered class="form-control">
+                            <input type="number" name="nss" id="nss" requiered class="form-control" data-form="nss">
+                            <div class="amt_errorNSS"></div>
                         </div>
                     </div>
                     
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="noCreinfonavit" class="control-label">Credito Infonavit</label>
-                            <input type="number" name="creditoInfonavit" id="noCreditoInfonavit" requiered class="form-control">
+                            <input type="number" name="creditoInfonavit" id="noCreditoInfonavit" requiered class="form-control" data-form="infonavit">
+                            <div class="amt_errorInfonavit"></div>
                         </div>
                     </div>
 			     </div>
@@ -121,7 +132,8 @@
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="rfc" class="control-label">RFC</label>
-                            <input type="text" name="rfc" id="rfc" requiered class="form-control">
+                            <input type="text" name="rfc" id="rfc" requiered class="form-control" data-form="rfc">
+                            <div class="amt_errorRFC"></div>
                         </div>
                     </div>
                     
@@ -141,7 +153,8 @@
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="sueldo" class="control-label">Sueldo</label>
-                            <input type="number" name="sueldo" placeholder="$" id="sueldo" requiered class="form-control">
+                            <input type="number" name="sueldo" placeholder="$" id="sueldo" requiered class="form-control" data-form="sueldo">
+                            <div class="amt_errorSueldo"></div>
                         </div>
                     </div>
                     
@@ -157,7 +170,8 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="telefono" class="control-label">Telefono</label>
-                            <input type="tel" name="telefono" id="telefono" requiered class="form-control"/>
+                            <input type="tel" name="telefono" id="telefono" requiered class="form-control" data-form="tel"/>
+                            <div class="amt_errorTel"></div>
                         </div>
                     </div>
                     
@@ -288,10 +302,185 @@
 
 
 
-
-
+		
+		
 		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
+    	<script>
+	$('input[data-form=nEmpleado]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_err').fadeOut('slow');
+		}
+		else {
+			$('.amt_err')
+				.text('Caracter no valido')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=nombreE]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Za-z]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_error').fadeOut('slow');
+		}
+		else {
+			$('.amt_error')
+				.text('no se permiten numeros')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=apellidoP]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Za-z]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorApellidoP').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorApellidoP')
+				.text('no se permiten numeros')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=apellidoM]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Za-z]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorApellidoM').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorApellidoM')
+				.text('no se permiten numeros')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=nss]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorNSS').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorNSS')
+				.text('No se permite letras.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=infonavit]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorInfonavit').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorInfonavit')
+				.text('No se permite letras.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=rfc]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorRFC').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorRFC')
+				.text('No se permite letras minusculas.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=sueldo]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorSueldo').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorSueldo')
+				.text('No se permite letras.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=tel]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorTel').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorTel')
+				.text('No se permite letras.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </body>

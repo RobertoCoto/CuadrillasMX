@@ -52,7 +52,7 @@ return false;
 <div class="panel panel-default">
 		<div class="panel-body">
 		<h2>Permiso Laboral</h2>
-			<form ng-submit="registrar(permiso)" name="form_reloj">
+			<form ng-submit="registrar(permiso)" name="form_reloj" onsubmit="confirmar()">
 					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
@@ -164,7 +164,7 @@ return false;
                         </div>
                     </div>
 			  </div>
-			  <input type="submit" value="Registrar" class="btn btn-success" onclick="confirmar()">
+			  <input type="submit" value="Registrar" class="btn btn-success">
 			</form>
 		</div>
 </div>
