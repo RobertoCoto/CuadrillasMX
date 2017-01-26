@@ -7,9 +7,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Administracion de Cuadrillas</title>
-
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/altaCuadrilla.js"></script>
 </head>
-<body>
+<body ng-app="tatei" ng-controller="adminCuad">
 <div class="container"> 
     <h2>Administración de Cuadrillas</h2>
 <div class="panel panel-default">
@@ -120,7 +122,7 @@
                 </div>
                 
                  <div class="row">
-                 <h4>Colaboradores</h4>
+                 <h2>Colaboradores</h2>
                 	<div class="col-sm-12">
                 		<div class="table-responsive">
                 			<table class="table table-bordered">
