@@ -422,7 +422,7 @@ ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_age
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
---ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);
+/*ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);*/
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_codigo_permiso  FOREIGN KEY (codigo_permiso) REFERENCES catalogo(codigo);
 
