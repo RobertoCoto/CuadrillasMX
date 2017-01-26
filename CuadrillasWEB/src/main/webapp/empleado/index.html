@@ -337,7 +337,7 @@ $('input[data-form=nombreE]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-Za-z[:space:]]+$/;
+		var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_error').fadeOut('slow');
@@ -357,7 +357,7 @@ $('input[data-form=apellidoP]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-Za-z[:space:]]+$/;
+		var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorApellidoP').fadeOut('slow');
@@ -376,7 +376,7 @@ $('input[data-form=apellidoM]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-Za-z[:space:]]+$/;
+		var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorApellidoM').fadeOut('slow');
