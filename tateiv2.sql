@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS perfil;
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,        
         telefono VARCHAR(10) NOT NULL,
-        huella  VARCHAR(200) NOT NULL,
+        huella  VARCHAR(200) NULL,
         alta_imss CHAR(1) NULL,
         observaciones VARCHAR(100) NULL,
         

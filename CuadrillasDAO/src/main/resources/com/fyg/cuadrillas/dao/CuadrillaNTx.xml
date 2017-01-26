@@ -23,6 +23,8 @@ AND estatus = 'I'
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
 	SELECT c.id_cuadrilla, 
 		   c.nombre_cuadrilla,
+		   c.calificacion,
+		   c.estatus,
 		   count(e.id_empleado) AS numero_personas
 	FROM cuadrilla c
 	LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'

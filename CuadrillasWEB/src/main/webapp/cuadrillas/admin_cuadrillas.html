@@ -68,38 +68,20 @@
                 				<td>Operaciones</td>
                 				</tr>
                 				
-                				<tr>
-                				<td>001</td>
-                				<td>Zaragoza</td>
-                				<td>Zaragoza</td>
-                				<td>Manuel Acosta Hernandez</td>
-                				<td>12</td>
-                				<td>10</td>
-                				<td>Activa</td>
+                				<tr ng-repeat="datosCuadrilla in resultadoCuadrilla">
+                				<td>{{datosCuadrilla.idCuadrilla}}</td>
+                				<td>{{datosCuadrilla.nombreCuadrilla}}</td>
+                				<td>-</td>
+                				<td>-</td>
+                				<td>-</td>
+                				<td>{{datosCuadrilla.calificacion}}</td>
+                				<td>{{datosCuadrilla.estatus}}</td>
                 				<td><button class="btn btn-info">Editar</button></td>
                 				</tr>
                 				
-                				<tr>
-                				<td>002</td>
-                				<td>Universidad</td>
-                				<td>Universidad</td>
-                				<td>Marlene Ramirez</td>
-                				<td>8</td>
-                				<td>9</td>
-                				<td>Activa</td>
-                				<td><button class="btn btn-info">Editar</button></td>
-                				</tr>
                 				
-                				<tr>
-                				<td>003</td>
-                				<td>Eje 7 Sur</td>
-                				<td>Eje 7 Sur</td>
-                				<td>Thamara Altamirano</td>
-                				<td>10</td>
-                				<td>8</td>
-                				<td>Activa</td>
-                				<td><button class="btn btn-info">Editar</button></td>
-                				</tr>
+                				
+                				
                 			</table>
                 		</div>
                 	</div>

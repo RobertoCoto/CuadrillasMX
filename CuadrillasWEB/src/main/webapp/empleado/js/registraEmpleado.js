@@ -158,6 +158,7 @@ console.log(datosDocumentos);
 	              "documentoEmpleado" : $scope.json
 			         }
 			    }).then(function mySucces(response) {
+			    	alert(response.data.mensajeFuncional);
 			    	 console.info(response);
 			    }, function myError(response) {
 			        console.error(response);
