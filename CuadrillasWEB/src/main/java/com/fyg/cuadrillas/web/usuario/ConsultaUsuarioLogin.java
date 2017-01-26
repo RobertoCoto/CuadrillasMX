@@ -61,21 +61,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
-	        respuesta = negocio.loginUsuario(usuario);
-	       /* if (respuesta.isEstatus()) {
-				response.setStatus(HttpServletResponse.SC_OK);
-			} else {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			}*/
-	        /*
-	        final MenuNegocio negocioMenu = new MenuNegocio();
-	        
-	        for (int i = 0; i < respuesta.getUsuario().size(); i++) {
-	        	MenuDTO menu = new MenuDTO();
-	        	menu.setIdPerfil(respuesta.getUsuario().get(i).getIdPerfil());
-	        	respuestaMenu = negocioMenu.consultarMenu(menu);
-	        }
-	        */
+	        respuesta = negocio.loginUsuario(usuario);	       
 	        //convierte  a formato Json
 	        if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

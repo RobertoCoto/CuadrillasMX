@@ -36,18 +36,20 @@ public class MenuNegocio {
 	    	 List<MenuDTO> listaRespuesta = new ArrayList<MenuDTO>();
 
 	    	 for ( MenuDTO menu : listaMenu) {
-	    		 LogHandler.debug(uid, this.getClass(), "******* ");
-	    		 LogHandler.debug(uid, this.getClass(), "MENU * " + menu);
+	    		 //LogHandler.debug(uid, this.getClass(), "******* ");
+	    		 //LogHandler.debug(uid, this.getClass(), "MENU * " + menu);
 	    		 if (menu.getIdPadre() == null) {
 	    			 LogHandler.debug(uid, this.getClass(), "***AGREGAR PADRE**** ");
 	    			 MenuDTO menuPadre = new MenuDTO();
 	    			 menuPadre.setDescripcion(menu.getDescripcion());
 	    			 menuPadre.setMenu(menu.getMenu());
 	    			 menuPadre.setUrl("");
+	    			 menuPadre.setIdMenu(menu.getIdMenu());
+	    			 menuPadre.setIdPadre(menu.getIdPadre());
 	    			 menuPadre.setHijos(new ArrayList<MenuDTO>());
 	    			 for ( MenuDTO posiblesHijo : listaMenu) {
-	    				 LogHandler.debug(uid, this.getClass(), "MENU PADRE " + menuPadre);
-	    				 LogHandler.debug(uid, this.getClass(), "MENU HIJO " + posiblesHijo);
+	    				 //LogHandler.debug(uid, this.getClass(), "MENU PADRE " + menuPadre);
+	    				 //LogHandler.debug(uid, this.getClass(), "MENU HIJO " + posiblesHijo);
 	    				 if (posiblesHijo.getIdPadre() != null) {
 
 		    				 if (menu.getIdMenu().intValue() == posiblesHijo.getIdPadre().intValue() ) {
@@ -55,6 +57,8 @@ public class MenuNegocio {
 		    					 menuHijo.setDescripcion(posiblesHijo.getDescripcion());
 		    					 menuHijo.setMenu(posiblesHijo.getMenu());
 		    					 menuHijo.setUrl(posiblesHijo.getUrl());
+		    					 menuHijo.setIdMenu(posiblesHijo.getIdMenu());
+		    					 menuHijo.setIdPadre(posiblesHijo.getIdPadre());
 		    					 menuPadre.getHijos().add(menuHijo);
 		    				 }
 	    				 }

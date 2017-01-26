@@ -5,6 +5,7 @@
 <resultMap type="Cuadrilla" id="cuadrilla" >
 <result column="id_cuadrilla" property="idCuadrilla"/>
 <result column="nombre_cuadrilla" property="nombreCuadrilla"/>
+<result column="numero_personas" property="numeroPersonas"/>
 </resultMap>
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
@@ -20,7 +21,13 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
-SELECT id_cuadrilla, nombre_cuadrilla 
-FROM cuadrilla
+	SELECT c.id_cuadrilla, 
+		   c.nombre_cuadrilla,
+		   count(e.id_empleado) AS numero_personas
+	FROM cuadrilla c
+	LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
+	WHERE c.estatus = 'A' 
+	GROUP BY c.id_cuadrilla, 
+		   c.nombre_cuadrilla
 </select>
 </mapper>
