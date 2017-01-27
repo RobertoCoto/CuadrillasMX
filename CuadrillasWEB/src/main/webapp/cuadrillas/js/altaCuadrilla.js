@@ -29,4 +29,26 @@ app.controller('adminCuad', function ($scope, $http) {
 		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
+		    
+		    $scope.registrar = function(cuadrilla) {
+		    	
+		    	 $http({
+		              method: 'GET',
+		              url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
+		              params: {
+		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
+		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
+		    		 "calificacion" : document.getElementById("calificacion").value,
+		    		 
+		    	 }
+				    }).then(function mySucces(result) {
+				    	$scope.resultadoCuadrilla = result.data.cuadrilla;
+			              console.log($scope.resultadoCuadrilla);
+				    }, function myError(response) {
+				        console.error(response);
+				        alert(response.data.header.mensajeFuncional);
+				        //$scope.resultado2.push(objecto);
+				    });
+		    	};
+		    
 	});

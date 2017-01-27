@@ -21,7 +21,7 @@
                       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numero" class="control-label">Numero </label>
-                            <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control" />
+                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla"  class="form-control" />
                            
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                      <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="vialidad" class="control-label">Vialidad</label>
-                          <select class="form-control" required id="vialidad" ng-model="catalogo.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(catalogo.vialidad)"> </select>
+                          <select class="form-control" required id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> </select>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="calificacion" class="control-label">Calificación</label>
-                            <input type="text" name="nombre" id="nombre"  class="form-control" size="6"/>
+                            <input type="text" name="nombre" id="calificacion"  class="form-control" size="6"/>
                         </div>
                     </div>
                 
@@ -91,8 +91,8 @@
                 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="estatus" class="control-label">Estatus</label>
-    							<select class="form-control">
-    							<option value="A">ACTIVO</option>
+    							<select class="form-control" disabled>
+    							<option value="A" selected>ACTIVO</option>
     							<option value="I">INACTIVO</option>
     							</select>
                         </div>
@@ -136,7 +136,7 @@
                 	</div>
                 </div>
                 
-                <input type="submit" class="btn btn-info" value="Alta">
+                <input type="submit" class="btn btn-info" value="Alta" data-ng-click="registrar(cuadrilla)">
                 <input type="submit" class="btn btn-info" value="Grabar">
 			</form>
 		</div>
