@@ -35,6 +35,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private String sexo;
 	/**
+	 * descripcion del puesto
+	 */
+	private String descripcionPuesto;
+	/**
 	 * RFC del usuario
 	 */
 	private String rfc;
@@ -578,5 +582,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+	/**
+	 * @return the descripcionPuesto
+	 */
+	public String getDescripcionPuesto() {
+		return descripcionPuesto;
+	}
+	/**
+	 * @param descripcionPuesto the descripcionPuesto to set
+	 */
+	public void setDescripcionPuesto(String descripcionPuesto) {
+		this.descripcionPuesto = descripcionPuesto;
 	}
 }
