@@ -50,8 +50,7 @@ public class RegistraEmpleado extends HttpServlet {
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
-		EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
+		
 		
 		try {
 			//Se obtiene parametros
@@ -116,17 +115,21 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 			
 			JSONArray listaCodigo = (JSONArray) jsonObject.get("documentacion");
+			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
 			
 			for(int i = 0; i < listaCodigo.size(); i++)
 			{
-				
+				EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 				codigo.setCodigoEmpDoc((String) listaCodigo.get(i));
 				codigo.setEstatus("A");
 				documentos.add(codigo);
-				LogHandler.debug(null, this.getClass(), "datos " + codigo);
+				LogHandler.debug(null, this.getClass(), "datos " + documentos);
+				
 			}
 			
 			empleado.setDocumentos(documentos);
+			
+			
 			 
 			
             
