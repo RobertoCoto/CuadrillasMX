@@ -107,7 +107,7 @@ public class ContratoDAO {
 		int registros = session.delete("EmpleadoDAO.eliminaDocumentos", empleado);
 		LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 		//La conexion no es atomica realizamos commit
-	 }
+	}
 
 	/**
 	 * Metodo para dar de baja un contrato
@@ -153,4 +153,36 @@ public class ContratoDAO {
 		return respuesta;
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ContratoDTO> consultaContrato(String uid, ContratoDTO contrato) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<ContratoDTO> listaContrato = null;
+		try { 
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla 
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			listaContrato = sessionNTx.selectList("ContratoDAO.consultaContrato", contrato);			
+			for (ContratoDTO c : listaContrato) {
+					List<CoordenadaDTO> coordenadas = null;
+					coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
+					c.setCoordenadas(coordenadas);
+			}
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaContrato;
+	  }
+	
+	 
 }

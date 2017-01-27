@@ -25,7 +25,7 @@ public class ContratoTest {
 	public void setUp() throws Exception {		
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 		contrato = new ContratoDTO();
-		contrato.setNumeroDocumento("A-1234556");
+		contrato.setNumeroDocumento("A-12345567");
 		contrato.setUsuarioAlta("usuario");
 		contrato.setCodigoDocumento("CONT");
 		contrato.setCodigoContrato("ARVE");
@@ -67,7 +67,10 @@ public class ContratoTest {
         ContratoNegocio negocio = new ContratoNegocio();
         
 		try {
-			negocio.altaContrato(contrato);
+			
+			//negocio.altaContrato(contrato);
+			
+			negocio.consultaContrato(null);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

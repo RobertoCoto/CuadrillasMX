@@ -249,6 +249,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.usuario.RecuperaContrasena</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaContrato</servlet-name>
+  	<display-name>ConsultaContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.ConsultaContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -412,5 +418,9 @@
 	<servlet-mapping>
 		<servlet-name>RecuperaContrasena</servlet-name>
 		<url-pattern>/RecuperaContrasena</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaContrato</servlet-name>
+		<url-pattern>/ConsultaContrato</url-pattern>
 	</servlet-mapping>
 </web-app>

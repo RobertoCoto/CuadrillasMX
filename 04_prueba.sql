@@ -10,3 +10,5 @@ INSERT INTO `empleado` (`id_empleado`, `no_empleado`, `id_cuadrilla`, `nombre`, 
 INSERT INTO `empleado_documentos` (`id_empleado`, `codigo_emp_doc`, `fecha_alta`, `estatus`) VALUES
 (1, 'ACNA', '2017-01-12 00:00:00', 'A'),
 (1, 'CREL', '2017-01-12 00:00:00', 'A');
+
+

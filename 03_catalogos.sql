@@ -9,6 +9,9 @@ INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,f
 VALUES('PERFIL_EMP','PERFIL EMPLEADO', 'S', now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PERFIL_EMP','RESI',upper('Residente'),'SISTEMAS', 'SISTEMAS', now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('PERFIL_EMP','CABO',upper('Cabo'),'SISTEMAS', 'SISTEMAS', now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
@@ -25,7 +28,7 @@ VALUES('PERFIL_EMP','CHOF',upper('Chofer'),'SISTEMAS', 'SISTEMAS',now(),now(),'A
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('PERFIL_EMP','OFCE',upper('Oficina Central'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
-
+	
 /*CATALOGO TIPO COMBUSTIBLE*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
@@ -69,10 +72,10 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('ESTA_HERRA','REGU',upper('Regular'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ESTA_HERRA','DANA',upper('Dañado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ESTA_HERRA','DANA',upper('Da�ado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ESTA_HERRA','ENRE',upper('En reparación'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ESTA_HERRA','ENRE',upper('En reparacion'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ESTA_HERRA','DESE',upper('Desechado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');

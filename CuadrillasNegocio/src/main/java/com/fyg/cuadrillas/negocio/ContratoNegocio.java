@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.negocio;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
@@ -10,6 +11,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.ContratoDAO;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
+import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
 
 public class ContratoNegocio {
 	/**
@@ -24,7 +26,7 @@ public class ContratoNegocio {
 				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Entrada: " + contrato);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-				try { 
+				try {
 					if (contrato.getNumeroDocumento() == null || contrato.getNumeroDocumento().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el Numero de Documento.");
 					}
@@ -50,7 +52,7 @@ public class ContratoNegocio {
 						throw new ExcepcionesCuadrillas("Es necesaria la Fecha de Inicio.");
 					}
 					if (contrato.getFechaFin() == null) {
-						throw new ExcepcionesCuadrillas("Es necesaria la Fecha de Fin.");						
+						throw new ExcepcionesCuadrillas("Es necesaria la Fecha de Fin.");
 					}
 					if (contrato.getCoordenadas() == null)  {
 						throw new ExcepcionesCuadrillas("Es necesario al menos dos coordenadas GPS.");
@@ -60,7 +62,7 @@ public class ContratoNegocio {
 					}
 					if (contrato.getUsuarioAlta() == null || contrato.getUsuarioAlta().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario para la operacion.");
-					}					
+					}
 					if (contrato.getIdCuadrilla() == null) {
 						contrato.setIdCuadrilla(0);
 					}
@@ -71,7 +73,7 @@ public class ContratoNegocio {
 						contrato.setUrl("");
 					}
 					for ( CoordenadaDTO coordenada : contrato.getCoordenadas()) {
-						
+
 						if (coordenada.getOrden() == 0) {
 							throw new ExcepcionesCuadrillas("El orden en la coordenada es incorrecto.");
 						}
@@ -85,7 +87,7 @@ public class ContratoNegocio {
 							coordenada.setDireccion("");
 						}
 					}
-					
+
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + contrato.getFechaInicio().compareTo(contrato.getFechaFin()));
 					System.out.println("Comparacion Fechas " + contrato.getFechaInicio().before(contrato.getFechaFin()));
@@ -94,28 +96,28 @@ public class ContratoNegocio {
 					}
 					//Calculo Dias Duracion
 					contrato.setDiasDuracion(Funciones.diasEntreFechas(contrato.getFechaInicio(), contrato.getFechaFin()));
-					
-					System.out.println("Dias Duracions " +contrato.getDiasDuracion());
-					
+
+					System.out.println("Dias Duracions " + contrato.getDiasDuracion());
+
 					//Calculo Distancia Total Contrato
 					double metros = 0;
-					for ( int i= 0; i < (contrato.getCoordenadas().size() - 1); i++) {						
+					for ( int i = 0; i < (contrato.getCoordenadas().size() - 1); i++) {
 						double distancia = Funciones.distanciaCoord(
 								contrato.getCoordenadas().get(i).getLatitud(),
 								contrato.getCoordenadas().get(i).getLongitud(),
 								contrato.getCoordenadas().get(i + 1).getLatitud(),
 								contrato.getCoordenadas().get(i + 1).getLongitud());
-						System.out.println("distancia =" + distancia);			
+						System.out.println("distancia =" + distancia);
 						metros += distancia;
 					}
 					contrato.setMetros((int) metros * 1000);
-					
+
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
 						contrato.setFechaRegistro(new Date());
 						contrato.setEstatus("A");
-					}										
-					
+					}
+
 					ContratoDAO dao = new ContratoDAO();
 					respuesta = dao.altaContrato(uid, contrato);
 				} catch  (ExcepcionesCuadrillas ex) {
@@ -135,7 +137,7 @@ public class ContratoNegocio {
 				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Salida: " + respuesta);
 				return respuesta;
 	}
-	
+
 	public EncabezadoRespuesta bajaContrato (ContratoDTO contrato) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(contrato);
@@ -159,7 +161,7 @@ public class ContratoNegocio {
 			}
 			ContratoDAO dao = new ContratoDAO();
 			respuesta = dao.bajaContrato(uid, contrato);
-		
+
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "bajaContrato - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -177,5 +179,42 @@ public class ContratoNegocio {
 		LogHandler.debug(uid, this.getClass(), "bajaContrato - Datos Salida: " + respuesta);
 		*/
 		return respuesta;
+	}
+
+	/**
+	 * Metodo para regresar los contratos
+	 * @param contrato por si se desea consultar uno en especifico
+	 * @return los contratos
+	 */
+	public ContratoRespuesta consultaContrato(ContratoDTO contrato) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(contrato);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaContratoo - Datos Entrada: " + contrato);
+		//Variable de resultado
+		ContratoRespuesta respuesta = new ContratoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
+		List<ContratoDTO> listaContrato = null;
+
+	    try {
+	    	listaContrato = new ContratoDAO().consultaContrato(uid, contrato);
+	    	respuesta.setContrato(listaContrato);
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultaContratoo - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaContratoo - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaContratoo - Datos Salida: " + respuesta);
+	    return respuesta;
 	}
 }

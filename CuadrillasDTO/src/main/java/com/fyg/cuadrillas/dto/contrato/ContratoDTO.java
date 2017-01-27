@@ -34,6 +34,8 @@ public class ContratoDTO extends ObjetoValor {
 	private List<CoordenadaDTO> coordenadas;
 	private String estatus;
 	private String usuarioAlta;
+
+	
 	/**
 	 * @return the idContrato
 	 */
@@ -286,5 +288,5 @@ public class ContratoDTO extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
-
+	
 }

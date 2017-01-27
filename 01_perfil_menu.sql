@@ -39,13 +39,13 @@ INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (1,NULL,'Administración','Administración','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
-VALUES (1,NULL,'Administración','Administración','A');
+VALUES (2,NULL,'Empleados','Empleados','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
-VALUES (1,NULL,'Administración','Administración','A');
+VALUES (3,NULL,'Operación','Operación','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
-VALUES (1,NULL,'Administración','Administración','A');
+VALUES (4,NULL,'Buzones','Buzones','A');
 
 --MENU HIJOS
 

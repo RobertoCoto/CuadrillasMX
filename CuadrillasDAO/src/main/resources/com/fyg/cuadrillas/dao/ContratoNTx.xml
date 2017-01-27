@@ -55,4 +55,59 @@
 	AND estatus = 'I'
 </select>
 
+<select id="consultaContrato" parameterType="Contrato" resultMap="contrato">
+	
+	SELECT 
+		id_contrato,
+		codigo_vialidad,
+		codigo_contrato,
+		codigo_documento,
+		codigo_empresa,
+		numero_documento,
+		monto,
+		subtotal,
+		fecha_inicio,
+		fecha_fin,
+		dias_duracion,
+		pct_avance,
+		fecha_registro,
+		id_cuadrilla,
+		observaciones,
+		url,
+		metros,
+		usuario_alta,
+		fecha_alta,
+		usuario_baja,
+		fecha_baja,
+		usuario_ult_mod,
+		fecha_ult_mod,
+		estatus
+	FROM contrato
+	WHERE estatus = 'A'
+	<if test="idContrato !=null">
+	 	AND id_contrato = #{idContrato}
+	</if>	
+	
+</select>
+
+<select id="consultaContratoCoordenadas" parameterType="Contrato" resultMap="coordenada">
+	
+	SELECT 
+		id_coordenada,
+		id_contrato,
+		orden,
+		direccion,
+		latitud,
+		longitud,
+		fecha_alta,
+		estatus
+	FROM contrato_coordenadas
+	WHERE estatus = 'A'	
+	<if test="idContrato !=null">
+	 	AND id_contrato = #{idContrato}
+	</if>	
+	
+</select>
+
+
 </mapper>
