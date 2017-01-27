@@ -119,11 +119,11 @@ public class RegistraEmpleado extends HttpServlet {
 			
 			for(int i = 0; i < listaCodigo.size(); i++)
 			{
-				LogHandler.debug(null, this.getClass(), "datos " + listaCodigo.get(i));
+				
 				codigo.setCodigoEmpDoc((String) listaCodigo.get(i));
 				codigo.setEstatus("A");
 				documentos.add(codigo);
-				
+				LogHandler.debug(null, this.getClass(), "datos " + codigo);
 			}
 			
 			empleado.setDocumentos(documentos);

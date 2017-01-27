@@ -150,7 +150,7 @@ console.log($scope.JSONDocumentation);
 			 		"sexo": document.getElementById("sexo").value,
 	              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
 	              "fechaIngreso": document.getElementById("fechaIngreso").value,
-	              "codigoPuesto": document.getElementById("cVialidad").value,
+	              "codigoPuesto": document.getElementById("cPuesto").value,
 	              "codigoVialidad": document.getElementById("cVialidad").value,
 	              "codigoArea": document.getElementById("cArea").value,
 	              "codigoTalla": document.getElementById("cTalla").value,
@@ -215,15 +215,19 @@ console.log($scope.JSONDocumentation);
     	   };
        
     	   $scope.actualizarDato = function(empleado) {
-    		   if (document.getElementById("sueldo").value == "")
-    		   {
-    		  	 $scope.sueldo = document.getElementById("sueldo").value = 0;
-    		  	 }
-    		   
-    		  	 if (document.getElementById("cCuadrilla").value == "")
-    		   {
-    		  	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
-    		  	 }
+    		   $scope.sueldo = document.getElementById("sueldo").value;
+    		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
+    	   
+     
+     if ($scope.sueldo == "")
+     {
+    	 $scope.sueldo = document.getElementById("sueldo").value = 0;
+    	 }
+     
+    	 if ($scope.cuadrilla == "")
+     {
+    	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
+    	 }
 	   $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
