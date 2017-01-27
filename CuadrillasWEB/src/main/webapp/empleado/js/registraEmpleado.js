@@ -95,36 +95,31 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    });
 
 	  $scope.JSONDocumentation = null;
-	  $(document).ready(function(){
-	
-		$('input[type=submit]').on('click',function(){
+	  $('input[type=submit]').on('click',function(){
 			
-			$scope.datosDocumentos = [];
-			
-			$('input[data-form=document]:checked').each(function(){
-				
-			    var $Name  =  $(this).attr('name');
-				var $Value =  $(this).val();
-				
-				if( $Value == 1 )
-				{
-					var $Element = {};
-					
-					$Element = $Name;
-					//$Element['estatusDocumento'] = 'A';
-					$scope.datosDocumentos.push( $Element );
-				}
-					
-				
-			});
-			
-			$scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } );
-			console.log($scope.JSONDocumentation);
-			 
-		});
+$scope.datosDocumentos = [];
 
+$('input[data-form=document]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 1 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentos.push( $Element );
+	}
+		
+	
 });
-    
+
+$scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } );
+console.log($scope.JSONDocumentation);
+ 
+});
 	   $scope.registrar = function(empleado) {
 		   
 
