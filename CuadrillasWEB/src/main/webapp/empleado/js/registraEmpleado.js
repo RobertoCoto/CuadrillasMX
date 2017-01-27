@@ -128,15 +128,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	   $scope.registrar = function(empleado) {
 		   
 
-   if(empleado.puesto === "undefined"){
-	alert("Elija un puesto");   
-   } 
-   
-   
-
-
  
-		
 		   $http({
 	              method: 'GET',
 	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
@@ -148,7 +140,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 		"sexo": document.getElementById("sexo").value,
 	              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
 	              "fechaIngreso": document.getElementById("fechaIngreso").value,
-	              "codigoPuesto": $scope.puesto,
+	              "codigoPuesto": empleado.puesto,
 	              "codigoVialidad": empleado.codigoVialidad,
 	              "codigoArea": empleado.codigoArea,
 	              "codigoTalla": empleado.codigoTalla,
