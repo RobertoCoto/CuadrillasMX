@@ -122,7 +122,16 @@ console.log($scope.JSONDocumentation);
 });
 	   $scope.registrar = function(empleado) {
 		   
-
+ if (document.getElementById("sueldo").value == "")
+ {
+	 $scope.sueldo = document.getElementById("sueldo").value = 0;
+	 }
+ 
+	 if (document.getElementById("cCuadrilla").value == "")
+ {
+	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
+	 }
+ 
  
 		   $http({
 	              method: 'GET',
@@ -135,11 +144,11 @@ console.log($scope.JSONDocumentation);
 			 		"sexo": document.getElementById("sexo").value,
 	              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
 	              "fechaIngreso": document.getElementById("fechaIngreso").value,
-	              "codigoPuesto": empleado.puesto,
-	              "codigoVialidad": empleado.codigoVialidad,
-	              "codigoArea": empleado.codigoArea,
-	              "codigoTalla": empleado.codigoTalla,
-	              "idCuadrilla": empleado.idCuadrilla,
+	              "codigoPuesto": $scope.sueldo,
+	              "codigoVialidad": document.getElementById("cVialidad").value,
+	              "codigoArea": document.getElementById("cArea").value,
+	              "codigoTalla": document.getElementById("cTalla").value,
+	              "idCuadrilla": $scope.cuadrilla,
 	              "rfc" : document.getElementById("rfc").value,
 	              "sueldo": document.getElementById("sueldo").value,
 	              "frecuenciaPago": document.getElementById("frecuenciaPago").value,
