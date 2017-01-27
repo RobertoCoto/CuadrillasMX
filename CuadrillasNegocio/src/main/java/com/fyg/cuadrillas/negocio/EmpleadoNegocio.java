@@ -101,7 +101,7 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
-			if (empleado.getIdCuadrilla() == null) {
+			if (empleado.getIdCuadrilla() <= 0) {
 				throw new ExcepcionesCuadrillas("Es necesario una cuadrilla en el alta de empleado.");
 			}
 			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().trim().isEmpty() || empleado.getCodigoVialidad() == "") {

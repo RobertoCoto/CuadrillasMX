@@ -120,14 +120,20 @@ $scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocum
 console.log($scope.JSONDocumentation);
  
 });
+	  
+
+
 	   $scope.registrar = function(empleado) {
-		   
- if (document.getElementById("sueldo").value == "")
+		   $scope.sueldo = document.getElementById("sueldo").value;
+		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
+	   
+ 
+ if ($scope.sueldo == "")
  {
 	 $scope.sueldo = document.getElementById("sueldo").value = 0;
 	 }
  
-	 if (document.getElementById("cCuadrilla").value == "")
+	 if ($scope.cuadrilla == "")
  {
 	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
 	 }
