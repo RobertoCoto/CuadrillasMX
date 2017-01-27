@@ -278,10 +278,10 @@
 							
 							<td>
 							<div class="btn-group">
-							<button class="btn btn-info btn-sm" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
-							<button class="btn btn-info btn-sm" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>
-							<button class="btn btn-info btn-sm" data-ng-click="bajaEmpleado()">Baja</button>
-							<button class="btn btn-info btn-sm" data-ng-click="permisoEmpleado()">Permiso</button>
+							<button class="btn btn-sm" data-ng-click="editarDatos()" id="editar" style="display:block; background-color: #E8FB3A; color:#FFFFFF"">Editar</button>
+							<button class="btn btn-success btn-sm" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>
+							<button class="btn btn-danger btn-sm" data-ng-click="bajaEmpleado()">Baja</button>
+							<button class="btn btn-sm" data-ng-click="permisoEmpleado()"  style="background-color: #8E0695; color:#FFFFFF">Permiso Laboral</button>
 							</div>
 							</td>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
@@ -301,7 +301,7 @@
                			 </div>
 			     </div>
 			     <input type="reset" value="Borrar información" class="btn btn-info" >
-				 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)" class="btn btn-info">
+				 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)" class="btn btn-success">
 				 <input type="button" value="Consultar" data-ng-click="consultar(empleado)" class="btn btn-info">
 			</form>
 		</div>
