@@ -1,7 +1,6 @@
 package com.fyg.cuadrillas.web.empleado;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +44,7 @@ public class RegistraEmpleado extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
