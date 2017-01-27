@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -76,10 +77,10 @@ public class ActualizaEmpleado extends HttpServlet {
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
 			
-			//se parsea json
+			//leer json Array
 			JSONParser parser = new JSONParser();
-			Object documentoEmpleado = parser.parse(request.getParameter("documentoEmpleado"));
-			JSONObject jsonObject = (JSONObject) documentoEmpleado;
+			Object obj = parser.parse(request.getParameter("documentoEmpleado"));
+			JSONObject jsonObject = (JSONObject) obj;
 			
 
 			/* proxy fisa
@@ -115,14 +116,17 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setObservaciones(observaciones);
 			empleado.setUsuarioAlta(usuario);
 		    
-			//documentos
-			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
-			String estatusDocumento = (String) jsonObject.get("estatusDocumento");
-		    
-			codigo.setCodigoEmpDoc(codigoDocumento);
-			codigo.setEstatus(estatusDocumento);
+            JSONArray listaCodigo = (JSONArray) jsonObject.get("documentacion");
 			
-			documentos.add(codigo);
+			for(int i = 0; i < listaCodigo.size(); i++)
+			{
+				LogHandler.debug(null, this.getClass(), "datos " + listaCodigo.get(i));
+				codigo.setCodigoEmpDoc((String) listaCodigo.get(i));
+				codigo.setEstatus("A");
+				documentos.add(codigo);
+				
+			}
+			
 			empleado.setDocumentos(documentos);
 			respuesta = negocio.modificaEmpleado(empleado);
 			if (respuesta.isEstatus()) {

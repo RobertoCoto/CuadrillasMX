@@ -209,61 +209,40 @@ console.log($scope.JSONDocumentation);
     	   };
        
     	   $scope.actualizarDato = function(empleado) {
-    		   $(document).ready(function(){
-
-$('input[type=submit]').click(function(){
-
-	$('input[data-form=document]:checked').each(function(){
-		var $Name  =  $(this).attr('name');
-		var $Value =  $(this).val();
-		datosDocumentos = { $Name : $Value };
-		  
-	});
-
-});
-
-});
-console.log(datosDocumentos);
-
-	   var documentoEmpleado = new Object();
-	   documentoEmpleado.codigoDocumento = document.getElementById("documento").value;
-	   documentoEmpleado.estatusDocumento = document.getElementById("estatusDocumento").value;
-	  
-	   var arrayProperties = new Array();
-	   arrayProperties.push(documentoEmpleado);
-	   
-	   var objetoDocumento= new Object();
-	   objetoDocumento.documentoEmpleado = arrayProperties;
-	   
-	   var jsonDocumento = JSON.stringify(documentoEmpleado);
-	   
-	   $scope.json = jsonDocumento;
-	   console.log($scope.json);
+    		   if (document.getElementById("sueldo").value == "")
+    		   {
+    		  	 $scope.sueldo = document.getElementById("sueldo").value = 0;
+    		  	 }
+    		   
+    		  	 if (document.getElementById("cCuadrilla").value == "")
+    		   {
+    		  	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
+    		  	 }
 	   $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
               params: {
 		        "idEmpleado": document.getElementById("idEmpleado").value,
-		 		"noEmpleado" : document.getElementById("noEmpleado").value,
+              "noEmpleado" : document.getElementById("noEmpleado").value,
 		 		"nombre" : document.getElementById("nombre").value,
 		 		"apellidoPaterno": document.getElementById("apellidoPaterno").value,
 		 		"apellidoMaterno" : document.getElementById("apellidoMaterno").value,
 		 		"sexo": document.getElementById("sexo").value,
-              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
-              "fechaIngreso": document.getElementById("fechaIngreso").value,
-              "codigoPuesto": empleado.puesto,
-              "codigoVialidad": empleado.codigoVialidad,
-              "codigoArea": empleado.codigoArea,
-              "codigoTalla": empleado.codigoTalla,
-              "idCuadrilla": empleado.idCuadrilla,
-              "rfc" : document.getElementById("rfc").value,
-              "sueldo": document.getElementById("sueldo").value,
-              "frecuenciaPago": document.getElementById("frecuenciaPago").value,
-              "nss": document.getElementById("nss").value,
-              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
-              "observaciones": document.getElementById("observaciones").value,
-              "usuario": 'SISTEMAS',
-              "documentoEmpleado" : $scope.json
+            "fechaNacimiento": document.getElementById("fechaNacimiento").value,
+            "fechaIngreso": document.getElementById("fechaIngreso").value,
+            "codigoPuesto": $scope.sueldo,
+            "codigoVialidad": document.getElementById("cVialidad").value,
+            "codigoArea": document.getElementById("cArea").value,
+            "codigoTalla": document.getElementById("cTalla").value,
+            "idCuadrilla": $scope.cuadrilla,
+            "rfc" : document.getElementById("rfc").value,
+            "sueldo": document.getElementById("sueldo").value,
+            "frecuenciaPago": document.getElementById("frecuenciaPago").value,
+            "nss": document.getElementById("nss").value,
+            "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
+            "observaciones": document.getElementById("observaciones").value,
+            "usuario": 'SISTEMAS',
+            "documentoEmpleado" : $scope.JSONDocumentation
 		         }
 		    }).then(function mySucces(response) {
 		    	alert(response.data.mensajeFuncional);
