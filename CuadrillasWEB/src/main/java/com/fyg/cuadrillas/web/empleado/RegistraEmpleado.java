@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.web.empleado;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -43,6 +45,7 @@ public class RegistraEmpleado extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
@@ -74,10 +77,10 @@ public class RegistraEmpleado extends HttpServlet {
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
 			
-			//se parsea json
+			//leer json Array
 			JSONParser parser = new JSONParser();
-			Object documentoEmpleado = parser.parse(request.getParameter("documentoEmpleado"));
-			JSONObject jsonObject = (JSONObject) documentoEmpleado;
+			Object obj = parser.parse(request.getParameter("documentoEmpleado"));
+			JSONObject jsonObject = (JSONObject) obj;
 
 			/* proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -112,18 +115,22 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setNoCreditoInfonavit(noCreditoInfonavit);
 			empleado.setObservaciones(observaciones);
 			empleado.setUsuarioAlta(usuario);
-		    
-			//documentos
-			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
-			String estatusDocumento = (String) jsonObject.get("estatusDocumento");
 			
+			JSONArray listaCodigo = (JSONArray) jsonObject.get("documentacion");
 			
-			codigo.setCodigoEmpDoc(codigoDocumento);
-			codigo.setEstatus(estatusDocumento);
-			
+			for(int i = 0; i < listaCodigo.size(); i++)
+			{
+				LogHandler.debug(null, this.getClass(), "datos " + listaCodigo.get(i));
+				codigo.setCodigoEmpDoc((String) listaCodigo.get(i));
+				codigo.setEstatus("A");
+				
+				
+			}
 			documentos.add(codigo);
 			empleado.setDocumentos(documentos);
+			 
 			
+            
 			respuesta = negocio.registraEmpleado(empleado);
 			
 			//convierte  a formato Json

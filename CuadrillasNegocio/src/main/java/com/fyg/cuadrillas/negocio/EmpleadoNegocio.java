@@ -47,6 +47,9 @@ public class EmpleadoNegocio {
 			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del empleado.");
 			}
+			if (empleado.getApellidoMat() == null || empleado.getApellidoMat().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El apellido materno es necesario en el alta del empleado.");
+			}
 			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del empleado.");
 			}
@@ -65,6 +68,9 @@ public class EmpleadoNegocio {
 			 if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
 			}
+			 if (empleado.getCodigoTalla() == null || empleado.getCodigoTalla().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
+				}
 			if (empleado.getSueldo() <= 0) {
 				throw new ExcepcionesCuadrillas("El sueldo es necesario en el alta del empleado.");
 			}
@@ -88,13 +94,26 @@ public class EmpleadoNegocio {
 				if (documento.getCodigoEmpDoc() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
 				}
-				if (documento.getEstatus() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
+				if (documento.getEstatus() == null || documento.getEstatus().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("El estatus es obligatorio.");
 				}
 			}
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
+			if (empleado.getIdCuadrilla() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario una cuadrilla en el alta de empleado.");
+			}
+			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El codigo vialidad es necesario en el alta del empleado.");
+			}
+			if (empleado.getCodigoArea() == null || empleado.getCodigoArea().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El area es necesario en el alta del empleado.");
+			}
+			if (empleado.getFechaNacimiento() == null || empleado.getFechaNacimiento().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La fecha de nacimiento es necesaria en el alta del empleado.");
+			}
+			
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);

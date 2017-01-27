@@ -94,44 +94,49 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		        //$scope.resultado2.push(objecto);
 		    });
 
-		
-		
-	  
-	  var datosDocumentos = [];
-	 
+	  $scope.JSONDocumentation = null;
+	  $(document).ready(function(){
+	
+		$('input[type=submit]').on('click',function(){
+			
+			$scope.datosDocumentos = [];
+			
+			$('input[data-form=document]:checked').each(function(){
+				
+			    var $Name  =  $(this).attr('name');
+				var $Value =  $(this).val();
+				
+				if( $Value == 1 )
+				{
+					var $Element = {};
+					
+					$Element = $Name;
+					//$Element['estatusDocumento'] = 'A';
+					$scope.datosDocumentos.push( $Element );
+				}
+					
+				
+			});
+			
+			$scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } );
+			console.log($scope.JSONDocumentation);
+			 
+		});
+
+});
+    
 	   $scope.registrar = function(empleado) {
 		   
 
-$(document).ready(function(){
+   if(empleado.puesto === "undefined"){
+	alert("Elija un puesto");   
+   } 
+   
+   
 
-	$('input[type=submit]').click(function(){
 
-		$('input[data-form=document]:checked').each(function(){
-			var $Name  =  $(this).attr('name');
-			var $Value =  $(this).val();
-			datosDocumentos = { $Name : $Value };
-			  
-		});
-
-	});
-
-});
-console.log(datosDocumentos);
-
-		   var documentoEmpleado = new Object();
-		   documentoEmpleado.codigoDocumento = document.getElementById("documento").value;
-		   documentoEmpleado.estatusDocumento = document.getElementById("estatusDocumento").value;
-		  
-		   var arrayProperties = new Array();
-		   arrayProperties.push(documentoEmpleado);
-		   
-		   var objetoDocumento= new Object();
-		   objetoDocumento.documentoEmpleado = arrayProperties;
-		   
-		   var jsonDocumento = JSON.stringify(documentoEmpleado);
-		   
-		   $scope.json = jsonDocumento;
-		   console.log($scope.json);
+ 
+		
 		   $http({
 	              method: 'GET',
 	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
@@ -143,7 +148,7 @@ console.log(datosDocumentos);
 			 		"sexo": document.getElementById("sexo").value,
 	              "fechaNacimiento": document.getElementById("fechaNacimiento").value,
 	              "fechaIngreso": document.getElementById("fechaIngreso").value,
-	              "codigoPuesto": empleado.puesto,
+	              "codigoPuesto": $scope.puesto,
 	              "codigoVialidad": empleado.codigoVialidad,
 	              "codigoArea": empleado.codigoArea,
 	              "codigoTalla": empleado.codigoTalla,
@@ -155,7 +160,7 @@ console.log(datosDocumentos);
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
-	              "documentoEmpleado" : $scope.json
+	              "documentoEmpleado" : $scope.JSONDocumentation
 			         }
 			    }).then(function mySucces(response) {
 			    	alert(response.data.mensajeFuncional);
