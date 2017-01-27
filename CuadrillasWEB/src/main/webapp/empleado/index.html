@@ -276,13 +276,14 @@
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
 							
-							<td><button class="btn btn-info" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
-							<br>
-							<button class="btn btn-info" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>
-							<br>
-							<button class="btn btn-info" data-ng-click="bajaEmpleado()">Baja</button>
-							<br>
-							<button class="btn btn-info" data-ng-click="permisoEmpleado()">Permiso</button></td>
+							<td>
+							<div class="btn-group">
+							<button class="btn btn-info btn-sm" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
+							<button class="btn btn-info btn-sm" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>
+							<button class="btn btn-info btn-sm" data-ng-click="bajaEmpleado()">Baja</button>
+							<button class="btn btn-info btn-sm" data-ng-click="permisoEmpleado()">Permiso</button>
+							</div>
+							</td>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
 							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
