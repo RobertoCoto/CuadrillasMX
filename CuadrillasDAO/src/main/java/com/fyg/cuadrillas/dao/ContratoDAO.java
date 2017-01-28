@@ -29,9 +29,10 @@ public class ContratoDAO {
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
+			int existeContrato = (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
 			if (existeContrato > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un registro del misto tipo de documento y numero documento vigente.");
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un registro del misto "
+						+ "tipo de documento y numero documento vigente.");
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -49,7 +50,7 @@ public class ContratoDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
+
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -64,7 +65,14 @@ public class ContratoDAO {
 		}
 		return respuesta;
 	}
-	
+
+	/**
+	 * Metodo para registrar las coordenadas de un contrato
+	 * @param uid identificador unico de la transaccion
+	 * @param coordenadas lista de coordenada
+	 * @param session transaccional
+	 * @throws Exception
+	 */
 	public void registraCoordenadas(String uid, List<CoordenadaDTO> coordenadas, SqlSession session)
 			   throws Exception {
 		   SqlSession sessionTx = null;
@@ -151,9 +159,16 @@ public class ContratoDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
-		
+
 	}
-	
+
+	/**
+	 * Metodo para consultar contratos
+	 * @param uid identificador unico
+	 * @param contrato datos para filtros
+	 * @return lista de contratos
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	public List<ContratoDTO> consultaContrato(String uid, ContratoDTO contrato) throws Exception {
 		SqlSession sessionNTx = null;
@@ -162,13 +177,13 @@ public class ContratoDAO {
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
 		List<ContratoDTO> listaContrato = null;
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla 
+			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "Consultando");
-			listaContrato = sessionNTx.selectList("ContratoDAO.consultaContrato", contrato);			
+			listaContrato = sessionNTx.selectList("ContratoDAO.consultaContrato", contrato);
 			for (ContratoDTO c : listaContrato) {
 					List<CoordenadaDTO> coordenadas = null;
 					coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
@@ -183,6 +198,5 @@ public class ContratoDAO {
 		}
 		return listaContrato;
 	  }
-	
-	 
+
 }

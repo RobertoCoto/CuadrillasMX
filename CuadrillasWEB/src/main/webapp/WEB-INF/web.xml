@@ -255,6 +255,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.ConsultaContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>HabilitaProxy</servlet-name>
+  	<display-name>HabilitaProxy</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.HabilitaProxy</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -422,5 +428,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaContrato</servlet-name>
 		<url-pattern>/ConsultaContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HabilitaProxy</servlet-name>
+		<url-pattern>/HabilitaProxy</url-pattern>
 	</servlet-mapping>
 </web-app>

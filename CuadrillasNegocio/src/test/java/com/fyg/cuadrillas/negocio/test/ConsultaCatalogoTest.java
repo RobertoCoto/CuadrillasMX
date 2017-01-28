@@ -28,8 +28,7 @@ private GUIDGenerator uid;
 	public void setUp() throws Exception {
 		catalogoConsulta = new CatalogoNegocio();
 		datoCatalogos = new CatalogoDTO();
-		datoCatalogos.setTipoCatalogo("VIALIDAD");;
-		
+		datoCatalogos.setTipoCatalogo("VIALIDAD");
 	}
 	/**
 	 * Metodo test que le envia datos
@@ -38,12 +37,6 @@ private GUIDGenerator uid;
 	@SuppressWarnings("static-access")
 	@Test
 	public void testConsultaTipoCatalogo() throws Exception {
-		
-		System.setProperty("http.proxyHost", "169.169.4.85");
-        System.setProperty("http.proxyPort", "8080");
-        System.setProperty("https.proxyHost", "169.169.4.85");
-        System.setProperty("https.proxyPort", "8080");
-        
 		String guid = uid.generateGUID(catalogoConsulta);
 		LogHandler.debug(guid, this.getClass(), "prueba");
 

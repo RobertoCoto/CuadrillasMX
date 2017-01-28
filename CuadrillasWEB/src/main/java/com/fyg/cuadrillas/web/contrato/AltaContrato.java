@@ -43,7 +43,7 @@ public class AltaContrato extends HttpServlet {
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		try {
 			Integer numeroContrato = Integer.parseInt(request.getParameter("numeroContrato"));
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));

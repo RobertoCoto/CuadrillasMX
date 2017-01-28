@@ -8,7 +8,7 @@ DELETE FROM perfil;
 
 
 INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
-VALUES (100,'Sistemas','Sistemas','A');
+VALUES (10,'Sistemas','Sistemas','A');
 
 INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
 VALUES (1,'Residente','Residente','A');
@@ -34,7 +34,8 @@ VALUES('mimejorada', 2,'MARIO IVAN','MEJORADA','HERRERA','H','MEHM770921JK1','ME
 /* QUITAR */
 
 
---MENU PADRE
+/*MENU PADRE*/
+
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (1,NULL,'Administración','Administración','A');
 
@@ -47,17 +48,92 @@ VALUES (3,NULL,'Operación','Operación','A');
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
 VALUES (4,NULL,'Buzones','Buzones','A');
 
---MENU HIJOS
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,estatus)
+VALUES (5,NULL,'Reportes','Reportes','A');
 
+
+/*MENU HIJOS*/
+
+/*Administracion*/
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (10, 1,'ABC Catalogos','ABC Catalogos','CuadrillasWEB/catalogo/index.html','A');
 
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (11, 1,'Alta Usuarios','Alta Usuarios','CuadrillasWEB/','A');
 
---
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (12, 1,'Cambio Contraseña','Cambio Contraseña','CuadrillasWEB/usuario/cambio_contra.html','A');
 
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus)
-VALUES (100,1,10,'A');
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (13, 1,'Cambio Contraseña General','Cambio Contraseña General','CuadrillasWEB/usuario/cambio_contra_gral.html','A');
 
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus)
-VALUES (100,10,20,'A');
+/*Empleados*/
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (20, 2,'ABC Empleados','ABC Empleados','CuadrillasWEB/empleado/index.html','A');
+
+
+/*Operacion*/
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (30, 3,'ABC Cuadrillas','ABC Cuadrillas','CuadrillasWEB/cuadrillas/admin_cuadrillas.html','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (31, 3,'ABC Contratos','ABC Contratos','CuadrillasWEB/altaContrato/index.html','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (32, 3,'Registro Agenda','Registro Agenda','CuadrillasWEB/registroAgenda/index.html','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (33, 3,'Consulta Agenda','Consulta Agenda','CuadrillasWEB/','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (34, 3,'Toma de Asistencia','Toma de Asistencia','CuadrillasWEB/asistencia/index.html','A');
+
+/*Buzones*/
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (40, 4,'Buzon Oficina Central','Buzon Oficina Central','CuadrillasWEB/','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (41, 4,'Buzon Residente','Buzon Residente','CuadrillasWEB/','A');
+
+/*Reportes*/
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (50, 5,'Reporte 1','Reporte 1','CuadrillasWEB/','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (51, 5,'Reporte 2','Reporte 2','CuadrillasWEB/','A');
+
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (52, 5,'Reporte 3','Reporte 3','CuadrillasWEB/','A');
+
+
+
+
+/*SISTEMAS*/
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,1,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,2,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,3,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,4,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,5,10,'A');
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,10,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,11,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,12,3,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,13,4,'A');
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,20,1,'A');
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,30,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,31,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,32,3,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,33,4,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,34,5,'A');
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,40,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,41,2,'A');
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,50,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,51,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,52,3,'A');
+
 
