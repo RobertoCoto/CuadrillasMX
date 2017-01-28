@@ -73,14 +73,14 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 				 		"codigoCausaSalida": document.getElementById("causaSalida").value,
 		              "idEmpleado": document.getElementById("idEmpleado").value
 				 }
-				    }).then(function mySucces(result) {
-				    	$scope.resultadoRenuncia = result.data.catalogo;
-			              console.log(result);
+				    }).then(function mySucces(response) {
+				    	alert(response.data.mensajeFuncional);
+				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);
-				        alert(response.data.header.mensajeFuncional);
-				        //$scope.resultado2.push(objecto);
+				        alert(response.data.mensajeFuncional);
 				    });
+		    		   
 		    	}
 		    
 });
