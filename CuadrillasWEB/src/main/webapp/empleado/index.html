@@ -154,7 +154,7 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="frecuencia" class="control-label">Frecuencia :</label>
-                           <input type="radio" name="pago" id="frecuenciaPago" value="M">Mes &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="Q">Quincena &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="S">Semanal
+                           <input type="radio" name="pago" id="frecuenciaPago" value="M" checked>Mes &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="Q">Quincena &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="S">Semanal
                         </div>
                     </div>
 			     </div>
@@ -245,7 +245,7 @@
                            	<input type="hidden" id="estatusDocumento" value="A">
 							<input type="radio" id="documento" name={{documentos.codigo}} value="1" data-form="document">SI 
 							<input type="radio" name={{documentos.codigo}} value="0" data-form="document">NO
-							<input type="radio" name={{documentos.codigo}} value="-1" data-form="document">N/A 
+							<input type="radio" name={{documentos.codigo}} value="-1" data-form="document" checked="checked">N/A 
                         </div>
                     </div>
 			     </div>
@@ -270,7 +270,7 @@
 								<td>Operaciones</td>
 								</tr>
 							<tr ng-repeat="general in resultadoDatos | filter: busqueda">
-							<td><input type="hidden" value={{general.idEmpleado}} id="idEmpleado">{{general.noEmpleado}}</td>
+							<td> <input type="hidden" id="idData" value={{general.idEmpleado}}>{{general.noEmpleado}}</td>
 							<td>{{general.descripcionPuesto}}</td>
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
@@ -278,12 +278,12 @@
 							
 							<td>
 							<div class="btn-group">
-							<button class="btn btn-success btn-sm" data-ng-click="editarDatos()" id="editar" style="display:block;">Editar</button>
-							<button class="btn btn-success btn-sm" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;">Actualizar</button>
-							<button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado()">Baja</button>
-							<button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado()">Permiso Laboral</button>
+							<button class="btn btn-success btn-sm" data-ng-click="editarDatos()">Editar</button>
+							<button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button>
+							<button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button>
 							</div>
 							</td>
+							
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
 							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
@@ -300,9 +300,12 @@
                 			</div>
                			 </div>
 			     </div>
-			     <input type="reset" value="Borrar información" class="btn btn-info" >
-				 <input type="submit" name="guardar" value="Registrar" data-ng-click="registrar(empleado)" class="btn btn-success">
-				 <input type="button" value="Consultar" data-ng-click="consultar(empleado)" class="btn btn-info">
+			     <div class="btn-group" role="group" aria-label="Basic example">
+			     <input class="btn btn-info btn-sm" type="reset" value="Limpiar Campos">
+			     <input class="btn btn-success btn-sm"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(empleado)" id="editar">
+				 <input class="btn btn-success btn-sm"  type="submit" name="guardar" value="Guardar"data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;" >
+				 <input class="btn btn-info btn-sm" type="button" value="Consultar" data-ng-click="consultar(empleado)" >
+			     </div>
 			</form>
 		</div>
 		</div>

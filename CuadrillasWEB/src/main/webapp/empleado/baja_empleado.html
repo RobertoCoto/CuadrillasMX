@@ -58,7 +58,7 @@ return false;
                         <div class="form-group form-group-sm" ng-repeat="empleado in resultado">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
                             <input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}}>
-                            <input type="text" name="numeroEmpleado" id="noEmpleado" required class="form-control" value={{empleado.noEmpleado}}/ disabled>
+                            <input type="text" name="numeroEmpleado" id="noEmpleado" required class="form-control" value={{empleado.noEmpleado}} disabled>
                         </div>
                     </div>
              </div>
@@ -76,7 +76,7 @@ return false;
 			 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
-                           <input type="text" value={{emple.codigoPuesto}} disabled class="form-control">
+                           <input type="text" value={{emple.descripcionPuesto}} disabled class="form-control">
                         </div>
                     </div>
                     
@@ -130,6 +130,7 @@ return false;
                         <div class="form-group form-group-sm">
                             <label for="tipoSalida" class="control-label">Tipo Salida</label>
                            <select class="form-control" ng-model="empleado.codigoTipoSalida" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoSalida" ng-change="getOptions2(empleado.codigoTipoSalida)"></select>
+                        <input type="hidden" id="salida" value={{empleado.codigoTipoSalida}}>
                         </div>
                     </div>
 			 </div>
@@ -139,6 +140,7 @@ return false;
                         <div class="form-group form-group-sm">
                             <label for="causaRenuncia" class="control-label">Causa Renuncia</label>
                           <select class="form-control" ng-model="empleado.codigoCausaSalida" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRenuncia" ng-change="getOptions2(empleado.codigoCausaSalida)"></select>
+                        <input type="hidden" id="causaSalida" value={{empleado.codigoCausaSalida}}>
                         </div>
                     </div>
 			 </div>
