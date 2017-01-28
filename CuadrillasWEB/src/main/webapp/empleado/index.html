@@ -267,7 +267,8 @@
 								<td>Nombre</td>
 								<td>Fecha Ingreso</td>
 								<td>Estatus</td>
-								<td>Operaciones</td>
+								<td colspan="3"><center>Operaciones</center></td>
+							   
 								</tr>
 							<tr ng-repeat="general in resultadoDatos | filter: busqueda">
 							<td> <input type="hidden" id="idData" value={{general.idEmpleado}}>{{general.noEmpleado}}</td>
@@ -277,12 +278,11 @@
 							<td>{{general.estatus}}</td>
 							
 							<td>
-							<div class="btn-group">
+							
 							<button class="btn btn-success btn-sm" data-ng-click="editarDatos()">Editar</button>
-							<button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button>
-							<button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button>
-							</div>
 							</td>
+							<td><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button></td>
+							<td><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button></td>
 							
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
