@@ -49,6 +49,13 @@ app.controller('registraPermiso', function ($scope, $http) {
 		    
 		    //aquiii
 		    $scope.registrar = function(permiso) {
+		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+
+		    		if (!confirmar) 
+		    			{
+		    				alert('se ha cancelado la operacion.'); 
+		    					return false;
+		    			} 	
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
