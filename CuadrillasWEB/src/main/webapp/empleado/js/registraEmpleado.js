@@ -201,17 +201,18 @@ console.log($scope.JSONDocumentation);
     	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ $scope.id, '_blank','heigth=600,width=600');
     	  };
       
-       $scope.editarDatos = function() {
-    	   $scope.dataNoEmpleado = document.getElementById("noEmpleado").value = document.getElementById("noEmpleadoData").value;
-    	   $scope.dataNombre = document.getElementById("nombre").value = document.getElementById("nombreData").value;
-    	   $scope.dataApellidoPat = document.getElementById("apellidoPaterno").value = document.getElementById("apellidoPatData").value;
-    	   $scope.dataApellidoMat = document.getElementById("apellidoMaterno").value = document.getElementById("apellidoMatData").value;
-    	   $scope.dataFechaNacimiento = document.getElementById("fechaNacimiento").value = document.getElementById("fechaNacimientoData").value;
-    	   $scope.dataNss = document.getElementById("nss").value = document.getElementById("nssData").value;
-    	   $scope.dataTelefono = document.getElementById("telefono").value = document.getElementById("telefonoData").value;
-    	   $scope.dataRfc = document.getElementById("rfc").value = document.getElementById("rfcData").value;
-    	   $scope.dataCredito = document.getElementById("noCreditoInfonavit").value = document.getElementById("creditoInfoData").value;
-    	   $scope.dataSueldo = document.getElementById("sueldo").value = document.getElementById("sueldoData").value;
+       $scope.editarDatos = function(general) {
+    	   
+    	   document.getElementById("noEmpleado").value = general.noEmpleado;
+    	   document.getElementById("nombre").value = general.nombre;
+    	   document.getElementById("apellidoPaterno").value = general.apellidoPat;
+    	   document.getElementById("apellidoMaterno").value = general.apellidoMat;
+    	   document.getElementById("fechaNacimiento").value = general.fechaNacimiento;
+    	   document.getElementById("nss").value = general.nss;
+    	   document.getElementById("telefono").value = general.telefono;
+    	   document.getElementById("rfc").value = general.rfc;
+    	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
+    	   document.getElementById("sueldo").value = general.sueldo;
     	   
     	   document.getElementById('editar').style.display='none'; 
     	   document.getElementById('guardarDato').style.display='block'; 
