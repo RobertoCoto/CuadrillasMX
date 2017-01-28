@@ -389,12 +389,12 @@ ALTER TABLE usuario ADD CONSTRAINT FK_usuario_perfil FOREIGN KEY (id_perfil) REF
 ALTER TABLE perfil_menu ADD CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFERENCES menu(id_menu);
 ALTER TABLE perfil_menu ADD CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
 
-ALTER TABLE empleado ADD CONSTRAINT FK_codigo_puesto FOREIGN KEY(codigo_puesto) REFERENCES catalogo(codigo);
+/*ALTER TABLE empleado ADD CONSTRAINT FK_codigo_puesto FOREIGN KEY(codigo_puesto) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_vialidad FOREIGN KEY(codigo_vialidad) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_area FOREIGN KEY(codigo_area) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_talla FOREIGN KEY(codigo_talla) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_tipo_salida FOREIGN KEY(codigo_tipo_salida) REFERENCES catalogo(codigo);
-ALTER TABLE empleado ADD CONSTRAINT FK_codigo_causa_salida FOREIGN KEY(codigo_causa_salida) REFERENCES catalogo(codigo);
+ALTER TABLE empleado ADD CONSTRAINT FK_codigo_causa_salida FOREIGN KEY(codigo_causa_salida) REFERENCES catalogo(codigo);*/
 		
 ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_vialidad  FOREIGN KEY (codigo_vialidad) REFERENCES catalogo(codigo);
 ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_contrato  FOREIGN KEY (codigo_contrato) REFERENCES catalogo(codigo);
