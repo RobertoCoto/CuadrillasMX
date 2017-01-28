@@ -157,12 +157,13 @@ public class EmpleadoNegocio {
 			if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
 				throw new ExcepcionesCuadrillas("El No de empleado es necesario para la baja.");
 			}
+			if (empleado.getCodigoTipoSalida() == null || empleado.getCodigoTipoSalida().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("El tipo de salida es necesario para la baja.");
+			}
 			if (empleado.getCodigoCausaSalida() == null || empleado.getCodigoCausaSalida().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("La causa de la salida es necesario para la baja.");
 			}
-			if (empleado.getCodigoTipoSalida() == null || empleado.getCodigoTipoSalida().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("La tipo de la salida es necesario para la baja.");
-			}
+			
 			if (empleado.getUsuarioBaja() == null || empleado.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El Usuario es necesario para la baja.");
 			}
