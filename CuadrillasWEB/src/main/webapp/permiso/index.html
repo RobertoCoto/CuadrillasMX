@@ -11,13 +11,8 @@
 function confirmar(){ 
 confirmar=confirm("¿Esta seguro de guardar los cambios?"); 
 if (confirmar) {
-// si pulsamos en aceptar
-alert('datos modificados correctamente.');
-return true;
 } else {
 // si pulsamos en cancelar
-alert('se ha cancelado la operacion.'); 
-return false;
 } 
 
 } 
@@ -52,7 +47,7 @@ return false;
 <div class="panel panel-default">
 		<div class="panel-body">
 		<h2>Permiso Laboral</h2>
-			<form ng-submit="registrar(permiso)" name="form_reloj" onsubmit="confirmar()">
+			<form ng-submit="registrar(permiso)" name="form_reloj">
 					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
@@ -164,7 +159,7 @@ return false;
                         </div>
                     </div>
 			  </div>
-			  <input type="submit" value="Registrar" class="btn btn-success">
+			  <input type="submit" value="Registrar" class="btn btn-success" onclick="confirmar()">
 			</form>
 		</div>
 </div>

@@ -49,7 +49,7 @@ return false;
 		<h2>Baja de Empleados</h2>
          <div class="panel panel-default">
 			<div class="panel-body">
-			<form name="form_reloj" ng-submit="grabar(empleado)" onsubmit="confirmar()">
+			<form name="form_reloj" ng-submit="grabar(empleado)" >
 			
 			<div class="row">
 			<div class="col-sm-4">
@@ -155,7 +155,7 @@ return false;
                         </div>
                     </div>
 			 </div>
-			 <input type="submit" value="Grabar" class="btn btn-success" >
+			 <input type="submit" value="Grabar" class="btn btn-success" onclick="confirmar()" >
 			</form>
 			</div>
 			</div>

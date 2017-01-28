@@ -61,10 +61,11 @@ app.controller('registraPermiso', function ($scope, $http) {
 				 		"usuario" : 'SISTEMAS'
 				         }
 				    }).then(function mySucces(response) {
+				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);
-				        alert(response.data.header.mensajeFuncional);
+				        alert(response.data.mensajeFuncional);
 				    });
 		    	}
 		    
