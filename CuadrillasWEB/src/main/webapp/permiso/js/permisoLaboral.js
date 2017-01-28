@@ -57,7 +57,7 @@ app.controller('registraPermiso', function ($scope, $http) {
 		              "fechaSolicitudMaxima" : document.getElementById("fechaSolicitudMaxima").value,
 		              "horaSolicitudMinima" : document.getElementById("horaSolicitudMinima").value,
 		              "horaSolicitudMaxima" : document.getElementById("horaSolicitudMaxima").value,
-		              "tipoPermiso" : permiso.codigo,
+		              "tipoPermiso" : document.getElementById("permisoCodigo").value,
 				 		"usuario" : 'SISTEMAS'
 				         }
 				    }).then(function mySucces(response) {
