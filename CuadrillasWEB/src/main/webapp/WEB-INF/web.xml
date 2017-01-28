@@ -261,6 +261,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.HabilitaProxy</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaDocumentos</servlet-name>
+  	<display-name>ConsultaDocumentos</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.ConsultaDocumentos</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -432,5 +438,9 @@
 	<servlet-mapping>
 		<servlet-name>HabilitaProxy</servlet-name>
 		<url-pattern>/HabilitaProxy</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaDocumentos</servlet-name>
+		<url-pattern>/ConsultaDocumentos</url-pattern>
 	</servlet-mapping>
 </web-app>

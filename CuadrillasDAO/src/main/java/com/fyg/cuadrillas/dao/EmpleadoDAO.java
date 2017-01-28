@@ -284,4 +284,37 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 		//La conexion no es atomica realizamos commit
 	 }
 
+	/**
+	    * Metodo para consultar documentos
+	    * @param uid unico de consulta
+	    * @param empleadoDocumento recibe los valores del id Empleado para doc.
+	    * @return retorna lista documento
+	    */
+	   @SuppressWarnings("unchecked")
+	public List<EmpleadoDocumentoDTO> consultaDocumentos(String uid, EmpleadoDocumentoDTO empleadoDocumentos) throws Exception {
+			SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<EmpleadoDocumentoDTO> listaDocumento = null;
+			try {
+				//Abrimos conexion Transaccional
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				LogHandler.debug(uid, this.getClass(), "Consultando");
+				//Se hace una consulta a la tabla
+			
+				listaDocumento = sessionNTx.selectList("EmpleadoDAO.consultaDocumentos", empleadoDocumentos);
+				LogHandler.info(uid, this.getClass(), "consultaDocumentos: " + listaDocumento);
+			}
+			catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				throw new Exception(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return listaDocumento;
+		}
 }

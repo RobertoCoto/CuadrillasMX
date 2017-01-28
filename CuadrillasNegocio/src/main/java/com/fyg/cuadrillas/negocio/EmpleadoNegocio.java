@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -15,6 +16,7 @@ import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
 
 public class EmpleadoNegocio {
@@ -240,9 +242,8 @@ public class EmpleadoNegocio {
 			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en la actualizacion del empleado.");
 			}
-			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el codigo de vialidad en la actualizacion del empleado.");
-			} else if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
+			 
+			if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area en la actualizacion del empleado.");
 			}
 			if (empleado.getSueldo() <= 0) {
@@ -371,5 +372,46 @@ public class EmpleadoNegocio {
 					    }
 					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
 						return respuesta;
+	}
+	
+	/**
+	 * Metodo para consultar los documentos
+	 * @param empleadoDocumento recibe valores de los docs
+	 * @return regresa lista de documentos
+	 */
+	public EmpleadoDocumentoRespuesta consultaDocumento(EmpleadoDocumentoDTO empleadoDocumento) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(empleadoDocumento);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaDocumento - Datos Entrada: " + empleadoDocumento);
+		//Variable de resultado
+		EmpleadoDocumentoRespuesta respuesta = new EmpleadoDocumentoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
+		List<EmpleadoDocumentoDTO> listaDocumento = null;
+
+	    try {
+	    	if (empleadoDocumento.getIdEmpleado() == null)
+	    	{
+	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+	    	}
+	    	 listaDocumento = new EmpleadoDAO().consultaDocumentos(uid, empleadoDocumento);
+	    	 respuesta.setEmpleadoDocumento(listaDocumento);
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(),"consultaDocumento - Error: "+ex.getMessage(),ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaDocumento - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaDocumento - Datos Salida: " + respuesta);
+	    return respuesta;
 	}
 }

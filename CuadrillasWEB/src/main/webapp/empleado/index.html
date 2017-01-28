@@ -256,7 +256,7 @@
                 			<table class="table table-bordered">
 								<div class="wraper" ng-show='resultadoDatos.length' >
 								<tr>
-								<th colspan="6">Busqueda<div class="input-group">
+								<th colspan="9">Busqueda<div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-search"></i></div>
                   			<input class="form-control" type="search" id="busqueda" size="45" ng-model="busqueda">
                				 </div></th>
@@ -277,8 +277,11 @@
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
-							
+							<span ng-repeat="docu in resultadoDocumento">
+							  <input type="hidden" id="documento" value={{docu.codigoEmpDoc}} ng-model="general.document">
+							</span>
 							<td>
+							
 							
 							<button class="btn btn-success btn-sm" data-ng-click="editarDatos(general)">Editar</button>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
@@ -291,6 +294,9 @@
 							<input type="hidden" id="telefonoData" value={{general.telefono}}>
 							<input type="hidden" id="creditoInfoData" value={{general.noCreditoInfonavit}}>
 							<input type="hidden" id="sueldoData" value={{general.sueldo}}>
+							<input type="hidden" id="areaData" value={{general.codigoArea}}>
+							<input type="hidden" id="sex" value={{general.sexo}}>
+							
 							</td>
 							<td><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button></td>
 							<td><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button></td>
@@ -305,7 +311,7 @@
 			     <div class="btn-group" role="group" aria-label="Basic example">
 			     <input class="btn btn-info btn-sm" type="reset" value="Limpiar Campos">
 			     <input class="btn btn-success btn-sm"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(empleado)" id="editar">
-				 <input class="btn btn-success btn-sm"  type="submit" name="guardar" value="Guardar"data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;" >
+				 <input class="btn btn-success btn-sm"  type="submit" value="Guardar" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;" >
 				 <input class="btn btn-info btn-sm" type="button" value="Consultar" data-ng-click="consultar(empleado)" >
 			     </div>
 			</form>
