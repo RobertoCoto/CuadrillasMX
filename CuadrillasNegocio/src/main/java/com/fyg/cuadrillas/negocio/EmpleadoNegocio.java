@@ -38,37 +38,37 @@ public class EmpleadoNegocio {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 
 		try {
-			if (empleado.getNoEmpleado() == null || empleado.getNoEmpleado().trim().isEmpty() || empleado.getNoEmpleado() == "") {
+			if (empleado.getNoEmpleado() == null || empleado.getNoEmpleado().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El numero de empleado es necesario en el alta del empleado.");
 			}
-			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty() || empleado.getNombre() == "") {
+			if (empleado.getNombre() == null || empleado.getNombre().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El nombre es necesario en el alta del empleado.");
 			}
-			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty() || empleado.getApellidoPat() == "") {
+			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del empleado.");
 			}
-			if (empleado.getApellidoMat() == null || empleado.getApellidoMat().trim().isEmpty() || empleado.getApellidoMat() == "") {
+			if (empleado.getApellidoMat() == null || empleado.getApellidoMat().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El apellido materno es necesario en el alta del empleado.");
 			}
-			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty() || empleado.getSexo() == "") {
+			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del empleado.");
 			}
 			if (!(empleado.getSexo().equalsIgnoreCase("F") || empleado.getSexo().equalsIgnoreCase("M"))) {
 				throw new ExcepcionesCuadrillas("El sexo del empleado es incorrecto.");
 			}
-			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty() || empleado.getRfc() == "") {
+			if (empleado.getRfc() == null || empleado.getRfc().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El RFC es necesario en el alta del empleado.");
 			}
 			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
 				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
 			}
-			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty() || empleado.getCodigoPuesto() == "") {
+			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en el alta del empleado.");
 			}
-			 if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty() || empleado.getCodigoArea() == "") {
+			 if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
 			}
-			 if (empleado.getCodigoTalla() == null || empleado.getCodigoTalla().isEmpty() || empleado.getCodigoTalla() == "") {
+			 if (empleado.getCodigoTalla() == null || empleado.getCodigoTalla().isEmpty()) {
 					throw new ExcepcionesCuadrillas("Es necesario el codigo area.");
 				}
 			if (empleado.getSueldo() <= 0) {
@@ -101,19 +101,13 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
-			if (empleado.getIdCuadrilla() <= 0) {
-				throw new ExcepcionesCuadrillas("Es necesario una cuadrilla en el alta de empleado.");
-			}
-			if (empleado.getCodigoVialidad() == null || empleado.getCodigoVialidad().trim().isEmpty() || empleado.getCodigoVialidad() == "") {
-				throw new ExcepcionesCuadrillas("El codigo vialidad es necesario en el alta del empleado.");
-			}
-			if (empleado.getCodigoArea() == null || empleado.getCodigoArea().trim().isEmpty() || empleado.getCodigoArea() == "") {
+			if (empleado.getCodigoArea() == null || empleado.getCodigoArea().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El area es necesario en el alta del empleado.");
 			}
-			if (empleado.getFechaNacimiento() == null || empleado.getFechaNacimiento().trim().isEmpty() || empleado.getFechaNacimiento() == "") {
+			if (empleado.getFechaNacimiento() == null || empleado.getFechaNacimiento().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("La fecha de nacimiento es necesaria en el alta del empleado.");
 			}
-			
+
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
@@ -124,11 +118,8 @@ public class EmpleadoNegocio {
 						fechaDate);
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
-
 			EmpleadoDAO dao = new EmpleadoDAO();
-			
 			//Consultamos si ya existe
-			
 			respuesta = dao.registraEmpleado(uid, empleado);
 		}
 		catch  (ExcepcionesCuadrillas ex) {
@@ -327,14 +318,14 @@ public class EmpleadoNegocio {
 		List<EmpleadoDTO> listaEmpleado = null;
 
 	    try {
-	    	if(empleado.getIdEmpleado() == null)
+	    	if (empleado.getIdEmpleado() == null)
 	    	{
 	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 	    	}
 	    	 listaEmpleado = new EmpleadoDAO().consultaGeneral(uid, empleado);
 	    	 respuesta.setEmpleado(listaEmpleado);
-	    }catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(),"ConsultaEmpleado - Error: "+ex.getMessage(),ex);
 			respuesta.getHeader().setEstatus(false);
 			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
