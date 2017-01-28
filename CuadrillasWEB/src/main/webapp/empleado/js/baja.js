@@ -63,6 +63,17 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		    });
 		    
 		    $scope.grabar = function(empleado) {
+		    	
+    				
+    			var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
+
+				if (!confirmar) 
+				{
+					alert('se ha cancelado la operacion.'); 
+					return false;
+				} 		    
+
+
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',

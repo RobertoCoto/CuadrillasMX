@@ -46,6 +46,8 @@ app.controller('registraPermiso', function ($scope, $http) {
 		        //$scope.resultado2.push(objecto);
 		    });
 		    $scope.datoPermiso = [];
+		    
+		    //aquiii
 		    $scope.registrar = function(permiso) {
 		    	$http({
 		              method: 'GET',

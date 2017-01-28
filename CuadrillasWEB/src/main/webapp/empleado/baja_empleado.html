@@ -28,28 +28,15 @@
    	
 } 
 </script>
-<script language="Javascript"> 
-function confirmar(){ 
-confirmar=confirm("¿Esta seguro de dar de baja al empleado?"); 
-if (confirmar) {
-return true;
-} else {
-// si pulsamos en cancelar
-alert('se ha cancelado la operacion.'); 
-return false;
-} 
-
-} 
-</script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/baja.js"></script>
 </head>
-<body onload="mueveReloj()" ng-app="tatei" ng-controller="bajaEmpleado">
+<body onload="mueveReloj()" ng-app="tatei" ng-controller="bajaEmpleado" >
     <div class="container">
 		<h2>Baja de Empleados</h2>
          <div class="panel panel-default">
 			<div class="panel-body">
-			<form name="form_reloj" ng-submit="grabar(empleado)" >
+			<form name="form_reloj"  ng-submit="grabar(empleado)">
 			
 			<div class="row">
 			<div class="col-sm-4">
@@ -155,14 +142,16 @@ return false;
                         </div>
                     </div>
 			 </div>
-			 <input type="submit" value="Grabar" class="btn btn-success" onclick="confirmar()" >
+			 <input type="submit" value="Grabar" class="btn btn-success">
 			</form>
 			</div>
 			</div>
     </div>
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    	
+    	
 </body>
 </html>
