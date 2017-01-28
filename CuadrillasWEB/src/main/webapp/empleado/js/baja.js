@@ -69,8 +69,8 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		              params : {
 				 		"usuario": 'SISTEMAS',
 				 		"comentario": document.getElementById("comentario").value,
-				 		"codigoTipoSalida": empleado.codigoTipoSalida,
-				 		"codigoCausaSalida": empleado.codigoCausaSalida,
+				 		"codigoTipoSalida": document.getElementById("salida").value,
+				 		"codigoCausaSalida": document.getElementById("causaSalida").value,
 		              "idEmpleado": document.getElementById("idEmpleado").value
 				 }
 				    }).then(function mySucces(result) {

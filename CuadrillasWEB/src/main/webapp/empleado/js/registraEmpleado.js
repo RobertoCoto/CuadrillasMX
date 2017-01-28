@@ -191,12 +191,14 @@ console.log($scope.JSONDocumentation);
 		}
 	   
 		
-      $scope.bajaEmpleado = function(url) {
-    	     window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
+      $scope.bajaEmpleado = function(general) {
+    	    $scope.idE = general.idEmpleado;
+    	     window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html?idEmpleado='+ $scope.idE, '_blank','heigth=600,width=600');
     	  };
     	  
-      $scope.permisoEmpleado = function(url) {
-    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ document.getElementById("idEmpleado").value, '_blank','heigth=600,width=600');
+      $scope.permisoEmpleado = function(general) {
+    	  $scope.id = general.idEmpleado;
+    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ $scope.id, '_blank','heigth=600,width=600');
     	  };
       
        $scope.editarDatos = function() {
@@ -225,10 +227,6 @@ console.log($scope.JSONDocumentation);
     	 $scope.sueldo = document.getElementById("sueldo").value = 0;
     	 }
      
-    	 if ($scope.cuadrilla == "")
-     {
-    	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
-    	 }
 	   $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
@@ -242,10 +240,10 @@ console.log($scope.JSONDocumentation);
             "fechaNacimiento": document.getElementById("fechaNacimiento").value,
             "fechaIngreso": document.getElementById("fechaIngreso").value,
             "codigoPuesto": document.getElementById("cPuesto").value ,
-            "codigoVialidad": document.getElementById("cVialidad").value,
+            "codigoVialidad": document.getElementById("cVialidad").value = null,
             "codigoArea": document.getElementById("cArea").value,
             "codigoTalla": document.getElementById("cTalla").value,
-            "idCuadrilla": $scope.cuadrilla,
+            "idCuadrilla": document.getElementById("cCuadrilla").value = null,
               "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,
