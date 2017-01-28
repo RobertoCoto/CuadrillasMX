@@ -160,7 +160,7 @@ return false;
                         <div class="form-group form-group-sm">
                             <label for="tipoPermiso" class="control-label">Tipo de Permiso</label>
                            <select class="form-control"  ng-model="permiso.codigo" ng-options="catalogo.descripcion as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
-</select>
+</select> <input type="hidden" id="permisoCodigo" value={{permiso.codigo}}>
                         </div>
                     </div>
 			  </div>
