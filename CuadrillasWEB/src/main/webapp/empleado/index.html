@@ -242,10 +242,10 @@
                     
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
-                           	<input type="hidden" id="estatusDocumento" value="A">
-							<input type="radio" id="documento" name={{documentos.codigo}} value="1" data-form="document">SI 
+                           	<input type="hidden" value="A">
+							<input type="radio" name={{documentos.codigo}} value="1" data-form="document">SI 
 							<input type="radio" name={{documentos.codigo}} value="0" data-form="document">NO
-							<input type="radio" name={{documentos.codigo}} value="-1" data-form="document" checked="checked">N/A 
+							<input type="radio" name={{documentos.codigo}} value="-1" data-form="document" ng-checked="true">N/A 
                         </div>
                     </div>
 			     </div>
