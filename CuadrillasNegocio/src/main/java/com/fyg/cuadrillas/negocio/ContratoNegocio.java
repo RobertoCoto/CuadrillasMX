@@ -138,30 +138,25 @@ public class ContratoNegocio {
 				return respuesta;
 	}
 
-	public EncabezadoRespuesta bajaContrato (ContratoDTO contrato) {
+	/**
+	 * Metodo para dar de baja un contrato.
+	 * @param contrato id contrato a dar de baja
+	 * @return resultado
+	 */
+	public EncabezadoRespuesta bajaContrato(ContratoDTO contrato) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(contrato);
 		//Mandamos a log el objeto de entrada
 		LogHandler.debug(uid, this.getClass(), "bajaContrato - Datos Entrada: " + contrato);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		/*
+
 		try {
-			if(contrato.getNumeroContrato() == null) {
-				throw new ExcepcionesCuadrillas("Es necesario el numero de contrato.");
-			}
-			if(contrato.getIdEmpleado() == null) {
-				throw new ExcepcionesCuadrillas("Es necesario el id empleado.");
-			}
-			if (contrato.getUsuarioBaja() == null || contrato.getUsuarioBaja().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el usuario baja.");
-			}
-			if (contrato.getUsuarioUltMod() == null || contrato.getUsuarioUltMod().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+			if (contrato.getIdContrato() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el id del contrato para la baja.");
 			}
 			ContratoDAO dao = new ContratoDAO();
 			respuesta = dao.bajaContrato(uid, contrato);
-
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "bajaContrato - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -177,7 +172,6 @@ public class ContratoNegocio {
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		LogHandler.debug(uid, this.getClass(), "bajaContrato - Datos Salida: " + respuesta);
-		*/
 		return respuesta;
 	}
 

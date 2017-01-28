@@ -35,7 +35,7 @@ public class ContratoDTO extends ObjetoValor {
 	private String estatus;
 	private String usuarioAlta;
 
-	
+
 	/**
 	 * @return the idContrato
 	 */

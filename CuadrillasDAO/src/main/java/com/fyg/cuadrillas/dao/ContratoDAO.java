@@ -133,7 +133,7 @@ public class ContratoDAO {
 		try {
 			//Validamos si ya esta dado de baja el contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeBajaContrato= (Integer) sessionNTx.selectOne("ContratoDAO.existeBajaContrato", contrato);
+			int existeBajaContrato = (Integer) sessionNTx.selectOne("ContratoDAO.existeBajaContrato", contrato);
 			if (existeBajaContrato > 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja, el contrato ya se encuentra inactivo.");
 			}
