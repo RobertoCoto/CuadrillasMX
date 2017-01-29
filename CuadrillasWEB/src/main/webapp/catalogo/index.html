@@ -10,10 +10,23 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
   </head>
   <body ng-app="tatei">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
     <script>
+
+     $(window).load(function(){
+         $('#alert').hide();
+         $('#success').hide();
+      });
+
+      $(document).ready(function() {
+        
+      });
+
+
     var app = angular.module('tatei', []);
 
-    app.controller('myCtrl', function ($scope, $http) {
+    app.controller('catalogoctrl', function ($scope, $http) {
 
       var tipoCataloPadre = undefined;
       var option1Options = ["option1 - 1", "option1 - 2", "option1 - 3"];
@@ -21,23 +34,32 @@
                      ["option2 - 2-1","option2 - 2-2","option2 - 2-3"],
                      ["option2 - 3-1","option2 - 3-2","option2 - 3-3"]];
       //$scope.options1 = option1Options;
-
+      $('#msload').modal('show');
+      $('#alert').hide();
+      $('#success').hide();
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaTipoCatalogos',
               data: { }
-		    }).then(function mySucces(result) {
+		    }).then(function successfn(result) {
 		    	$scope.resultado = result.data.catalogo;
 	              console.log(result);
-		    }, function myError(response) {
+                 $('#msload').modal('hide');
+		    }, function errorfn(response) {
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
+		        //alert(response.data.header.mensajeFuncional);
+            $('#msload').modal('hide');
+            $('#alert').show();
+            $('#msgerror').val(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
 
       $scope.options2 = []; // we'll get these later
 
       $scope.saveOptions = function(objecto) {
+        $('#msload').modal('show');
+        $('#alert').hide();
+        $('#success').hide();
         $http({
                 method: 'GET',
                 url: 'http://localhost:8080/CuadrillasWEB/RegistrarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
@@ -47,16 +69,22 @@
                   "usuario": 'SISTEMAS',
                   "descripcion": document.getElementById("descripcionf").value.toUpperCase()
                  }
-        }).then(function mySucces(response) {
+        }).then(function successfn(response) {
             var fila = {};
             fila.descripcion = document.getElementById("descripcionf").value.toUpperCase();
             fila.codigo = document.getElementById("codigof").value.toUpperCase();
             fila.tipo = 0;
             $scope.resultado2.push(fila);
               console.info(response);
-        }, function myError(response) {
+              $('#msload').modal('hide');
+              $('#success').show();
+              $('#msgaviso').text(response.data.mensajeFuncional);
+        }, function errorfn(response) {
             console.error(response);
-            alert(response.data.mensajeFuncional);
+            //alert(response.data.mensajeFuncional);
+            $('#msload').modal('hide');
+            $('#alert').show();
+            $('#msgerror').text(response.data.mensajeFuncional);
             //$scope.resultado2.push(objecto);
         });
 
@@ -66,7 +94,9 @@
       $scope.getOptions2 = function(aaa){
         tipoCataloPadre = aaa;
         console.log(aaa);
-
+        $('#msload').modal('show');
+        $('#alert').hide();
+        $('#success').hide();
         $http({
                 method: 'GET',
                 url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -79,7 +109,7 @@
                  for (var i = 0, length = $scope.resultado2.length; i < length; i++) {
                    $scope.editingData[$scope.resultado2[i].codigo] = false;
                  }
-
+                 $('#msload').modal('hide');
 
                  $scope.modify = function(catalogo){
                      $scope.editingData[catalogo.codigo] = true;
@@ -89,6 +119,9 @@
                  $scope.update = function(catalogo){
                     console.warn(catalogo);
                     //TODO ----- ACTUALIZAR HTTP
+                    $('#msload').modal('show');
+                    $('#alert').hide();
+                    $('#success').hide();
                     $http({
                            method: 'GET',
                            url: 'http://localhost:8080/CuadrillasWEB/ActualizarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
@@ -98,12 +131,18 @@
                              "codigo": catalogo.codigo,
                              "usuario": 'SISTEMAS'
                             }
-                   }).then(function mySucces(response) {
+                   }).then(function successfn(response) {
                 	   $scope.editingData[catalogo.codigo] = false;
                          console.info(response);
-                   }, function myError(response) {
+                         $('#msload').modal('hide');
+                         $('#success').show();
+                         $('#msgaviso').text(response.data.mensajeFuncional);
+                   }, function errorfn(response) {
                        console.error(response);
-                       alert(response.data.mensajeFuncional);
+                       //alert(response.data.mensajeFuncional);
+                       $('#msload').modal('hide');
+                       $('#alert').show();
+                       $('#msgerror').text(response.data.mensajeFuncional);
                        //$scope.resultado2.push(objecto);
                    });
                      
@@ -111,6 +150,9 @@
 
                  $scope.remove = function(catalogo) {
                    console.info(catalogo);
+                   $('#msload').modal('show');
+                   $('#alert').hide();
+                   $('#success').hide();
                    $http({
                            method: 'GET',
                            url: 'http://localhost:8080/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
@@ -119,12 +161,18 @@
                              "codigo": catalogo.codigo,
                              "usuario": 'SISTEMAS'
                             }
-                   }).then(function mySucces(response) {
+                   }).then(function successfn(response) {
                        removeByAttr($scope.resultado2, 'codigo',catalogo.codigo);
                          console.info(response);
-                   }, function myError(response) {
+                         $('#msload').modal('hide');
+                         $('#success').show();
+                         $('#msgaviso').text(response.data.mensajeFuncional);
+                   }, function errorfn(response) {
                        console.error(response);
-                       alert(response.data.mensajeFuncional);
+                       //alert(response.data.mensajeFuncional);
+                       $('#msload').modal('hide');
+                       $('#alert').show();
+                       $('#msgerror').text(response.data.mensajeFuncional);
                        //$scope.resultado2.push(objecto);
                    });
 
@@ -149,8 +197,39 @@
 }
 
     </script>
-    <div class="container" ng-controller="myCtrl">
+    <div class="container" ng-controller="catalogoctrl">
+      <!-- Modal -->
+      <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+          role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">
+                          <span class="glyphicon glyphicon-time">
+                          </span>Espera un momento..
+                       </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-info
+                          progress-bar-striped active"
+                          style="width: 100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal fin -->
       <h2> Catalogos </h2>
+      <div id="success" class="alert alert-success alert-dismissable fade in">
+        <!--a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a-->
+        <strong>AVISO!</strong> <span id="msgaviso"></span>
+      </div>
+      <div id="alert" class="alert alert-danger alert-dismissable fade in">
+        <!--a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a-->
+        <strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+      </div>
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
@@ -176,7 +255,7 @@
                         <tr>
                           <td><input class="form-control" id="codigof" type="text" /></td>
                           <td><input class="form-control" id="descripcionf" type="text" /></td>
-                          <td><button class="btn btn-default" ng-click="saveOptions()">Agregar</button></td>
+                          <td><button class="btn btn-success" ng-click="saveOptions()">Agregar</button></td>
                         <tr>
                          <tr ng-repeat="catalogo in resultado2">
                              <td>
@@ -202,7 +281,7 @@
         </div>
       </div>
     <!--h2> Catalogo </h2>
-    <div ng-controller="myCtrl">
+    <div ng-controller="catalogoctrl">
       <span>catalogo:</span>
       <select ng-model="seleccion.tipoCatalogo" ng-options="catalogo.tipoCatalogo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(seleccion.tipoCatalogo)"></select>
 
@@ -249,6 +328,5 @@
 
    </div>
   </div-->
-
   </body>
 </html>
