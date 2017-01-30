@@ -10,7 +10,7 @@
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
 FROM cuadrilla
-WHERE nombre_cuadrilla = #{nombre_cuadrilla}
+WHERE nombre_cuadrilla = #{nombreCuadrilla}
 </select>
 
 <select  id="existeBajaCuadrilla" parameterType="Cuadrilla" resultType="int">

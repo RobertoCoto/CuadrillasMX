@@ -39,6 +39,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
 		    		 "calificacion" : document.getElementById("calificacion").value,
+		    		 "usuario" : "SISTEMAS"
 		    		 
 		    	 }
 				    }).then(function mySucces(result) {

@@ -26,6 +26,7 @@ public class CuadrillaDAO {
 		try {
 			//Validamos si ya existe una misma cuadrilla
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			
 			int existeMismaCuadrilla= (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaCuadrilla", cuadrilla);
 			if (existeMismaCuadrilla > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar, ya existe la cuadrilla.");
