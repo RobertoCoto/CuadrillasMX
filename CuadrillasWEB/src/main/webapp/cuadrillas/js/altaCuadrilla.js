@@ -57,16 +57,17 @@ app.controller('adminCuad', function ($scope, $http) {
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = datosCuadrilla.calificacion;
 		    			
+		    			document.getElementById("numeroCuadrilla").disabled = true;
 		    			document.getElementById('editar').style.display='none'; 
     	                document.getElementById('guardarDato').style.display='block';
 		    	};
 		    
-		    $scope.actualizar = function(cuadrilla) {
+		    $scope.actualizar = function(datosCuadrilla) {
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
-		    		 "idCuadrilla" : document.getElementById("idData").value,
+		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
