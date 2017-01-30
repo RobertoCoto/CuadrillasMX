@@ -63,6 +63,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    
 		    $scope.actualizar = function(datosCuadrilla) {
+		    	
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
