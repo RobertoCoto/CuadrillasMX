@@ -233,6 +233,9 @@
                     </div>
 			     </div>
 			     <p class="control-label">Documentacion</p>
+			     <span ng-repeat="docu in resultadoDocumento">
+							  <input type="hidden" name="ds" value={{docu.codigoEmpDoc}} ng-model="general.document">
+							</span>
 			     <div class="row" ng-repeat="documentos  in resultadoDocumentos">
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
@@ -277,9 +280,6 @@
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
 							<td>{{general.estatus}}</td>
-							<span ng-repeat="docu in resultadoDocumento">
-							  <input type="hidden" id="documento" value={{docu.codigoEmpDoc}} ng-model="general.document">
-							</span>
 							<td>
 							
 							
@@ -500,6 +500,7 @@ $('input[data-form=tel]').keyup(function() {
 		
     });
 </script>
+
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </body>

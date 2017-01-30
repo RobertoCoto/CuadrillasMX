@@ -188,7 +188,7 @@ console.log($scope.JSONDocumentation);
                   $scope.editingData[$scope.resultadoDatos[i].idEmpleado] = false;
                 }
                 });
-		}
+		};
 	   
 		
       $scope.bajaEmpleado = function(general) {
@@ -200,25 +200,30 @@ console.log($scope.JSONDocumentation);
     	  $scope.id = general.idEmpleado;
     	  window.open('http://localhost:8080/CuadrillasWEB/permiso/index.html?idEmpleado='+ $scope.id, '_blank','heigth=600,width=600');
     	  };
+    	  
+    	  
       
        $scope.editarDatos = function(general) {
     	   $scope.idEm = general.idEmpleado;
     	   
-    	   $http({
-               method: 'GET',
-               url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
-               params : {
- 		 		"idEmpleado": $scope.idEm
- 		 },
-               data: { }
- 		    }).then(function mySucces(result) {
- 		    	$scope.resultadoDocumento = result.data.empleadoDocumento;
- 	              console.log($scope.resultadoDocumento);
- 		    }, function myError(response) {
- 		        console.error(response);
- 		        alert(response.data.mensajeFuncional);
- 		        //$scope.resultado2.push(objecto);
- 		    });
+					$http({
+					    method: 'GET',
+					    url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
+					    params : {
+							"idEmpleado": $scope.idEm
+					}
+					  }).then(function mySucces(result) {
+					  	$scope.resultadoDocumento = result.data.empleadoDocumento;
+
+					  	console.log(document.getElementsByName("ds")[0].elements );
+					  }, function myError(response) {
+					      console.error(response);
+					      alert(response.data.mensajeFuncional);
+					      //$scope.resultado2.push(objecto);
+					  });
+
+ 
+       
     	   
     	   document.getElementById("noEmpleado").value = general.noEmpleado;
     	   document.getElementById("nombre").value = general.nombre;
@@ -230,7 +235,8 @@ console.log($scope.JSONDocumentation);
     	   document.getElementById("rfc").value = general.rfc;
     	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
     	   document.getElementById("sueldo").value = general.sueldo;
-    	   
+    	  
+    	  
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
