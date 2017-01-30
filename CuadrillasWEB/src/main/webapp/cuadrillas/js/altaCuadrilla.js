@@ -23,7 +23,7 @@ app.controller('adminCuad', function ($scope, $http) {
               data: { }
 		    }).then(function mySucces(result) {
 		    	$scope.resultadoCuadrilla = result.data.cuadrilla;
-	              console.log($scope.resultadoCuadrilla);
+	              //console.log($scope.resultadoCuadrilla);
 		    }, function myError(response) {
 		        console.error(response);
 		        alert(response.data.header.mensajeFuncional);
@@ -42,13 +42,12 @@ app.controller('adminCuad', function ($scope, $http) {
 		    		 "usuario" : "SISTEMAS"
 		    		 
 		    	 }
-				    }).then(function mySucces(result) {
-				    	$scope.resultadoCuadrilla = result.data.cuadrilla;
-			              console.log($scope.resultadoCuadrilla);
+				    }).then(function mySucces(response) {
+				    	alert(response.data.mensajeFuncional);
+				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);
-				        alert(response.data.header.mensajeFuncional);
-				        //$scope.resultado2.push(objecto);
+				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
 		    
