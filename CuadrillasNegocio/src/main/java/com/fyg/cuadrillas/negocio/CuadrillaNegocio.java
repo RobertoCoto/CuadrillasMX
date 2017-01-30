@@ -118,4 +118,44 @@ public class CuadrillaNegocio {
 			    LogHandler.debug(uid, this.getClass(), "consultaCuadrilla - Datos Salida: " + respuesta);
 				return respuesta;
 	}
+	
+	/**
+	 * Metodo para modificar una cuadrilla
+	 * @param cuadrilla recibe valores de cuadrilla
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta modificaCuadrilla(CuadrillaDTO cuadrilla) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(cuadrilla);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "modificaCuadrilla - Datos Entrada: " + cuadrilla);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try { 
+			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
+			}
+			if (cuadrilla.getCalificacion() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario la calificación.");
+			}
+			CuadrillaDAO dao = new CuadrillaDAO();
+			respuesta = dao.modificaCuadrilla(uid, cuadrilla);
+			
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "modificaCuadrilla - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "modificaCuadrilla - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "modificaCuadrilla - Datos Salida: " + respuesta);
+		return respuesta;
+	}
 }

@@ -50,5 +50,52 @@ app.controller('adminCuad', function ($scope, $http) {
 				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
+		    	
+		    $scope.editarCuadrilla = function(datosCuadrilla) {
+		    	
+		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
+		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
+		    			document.getElementById("calificacion").value = datosCuadrilla.calificacion;
+		    			
+		    			document.getElementById('editar').style.display='none'; 
+    	                document.getElementById('guardarDato').style.display='block';
+		    	};
 		    
-	});
+		    $scope.actualizar = function(cuadrilla) {
+		    	$http({
+		              method: 'GET',
+		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
+		              params: {
+		    		 "idCuadrilla" : document.getElementById("idData").value,
+		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
+		    		 "calificacion" : document.getElementById("calificacion").value,
+		    		 "usuario" : "SISTEMAS"
+		    		 
+		    	 }
+				    }).then(function mySucces(response) {
+				    	alert(response.data.mensajeFuncional);
+				    	 console.info(response);
+				    }, function myError(response) {
+				        console.error(response);
+				        alert(response.data.mensajeFuncional);
+				    });
+		    	};
+		    	
+		    	$scope.borrar = function(datosCuadrilla) {
+		    	$http({
+		              method: 'GET',
+		              url: 'http://localhost:8080/CuadrillasWEB/BajaCuadrilla',
+		              params: {
+		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
+		              "usuario" : "SISTEMAS"
+		    	 }
+				    }).then(function mySucces(response) {
+				    	alert(response.data.mensajeFuncional);
+				    	 console.info(response);
+				    }, function myError(response) {
+				        console.error(response);
+				        alert(response.data.mensajeFuncional);
+				    });
+		    	};
+		    
+		    });

@@ -214,14 +214,9 @@ console.log($scope.JSONDocumentation);
 					}
 					  }).then(function mySucces(result) {
 					  	$scope.resultadoDocumento = result.data.empleadoDocumento;
-					  	
+					  	console.log($scope.resultadoDocumento);
 					  	$scope.parent = document.getElementsByName("ds");
 					  	console.log($scope.parent);
-					  	$scope.dataC = $scope.parent.childNodes;
-					  	
-					  	for (var index = 0; index < $scope.dataC.length; index++) {
-					  				alert($scope.dataC[index]);
-					  			}
 					  }, function myError(response) {
 					      console.error(response);
 					      alert(response.data.mensajeFuncional);
