@@ -26,7 +26,7 @@ app.controller('adminCuad', function ($scope, $http) {
 	              //console.log($scope.resultadoCuadrilla);
 		    }, function myError(response) {
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
+		        alert(response.data.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
 		    
