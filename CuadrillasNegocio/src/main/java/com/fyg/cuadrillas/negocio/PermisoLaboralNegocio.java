@@ -35,6 +35,20 @@ public class PermisoLaboralNegocio {
 			if (permiso.getUsuarioAlta() == null || permiso.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 			}
+			if (permiso.getFechaSolicitudMinimo() == null || permiso.getFechaSolicitudMinimo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la fecha minima solicitada.");
+			}
+			if (permiso.getFechaSolicitudMaximo() == null || permiso.getFechaSolicitudMaximo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la fecha maxima solicitada.");
+			}
+			
+			if (permiso.getHoraSolicitudMinimo() == null || permiso.getHoraSolicitudMinimo().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario una hora minima para la solicitud.");
+			}
+			if (permiso.getHoraSolicitudMaxima() == null || permiso.getHoraSolicitudMaxima().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario una hora maxima para la solicitud.");
+			}
+			
 			PermisoLaboralDAO dao = new PermisoLaboralDAO();
 			respuesta = dao.altaPermiso(uid, permiso);
 			

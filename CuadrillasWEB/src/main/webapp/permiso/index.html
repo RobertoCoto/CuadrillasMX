@@ -52,7 +52,7 @@
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="nombre" class="control-label">Nombre</label>
-                           <input type="text"  value={{emp1.nombre}} class="form-control">
+                           <input type="text"  value={{emp1.nombre}}&nbsp{{emp1.apellidoPat}}&nbsp{{emp1.apellidoMat}} class="form-control" disabled>
                         </div>
                     </div>
 					</div>
@@ -61,7 +61,7 @@
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
-                           <input type="text" value={{emp2.codigoPuesto}} disabled class="form-control">
+                           <input type="text" value={{emp2.descripcionPuesto}} disabled class="form-control">
                         </div>
                     </div>
                     
@@ -91,7 +91,7 @@
                             <label for="fechaSolicitud" class="control-label">Fecha de Solicitud</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control">
+                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled>
                				 </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="tipoPermiso" class="control-label">Tipo de Permiso</label>
-                           <select class="form-control"  ng-model="permiso.codigo" ng-options="catalogo.descripcion as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
+                           <select class="form-control"  ng-model="permiso.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
 </select> <input type="hidden" id="permisoCodigo" value={{permiso.codigo}}>
                         </div>
                     </div>
