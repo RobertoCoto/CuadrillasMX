@@ -120,8 +120,62 @@ $scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocum
 console.log($scope.JSONDocumentation);
  
 });
-	  
 
+// json docs no
+	  $scope.JSONDocumentationNoDocs = null;
+	  $('input[type=submit]').on('click',function(){
+			
+$scope.datosDocumentosD = [];
+
+$('input[data-form=document]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 3 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentosD.push( $Element );
+	}
+		
+	
+});
+
+$scope.JSONDocumentationNoDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosD } );
+console.log($scope.JSONDocumentationNoDocs);
+ 
+});
+
+// json docs no
+	  $scope.JSONDocumentationNaDocs = null;
+	  $('input[type=submit]').on('click',function(){
+			
+$scope.datosDocumentosDa = [];
+
+$('input[data-form=document]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 2 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentosDa.push( $Element );
+	}
+		
+	
+});
+
+$scope.JSONDocumentationNaDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDa } );
+console.log($scope.JSONDocumentationNaDocs);
+ 
+});
 
 	   $scope.registrar = function(empleado) {
 		   $scope.sueldo = document.getElementById("sueldo").value;
@@ -163,7 +217,9 @@ console.log($scope.JSONDocumentation);
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
-	              "documentoEmpleado" : $scope.JSONDocumentation
+	              "documentoEmpleado" : $scope.JSONDocumentation,
+	              "noDocs" : $scope.JSONDocumentationNoDocs,
+	              "naDocs" :$scope.JSONDocumentationNaDocs
 			         }
 			    }).then(function mySucces(response) {
 			    	alert(response.data.mensajeFuncional);
@@ -407,7 +463,9 @@ console.log($scope.JSONDocumentation);
             "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
             "observaciones": document.getElementById("observaciones").value,
             "usuario": 'SISTEMAS',
-            "documentoEmpleado" : $scope.JSONDocumentation
+              "documentoEmpleado" : $scope.JSONDocumentation,
+              "noDocs" : $scope.JSONDocumentationNoDocs,
+              "naDocs" :$scope.JSONDocumentationNaDocs
 		         }
 		    }).then(function mySucces(response) {
 		    	alert(response.data.mensajeFuncional);

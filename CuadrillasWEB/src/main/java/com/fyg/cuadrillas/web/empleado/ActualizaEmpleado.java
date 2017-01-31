@@ -79,7 +79,12 @@ public class ActualizaEmpleado extends HttpServlet {
 			Object obj = parser.parse(request.getParameter("documentoEmpleado"));
 			JSONObject jsonObject = (JSONObject) obj;
 			
-
+			Object objNoDocs = parser.parse(request.getParameter("noDocs"));
+			JSONObject jsonObjectNoDocs = (JSONObject) objNoDocs;
+			
+			Object objNaDocs = parser.parse(request.getParameter("naDocs"));
+			JSONObject jsonObjectNaDocs = (JSONObject) objNaDocs;
+			
 			/* proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -114,17 +119,42 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setUsuarioAlta(usuario);
 		    
 			JSONArray listaCodigo = (JSONArray) jsonObject.get("documentacion");
-			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();	
+			JSONArray listaCodigoNoDocs = (JSONArray) jsonObjectNoDocs.get("documentacion");
+			JSONArray listaCodigoNaDocs = (JSONArray) jsonObjectNaDocs.get("documentacion");
+			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
+			List <EmpleadoDocumentoDTO> documentosNoDocs = new ArrayList<EmpleadoDocumentoDTO>();
+			List <EmpleadoDocumentoDTO> documentosNaDocs = new ArrayList<EmpleadoDocumentoDTO>();
+			
 			for(int i = 0; i < listaCodigo.size(); i++)
 			{
 				EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 				codigo.setCodigoEmpDoc((String) listaCodigo.get(i));
-				codigo.setEstatus("A");
+				codigo.setEstatus("SI");
 				documentos.add(codigo);
 				LogHandler.debug(null, this.getClass(), "datos " + documentos);
 				
 			}
+			
+			for(int j = 0; j < listaCodigoNoDocs.size(); j++)
+			{
+				EmpleadoDocumentoDTO codigoDocs = new EmpleadoDocumentoDTO();
+				codigoDocs.setCodigoEmpDoc((String) listaCodigoNoDocs.get(j));
+				codigoDocs.setEstatus("NO");
+				documentosNoDocs.add(codigoDocs);
+				
+			}
+			
+			for(int k = 0; k < listaCodigoNaDocs.size(); k++)
+			{
+				EmpleadoDocumentoDTO codigoNa = new EmpleadoDocumentoDTO();
+				codigoNa.setCodigoEmpDoc((String) listaCodigoNaDocs.get(k));
+				codigoNa.setEstatus("NA");
+				documentosNaDocs.add(codigoNa);
+				
+			}
 			empleado.setDocumentos(documentos);
+			empleado.setDocumentos(documentosNoDocs);
+			empleado.setDocumentos(documentosNaDocs);
 			respuesta = negocio.modificaEmpleado(empleado);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
