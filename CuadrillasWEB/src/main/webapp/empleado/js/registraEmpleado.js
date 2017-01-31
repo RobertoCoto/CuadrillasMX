@@ -243,13 +243,14 @@ $scope.pagoValor = $scope.datoPago;
 			    }).then(function mySucces(response) {
 			    	alert(response.data.mensajeFuncional);
 			    	 console.info(response);
+			    	 setTimeout('document.form_reloj.reset()',2000);
+		             return false;
 			    }, function myError(response) {
 			        console.error(response);
 			        alert(response.data.mensajeFuncional);
 			    });
 		   
-			    setTimeout('document.form_reloj.reset()',2000);
-                return false;
+			    
 	   };
 	   
 	   $scope.consultar = function(empleado) {
@@ -497,13 +498,14 @@ $scope.pagoValor = $scope.datoPago;
 		    }).then(function mySucces(response) {
 		    	alert(response.data.mensajeFuncional);
 		    	 console.info(response);
+		    	 setTimeout('document.form_reloj.reset()',2000);
+	             return false;
 		    }, function myError(response) {
 		        console.error(response);
 		        alert(response.data.mensajeFuncional);
 		    });
     		  
-		    setTimeout('document.form_reloj.reset()',2000);
-                return false;
+		    
     	   };
     	   
 	 });
