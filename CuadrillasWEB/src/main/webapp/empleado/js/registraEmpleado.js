@@ -316,10 +316,7 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById("rfc").value = general.rfc;
     	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
     	   document.getElementById("sueldo").value = general.sueldo;
-    	  
-    	  
-           
-           
+    	   
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
@@ -451,6 +448,8 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById('editar').style.display='none'; 
     	   document.getElementById('guardarDato').style.display='block'; 
     	   
+    	   console.log("data popy: " + general.idCuadrilla); 
+    	   $('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
     	   
     	   };
        
