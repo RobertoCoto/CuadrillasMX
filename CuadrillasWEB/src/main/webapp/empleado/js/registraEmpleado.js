@@ -261,7 +261,7 @@ console.log($scope.JSONDocumentationNaDocs);
       
        $scope.editarDatos = function(general) {
     	   $scope.idEm = general.idEmpleado;
-    	   
+    	   console.log("id del editar" + $scope.idEm);
 					$http({
 					    method: 'GET',
 					    url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
@@ -279,7 +279,7 @@ console.log($scope.JSONDocumentationNaDocs);
 					      //$scope.resultado2.push(objecto);
 					  });
 
- 
+             document.getElementById("idData").value= $scope.idEm;
        
     	   
     	   document.getElementById("noEmpleado").value = general.noEmpleado;
@@ -428,7 +428,9 @@ console.log($scope.JSONDocumentationNaDocs);
     	   
     	   };
        
-    	   $scope.actualizarDato = function(empleado) {
+    	   $scope.actualizarDato = function() {
+    		   $scope.idEm = document.getElementById("idData").value;
+    		   console.log("es el ID correcto?" + $scope.idEm);
     		   $scope.sueldo = document.getElementById("sueldo").value;
     		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
     	   
@@ -437,12 +439,12 @@ console.log($scope.JSONDocumentationNaDocs);
      {
     	 $scope.sueldo = document.getElementById("sueldo").value = 0;
     	 }
-     
+               
 	   $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
               params: {
-		        "idEmpleado": document.getElementById("idData").value,
+		        "idEmpleado": $scope.idEm,
               "noEmpleado" : document.getElementById("noEmpleado").value,
 		 		"nombre" : document.getElementById("nombre").value,
 		 		"apellidoPaterno": document.getElementById("apellidoPaterno").value,

@@ -107,7 +107,7 @@
                             <label for="fechaIngreso" class="control-label">Fecha de Ingreso</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" name="fechaIngreso" id="fechaIngreso" requiered  class="form-control">
+                  			<input type="date" name="fechaIngreso" id="fechaIngreso" class="form-control" disabled>
                				 </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
 								</tr>
 							<tr ng-repeat="general in resultadoDatos | filter: busqueda">
 							
-							<td> <input type="hidden" id="idData" value={{general.idEmpleado}}>{{general.noEmpleado}}</td>
+							<td> {{general.noEmpleado}}</td>
 							<td>{{general.descripcionPuesto}}</td>
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
@@ -284,6 +284,7 @@
 							
 							
 							<button class="btn btn-success btn-sm" data-ng-click="editarDatos(general)">Editar</button>
+							<input type="hidden" id="idData" value={{general.idEmpleado}}>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
 							<input type="hidden" id="nombreData" value={{general.nombre}}>
 							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
@@ -298,9 +299,11 @@
 							<input type="hidden" id="sex" value={{general.sexo}}>
 							
 							</td>
-							<td><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button></td>
-							<td><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button></td>
-							
+						
+							<td ng-if="general.estatus === 'I'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)" disabled>Baja</button></td>
+							<td ng-if="general.estatus === 'I'"><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)" disabled>Permiso Laboral</button></td>
+							<td ng-if="general.estatus === 'A'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button></td>
+							<td ng-if="general.estatus === 'A'"><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button></td>
 							
 							</tr>
 							</div>
@@ -311,7 +314,7 @@
 			     <div class="btn-group" role="group" aria-label="Basic example">
 			     <input class="btn btn-info btn-sm" type="reset" value="Limpiar Campos">
 			     <input class="btn btn-success btn-sm"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(empleado)" id="editar">
-				 <input class="btn btn-success btn-sm"  type="submit" value="Guardar" data-ng-click="actualizarDato(empleado)" id="guardarDato" style="display:none;" >
+				 <input class="btn btn-success btn-sm"  type="submit" value="Guardar" data-ng-click="actualizarDato()" id="guardarDato" style="display:none;" >
 				 <input class="btn btn-info btn-sm" type="button" value="Consultar" data-ng-click="consultar(empleado)" >
 			     </div>
 			</form>

@@ -52,7 +52,7 @@
 			 <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-repeat="emp1 in resultado">
                             <label for="nombres" class="control-label">Nombres</label>
-                            <input type="text" disabled value={{emp1.nombre}} class="form-control">
+                            <input type="text" disabled value={{emp1.nombre}}&nbsp{{emp1.apellidoPat}}&nbsp{{emp1.apellidoMat}} class="form-control">
                         </div>
                     </div>
 			 </div>
@@ -136,7 +136,7 @@
                             <label for="fechaBaja" class="control-label">Fecha Baja</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" name="fechaBaja" id="fechaBaja" class="form-control">
+                  			<input type="date" name="fechaBaja" id="fechaBaja" class="form-control" disabled>
                				 </div>
                            
                         </div>
