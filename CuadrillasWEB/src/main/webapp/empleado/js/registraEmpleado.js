@@ -1,5 +1,5 @@
 var app = angular.module('tatei', ['ngSanitize']);
-app.controller('registraEmpleado', function ($scope, $http, $window) {
+app.controller('registraEmpleado', function ($scope, $http, $window, $rootScope) {
 
 	 $http({
               method: 'GET',
@@ -282,7 +282,7 @@ $scope.pagoValor = $scope.datoPago;
     	  
     	  
       
-       $scope.editarDatos = function(general) {
+       $scope.editarDatos = function(general, $rootScope) {
     	     
     	   $scope.idEm = general.idEmpleado;
     	   console.log("id del editar" + $scope.idEm);
@@ -447,8 +447,7 @@ $scope.pagoValor = $scope.datoPago;
     	   
     	   document.getElementById('editar').style.display='none'; 
     	   document.getElementById('guardarDato').style.display='block'; 
-    	   
-    	   console.log("data popy: " + general.idCuadrilla); 
+    
     	   $('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
     	   
     	   };
