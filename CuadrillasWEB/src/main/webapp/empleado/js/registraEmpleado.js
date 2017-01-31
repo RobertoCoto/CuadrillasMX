@@ -176,8 +176,27 @@ $scope.JSONDocumentationNaDocs = JSON.stringify( { 'documentacion' : $scope.dato
 console.log($scope.JSONDocumentationNaDocs);
  
 });
+	  
+//value pago  
+$scope.pagoValor = null;
+$('input[type=submit]').on('click',function(){
+			
+$scope.datoPago = [];
+
+$('input[data-form=Pagos]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+    $scope.datoPago.push($Value);
+	
+});
+$scope.pagoValor = $scope.datoPago;
+ 
+});
 
 	   $scope.registrar = function(empleado) {
+		   	
 		   $scope.sueldo = document.getElementById("sueldo").value;
 		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
 	   
@@ -191,7 +210,7 @@ console.log($scope.JSONDocumentationNaDocs);
  {
 	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
 	 }
- 
+	 				
  
 		   $http({
 	              method: 'GET',
@@ -212,7 +231,7 @@ console.log($scope.JSONDocumentationNaDocs);
 	              "telefono": document.getElementById("telefono").value,
 	              "rfc" : document.getElementById("rfc").value,
 	              "sueldo": $scope.sueldo,
-	              "frecuenciaPago": document.getElementById("frecuenciaPago").value,
+	              "frecuenciaPago": $scope.pagoValor,
 	              "nss": document.getElementById("nss").value,
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
@@ -228,7 +247,10 @@ console.log($scope.JSONDocumentationNaDocs);
 			        console.error(response);
 			        alert(response.data.mensajeFuncional);
 			    });
-	   }
+		   
+			    setTimeout('document.form_reloj.reset()',2000);
+                return false;
+	   };
 	   
 	   $scope.consultar = function(empleado) {
 		   $http({
@@ -260,6 +282,7 @@ console.log($scope.JSONDocumentationNaDocs);
     	  
       
        $scope.editarDatos = function(general) {
+    	     
     	   $scope.idEm = general.idEmpleado;
     	   console.log("id del editar" + $scope.idEm);
 					$http({
@@ -294,6 +317,8 @@ console.log($scope.JSONDocumentationNaDocs);
     	   document.getElementById("sueldo").value = general.sueldo;
     	  
     	  
+           
+           
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
@@ -460,7 +485,7 @@ console.log($scope.JSONDocumentationNaDocs);
               "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,
-            "frecuenciaPago": document.getElementById("frecuenciaPago").value,
+            "frecuenciaPago": $scope.pagoValor,
             "nss": document.getElementById("nss").value,
             "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
             "observaciones": document.getElementById("observaciones").value,
@@ -476,7 +501,9 @@ console.log($scope.JSONDocumentationNaDocs);
 		        console.error(response);
 		        alert(response.data.mensajeFuncional);
 		    });
-    		   
+    		  
+		    setTimeout('document.form_reloj.reset()',2000);
+                return false;
     	   };
     	   
 	 });

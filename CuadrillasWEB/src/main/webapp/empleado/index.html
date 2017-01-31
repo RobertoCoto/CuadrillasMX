@@ -9,6 +9,8 @@
 	<title>Administración de Empleados</title>
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
+    	
+    	
 <script type="text/javascript">
  	function mueveReloj(){ 
    	 
@@ -87,7 +89,9 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
-                            <select class="form-control" required id="codigoPuesto" data-ng-model="empleado.puesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(empleado.puesto)"></select>
+                            <select class="form-control" required id="codigoPuesto" data-ng-model="empleado.puesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(empleado.puesto)">
+                            <option value="">--Seleccione Puesto--</option>
+                            </select>
                             <input type="hidden" id="cPuesto" value={{empleado.puesto}}>
                         </div>
                     </div>
@@ -154,7 +158,7 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="frecuencia" class="control-label">Frecuencia :</label>
-                           <input type="radio" name="pago" id="frecuenciaPago" value="M" checked>Mes &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="Q">Quincena &nbsp <input type="radio" id="frecuenciaPago" name="pago" value="S">Semanal
+                           <input type="radio" name="pago"  value="M" data-form="Pagos">Mes &nbsp <input type="radio"  name="pago" value="Q" data-form="Pagos">Quincena &nbsp <input type="radio" name="pago" value="S" ng-checked="true" data-form="Pagos">Semanal
                         </div>
                     </div>
 			     </div>
@@ -172,6 +176,7 @@
                         <div class="form-group form-group-sm">
                             <label for="talla" class="control-label">Talla</label>
                            <select  class="form-control" id="codigoTalla" ng-model="empleado.codigoTalla" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRopa" ng-change="getOptions2(empleado.codigoTalla)">
+							<option value="">--Seleccione Talla--</option>
 							</select>
 							<input type="hidden" id="cTalla" value={{empleado.codigoTalla}}>
                         </div>
@@ -194,6 +199,7 @@
                         <div class="form-group form-group-sm">
                             <label for="cuadrilla" class="control-label">Cuadrilla</label>
                            <select class="form-control" id="idCuadrilla" ng-model="empleado.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in resultadoCuadrilla" ng-change="getOptions2(empleado.idCuadrilla)" >
+						  <option value="">--Seleccione Cuadrilla--</option>
 						  </select>
 						  <input type="hidden" id="cCuadrilla" value={{empleado.idCuadrilla}}>
                         </div>
@@ -202,7 +208,9 @@
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="vialidad" class="control-label">Vialidad</label>
-                            <select  class="form-control" id="codigoVialidad" ng-model="empleado.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(empleado.codigoVialidad)"></select>
+                            <select  class="form-control" id="codigoVialidad" ng-model="empleado.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(empleado.codigoVialidad)">
+                            <option value="">--Seleccione Vialidad--</option>
+                            </select>
                         <input type="hidden" id="cVialidad" value={{empleado.codigoVialidad}}>
                         </div>
                     </div>
@@ -210,7 +218,9 @@
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="area" class="control-label">Area</label>
-                            <select class="form-control" id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(empleado.codigoArea)"></select>
+                            <select class="form-control" id="codigoArea" ng-model="empleado.codigoArea" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(empleado.codigoArea)">
+                            <option value="">--Seleccione Area--</option>
+                            </select>
                         <input type="hidden" id="cArea" value={{empleado.codigoArea}}>
                         </div>
                     </div>
