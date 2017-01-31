@@ -448,8 +448,8 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById('editar').style.display='none'; 
     	   document.getElementById('guardarDato').style.display='block'; 
     
-    	   $('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
-    	   
+    	   //$('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
+    	   document.getElementById('idCuadrilla').value="number:"+general.idCuadrilla;
     	   };
        
     	   $scope.actualizarDato = function() {
