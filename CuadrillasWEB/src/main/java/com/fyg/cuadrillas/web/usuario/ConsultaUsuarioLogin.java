@@ -49,11 +49,6 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
 
-			/*System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");*/
-
 	        //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
 
@@ -61,7 +56,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
 	        usuario.setContrasena(password);
-	        respuesta = negocio.loginUsuario(usuario);	       
+	        respuesta = negocio.loginUsuario(usuario);
 	        //convierte  a formato Json
 	        if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
@@ -70,7 +65,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 			}
 			out.println(sg.toJson(respuesta));
 			out.flush();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);

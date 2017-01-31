@@ -38,14 +38,11 @@ VALUES
 </insert>
 
 <update id="bajaContrato" parameterType="Contrato">
-UPDATE contrato SET
-	fecha_baja = now(),
-	usuario_baja = #{usuarioBaja},
-	fecha_ult_mod = now(),
-	usuario_ult_mod = #{usuarioUltMod},
-    estatus = 'I'
-WHERE numero_contrato = #{numeroContrato} 
-AND id_empleado = #{idEmpleado}
-AND estatus = 'A'
+	UPDATE contrato SET
+		fecha_baja = now(),
+		usuario_baja = #{usuarioAlta},		
+	    estatus = 'I'
+	WHERE id_contrato = #{idContrato}
+	AND estatus = 'A'
 </update>
 </mapper>

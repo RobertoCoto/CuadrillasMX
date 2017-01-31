@@ -50,13 +50,13 @@
 
 <select id="existeBajaContrato" parameterType="Contrato" resultType="int">
 	SELECT count(estatus) AS estatus
-	FROM contrato 
+	FROM contrato
 	WHERE id_empleado = #{idEmpleado}
 	AND estatus = 'I'
 </select>
 
 <select id="consultaContrato" parameterType="Contrato" resultMap="contrato">
-	
+
 	SELECT 
 		id_contrato,
 		codigo_vialidad,
