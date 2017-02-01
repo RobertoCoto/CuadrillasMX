@@ -205,13 +205,13 @@ $scope.pagoValor = $scope.datoPago;
 	       var puesto = document.getElementById("codigoPuesto").value;
 	       var nacimiento = document.getElementById("fechaNacimiento").value;
 	       var nss = document.getElementById("nss").value;
-	       var infonavit = document.getElementbyId("noCreditoInfonavit").value;
+	       var infonavit = document.getElementById("noCreditoInfonavit").value;
 	       var rfc = document.getElementById("rfc").value;
 	       var telefono = document.getElementById("telefono").value;
-	       var talla =  document.getElementById("codigoTalla").value;
-	       var sexo = document.getelementById("sexo").value;
-	       var area document.getElementById("codigoArea").value;
-	       
+	       var talla =  document.getElementById("cTalla").value;
+	       var sexo = document.getElementById("sexo").value;
+	       var area = document.getElementById("codigoArea").value;
+	       var calif = document.getElementById("calificacion").value;
 		   $scope.sueldo = document.getElementById("sueldo").value;
 		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
 		   $scope.vialidad = document.getElementById("cVialidad").value;
@@ -244,22 +244,21 @@ $scope.pagoValor = $scope.datoPago;
  if (telefono == null) {
 	 return false;
 	 }
- if (talla == null) {
+ if (talla == "") {
 	 return false;
 	 }
- if (sexo == null) {
+ if (sexo == "") {
 	 return false;
 	 }
- if (area == null) {
+ if (area == "") {
 	 return false;
 	 }
- if (talla == null) {
+ if (calif == "") {
 	 return false;
 	 }
  if($scope.sueldo == 0) {
 	 return false;
 	 }
- 
  if ($scope.sueldo == "")
  {
 	 $scope.sueldo = document.getElementById("sueldo").value = 0;
@@ -267,7 +266,7 @@ $scope.pagoValor = $scope.datoPago;
  
 	 if ($scope.cuadrilla == "")
  {
-	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = null;
+	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
 	 }
  
 	  if ($scope.vialidad == "")
@@ -310,7 +309,7 @@ $scope.pagoValor = $scope.datoPago;
 		             return false;
 			    }, function myError(response) {
 			        console.error(response);
-			        //alert(response.data.mensajeFuncional);
+			        alert(response.data.mensajeFuncional);
 			    });
 		   
 			    

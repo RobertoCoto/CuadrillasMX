@@ -151,7 +151,7 @@
 			     </div>
 			     
 			     <div class="row">
-			      <div class="col-sm-6">
+			      <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="sueldo" class="control-label">Sueldo</label>
                             <input type="number" name="sueldo" placeholder="$" id="sueldo" class="form-control" data-form="sueldo">
@@ -159,7 +159,27 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="calificacion" class="control-label">Calificacion</label>
+                           <select id="calificacion" class="form-control">
+                           <option value="">--Selecione una Calificacion--</option>
+                           <option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+                           </select>
+                           <div class="amt_errorCalificacion"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="frecuencia" class="control-label">Frecuencia :</label>
                            <input type="radio" name="pago"  value="M" data-form="Pagos">Mes &nbsp <input type="radio"  name="pago" value="Q" data-form="Pagos">Quincena &nbsp <input type="radio" name="pago" value="S" ng-checked="true" data-form="Pagos">Semanal
@@ -504,6 +524,24 @@ $(document).ready(function(){
 	});
 });
 </script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#calificacion").val() == "") {
+			 $('.amt_errorCalificacion')
+				.text('Asigne una calificación.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorCalificacion').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+
 
 <script> 
 $(document).ready(function(){
