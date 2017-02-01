@@ -20,11 +20,24 @@ public class EmpleadoDAO {
 	 */
 	 public EncabezadoRespuesta registraEmpleado(String uid, EmpleadoDTO empleado) {
 		 	SqlSession sessionTx = null;
+		 	SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("registro correcto.");
 			try {
+				
+				//Validamos si ya existe el noEmpleado 
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeNoEmpleado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleado", empleado);
+				if (existeNoEmpleado > 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
+				}
+				
+				int existeRFCCalculado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculado", empleado);
+				if (existeRFCCalculado > 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el RFC calculado del empleado.");
+				}
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("EmpleadoDAO.registraEmpleado", empleado);
