@@ -290,6 +290,7 @@ $scope.pagoValor = $scope.datoPago;
 	              "codigoArea": document.getElementById("cArea").value,
 	              "codigoTalla": document.getElementById("cTalla").value,
 	              "idCuadrilla": $scope.cuadrilla,
+	              "calificacion": document.getElementById("calificacion").value,
 	              "telefono": document.getElementById("telefono").value,
 	              "rfc" : document.getElementById("rfc").value,
 	              "sueldo": $scope.sueldo,

@@ -7,14 +7,14 @@
 	INSERT INTO empleado
 		(
 		no_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento,
-		fecha_ingreso, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla,id_cuadrilla, sueldo, frecuencia_pago,
+		fecha_ingreso, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla,id_cuadrilla, sueldo,calificacion,frecuencia_pago,
 		nss, no_credito_infonavit, telefono, observaciones, usuario_alta, fecha_alta,
 		usuario_ult_mod, fecha_ult_mod, estatus, alta_imss
 		)
 	VALUES
 		(
 		upper(#{noEmpleado}), upper(#{nombre}), upper(#{apellidoPat}), upper(#{apellidoMat}), upper(#{sexo}), upper(#{rfc}), upper(#{rfcCalculado}), #{fechaNacimiento},
-		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo}, #{frecuenciaPago},
+		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo},#{calificacion},#{frecuenciaPago},
 		#{nss},#{noCreditoInfonavit}, #{telefono}, #{observaciones}, #{usuarioAlta}, now(),
 		 #{usuarioAlta}, now(), 'A', 'N'
 		)
@@ -62,6 +62,7 @@
 	   codigo_puesto = upper(#{codigoPuesto}),
 	   codigo_vialidad = upper(#{codigoVialidad}),
 	   id_cuadrilla = #{idCuadrilla},
+	   calificacion = #{calificacion},
 	   codigo_area = upper(#{codigoArea}),
 	   codigo_talla = upper(#{codigoTalla}),
 	   sueldo = #{sueldo},

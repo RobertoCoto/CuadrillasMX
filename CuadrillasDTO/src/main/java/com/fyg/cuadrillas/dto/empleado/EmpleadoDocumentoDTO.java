@@ -18,6 +18,10 @@ public class EmpleadoDocumentoDTO extends ObjetoValor{
 	 */
 	private String codigoEmpDoc;
 	/**
+	 * Descripcion del documento
+	 */
+	private String descripcionDocumento;
+	/**
 	 * Fecha_alta del documento
 	 */
 	private Date fechaAlta;
@@ -89,5 +93,16 @@ public class EmpleadoDocumentoDTO extends ObjetoValor{
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
 	}
-	
+	/**
+	 * @return the descripcionDocumento
+	 */
+	public String getDescripcionDocumento() {
+		return descripcionDocumento;
+	}
+	/**
+	 * @param descripcionDocumento the descripcionDocumento to set
+	 */
+	public void setDescripcionDocumento(String descripcionDocumento) {
+		this.descripcionDocumento = descripcionDocumento;
+	}
 }

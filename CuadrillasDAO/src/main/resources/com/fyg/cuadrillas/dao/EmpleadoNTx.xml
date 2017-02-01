@@ -40,7 +40,7 @@
 	SELECT
 		e.id_empleado, e.no_empleado, e.nombre, e.apellido_pat, e.apellido_mat, e.sexo, e.rfc, e.rfc_calculado, e.fecha_nacimiento, e.fecha_ingreso,
 		e.codigo_puesto, e.codigo_vialidad, e.codigo_area,  e.codigo_talla, e.sueldo, e.frecuencia_pago,
-		e.nss, e.no_credito_infonavit, e.telefono, e.observaciones,e.id_cuadrilla,
+		e.nss, e.no_credito_infonavit, e.telefono, e.observaciones,e.id_cuadrilla,e.calificacion,
 		e.fecha_baja, e.codigo_tipo_salida, e.codigo_causa_salida, e.estatus, e.alta_imss,u.usuario,u.contrasena,u.id_perfil,p.nombre AS nombre_perfil,
 		c.descripcion AS descripcion_puesto
 	FROM empleado e
@@ -80,8 +80,9 @@ AND estatus ='I'
 </select>
 
 <select id="consultaDocumentos" parameterType="empleadoDocumento" resultType="empleadoDocumento">
-SELECT codigo_emp_doc AS codigoEmpDoc, estatus
-FROM empleado_documentos
+SELECT d.codigo_emp_doc AS codigoEmpDoc, d.estatus,c.descripcion AS descripcionDocumento
+FROM empleado_documentos d
+LEFT JOIN catalogo c ON c.codigo = d.codigo_emp_doc
 WHERE id_empleado = #{idEmpleado}
 </select>
 </mapper>

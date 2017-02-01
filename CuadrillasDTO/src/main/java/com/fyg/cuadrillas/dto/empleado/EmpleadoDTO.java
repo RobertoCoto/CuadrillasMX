@@ -39,6 +39,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private String descripcionPuesto;
 	/**
+	 * Calificacion del empleado
+	 */
+	private Integer calificacion;
+	/**
 	 * RFC del usuario
 	 */
 	private String rfc;
@@ -594,5 +598,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setDescripcionPuesto(String descripcionPuesto) {
 		this.descripcionPuesto = descripcionPuesto;
+	}
+	/**
+	 * @return the calificacion
+	 */
+	public Integer getCalificacion() {
+		return calificacion;
+	}
+	/**
+	 * @param calificacion the calificacion to set
+	 */
+	public void setCalificacion(Integer calificacion) {
+		this.calificacion = calificacion;
 	}
 }
