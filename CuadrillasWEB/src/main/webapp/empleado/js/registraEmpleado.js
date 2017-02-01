@@ -197,18 +197,66 @@ $scope.pagoValor = $scope.datoPago;
 
 	   $scope.registrar = function(empleado) {
 		 	
-				
-	      var noEmpleado = document.getElementById("noEmpleado").value;
+			//se declaran variables 	
+	       var noEmpleado = document.getElementById("noEmpleado").value;
+	       var nombre = document.getElementById("nombre").value;
+	       var apellidoPat = document.getElementById("apellidoPaterno").value;
+	       var apellidoMat = document.getElementById("apellidoPaterno").value;
+	       var puesto = document.getElementById("codigoPuesto").value;
+	       var nacimiento = document.getElementById("fechaNacimiento").value;
+	       var nss = document.getElementById("nss").value;
+	       var infonavit = document.getElementbyId("noCreditoInfonavit").value;
+	       var rfc = document.getElementById("rfc").value;
+	       var telefono = document.getElementById("telefono").value;
+	       var talla =  document.getElementById("codigoTalla").value;
+	       var sexo = document.getelementById("sexo").value;
+	       var area document.getElementById("codigoArea").value;
+	       
 		   $scope.sueldo = document.getElementById("sueldo").value;
 		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
+		   $scope.vialidad = document.getElementById("cVialidad").value;
 
+		   //validaciones front
  if (noEmpleado == null) {
-	 console.log("si entra aca tambien paps");
 	 return false;
 	 }
- 
+ if (nombre == null) {
+	 return false;
+	 }
+ if (apellidoPat == null) {
+	 return false;
+	 }
+ if (apellidoMat == null) {
+	 return false;
+	 }
+ if (puesto == null) {
+	 return false;
+	 }
+ if (nacimiento == null) {
+	 return false;
+	 }
+ if (nss == null) {
+	 return false;
+	 }
+ if (rfc == null) {
+	 return false;
+	 }
+ if (telefono == null) {
+	 return false;
+	 }
+ if (talla == null) {
+	 return false;
+	 }
+ if (sexo == null) {
+	 return false;
+	 }
+ if (area == null) {
+	 return false;
+	 }
+ if (talla == null) {
+	 return false;
+	 }
  if($scope.sueldo == 0) {
-	 console.log("si entra aca tambien paps");
 	 return false;
 	 }
  
@@ -219,7 +267,12 @@ $scope.pagoValor = $scope.datoPago;
  
 	 if ($scope.cuadrilla == "")
  {
-	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
+	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = null;
+	 }
+ 
+	  if ($scope.vialidad == "")
+ {
+	 $scope.vialidad = document.getElementById("cVialidad").value = null;
 	 }
  
 		   $http({

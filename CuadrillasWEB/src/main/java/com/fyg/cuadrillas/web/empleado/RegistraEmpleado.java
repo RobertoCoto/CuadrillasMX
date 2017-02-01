@@ -135,28 +135,29 @@ public class RegistraEmpleado extends HttpServlet {
 				documentos.add(codigo);
 				LogHandler.debug(null, this.getClass(), "datos " + documentos);
 				
-			}
-			
-			for(int j = 0; j < listaCodigoNoDocs.size(); j++)
-			{
-				EmpleadoDocumentoDTO codigoDocs = new EmpleadoDocumentoDTO();
-				codigoDocs.setCodigoEmpDoc((String) listaCodigoNoDocs.get(j));
-				codigoDocs.setEstatus("NO");
-				documentosNoDocs.add(codigoDocs);
+				for(int j = 0; j < listaCodigoNoDocs.size(); j++)
+				{
+					EmpleadoDocumentoDTO codigoDocs = new EmpleadoDocumentoDTO();
+					codigoDocs.setCodigoEmpDoc((String) listaCodigoNoDocs.get(j));
+					codigoDocs.setEstatus("NO");
+					documentosNoDocs.add(codigoDocs);
+					empleado.setDocumentos(documentosNoDocs);
+				}
 				
-			}
-			
-			for(int k = 0; k < listaCodigoNaDocs.size(); k++)
-			{
-				EmpleadoDocumentoDTO codigoNa = new EmpleadoDocumentoDTO();
-				codigoNa.setCodigoEmpDoc((String) listaCodigoNaDocs.get(k));
-				codigoNa.setEstatus("NA");
-				documentosNaDocs.add(codigoNa);
+				for(int k = 0; k < listaCodigoNaDocs.size(); k++)
+				{
+					EmpleadoDocumentoDTO codigoNa = new EmpleadoDocumentoDTO();
+					codigoNa.setCodigoEmpDoc((String) listaCodigoNaDocs.get(k));
+					codigoNa.setEstatus("NA");
+					documentosNaDocs.add(codigoNa);
+					empleado.setDocumentos(documentosNaDocs);
+				}
 				
 			}
 			empleado.setDocumentos(documentos);
-			empleado.setDocumentos(documentosNoDocs);
-			empleado.setDocumentos(documentosNaDocs);
+			
+			
+			
 			respuesta = negocio.registraEmpleado(empleado);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
