@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS perfil;
         rfc_calculado VARCHAR(15) NULL,         
         fecha_ingreso DATE NOT NULL,                        				
 		sueldo DECIMAL(10,2) NOT NULL DEFAULT 0,
-		calificacion INTEGER NOT NULL;
+		calificacion INTEGER NOT NULL,
 		frecuencia_pago  CHAR(1) NOT NULL CHECK(frecuencia IN('M','Q','S','')),
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,        
