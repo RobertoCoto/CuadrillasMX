@@ -89,7 +89,7 @@ public class EmpleadoNegocio {
 				empleado.setFrecuenciaPago("");
 			}
 
-			if (empleado.getDocumentos().size() == 0) {
+			/*if (empleado.getDocumentos().size() == 0) {
 				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de alta del empleado.");
 			}
 			for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
@@ -99,7 +99,7 @@ public class EmpleadoNegocio {
 				if (documento.getEstatus() == null || documento.getEstatus().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El estatus es obligatorio.");
 				}
-			}
+			}*/
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
@@ -260,7 +260,8 @@ public class EmpleadoNegocio {
 			if (empleado.getFrecuenciaPago() == null) {
 				empleado.setFrecuenciaPago("");
 			}
-			if (empleado.getDocumentos().size() == 0) {
+			
+			/*if (empleado.getDocumentos().size() == 0) {
 				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de actualizacion del empleado. del empleado.");
 			}
 			for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
@@ -271,7 +272,7 @@ public class EmpleadoNegocio {
 				if (documento.getEstatus() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
 				}
-			}
+			}*/
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
 			}

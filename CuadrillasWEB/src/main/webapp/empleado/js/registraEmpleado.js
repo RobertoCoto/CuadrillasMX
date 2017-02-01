@@ -525,12 +525,22 @@ $scope.pagoValor = $scope.datoPago;
     		   console.log("es el ID correcto?" + $scope.idEm);
     		   $scope.sueldo = document.getElementById("sueldo").value;
     		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
-    	   
+    	       console.log("es la cuadrilla? " + $scope.cuadrilla);
+    	       $scope.vialidad =document.getElementById("cVialidad").value;
      
      if ($scope.sueldo == "")
      {
     	 $scope.sueldo = document.getElementById("sueldo").value = 0;
     	 }
+      if ($scope.cuadrilla == "")
+ {
+	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
+	 }
+ 
+	  if ($scope.vialidad == "")
+ {
+	 $scope.vialidad = document.getElementById("cVialidad").value = null;
+	 }
                
 	   $http({
               method: 'GET',
@@ -541,14 +551,14 @@ $scope.pagoValor = $scope.datoPago;
 		 		"nombre" : document.getElementById("nombre").value,
 		 		"apellidoPaterno": document.getElementById("apellidoPaterno").value,
 		 		"apellidoMaterno" : document.getElementById("apellidoMaterno").value,
-		 		"sexo": document.getElementById("sexo").value,
+		 	"sexo": document.getElementById("sexo").value,
             "fechaNacimiento": document.getElementById("fechaNacimiento").value,
             "fechaIngreso": document.getElementById("fechaIngreso").value,
             "codigoPuesto": document.getElementById("cPuesto").value ,
-            "codigoVialidad": document.getElementById("cVialidad").value,
+            "codigoVialidad": $scope.vialidad ,
             "codigoArea": document.getElementById("cArea").value,
             "codigoTalla": document.getElementById("cTalla").value,
-            "idCuadrilla": document.getElementById("cCuadrilla").value,
+            "idCuadrilla":  $scope.cuadrilla,
             "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,

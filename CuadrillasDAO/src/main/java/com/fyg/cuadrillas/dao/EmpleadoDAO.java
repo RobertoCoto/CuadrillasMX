@@ -51,6 +51,20 @@ public class EmpleadoDAO {
 					}
 					registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
 				}
+				
+				if (empleado.getDocumentosNO().size() > 0) {
+					for (EmpleadoDocumentoDTO documento : empleado.getDocumentosNO()) {
+						documento.setIdEmpleado(empleado.getIdEmpleado());
+					}
+					registraDocumentos(uid, empleado.getDocumentosNO(), sessionTx);
+				}
+				
+				if (empleado.getDocumentosNA().size() > 0) {
+					for (EmpleadoDocumentoDTO documento : empleado.getDocumentosNA()) {
+						documento.setIdEmpleado(empleado.getIdEmpleado());
+					}
+					registraDocumentos(uid, empleado.getDocumentosNA(), sessionTx);
+				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
 				sessionTx.commit();
@@ -194,7 +208,29 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 
 			//se envia los nuevos datos para registrar
 			eliminaDocumentos(uid, empleado, sessionTx);
-			registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
+			if (empleado.getDocumentos().size() > 0) {
+				for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
+					documento.setIdEmpleado(empleado.getIdEmpleado());
+				}
+				registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
+			}
+			
+			if (empleado.getDocumentosNO().size() > 0) {
+				for (EmpleadoDocumentoDTO documento : empleado.getDocumentosNO()) {
+					documento.setIdEmpleado(empleado.getIdEmpleado());
+				}
+				registraDocumentos(uid, empleado.getDocumentosNO(), sessionTx);
+			}
+			
+			if (empleado.getDocumentosNA().size() > 0) {
+				for (EmpleadoDocumentoDTO documento : empleado.getDocumentosNA()) {
+					documento.setIdEmpleado(empleado.getIdEmpleado());
+				}
+				registraDocumentos(uid, empleado.getDocumentosNA(), sessionTx);
+			}
+			
+			
+			
 			//Realizamos commit
 			sessionTx.commit();
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");

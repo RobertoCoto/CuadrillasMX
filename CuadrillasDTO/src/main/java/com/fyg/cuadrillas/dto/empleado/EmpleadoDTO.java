@@ -146,6 +146,14 @@ public class EmpleadoDTO extends ObjetoValor {
 	 * Recibira los documentos del empleado
 	 */
 	private List<EmpleadoDocumentoDTO> documentos;
+	/**
+	 * recibira docs estatus NO
+	 */
+	private List<EmpleadoDocumentoDTO> documentosNO;
+	/**
+	 * recibire docs estatus NA
+	 */
+	private List<EmpleadoDocumentoDTO> documentosNA;
 	/** usuarioAlta	 */
 	private String usuarioAlta;
 	/** usuarioBaja	 */
@@ -610,5 +618,29 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setCalificacion(Integer calificacion) {
 		this.calificacion = calificacion;
+	}
+	/**
+	 * @return the documentosNO
+	 */
+	public List<EmpleadoDocumentoDTO> getDocumentosNO() {
+		return documentosNO;
+	}
+	/**
+	 * @param documentosNO the documentosNO to set
+	 */
+	public void setDocumentosNO(List<EmpleadoDocumentoDTO> documentosNO) {
+		this.documentosNO = documentosNO;
+	}
+	/**
+	 * @return the documentosNA
+	 */
+	public List<EmpleadoDocumentoDTO> getDocumentosNA() {
+		return documentosNA;
+	}
+	/**
+	 * @param documentosNA the documentosNA to set
+	 */
+	public void setDocumentosNA(List<EmpleadoDocumentoDTO> documentosNA) {
+		this.documentosNA = documentosNA;
 	}
 }

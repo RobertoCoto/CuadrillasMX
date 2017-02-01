@@ -56,6 +56,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			//Se obtiene parametros
 			String noEmpleado = request.getParameter("noEmpleado");
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
 			String nombre = request.getParameter("nombre");
 			String apellidoPaterno = request.getParameter("apellidoPaterno");
 			String apellidoMaterno = request.getParameter("apellidoMaterno");
@@ -100,6 +101,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setNoEmpleado(noEmpleado);
 			empleado.setIdEmpleado(idEmpleado);
+			empleado.setIdCuadrilla(idCuadrilla);
 			empleado.setNombre(nombre);
 			empleado.setApellidoPat(apellidoPaterno);
 			empleado.setApellidoMat(apellidoMaterno);
@@ -155,8 +157,8 @@ public class ActualizaEmpleado extends HttpServlet {
 				
 			}
 			empleado.setDocumentos(documentos);
-			empleado.setDocumentos(documentosNoDocs);
-			empleado.setDocumentos(documentosNaDocs);
+			empleado.setDocumentosNO(documentosNoDocs);
+			empleado.setDocumentosNA(documentosNaDocs);
 			respuesta = negocio.modificaEmpleado(empleado);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

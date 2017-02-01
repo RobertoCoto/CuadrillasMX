@@ -157,8 +157,8 @@ public class RegistraEmpleado extends HttpServlet {
 				
 			}
 			empleado.setDocumentos(documentos);
-			empleado.setDocumentos(documentosNoDocs);
-			empleado.setDocumentos(documentosNaDocs);
+			empleado.setDocumentosNO(documentosNoDocs);
+			empleado.setDocumentosNA(documentosNaDocs);
 			
 			respuesta = negocio.registraEmpleado(empleado);
 			if (respuesta.isEstatus()) {
