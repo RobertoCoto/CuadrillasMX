@@ -349,6 +349,7 @@ $scope.pagoValor = $scope.datoPago;
     	     
     	   $scope.idEm = general.idEmpleado;
     	   console.log("id del editar " + $scope.idEm);
+    	   console.log("la calificacion shabo" + general.calificacion);
     	  
 		   var codigo = null;
 					$http({
@@ -378,6 +379,7 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById("nss").value = general.nss;
     	   document.getElementById("telefono").value = general.telefono;
     	   document.getElementById("rfc").value = general.rfc;
+    	   document.getElementById("calificacion").value = general.calificacion;
     	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
     	   document.getElementById("sueldo").value = general.sueldo;
     	   $scope.cuadri = general.idCuadrilla;
@@ -547,9 +549,10 @@ $scope.pagoValor = $scope.datoPago;
             "codigoArea": document.getElementById("cArea").value,
             "codigoTalla": document.getElementById("cTalla").value,
             "idCuadrilla": document.getElementById("cCuadrilla").value,
-              "telefono": document.getElementById("telefono").value,
+            "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,
+            "calificacion": document.getElementById("calificacion").value,
             "frecuenciaPago": $scope.pagoValor,
             "nss": document.getElementById("nss").value,
             "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,

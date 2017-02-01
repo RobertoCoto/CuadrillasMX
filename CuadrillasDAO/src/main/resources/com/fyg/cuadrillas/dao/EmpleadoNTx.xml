@@ -34,6 +34,7 @@
 	<result column="contrasena" property="contrasena"/>
 	<result column="id_perfil" property="idPerfil"/>
 	<result column="nombre_perfil" property="nombrePerfil"/>
+	<result column="calificacion" property="calificacion"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
