@@ -80,7 +80,7 @@ AND estatus ='I'
 </select>
 
 <select id="consultaDocumentos" parameterType="empleadoDocumento" resultType="empleadoDocumento">
-SELECT codigo_emp_doc AS codigoEmpDoc
+SELECT codigo_emp_doc AS codigoEmpDoc, estatus
 FROM empleado_documentos
 WHERE id_empleado = #{idEmpleado}
 </select>

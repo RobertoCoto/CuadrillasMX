@@ -285,7 +285,9 @@ $scope.pagoValor = $scope.datoPago;
        $scope.editarDatos = function(general, $rootScope) {
     	     
     	   $scope.idEm = general.idEmpleado;
-    	   console.log("id del editar" + $scope.idEm);
+    	   console.log("id del editar " + $scope.idEm);
+    	   var codigoEmpDoc = null
+    	   var estatus = null;
 					$http({
 					    method: 'GET',
 					    url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
@@ -294,9 +296,18 @@ $scope.pagoValor = $scope.datoPago;
 					}
 					  }).then(function mySucces(result) {
 					  	$scope.resultadoDocumento = result.data.empleadoDocumento;
-					  	console.log($scope.resultadoDocumento);
-					  	$scope.parent = document.getElementsByName("ds");
-					  	console.log($scope.parent);
+					  	var datos = $scope.resultadoDocumento;
+					  	
+					  	//$scope.codigo = [];
+					  	 for(var i=0 ;i<=datos.length;i++){
+					  		 //console.log($scope.datos[i]);
+					  		 codigo = datos[i];
+					  		 
+					  		 console.log(codigo.codigoEmpDoc);
+					  		  
+					  		 }
+					  	 
+					  
 					  }, function myError(response) {
 					      console.error(response);
 					      alert(response.data.mensajeFuncional);
@@ -304,7 +315,8 @@ $scope.pagoValor = $scope.datoPago;
 					  });
 
              document.getElementById("idData").value= $scope.idEm;
-       
+             
+            
     	   
     	   document.getElementById("noEmpleado").value = general.noEmpleado;
     	   document.getElementById("nombre").value = general.nombre;
