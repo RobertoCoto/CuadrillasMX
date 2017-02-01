@@ -133,6 +133,19 @@
                   <div class="col-sm-12">
                     <div class="panel panel-default">
                       <div class="panel-heading">
+                        <h3 class="panel-title">Tramo del contrato</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div id="tramos">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
                         <h3 class="panel-title">Tramo Inicial</h3>
                       </div>
                       <div class="panel-body">
@@ -198,12 +211,12 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div-->
               </div>
               <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div id="map" style="width:100%; height:550px"></div> 
+                    <div id="map" style="width:100%; height:550px"></div>
                   </div>
                 </div>
                 <div class="row">
@@ -292,7 +305,7 @@
         </form>
         </div>
       </div>
-      
+
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -335,11 +348,13 @@
             polygon: null
         };
         var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-        var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 7,
           center: mx1
         });
+        /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
+
         var marker = new google.maps.Marker({
           position: mx1,
           map: map
@@ -347,9 +362,10 @@
         var marker = new google.maps.Marker({
           position: mx2,
           map: map
-        });
+        }); */
         google.maps.event.addListener(map, 'click', function(event) {
-            setPoint(event.latLng);
+          console.log(event);
+            setMarcador(event.latLng);
         });
       }
 
@@ -372,11 +388,11 @@
 
         function addMarker(latlng, titulo) {
           markers.push(new google.maps.Marker({
-            position: latlng, 
+            position: latlng,
             map: map,
             title: titulo,
             icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
-          }));    
+          }));
         }
 
         var app = angular.module('tatei', []);
@@ -476,25 +492,88 @@
                   //$('#msgerror').val(response.data.header.mensajeFuncional);
               });
 
+              $scope.setMarcador = function(latLng) {
+
+              }
         });
-        function setPoint(latLng) {
-            var marker = new google.maps.Marker({map: map, position: latLng, draggable: true});
+        function setMarcador(latLng) {
+            var geocoder = new google.maps.Geocoder;
+            var img_mark = 'mark.png';
+            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: true});
             medida.mvcLine.push(latLng);
             medida.mvcPolygon.push(latLng);
-            medida.mvcMarkers.push(marker);
+            medida.mvcMarkers.push(marcador);
             var latLngIndex = medida.mvcLine.getLength() - 1;
-            google.maps.event.addListener(marker, "drag", function(evt) {
+            google.maps.event.addListener(marcador, "drag", function(evt) {
                 medida.mvcLine.setAt(latLngIndex, evt.latLng);
                 medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
             });
-            google.maps.event.addListener(marker, "dragend", function() {
+            google.maps.event.addListener(marcador, "dragend", function() {
                 if (medida.mvcLine.getLength() > 1) {
-                    compute_length();
+                    calculaDistancia();
                 }
             });
+            var latlng = {lat: latLng.lat(), lng: latLng.lng()};
+            var direccion = 'SN';
+            geocoder.geocode({'location': latlng}, function(results, status) {
+              console.log(results);
+              if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                  direccion =  results[0].formatted_address;
+                  $( "#tramos" ).append( $( "<div class=\"row\""
+                   + "<div class=\"col-sm-12\">"
+                     + "<div class=\"form-group\">"
+                       + "<label for=\"direccionInicial\" class=\"control-label\">Dirección</label>"
+                       + "<input type=\"text\" id=\"direccionInicial\" class=\"form-control\" value=\"" + direccion + "\">"
+                     + "</div>"
+                   + "</div>"
+                 + "</div>"
+                 + "<div class=\"row\">"
+                   + "<div class=\"col-sm-3\">"
+                       + "<label for=\"\" class=\"control-label\">Coordenadas</label>"
+                   +"</div>"
+                   + "<div class=\"col-sm-4\">"
+                     + "<input type=\"text\" id=\"latitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lat() + "\">"
+                    + "</div>"
+                    + "<div class=\"col-sm-4\">"
+                    + "<input type=\"text\" id=\"longitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lng() + "\">"
+                   + "</div>"
+                  + "</div>") );
+                } else {
+                  alert('No se encontraron resultados');
+                }
+              } else {
+                alert('Geocoder fallo debido al estatus: ' + status);
+              }
+            });
 
-            //mLineaRecta();
+
+
+            /*
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="direccionInicial" class="control-label">Dirección</label>
+                  <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                  <label for="" class="control-label">Coordenadas</label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+              </div>
+              <div class="col-sm-4">
+                <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+              </div>
+            </div>
+            */
+
+            mLineaRecta();
         }
+
 
         function mLineaRecta() {
             if (medida.mvcLine.getLength() > 1) {
@@ -502,7 +581,7 @@
                     medida.line = new google.maps.Polyline({
                         map: map,
                         clickable: false,
-                        strokeColor: "#FF0000",
+                        strokeColor: "#ad04ef",
                         strokeOpacity: 1,
                         strokeWeight: 3,
                         path: medida.mvcLine
@@ -516,31 +595,35 @@
                         medida.polygon.setMap(null);
                     }
 
-                    if (length_mode != "distance")
-                    {
-                        medida.polygon = new google.maps.Polygon({
-                            clickable: false,
-                            map: map,
-                            fillOpacity: 0.25,
-                            strokeOpacity: 0,
-                            paths: medida.mvcPolygon
-                        });
-                    }
-                    else
-                    {
-                        medida.polygon = new google.maps.Polygon({
-                            clickable: false,
-                            map: map,
-                            fillOpacity: 0.0,
-                            strokeOpacity: 0,
-                            paths: medida.mvcPolygon
-                        });
-                    }
+
+                    medida.polygon = new google.maps.Polygon({
+                        clickable: false,
+                        map: map,
+                        fillOpacity: 0.0,
+                        strokeOpacity: 0,
+                        paths: medida.mvcPolygon
+                    });
+
                 }
             }
             if (medida.mvcLine.getLength() > 1) {
-                compute_length();
+                calculaDistancia();
             }
+        }
+
+        function calculaDistancia() {
+            var length = 0;
+            if (medida.mvcPolygon.getLength() > 1) {
+                length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+            }
+            var area = 0;
+            if (medida.mvcPolygon.getLength() > 2) {
+                area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+            }
+        //    lM = document.forms["mb"].elements["mode"][0].checked;
+            var km = length / 1000;
+            var unidad_de_medida = " metros";
+            //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
         }
 
     </script>
