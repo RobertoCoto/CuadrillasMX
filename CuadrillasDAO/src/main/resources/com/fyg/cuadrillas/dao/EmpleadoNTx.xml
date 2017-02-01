@@ -82,15 +82,13 @@ AND estatus ='I'
 <select id="existeNoEmpleado" parameterType="empleado" resultType="int">
 SELECT count(no_empleado) as no_empleado
 FROM empleado 
-WHERE id_empleado = #{idEmpleado}
-AND estatus ='A'
+WHERE no_empleado = #{noEmpleado}
 </select>
 
 <select id="existeRfcCalculado" parameterType="empleado" resultType="int">
 SELECT count(rfc_calculado) as rfc_calculado
 FROM empleado 
-WHERE id_empleado = #{idEmpleado}
-AND estatus ='A'
+WHERE rfc_calculado = #{rfcCalculado}
 </select>
 
 <select id="consultaDocumentos" parameterType="empleadoDocumento" resultType="empleadoDocumento">
