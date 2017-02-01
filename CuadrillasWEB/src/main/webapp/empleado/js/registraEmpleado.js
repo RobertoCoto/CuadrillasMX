@@ -196,10 +196,21 @@ $scope.pagoValor = $scope.datoPago;
 });
 
 	   $scope.registrar = function(empleado) {
-		   	
+		 	
+				
+	      var noEmpleado = document.getElementById("noEmpleado").value;
 		   $scope.sueldo = document.getElementById("sueldo").value;
 		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
-	   
+
+ if (noEmpleado == null) {
+	 console.log("si entra aca tambien paps");
+	 return false;
+	 }
+ 
+ if($scope.sueldo == 0) {
+	 console.log("si entra aca tambien paps");
+	 return false;
+	 }
  
  if ($scope.sueldo == "")
  {
@@ -210,7 +221,6 @@ $scope.pagoValor = $scope.datoPago;
  {
 	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
 	 }
-	 				
  
 		   $http({
 	              method: 'GET',
@@ -241,13 +251,13 @@ $scope.pagoValor = $scope.datoPago;
 	              "naDocs" :$scope.JSONDocumentationNaDocs
 			         }
 			    }).then(function mySucces(response) {
-			    	alert(response.data.mensajeFuncional);
+			    	//alert(response.data.mensajeFuncional);
 			    	 console.info(response);
 			    	 setTimeout('document.form_reloj.reset()',2000);
 		             return false;
 			    }, function myError(response) {
 			        console.error(response);
-			        alert(response.data.mensajeFuncional);
+			        //alert(response.data.mensajeFuncional);
 			    });
 		   
 			    
@@ -286,8 +296,8 @@ $scope.pagoValor = $scope.datoPago;
     	     
     	   $scope.idEm = general.idEmpleado;
     	   console.log("id del editar " + $scope.idEm);
-    	   var codigoEmpDoc = null
-    	   var estatus = null;
+    	  
+		   var codigo = null;
 					$http({
 					    method: 'GET',
 					    url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
@@ -296,18 +306,7 @@ $scope.pagoValor = $scope.datoPago;
 					}
 					  }).then(function mySucces(result) {
 					  	$scope.resultadoDocumento = result.data.empleadoDocumento;
-					  	var datos = $scope.resultadoDocumento;
-					  	
-					  	//$scope.codigo = [];
-					  	 for(var i=0 ;i<=datos.length;i++){
-					  		 //console.log($scope.datos[i]);
-					  		 codigo = datos[i];
-					  		 
-					  		 console.log(codigo.codigoEmpDoc);
-					  		  
-					  		 }
-					  	 
-					  
+
 					  }, function myError(response) {
 					      console.error(response);
 					      alert(response.data.mensajeFuncional);
@@ -328,7 +327,9 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById("rfc").value = general.rfc;
     	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
     	   document.getElementById("sueldo").value = general.sueldo;
-    	   
+    	   $scope.cuadri = general.idCuadrilla;
+    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
+    	   document.getElementById("cCuadrilla").value = $scope.cuadri;
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
@@ -461,7 +462,7 @@ $scope.pagoValor = $scope.datoPago;
     	   document.getElementById('guardarDato').style.display='block'; 
     
     	   //$('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
-    	   document.getElementById('idCuadrilla').value="number:"+general.idCuadrilla;
+    	  
     	   };
        
     	   $scope.actualizarDato = function() {
@@ -489,10 +490,10 @@ $scope.pagoValor = $scope.datoPago;
             "fechaNacimiento": document.getElementById("fechaNacimiento").value,
             "fechaIngreso": document.getElementById("fechaIngreso").value,
             "codigoPuesto": document.getElementById("cPuesto").value ,
-            "codigoVialidad": document.getElementById("cVialidad").value = null,
+            "codigoVialidad": document.getElementById("cVialidad").value,
             "codigoArea": document.getElementById("cArea").value,
             "codigoTalla": document.getElementById("cTalla").value,
-            "idCuadrilla": document.getElementById("cCuadrilla").value = null,
+            "idCuadrilla": document.getElementById("cCuadrilla").value,
               "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,

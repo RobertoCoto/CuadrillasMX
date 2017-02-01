@@ -61,7 +61,7 @@
 	   rfc_calculado = upper(#{rfcCalculado}),
 	   codigo_puesto = upper(#{codigoPuesto}),
 	   codigo_vialidad = upper(#{codigoVialidad}),
-	    id_cuadrilla = #{idCuadrilla},
+	   id_cuadrilla = #{idCuadrilla},
 	   codigo_area = upper(#{codigoArea}),
 	   codigo_talla = upper(#{codigoTalla}),
 	   sueldo = #{sueldo},
