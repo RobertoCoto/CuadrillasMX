@@ -38,6 +38,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
+		    		 "codigoVialidad": cuadrilla.vialidad,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
 		    		 

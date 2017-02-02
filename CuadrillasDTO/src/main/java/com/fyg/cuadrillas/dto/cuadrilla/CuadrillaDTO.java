@@ -21,7 +21,11 @@ public class CuadrillaDTO extends ObjetoValor {
 	/**
 	 * id de la vialidad
 	 */
-	private Integer idVialidad;
+	private String codigoVialidad;
+	/**
+	 * nombre de la vialidad
+	 */
+	private String nombreVialidad;
 	/**
 	 * residente
 	 */
@@ -87,16 +91,16 @@ public class CuadrillaDTO extends ObjetoValor {
 		this.nombreCuadrilla = nombreCuadrilla;
 	}
 	/**
-	 * @return the idVialidad
+	 * @return the codigoVialidad
 	 */
-	public Integer getIdVialidad() {
-		return idVialidad;
+	public String getCodigoVialidad() {
+		return codigoVialidad;
 	}
 	/**
-	 * @param idVialidad the idVialidad to set
+	 * @param codigoVialidad the codigoVialidad to set
 	 */
-	public void setIdVialidad(Integer idVialidad) {
-		this.idVialidad = idVialidad;
+	public void setCodigoVialidad(String codigoVialidad) {
+		this.codigoVialidad = codigoVialidad;
 	}
 	/**
 	 * @return the residente
@@ -217,5 +221,17 @@ public class CuadrillaDTO extends ObjetoValor {
 	 */
 	public void setUsuarioUltMod(String usuarioUltMod) {
 		this.usuarioUltMod = usuarioUltMod;
+	}
+	/**
+	 * @return the nombreVialidad
+	 */
+	public String getNombreVialidad() {
+		return nombreVialidad;
+	}
+	/**
+	 * @param nombreVialidad the nombreVialidad to set
+	 */
+	public void setNombreVialidad(String nombreVialidad) {
+		this.nombreVialidad = nombreVialidad;
 	}
 }
