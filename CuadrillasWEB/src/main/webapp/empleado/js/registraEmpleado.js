@@ -675,8 +675,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
     	   
     $scope.consultaEmpleado = function(general) {
     	  $scope.idEm = general.idEmpleado;
-   	   console.log("id del editar " + $scope.idEm);
-   	   console.log("la calificacion shabo" + general.calificacion);
+   	   
    	  
 		   var codigo = null;
 					$http({
@@ -699,28 +698,43 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
            
    	   
    	   document.getElementById("noEmpleado").value = general.noEmpleado;
+   	   document.getElementById("noEmpleado").disabled = true;
    	   document.getElementById("nombre").value = general.nombre;
+   	   document.getElementById("nombre").disabled = true;
    	   document.getElementById("apellidoPaterno").value = general.apellidoPat;
+   	   document.getElementById("apellidoPaterno").disabled= true;
    	   document.getElementById("apellidoMaterno").value = general.apellidoMat;
+   	   document.getElementById("apellidoMaterno").disabled = true;
    	   document.getElementById("fechaNacimiento").value = general.fechaNacimiento;
+   	   document.getElementById("fechaNacimiento").disabled = true;
+   	   document.getElementById("apellidoMaterno").disabled = true;
    	   document.getElementById("nss").value = general.nss;
+   	   document.getElementById("nss").disabled = true;
    	   document.getElementById("telefono").value = general.telefono;
+   	   document.getElementById("telefono").disabled = true;
    	   document.getElementById("rfc").value = general.rfc;
+   	   document.getElementById("rfc").disabled = true;
    	   document.getElementById("calificacion").value = general.calificacion;
+   	   document.getElementById("calificacion").disabled = true;
    	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
+   	   document.getElementById("noCreditoInfonavit").disabled = true;
    	   document.getElementById("sueldo").value = general.sueldo;
+   	   document.getElementById("sueldo").disabled = true;
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
+   	   document.getElementById('idCuadrilla').disabled;
    	   document.getElementById("cCuadrilla").value = $scope.cuadri;
    	   //validacion del sexo
    	   if(general.sexo == "M")
    	   { 
    		   console.log(general.sexo);
    		   document.getElementById("sexo").selectedIndex = "1";
+   		document.getElementById("sexo").disabled = true;
    		   
    		} else if(general.sexo == "F")
    	   {
    		   document.getElementById("sexo").selectedIndex = "2";
+   		  document.getElementById("sexo").disabled = true;
    		   }
    	   
    		   //validacion del puesto
@@ -729,43 +743,43 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "1";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    if(general.codigoPuesto == "CABO") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "2";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    if(general.codigoPuesto == "CHOF") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "3";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	     if(general.codigoPuesto == "MAQU") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "4";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    if(general.codigoPuesto == "OFCE") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "5";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    if(general.codigoPuesto == "PODA") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "6";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    if(general.codigoPuesto == "RESI") 
    	    {
    	    	console.log(general.codigoPuesto);
    	    	document.getElementById("codigoPuesto").selectedIndex = "7";
-   	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+   	    	document.getElementById("codigoPuesto").disabled = true;
    	    }
    	    
    		 //validacion de talla
@@ -773,31 +787,31 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	    {
    	    	console.log(general.codigoTalla);
    	    	document.getElementById("codigoTalla").selectedIndex = "1";
-   	    	document.getElementById("cTalla").value = general.codigoTalla;
+   	    	document.getElementById("codigoTalla").disabled = true;
    	    }
    	   if(general.codigoTalla == "GRAN") 
    	    {
    	    	console.log(general.codigoTalla);
    	    	document.getElementById("codigoTalla").selectedIndex = "2";
-   	    	document.getElementById("cTalla").value = general.codigoTalla;
+   	    	document.getElementById("codigoTalla").disabled = true;
    	    }
    	    if(general.codigoTalla == "MEDI") 
    	    {
    	    	console.log(general.codigoTalla);
    	    	document.getElementById("codigoTalla").selectedIndex = "3";
-   	    	document.getElementById("cTalla").value = general.codigoTalla;
+   	    	document.getElementById("codigoTalla").disabled = true;
    	    }
    	    if(general.codigoTalla == "EXCH") 
    	    {
    	    	console.log(general.codigoTalla);
    	    	document.getElementById("codigoTalla").selectedIndex = "4";
-   	    	document.getElementById("cTalla").value = general.codigoTalla;
+   	    	document.getElementById("codigoTalla").disabled = true;
    	    }
    	    if(general.codigoTalla == "EXGR") 
    	    {
    	    	console.log(general.codigoTalla);
    	    	document.getElementById("codigoTalla").selectedIndex = "5";
-   	    	document.getElementById("cTalla").value = general.codigoTalla;
+   	    	document.getElementById("codigoTalla").disabled = true;
    	    }
    	    
    	    //validacion area
@@ -805,7 +819,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	    {
    	    	console.log(general.codigoArea);
    	    	document.getElementById("codigoArea").selectedIndex = "1";
-   	    	document.getElementById("cArea").value = general.codigoArea;
+   	    	document.getElementById("codigoArea").disabled = true;
    	    }
    	    
    	    //validacion vialidad
@@ -813,37 +827,43 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "1";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	     if(general.codigoVialidad == "EJE6") 
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "2";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	     if(general.codigoVialidad == "EJE7") 
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "3";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	     if(general.codigoVialidad == "INSU") 
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "4";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	     if(general.codigoVialidad == "UNIV") 
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "5";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	     if(general.codigoVialidad == "ZARA") 
    	    {
    	    	console.log(general.codigoVialidad);
    	    	document.getElementById("codigoVialidad").selectedIndex = "6";
+   	    	document.getElementById("codigoVialidad").disabled = true;
    	    }
    	   
    	   document.getElementById('editar').style.display='none'; 
    	  $("div[data-id=documentosData").hide();
-   	  $("div[data-id=documentosResultado").show();
-   	   document.getElementById('guardarDato').style.display='block'; 
+   	  //$("div[data-id=documentosResultado").hide();
+   	   document.getElementById('guardarDato').disabled = true; 
     	};
     
     	   
