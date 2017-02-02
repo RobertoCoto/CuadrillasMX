@@ -24,7 +24,7 @@
     <h2>Administración de Cuadrillas</h2>
 <div class="panel panel-default">
 		<div class="panel-body">
-			<form name="form_reloj">
+			<form name="form_reloj" id="formCuadrilla">
                 <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
@@ -39,7 +39,10 @@
                      <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="vialidad" class="control-label">Vialidad</label>
-                          <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> </select>
+                          <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> 
+                          <option value="">--Seleccione una Vialidad--</option>
+                          </select>
+                        <div class="amt_errorVialidad"></div>
                         </div>
                     </div>
 
@@ -55,7 +58,19 @@
                  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="calificacion" class="control-label">Calificación</label>
-                            <input type="text" name="nombre" id="calificacion"  class="form-control" size="2" required data-form="calificacionCuadrilla"/>
+                            <select id="calificacion" class="form-control">
+                              <option value="">---Seleccione una Calificación----</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                            </select>
                            <div class="amt_errorCalificacionCuadrilla"></div>
                         </div>
                     </div>
@@ -82,8 +97,8 @@
                 				<td>{{datosCuadrilla.idCuadrilla}}</td>
                 				<td>{{datosCuadrilla.nombreCuadrilla}}</td>
                 				<td>{{datosCuadrilla.nombreVialidad}}</td>
-                				<td>-</td>
-                				<td>-</td>
+                				<td>{{datosCuadrilla.residente}}</td>
+                				<td>{{datosCuadrilla.numeroPersonas}}</td>
                 				<td>{{datosCuadrilla.calificacion}}</td>
                 				<td>{{datosCuadrilla.estatus}}</td>
                 				<td><button class="btn btn-info" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
@@ -146,6 +161,66 @@
 </div>
 
 </div>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#numeroCuadrilla").val().length < 1) {
+			    $('.amt_errorCuadrilla')
+				.text('Numero de la cuadrilla vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#vialidad").val() == "") {
+			    $('.amt_errorVialidad')
+				.text('No se ha elegido una vialidad.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorVialidad').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#nombre").val().length < 1) {
+			    $('.amt_errorNombreCuadrilla')
+				.text('Nombre de la cuadrilla vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorNombreCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#calificacion").val() == "") {
+			    $('.amt_errorCalificacionCuadrilla')
+				.text('No se ha elegido una calificación.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorCalificacionCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
 <script>
 $('input[data-form=numeroCuadrilla]').keyup(function() {
 

@@ -31,6 +31,10 @@ public class CuadrillaDAO {
 			if (existeMismaCuadrilla > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar, ya existe la cuadrilla.");
 			}
+			int existeMismaIdCuadrilla = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaIdCuadrilla", cuadrilla);
+			if (existeMismaIdCuadrilla > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe el ID de la cuadrilla.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("CuadrillaDAO.altaCuadrilla", cuadrilla);

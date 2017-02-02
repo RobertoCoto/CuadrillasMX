@@ -31,7 +31,26 @@ app.controller('adminCuad', function ($scope, $http) {
 		    });
 		    
 		    $scope.registrar = function(cuadrilla) {
+		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
+		    	var nombreCuadrilla = document.getElementById("nombre").value;
 		    	$scope.vialidad = cuadrilla.vialidad;
+		    	var calificacion = document.getElementById("calificacion").value;
+		    	
+     if(noCuadrilla == "") {
+    	 return false
+    	 }
+     
+    	 if(nombreCuadrilla == "") {
+    	 return false
+    	 }
+    	 if($scope.vialidad == "") {
+    	 return false
+    	 }
+    	 
+    	 if(calificacion == "") {
+    	 return false
+    	 }
+     
 		    	 $http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
@@ -46,6 +65,7 @@ app.controller('adminCuad', function ($scope, $http) {
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
+				    	 location.reload();
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
@@ -53,11 +73,45 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    	
 		    $scope.editarCuadrilla = function(datosCuadrilla) {
-		    	
+		    	         
+		    $scope.calif = datosCuadrilla.calificacion;
+		    console.log("calidf "+ $scope.calif);
 		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
-		    			document.getElementById("calificacion").value = datosCuadrilla.calificacion;
+		    			document.getElementById("calificacion").value = $scope.calif;
 		    			
+		    			 //validacion vialidad
+		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "1";
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "2";
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "3";
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "4";
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "5";
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	document.getElementById("vialidad").selectedIndex = "6";
+		       	    }
+		       	    
 		    			document.getElementById("numeroCuadrilla").disabled = true;
 		    			document.getElementById('editar').style.display='none'; 
     	                document.getElementById('guardarDato').style.display='block';

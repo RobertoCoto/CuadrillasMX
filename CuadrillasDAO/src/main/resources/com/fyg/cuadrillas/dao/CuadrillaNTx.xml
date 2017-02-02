@@ -5,13 +5,21 @@
 <resultMap type="Cuadrilla" id="cuadrilla" >
 <result column="id_cuadrilla" property="idCuadrilla"/>
 <result column="nombre_cuadrilla" property="nombreCuadrilla"/>
+<result column="codigo_vialidad" property="codigoVialidad"/>
 <result column="numero_personas" property="numeroPersonas"/>
 <result column="nombre_vialidad" property="nombreVialidad"/>
 </resultMap>
+
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
 FROM cuadrilla
 WHERE nombre_cuadrilla = #{nombreCuadrilla}
+</select>
+
+<select id="existeMismaIdCuadrilla" parameterType="Cuadrilla" resultType="int">
+SELECT count(id_cuadrilla) AS id_cuadrilla
+FROM cuadrilla
+WHERE id_cuadrilla = #{idCuadrilla}
 </select>
 
 <select  id="existeBajaCuadrilla" parameterType="Cuadrilla" resultType="int">
@@ -24,6 +32,7 @@ AND estatus = 'I'
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
 	SELECT c.id_cuadrilla, 
 		   c.nombre_cuadrilla,
+		   c.codigo_vialidad,
 		   c.calificacion,
 		   c.estatus,ca.descripcion AS nombre_vialidad,
 		   count(e.id_empleado) AS numero_personas
