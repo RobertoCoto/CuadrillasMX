@@ -345,10 +345,30 @@
 							<td>{{general.fechaIngreso}}</td>
 							<td ng-if="general.estatus === 'I'">INACTIVO</td>
 							<td ng-if="general.estatus === 'A'">ACTIVO</td>
-							<td>
+							<td ng-if="general.estatus === 'A'">
 							
 							
 							<button class="btn btn-success btn-sm" data-ng-click="editarDatos(general)">Editar</button>
+							<input type="hidden" id="idData" value={{general.idEmpleado}}>
+							<input type="hidden" id="cuad" value={{general.idCuadrilla}}>
+							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
+							<input type="hidden" id="nombreData" value={{general.nombre}}>
+							<input type="hidden" id="apellidoPatData" value={{general.apellidoPat}}>
+							<input type="hidden" id="apellidoMatData" value={{general.apellidoMat}}>
+							<input type="hidden" id="fechaNacimientoData" value={{general.fechaNacimiento}}>
+							<input type="hidden" id="nssData" value={{general.nss}}>
+							<input type="hidden" id="rfcData" value={{general.rfc}}>
+							<input type="hidden" id="telefonoData" value={{general.telefono}}>
+							<input type="hidden" id="creditoInfoData" value={{general.noCreditoInfonavit}}>
+							<input type="hidden" id="sueldoData" value={{general.sueldo}}>
+							<input type="hidden" id="areaData" value={{general.codigoArea}}>
+							<input type="hidden" id="sex" value={{general.sexo}}>
+							
+							</td>
+							<td ng-if="general.estatus === 'I'">
+							
+							
+							<button class="btn btn-success btn-sm" data-ng-click="consultaEmpleado(general)">Consultar</button>
 							<input type="hidden" id="idData" value={{general.idEmpleado}}>
 							<input type="hidden" id="cuad" value={{general.idCuadrilla}}>
 							<input type="hidden" id="noEmpleadoData" value={{general.noEmpleado}}>
