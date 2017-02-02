@@ -266,6 +266,7 @@ DROP TABLE IF EXISTS perfil;
 	CREATE TABLE cuadrilla (
 		id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 		nombre_cuadrilla VARCHAR(50) NOT NULL,
+		codigo_vialidad VARCHAR(10) NULL,
 		id_contrato INTEGER NULL,
 		calificacion INTEGER NOT NULL,
 		fecha_alta DATETIME NOT NULL,
