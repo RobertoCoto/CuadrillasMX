@@ -93,7 +93,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window, $rootScope)
 		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
-
+		    	//documentos normal
 	  $scope.JSONDocumentation = null;
 	  $('input[type=submit]').on('click',function(){
 			
@@ -518,10 +518,96 @@ $scope.pagoValor = $scope.datoPago;
     	  $("div[data-id=documentosResultado").show();
     	   document.getElementById('guardarDato').style.display='block'; 
     
-    	   //$('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
+    	   
     	  
     	   };
        
+    	   
+
+//documentos actualizar
+
+	  $scope.JSONDocumentationUpdate = null;
+	  $('input[type=submit]').on('click',function(){
+			
+$scope.datosDocumentosUpdate = [];
+
+$('input[data-form=documentData]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 1 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentosUpdate.push( $Element );
+	}
+		
+	
+});
+
+$scope.JSONDocumentationUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosUpdate } );
+console.log($scope.JSONDocumentationUpdate);
+ 
+});
+
+// json docs no
+	  $scope.JSONDocumentationNoDocsUpdate = null;
+	  $('input[type=submit]').on('click',function(){
+			
+$scope.datosDocumentosDUpdate = [];
+
+$('input[data-form=documentData]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 3 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentosDUpdate.push( $Element );
+	}
+		
+	
+});
+
+$scope.JSONDocumentationNoDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDUpdate } );
+console.log($scope.JSONDocumentationNoDocsUpdate);
+ 
+});
+
+// json docs no
+	  $scope.JSONDocumentationNaDocsUpdate = null;
+	  $('input[type=submit]').on('click',function(){
+			
+$scope.datosDocumentosDaUpdate = [];
+
+$('input[data-form=documentData]:checked').each(function(){
+	
+    var $Name  =  $(this).attr('name');
+	var $Value =  $(this).val();
+	
+	if( $Value == 2 )
+	{
+		var $Element = {};
+		
+		$Element = $Name;
+		//$Element['estatusDocumento'] = 'A';
+		$scope.datosDocumentosDaUpdate.push( $Element );
+	}
+		
+	
+});
+
+$scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDaUpdate } );
+console.log($scope.JSONDocumentationNaDocsUpdate);
+ 
+});
     	   $scope.actualizarDato = function() {
     		   $scope.idEm = document.getElementById("idData").value;
     		   console.log("es el ID correcto?" + $scope.idEm);
@@ -570,9 +656,9 @@ $scope.pagoValor = $scope.datoPago;
             "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
             "observaciones": document.getElementById("observaciones").value,
             "usuario": 'SISTEMAS',
-              "documentoEmpleado" : $scope.JSONDocumentation,
-              "noDocs" : $scope.JSONDocumentationNoDocs,
-              "naDocs" :$scope.JSONDocumentationNaDocs
+              "documentoEmpleado" : $scope.JSONDocumentationUpdate,
+              "noDocs" : $scope.JSONDocumentationNoDocsUpdate,
+              "naDocs" :$scope.JSONDocumentationNaDocsUpdate
 		         }
 		    }).then(function mySucces(response) {
 		    	alert(response.data.mensajeFuncional);
