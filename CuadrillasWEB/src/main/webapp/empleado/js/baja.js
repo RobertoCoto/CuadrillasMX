@@ -86,6 +86,7 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 				 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
+				    	opener.top.location.reload();
 				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);

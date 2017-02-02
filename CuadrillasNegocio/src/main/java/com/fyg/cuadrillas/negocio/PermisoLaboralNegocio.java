@@ -1,5 +1,8 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -48,7 +51,24 @@ public class PermisoLaboralNegocio {
 			if (permiso.getHoraSolicitudMaxima() == null || permiso.getHoraSolicitudMaxima().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario una hora maxima para la solicitud.");
 			}
+			//conversor fecha
 			
+			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-mm-dd");
+			 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+			 
+			Date fechaMin = formateador.parse(permiso.getFechaSolicitudMinimo());
+			Date fechaMax = formateador.parse(permiso.getFechaSolicitudMaximo());
+			
+			Date horaMin = dateFormat.parse(permiso.getHoraSolicitudMinimo());
+			Date horaMax = dateFormat.parse(permiso.getHoraSolicitudMaxima());
+			
+			if(fechaMin.before(fechaMax)) {
+				throw new ExcepcionesCuadrillas("La fecha maxima no debe ser menor a la fecha minima.");
+			}
+			
+			if(horaMin.compareTo(horaMax) > 0) {
+				throw new ExcepcionesCuadrillas("la hora maxima no debe ser menor a la hora minima");
+			}
 			PermisoLaboralDAO dao = new PermisoLaboralDAO();
 			respuesta = dao.altaPermiso(uid, permiso);
 			
