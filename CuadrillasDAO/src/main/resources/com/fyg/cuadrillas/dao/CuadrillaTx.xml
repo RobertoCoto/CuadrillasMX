@@ -22,7 +22,7 @@ AND estatus = 'A'
 UPDATE cuadrilla SET
 		fecha_ult_mod = now(),
 		usuario_ult_mod = #{usuarioUltMod},
-		nombre_ cuadrilla = #{nombreCuadrilla},
+		nombre_cuadrilla = #{nombreCuadrilla},
 		codigo_vialidad = #{codigoVialidad},
 		calificacion = #{calificacion}
 WHERE id_cuadrilla = #{idCuadrilla}

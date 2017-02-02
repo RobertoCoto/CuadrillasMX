@@ -117,15 +117,15 @@ app.controller('adminCuad', function ($scope, $http) {
     	                document.getElementById('guardarDato').style.display='block';
 		    	};
 		    
-		    $scope.actualizar = function(datosCuadrilla) {
-		    	
+		    $scope.actualizar = function(cuadrilla) {
+		    	$scope.vialidad = cuadrilla.vialidad;
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
-		              "vialidad": document.getElementById("vialidad").value,
+		              "vialidad": $scope.vialidad,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
 		    		 
@@ -133,13 +133,21 @@ app.controller('adminCuad', function ($scope, $http) {
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
+				    	 location.reload();
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
 		    	
-		    	$scope.borrar = function(datosCuadrilla) {
+		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
+		    		var confirmar = confirm(" ¿Esta seguro de dar de baja la cuadrilla? "); 
+
+		    		if (!confirmar) 
+		    		{
+		    			alert('se ha cancelado la operacion.'); 
+						return false;
+		    		}
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaCuadrilla',

@@ -67,7 +67,7 @@ public class ModificaCuadrilla extends HttpServlet {
 			cuadrilla.setCodigoVialidad(vialidad);
 			cuadrilla.setCalificacion(calificacion);
 			cuadrilla.setUsuarioUltMod(usuario);
-			respuesta = negocio.altaCuadrilla(cuadrilla);
+			respuesta = negocio.modificaCuadrilla(cuadrilla);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
