@@ -6,6 +6,7 @@
 <result column="id_cuadrilla" property="idCuadrilla"/>
 <result column="nombre_cuadrilla" property="nombreCuadrilla"/>
 <result column="numero_personas" property="numeroPersonas"/>
+<result column="nombre_vialidad" property="nombreVialidad"/>
 </resultMap>
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
 SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
@@ -24,10 +25,11 @@ AND estatus = 'I'
 	SELECT c.id_cuadrilla, 
 		   c.nombre_cuadrilla,
 		   c.calificacion,
-		   c.estatus,
+		   c.estatus,ca.descripcion AS nombre_vialidad,
 		   count(e.id_empleado) AS numero_personas
 	FROM cuadrilla c
 	LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
+	LEFT JOIN catalogo ca ON c.codigo_vialidad = ca.codigo
 	WHERE c.estatus = 'A' 
 	GROUP BY c.id_cuadrilla, 
 		   c.nombre_cuadrilla

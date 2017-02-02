@@ -3,8 +3,8 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.CuadrillaTx">
 
 <insert id="altaCuadrilla" parameterType="Cuadrilla">
-INSERT INTO cuadrilla(id_cuadrilla,nombre_cuadrilla,calificacion,fecha_alta,usuario_alta,estatus)
-VALUES(#{idCuadrilla},#{nombreCuadrilla},#{calificacion},now(),#{usuarioAlta},'A')
+INSERT INTO cuadrilla(id_cuadrilla,nombre_cuadrilla,codigo_vialidad,calificacion,fecha_alta,usuario_alta,estatus)
+VALUES(#{idCuadrilla},#{nombreCuadrilla},#{codigoVialidad},#{calificacion},now(),#{usuarioAlta},'A')
 </insert>
 
 <update id="bajaCuadrilla" parameterType="Cuadrilla">
@@ -23,6 +23,7 @@ UPDATE cuadrilla SET
 		fecha_ult_mod = now(),
 		usuario_ult_mod = #{usuarioUltMod},
 		nombre_ cuadrilla = #{nombreCuadrilla},
+		codigo_vialidad = #{codigoVialidad},
 		calificacion = #{calificacion}
 WHERE id_cuadrilla = #{idCuadrilla}
 and estatus = 'A'

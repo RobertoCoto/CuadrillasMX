@@ -10,10 +10,10 @@ app.controller('adminCuad', function ($scope, $http) {
               data: { }
 		    }).then(function mySucces(result) {
 		    	$scope.resultado = result.data.catalogo;
-	              console.log(result);
+	              console.log($scope.resultado);
 		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.mensajeFuncional);
+		        //console.error(response);
+		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
  
@@ -23,22 +23,22 @@ app.controller('adminCuad', function ($scope, $http) {
               data: { }
 		    }).then(function mySucces(result) {
 		    	$scope.resultadoCuadrilla = result.data.cuadrilla;
-	              //console.log($scope.resultadoCuadrilla);
+	             console.log(result);
 		    }, function myError(response) {
 		        console.error(response);
-		        alert(response.data.mensajeFuncional);
+		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
 		    
 		    $scope.registrar = function(cuadrilla) {
-		    	
+		    	$scope.vialidad = cuadrilla.vialidad;
 		    	 $http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
-		    		 "codigoVialidad": cuadrilla.vialidad,
+		    		 "vialidad": $scope.vialidad ,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
 		    		 
@@ -71,6 +71,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
+		              "vialidad": document.getElementById("vialidad").value,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
 		    		 
