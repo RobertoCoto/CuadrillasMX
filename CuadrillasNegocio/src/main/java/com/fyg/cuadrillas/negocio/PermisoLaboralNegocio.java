@@ -62,7 +62,7 @@ public class PermisoLaboralNegocio {
 			Date horaMin = dateFormat.parse(permiso.getHoraSolicitudMinimo());
 			Date horaMax = dateFormat.parse(permiso.getHoraSolicitudMaxima());
 			
-			if(fechaMin.before(fechaMax)) {
+			if(fechaMax.before(fechaMin)) {
 				throw new ExcepcionesCuadrillas("La fecha maxima no debe ser menor a la fecha minima.");
 			}
 			
