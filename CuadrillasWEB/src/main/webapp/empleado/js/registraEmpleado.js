@@ -117,7 +117,6 @@ $('input[data-form=document]:checked').each(function(){
 });
 
 $scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } );
-console.log($scope.JSONDocumentation);
  
 });
 
@@ -145,7 +144,7 @@ $('input[data-form=document]:checked').each(function(){
 });
 
 $scope.JSONDocumentationNoDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosD } );
-console.log($scope.JSONDocumentationNoDocs);
+
  
 });
 
@@ -173,7 +172,7 @@ $('input[data-form=document]:checked').each(function(){
 });
 
 $scope.JSONDocumentationNaDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDa } );
-console.log($scope.JSONDocumentationNaDocs);
+
  
 });
 	  
@@ -549,7 +548,6 @@ $('input[data-form=documentData]:checked').each(function(){
 });
 
 $scope.JSONDocumentationUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosUpdate } );
-console.log($scope.JSONDocumentationUpdate);
  
 });
 
@@ -577,7 +575,7 @@ $('input[data-form=documentData]:checked').each(function(){
 });
 
 $scope.JSONDocumentationNoDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDUpdate } );
-console.log($scope.JSONDocumentationNoDocsUpdate);
+
  
 });
 
@@ -605,15 +603,14 @@ $('input[data-form=documentData]:checked').each(function(){
 });
 
 $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDaUpdate } );
-console.log($scope.JSONDocumentationNaDocsUpdate);
  
 });
     	   $scope.actualizarDato = function() {
     		   $scope.idEm = document.getElementById("idData").value;
-    		   console.log("es el ID correcto?" + $scope.idEm);
+    		  
     		   $scope.sueldo = document.getElementById("sueldo").value;
     		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
-    	       console.log("es la cuadrilla? " + $scope.cuadrilla);
+    	       
     	       $scope.vialidad =document.getElementById("cVialidad").value;
      
      if ($scope.sueldo == "")
@@ -663,7 +660,10 @@ console.log($scope.JSONDocumentationNaDocsUpdate);
 		    }).then(function mySucces(response) {
 		    	alert(response.data.mensajeFuncional);
 		    	 console.info(response);
-		    	 setTimeout('document.form_reloj.reset()',2000);
+//		    	  $("div[data-id=documentosResultado").hide();
+//		    	  $("div[data-id=documentosData").show();
+		    	 //setTimeout('document.form_reloj.reset()',2000);
+		    	 location.reload();
 	             return false;
 		    }, function myError(response) {
 		        console.error(response);
