@@ -271,7 +271,7 @@
 			     </div>
 			     <p class="control-label">Documentacion</p>
 		
-			     <div class="row" ng-repeat="documentos  in resultadoDocumentos">
+			     <div name="documentosData" class="row" ng-repeat="documentos  in resultadoDocumentos" >
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="documento" class="control-label">{{documentos.descripcion}}</label>
@@ -280,7 +280,6 @@
                     
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
-                           	<input type="hidden" value="A">
 							<input type="radio" name={{documentos.codigo}} value="1" data-form="document">SI 
 							<input type="radio" name={{documentos.codigo}} value="3" data-form="document">NO
 							<input type="radio" name={{documentos.codigo}} value="2" data-form="document" ng-checked="true">N/A 

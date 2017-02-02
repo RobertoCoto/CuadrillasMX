@@ -514,6 +514,7 @@ $scope.pagoValor = $scope.datoPago;
     	    }
     	   
     	   document.getElementById('editar').style.display='none'; 
+    	   document.getElementsByName('documentosData').removeChild; 
     	   document.getElementById('guardarDato').style.display='block'; 
     
     	   //$('#idCuadrilla').val('number:'+ general.idCuadrilla).change();
