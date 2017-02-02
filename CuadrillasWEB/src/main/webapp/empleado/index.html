@@ -314,7 +314,8 @@
 							<td>{{general.descripcionPuesto}}</td>
 							<td>{{general.nombre}} {{general.apellidoPat}} {{general.apellidoMat}}</td>
 							<td>{{general.fechaIngreso}}</td>
-							<td>{{general.estatus}}</td>
+							<td ng-if="general.estatus === 'I'">INACTIVO</td>
+							<td ng-if="general.estatus === 'A'">ACTIVO</td>
 							<td>
 							
 							
