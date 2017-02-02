@@ -359,7 +359,7 @@ $scope.pagoValor = $scope.datoPago;
 							"idEmpleado": $scope.idEm
 					}
 					  }).then(function mySucces(result) {
-					  	$scope.resultadoDocumento = result.data.empleadoDocumento;
+					  	$scope.resultadoDocumentoEmp = result.data.empleadoDocumento;
 
 					  }, function myError(response) {
 					      console.error(response);
@@ -514,7 +514,8 @@ $scope.pagoValor = $scope.datoPago;
     	    }
     	   
     	   document.getElementById('editar').style.display='none'; 
-    	   document.getElementsByName('documentosData').removeChild; 
+    	  $("div[data-id=documentosData").hide();
+    	  $("div[data-id=documentosResultado").show();
     	   document.getElementById('guardarDato').style.display='block'; 
     
     	   //$('#idCuadrilla').val('number:'+ general.idCuadrilla).change();

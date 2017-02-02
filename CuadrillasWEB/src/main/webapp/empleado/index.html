@@ -271,7 +271,7 @@
 			     </div>
 			     <p class="control-label">Documentacion</p>
 		
-			     <div name="documentosData" class="row" ng-repeat="documentos  in resultadoDocumentos" >
+			     <div data-id="documentosData" class="row" ng-repeat="documentos  in resultadoDocumentos" >
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="documento" class="control-label">{{documentos.descripcion}}</label>
@@ -283,6 +283,36 @@
 							<input type="radio" name={{documentos.codigo}} value="1" data-form="document">SI 
 							<input type="radio" name={{documentos.codigo}} value="3" data-form="document">NO
 							<input type="radio" name={{documentos.codigo}} value="2" data-form="document" ng-checked="true">N/A 
+                        </div>
+                    </div>
+			     </div>
+			     
+			      <div data-id="documentosResultado" class="row" ng-repeat="documentos  in resultadoDocumentoEmp" >
+			      <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="documento" class="control-label">{{documentos.descripcionDocumento}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6" ng-if="documentos.estatus == 'NA'">
+                        <div class="form-group form-group-sm">
+							<input type="radio" name={{documentos.codigo}} value="1" data-form="document">SI 
+							<input type="radio" name={{documentos.codigo}} value="3" data-form="document">NO
+							<input type="radio" name={{documentos.codigo}} value="2" data-form="document" ng-checked="true">N/A 
+                        </div>
+                    </div>
+                     <div class="col-sm-6" ng-if="documentos.estatus == 'NO'">
+                        <div class="form-group form-group-sm">
+							<input type="radio" name={{documentos.codigo}} value="1" data-form="document">SI 
+							<input type="radio" name={{documentos.codigo}} value="3" data-form="document" ng-checked="true">NO
+							<input type="radio" name={{documentos.codigo}} value="2" data-form="document" >N/A 
+                        </div>
+                    </div>
+                     <div class="col-sm-6" ng-if="documentos.estatus == 'SI'">
+                        <div class="form-group form-group-sm">
+							<input type="radio" name={{documentos.codigo}} value="1" data-form="document" ng-checked="true">SI 
+							<input type="radio" name={{documentos.codigo}} value="3" data-form="document">NO
+							<input type="radio" name={{documentos.codigo}} value="2" data-form="document">N/A 
                         </div>
                     </div>
 			     </div>
