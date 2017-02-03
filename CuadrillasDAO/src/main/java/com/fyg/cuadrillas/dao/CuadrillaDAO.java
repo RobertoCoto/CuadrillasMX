@@ -82,7 +82,7 @@ public class CuadrillaDAO {
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-	        int registros = sessionTx.insert("CuarillaDAO.bajaContrato", cuadrilla);
+	        int registros = sessionTx.update("CuarillaDAO.bajaCuadrilla", cuadrilla);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja la cuadrilla.");
 			}

@@ -59,7 +59,8 @@ public class BajaCuadrilla extends HttpServlet {
 			
 			CuadrillaDTO cuadrilla = new CuadrillaDTO();
 			cuadrilla.setIdCuadrilla(idCuadrilla);
-			cuadrilla.setUsuarioAlta(usuario);
+			cuadrilla.setUsuarioBaja(usuario);
+			cuadrilla.setUsuarioUltMod(usuario);
 			respuesta = negocio.bajaCuadrilla(cuadrilla);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
