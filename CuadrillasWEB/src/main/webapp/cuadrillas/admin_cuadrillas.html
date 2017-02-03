@@ -42,6 +42,7 @@
                           <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> 
                           <option value="">--Seleccione una Vialidad--</option>
                           </select>
+                          <input type="hidden" id="dataVialidad"  value={{cuadrilla.vialidad}}>
                         <div class="amt_errorVialidad"></div>
                         </div>
                     </div>

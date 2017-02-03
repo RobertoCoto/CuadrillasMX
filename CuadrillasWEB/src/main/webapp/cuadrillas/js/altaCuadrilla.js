@@ -85,31 +85,37 @@ app.controller('adminCuad', function ($scope, $http) {
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "1";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "2";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "3";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "4";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "5";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "6";
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
 		       	    
 		    			document.getElementById("numeroCuadrilla").disabled = true;
@@ -118,7 +124,8 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    
 		    $scope.actualizar = function(cuadrilla) {
-		    	$scope.vialidad = cuadrilla.vialidad;
+		    	
+		    	$scope.vialidad = document.getElementById("dataVialidad").value;
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
