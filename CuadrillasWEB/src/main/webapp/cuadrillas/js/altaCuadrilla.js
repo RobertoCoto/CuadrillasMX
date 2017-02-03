@@ -166,6 +166,7 @@ app.controller('adminCuad', function ($scope, $http) {
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
+				    	 location.reload();
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
