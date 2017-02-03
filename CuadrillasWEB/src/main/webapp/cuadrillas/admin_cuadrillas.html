@@ -101,8 +101,8 @@
                 				<td>{{datosCuadrilla.residente}}</td>
                 				<td>{{datosCuadrilla.numeroPersonas}}</td>
                 				<td>{{datosCuadrilla.calificacion}}</td>
-                				<td ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
-                				<td ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>
+                				<td data-ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
+                				<td data-ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>
                 				<td><button class="btn btn-info" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
                 				<td><button class="btn btn-info" ng-click="bajaCuadrilla(datosCuadrilla)">Baja</button></td>
                 				</tr>
