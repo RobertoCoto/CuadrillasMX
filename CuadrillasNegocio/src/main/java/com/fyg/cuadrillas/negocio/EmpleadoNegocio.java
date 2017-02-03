@@ -415,4 +415,44 @@ public class EmpleadoNegocio {
 	    LogHandler.debug(uid, this.getClass(), "consultaDocumento - Datos Salida: " + respuesta);
 	    return respuesta;
 	}
+	/**
+	 * Metodo para consultar los colaboradores
+	 * @param empleado recibe parametros de empleado
+	 * @return regresa lista de colaboradores
+	 */
+	public EmpleadoRespuesta consultaColaborador (EmpleadoDTO empleado) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(empleado);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaColaborador - Datos Entrada: " + empleado);
+				//Variable de resultado
+				EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
+				List<EmpleadoDTO> listaColaborador = null;
+
+			    try {
+			    	if (empleado.getIdCuadrilla() == null)
+			    	{
+			    		throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la busqueda.");
+			    	}
+			    	listaColaborador = new EmpleadoDAO().consultaColaborador(uid, empleado);
+			    	respuesta.setEmpleado(listaColaborador);
+			    } catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(),"consultaColaborador - Error: "+ex.getMessage(),ex);
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "consultaColaborador - Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "consultaColaborador - Datos Salida: " + respuesta);
+			    return respuesta;
+	}
 }

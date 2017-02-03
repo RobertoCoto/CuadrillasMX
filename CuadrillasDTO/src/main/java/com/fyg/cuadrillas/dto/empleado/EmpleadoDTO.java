@@ -31,6 +31,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private String apellidoMat;
 	/**
+	 * perfil del empleado
+	 */
+	private String perfilEmpleado;
+	/**
 	 * Sexo del usuario
 	 */
 	private String sexo;
@@ -642,5 +646,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setDocumentosNA(List<EmpleadoDocumentoDTO> documentosNA) {
 		this.documentosNA = documentosNA;
+	}
+	/**
+	 * @return the perfilEmpleado
+	 */
+	public String getPerfilEmpleado() {
+		return perfilEmpleado;
+	}
+	/**
+	 * @param perfilEmpleado the perfilEmpleado to set
+	 */
+	public void setPerfilEmpleado(String perfilEmpleado) {
+		this.perfilEmpleado = perfilEmpleado;
 	}
 }

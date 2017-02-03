@@ -366,4 +366,41 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			}
 			return listaDocumento;
 		}
+	   /**
+	    * Metodo para consultar los colaboradores 
+	    * @param uid unico de empleado
+	    * @param empleado recibe parametro de empleado
+	    * @return regresa la lista de colaboradores
+	    * @throws Exception si surge una excepcion
+	    */
+	   @SuppressWarnings("unchecked")
+	public List<EmpleadoDTO> consultaColaborador(String uid, EmpleadoDTO empleado) throws Exception {
+			SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<EmpleadoDTO> listaColaborador = null;
+			try {
+				//Abrimos conexion Transaccional
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				LogHandler.debug(uid, this.getClass(), "Consultando");
+				//Se hace una consulta a la tabla
+			
+				listaColaborador = sessionNTx.selectList("EmpleadoDAO.consultaColaboradores", empleado);
+				if ( listaColaborador.size() == 0) {
+					throw new ExcepcionesCuadrillas("No existen colaboradores en esta cuadrilla.");
+				}
+			}
+			catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				throw new Exception(ex.getMessage());
+				
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return listaColaborador;
+		}
 }

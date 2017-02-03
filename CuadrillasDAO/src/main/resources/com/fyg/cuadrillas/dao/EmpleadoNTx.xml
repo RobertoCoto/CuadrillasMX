@@ -35,6 +35,7 @@
 	<result column="id_perfil" property="idPerfil"/>
 	<result column="nombre_perfil" property="nombrePerfil"/>
 	<result column="calificacion" property="calificacion"/>
+	<result column="perfil_empleado" property="perfilEmpleado"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
@@ -97,5 +98,21 @@ SELECT d.codigo_emp_doc AS codigoEmpDoc, d.estatus,c.descripcion AS descripcionD
 FROM empleado_documentos d
 LEFT JOIN catalogo c ON c.codigo = d.codigo_emp_doc
 WHERE id_empleado = #{idEmpleado}
+</select>
+
+<select id="consultaColaboradores" parameterType="Empleado" resultMap="empleado">
+SELECT c.descripcion AS perfil_empleado, 
+       e.nombre AS nombre, 
+       e.apellido_pat AS apellido_pat, 
+       e.apellido_mat AS apellido_mat,
+	   CASE 
+	   	WHEN e.estatus = 'A' THEN 'Activo'
+	   	WHEN e.estatus = 'I' THEN 'Suspendido'
+	   END AS estatus,
+	   e.calificacion AS calificacion
+FROM empleado e
+LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
+WHERE e.id_cuadrilla = #{idCuadrilla}
+ORDER BY e.estatus, e.fecha_ingreso 
 </select>
 </mapper>

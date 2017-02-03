@@ -273,6 +273,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.cuadrilla.ModificaCuadrilla</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaColaborador</servlet-name>
+  	<display-name>ConsultaColaborador</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.empleado.ConsultaColaborador</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -452,5 +458,9 @@
 	<servlet-mapping>
 		<servlet-name>ModificaCuadrilla</servlet-name>
 		<url-pattern>/ModificaCuadrilla</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaColaborador</servlet-name>
+		<url-pattern>/ConsultaColaborador</url-pattern>
 	</servlet-mapping>
 </web-app>

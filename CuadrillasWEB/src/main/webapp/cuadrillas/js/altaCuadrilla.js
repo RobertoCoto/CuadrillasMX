@@ -73,9 +73,26 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    	
 		    $scope.editarCuadrilla = function(datosCuadrilla) {
-		    	         
+		    	
+		    	 $http({
+		              method: 'GET',
+		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaColaborador',
+		              params : {
+				 		"idCuadrilla": datosCuadrilla.idCuadrilla
+				 },
+		              data: { }
+				    }).then(function mySucces(result) {
+				    	$scope.resultadoColaborador = result.data.empleado;
+			              console.log($scope.resultadoColaborador);
+				    }, function myError(response) {
+				        //console.error(response);
+				        alert(response.data.header.mensajeFuncional);
+				        //$scope.resultado2.push(objecto);
+				    });
+		    	 
 		    $scope.calif = datosCuadrilla.calificacion;
 		    console.log("calidf "+ $scope.calif);
+		    
 		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = $scope.calif;
@@ -121,6 +138,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    			document.getElementById("numeroCuadrilla").disabled = true;
 		    			document.getElementById('editar').style.display='none'; 
     	                document.getElementById('guardarDato').style.display='block';
+    	                document.getElementById('colab').style.display='block';
 		    	};
 		    
 		    $scope.actualizar = function(cuadrilla) {

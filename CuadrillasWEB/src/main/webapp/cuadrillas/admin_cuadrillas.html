@@ -116,7 +116,7 @@
                 </div>
       
                 
-                 <div class="row">
+                 <div class="row" id="colab" style="display:none;">
                  <h2>Colaboradores</h2>
                 	<div class="col-sm-12">
                 		<div class="table-responsive">
@@ -126,15 +126,13 @@
                 				<td>Nombre</td>
                 				<td>Cal</td>
                 				<td>Estatus</td>
-                				<td>Operaciones</td>
                 				</tr>
                 				
-                				<tr>
-                				<td>Residente</td>
-                				<td>Sergio Hernandez</td>
-                				<td>10</td>
-                				<td>Activo</td>
-                				<td><button class="btn btn-info" ng-click="">Editar</button></td>
+                				<tr ng-repeat="colaborador in resultadoColaborador">
+                				<td>{{colaborador.perfilEmpleado}}</td>
+                				<td>{{colaborador.nombre}} {{colaborador.apellidoPat}} {{colaborador.apellidoMat}}</td>
+                				<td>{{colaborador.calificacion}}</td>
+                				<td>{{colaborador.estatus}}</td>
                 				</tr>
                 				
                 				
