@@ -443,7 +443,7 @@ public class EmpleadoNegocio {
 			    	respuesta.setEmpleado(listaColaborador);
 			    } catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(),"consultaColaborador - Error: "+ex.getMessage(),ex);
-					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setEstatus(false); 
 					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 				} catch (Exception ex) {

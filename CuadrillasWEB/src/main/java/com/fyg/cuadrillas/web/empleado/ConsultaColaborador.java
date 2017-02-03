@@ -58,7 +58,6 @@ public class ConsultaColaborador extends HttpServlet {
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setIdCuadrilla(idCuadrilla);
 			respuesta = negocio.consultaColaborador(empleado);
-			
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();

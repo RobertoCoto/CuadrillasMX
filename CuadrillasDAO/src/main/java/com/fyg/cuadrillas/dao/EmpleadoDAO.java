@@ -396,7 +396,6 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 				throw new Exception(ex.getMessage());
-				
 			}
 			finally {
 				FabricaConexiones.close(sessionNTx);

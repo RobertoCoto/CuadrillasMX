@@ -83,7 +83,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		              data: { }
 				    }).then(function mySucces(result) {
 				    	$scope.resultadoColaborador = result.data.empleado;
-			              console.log($scope.resultadoColaborador);
+			               console.log($scope.resultadoColaborador);
 				    }, function myError(response) {
 				        //console.error(response);
 				        alert(response.data.header.mensajeFuncional);
