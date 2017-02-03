@@ -22,7 +22,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("modificacion de la cuadrilla fue correcta.");
 		try {
 			//Validamos si ya existe una misma cuadrilla
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
