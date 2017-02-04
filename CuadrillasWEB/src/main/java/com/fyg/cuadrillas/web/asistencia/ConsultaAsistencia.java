@@ -2,6 +2,8 @@ package com.fyg.cuadrillas.web.asistencia;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.asistencia.AsistenciaDTO;
 import com.fyg.cuadrillas.dto.asistencia.AsistenciaRespuesta;
 import com.fyg.cuadrillas.negocio.AsistenciaNegocio;
 import com.google.gson.Gson;
@@ -43,14 +46,24 @@ public class ConsultaAsistencia extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
+			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
+			
 //			System.setProperty("http.proxyHost", "169.169.4.85");
 //	        System.setProperty("http.proxyPort", "8080");
 //	        System.setProperty("https.proxyHost", "169.169.4.85");
 //	        System.setProperty("https.proxyPort", "8080");
-
+			 
+			 Date fechaActual = new Date();
+			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+			 String fechaSistema = formateador.format(fechaActual);
+			 
 			//crea objeto de negocio
 			final AsistenciaNegocio negocio = new AsistenciaNegocio();
-			respuesta = negocio.consultaAsistencia();
+			AsistenciaDTO  asistencia = new AsistenciaDTO();
+			asistencia.setIdCuadrilla(idCuadrilla);
+			asistencia.setFecha(fechaSistema);
+			LogHandler.debug(null, this.getClass(), "Consultando " + fechaSistema );
+			respuesta = negocio.consultaAsistencia(asistencia);
 			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {

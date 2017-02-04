@@ -138,11 +138,11 @@ public class AsistenciaNegocio {
 	 * Metodo para consultar una lista de asistencia
 	 * @return regresa lista de asistencia
 	 */
-	public AsistenciaRespuesta consultaAsistencia() {
+	public AsistenciaRespuesta consultaAsistencia(AsistenciaDTO asistencia) {
 		//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(new String(""));
+				String uid = GUIDGenerator.generateGUID(asistencia);
 				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "consultaAsistencia - Datos Entrada: ");
+				LogHandler.debug(uid, this.getClass(), "consultaAsistencia - Datos Entrada: " + asistencia);
 				//Variable de resultado
 				AsistenciaRespuesta respuesta = new AsistenciaRespuesta();
 				respuesta.setHeader( new EncabezadoRespuesta());
@@ -151,7 +151,7 @@ public class AsistenciaNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<AsistenciaDTO> listaAsistencia = null;
 				 try {
-					 listaAsistencia = new AsistenciaDAO().consultaAsistencia(uid);
+					    listaAsistencia = new AsistenciaDAO().consultaAsistencia(uid,asistencia);
 				    	respuesta.setAsistencia(listaAsistencia);
 				    } catch  (ExcepcionesCuadrillas ex) {
 						LogHandler.error(uid, this.getClass(), "consultaAsistencia - Error: " + ex.getMessage(), ex);

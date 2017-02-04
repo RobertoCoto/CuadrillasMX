@@ -163,7 +163,7 @@ public class AsistenciaDAO {
 	 * @throws Exception crea una excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AsistenciaDTO> consultaAsistencia (String uid) throws Exception {
+	public List<AsistenciaDTO> consultaAsistencia (String uid, AsistenciaDTO asistencia) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -176,7 +176,7 @@ public class AsistenciaDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			LogHandler.debug(uid, this.getClass(), "Consultando");
 			//Se hace una consulta a la tabla contacto
-			listaAsistencia = sessionNTx.selectList("AsistenciaDAO.consultaAsistencia");
+			listaAsistencia = sessionNTx.selectList("AsistenciaDAO.consultaAsistencia", asistencia);
 			if ( listaAsistencia.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen registros de asistencia.");
 			}

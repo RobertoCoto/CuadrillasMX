@@ -7,7 +7,13 @@
 <result column="hora_entrada" property="horaEntrada"/>
 <result column="hora_salida" property="horaSalida"/>
 <result column="nombre" property="nombre"/>
-<result column="codigo_puesto" property="codigoPuesto"/>
+<result column="perfil_empleado" property="perfilEmpleado"/>
+<result column="nombre" property="nombre"/>
+<result column="apellido_paterno" property="apellidoPaterno"/>
+<result column="apellido_materno" property="apellidoMaterno"/>
+<result column="comentarios" property="comentarios"/>
+<result column="fecha" property="fecha"/>
+<result column="id_empleado" property="idEmpleado"/>
 </resultMap>
 
 <select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
@@ -30,9 +36,20 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaAsistencia" parameterType="Asistencia" resultMap="asistencia">
-select empleado.nombre AS nombre,empleado.codigo_puesto AS codigo_puesto, asistencia.id_asistencia AS id_asistencia,
-asistencia.id_empleado AS id_empleado,asistencia.hora_entrada AS hora_entrada, asistencia.hora_salida AS hora_salida
-FROM asistencia
-INNER JOIN empleado ON asistencia.id_empleado = empleado.id_empleado
+SELECT c.descripcion AS perfil_empleado, 
+	   e.nombre AS nombre, 
+	   e.apellido_pat AS apellido_paterno, 
+	   e.apellido_mat AS apellido_materno, 
+	   ae.comentarios AS comentarios, 
+	   ae.fecha AS fecha, 
+	   ae.hora_entrada AS hora_entrada, 
+	   ae.hora_salida AS hora_salida, 
+	   e.id_empleado AS id_empleado
+FROM empleado e
+LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
+LEFT JOIN asistencia ae ON ae.fecha = #{fecha} AND ae.id_empleado = e.id_empleado
+WHERE e.id_cuadrilla = #{idCuadrilla}
+AND e.estatus = 'A'
+ORDER BY e.fecha_ingreso 
 </select>
 </mapper>

@@ -107,12 +107,12 @@
                 				<td colspan="2">Operaciones</td>
                 				</tr>
                 				
-                				<tr>
-                				<td></td>
-                				<td></td>
-                				<td></td>
-                				<td></td>
-                				<td></td>
+                				<tr ng-repeat="asistencia in resultadoAsistencia">
+                				<td>{{asistencia.perfilEmpleado}}</td>
+                				<td>{{asistencia.nombre}}</td>
+                				<td>{{asistencia.comentarios}}</td>
+                				<td>{{asistencia.horaEntrada}}</td>
+                				<td>{{asistencia.horaSalida}}</td>
                 				<td><button>Entrada</button></td>
                 				<td><button>Salida</button></td>
                 				</tr>

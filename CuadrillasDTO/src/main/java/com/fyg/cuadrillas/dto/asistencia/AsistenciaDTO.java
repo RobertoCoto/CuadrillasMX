@@ -19,13 +19,29 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	private String nombre;
 	/**
+	 * apellido Paterno
+	 */
+	private String apellidoPaterno;
+	/**
+	 * apellido materno
+	 */
+	private String apellidoMaterno;
+	/**
+	 * id de la cuadrilla
+	 */
+    private Integer idCuadrilla;
+    /**
+     * Perfil empleado
+     */
+    private String perfilEmpleado;
+	/**
 	 * codigo_puesto
 	 */
 	private String codigoPuesto;
 	/**
 	 * Fecha
 	 */
-	private Date fecha;
+	private String fecha;
 	/**
 	 * Comentarios
 	 */
@@ -85,13 +101,13 @@ public class AsistenciaDTO extends ObjetoValor {
 	/**
 	 * @return the fecha
 	 */
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	/**
@@ -249,5 +265,53 @@ public class AsistenciaDTO extends ObjetoValor {
 	 */
 	public void setCodigoPuesto(String codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
+	}
+	/**
+	 * @return the apellidoPaterno
+	 */
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+	/**
+	 * @return the apellidoMaterno
+	 */
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+	/**
+	 * @return the idCuadrilla
+	 */
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
+	}
+	/**
+	 * @return the perfilEmpleado
+	 */
+	public String getPerfilEmpleado() {
+		return perfilEmpleado;
+	}
+	/**
+	 * @param apellidoPaterno the apellidoPaterno to set
+	 */
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+	/**
+	 * @param apellidoMaterno the apellidoMaterno to set
+	 */
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+	/**
+	 * @param idCuadrilla the idCuadrilla to set
+	 */
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
+	}
+	/**
+	 * @param perfilEmpleado the perfilEmpleado to set
+	 */
+	public void setPerfilEmpleado(String perfilEmpleado) {
+		this.perfilEmpleado = perfilEmpleado;
 	}
 }
