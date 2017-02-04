@@ -115,7 +115,7 @@
                 				<td>{{asistencia.horaSalida}}</td>
                 				<td ng-if="asistencia.horaEntrada === NULL"> <button class="btn btn-success" ng-click="entrada(asistencia)">Entrada</button></td>
                 				<td>&nbsp &nbsp</td>
-                				<td ng-if="asistencia.horaSalida === NULL"> <button class="btn btn-success" ng-click="salida(asistencia)">Salida</button></td>
+                				<td ng-if="asistencia.horaEntrada != NULL"> <button class="btn btn-success" ng-click="salida(asistencia)">Salida</button></td>
                 				
                 				
                 				</tr>
