@@ -50,4 +50,46 @@ app.controller('entradaAsistencia', function ($scope, $http) {
 		        alert(response.data.header.mensajeFuncional);
 		    });
             }
+            
+           $scope.entrada = function(asistencia) {
+        	   
+           $scope.idEmpleado = asistencia.idEmpleado;
+        		$http({
+                    method: 'GET',
+                    url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
+                    params: {
+      		 		"idEmpleado" : $scope.idEmpleado,
+      		 		"comentarios" : document.getElementById("comentario").value,
+      		 		"usuario" : 'SISTEMAS'
+      		         }
+      		    }).then(function mySucces(response) {
+      		    	 alert(response.data.mensajeFuncional);
+      		    	 console.info(response);
+      		    	location.reload();
+      		    }, function myError(response) {
+      		        console.error(response);
+      		        alert(response.data.mensajeFuncional);
+      		    });
+        	   };
+           
+            $scope.salida = function(asistencia) {
+            	
+              $scope.idEmpleado = asistencia.idEmpleado;
+        		$http({
+                    method: 'GET',
+                    url: 'http://localhost:8080/CuadrillasWEB/SalidaAsistencia',
+                    params: {
+      		 		"idEmpleado" : $scope.idEmpleado,
+      		 		"usuario" : 'SISTEMAS'
+      		         }
+      		    }).then(function mySucces(response) {
+      		    	alert(response.data.mensajeFuncional);
+     		    	 console.info(response);
+     		    	location.reload();
+      		    }, function myError(response) {
+      		        console.error(response);
+      		        alert(response.data.header.mensajeFuncional);
+      		    });
+        	   };
+           
 });

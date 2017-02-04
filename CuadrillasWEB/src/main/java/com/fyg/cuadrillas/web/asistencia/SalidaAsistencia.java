@@ -46,7 +46,6 @@ public class SalidaAsistencia extends HttpServlet {
 		
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String comentarios = request.getParameter("comentarios");
 			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
@@ -61,7 +60,6 @@ public class SalidaAsistencia extends HttpServlet {
 			
 			AsistenciaDTO asistencia = new AsistenciaDTO();
 			asistencia.setIdEmpleado(idEmpleado);
-			asistencia.setComentarios(comentarios);
 			asistencia.setUsuarioUltMod(usuario);
 			respuesta = negocio.salidaAsistencia(asistencia);
 			if (respuesta.isEstatus()) {

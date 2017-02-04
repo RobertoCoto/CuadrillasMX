@@ -9,7 +9,6 @@ VALUES(#{idEmpleado},now(),#{comentarios},now(),now(),#{usuarioAlta},'A')
 
 <update id="salidaAsistencia" parameterType="Asistencia">
 UPDATE asistencia SET
-	   comentarios = #{comentarios},
 	   hora_salida = now(),
 	   fecha_ult_mod = now(),
 	   usuario_ult_mod = #{usuarioUltMod}

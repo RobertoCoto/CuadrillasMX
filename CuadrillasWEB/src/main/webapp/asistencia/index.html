@@ -56,7 +56,7 @@
 
 <div class="panel panel-default">
 		<div class="panel-body">
-			<form data-ng-submit="registrar(asistencia)" name="form_reloj" >
+			<form  name="form_reloj" >
 			<div class="row">
 			 <div class="col-sm-6">
                         <div class="form-group form-group-sm">
@@ -80,13 +80,13 @@
                     </div>
 			</div>
 			
-			<div class="row">
-			  <div class="col-sm-12">
+			<div class="row" >
+			  <div class="col-sm-12" >
                         <div class="form-group form-group-sm">
                             <label for="Comentarios" class="control-label">Comentarios</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></div>
-                  			<textarea rows="3" size="20"  class="form-control" placeholder="Comentarios" style="resize: none;"></textarea> 
+                  			<textarea rows="3" size="20"  class="form-control" placeholder="Comentarios" style="resize: none;" id="comentario"></textarea> 
                				 </div>
                         </div>
                     </div>
@@ -113,8 +113,11 @@
                 				<td>{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
-                				<td><button>Entrada</button></td>
-                				<td><button>Salida</button></td>
+                				<td ng-if="asistencia.horaEntrada === NULL"> <button class="btn btn-success" ng-click="entrada(asistencia)">Entrada</button></td>
+                				<td>&nbsp &nbsp</td>
+                				<td ng-if="asistencia.horaSalida === NULL"> <button class="btn btn-success" ng-click="salida(asistencia)">Salida</button></td>
+                				
+                				
                 				</tr>
                 				
                 			</table>
@@ -122,7 +125,6 @@
             </div>
 			</div>
 			</form>
-			<input type="submit" name="registrar" value="Registrar" class="btn btn-success">
 		</div>
 </div>
 
