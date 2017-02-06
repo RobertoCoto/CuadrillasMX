@@ -88,7 +88,7 @@ body
 	
 /*table*/
 .zui-table {
-    border: solid 1px #80298f;
+    border: solid 0px #80298f;
     border-collapse: collapse;
     border-spacing: 0;
     font: normal 13px Arial, sans-serif;
@@ -113,14 +113,6 @@ body
     border-left: none;
     border-right: none;
 }
-@media (max-width: 991px) {
-    .zui-table-responsive, .zui-table-responsive thead, .zui-table-responsive thead tr, .zui-table-responsive thead th, .zui-table-responsive tbody, .zui-table-responsive tbody tr, .zui-table-responsive tbody td {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        display: block;
-        width: 100%;
-    }
     .zui-table-responsive {
         border-color: #80298f;
     }
