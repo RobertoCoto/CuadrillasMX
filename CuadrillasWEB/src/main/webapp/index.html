@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--llamamos al modulo para tenerlo disponible en el html-->
-<html ng-app="cookies">
+<html ng-app="tatei">
  <!--cargamos angular js-->
    <script src="js/angular.js"></script>
    <link rel="stylesheet"  href="css/normalize.css"  media="screen" />
@@ -83,10 +83,6 @@ li:active {
     background-image: -moz-linear-gradient(19% 75% 90deg,#111111, #666666)
 }
 
-.btn {
-    color:#fff;
-    text-decoration: none;
-}
 
 .fullwidth {
     /* inline-block allows the anchor tag to fill
@@ -99,12 +95,12 @@ li:active {
 </head>
   
   <body>
-
-      <div class="row" ng-view></div>
-   
-
+      <div ng-view></div>
     <!-- functions js-->
-    <script src="js/cookies.js"></script>
+    <!-- <script src="js/cookies.js"></script> -->
     <script src="js/app.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>    
   </body>
 </html>
