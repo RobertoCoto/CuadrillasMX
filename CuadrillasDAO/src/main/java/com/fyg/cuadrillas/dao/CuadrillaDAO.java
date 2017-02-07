@@ -22,7 +22,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("modificacion de la cuadrilla fue correcta.");
+		respuesta.setMensajeFuncional("Registro correcto.");
 		try {
 			//Validamos si ya existe una misma cuadrilla
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -144,7 +144,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("Modificacion correcta.");
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
