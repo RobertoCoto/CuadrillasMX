@@ -138,7 +138,12 @@ public class CuadrillaDAO {
 		}
 		return listaCuadrilla;
 	}
-	
+	/**
+	 * Metodo para modificar las cuadrillas
+	 * @param uid unico de registro
+	 * @param cuadrilla recibe valores de cuadrilla
+	 * @return regresa una lista
+	 */
 	public EncabezadoRespuesta modificaCuadrilla (String uid, CuadrillaDTO cuadrilla) {
 		SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
