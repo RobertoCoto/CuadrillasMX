@@ -1,0 +1,135 @@
+
+body
+{
+    background-color: #f5f5f5;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.2em;
+	font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*menu*/
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #d4dac1; /* color back*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #6a6d60;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #abcf37;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+	color: #6a6d60;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+	transition: margin-left .5s;
+	padding: 20px;
+	background-image: url(../../images/header_tatei.png);
+	color: #92278f;
+	font-size: 24px;
+	text-transform: capitalize;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+ .panel-default >.panel-heading {
+    background-color: 6a6d60;
+}
+/* Type */ 
+	.header{  
+	text-align:right; 
+	font-size: 1.1em;
+	padding: 10px 0 25px 0;
+    font-size: 36px;
+    margin-left: 200px;
+	color: #92278f;
+	}
+	
+/*table*/
+.zui-table {
+    border: solid 0px #80298f;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+	color: #336B6B;
+}
+.zui-table thead th {
+    background-color: #80298f;
+    border: solid 1px #80298f;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #000;
+}
+.zui-table tbody td {
+    border: solid 1px #80298f;
+    color: #000;
+	background-color: #fff;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+}
+.zui-table-horizontal tbody td {
+    border-left: none;
+    border-right: none;
+}
+    .zui-table-responsive {
+        border-color: #80298f;
+    }
+    .zui-table-responsive thead th {
+        border-color: #80298f;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    .zui-table-responsive tbody tr {
+        border-bottom: solid 1px #80298f;
+    }
+    .zui-table-responsive tbody td {
+        border-top: none;
+        border-color: #80298f;
+    }
+    .zui-table-responsive tbody tr:last-child, .zui-table-responsive tbody td:last-child {
+        border-bottom: none;
+    }
+}

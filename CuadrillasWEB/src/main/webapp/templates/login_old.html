@@ -1,0 +1,18 @@
+<form class="login-form" name="loginUserForm">
+    <fieldset>
+        <legend>Iniciar Sesion</legend>
+ 
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Usuario</label>
+                <input type="text" required placeholder="Introduce tu usuario" ng-model="username">
+            </div>
+            <div class="large-12 columns">
+                <label>Contrasena</label>
+                <input type="password" required placeholder="Introduce tu password" ng-model="password">
+            </div>
+ 
+            <button type="submit" ng-disabled="!loginUserForm.$valid" ng-click="login(username)" class="button expand round">Login</button>
+        </div>
+    </fieldset>
+</form>
