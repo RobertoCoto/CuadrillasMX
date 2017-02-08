@@ -56,7 +56,7 @@
 
 <div class="panel panel-default">
 		<div class="panel-body">
-			<form  name="form_reloj" >
+			<form  name="form_reloj" id="formAsistencia">
 			<div class="row">
 			 <div class="col-sm-6">
                         <div class="form-group form-group-sm">
@@ -100,7 +100,9 @@
                 				<tr ng-repeat="asistencia in resultadoAsistencia">
                 				<td>{{asistencia.perfilEmpleado}}</td>
                 				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencias.apellidoMaterno}}</td>
-                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" class="form-control" id="comentario"></td>
+                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" class="form-control" id="comentario">
+                				<div class="amt_errorComentario"></div>
+                				</td>
                 				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
@@ -120,5 +122,21 @@
 </div>
 
 </div>
+
+<script> 
+$(document).ready(function(){
+	$("#formAsistencia").submit(function () {
+		if($("#comentario").val().length < 1) {
+			 $('.amt_errorComentario')
+				.text('Es necesario un comentario.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+		$('.amt_errorComentario').fadeOut('slow');
+		return false;
+	});
+});
+</script>
 </body>
 </html>

@@ -54,6 +54,12 @@ app.controller('entradaAsistencia', function ($scope, $http) {
            $scope.entrada = function(asistencia) {
         	   
            $scope.idEmpleado = asistencia.idEmpleado;
+           $scope.comentario = document.getElementById("comentario").value;
+           
+           if($scope.comentario == "") {
+        	   return false
+        	   }
+           
         		$http({
                     method: 'GET',
                     url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
