@@ -303,7 +303,7 @@ $scope.pagoValor = $scope.datoPago;
 	              "naDocs" :$scope.JSONDocumentationNaDocs
 			         }
 			    }).then(function mySucces(response) {
-			    	//alert(response.data.mensajeFuncional);
+			    	alert(response.data.mensajeFuncional);
 			    	 console.info(response);
 			    	 setTimeout('document.form_reloj.reset()',2000);
 		             return false;

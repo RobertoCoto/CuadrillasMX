@@ -80,17 +80,7 @@
                     </div>
 			</div>
 			
-			<div class="row" >
-			  <div class="col-sm-12" >
-                        <div class="form-group form-group-sm">
-                            <label for="Comentarios" class="control-label">Comentarios</label>
-                           <div class="input-group">
-                  			<div class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></div>
-                  			<textarea rows="3" size="20"  class="form-control" placeholder="Comentarios" style="resize: none;" id="comentario"></textarea> 
-               				 </div>
-                        </div>
-                    </div>
-			</div>
+			
 			
 			
 			<div class="row">
@@ -109,8 +99,9 @@
                 				
                 				<tr ng-repeat="asistencia in resultadoAsistencia">
                 				<td>{{asistencia.perfilEmpleado}}</td>
-                				<td>{{asistencia.nombre}}</td>
-                				<td>{{asistencia.comentarios}}</td>
+                				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencias.apellidoMaterno}}</td>
+                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" class="form-control" id="comentario"></td>
+                				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
                 				<td ng-if="asistencia.horaEntrada === NULL"> <button class="btn btn-success" ng-click="entrada(asistencia)">Entrada</button></td>
