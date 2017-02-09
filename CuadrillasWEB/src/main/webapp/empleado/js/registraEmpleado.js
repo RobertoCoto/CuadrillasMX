@@ -395,16 +395,18 @@ $scope.pagoValor = $scope.datoPago;
    	   document.getElementById("sueldo").disabled = false;
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
-   	   document.getElementById('idCuadrilla').disabled;
+   	   document.getElementById('idCuadrilla').disabled = false;
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
     		   console.log(general.sexo);
     		   document.getElementById("sexo").selectedIndex = "1";
+    		   document.getElementById('sexo').disabled = false;
     		   
     		} else if(general.sexo == "F")
     	   {
     		   document.getElementById("sexo").selectedIndex = "2";
+    		   document.getElementById('sexo').disabled = false;
     		   }
     	   
     		   //validacion del puesto
@@ -753,7 +755,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	   document.getElementById("sueldo").disabled = true;
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
-   	   document.getElementById('idCuadrilla').disabled;
+   	   document.getElementById('idCuadrilla').disabled = true;
    	   document.getElementById("cCuadrilla").value = $scope.cuadri;
    	   //validacion del sexo
    	   if(general.sexo == "M")
