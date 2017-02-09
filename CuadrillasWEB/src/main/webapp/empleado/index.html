@@ -803,7 +803,7 @@ $('input[data-form=sueldo]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[0-9]+$/;
+		var regx = /^[0-9.]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorSueldo').fadeOut('slow');

@@ -69,6 +69,9 @@ public class PermisoLaboralNegocio {
 			if(horaMin.compareTo(horaMax) > 0) {
 				throw new ExcepcionesCuadrillas("la hora maxima no debe ser menor a la hora minima");
 			}
+			if(horaMin.equals(horaMax)) {
+				throw new ExcepcionesCuadrillas("La hora no puede ser igual debe ser mayor.");
+			}
 			PermisoLaboralDAO dao = new PermisoLaboralDAO();
 			respuesta = dao.altaPermiso(uid, permiso);
 			
