@@ -94,28 +94,26 @@
                 				<td>Comentarios Entrada</td>
                 				<td>Entrada</td>
                 				<td>Salida</td>
-                				<td colspan="2">Operaciones</td>
+                				<td>Operaciones</td>
                 				</tr>
                 				
                 				<tr ng-repeat="asistencia in resultadoAsistencia">
                 				<td>{{asistencia.perfilEmpleado}}</td>
                 				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencias.apellidoMaterno}}</td>
-                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" id="comentario" class="form-control"  data-validate-row-comment="{{asistencia.idEmpleado}}" >
-                				<div class="amt_errorComentario" data-validate-row-message="{{asistencia.idEmpleado}}"></div>
+                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" >
+                				<div class="amt_errorComentario" id=errdata:{{asistencia.idEmpleado}}></div>
                 				</td>
                 				
                 				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
                 				
-                				<td ng-if="asistencia.horaEntrada === NULL"> <button class="btn btn-success" ng-click="entrada(asistencia)" data-validate-row-sender="{{asistencia.idEmpleado}}" id="entrada">Entrada</button></td>
-                				<td>
-                				
-                				<div ng-if="asistencia.horaEntrada != NULL">
+                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)"></td>
+                				<td ng-if="asistencia.horaEntrada != NULL">
                 				<p ng-if="asistencia.horaSalida === NULL">
                 				<button class="btn btn-success" ng-click="salida(asistencia)">Salida</button>
                 				</p>
-                				</div>
+                				
                 				</td>
                 		
                 				
@@ -133,41 +131,5 @@
 </div>
 
 </div>
-
-<script> 
-$(document).ready(function(){
-	$("#formAsistencia").submit(function () {
-		if($("#comentario").val().length < 1) {
-			 $('.amt_errorRFC')
-				.text('Se necesita un comentario.')
-				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
-				.fadeIn('fast');
-				
-			return false;
-			
-		}
-		$('.amt_errorRFC').fadeOut('slow');
-		return false;
-	});
-});
-</script>
-
-<script> 
-$(document).ready(function(){
-	$("#formAsistencia").submit(function () {
-		if($("#comentario").val().length < 10) {
-			 $('.amt_errorRFC')
-				.text('El comentario debe tener minimo 10 Caracteres.')
-				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
-				.fadeIn('fast');
-				
-			return false;
-			
-		}
-		$('.amt_errorRFC').fadeOut('slow');
-		return false;
-	});
-});
-</script>
 </body>
 </html>

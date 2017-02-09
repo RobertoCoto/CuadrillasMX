@@ -33,45 +33,38 @@ app.controller('entradaAsistencia', function ($scope, $http) {
             
             $scope.datosAsistencia = [];
             
-            $scope.registrar = function(asistencia) { 
-            	
-            	$http({
-              method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
-              params: {
-		 		"idEmpleado" : document.getElementById("idEmpleado").value,
-		 		"comentarios" : asistencia.comentario,
-		 		"usuario" : 'SISTEMAS'
-		         }
-		    }).then(function mySucces(response) {
-		    	 console.info(response);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		    });
-            }
             
            $scope.entrada = function(asistencia) {
-        	   $scope.comentario = document.getElementById("comentario").value;
-               if($scope.comentario == "") {
-            	   return false
-            	   } 
+
            $scope.idEmpleado = asistencia.idEmpleado;
+           $scope.coment = document.getElementById(""+$scope.idEmpleado+"").value;
+           
+           if($scope.coment == "") {
+        	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">Escriba un Comentario.</span>';
+        	  
+        	   return false;
+        	   }
+           
+        if($scope.coment.length < 10) {
+        	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">El comentario debe tener minimo 10 carac.</span>';
+        	  
+        	   return false;
+        	   }
          
            
-           
+             
         		$http({
                     method: 'GET',
                     url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
                     params: {
       		 		"idEmpleado" : $scope.idEmpleado,
-      		 		"comentarios" : document.getElementById("comentario").value,
+      		 		"comentarios" : $scope.coment,
       		 		"usuario" : 'SISTEMAS'
       		         }
       		    }).then(function mySucces(response) {
       		    	 alert(response.data.mensajeFuncional);
       		    	 console.info(response);
-      		    	location.reload();
+      		    	//location.reload();
       		    }, function myError(response) {
       		        console.error(response);
       		        alert(response.data.mensajeFuncional);
