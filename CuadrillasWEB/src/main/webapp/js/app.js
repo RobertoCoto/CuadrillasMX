@@ -13,9 +13,65 @@ var data;
                 templateUrl : 'templates/menu.html',
                 controller  : 'validaUsuario'
             })
-            .when('/cambioContrasena', {
+            .when('/10', {
+                templateUrl : 'catalogo/index.html',
+                controller  : 'catalogoctrl'
+            })
+             .when('/12', {
+                templateUrl : 'usuario/cambio_contra.html',
+                controller  : 'cambioDatos'
+            })
+            .when('/13', {
                 templateUrl : 'usuario/cambio_contra_gral.html',
                 controller  : 'adminDatos'
+            })
+            .when('/13', {
+                templateUrl : 'usuario/cambio_contra_gral.html',
+                controller  : 'adminDatos'
+            })
+            .when('/20', {
+                templateUrl : 'empleado/index.html',
+                controller  : 'registraEmpleado'
+            })
+            .when('/30', {
+                templateUrl : 'cuadrillas/admin_cuadrillas.html',
+                controller  : 'adminCuad'
+            })
+            .when('/31', {
+                templateUrl : 'altaContrato/index.html',
+                controller  : 'altacontratoctrl'
+            })
+            .when('/32', {
+                templateUrl : 'registroAgenda/index.html',
+                controller  : 'pendiente'
+            })
+            .when('/33', {
+                templateUrl : 'consultaAgenda/index.html',
+                controller  : 'pendiente'
+            })
+            .when('/34', {
+                templateUrl : 'asistencia/index.html',
+                controller  : 'entradaAsistencia'
+            })
+            .when('/40', {
+                templateUrl : 'buzoncentral pendiente',
+                controller  : 'pendiente'
+            })
+            .when('/41', {
+                templateUrl : 'buzonresidente pendiente',
+                controller  : 'pendiente'
+            })
+            .when('/50', {
+                templateUrl : 'reporte1 pendiente',
+                controller  : 'pendiente'
+            })            
+            .when('/51', {
+                templateUrl : 'reporte2 pendiente',
+                controller  : 'pendiente'
+            })
+            .when('/52', {
+                templateUrl : 'reporte3 pendiente',
+                controller  : 'pendiente'
             })            
             .otherwise({redirectTo : '/login'})
 
