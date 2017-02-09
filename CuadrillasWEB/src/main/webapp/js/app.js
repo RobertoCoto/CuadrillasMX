@@ -22,7 +22,6 @@ var data;
     });
  
     app.controller('validaUsuario',["$scope","$http", "$location", function ($scope,$http, $location) {
-    		data = null;
 		    $scope.validar = function() {		   
 		    	$http({
 		              method: 'GET',
