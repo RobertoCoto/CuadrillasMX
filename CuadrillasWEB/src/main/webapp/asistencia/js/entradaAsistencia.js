@@ -35,6 +35,14 @@ app.controller('entradaAsistencia', function ($scope, $http) {
             
             
            $scope.entrada = function(asistencia) {
+        	   
+           var confirmar = confirm("¿Esta seguro de registrar la entrada?"); 
+
+				if (!confirmar) 
+				{
+					alert('se ha cancelado la operacion.'); 
+					return false;
+				} 	
 
            $scope.idEmpleado = asistencia.idEmpleado;
            $scope.coment = document.getElementById(""+$scope.idEmpleado+"").value;
@@ -69,6 +77,14 @@ app.controller('entradaAsistencia', function ($scope, $http) {
         	   };
            
             $scope.salida = function(asistencia) {
+            	
+            var confirmar = confirm("¿Esta seguro de registrar la salida?"); 
+
+				if (!confirmar) 
+				{
+					alert('se ha cancelado la operacion.'); 
+					return false;
+				} 	
             	
               $scope.idEmpleado = asistencia.idEmpleado;
         		$http({
