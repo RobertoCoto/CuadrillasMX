@@ -154,7 +154,7 @@
 			      <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="sueldo" class="control-label">Sueldo</label>
-                            <input type="number" name="sueldo" placeholder="$" id="sueldo" class="form-control" data-form="sueldo">
+                            <input type="text" name="sueldo" placeholder="$" id="sueldo" class="form-control" data-form="sueldo">
                             <div class="amt_errorSueldo"></div>
                         </div>
                     </div>
@@ -256,8 +256,8 @@
 			     <div class="row">
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
-                            <label for="alta" class="control-label">Notificar Alta IMSS</label>
-                            <input type="checkbox" class="form-control" checked  disabled >
+                            <label for="alta" class="control-label">Notificar Alta IMSS: </label>
+                            <input type="checkbox"  checked  disabled >
                         </div>
                     </div>
 			     </div>
@@ -265,6 +265,7 @@
 			     <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
+                            <br/>
                            <textarea rows="5" cols="120" id="observaciones" class="form-comtrol"></textarea>
                         </div>
                     </div>
@@ -329,12 +330,12 @@
                				 </div></th>
 								</tr>
 								<tr class="success">
-								<td>Numero</td>
-								<td>Puesto</td>
-								<td>Nombre</td>
-								<td>Fecha Ingreso</td>
-								<td>Estatus</td>
-								<td colspan="3"><center>Operaciones</center></td>
+								<td><b>Numero</b></td>
+								<td><b>Puesto</b></td>
+								<td><b>Nombre</b></td>
+								<td><b>Fecha Ingreso</b></td>
+								<td><b>Estatus</b></td>
+								<td colspan="3"><center><b>Operaciones</b></center></td>
 							   
 								</tr>
 							<tr ng-repeat="general in resultadoDatos | filter: busqueda">
@@ -386,9 +387,9 @@
 							
 							</td>
 						
-							<td ng-if="general.estatus === 'I'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)" disabled>Baja</button></td>
+							<td ng-if="general.estatus === 'I'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)" disabled style="background-color:#f44336;color:white;">Baja</button></td>
 							<td ng-if="general.estatus === 'I'"><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)" disabled>Permiso Laboral</button></td>
-							<td ng-if="general.estatus === 'A'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)">Baja</button></td>
+							<td ng-if="general.estatus === 'A'"><button class="btn btn-success btn-sm" data-ng-click="bajaEmpleado(general)" style="background-color:#f44336;color:white;">Baja</button></td>
 							<td ng-if="general.estatus === 'A'"><button class="btn btn-success btn-sm" data-ng-click="permisoEmpleado(general)">Permiso Laboral</button></td>
 							
 							</tr>

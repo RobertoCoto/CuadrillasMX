@@ -83,14 +83,14 @@
                 		<div class="table-responsive">
                 			<table class="table table-bordered">
                 				<tr class="success">
-                				<td>Número</td>
-                				<td>Nombre</td>
-                				<td>Vialidad</td>
-                				<td>Residente</td>
-                				<td>#Per</td>
-                				<td>Cal</td>
-                				<td>Estatus</td>
-                				<td colspan="2">Operaciones</td>
+                				<td><b>Número</b></td>
+                				<td><b>Nombre</b></td>
+                				<td><b>Vialidad</b></td>
+                				<td><b>Residente</b></td>
+                				<td><b>#Per</b></td>
+                				<td><b>Cal</b></td>
+                				<td><b>Estatus</b></td>
+                				<td colspan="2"><b>Operaciones</b></td>
                 				</tr>
                 				
                 				<tr ng-repeat="datosCuadrilla in resultadoCuadrilla">
@@ -104,7 +104,7 @@
                 				<td data-ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
                 				<td data-ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>
                 				<td><button class="btn btn-info" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
-                				<td><button class="btn btn-info" ng-click="bajaCuadrilla(datosCuadrilla)">Baja</button></td>
+                				<td><button class="btn" ng-click="bajaCuadrilla(datosCuadrilla)" style="background-color:#f44336;color:white;">Baja</button></td>
                 				</tr>
        
                 			</table>
@@ -119,10 +119,10 @@
                 		<div class="table-responsive">
                 			<table class="table table-bordered">
                 				<tr class="success">
-                				<td>Perfil</td>
-                				<td>Nombre</td>
-                				<td>Cal</td>
-                				<td>Estatus</td>
+                				<td><b>Perfil</b></td>
+                				<td><b>Nombre</b></td>
+                				<td><b>Cal</b></td>
+                				<td><b>Estatus</b></td>
                 				</tr>
                 				
                 				<tr ng-repeat="colaborador in resultadoColaborador">

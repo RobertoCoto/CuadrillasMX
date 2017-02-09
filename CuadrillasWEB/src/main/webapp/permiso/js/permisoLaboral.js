@@ -56,6 +56,14 @@ app.controller('registraPermiso', function ($scope, $http) {
 		    				alert('se ha cancelado la operacion.'); 
 		    					return false;
 		    			} 	
+		    			
+		    	
+                $scope.coment = document.getElementById("comentario").value;
+                
+                if($scope.coment == "") {
+                	return false;
+                	}
+                
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
