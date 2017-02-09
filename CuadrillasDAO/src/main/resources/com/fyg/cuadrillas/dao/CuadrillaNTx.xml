@@ -32,7 +32,7 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
-	SELECT c.id_cuadrilla, 
+SELECT c.id_cuadrilla, 
  c.nombre_cuadrilla,
  c.codigo_vialidad,
  c.calificacion,

@@ -271,7 +271,7 @@ public class CuadrillaDTO extends ObjetoValor {
 		this.idEmpleadoResidente = idEmpleadoResidente;
 	}
 	/**
-	 * @return the nombreResidente
+	 * @return the nombreResidente en cuadrilla
 	 */
 	public String getNombreResidente() {
 		return nombreResidente;

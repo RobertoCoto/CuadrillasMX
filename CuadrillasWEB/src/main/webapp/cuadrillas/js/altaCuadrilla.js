@@ -182,7 +182,6 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    	
 		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
-		    		
 		    		var confirmar = confirm(" ¿Esta seguro de dar de baja la cuadrilla? "); 
 
 		    		if (!confirmar) 
