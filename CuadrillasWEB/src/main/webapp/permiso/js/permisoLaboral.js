@@ -63,7 +63,6 @@ app.controller('registraPermiso', function ($scope, $http) {
                 if($scope.coment == "") {
                 	return false;
                 	}
-                
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',

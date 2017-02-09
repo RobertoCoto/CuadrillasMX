@@ -78,7 +78,6 @@ app.controller('bajaEmpleado', function ($scope, $http) {
                 if($scope.coment == "") {
                 	return false;
                 	}
-                
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',
