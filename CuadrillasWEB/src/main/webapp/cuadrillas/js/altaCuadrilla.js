@@ -31,6 +31,14 @@ app.controller('adminCuad', function ($scope, $http) {
 		    });
 		    
 		    $scope.registrar = function(cuadrilla) {
+		    	 var confirmar = confirm("¿Esta seguro de registrar la cuadrilla?"); 
+
+		    	 if (!confirmar) 
+		    	 {
+		    		 alert('se ha cancelado la operacion.'); 
+		    		 return false;
+		    	 } 	
+		    
 		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
 		    	var nombreCuadrilla = document.getElementById("nombre").value;
 		    	$scope.vialidad = cuadrilla.vialidad;
