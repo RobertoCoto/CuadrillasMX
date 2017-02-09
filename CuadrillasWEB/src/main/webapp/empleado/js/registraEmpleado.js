@@ -370,20 +370,32 @@ $scope.pagoValor = $scope.datoPago;
              
             
     	   
-    	   document.getElementById("noEmpleado").value = general.noEmpleado;
-    	   document.getElementById("nombre").value = general.nombre;
-    	   document.getElementById("apellidoPaterno").value = general.apellidoPat;
-    	   document.getElementById("apellidoMaterno").value = general.apellidoMat;
-    	   document.getElementById("fechaNacimiento").value = general.fechaNacimiento;
-    	   document.getElementById("nss").value = general.nss;
-    	   document.getElementById("telefono").value = general.telefono;
-    	   document.getElementById("rfc").value = general.rfc;
-    	   document.getElementById("calificacion").value = general.calificacion;
-    	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
-    	   document.getElementById("sueldo").value = general.sueldo;
-    	   $scope.cuadri = general.idCuadrilla;
-    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
-    	   document.getElementById("cCuadrilla").value = $scope.cuadri;
+    	    document.getElementById("noEmpleado").value = general.noEmpleado;
+   	   document.getElementById("noEmpleado").disabled = false;
+   	   document.getElementById("nombre").value = general.nombre;
+   	   document.getElementById("nombre").disabled = false;
+   	   document.getElementById("apellidoPaterno").value = general.apellidoPat;
+   	   document.getElementById("apellidoPaterno").disabled= false;
+   	   document.getElementById("apellidoMaterno").value = general.apellidoMat;
+   	   document.getElementById("apellidoMaterno").disabled = false;
+   	   document.getElementById("fechaNacimiento").value = general.fechaNacimiento;
+   	   document.getElementById("fechaNacimiento").disabled = false;
+   	   document.getElementById("apellidoMaterno").disabled = false;
+   	   document.getElementById("nss").value = general.nss;
+   	   document.getElementById("nss").disabled = false;
+   	   document.getElementById("telefono").value = general.telefono;
+   	   document.getElementById("telefono").disabled = false;
+   	   document.getElementById("rfc").value = general.rfc;
+   	   document.getElementById("rfc").disabled = false;
+   	   document.getElementById("calificacion").value = general.calificacion;
+   	   document.getElementById("calificacion").disabled = false;
+   	   document.getElementById("noCreditoInfonavit").value = general.noCreditoInfonavit;
+   	   document.getElementById("noCreditoInfonavit").disabled = false;
+   	   document.getElementById("sueldo").value = general.sueldo;
+   	   document.getElementById("sueldo").disabled = false;
+   	   $scope.cuadri = general.idCuadrilla;
+   	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
+   	   document.getElementById('idCuadrilla').disabled;
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
@@ -402,42 +414,49 @@ $scope.pagoValor = $scope.datoPago;
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "1";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    if(general.codigoPuesto == "CABO") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "2";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    if(general.codigoPuesto == "CHOF") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "3";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	     if(general.codigoPuesto == "MAQU") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "4";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    if(general.codigoPuesto == "OFCE") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "5";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    if(general.codigoPuesto == "PODA") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "6";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    if(general.codigoPuesto == "RESI") 
     	    {
     	    	console.log(general.codigoPuesto);
     	    	document.getElementById("codigoPuesto").selectedIndex = "7";
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
+    	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
     	    
     		 //validacion de talla
@@ -446,30 +465,35 @@ $scope.pagoValor = $scope.datoPago;
     	    	console.log(general.codigoTalla);
     	    	document.getElementById("codigoTalla").selectedIndex = "1";
     	    	document.getElementById("cTalla").value = general.codigoTalla;
+    	    	document.getElementById("codigoTalla").disabled = false;
     	    }
     	   if(general.codigoTalla == "GRAN") 
     	    {
     	    	console.log(general.codigoTalla);
     	    	document.getElementById("codigoTalla").selectedIndex = "2";
     	    	document.getElementById("cTalla").value = general.codigoTalla;
+    	    	document.getElementById("codigoTalla").disabled = false;
     	    }
     	    if(general.codigoTalla == "MEDI") 
     	    {
     	    	console.log(general.codigoTalla);
     	    	document.getElementById("codigoTalla").selectedIndex = "3";
     	    	document.getElementById("cTalla").value = general.codigoTalla;
+    	    	document.getElementById("codigoTalla").disabled = false;
     	    }
     	    if(general.codigoTalla == "EXCH") 
     	    {
     	    	console.log(general.codigoTalla);
     	    	document.getElementById("codigoTalla").selectedIndex = "4";
     	    	document.getElementById("cTalla").value = general.codigoTalla;
+    	    	document.getElementById("codigoTalla").disabled = false;
     	    }
     	    if(general.codigoTalla == "EXGR") 
     	    {
     	    	console.log(general.codigoTalla);
     	    	document.getElementById("codigoTalla").selectedIndex = "5";
     	    	document.getElementById("cTalla").value = general.codigoTalla;
+    	    	document.getElementById("codigoTalla").disabled = false;
     	    }
     	    
     	    //validacion area
@@ -478,6 +502,7 @@ $scope.pagoValor = $scope.datoPago;
     	    	console.log(general.codigoArea);
     	    	document.getElementById("codigoArea").selectedIndex = "1";
     	    	document.getElementById("cArea").value = general.codigoArea;
+    	    	document.getElementById("codigoArea").disabled = false;
     	    }
     	    
     	    //validacion vialidad
@@ -485,31 +510,37 @@ $scope.pagoValor = $scope.datoPago;
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "1";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	     if(general.codigoVialidad == "EJE6") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "2";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	     if(general.codigoVialidad == "EJE7") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "3";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	     if(general.codigoVialidad == "INSU") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "4";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	     if(general.codigoVialidad == "UNIV") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "5";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	     if(general.codigoVialidad == "ZARA") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "6";
+    	    	document.getElementById("codigoVialidad").disabled = false;
     	    }
     	   
     	   document.getElementById('editar').style.display='none'; 
