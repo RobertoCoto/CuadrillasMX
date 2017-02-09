@@ -151,6 +151,14 @@ app.controller('adminCuad', function ($scope, $http) {
 		    
 		    $scope.actualizar = function(cuadrilla) {
 		    	
+		    var confirmar = confirm("¿Esta seguro de actualizar la cuadrilla?"); 
+
+		    	 if (!confirmar) 
+		    	 {
+		    		 alert('se ha cancelado la operacion.'); 
+		    		 return false;
+		    	 } 	
+		    	
 		    	$scope.vialidad = document.getElementById("dataVialidad").value;
 		    	$http({
 		              method: 'GET',
