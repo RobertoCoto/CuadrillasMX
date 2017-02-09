@@ -59,7 +59,7 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("El permiso ha sido registrado exitosamente.");
 		try {
 			//Validamos si ya existe un permiso
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -103,7 +103,7 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Registro En la BD correcta.");	
+		respuesta.setMensajeFuncional("El permiso ha sido autorizado exitosamente.");	
 		try {
 			//Validamos si ya existe una autorizacion
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -147,7 +147,7 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("baja correcta.");
+		respuesta.setMensajeFuncional("El permiso ha sido dado de baja.");
 		
 		try {
 			//Validamos si ya esta dado de baja

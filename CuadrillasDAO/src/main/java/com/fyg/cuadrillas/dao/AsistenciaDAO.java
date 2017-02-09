@@ -22,7 +22,7 @@ public class AsistenciaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro de entrada correcto.");
+		respuesta.setMensajeFuncional("Se ha registrado la entrada del empleado correctamente.");
 		
 		try {
 			//Validamos si el empleado esta activo
@@ -71,7 +71,7 @@ public class AsistenciaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("actualización salida correcta.");
+		respuesta.setMensajeFuncional("Se ha registrado la salida del empleado correctamente..");
 		
 		try { 
 			//Validamos si la hora de entrada ya fue registrada
@@ -124,7 +124,7 @@ public class AsistenciaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("baja correcta.");
+		respuesta.setMensajeFuncional("Se ha realizado la baja de la asistencia correctamente.");
 		
 		try {
 			//Validamos si la hora de entrada ya fue registrada
@@ -168,7 +168,7 @@ public class AsistenciaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
+		respuesta.setMensajeFuncional("Consulta asistencia correcta.");
 		List<AsistenciaDTO> listaAsistencia = null;
 		try {
 			//Abrimos conexion Transaccional

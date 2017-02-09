@@ -24,7 +24,7 @@ public class EmpleadoDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("registro correcto.");
+			respuesta.setMensajeFuncional("El empleado ha sido registrado exitosamente.");
 			try {
 				
 				//Validamos si ya existe el noEmpleado 
@@ -95,7 +95,7 @@ public class EmpleadoDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("baja correcto.");
+		respuesta.setMensajeFuncional("El empleado ha sido dado de baja exitosamente.");
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -195,7 +195,7 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("modificacion correcta.");
+		respuesta.setMensajeFuncional("El empleado se ha modificado exitosamente.");
 		try {
 			//validaciones conexion transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();

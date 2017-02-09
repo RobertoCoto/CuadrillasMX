@@ -22,7 +22,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Registro correcto.");
+		respuesta.setMensajeFuncional("Se ha registrado la cuadrilla correctamente.");
 		try {
 			//Validamos si ya existe una misma cuadrilla
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -71,7 +71,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("inactivación correcta.");
+		respuesta.setMensajeFuncional("La cuadrilla ha sido dado de baja exitosamente.");
 		
 		try {
 			//Validamos si ya esta dado de baja el contrato
@@ -149,7 +149,7 @@ public class CuadrillaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Modificacion correcta.");
+		respuesta.setMensajeFuncional("La cuadrilla se ha modificado correctamente.");
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();

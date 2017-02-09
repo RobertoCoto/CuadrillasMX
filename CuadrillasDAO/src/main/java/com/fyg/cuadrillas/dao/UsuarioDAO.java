@@ -52,7 +52,7 @@ public class UsuarioDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("Registro correcto.");
+			respuesta.setMensajeFuncional("Se ha registrado el usuario correctamente.");
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -88,7 +88,7 @@ public class UsuarioDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("Baja correcta.");
+			respuesta.setMensajeFuncional("El usuario ha sido dado de baja correctamente.");
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -158,7 +158,7 @@ public class UsuarioDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Modificacion correcta.");
+		respuesta.setMensajeFuncional("Se ha modificado la contraseña correctamente.");
 		try {
 			//Validamos si el usuario esta activo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -207,7 +207,7 @@ public class UsuarioDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Modificacion correcta.");
+		respuesta.setMensajeFuncional("Se ha modificado la contraseña correctamente.");
 		try {
 			//Validamos si el usuario esta activo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
