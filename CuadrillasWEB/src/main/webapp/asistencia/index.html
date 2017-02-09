@@ -107,7 +107,6 @@
                 				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
-                				
                 				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)"></td>
                 				<td ng-if="asistencia.horaEntrada != NULL">
                 				<p ng-if="asistencia.horaSalida === NULL">

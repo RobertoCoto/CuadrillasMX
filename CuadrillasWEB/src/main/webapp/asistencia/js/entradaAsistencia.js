@@ -41,13 +41,11 @@ app.controller('entradaAsistencia', function ($scope, $http) {
            
            if($scope.coment == "") {
         	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">Escriba un Comentario.</span>';
-        	  
         	   return false;
         	   }
            
         if($scope.coment.length < 10) {
         	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">El comentario debe tener minimo 10 carac.</span>';
-        	  
         	   return false;
         	   }
          
