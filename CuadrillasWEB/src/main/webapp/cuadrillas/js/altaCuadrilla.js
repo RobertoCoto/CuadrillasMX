@@ -182,7 +182,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	};
 		    	
 		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
-		    		$scope.CuadrillaData = datosCuadrilla.idCuadrilla;
+		    		
 		    		var confirmar = confirm(" ¿Esta seguro de dar de baja la cuadrilla? "); 
 
 		    		if (!confirmar) 
@@ -190,6 +190,8 @@ app.controller('adminCuad', function ($scope, $http) {
 		    			alert('se ha cancelado la operacion.'); 
 						return false;
 		    		}
+		    		
+		    		$scope.CuadrillaData = datosCuadrilla.idCuadrilla;
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaCuadrilla',
