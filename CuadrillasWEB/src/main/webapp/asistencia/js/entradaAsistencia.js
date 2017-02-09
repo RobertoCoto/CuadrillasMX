@@ -52,13 +52,13 @@ app.controller('entradaAsistencia', function ($scope, $http) {
             }
             
            $scope.entrada = function(asistencia) {
-        	   
+        	   $scope.comentario = document.getElementById("comentario").value;
+               if($scope.comentario == "") {
+            	   return false
+            	   } 
            $scope.idEmpleado = asistencia.idEmpleado;
-           $scope.comentario = document.getElementById("comentario").value;
+         
            
-           if($scope.comentario == "") {
-        	   return false
-        	   }
            
         		$http({
                     method: 'GET',
