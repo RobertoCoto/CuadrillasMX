@@ -17,6 +17,15 @@ body
     user-select: none;
 }
 
+   		.btn-default-local,
+		.btn-default-local:hover,
+		.btn-default-local:focus {
+  			color: #80298f;
+  			background-color: #abcf37;
+  			border: 1px solid #abcf37;
+  			height:25px;
+		}
+
 /*menu*/
 .sidenav {
     height: 100%; /* 100% Full-height */
@@ -81,7 +90,7 @@ body
 	text-align:right; 
 	font-size: 1.1em;
 	padding: 10px 0 25px 0;
-    font-size: 36px;
+    font-size: 12px;
     margin-left: 200px;
 	color: #92278f;
 	}

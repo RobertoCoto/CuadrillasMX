@@ -32,10 +32,17 @@ var data;
 				         }
 				    }).then(function mySucces(response) {
                         console.info(response);                        
-                        alert('hola');
-                        $location.path('/menu');
-                        $scope.$apply();                        
                         data = response;
+                        $location.path('/menu');
+				        if (!$scope.$$phase && !$scope.$root.$$phase) {
+				            $scope.$apply();
+				            console.log("Scope Apply Done !!");
+				          } 
+				          else {
+				            setTimeout(function() {
+				            	$scope.$apply();
+				            }, 200);
+				          }                                                
                         console.info("*******prueba*******");
                         console.info(data);                        
                         document.getElementById("usuario").value="";
@@ -46,16 +53,16 @@ var data;
                         data = response;
                         console.info("*******prueba*******");
                         console.info(data);				        
-				        $location.path('/menu');
-				        if (!$scope.$$phase && !$scope.$root.$$phase) {
-				            $scope.$apply();
-				            console.log("Scope Apply Done !!");
-				          } 
-				          else {
-				            setTimeout(function() {
-				            	$scope.$apply();
-				            }, 200);
-				          }                        
+				        //$location.path('/menu');
+				        //if (!$scope.$$phase && !$scope.$root.$$phase) {
+				        //    $scope.$apply();
+				        //    console.log("Scope Apply Done !!");
+				        //  } 
+				        //  else {
+				        //    setTimeout(function() {
+				        //    	$scope.$apply();
+				        //    }, 200);
+				        //  }                        
 				    });
 		    }		    
 }]);
