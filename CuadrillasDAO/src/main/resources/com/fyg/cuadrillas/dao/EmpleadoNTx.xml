@@ -93,6 +93,20 @@ FROM empleado
 WHERE rfc_calculado = #{rfcCalculado}
 </select>
 
+<select id="existeNoEmpleadoDato" parameterType="empleado" resultType="int">
+SELECT count(no_empleado) as no_empleado
+FROM empleado 
+WHERE no_empleado = #{noEmpleado}
+AND id_empleado != #{idEmpleado}
+</select>
+
+<select id="existeRfcCalculadoDato" parameterType="empleado" resultType="int">
+SELECT count(rfc_calculado) as rfc_calculado
+FROM empleado 
+WHERE rfc_calculado = #{rfcCalculado} 
+AND id_empleado != #{idEmpleado}
+</select>
+
 <select id="consultaDocumentos" parameterType="empleadoDocumento" resultType="empleadoDocumento">
 SELECT d.codigo_emp_doc AS codigoEmpDoc, d.estatus,c.descripcion AS descripcionDocumento
 FROM empleado_documentos d

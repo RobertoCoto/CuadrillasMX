@@ -8,6 +8,8 @@
 <result column="codigo_vialidad" property="codigoVialidad"/>
 <result column="numero_personas" property="numeroPersonas"/>
 <result column="nombre_vialidad" property="nombreVialidad"/>
+<result column="nombre_residente" property="nombreResidente"/>
+<result column="id_empleado_residente" property="idEmpleadoResidente"/>
 </resultMap>
 
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
@@ -30,17 +32,20 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
-	SELECT c.id_cuadrilla, 
-		   c.nombre_cuadrilla,
-		   c.codigo_vialidad,
-		   c.calificacion,
-		   c.estatus,ca.descripcion AS nombre_vialidad,
-		   count(e.id_empleado) AS numero_personas
-	FROM cuadrilla c
-	LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
-	LEFT JOIN catalogo ca ON c.codigo_vialidad = ca.codigo
-	WHERE c.estatus = 'A' 
-	GROUP BY c.id_cuadrilla, 
-		   c.nombre_cuadrilla
+SELECT c.id_cuadrilla, 
+ c.nombre_cuadrilla,
+ c.codigo_vialidad,
+ c.calificacion,
+ c.estatus,ca.descripcion AS nombre_vialidad,
+ count(e.id_empleado) AS numero_personas,
+ er.id_empleado AS id_empleado_residente,
+ CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombre_residente
+FROM cuadrilla c
+LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
+LEFT JOIN empleado er ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A' AND e.codigo_puesto = 'RESI'
+LEFT JOIN catalogo ca ON c.codigo_vialidad = ca.codigo
+WHERE c.estatus = 'A' 
+GROUP BY c.id_cuadrilla, 
+ c.nombre_cuadrilla
 </select>
 </mapper>

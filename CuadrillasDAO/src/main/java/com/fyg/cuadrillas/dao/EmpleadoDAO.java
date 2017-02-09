@@ -79,6 +79,7 @@ public class EmpleadoDAO {
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	}
@@ -190,16 +191,24 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
     */
    public EncabezadoRespuesta modificaEmpleado(String uid, EmpleadoDTO empleado) {
 	 	SqlSession sessionTx = null;
+	 	SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("modificacion correcta.");
 		try {
-			//Abrimos conexion Transaccional
-			//documento = new EmpleadoDocumentoDTO();
-			//documento.setIdEmpleado(empleado.getIdEmpleado());
-			//envia el id al metodo que elimina el documentos
-			//eliminaDocumentos(uid,documento);
+			//validaciones conexion transaccional
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeNoEmpleado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleadoDato", empleado);
+			if (existeNoEmpleado > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
+			}
+			
+			int existeRFCCalculado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculadoDato", empleado);
+			if (existeRFCCalculado > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe el RFC calculado del empleado.");
+			}
+			//abrimos conexion transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("EmpleadoDAO.modificaEmpleado", empleado);
 			if ( registros == 0) {
@@ -228,9 +237,6 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 				}
 				registraDocumentos(uid, empleado.getDocumentosNA(), sessionTx);
 			}
-			
-			
-			
 			//Realizamos commit
 			sessionTx.commit();
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -245,6 +251,7 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
    }
