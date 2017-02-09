@@ -50,10 +50,17 @@
       <div id="main"> 
       	<span style="font-size:30px;cursor:pointer"  onclick= "	document.getElementById('mySidenav').style.width = '255px';
 		    																	document.getElementById('main').style.marginLeft = '255px';
-		    																	document.getElementById('contenedor').style.marginLeft = '260px';">&#9776;</span>
-      	<span class="header">Titulo Página</span>
-      	</br>
-      	<span style="float:right; color:white; font-size:11px;" id="sUsuario">{{usuario.nombre}} {{usuario.apellidoPat}} {{usuario.apellidoMat}} - {{usuario.nombrePerfil}}</span>
+		    																	document.getElementById('contenedor').style.marginLeft = '260px';">&#9776;
+		</span>
+		    																	
+      	<span class="header">
+      		{{usuario.nombre}} {{usuario.apellidoPat}} {{usuario.apellidoMat}} - {{usuario.nombrePerfil}}
+      		<button class="btn-default-local" style="float:right">      		        
+      			<a href="index.html" class="btn-default-local">
+    				Log out
+				</a>
+			</button>
+      	</span>
       </div>      
 
       <div id="contenedor" ui-view></div>
