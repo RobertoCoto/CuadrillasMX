@@ -99,7 +99,7 @@
                 				
                 				<tr ng-repeat="asistencia in resultadoAsistencia">
                 				<td>{{asistencia.perfilEmpleado}}</td>
-                				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencias.apellidoMaterno}}</td>
+                				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencia.apellidoMaterno}}</td>
                 				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" >
                 				<div class="amt_errorComentario" id=errdata:{{asistencia.idEmpleado}}></div>
                 				</td>
