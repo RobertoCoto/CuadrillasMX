@@ -58,7 +58,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	        usuario.setContrasena(password);
 	        respuesta = negocio.loginUsuario(usuario);
 	        //convierte  a formato Json
-	        if (respuesta.isEstatus()) {
+	        if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
