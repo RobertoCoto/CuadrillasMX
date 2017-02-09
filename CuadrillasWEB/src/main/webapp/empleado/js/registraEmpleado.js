@@ -440,7 +440,7 @@ $scope.pagoValor = $scope.datoPago;
     	    if(general.codigoPuesto == "OFCE") 
     	    {
     	    	console.log(general.codigoPuesto);
-    	    	document.getElementById("codigoPuesto").selectedIndex = "5";
+    	    	document.getElementById("codigoPuesto").selectedIndex = "5"; 
     	    	document.getElementById("cPuesto").value = general.codigoPuesto;
     	    	document.getElementById("codigoPuesto").disabled = false;
     	    }
