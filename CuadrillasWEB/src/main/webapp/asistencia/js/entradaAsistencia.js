@@ -48,8 +48,7 @@ app.controller('entradaAsistencia', function ($scope, $http) {
         	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">El comentario debe tener minimo 10 carac.</span>';
         	   return false;
         	   }
-         
-           
+    
              
         		$http({
                     method: 'GET',
@@ -62,7 +61,7 @@ app.controller('entradaAsistencia', function ($scope, $http) {
       		    }).then(function mySucces(response) {
       		    	 alert(response.data.mensajeFuncional);
       		    	 console.info(response);
-      		    	//location.reload();
+      		    	location.reload();
       		    }, function myError(response) {
       		        console.error(response);
       		        alert(response.data.mensajeFuncional);
