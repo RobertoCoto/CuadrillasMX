@@ -5,8 +5,9 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.negocio.UsuariosNegocio;
 import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
+import com.fyg.cuadrillas.negocio.UsuariosNegocio;
 
 public class LoginUsuarioTest {
 	/**
@@ -30,8 +31,8 @@ public class LoginUsuarioTest {
 	public void setUp() throws Exception {
 		loginUser = new UsuariosNegocio();
 		datosUsuario = new UsuarioDTO();
-		datosUsuario.setUsuario("rcoto");
-		datosUsuario.setContrasena("rcoto");
+		datosUsuario.setUsuario("mimejorada");
+		datosUsuario.setContrasena("mimejorada");
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario
@@ -46,7 +47,8 @@ public class LoginUsuarioTest {
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");
 		try {
-			loginUser.loginUsuario(datosUsuario);
+			UsuarioRespuesta respuesta = loginUser.loginUsuario(datosUsuario);
+			System.out.println(respuesta);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

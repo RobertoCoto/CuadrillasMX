@@ -94,6 +94,10 @@ public class UsuarioDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * Id unico del perfil
+	 */
+	private Integer idCuadrilla;
+	/**
 	 * @return obtiene el usuario
 	 */
 	public String getUsuario() {
@@ -345,4 +349,17 @@ public class UsuarioDTO extends ObjetoValor {
 	public void setRepetirContrasenaNueva(String repetirContrasenaNueva) {
 		this.repetirContrasenaNueva = repetirContrasenaNueva;
 	}
+	/**
+	 * @return the idCuadrilla
+	 */
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
+	}
+	/**
+	 * @param idCuadrilla the idCuadrilla to set
+	 */
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
+	}
+
 }

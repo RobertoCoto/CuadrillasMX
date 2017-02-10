@@ -39,8 +39,7 @@ public class ConsultaUsuarioLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioRespuesta respuesta = new UsuarioRespuesta();
-		MenuRespuesta respuestaMenu = new MenuRespuesta();
+		UsuarioRespuesta respuesta = new UsuarioRespuesta();		
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();

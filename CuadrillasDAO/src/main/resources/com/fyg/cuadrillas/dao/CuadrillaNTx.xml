@@ -42,7 +42,7 @@ SELECT c.id_cuadrilla,
  CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombre_residente
 FROM cuadrilla c
 LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
-LEFT JOIN empleado er ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A' AND e.codigo_puesto = 'RESI'
+LEFT JOIN empleado er ON er.id_cuadrilla = c.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 LEFT JOIN catalogo ca ON c.codigo_vialidad = ca.codigo
 WHERE c.estatus = 'A' 
 GROUP BY c.id_cuadrilla, 

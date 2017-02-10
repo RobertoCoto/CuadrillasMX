@@ -171,8 +171,18 @@ public class UsuariosNegocio {
 		    	if (!respuestaMenu.getHeader().isEstatus()) {
 		    		throw new ExcepcionesCuadrillas("No fue posible cargar el menu del perfil solicitado.");
 		    	}
+		    	ParametroNegocio datoParametro = new ParametroNegocio();
+		    	String idPerfilResidente = datoParametro.consultaParametro(uid, "perfil.residente");
 		    	
-		    	
+		    	if (!idPerfilResidente.trim().equals(loginUsuario.getIdPerfil())) {
+		    		loginUsuario.setIdCuadrilla(null);
+		    		LogHandler.debug(uid, this.getClass(), "Usuario No Residente");
+		    		
+		    	} else {
+		    		LogHandler.debug(uid, this.getClass(), "Usuario  Residente idCuadrilla=" + loginUsuario.getIdCuadrilla());
+		    	}
+
+		    	loginUsuario.setNombrePerfil(loginUsuario.getNombrePerfil().toUpperCase());
 		    	respuesta.setUsuario(loginUsuario);
 		    	respuesta.setMenu(respuestaMenu.getMenu());
 		    } catch  (ExcepcionesCuadrillas ex) {
