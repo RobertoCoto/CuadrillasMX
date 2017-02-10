@@ -87,7 +87,7 @@ var data;
 		    $scope.validar = function() {		   
 		    	$http({
 		              method: 'GET',
-		              url: 'http://10.1.50.149:8080/CuadrillasWEB/ConsultaUsuarioLogin',
+		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaUsuarioLogin',
 		              params: {
 		    			"user" : document.getElementById("usuario").value,
 				 		"password": document.getElementById("clave").value
