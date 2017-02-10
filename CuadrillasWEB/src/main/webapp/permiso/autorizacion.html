@@ -9,6 +9,25 @@
 <title>Autorizacion Permiso Laboral</title>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/autorizacion.js"></script>
+<style>
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+}
+</style>
 </head>
 <body ng-app="tatei" ng-controller="autorizacionLaboral">
 <div class="container">
@@ -53,11 +72,11 @@
                     </div>
 			  </div>
 			  
-			  <div class="row">
+			  <div class="row" ng-repeat="coment in resultado">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" class="form-control" rows="6" cols="56"></textarea>
+                           <textarea id="comentario" class="form-control" rows="4"  disabled  style="width: 801px; height: 107px; ">{{coment.comentarios}}</textarea>
                              <div class="amt_errorComentario"></div>
                         </div>
                     </div>
@@ -129,8 +148,10 @@
 			  <div class="row">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
-                            <label for="goceSueldo" class="control-label">Goce de Sueldo :</label>
-                           <input type="checkbox" id="goce">Si
+                            <span style="font-weight: bold;font-size:17">Goce de Sueldo: &nbsp</span>
+                           <input type="checkbox" id="goce" size="4"><span class="checkboxtext">
+                           &nbsp SI
+                              </span>
                         </div>
                     </div>
 			  </div>

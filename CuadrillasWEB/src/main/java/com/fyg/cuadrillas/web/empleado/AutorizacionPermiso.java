@@ -47,7 +47,6 @@ public class AutorizacionPermiso extends HttpServlet {
 		
 		try {
 			Integer idPermiso = Integer.parseInt(request.getParameter("idPermiso"));
-			String comentario = request.getParameter("comentario");
 			String goceSueldo = request.getParameter("goceSueldo");
 			String estatusAutorizacion = request.getParameter("estatusAutorizacion");
 			String usuario = request.getParameter("usuario");
@@ -63,7 +62,6 @@ public class AutorizacionPermiso extends HttpServlet {
 			
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
 			permiso.setIdPermiso(idPermiso);
-			permiso.setComentarios(comentario);
 			permiso.setGoceSueldo(goceSueldo);
 			permiso.setEstatusAutorizacion(estatusAutorizacion);
 			permiso.setUsuarioAutorizacion(usuario);
