@@ -394,8 +394,19 @@ $scope.pagoValor = $scope.datoPago;
    	   document.getElementById("sueldo").value = general.sueldo;
    	   document.getElementById("sueldo").disabled = false;
    	   $scope.cuadri = general.idCuadrilla;
-   	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
-   	   document.getElementById('idCuadrilla').disabled = false;
+   	   
+   	   if (typeof($scope.cuadri) === "undefined") {
+   		  document.getElementById('idCuadrilla').value="";
+      	   document.getElementById('idCuadrilla').disabled = false;
+      	  document.getElementById("cCuadrilla").value = 0;
+   		   } else {
+   			document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
+   	   	   document.getElementById('idCuadrilla').disabled = false;
+   	   	  document.getElementById("cCuadrilla").value = $scope.cuadri;
+   			   }
+   		   
+   	   
+   	   
     	   //validacion del sexo
     	   if(general.sexo == "M")
     	   { 
@@ -513,36 +524,42 @@ $scope.pagoValor = $scope.datoPago;
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "1";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	     if(general.codigoVialidad == "EJE6") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "2";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	     if(general.codigoVialidad == "EJE7") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "3";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	     if(general.codigoVialidad == "INSU") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "4";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	     if(general.codigoVialidad == "UNIV") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "5";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	     if(general.codigoVialidad == "ZARA") 
     	    {
     	    	console.log(general.codigoVialidad);
     	    	document.getElementById("codigoVialidad").selectedIndex = "6";
     	    	document.getElementById("codigoVialidad").disabled = false;
+    	    	document.getElementById("cVialidad").value = general.codigoVialidad;
     	    }
     	   
     	   document.getElementById('editar').style.display='none'; 
@@ -643,6 +660,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
     		  
     		   $scope.sueldo = document.getElementById("sueldo").value;
     		   $scope.cuadrilla = document.getElementById("cCuadrilla").value;
+    		   console.log("es la cuadrilla: "+ $scope.cuadrilla);
     	       
     	       $scope.vialidad =document.getElementById("cVialidad").value;
      
@@ -650,12 +668,9 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
      {
     	 $scope.sueldo = document.getElementById("sueldo").value = 0;
     	 }
-      if ($scope.cuadrilla == "")
- {
-	 $scope.cuadrilla = document.getElementById("cCuadrilla").value = 0;
-	 }
- 
-	  if ($scope.vialidad == "")
+     
+      
+	  if (typeof($scope.vialidad) === "undefined")
  {
 	 $scope.vialidad = document.getElementById("cVialidad").value = null;
 	 }
@@ -673,10 +688,10 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
             "fechaNacimiento": document.getElementById("fechaNacimiento").value,
             "fechaIngreso": document.getElementById("fechaIngreso").value,
             "codigoPuesto": document.getElementById("cPuesto").value ,
-            "codigoVialidad": $scope.vialidad ,
+            "codigoVialidad": document.getElementById("cVialidad").value ,
             "codigoArea": document.getElementById("cArea").value,
             "codigoTalla": document.getElementById("cTalla").value,
-            "idCuadrilla":  $scope.cuadrilla,
+            "idCuadrilla":  document.getElementById("cCuadrilla").value,
             "telefono": document.getElementById("telefono").value,
             "rfc" : document.getElementById("rfc").value,
             "sueldo": $scope.sueldo,
@@ -756,7 +771,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
    	   document.getElementById('idCuadrilla').disabled = true;
-   	   document.getElementById("cCuadrilla").value = $scope.cuadri;
+   	  
    	   //validacion del sexo
    	   if(general.sexo == "M")
    	   { 
