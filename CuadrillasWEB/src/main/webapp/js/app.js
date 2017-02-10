@@ -1,9 +1,8 @@
 var app = angular.module('tatei', ['ui.bootstrap', 'ui.router']);
 var data;
 
- app.config(function($routeProvider) {
-  $routeProvider
-
+ app.config(function($routeProvider, $stateProvider) {
+	 $routeProvider
             // route for the home page
             .when('/login', {
                 templateUrl : 'templates/login.html',
@@ -21,13 +20,13 @@ var data;
                 templateUrl : 'usuario/cambio_contra.html',
                 controller  : 'cambioDatos'
             })
-            .when('/13', {
+            /*.when('/13', {
                 templateUrl : 'usuario/cambio_contra_gral.html',
                 controller  : 'adminDatos'
-            })
+            })*/
             .when('/13', {
-                templateUrl : 'usuario/cambio_contra_gral.html',
-                controller  : 'adminDatos'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/20', {
                 templateUrl : 'empleado/index.html',
@@ -73,7 +72,14 @@ var data;
                 templateUrl : 'reporte3 pendiente',
                 controller  : 'pendiente'
             })            
-            .otherwise({redirectTo : '/login'})
+            .otherwise({redirectTo : '/login'});
+            
+   		$stateProvider
+        	.state('13', {
+        		url: '/13', 
+                templateUrl : 'usuario/cambio_contra_gral.html',
+                controller  : 'adminDatos'
+        	});            
 
     });
  
@@ -81,7 +87,7 @@ var data;
 		    $scope.validar = function() {		   
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaUsuarioLogin',
+		              url: 'http://10.1.50.149:8080/CuadrillasWEB/ConsultaUsuarioLogin',
 		              params: {
 		    			"user" : document.getElementById("usuario").value,
 				 		"password": document.getElementById("clave").value
