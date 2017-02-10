@@ -27,7 +27,6 @@ WHERE id_empleado = #{idEmpleado}
 AND estatus = 'A'
 AND fecha_solicitud = #{fechaSolicitud}
 </select>
-
 <select id="existeAutorizacion" parameterType="Permiso" resultType="int">
 SELECT count(autorizacion) 
 FROM permiso_laboral

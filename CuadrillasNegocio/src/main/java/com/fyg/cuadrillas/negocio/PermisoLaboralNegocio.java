@@ -55,9 +55,7 @@ public class PermisoLaboralNegocio {
 			
 			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-mm-dd");
 			 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-			
-			
-			
+			 
 			Date fechaMin = formateador.parse(permiso.getFechaSolicitudMinimo());
 			Date fechaMax = formateador.parse(permiso.getFechaSolicitudMaximo());
 			
