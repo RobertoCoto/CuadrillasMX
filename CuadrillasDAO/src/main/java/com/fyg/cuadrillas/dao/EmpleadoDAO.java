@@ -201,12 +201,12 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeNoEmpleado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleadoDato", empleado);
 			if (existeNoEmpleado > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
+				throw new ExcepcionesCuadrillas("Error al editar, ya existe el numero del empleado.");
 			}
 			
 			int existeRFCCalculado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculadoDato", empleado);
 			if (existeRFCCalculado > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, ya existe el RFC calculado del empleado.");
+				throw new ExcepcionesCuadrillas("Error al editar, ya existe el RFC calculado del empleado.");
 			}
 			//abrimos conexion transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
