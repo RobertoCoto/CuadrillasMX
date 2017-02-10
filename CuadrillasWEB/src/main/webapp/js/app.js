@@ -121,7 +121,7 @@ var data;
                 templateUrl : 'buzoncentral pendiente',
                 controller  : 'pendiente'
             })
-            .when('41', {
+            .state('41', {
             	url: '/41',
                 templateUrl : 'buzonresidente pendiente',
                 controller  : 'pendiente'
