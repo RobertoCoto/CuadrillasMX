@@ -108,9 +108,6 @@ public class PermisoLaboralNegocio {
 					if (permiso.getIdPermiso() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id del permiso.");
 					}
-					if (permiso.getIdEmpleado() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
-					}
 					if (permiso.getUsuarioAutorizacion() == null || permiso.getUsuarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 					}
@@ -197,8 +194,8 @@ public class PermisoLaboralNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<PermisoLaboralDTO> listaPermiso = null;
 				try {
-					if(permiso.getIdEmpleado() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+					if(permiso.getIdPermiso() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el id del permiso para la busqueda.");
 					}
 					listaPermiso = new PermisoLaboralDAO().consultaPermisoTemporal(uid, permiso);
 					respuesta.setPermiso(listaPermiso);

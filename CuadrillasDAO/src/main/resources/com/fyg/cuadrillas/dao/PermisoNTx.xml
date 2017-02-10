@@ -18,7 +18,13 @@
 <result column="fecha_alta" property="fechaAlta"/>
 <result column="usuario_alta" property="usuarioAlta"/>
 <result column="estatus" property="estatus"/>
-
+<result column="descripcion_permiso" property="descripcionPermiso"/>
+<result column="nombre_empleado" property="nombreEmpleado"/>
+<result column="apellido_paterno" property="apellidoPaterno"/>
+<result column="apellido_materno" property="apellidoMaterno"/>
+<result column="numero_empleado" property="numeroEmpleado"/>
+<result column="fecha_empleado" property="fechaEmpleado"/>
+<result column="descripcion_puesto" property="descripcionPuesto"/>
 </resultMap>
 <select id="existePermiso" parameterType="Permiso" resultType="int">
 SELECT count(*)
@@ -31,8 +37,14 @@ AND fecha_solicitud = #{fechaSolicitud}
 SELECT count(autorizacion) 
 FROM permiso_laboral
 WHERE id_permiso = #{idPermiso}
-AND id_empleado = #{idEmpleado}
 AND autorizacion = 'S'
+</select>
+
+<select id="existeRechazada" parameterType="Permiso" resultType="int">
+SELECT count(autorizacion) 
+FROM permiso_laboral
+WHERE id_permiso = #{idPermiso}
+AND autorizacion = 'N'
 </select>
 
 <select id="existeBajaPermiso" parameterType="Permiso" resultType="int">
@@ -44,23 +56,32 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaPermiso" parameterType="Permiso" resultMap="permiso">
-SELECT id_permiso,
-		id_empleado,
-		comentarios,
-		fecha_solicitud,
-		fecha_solicitud_minimo,
-		fecha_solicitud_maximo,
-		hora_solicitud_minimo,
-		hora_solicitud_maxima,
-		codigo_permiso,
-		autorizacion,
-		fecha_autorizacion,
-		usuario_autorizacion,
-		fecha_alta,
-		usuario_alta,
-		estatus
-FROM permiso_laboral
-WHERE id_empleado = #{idEmpleado}
-AND estatus = 'A'
+SELECT  p.id_permiso,
+		p.id_empleado,
+		p.comentarios,
+		p.fecha_solicitud,
+		p.fecha_solicitud_minimo,
+		p.fecha_solicitud_maximo,
+		p.hora_solicitud_minimo,
+		p.hora_solicitud_maxima,
+		p.codigo_permiso,
+		p.autorizacion,
+		p.fecha_autorizacion,
+		p.usuario_autorizacion,
+		p.fecha_alta,
+		p.usuario_alta,
+		c.descripcion AS descripcion_permiso,
+		e.nombre AS nombre_empleado,
+		e.apellido_pat AS apellido_paterno,
+		e.apellido_mat AS apellido_materno,
+		e.no_empleado AS numero_empleado,
+		e.fecha_ingreso AS fecha_empleado,
+		x.descripcion AS descripcion_puesto
+FROM permiso_laboral p
+LEFT JOIN catalogo c ON c.codigo = p.codigo_permiso
+LEFT JOIN empleado e ON e.id_empleado = p.id_empleado
+LEFT JOIN catalogo x ON x.codigo = e.codigo_puesto
+WHERE p.id_permiso = #{idPermiso}
+AND p.estatus = 'A'
 </select>
 </mapper>

@@ -16,26 +16,25 @@
 		<div class="panel-body">
 		<h2>Autorizacion Permiso Laboral</h2>
 			<form name="form_reloj" id="formPermiso">
-					<div class="row" ng-repeat="empleado in resultadoEmpleado">
+					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
-                           <input type="text" id="noEmpleado"  value={{empleado.noEmpleado}} disabled class="form-control">
-						   <input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}}>
+                           <input type="text" id="noEmpleado"  value={{empleado.numeroEmpleado}} disabled class="form-control">
                         </div>
                     </div>
 					</div>
 					
-					<div class="row" ng-repeat="emp1 in resultadoEmpleado">
+					<div class="row" ng-repeat="emp1 in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="nombre" class="control-label">Nombre</label>
-                           <input type="text"  value={{emp1.nombre}}&nbsp{{emp1.apellidoPat}}&nbsp{{emp1.apellidoMat}} class="form-control" disabled>
+                           <input type="text"  value={{emp1.nombreEmpleado}}&nbsp{{emp1.apellidoPaterno}}&nbsp{{emp1.apellidoMaterno}} class="form-control" disabled>
                         </div>
                     </div>
 					</div>
 			  
-			  <div class="row" ng-repeat="emp2 in resultadoEmpleado">
+			  <div class="row" ng-repeat="emp2 in resultado">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
@@ -48,7 +47,7 @@
                             <label for="fechaIngreso" class="control-label">Fecha de Ingreso</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" value={{emp2.fechaIngreso}} disabled class="form-control">
+                  			<input type="date" value={{emp2.fechaEmpleado}} disabled class="form-control">
                				 </div>
                         </div>
                     </div>
@@ -91,7 +90,7 @@
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<<input type="date" id="fechaSolicitudMaxima" disabled value={{asis1.fechaSolicitudMaximo}} class="form-control">
+                  			<input type="date" id="fechaSolicitudMaxima" disabled value={{asis1.fechaSolicitudMaximo}} class="form-control">
                				 </div>
                         </div>
                     </div>
@@ -118,16 +117,25 @@
                     </div>
 			  </div>
 			  
-			  <div class="row">
+			  <div class="row" ng-repeat="per in resultado">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="tipoPermiso" class="control-label">Tipo de Permiso</label>
-                           <select class="form-control"  ng-model="permiso.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
-</select> <input type="hidden" id="permisoCodigo" value={{permiso.codigo}}>
+                           <input type="text"  disabled value={{per.descripcionPermiso}} class="form-control">
                         </div>
                     </div>
 			  </div>
-			  <input type="submit" value="Registrar" class="btn btn-success">
+			  
+			  <div class="row">
+			  <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="goceSueldo" class="control-label">Goce de Sueldo :</label>
+                           <input type="checkbox" id="goce">Si
+                        </div>
+                    </div>
+			  </div>
+			  <button type="submit" data-ng-click="aceptar(permiso)" class="btn btn-success">Autorizar</button>
+              <button data-ng-click="rechazar(permiso)" class="btn" style="background-color:#f44336;color:white;">Rechazar</button>
 			</form>
 		</div>
 </div>

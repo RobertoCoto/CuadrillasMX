@@ -111,6 +111,11 @@ public class PermisoLaboralDAO {
 			if (existeAutorizacion > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, ya se encuentra autorizado el permiso.");
 			}
+			//si esta rechazado el doc
+			int existeRechazo= (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existeRechazada", permiso);
+			if (existeRechazo > 0) {
+				throw new ExcepcionesCuadrillas("Error al autorizar, ya se encuentra rechazado el permiso.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("PermisoLaboralDAO.autorizaPermiso", permiso);

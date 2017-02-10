@@ -99,6 +99,34 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	private String estatusAutorizacion;
 	/**
+	 * descripcion del permiso
+	 */
+	private String descripcionPermiso;
+	/**
+	 * nombre del empleado
+	 */
+	private String nombreEmpleado;
+	/**
+	 * apellido paterno
+	 */
+	private String apellidoPaterno;
+	/**
+	 * apellido materno
+	 */
+	private String apellidoMaterno;
+	/**
+	 * numero del empleado
+	 */
+	private String numeroEmpleado;
+	/**
+	 * fecha de ingreso
+	 */
+	private String fechaEmpleado;
+	/**
+	 * descripcion del puesto
+	 */
+	private String descripcionPuesto;
+	/**
 	 * @return the idPermiso
 	 */
 	public Integer getIdPermiso() {
@@ -362,5 +390,89 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	public void setFechaSolicitada(Date fechaSolicitada) {
 		this.fechaSolicitada = fechaSolicitada;
+	}
+	/**
+	 * @return the descripcionPermiso
+	 */
+	public String getDescripcionPermiso() {
+		return descripcionPermiso;
+	}
+	/**
+	 * @param descripcionPermiso the descripcionPermiso to set
+	 */
+	public void setDescripcionPermiso(String descripcionPermiso) {
+		this.descripcionPermiso = descripcionPermiso;
+	}
+	/**
+	 * @return the nombreEmpleado
+	 */
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
+	}
+	/**
+	 * @param nombreEmpleado the nombreEmpleado to set
+	 */
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
+	}
+	/**
+	 * @return the apellidoPaterno
+	 */
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+	/**
+	 * @param apellidoPaterno the apellidoPaterno to set
+	 */
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+	/**
+	 * @return the apellidoMaterno
+	 */
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+	/**
+	 * @param apellidoMaterno the apellidoMaterno to set
+	 */
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+	/**
+	 * @return the numeroEmpleado
+	 */
+	public String getNumeroEmpleado() {
+		return numeroEmpleado;
+	}
+	/**
+	 * @param numeroEmpleado the numeroEmpleado to set
+	 */
+	public void setNumeroEmpleado(String numeroEmpleado) {
+		this.numeroEmpleado = numeroEmpleado;
+	}
+	/**
+	 * @return the fechaEmpleado
+	 */
+	public String getFechaEmpleado() {
+		return fechaEmpleado;
+	}
+	/**
+	 * @param fechaEmpleado the fechaEmpleado to set
+	 */
+	public void setFechaEmpleado(String fechaEmpleado) {
+		this.fechaEmpleado = fechaEmpleado;
+	}
+	/**
+	 * @return the descripcionPuesto
+	 */
+	public String getDescripcionPuesto() {
+		return descripcionPuesto;
+	}
+	/**
+	 * @param descripcionPuesto the descripcionPuesto to set
+	 */
+	public void setDescripcionPuesto(String descripcionPuesto) {
+		this.descripcionPuesto = descripcionPuesto;
 	}
 }

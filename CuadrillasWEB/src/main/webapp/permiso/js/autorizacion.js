@@ -22,7 +22,7 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
         method: 'GET',
         url: 'http://localhost:8080/CuadrillasWEB/ConsultaPermisoTemporal',
         params: {
-	 		"idEmpleado" : $scope.get.idEmpleado
+	 		"idPermiso" : $scope.get.idPermiso
 	         },
         data: { }
 	    }).then(function (result) {
@@ -32,25 +32,25 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
         
 	    }, function myError(response) {
 	        console.error(response);
-	        alert(response.data.header.mensajeFuncional);
+	        alert(response.data.mensajeFuncional);
 	    });
 	
-	    $http({
-	        method: 'GET',
-	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
-	        params: {
-		 		"idEmpleado" : $scope.get.idEmpleado
-		         },
-	        data: { }
-		    }).then(function (result) {
-		    	$scope.resultadoEmpleado = result.data.empleado;
-	          console.log($scope.resultadoEmpleado);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		    });
-	        $scope.permiso = {};
+	   
 		     $scope.aceptar = function(permiso) {
+		    	 
+		     var coment = document.getElementById("comentario").value;
+		    	if(coment === "") {
+                	
+                	return false;
+                	}
+		    	
+                	var confirmar = confirm("¿Esta seguro de autorizar el permiso?"); 
+
+		    		if (!confirmar) 
+		    			{
+		    				alert('se ha cancelado la operacion.'); 
+		    					return false;
+		    			} 	
 		    	 
 		    	 var checkSueldo = document.getElementById("goce");
 		    	 
@@ -66,39 +66,52 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 		              params: {
-				 		"idPermiso" : document.getElementById("idPermiso").value,
-				 		"idEmpleado" : document.getElementById("idEmpleado").value,
+				 		"idPermiso" : $scope.get.idPermiso,
 				 		"comentario" : document.getElementById("comentario").value,
 				 		"goceSueldo" : $scope.goce,
 				 		"estatusAutorizacion": "S",
 				 		"usuario": "SISTEMAS"
 				         }
 				    }).then(function mySucces(response) {
+				    	 alert(response.data.mensajeFuncional);
 				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);
-				        alert(response.data.header.mensajeFuncional);
+				        alert(response.data.mensajeFuncional);
 				    });
 		    	
 		    	}
 		    
 		     $scope.rechazar = function(permiso) {
+		    	 var coment = document.getElementById("comentario").value;
+		    	 if(coment === "") {
+	                	
+						return false;
+						}
+						
+						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
+						
+						if (!confirmar) 
+							{
+								alert('se ha cancelado la operacion.'); 
+									return false;
+							} 	
 				    	$http({
 				              method: 'GET',
 				              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 				    	 params: {
-					 		"idPermiso" : document.getElementById("idPermiso").value,
-					 		"idEmpleado" : document.getElementById("idEmpleado").value,
+					 		"idPermiso" : $scope.get.idPermiso,
 					 		"comentario" : document.getElementById("comentario").value,
 					 		"goceSueldo" : "N",
 					 		"estatusAutorizacion": "N",
 					 		"usuario": "SISTEMAS"
 					         }
 						    }).then(function mySucces(response) {
+						    	 alert(response.data.mensajeFuncional);
 						    	 console.info(response);
 						    }, function myError(response) {
 						        console.error(response);
-						        alert(response.data.header.mensajeFuncional);
+						        alert(response.data.mensajeFuncional);
 						    });
 				    	}
 	});

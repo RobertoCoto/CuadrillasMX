@@ -19,7 +19,6 @@ usuario_autorizacion = #{usuarioAutorizacion},
 fecha_ult_mod = now(),
 usuario_ult_mod = #{usuarioUltMod}
 WHERE id_permiso = #{idPermiso}
-AND id_empleado = #{idEmpleado}
 AND estatus = 'A'
 </update>
 

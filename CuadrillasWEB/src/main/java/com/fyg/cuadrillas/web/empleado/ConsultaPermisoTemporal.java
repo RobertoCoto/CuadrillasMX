@@ -44,7 +44,7 @@ public class ConsultaPermisoTemporal extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+			Integer idPermiso = Integer.parseInt(request.getParameter("idPermiso"));
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -55,7 +55,7 @@ public class ConsultaPermisoTemporal extends HttpServlet {
 			//crea objeto de negocio
 			final PermisoLaboralNegocio negocio = new PermisoLaboralNegocio();
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
-			permiso.setIdEmpleado(idEmpleado);
+			permiso.setIdPermiso(idPermiso);
 			respuesta = negocio.consultaPermisoTemporal(permiso);
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
