@@ -63,7 +63,11 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		    });
 		    
 		    $scope.grabar = function(empleado) {
-		    	
+		    	var coment = document.getElementById("comentario").value;
+		    	if(coment === "") {
+                	
+                	return false;
+                	}
     				
     			var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
 
@@ -73,11 +77,7 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 					return false;
 				} 		    
 
-                $scope.coment = document.getElementById("comentario").value;
                 
-                if($scope.coment == "") {
-                	return false;
-                	}
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',

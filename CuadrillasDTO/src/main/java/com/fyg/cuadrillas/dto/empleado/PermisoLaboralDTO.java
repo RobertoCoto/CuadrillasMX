@@ -27,6 +27,10 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	private String goceSueldo;
 	/**
+	 * Fecha solicitada
+	 */
+	private Date fechaSolicitada;
+	/**
 	 * fecha de la solicitud
 	 */
 	private String fechaSolicitud;
@@ -346,5 +350,17 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	 */
 	public void setGoceSueldo(String goceSueldo) {
 		this.goceSueldo = goceSueldo;
+	}
+	/**
+	 * @return the fechaSolicitada
+	 */
+	public Date getFechaSolicitada() {
+		return fechaSolicitada;
+	}
+	/**
+	 * @param fechaSolicitada the fechaSolicitada to set
+	 */
+	public void setFechaSolicitada(Date fechaSolicitada) {
+		this.fechaSolicitada = fechaSolicitada;
 	}
 }

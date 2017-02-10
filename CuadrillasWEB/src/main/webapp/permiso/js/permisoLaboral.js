@@ -49,6 +49,11 @@ app.controller('registraPermiso', function ($scope, $http) {
 		    
 		    //aquiii
 		    $scope.registrar = function(permiso) {
+		    	var coment = document.getElementById("comentario").value;
+		    	if(coment === "") {
+                	
+                	return false;
+                	}
 		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
 
 		    		if (!confirmar) 
@@ -58,17 +63,16 @@ app.controller('registraPermiso', function ($scope, $http) {
 		    			} 	
 		    			
 		    	
-                $scope.coment = document.getElementById("comentario").value;
+               
                 
-                if($scope.coment == "") {
-                	return false;
-                	}
+                
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
 		              params: {
 				 		"idEmpleado" : document.getElementById("idEmpleado").value,
 				 		"comentario" : document.getElementById("comentario").value,
+				 		"fechaSolicitud": document.getElementById("fechaSolicitud").value,
 				 		"fechaSolicitudMinima" : document.getElementById("fechaSolicitudMinima").value,
 		              "fechaSolicitudMaxima" : document.getElementById("fechaSolicitudMaxima").value,
 		              "horaSolicitudMinima" : document.getElementById("horaSolicitudMinima").value,

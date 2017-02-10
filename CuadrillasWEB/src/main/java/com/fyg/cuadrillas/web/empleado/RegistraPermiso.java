@@ -46,6 +46,7 @@ public class RegistraPermiso extends HttpServlet {
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String comentario = request.getParameter("comentario");
+			String fechaSolicitud = request.getParameter("fechaSolicitud");
 			String fechaSolicitudMinima = request.getParameter("fechaSolicitudMinima");
 			String fechaSolicitudMaxima = request.getParameter("fechaSolicitudMaxima");
 			String horaSolicitudMinima = request.getParameter("horaSolicitudMinima");
@@ -66,6 +67,7 @@ public class RegistraPermiso extends HttpServlet {
 			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
 			permiso.setIdEmpleado(idEmpleado);
 			permiso.setComentarios(comentario);
+			permiso.setFechaSolicitud(fechaSolicitud);
 			permiso.setFechaSolicitudMinimo(fechaSolicitudMinima);
 			permiso.setFechaSolicitudMaximo(fechaSolicitudMaxima);
 			permiso.setHoraSolicitudMinimo(horaSolicitudMinima);
