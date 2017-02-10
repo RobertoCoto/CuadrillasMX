@@ -35,6 +35,9 @@ VALUES ('EMP0004', 1, 'MARTIN', 'MARTINEZ', 'SUAREZ', '1971-02-26', 'M', 'LSTM71
 INSERT INTO empleado ( no_empleado, id_cuadrilla, nombre, apellido_pat, apellido_mat, fecha_nacimiento, sexo, rfc, rfc_calculado, fecha_ingreso, sueldo, calificacion, frecuencia_pago, nss, no_credito_infonavit, telefono, huella, alta_imss, observaciones, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, usuario_alta, fecha_alta, usuario_baja, fecha_baja, codigo_tipo_salida, codigo_causa_salida, usuario_aut_imss, fecha_aut_imss, usuario_ult_mod, fecha_ult_mod, estatus)
 VALUES ('EMP0005', 1, 'ELVIRA', 'GARCIA', 'SOLANO', '1971-02-26', 'M', 'LSTM710226JRR', 'SOSL710226LG3', '2017-02-09', 1000, 9, 'S', '12345678990', '12345678990', '1234567890', NULL, 'N', 'otro nuevo', 'PODA', '5MAY', 'VERD', 'CHIC', 'SISTEMAS', '2017-02-09 19:41:27', NULL, NULL, NULL, NULL, NULL, NULL, 'SISTEMAS', '2017-02-09 19:57:35', 'A');
 
+INSERT INTO empleado ( no_empleado, id_cuadrilla, nombre, apellido_pat, apellido_mat, fecha_nacimiento, sexo, rfc, rfc_calculado, fecha_ingreso, sueldo, calificacion, frecuencia_pago, nss, no_credito_infonavit, telefono, huella, alta_imss, observaciones, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, usuario_alta, fecha_alta, usuario_baja, fecha_baja, codigo_tipo_salida, codigo_causa_salida, usuario_aut_imss, fecha_aut_imss, usuario_ult_mod, fecha_ult_mod, estatus)
+VALUES ('EMP0006', 2, 'HECTOR', 'RODRIGUEZ', 'SOLANO', '1985-06-03', 'M', 'MEHM850306MZ2', 'MEHM850603MZ7', '2017-02-09', 10000, 9, 'S', '1234567890', '1234567890', '5585379530', NULL, 'N', 'muy buen empleado', 'RESI', 'INSU', 'VERD', 'GRAN', 'SISTEMAS', '2017-02-09 19:41:27', NULL, NULL, NULL, NULL, NULL, NULL, 'SISTEMAS', '2017-02-09 19:41:27', 'A');
+
 
 INSERT INTO empleado_documentos (id_empleado, codigo_emp_doc, fecha_alta, estatus)
 VALUES (1, 'ACNA', '2017-02-09 19:41:28', 'SI');
@@ -82,5 +85,5 @@ SELECT 4, codigo_emp_doc, fecha_alta, estatus FROM empleado_documentos WHERE id_
 INSERT INTO empleado_documentos (id_empleado, codigo_emp_doc, fecha_alta, estatus)
 SELECT 5, codigo_emp_doc, fecha_alta, estatus FROM empleado_documentos WHERE id_empleado = 1;
 
-
-
+INSERT INTO empleado_documentos (id_empleado, codigo_emp_doc, fecha_alta, estatus)
+SELECT 6, codigo_emp_doc, fecha_alta, estatus FROM empleado_documentos WHERE id_empleado = 1;
