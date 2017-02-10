@@ -14,19 +14,19 @@
 <div class="container">
 <div class="panel panel-default">
 		<div class="panel-body">
-		<h2>Permiso Laboral</h2>
-			<form ng-submit="registrar(permiso)" name="form_reloj" id="formPermiso">
-					<div class="row" ng-repeat="empleado in resultado">
+		<h2>Autorizacion Permiso Laboral</h2>
+			<form name="form_reloj" id="formPermiso">
+					<div class="row" ng-repeat="empleado in resultadoEmpleado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
-                           <input type="text" id="noEmpleado" value={{empleado.noEmpleado}} disabled class="form-control">
+                           <input type="text" id="noEmpleado"  value={{empleado.noEmpleado}} disabled class="form-control">
 						   <input type="hidden" id="idEmpleado" value={{empleado.idEmpleado}}>
                         </div>
                     </div>
 					</div>
 					
-					<div class="row" ng-repeat="emp1 in resultado" >
+					<div class="row" ng-repeat="emp1 in resultadoEmpleado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="nombre" class="control-label">Nombre</label>
@@ -35,7 +35,7 @@
                     </div>
 					</div>
 			  
-			  <div class="row" ng-repeat="emp2 in resultado">
+			  <div class="row" ng-repeat="emp2 in resultadoEmpleado">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
@@ -63,25 +63,25 @@
                         </div>
                     </div>
 			  </div>
-			  <div class="row"> 
-			  <div class="col-sm-4">
+			  <div class="row" ng-repeat="asistencia in resultado"> 
+			  <div class="col-sm-4" >
                         <div class="form-group form-group-sm">
                             <label for="fechaSolicitud" class="control-label">Fecha de Solicitud</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled>
+                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" disabled value={{asistencia.fechaSolicitud}} class="form-control">
                				 </div>
                         </div>
                     </div>
 			  </div>
 			  
-			  <div class="row">
+			  <div class="row" ng-repeat="asis1 in resultado">
 			   <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="fechaAusencia" class="control-label">Fecha de Ausencia</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMinima" class="form-control">
+                  			<input type="date" id="fechaSolicitudMinima" disabled value={{asis1.fechaSolicitudMinimo}} class="form-control">
                				 </div>
                         </div>
                     </div>
@@ -91,18 +91,18 @@
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMaxima" class="form-control">
+                  			<<input type="date" id="fechaSolicitudMaxima" disabled value={{asis1.fechaSolicitudMaximo}} class="form-control">
                				 </div>
                         </div>
                     </div>
 			  </div>
-			  <div class="row">
+			  <div class="row" ng-repeat="asis2 in resultado">
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="horarioSolicitado" class="control-label">Horario Solicitado</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" id="horaSolicitudMinima" class="form-control">
+                  			<input type="time" id="horaSolicitudMinimo" disabled value={{asis2.horaSolicitudMinimo}} class="form-control">
                				 </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" id="horaSolicitudMaxima" class="form-control">
+                  		<input type="time" id="horaSolicitudMaxima" disabled value={{asis2.horaSolicitudMaxima}} class="form-control">
                				 </div>
                         </div>
                     </div>
