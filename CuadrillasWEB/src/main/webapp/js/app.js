@@ -98,11 +98,13 @@ var data;
                         $location.path('/menu');
 				        if (!$scope.$$phase && !$scope.$root.$$phase) {
 				            $scope.$apply();
+				            $('contenedor').empty();
 				            console.log("Scope Apply Done !!");
 				          } 
 				          else {
 				            setTimeout(function() {
 				            	$scope.$apply();
+				            	$('contenedor').empty();
 				            }, 200);
 				          }                                                
                         console.info("*******prueba*******");
