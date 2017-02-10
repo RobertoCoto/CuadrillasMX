@@ -20,67 +20,127 @@ var data;
                 templateUrl : 'usuario/cambio_contra.html',
                 controller  : 'cambioDatos'
             })
-            /*.when('/13', {
-                templateUrl : 'usuario/cambio_contra_gral.html',
-                controller  : 'adminDatos'
-            })*/
             .when('/13', {
                 templateUrl : 'templates/menu.html',
                 controller  : 'validaUsuario'
             })
             .when('/20', {
-                templateUrl : 'empleado/index.html',
-                controller  : 'registraEmpleado'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/30', {
-                templateUrl : 'cuadrillas/admin_cuadrillas.html',
-                controller  : 'adminCuad'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/31', {
-                templateUrl : 'altaContrato/index.html',
-                controller  : 'altacontratoctrl'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/32', {
-                templateUrl : 'registroAgenda/index.html',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/33', {
-                templateUrl : 'consultaAgenda/index.html',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/34', {
-                templateUrl : 'asistencia/index.html',
-                controller  : 'entradaAsistencia'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/40', {
-                templateUrl : 'buzoncentral pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/41', {
-                templateUrl : 'buzonresidente pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/50', {
-                templateUrl : 'reporte1 pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })            
             .when('/51', {
-                templateUrl : 'reporte2 pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
             .when('/52', {
-                templateUrl : 'reporte3 pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })            
             .otherwise({redirectTo : '/login'});
             
    		$stateProvider
+            .state('10', {
+            	url: '/10',
+                templateUrl : 'catalogo/index.html',
+                controller  : 'catalogoctrl'
+            })
+            .state('12', {
+            	url: '/12',
+            	templateUrl : 'usuario/cambio_contra.html',
+            	controller  : 'cambioDatos'
+            })
         	.state('13', {
         		url: '/13', 
                 templateUrl : 'usuario/cambio_contra_gral.html',
                 controller  : 'adminDatos'
-        	});            
-
+        	})
+            .state('20', {
+            	url: '/20',
+                templateUrl : 'empleado/index.html',
+                controller  : 'registraEmpleado'
+            })
+            .state('30', {
+            	url: '/30',
+                templateUrl : 'cuadrillas/admin_cuadrillas.html',
+                controller  : 'adminCuad'
+            })
+            .state('31', {
+            	url: '/31',
+                templateUrl : 'altaContrato/index.html',
+                controller  : 'altacontratoctrl'
+            })
+            .state('32', {
+            	url: '/32',
+                templateUrl : 'registroAgenda/index.html',
+                controller  : 'pendiente'
+            })
+            .state('33', {
+            	url: '/33',
+                templateUrl : 'consultaAgenda/index.html',
+                controller  : 'pendiente'
+            })
+            .state('34', {
+            	url: '/34',
+                templateUrl : 'asistencia/index.html',
+                controller  : 'entradaAsistencia'
+            })
+            .state('40', {
+            	url: '/40',
+                templateUrl : 'buzoncentral pendiente',
+                controller  : 'pendiente'
+            })
+            .when('41', {
+            	url: '/41',
+                templateUrl : 'buzonresidente pendiente',
+                controller  : 'pendiente'
+            })
+            .state('50', {
+            	url: '/50',
+                templateUrl : 'reporte1 pendiente',
+                controller  : 'pendiente'
+            })            
+            .state('51', {
+            	url: '/51',
+                templateUrl : 'reporte2 pendiente',
+                controller  : 'pendiente'
+            })
+            .state('52', {
+            	url: '/52',
+                templateUrl : 'reporte3 pendiente',
+                controller  : 'pendiente'
+            });            
     });
  
     app.controller('validaUsuario',["$scope","$http", "$location", function ($scope,$http, $location) {
