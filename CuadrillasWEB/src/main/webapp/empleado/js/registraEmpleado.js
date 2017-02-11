@@ -799,7 +799,13 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
    	   document.getElementById('idCuadrilla').disabled = true;
-   	  
+   	if(general.altaImss == "S") {
+	          document.getElementById("seguro").checked = true;
+	          document.getElementById("seguro").disabled = true;
+	        } else if(general.altaImss == "N") {
+	        	document.getElementById("seguro").checked = false;
+	        	document.getElementById("seguro").disabled = true;
+	        }
    	   //validacion del sexo
    	   if(general.sexo == "M")
    	   { 
