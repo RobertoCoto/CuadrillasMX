@@ -65,7 +65,7 @@ public class PermisoLaboralDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existePermiso= (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existePermiso", permiso);
 			if (existePermiso > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, el empleado no puede tener 2 permisos  el mismo dia.");
+				throw new ExcepcionesCuadrillas("Error al registrar, el empleado no puede tener 2 permisos en el rango de fecha solicitado.");
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
