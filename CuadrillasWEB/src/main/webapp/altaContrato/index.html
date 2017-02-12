@@ -250,7 +250,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="row">
-                  <div class="col-sm-offset-4 col-sm-4"><button type="button" onClick="limpiarMarcadores()" class="btn btn-danger" style="margin: 25px;">Limpiar Mapa</button></div>
+                  <div class="col-sm-offset-4 col-sm-4"><button type="button" ng-click="limpiarMarcadores()" class="btn btn-danger" style="margin: 25px;">Limpiar Mapa</button></div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
@@ -305,7 +305,7 @@
               <div class="col-sm-offset-3 col-sm-2">
                 <button type="button" class="btn btn-block btn-success" ng-click="altaContrato()" ng-show="nContrato">Alta</button>
               </div>
-              <div class="col-sm-2 col-sm-offset-3">
+              <div class="col-sm-2">
                 <button type="button" class="btn btn-block btn-warning" ng-show="!nContrato">Guardar</button>
               </div>
               <div class="col-sm-2 col-sm-offset-3">
@@ -324,6 +324,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     <script>
+    var map;
     var medida;
       $(document).ready(function(){
         $('#mainPanel').hide();
@@ -367,7 +368,6 @@
           autoclose: true,
         })
       })
-      var map;
       function initMap() {
         medida = {
             mvcLine: new google.maps.MVCArray(),
@@ -393,7 +393,7 @@
           map: map
         }); */
         google.maps.event.addListener(map, 'click', function(event) {
-          console.log(event);
+          //console.log(event);
             setMarcador(event.latLng);
         });
       }
@@ -513,7 +513,8 @@
                 $('#panelContratos').hide();
                 $scope.nContrato = true;
                 $scope.contratoFocus = {};
-                initMap();
+                $scope.initMap();
+                $scope.limpiarMarcadores();
               }
 
               $scope.cancelar = function() {
@@ -522,6 +523,7 @@
                 //$scope.consultaContratos();
                 $('#panelContratos').show();
                 $scope.contratoFocus = {};
+                $scope.limpiarMarcadores();
               }
 
               $scope.altaContrato = function() {
@@ -543,9 +545,9 @@
                     },
                     data: {}
                   }).then(function successfn(result) {
-                    console.log('contratos:');
+                    //console.log('contratos:');
                     $scope.contratos = result.data.contrato;
-                    console.log(result);
+                    //console.log(result);
                     /*for (var i = 0; i < result.data.contrato[0].coordenadas.length; i++) {
                       setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud, result.data.contrato[0].coordenadas[i].longitud);
                     }*/
@@ -564,9 +566,9 @@
                 $('#nuevoContrato').hide();
                 $('#panelContratos').hide();
                 $scope.nContrato = false;
-                initMap();
+                $scope.initMap();
                 for (var i = 0; i < contrato.coordenadas.length; i++) {
-                  setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
+                  $scope.setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
                 }
               }
 
@@ -616,7 +618,229 @@
 
 
               $scope.setMarcador = function(latLng) {
+                var geocoder = new google.maps.Geocoder;
+                var img_mark = 'mark.png';
+                var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+                medida.mvcLine.push(latLng);
+                medida.mvcPolygon.push(latLng);
+                medida.mvcMarkers.push(marcador);
+                var latLngIndex = medida.mvcLine.getLength() - 1;
+                google.maps.event.addListener(marcador, "drag", function(evt) {
+                    medida.mvcLine.setAt(latLngIndex, evt.latLng);
+                    medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
+                });
+                google.maps.event.addListener(marcador, "dragend", function() {
+                    if (medida.mvcLine.getLength() > 1) {
+                        $scope.calculaDistancia();
+                    }
+                });
+                var latlng = {lat: latLng.lat(), lng: latLng.lng()};
+                var direccion = 'SN';
+                geocoder.geocode({'location': latlng}, function(results, status) {
+                  //console.log(results);
+                  if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                      direccion =  results[0].formatted_address;
+                      var coordenadaP = {};
+                      var coordenadasTemp = [];
+                      coordenadaP.latitud = latLng.lat();
+                      coordenadaP.longitud = latLng.lng();
+                      coordenadaP.direccion = direccion;
+                      if($scope.contratoFocus.coordenadas) {
+                        $scope.contratoFocus.coordenadas.push(coordenadaP);
+                      } else {
+                        coordenadasTemp.push(coordenadaP);
+                        $scope.contratoFocus.coordenadas = coordenadasTemp;
+                      }
+                      $( "#tramos" ).append( $( "<div class=\"row\""
+                       + "<div class=\"col-sm-12\">"
+                         + "<div class=\"form-group\">"
+                           + "<label for=\"direccionInicial\" class=\"control-label\">Dirección</label>"
+                           + "<input type=\"text\" id=\"direccionInicial\" class=\"form-control\" value=\"" + direccion + "\" disabled=\"true\">"
+                         + "</div>"
+                       + "</div>"
+                     + "</div>"
+                     + "<div class=\"row\">"
+                       + "<div class=\"col-sm-3\">"
+                           + "<label for=\"\" class=\"control-label\">Coordenadas</label>"
+                       +"</div>"
+                       + "<div class=\"col-sm-4\">"
+                         + "<input type=\"text\" id=\"latitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lat() + "\">"
+                        + "</div>"
+                        + "<div class=\"col-sm-4\">"
+                        + "<input type=\"text\" id=\"longitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lng() + "\">"
+                       + "</div>"
+                      + "</div>") );
+                    } else {
+                      alert('No se encontraron resultados');
+                    }
+                  } else {
+                    alert('Geocoder fallo debido al estatus: ' + status);
+                  }
+                });
 
+
+
+                /*
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="direccionInicial" class="control-label">Dirección</label>
+                      <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3">
+                      <label for="" class="control-label">Coordenadas</label>
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+                  </div>
+                </div>
+                */
+
+                $scope.mLineaRecta();
+              }
+
+              $scope.initMap = function() {
+                medida = {
+                    mvcLine: new google.maps.MVCArray(),
+                    mvcPolygon: new google.maps.MVCArray(),
+                    mvcMarkers: new google.maps.MVCArray(),
+                    line: null,
+                    polygon: null
+                };
+                var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 7,
+                  center: mx1
+                });
+                /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
+
+                var marker = new google.maps.Marker({
+                  position: mx1,
+                  map: map
+                });
+                var marker = new google.maps.Marker({
+                  position: mx2,
+                  map: map
+                }); */
+                google.maps.event.addListener(map, 'click', function(event) {
+                    //console.log(event);
+                    $scope.setMarcador(event.latLng);
+                });
+              }
+
+              $scope.calculaDistancia = function() {
+                  var length = 0;
+                  if (medida.mvcPolygon.getLength() > 1) {
+                      length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                  }
+                  var area = 0;
+                  if (medida.mvcPolygon.getLength() > 2) {
+                      area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                  }
+              //    lM = document.forms["mb"].elements["mode"][0].checked;
+                  var km = length / 1000;
+                  var unidad_de_medida = " metros";
+                  $scope.contratoFocus.metros = length;
+                  $( "#km" ).text(km.toFixed(2) + ' km');
+                  //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+              }
+
+              $scope.calculaDistancia = function() {
+                  var length = 0;
+                  if (medida.mvcPolygon.getLength() > 1) {
+                      length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                  }
+                  var area = 0;
+                  if (medida.mvcPolygon.getLength() > 2) {
+                      area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                  }
+              //    lM = document.forms["mb"].elements["mode"][0].checked;
+                  var km = length / 1000;
+                  var unidad_de_medida = " metros";
+                  $scope.contratoFocus.metros = length;
+                  $( "#km" ).text(km.toFixed(2) + ' km');
+                  //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+              }
+
+              $scope.mLineaRecta = function() {
+                  if (medida.mvcLine.getLength() > 1) {
+                      if (!medida.line) {
+                          medida.line = new google.maps.Polyline({
+                              map: map,
+                              clickable: false,
+                              strokeColor: "#ad04ef",
+                              strokeOpacity: 1,
+                              strokeWeight: 3,
+                              path: medida.mvcLine
+                          });
+                      }
+
+                      if (medida.mvcPolygon.getLength() > 2) {
+
+                          if (medida.polygon != null)
+                          {
+                              medida.polygon.setMap(null);
+                          }
+
+
+                          medida.polygon = new google.maps.Polygon({
+                              clickable: false,
+                              map: map,
+                              fillOpacity: 0.0,
+                              strokeOpacity: 0,
+                              paths: medida.mvcPolygon
+                          });
+
+                      }
+                  }
+                  if (medida.mvcLine.getLength() > 1) {
+                      $scope.calculaDistancia();
+                  }
+              }
+
+              $scope.setDireccionEnReversa = function(lat, lng) {
+                  var latlng = {lat: lat, lng: lng};
+                  var geocoder = new google.maps.Geocoder();
+                  //var address = document.getElementById('direccion').value;
+                  //geocoder.geocode({'address': address}, function(results, status) {
+                  geocoder.geocode({'location': latlng}, function(results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          map.setCenter(results[0].geometry.location);
+                          $scope.setMarcador(results[0].geometry.location);
+                      } else {
+                          alert('No se encontro la direccion , debido: ' + status);
+                      }
+                  });
+              }
+
+              $scope.limpiarMarcadores = function() {
+                  if (medida.polygon) {
+                      medida.polygon.setMap(null);
+                      medida.polygon = null;
+                  }
+                  if (medida.line) {
+                      medida.line.setMap(null);
+                      medida.line = null
+                  }
+                  medida.mvcLine.clear();
+                  medida.mvcPolygon.clear();
+                  medida.mvcMarkers.forEach(function(elem, index) {
+                      elem.setMap(null);
+                  });
+                  $scope.contratoFocus.coordenadas = [];
+                  medida.mvcMarkers.clear();
+                  $( "#tramos" ).empty();
+                  $( "#km" ).text('');
+                  //document.getElementById('lineLength').innerHTML = '';
+                  //document.getElementById('polyArea').innerHTML = '';
               }
         });
         function setMarcador(latLng) {
@@ -644,10 +868,17 @@
                 if (results[1]) {
                   direccion =  results[0].formatted_address;
                   var coordenadaP = {};
+                  var coordenadasTemp = [];
                   coordenadaP.latitud = latLng.lat();
                   coordenadaP.longitud = latLng.lng();
                   coordenadaP.direccion = direccion;
-                  $scope.contratoFocus.coordenadas.push(coordenadaP);
+
+                  if($scope.contratoFocus.coordenadas) {
+                    $scope.contratoFocus.coordenadas.push(coordenadaP);
+                  } else {
+                    coordenadasTemp.push(coordenadaP);
+                    $scope.contratoFocus.coordenadas = coordenadasTemp;
+                  }
                   $( "#tramos" ).append( $( "<div class=\"row\""
                    + "<div class=\"col-sm-12\">"
                      + "<div class=\"form-group\">"
