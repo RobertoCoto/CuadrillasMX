@@ -56,7 +56,7 @@
                   <td>{{contrato.coordenadas[0].direccion}}</td>
                   <td>{{contrato.coordenadas[contrato.coordenadas.length -1].direccion}}</td>
                   <td>{{contrato.estatus}}</td>
-                  <td><button type="button" class="btn btn-info">Editar</button></td>
+                  <td><button type="button" class="btn btn-info" ng-click="editarContrato(contrato)">Editar</button></td>
                 </tr>
               </tbody>
             </table>
@@ -171,9 +171,8 @@
                       <div class="panel-heading">
                         <h3 class="panel-title"><div id="km"></div></h3>
                       </div>
-                      <div class="panel-body">
-                        <div id="tramos">
-                        </div>
+                      <div class="panel-body" id="tramos">
+
                       </div>
                     </div>
                   </div>
@@ -266,15 +265,15 @@
             <div class="row">
               <div class="col-sm-2">
                 <label for="estatus" class="control-label">Estatus</label>
-                <select id="estatus" class="form-control"><option>Activo</option><option>Inactivo</option></select>
+                <select id="estatus" class="form-control" ng-model="contratoFocus.estatus"><option value="A">Activo</option><option value="I">Inactivo</option></select>
               </div>
               <div class="col-sm-3">
                 <label for="cuadrillac" class="control-label">Cuadrilla</label>
-                <select id="cuadrillac" class="form-control" ng-model="seleccion.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas"></select>
+                <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas"></select>
               </div>
               <div class="col-sm-2">
                 <label for="noPer" class="control-label">#Per</label>
-                <input type="number" id="noPer" class="form-control" placeholder="0">
+                <input type="number" id="noPer" ng-model="contratoFocus.noPersonas" class="form-control" placeholder="0">
               </div>
               <div class="col-sm-5">
                 <!-- Form Estandar -->
@@ -297,7 +296,7 @@
               <div class="col-sm-offset-2 col-sm-8 col-sm-offset-2">
                 <div class="form-group">
                   <label for="comentarios">Comentarios</label>
-                  <textarea id="comentarios" class="form-control" rows="3"></textarea>
+                  <textarea id="comentarios" ng-model="contratoFocus.observaciones" class="form-control" rows="3"></textarea>
                 </div>
               </div>
             </div>
@@ -560,7 +559,15 @@
               }
 
               $scope.editarContrato = function(contrato) {
-
+                $scope.contratoFocus = contrato;
+                $('#mainPanel').show();
+                $('#nuevoContrato').hide();
+                $('#panelContratos').hide();
+                $scope.nContrato = false;
+                initMap();
+                for (var i = 0; i < contrato.coordenadas.length; i++) {
+                  setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
+                }
               }
 
               //Ejecución inicial
@@ -636,6 +643,11 @@
               if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
                   direccion =  results[0].formatted_address;
+                  var coordenadaP = {};
+                  coordenadaP.latitud = latLng.lat();
+                  coordenadaP.longitud = latLng.lng();
+                  coordenadaP.direccion = direccion;
+                  $scope.contratoFocus.coordenadas.push(coordenadaP);
                   $( "#tramos" ).append( $( "<div class=\"row\""
                    + "<div class=\"col-sm-12\">"
                      + "<div class=\"form-group\">"
@@ -752,6 +764,7 @@
               medida.mvcMarkers.forEach(function(elem, index) {
                   elem.setMap(null);
               });
+              $scope.contratoFocus.coordenadas = [];
               medida.mvcMarkers.clear();
               $( "#tramos" ).empty();
               $( "#km" ).text('');
@@ -771,6 +784,7 @@
         //    lM = document.forms["mb"].elements["mode"][0].checked;
             var km = length / 1000;
             var unidad_de_medida = " metros";
+            $scope.contratoFocus.metros = length;
             $( "#km" ).text(km.toFixed(2) + ' km');
             //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
         }
