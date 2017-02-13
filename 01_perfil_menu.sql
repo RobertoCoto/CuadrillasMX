@@ -95,15 +95,13 @@ INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (52, 5,'Reporte 3','Reporte 3','CuadrillasWEB/','A');
 
 
-
-
 /*SISTEMAS*/
 
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,1,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,1,20,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,2,10,'A');
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,3,10,'A');
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,4,10,'A');
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,5,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,3,30,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,4,40,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,5,50,'A');
 
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,10,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,11,2,'A');
@@ -124,5 +122,6 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,41,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,50,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,51,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,52,3,'A');
+
 
 
