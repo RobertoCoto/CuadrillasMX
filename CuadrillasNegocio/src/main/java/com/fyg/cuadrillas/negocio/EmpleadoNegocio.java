@@ -455,4 +455,42 @@ public class EmpleadoNegocio {
 			    LogHandler.debug(uid, this.getClass(), "consultaColaborador - Datos Salida: " + respuesta);
 			    return respuesta;
 	}
+	/**
+	 * Metodo para notificar al imss
+	 * @param empleado recibe valores del usuario
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta notificaImss (EmpleadoDTO empleado) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(empleado);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "notificaImss - Datos Entrada: " + empleado);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
+						throw new ExcepcionesCuadrillas("El ID de empleado es necesario para la notificación al imss.");
+					}
+					if(empleado.getUsuarioAutImss() == null || empleado.getUsuarioAutImss().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario para la notificacion al imss.");
+					}
+					EmpleadoDAO dao = new EmpleadoDAO();
+					respuesta = dao.notificaImss(uid, empleado);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
+				return respuesta;
+	}
 }

@@ -82,4 +82,10 @@
 	DELETE FROM empleado_documentos WHERE id_empleado = #{idEmpleado}
 </delete>
 
+<update id="notificaImss" parameterType="empleado">
+ UPDATE empleado SET
+ 		usuario_aut_imss = #{usuarioAutImss}, 
+ 		fecha_aut_imss = now() 
+ WHERE id_empleado = #{idEmpleado}
+</update>
 </mapper>
