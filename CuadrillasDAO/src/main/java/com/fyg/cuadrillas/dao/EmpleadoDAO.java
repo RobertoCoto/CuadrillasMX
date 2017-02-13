@@ -417,11 +417,19 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 	    */
 	   public EncabezadoRespuesta notificaImss(String uid,EmpleadoDTO empleado) {
 		   SqlSession sessionTx = null;
+		   SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Se ha notificado correctamente Al IMSS.");
 			try {
+				//Validamos si ya existe una autorizacion 
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeIMSS= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeAutImss", empleado);
+				if (existeIMSS > 0) {
+					throw new ExcepcionesCuadrillas("Error al notificar, No se puede notificar 2 veces al imss.");
+				}
+				
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("EmpleadoDAO.notificaImss", empleado);
@@ -442,6 +450,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	   }

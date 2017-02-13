@@ -30,4 +30,31 @@ app.controller('altaImss', function ($scope, $http) {
 	        console.error(response);
 	        alert(response.data.header.mensajeFuncional);
 	    });
+ 
+	    //para dar de alta el imss
+ 	 $scope.alta = function(imss) {
+ 		var confirmar = confirm("¿Esta seguro de notificar al imss?"); 
+
+ 			if (!confirmar) 
+ 				{
+ 					alert('se ha cancelado la operacion.'); 
+			return false;
+ 				} 	
+ 		$http({
+            method: 'GET',
+            url: 'http://localhost:8080/CuadrillasWEB/NotificaImss',
+            params: {
+		 		"idEmpleado" : $scope.get.idEmpleado,
+		 		"usuario": "SISTEMAS"
+		         }
+		    }).then(function mySucces(response) {
+		    	 alert(response.data.mensajeFuncional);
+		    	 console.info(response);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.mensajeFuncional);
+		    });
+ 	 
+ 		 };
+ 	 
 	});

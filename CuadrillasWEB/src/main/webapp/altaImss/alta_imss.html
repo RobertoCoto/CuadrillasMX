@@ -16,15 +16,15 @@
 <div class="container">
 <h2>Registro Alta IMSS</h2>
 <div class="panel panel-default">
-<div align="center"><img src="img/imss.png" style="width: 197px; height: 265px; "></div>
+<div align="center"><img src="img/imss.png" style="width: 93px; height: 115px; "></div>
 		<div class="panel-body">
 			<form name="form_reloj" id="formEmpleado">
 			
-				<div class="row">
+				<div class="row" ng-repeat="imss in resultado">
 				<div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="numeroEmpleado" class="control-label">Nombre del Empleado</label>
-                            <input type="text" class="form-control" disabled id="nombreEmpleado" value={{imss.nombre}}>
+                            <input type="text" class="form-control" disabled id="nombreEmpleado" value={{imss.nombre}}&nbsp{{imss.apellidoPat}}&nbsp{{imss.apellidoMat}}>
                             <div class="amt_err"></div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
 				</div>
 				
 				<div align="center">
-				<button class="btn btn-success btn-primary">Registrado</button> &nbsp <button class="btn btn-primary" style="background-color:#f44336;color:white;" onclick="window.close();">Cancelar</button>
+				<button class="btn btn-success btn-primary" ng-click="alta(imss)">Registrado</button> &nbsp <button class="btn btn-primary" style="background-color:#f44336;color:white;" onclick="window.close();">Cancelar</button>
 				</div>
 				
 			</form>
