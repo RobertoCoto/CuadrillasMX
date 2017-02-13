@@ -45,15 +45,15 @@
                       <div ng-repeat="subitem in item.hijos" ng-style="{'background-color':'white'}"><a ui-sref={{subitem.idMenu}}>{{subitem.descripcion}}</a></div>
                   </accordion-group>
               </accordion>
-        </div>
+      	</div>
       </div>      
-      <div id="main"> 
+	  <div id="main"> 
       	<span style="font-size:30px;cursor:pointer"  onclick= "	document.getElementById('mySidenav').style.width = '255px';
 		    																	document.getElementById('main').style.marginLeft = '255px';
 		    																	document.getElementById('contenedor').style.marginLeft = '260px';">&#9776;
 		</span>
 		    																	
-      	<span class="header">
+     	<span class="header">
       		{{usuario.nombre}} {{usuario.apellidoPat}} {{usuario.apellidoMat}} - {{usuario.nombrePerfil}}
       		<button class="btn-default-local" style="float:right">      		        
       			<a href="http://localhost:8080/CuadrillasWEB/index.html" class="btn-default-local">
@@ -63,8 +63,7 @@
       	</span>
       </div>      
 
-      <div id="contenedor" ui-view></div>
-
+		<div id="contenedor" ui-view></div>
     </div>
   </body>
 </html>

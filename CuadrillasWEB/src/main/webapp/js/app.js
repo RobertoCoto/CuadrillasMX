@@ -154,17 +154,17 @@ var data;
 				         }
 				    }).then(function mySucces(response) {
                         console.info(response);                        
-                        data = response;
+                        data = response;                            
                         $location.path('/menu');
 				        if (!$scope.$$phase && !$scope.$root.$$phase) {
 				            $scope.$apply();
-				            $('contenedor').empty();
+				            $('#contenedor').empty();
 				            console.log("Scope Apply Done !!");
 				          } 
 				          else {
 				            setTimeout(function() {
 				            	$scope.$apply();
-				            	$('contenedor').empty();
+				            	$('#contenedor').empty();
 				            }, 200);
 				          }                                                
                         console.info("*******prueba*******");
