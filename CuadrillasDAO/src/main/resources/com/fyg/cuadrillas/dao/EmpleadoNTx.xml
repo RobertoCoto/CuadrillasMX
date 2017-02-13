@@ -129,4 +129,11 @@ LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
 WHERE e.id_cuadrilla = #{idCuadrilla}
 ORDER BY e.estatus, e.fecha_ingreso 
 </select>
+
+<select id="existeAutImss" parameterType="empleado" resultType="int">
+SELECT count(usuario_aut_imss)
+FROM empleado
+WHERE usuario_aut_imss = #{usuarioAutImss}
+AND id_empleado = #{idEmpleado}
+</select>
 </mapper>

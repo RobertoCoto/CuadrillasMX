@@ -27,11 +27,11 @@
 <result column="descripcion_puesto" property="descripcionPuesto"/>
 </resultMap>
 <select id="existePermiso" parameterType="Permiso" resultType="int">
-SELECT count(*)
-FROM permiso_laboral
-WHERE id_empleado = #{idEmpleado}
+SELECT count(*) 
+FROM permiso_laboral 
+WHERE ( #{fechaSolicitudMinimo} <![CDATA[<=]]>  fecha_solicitud AND fecha_solicitud <![CDATA[<=]]> #{fechaSolicitudMaximo}) 
+AND id_empleado = #{idEmpleado} 
 AND estatus = 'A'
-AND fecha_solicitud = #{fechaSolicitud}
 </select>
 <select id="existeAutorizacion" parameterType="Permiso" resultType="int">
 SELECT count(autorizacion) 

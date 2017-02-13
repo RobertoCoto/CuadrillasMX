@@ -62,6 +62,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			String apellidoMaterno = request.getParameter("apellidoMaterno");
 			String sexo = request.getParameter("sexo");
 			String rfc = request.getParameter("rfc");
+			String altaIMSS = request.getParameter("altaIMSS");
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
 			String codigoPuesto = request.getParameter("codigoPuesto");
 			String codigoVialidad = request.getParameter("codigoVialidad");
@@ -114,6 +115,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setCodigoArea(codigoArea);
 			empleado.setCodigoTalla(codigoTalla);
 			empleado.setNss(nss);
+			empleado.setAltaImss(altaIMSS);
 			double  sueldoEmpleado = Double.parseDouble(sueldo);
 			empleado.setSueldo(sueldoEmpleado);
 			empleado.setFrecuenciaPago(frecuenciaPago);

@@ -16,7 +16,7 @@
 		upper(#{noEmpleado}), upper(#{nombre}), upper(#{apellidoPat}), upper(#{apellidoMat}), upper(#{sexo}), upper(#{rfc}), upper(#{rfcCalculado}), #{fechaNacimiento},
 		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo},#{calificacion},#{frecuenciaPago},
 		#{nss},#{noCreditoInfonavit}, #{telefono}, #{observaciones}, #{usuarioAlta}, now(),
-		 #{usuarioAlta}, now(), 'A', 'N'
+		 #{usuarioAlta}, now(), 'A', #{altaImss}
 		)
 	<selectKey keyProperty="idEmpleado" resultType="Integer" order="AFTER">
 	SELECT LAST_INSERT_ID();
@@ -68,6 +68,7 @@
 	   sueldo = #{sueldo},
 	   frecuencia_pago =  upper(#{frecuenciaPago}),
 	   nss = #{nss},
+	   alta_imss = #{altaImss},
 	   no_credito_infonavit = #{noCreditoInfonavit},
 	   telefono = #{telefono},
 	   observaciones = #{observaciones},
@@ -81,4 +82,10 @@
 	DELETE FROM empleado_documentos WHERE id_empleado = #{idEmpleado}
 </delete>
 
+<update id="notificaImss" parameterType="empleado">
+ UPDATE empleado SET
+ 		usuario_aut_imss = #{usuarioAutImss}, 
+ 		fecha_aut_imss = now() 
+ WHERE id_empleado = #{idEmpleado}
+</update>
 </mapper>

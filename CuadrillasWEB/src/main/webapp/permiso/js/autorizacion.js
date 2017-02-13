@@ -39,10 +39,7 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		     $scope.aceptar = function(permiso) {
 		    	 
 		     var coment = document.getElementById("comentario").value;
-		    	if(coment === "") {
-                	
-                	return false;
-                	}
+		    	
 		    	
                 	var confirmar = confirm("¿Esta seguro de autorizar el permiso?"); 
 
@@ -67,7 +64,6 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 		              params: {
 				 		"idPermiso" : $scope.get.idPermiso,
-				 		"comentario" : document.getElementById("comentario").value,
 				 		"goceSueldo" : $scope.goce,
 				 		"estatusAutorizacion": "S",
 				 		"usuario": "SISTEMAS"
@@ -83,11 +79,6 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		    	}
 		    
 		     $scope.rechazar = function(permiso) {
-		    	 var coment = document.getElementById("comentario").value;
-		    	 if(coment === "") {
-	                	
-						return false;
-						}
 						
 						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
 						
@@ -101,7 +92,6 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 				              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 				    	 params: {
 					 		"idPermiso" : $scope.get.idPermiso,
-					 		"comentario" : document.getElementById("comentario").value,
 					 		"goceSueldo" : "N",
 					 		"estatusAutorizacion": "N",
 					 		"usuario": "SISTEMAS"

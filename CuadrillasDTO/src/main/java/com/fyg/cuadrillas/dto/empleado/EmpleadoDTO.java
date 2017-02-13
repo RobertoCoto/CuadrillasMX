@@ -167,6 +167,10 @@ public class EmpleadoDTO extends ObjetoValor {
 	/** altaImss	 */
 	private String altaImss;
 	/**
+	 * usuario Autorizacion imss
+	 */
+	private String usuarioAutImss;
+	/**
 	 * @return the idEmpleado
 	 */
 	public Integer getIdEmpleado() {
@@ -658,5 +662,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setPerfilEmpleado(String perfilEmpleado) {
 		this.perfilEmpleado = perfilEmpleado;
+	}
+	/**
+	 * @return the usuarioAutImss
+	 */
+	public String getUsuarioAutImss() {
+		return usuarioAutImss;
+	}
+	/**
+	 * @param usuarioAutImss the usuarioAutImss to set
+	 */
+	public void setUsuarioAutImss(String usuarioAutImss) {
+		this.usuarioAutImss = usuarioAutImss;
 	}
 }

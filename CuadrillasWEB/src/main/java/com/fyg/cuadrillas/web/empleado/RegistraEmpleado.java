@@ -60,6 +60,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String apellidoMaterno = request.getParameter("apellidoMaterno");
 			String sexo = request.getParameter("sexo");
 			String rfc = request.getParameter("rfc");
+			String altaIMSS = request.getParameter("altaIMSS");
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
 			String fechaIngreso = request.getParameter("fechaIngreso");
 			String codigoPuesto = request.getParameter("codigoPuesto");
@@ -116,6 +117,7 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setNss(nss);
 			double  sueldoEmpleado = Double.parseDouble(sueldo);
 			empleado.setSueldo(sueldoEmpleado);
+			empleado.setAltaImss(altaIMSS);
 			empleado.setFrecuenciaPago(frecuenciaPago);
 			empleado.setTelefono(telefono);
 			empleado.setNoCreditoInfonavit(noCreditoInfonavit);

@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO;
-import com.fyg.cuadrillas.negocio.PermisoLaboralNegocio;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
 import com.google.gson.Gson;
 
-
 /**
- * Servlet implementation class AutorizacionPermiso
+ * Servlet implementation class NotificaImss
  */
-public class AutorizacionPermiso extends HttpServlet {
+public class NotificaImss extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutorizacionPermiso() {
+    public NotificaImss() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,11 +43,8 @@ public class AutorizacionPermiso extends HttpServlet {
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
 		try {
-			Integer idPermiso = Integer.parseInt(request.getParameter("idPermiso"));
-			String goceSueldo = request.getParameter("goceSueldo");
-			String estatusAutorizacion = request.getParameter("estatusAutorizacion");
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String usuario = request.getParameter("usuario");
 			
 			/* descomentar para proxy FISA
@@ -58,15 +54,12 @@ public class AutorizacionPermiso extends HttpServlet {
 	        System.setProperty("https.proxyPort", "8080"); */
 			
 			//crea objeto de negocio
-			final PermisoLaboralNegocio negocio = new PermisoLaboralNegocio();
+			final EmpleadoNegocio negocio = new EmpleadoNegocio();
 			
-			PermisoLaboralDTO permiso = new PermisoLaboralDTO();
-			permiso.setIdPermiso(idPermiso);
-			permiso.setGoceSueldo(goceSueldo);
-			permiso.setEstatusAutorizacion(estatusAutorizacion);
-			permiso.setUsuarioAutorizacion(usuario);
-			permiso.setUsuarioUltMod(usuario);
-			respuesta = negocio.autorizacionPermiso(permiso);
+			EmpleadoDTO empleado = new EmpleadoDTO();
+			empleado.setIdEmpleado(idEmpleado);
+			empleado.setUsuarioAutImss(usuario);
+			respuesta = negocio.notificaImss(empleado);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
@@ -83,6 +76,7 @@ public class AutorizacionPermiso extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
+		
 	}
 
 }

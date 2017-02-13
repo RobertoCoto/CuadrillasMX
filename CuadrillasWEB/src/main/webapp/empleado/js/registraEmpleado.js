@@ -195,6 +195,9 @@ $scope.pagoValor = $scope.datoPago;
 });
 
 	   $scope.registrar = function(empleado) {
+		   
+			   
+		   
 		 	
 			//se declaran variables 	
 	       var noEmpleado = document.getElementById("noEmpleado").value;
@@ -273,6 +276,14 @@ $scope.pagoValor = $scope.datoPago;
 	 $scope.vialidad = document.getElementById("cVialidad").value = null;
 	 }
  
+	 var imss = document.getElementById("seguro");
+		   
+		   if(imss.checked == true) {
+			   $scope.seguro = "S";
+			   } else if(imss.checked == false) {
+				   $scope.seguro = "N";
+			   }
+ 
 		   $http({
 	              method: 'GET',
 	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
@@ -295,6 +306,7 @@ $scope.pagoValor = $scope.datoPago;
 	              "sueldo": $scope.sueldo,
 	              "frecuenciaPago": $scope.pagoValor,
 	              "nss": document.getElementById("nss").value,
+	              "altaIMSS": $scope.seguro,
 	              "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
 	              "observaciones": document.getElementById("observaciones").value,
 	              "usuario": 'SISTEMAS',
@@ -393,6 +405,7 @@ $scope.pagoValor = $scope.datoPago;
    	   document.getElementById("noCreditoInfonavit").disabled = false;
    	   document.getElementById("sueldo").value = general.sueldo;
    	   document.getElementById("sueldo").disabled = false;
+   	  
    	   $scope.cuadri = general.idCuadrilla;
    	   
    	   if (typeof($scope.cuadri) === "undefined") {
@@ -405,7 +418,15 @@ $scope.pagoValor = $scope.datoPago;
    	   	  document.getElementById("cCuadrilla").value = $scope.cuadri;
    			   }
    		   
-   	   
+   	        if(general.altaImss == "S") {
+   	          document.getElementById("seguro").checked = true;
+   	          document.getElementById("seguro").disabled = false;
+   	        } else if(general.altaImss == "N") {
+   	        	document.getElementById("seguro").checked = false;
+   	        	document.getElementById("seguro").disabled = false;
+   	        }
+   	        
+   	        
    	   
     	   //validacion del sexo
     	   if(general.sexo == "M")
@@ -674,7 +695,13 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
  {
 	 $scope.vialidad = document.getElementById("cVialidad").value = null;
 	 }
-               
+           var imss = document.getElementById("seguro");
+		   
+		   if(imss.checked == true) {
+			   $scope.seguro = "S";
+			   } else if(imss.checked == false) {
+				   $scope.seguro = "N";
+			   }    
 	   $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
@@ -698,6 +725,7 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
             "calificacion": document.getElementById("calificacion").value,
             "frecuenciaPago": $scope.pagoValor,
             "nss": document.getElementById("nss").value,
+              "altaIMSS": $scope.seguro,
             "noCreditoInfonavit": document.getElementById("noCreditoInfonavit").value,
             "observaciones": document.getElementById("observaciones").value,
             "usuario": 'SISTEMAS',
@@ -771,7 +799,13 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
    	   $scope.cuadri = general.idCuadrilla;
    	   document.getElementById('idCuadrilla').value="number:"+ $scope.cuadri;
    	   document.getElementById('idCuadrilla').disabled = true;
-   	  
+   	if(general.altaImss == "S") {
+	          document.getElementById("seguro").checked = true;
+	          document.getElementById("seguro").disabled = true;
+	        } else if(general.altaImss == "N") {
+	        	document.getElementById("seguro").checked = false;
+	        	document.getElementById("seguro").disabled = true;
+	        }
    	   //validacion del sexo
    	   if(general.sexo == "M")
    	   { 
