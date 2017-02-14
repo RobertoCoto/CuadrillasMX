@@ -30,8 +30,8 @@
                 				<tr ng-repeat="tareas in resultado">
                 				<td>{{tareas.fechaTarea}}</td>
                 			    <td>{{tareas.descripcion}}</td>
-                			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="img/Go.png" style="width: 92px; height: 93px; "  ng-click="notificar(tareas)"/></td>
-                			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="img/Go.png" style="width: 92px; height: 93px; "  ng-click="autorizar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="img/Go.png" style="width: 36px; height: 34px; "  ng-click="notificar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="img/Go.png" style="width: 36px; height: 34px; "  ng-click="autorizar(tareas)"/></td>
                 				</tr>
                 			</table>
                 		</div>
