@@ -285,6 +285,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.empleado.NotificaImss</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaTareas</servlet-name>
+  	<display-name>ConsultaTareas</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.buzon.ConsultaTareas</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -472,5 +478,9 @@
 	<servlet-mapping>
 		<servlet-name>NotificaImss</servlet-name>
 		<url-pattern>/NotificaImss</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaTareas</servlet-name>
+		<url-pattern>/ConsultaTareas</url-pattern>
 	</servlet-mapping>
 </web-app>

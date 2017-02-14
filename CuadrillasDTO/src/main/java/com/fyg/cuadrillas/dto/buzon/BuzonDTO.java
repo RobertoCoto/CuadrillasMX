@@ -17,6 +17,10 @@ public class BuzonDTO extends ObjetoValor {
 	 */
 	private String fechaTarea;
 	/**
+	 * id general
+	 */
+	private Integer id;
+	/**
 	 * id del empleado
 	 */
 	private Integer idEmpleado;
@@ -24,6 +28,10 @@ public class BuzonDTO extends ObjetoValor {
 	 * id del permiso
 	 */
 	private Integer idPermiso;
+	/**
+	 * Descripcion
+	 */
+	private String descripcion;
 	/**
 	 * @return the tipoTarea
 	 */
@@ -71,5 +79,17 @@ public class BuzonDTO extends ObjetoValor {
 	 */
 	public void setIdPermiso(Integer idPermiso) {
 		this.idPermiso = idPermiso;
+	}
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

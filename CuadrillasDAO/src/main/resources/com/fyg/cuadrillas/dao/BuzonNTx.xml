@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fyg.cuadrillas.dao.BuzonNTx">
+
+<resultMap type="Buzon" id="buzon">
+<result column="tipo_tarea" property="tipoTarea"/>
+<result column="fecha_tarea" property="fechaTarea"/>
+<result column="descripcion" property="descripcion"/>
+<result column="id" property="id"/>
+</resultMap>
+
+<select id="consultaTareas" parameterType="Buzon" resultMap="buzon">
+SELECT tipo_tarea,
+	   fecha_tarea,
+	   descripcion,
+	   id 
+FROM (
+
+	SELECT 
+		'IMSS' AS tipo_tarea, 
+		date_add( e.fecha_ingreso , INTERVAL 5 DAY) AS fecha_tarea,
+		CONCAT('Alta IMSS Emp: ', e.nombre, ' ', e.apellido_pat) AS descripcion,
+		id_empleado AS id
+	FROM empleado e
+	WHERE e.alta_imss = 'S'
+	AND e.usuario_aut_imss IS NULL
+	AND datediff(now(), e.fecha_ingreso ) > 90 /*variable parametros*/
+	UNION ALL
+	SELECT 
+		'PELA' AS tipo_tarea,
+		 pl.fecha_solicitud AS fecha_tarea,
+		 CONCAT('Aut. Permiso Laboral: ', e.nombre, ' ', e.apellido_pat) AS descripcion,
+		 id_permiso AS id
+	FROM permiso_laboral pl
+	INNER JOIN empleado e ON e.id_empleado = pl.id_empleado
+	WHERE pl.autorizacion IS NULL
+) universo
+ORDER BY fecha_tarea
+</select>
+</mapper>

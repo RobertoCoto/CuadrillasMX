@@ -22,6 +22,7 @@
 <typeAlias alias="Permiso" type="com.fyg.cuadrillas.dto.empleado.PermisoLaboralDTO"/>
 <typeAlias alias="Actividad" type="com.fyg.cuadrillas.dto.actividad.ActividadDTO"/>
 <typeAlias alias="Coordenada" type="com.fyg.cuadrillas.dto.CoordenadaDTO"/>
+<typeAlias alias="Buzon" type="com.fyg.cuadrillas.dto.buzon.BuzonDTO"/>
 </typeAliases>
 
 	<environments default="development">
@@ -53,5 +54,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/CuadrillaNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/PermisoNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/ActividadNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/BuzonNTx.xml" />
 	</mappers>
 </configuration>
