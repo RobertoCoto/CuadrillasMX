@@ -12,13 +12,33 @@
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/buzon.js"></script>
 </head>
-<body>
+<body ng-app="tatei" ng-controller="buzon">
 <div class="container">
 <h2>Buzón Oficina Central</h2>
 		<div class="panel panel-default">
 			<div class="panel-body">
 			<form name="form_reloj" id="formEmpleado">
-			
+			    <div class="row">
+			         <div class="col-sm-12">
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>Tipo Tarea</b></td>
+                				<td><b>Fecha Actividad</b></td>
+                				<td><b>Descripcion</b></td>
+                				<td><b>Operaciones</b></td>
+                				</tr>
+                				<tr ng-repeat="tareas in resultado">
+                				<td>{{tareas.tipoTarea}}</td>
+                				<td>{{tareas.fechaTarea}}</td>
+                			    <td>{{tareas.descripcion}}</td>
+                			    <td ng-if="tareas.tipoTarea === 'IMSS'"><button class="btn btn-success btn-primary">Ejecutar Tarea</button></td>
+                			    <td ng-if="tareas.tipoTarea === 'PELA'"><button class="btn btn-success btn-primary">Ejecutar Tarea</button></td>
+                				</tr>
+                			</table>
+                		</div>
+                	</div>
+			    </div>
 			</form>
 			</div>
 		</div>
