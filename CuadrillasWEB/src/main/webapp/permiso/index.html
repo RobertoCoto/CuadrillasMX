@@ -33,6 +33,11 @@
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/permisoLaboral.js"></script>
+<style>
+.responsive-input{
+  width: 100%;
+}
+</style>
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="registraPermiso">
 
@@ -80,10 +85,10 @@
 			  </div>
 			  
 			  <div class="row">
-			  <div class="col-sm-4">
+			  <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" class="form-control" rows="6" cols="56"></textarea>
+                           <textarea id="comentario" class="form-control responsive-input" style="height: 63px; "></textarea>
                              <div class="amt_errorComentario"></div>
                         </div>
                     </div>

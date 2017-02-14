@@ -7,6 +7,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Baja de Empleado</title>
+<style>
+.responsive-input{
+  width: 100%;
+}
+</style>
 <script type="text/javascript">
  	function mueveReloj(){ 
    	 
@@ -32,6 +37,7 @@
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/baja.js"></script>
+
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="bajaEmpleado" >
     <div class="container">
@@ -104,10 +110,10 @@
 			 </div>
 			 
 			 <div class="row">
-			 <div class="col-sm-4">
+			 <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" rows="6" cols=36" class="form-control"></textarea>
+                           <textarea id="comentario"  class="form-control responsive-input" style="height: 78px; "></textarea>
                         <div class="amt_errorComentario"></div>
                         </div>
                     </div>
