@@ -16,7 +16,7 @@ app.controller('buzon', function ($scope, $http) {
 		    
       $scope.notificar = function(tareas) {
     	    $scope.idImss = tareas.id;
-    	     window.open('http://localhost:8080/CuadrillasWEB/altaImss/alta_imss.html?idEmpleado='+ $scope.idImss, '_blank','heigth=600,width=600');
+    	     window.open('http://localhost:8080/CuadrillasWEB/altaImss/alta_imss.html?idEmpleado='+ $scope.idImss, '_blank','heigth=300,width=500');
     	  };
     	  
       $scope.autorizar = function(tareas) {
