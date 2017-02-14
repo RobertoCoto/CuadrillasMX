@@ -50,6 +50,7 @@ app.controller('altaImss', function ($scope, $http) {
 		    }).then(function mySucces(response) {
 		    	 alert(response.data.mensajeFuncional);
 		    	 console.info(response);
+		    	 opener.top.location.reload();
 		    }, function myError(response) {
 		        console.error(response);
 		        alert(response.data.mensajeFuncional);
