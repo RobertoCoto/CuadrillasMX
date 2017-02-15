@@ -13,12 +13,12 @@ var data;
                 controller  : 'validaUsuario'
             })
             .when('/10', {
-                templateUrl : 'catalogo/index.html',
-                controller  : 'catalogoctrl'
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
             })
              .when('/12', {
-                templateUrl : 'usuario/cambio_contra.html',
-                controller  : 'cambioDatos'
+                 templateUrl : 'templates/menu.html',
+                 controller  : 'validaUsuario'
             })
             .when('/13', {
                 templateUrl : 'templates/menu.html',
