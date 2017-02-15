@@ -17,7 +17,7 @@ public class BuzonDAO {
 	 * @throws Exception para una excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BuzonDTO> consultaTareas(String uid)throws Exception {
+	public List<BuzonDTO> consultaTareas(String uid,BuzonDTO buzon)throws Exception {
 		 SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -30,7 +30,7 @@ public class BuzonDAO {
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla contacto
-				listaTareas = sessionNTx.selectList("BuzonDAO.consultaTareas");
+				listaTareas = sessionNTx.selectList("BuzonDAO.consultaTareas",buzon);
 				if ( listaTareas.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existen tareas pendientes.");
 				}

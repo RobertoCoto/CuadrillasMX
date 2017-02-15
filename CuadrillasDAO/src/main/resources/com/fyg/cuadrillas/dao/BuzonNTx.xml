@@ -24,7 +24,7 @@ FROM (
 	FROM empleado e
 	WHERE e.alta_imss = 'S'
 	AND e.usuario_aut_imss IS NULL
-	AND datediff(now(), e.fecha_ingreso ) > 90 /*variable parametros*/
+	AND datediff(now(), e.fecha_ingreso ) <![CDATA[>]]> #{notificaImss} 
 	UNION ALL
 	SELECT 
 		'PELA' AS tipo_tarea,
