@@ -62,7 +62,5 @@ public class ConsultaTareas extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
-		
 	}
-
 }

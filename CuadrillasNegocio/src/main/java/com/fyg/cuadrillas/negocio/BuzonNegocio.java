@@ -13,7 +13,7 @@ import com.fyg.cuadrillas.dto.buzon.BuzonRespuesta;
 public class BuzonNegocio {
     
 	/**
-	 * consulta
+	 * Buzon DTO 
 	 */
 	private BuzonDTO buzon;
 	/**
