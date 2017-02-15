@@ -7,20 +7,22 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.BuzonDAO;
-import com.fyg.cuadrillas.dto.ParametroDTO;
 import com.fyg.cuadrillas.dto.buzon.BuzonDTO;
 import com.fyg.cuadrillas.dao.ParametroDAO;
 import com.fyg.cuadrillas.dto.buzon.BuzonRespuesta;
 public class BuzonNegocio {
     
-	
-	
+	/**
+	 * consulta
+	 */
+	private BuzonDTO buzon;
 	/**
 	 * Metodo para consultar las tareas disponibles
 	 * @return regresa lista de tareas
 	 */
-	public BuzonRespuesta consultaTarea(BuzonDTO buzon) {
-		
+	public BuzonRespuesta consultaTarea() {
+		//
+	    buzon = new BuzonDTO();
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(new String(""));
 		//Mandamos a log el objeto de entrada
