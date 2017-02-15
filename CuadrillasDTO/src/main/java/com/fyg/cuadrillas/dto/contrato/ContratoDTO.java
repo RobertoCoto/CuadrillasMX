@@ -21,8 +21,8 @@ public class ContratoDTO extends ObjetoValor {
 	private String numeroDocumento;
 	private double monto;
 	private double subtotal;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private String fechaInicio;
+	private String fechaFin;
 	private int diasDuracion;
 	private double pctAvance;
 	private Date fechaRegistro;
@@ -133,30 +133,6 @@ public class ContratoDTO extends ObjetoValor {
 		this.subtotal = subtotal;
 	}
 	/**
-	 * @return the fechaInicio
-	 */
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-	/**
-	 * @param fechaInicio the fechaInicio to set
-	 */
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	/**
-	 * @return the fechaFin
-	 */
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-	/**
-	 * @param fechaFin the fechaFin to set
-	 */
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-	/**
 	 * @return the diasDuracion
 	 */
 	public int getDiasDuracion() {
@@ -179,18 +155,6 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setPctAvance(double pctAvance) {
 		this.pctAvance = pctAvance;
-	}
-	/**
-	 * @return the fechaRegistro
-	 */
-	public Date getFechaRegistro() {
-		return fechaRegistro;
-	}
-	/**
-	 * @param fechaRegistro the fechaRegistro to set
-	 */
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
 	}
 	/**
 	 * @return the idCuadrilla
@@ -288,5 +252,40 @@ public class ContratoDTO extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
-	
+	/**
+	 * @return the fechaInicio
+	 */
+	public String getFechaInicio() {
+		return fechaInicio;
+	}
+	/**
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(String fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	/**
+	 * @return the fechaFin
+	 */
+	public String getFechaFin() {
+		return fechaFin;
+	}
+	/**
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(String fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	/**
+	 * @return the fechaRegistro
+	 */
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+	/**
+	 * @param fechaRegistro the fechaRegistro to set
+	 */
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
 }

@@ -31,8 +31,8 @@ public class ContratoTest {
 		contrato.setCodigoContrato("ARVE");
 		contrato.setCodigoVialidad("UNIV");
 		contrato.setCodigoEmpresa("TATE");
-		contrato.setFechaInicio(formato.parse("2015-12-01"));
-		contrato.setFechaFin(formato.parse("2016-12-01"));
+		contrato.setFechaInicio("2015-12-01");
+		contrato.setFechaFin("2016-12-01");
 		
 		CoordenadaDTO coordenada1 = new CoordenadaDTO();
 		coordenada1.setOrden(1);

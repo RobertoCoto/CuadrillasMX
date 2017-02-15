@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -87,15 +88,19 @@ public class ContratoNegocio {
 							coordenada.setDireccion("");
 						}
 					}
-
+					SimpleDateFormat formateador = new SimpleDateFormat("dd/mm/yyyy");
+					
+					Date fechaInicio = formateador.parse(contrato.getFechaInicio());
+					Date fechaFin = formateador.parse(contrato.getFechaFin());
+					
 					//Validacion de Fechas
-					System.out.println("Comparacion Fechas " + contrato.getFechaInicio().compareTo(contrato.getFechaFin()));
-					System.out.println("Comparacion Fechas " + contrato.getFechaInicio().before(contrato.getFechaFin()));
-					if ( !contrato.getFechaInicio().before(contrato.getFechaFin()) ) {
+					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));
+					System.out.println("Comparacion Fechas " + fechaInicio.before(fechaFin));
+					if ( !fechaInicio.before(fechaFin) ) {
 						throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
 					}
 					//Calculo Dias Duracion
-					contrato.setDiasDuracion(Funciones.diasEntreFechas(contrato.getFechaInicio(), contrato.getFechaFin()));
+					contrato.setDiasDuracion(Funciones.diasEntreFechas(fechaInicio, fechaFin));
 
 					System.out.println("Dias Duracions " + contrato.getDiasDuracion());
 

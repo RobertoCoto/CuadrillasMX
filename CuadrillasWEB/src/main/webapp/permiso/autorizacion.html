@@ -27,6 +27,11 @@ input[type=checkbox]
   font-size: 110%;
   display: inline;
 }
+
+.responsive-input{
+  width: 100%;
+  resize: none;
+}
 </style>
 </head>
 <body ng-app="tatei" ng-controller="autorizacionLaboral">
@@ -73,10 +78,10 @@ input[type=checkbox]
 			  </div>
 			  
 			  <div class="row" ng-repeat="coment in resultado">
-			  <div class="col-sm-4">
+			  <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" class="form-control" rows="4"  disabled  style="width: 801px; height: 107px; ">{{coment.comentarios}}</textarea>
+                           <textarea id="comentario" class="form-control responsive-input"  disabled >{{coment.comentarios}}</textarea>
                              <div class="amt_errorComentario"></div>
                         </div>
                     </div>

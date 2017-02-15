@@ -49,6 +49,8 @@ public class AltaContrato extends HttpServlet {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
 			String direccionInicial = request.getParameter("direccionInicial");
+			String fechaInicio = request.getParameter("fechaInicio");
+			String fechaTermino = request.getParameter("fechaTermino");
 			float latitudInicial = Float.parseFloat(request.getParameter("latitudInicial"));
 			float longitudInicial = Float.parseFloat(request.getParameter("longitudInicial"));
 			String direccionFinal = request.getParameter("direccionInicial");

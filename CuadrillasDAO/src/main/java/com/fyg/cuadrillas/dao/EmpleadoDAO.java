@@ -263,7 +263,7 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
     */
    @SuppressWarnings("unchecked")
 public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
-	   SqlSession sessionNTx = null;
+	    SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);

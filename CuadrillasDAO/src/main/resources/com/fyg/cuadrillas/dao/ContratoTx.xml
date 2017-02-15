@@ -8,7 +8,7 @@
 		codigo_vialidad, codigo_contrato,	codigo_documento, codigo_empresa,
 		numero_documento, monto, subtotal, fecha_inicio, fecha_fin,	dias_duracion,
 		pct_avance,	fecha_registro,	id_cuadrilla, observaciones, url, metros,
-		usuario_alta, fecha_alta, usuario_ult_mod, fecha_ult_mod, estatus
+		usuario_alta, fecha_alta, estatus
 	)
 VALUES 
 	(

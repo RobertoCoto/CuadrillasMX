@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+<title>Buzón de Tareas</title>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/buzon.js"></script>
+</head>
+<body ng-app="tatei" ng-controller="buzon">
+<div class="container">
+<h2>Buzón Oficina Central</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<form name="form_reloj" id="formEmpleado">
+			    <div class="row">
+			         <div class="col-sm-12">
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>Fecha Actividad</b></td>
+                				<td><b>Descripción</b></td>
+                				<td><b>Ejecutar</b></td>
+                				</tr>
+                				<tr ng-repeat="tareas in resultado">
+                				<td>{{tareas.fechaTarea}}</td>
+                			    <td>{{tareas.descripcion}}</td>
+                			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="img/Go.png" style="width: 36px; height: 34px; "  ng-click="notificar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="img/Go.png" style="width: 36px; height: 34px; "  ng-click="autorizar(tareas)"/></td>
+                				</tr>
+                			</table>
+                		</div>
+                	</div>
+			    </div>
+			</form>
+			</div>
+		</div>
+</div>
+</body>
+</html>
