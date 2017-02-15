@@ -47,8 +47,6 @@ VALUES (5,NULL,'Reportes','Reportes','A');
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (10, 1,'ABC Catalogos','ABC Catalogos','CuadrillasWEB/catalogo/index.html','A');
 
-INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
-VALUES  (11, 1,'Alta Usuarios','Alta Usuarios','CuadrillasWEB/','A');
 
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (12, 1,'Cambio Contraseña','Cambio Contraseña','CuadrillasWEB/usuario/cambio_contra.html','A');
@@ -104,7 +102,6 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,4,40,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,5,50,'A');
 
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,10,1,'A');
-INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,11,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,12,3,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,13,4,'A');
 
