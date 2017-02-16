@@ -531,6 +531,20 @@
                 $scope.consultaContratos();
                 $('#panelContratos').show();
                 $('#nuevoContrato').show();
+                
+                $http({
+            method: 'GET',
+            url: 'http://localhost:8080/CuadrillasWEB/AltaContrato',
+            params: {
+		 		"JSONContrato": $scope.contratoFocus
+		         }
+		    }).then(function mySucces(response) {
+		    	 alert(response.data.mensajeFuncional);
+		    	 console.info(response);
+		    }, function myError(response) {
+		        console.error(response);
+		        alert(response.data.mensajeFuncional);
+		    });
                 console.log($scope.contratoFocus);
                 $scope.contratoFocus = {}; //para el final
               }

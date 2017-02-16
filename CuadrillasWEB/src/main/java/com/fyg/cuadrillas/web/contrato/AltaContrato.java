@@ -2,14 +2,21 @@ package com.fyg.cuadrillas.web.contrato;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
 import com.google.gson.Gson;
@@ -45,20 +52,10 @@ public class AltaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			Integer numeroContrato = Integer.parseInt(request.getParameter("numeroContrato"));
-			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			Integer idVialidad = Integer.parseInt(request.getParameter("idVialidad"));
-			String direccionInicial = request.getParameter("direccionInicial");
-			String fechaInicio = request.getParameter("fechaInicio");
-			String fechaTermino = request.getParameter("fechaTermino");
-			float latitudInicial = Float.parseFloat(request.getParameter("latitudInicial"));
-			float longitudInicial = Float.parseFloat(request.getParameter("longitudInicial"));
-			String direccionFinal = request.getParameter("direccionInicial");
-			float latitudFinal = Float.parseFloat(request.getParameter("latitudFinal"));
-			float longitudFinal = Float.parseFloat(request.getParameter("longitudFinal"));
-			String observaciones = request.getParameter("observaciones");
-			String url = request.getParameter("url");
-			String usuario = request.getParameter("usuario");
+			//leer json Array
+			JSONParser parser = new JSONParser();
+			Object JSONContrato = parser.parse(request.getParameter("JSONContrato"));
+			JSONObject jsonObject = (JSONObject) JSONContrato;
 			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -70,18 +67,51 @@ public class AltaContrato extends HttpServlet {
 			final ContratoNegocio negocio = new ContratoNegocio();
 			
 			ContratoDTO contrato = new ContratoDTO();
-		/*	contrato.setNumeroContrato(numeroContrato);
-			contrato.setIdEmpleado(idEmpleado);
-			contrato.setIdVialidad(idVialidad);
-			contrato.setDireccionInicial(direccionInicial);
-			contrato.setLatitudInicial(latitudInicial);
-			contrato.setLongitudInicial(longitudInicial);
-			contrato.setDireccionFinal(direccionFinal);
-			contrato.setLatitudFinal(latitudFinal);
-			contrato.setLongitudFinal(longitudFinal);
-			contrato.setUrl(url);
-			contrato.setObservaciones(observaciones);
-			contrato.setUsuarioAlta(usuario);*/
+			//se desglosan los datos para convertirlos a objetos 
+			String codigoContrato = (String) jsonObject.get("codigoContrato");
+			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
+			String codigoEmpresa = (String) jsonObject.get("codigoEmpresa");
+			String codigoVialidad = (String) jsonObject.get("codigoVialidad");
+			String numeroDocumento = (String) jsonObject.get("numeroDocumento");
+			Integer metros = (Integer) jsonObject.get("metros");
+			Double monto = (Double) jsonObject.get("monto");
+			Double subtotal = (Double) jsonObject.get("subtotal");
+			JSONArray listaCoordenadas = (JSONArray) jsonObject.get("coordenadas");
+			
+			//se crea objeto lista 
+			List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
+			
+			//se asignan para enviarlos a negocio
+			contrato.setCodigoContrato(codigoContrato); 
+			contrato.setCodigoDocumento(codigoDocumento);
+			contrato.setCodigoEmpresa(codigoEmpresa);
+			contrato.setCodigoVialidad(codigoVialidad);
+			contrato.setNumeroDocumento(numeroDocumento);
+			contrato.setMetros(metros);
+			contrato.setMonto(monto);
+			contrato.setSubtotal(subtotal);
+			
+			//se obtienen las cordenadas
+			
+			for(int i = 0; i < listaCoordenadas.size(); i++)
+			{
+				CoordenadaDTO codigo = new CoordenadaDTO();
+				JSONObject direcc = (JSONObject) listaCoordenadas.get(i);
+				
+				String direccion = (String) direcc.get("direccion");
+				Float latitud = (Float) direcc.get("latitud");
+				Float longitud =  (Float) direcc.get("longitud");
+				
+				codigo.setDireccion(direccion);
+				codigo.setLatitud(latitud);
+				codigo.setLongitud(longitud);
+			
+				coordenadas.add(codigo);
+				//LogHandler.debug(null, this.getClass(), "datos " + coordenadas);
+				
+			}
+			contrato.setCoordenadas(coordenadas);
+			
 			respuesta = negocio.altaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
