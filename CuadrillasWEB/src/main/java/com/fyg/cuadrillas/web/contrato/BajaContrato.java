@@ -64,12 +64,12 @@ public class BajaContrato extends HttpServlet {
 			
 			ContratoDTO contrato = new ContratoDTO();
 			
-			Integer idContrato = (Integer) jsonObject.get("idContrato");
+			String idContrato = (String) jsonObject.get("idContrato");
 			String  usuario = (String) jsonObject.get("usuario");
 			
 			
 			//se le asignan los valores
-			contrato.setIdContrato(idContrato);
+			contrato.setIdContrato(Integer.parseInt(idContrato));
 			contrato.setUsuarioBaja(usuario);
 			respuesta = negocio.bajaContrato(contrato);
 			if (respuesta.isEstatus()) {
