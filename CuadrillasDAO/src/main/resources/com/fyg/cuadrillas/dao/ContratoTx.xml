@@ -15,7 +15,7 @@ VALUES
 		#{codigoVialidad}, #{codigoContrato},	#{codigoDocumento}, #{codigoEmpresa},
 		#{numeroDocumento}, #{monto}, #{subtotal}, #{fechaInicio}, #{fechaFin},	#{diasDuracion},
 		#{pctAvance},	#{fechaRegistro},	#{idCuadrilla}, #{observaciones}, #{url}, #{metros},
-		#{usuarioAlta}, now(), #{usuarioAlta}, now(), #{estatus}
+		#{usuarioAlta}, now(), #{estatus}
 	)
 	<selectKey keyProperty="idContrato" resultType="Integer" order="AFTER">
 		SELECT LAST_INSERT_ID();
