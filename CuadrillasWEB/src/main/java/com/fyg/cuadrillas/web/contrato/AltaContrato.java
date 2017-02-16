@@ -76,6 +76,10 @@ public class AltaContrato extends HttpServlet {
 			Integer metros = (Integer) jsonObject.get("metros");
 			Double monto = (Double) jsonObject.get("monto");
 			Double subtotal = (Double) jsonObject.get("subtotal");
+			String fechaInicio = (String) jsonObject.get("fechaInicio");
+			String fechaTermino = (String) jsonObject.get("fechaTermino");
+			String usuario = (String) jsonObject.get("usuario");
+			Integer idCuadrilla = (Integer) jsonObject.get("idCuadrilla");
 			JSONArray listaCoordenadas = (JSONArray) jsonObject.get("coordenadas");
 			
 			//se crea objeto lista 
@@ -90,6 +94,10 @@ public class AltaContrato extends HttpServlet {
 			contrato.setMetros(metros);
 			contrato.setMonto(monto);
 			contrato.setSubtotal(subtotal);
+			contrato.setFechaInicio(fechaInicio);
+			contrato.setFechaFin(fechaTermino);
+			contrato.setUsuarioAlta(usuario);
+			contrato.setIdCuadrilla(idCuadrilla);
 			
 			//se obtienen las cordenadas
 			

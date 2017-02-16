@@ -59,11 +59,11 @@ public class ContratoTest {
 	public void testRegistraContrato() throws Exception {		
 		String guid = "123456789";
 		
-		System.setProperty("http.proxyHost", "169.169.4.85");
+		/*System.setProperty("http.proxyHost", "169.169.4.85");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");
-
+*/
         ContratoNegocio negocio = new ContratoNegocio();
         
 		try {
