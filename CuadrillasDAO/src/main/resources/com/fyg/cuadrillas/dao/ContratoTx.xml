@@ -40,7 +40,7 @@ VALUES
 <update id="bajaContrato" parameterType="Contrato">
 	UPDATE contrato SET
 		fecha_baja = now(),
-		usuario_baja = #{usuarioAlta},		
+		usuario_baja = #{usuarioBaja},		
 	    estatus = 'I'
 	WHERE id_contrato = #{idContrato}
 	AND estatus = 'A'

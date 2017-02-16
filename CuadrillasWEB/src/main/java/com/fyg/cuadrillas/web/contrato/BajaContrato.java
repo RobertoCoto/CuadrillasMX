@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
@@ -45,9 +48,11 @@ public class BajaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			Integer numeroContrato = Integer.parseInt(request.getParameter("numeroContrato"));
-			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String usuario = request.getParameter("usuario");
+			//leer json Array
+			JSONParser parser = new JSONParser();
+			Object JSONContratoBaja = parser.parse(request.getParameter("JSONContratoBaja"));
+			JSONObject jsonObject = (JSONObject) JSONContratoBaja;
+			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -58,10 +63,14 @@ public class BajaContrato extends HttpServlet {
 			final ContratoNegocio negocio = new ContratoNegocio();
 			
 			ContratoDTO contrato = new ContratoDTO();
-			/*contrato.setNumeroContrato(numeroContrato);
-			contrato.setIdEmpleado(idEmpleado);
+			
+			Integer idContrato = (Integer) jsonObject.get("idContrato");
+			String  usuario = (String) jsonObject.get("usuario");
+			
+			
+			//se le asignan los valores
+			contrato.setIdContrato(idContrato);
 			contrato.setUsuarioBaja(usuario);
-			contrato.setUsuarioUltMod(usuario);*/
 			respuesta = negocio.bajaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

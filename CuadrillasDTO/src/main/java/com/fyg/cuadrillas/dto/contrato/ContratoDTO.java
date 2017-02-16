@@ -34,7 +34,8 @@ public class ContratoDTO extends ObjetoValor {
 	private List<CoordenadaDTO> coordenadas;
 	private String estatus;
 	private String usuarioAlta;
-
+	private String usuarioBaja;
+	private String usuarioUltMod;
 
 	/**
 	 * @return the idContrato
@@ -287,5 +288,29 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
+	}
+	/**
+	 * @return the usuarioBaja
+	 */
+	public String getUsuarioBaja() {
+		return usuarioBaja;
+	}
+	/**
+	 * @param usuarioBaja the usuarioBaja to set
+	 */
+	public void setUsuarioBaja(String usuarioBaja) {
+		this.usuarioBaja = usuarioBaja;
+	}
+	/**
+	 * @return the usuarioUltMod
+	 */
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
+	}
+	/**
+	 * @param usuarioUltMod the usuarioUltMod to set
+	 */
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
 	}
 }

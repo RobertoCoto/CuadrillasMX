@@ -160,7 +160,7 @@ public class ContratoNegocio {
 			if (contrato.getIdContrato() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del contrato para la baja.");
 			}
-			if (contrato.getUsuarioAlta() == null || contrato.getUsuarioAlta().trim().isEmpty()) {
+			if (contrato.getUsuarioBaja() == null || contrato.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el usuario para la baja.");
 			}
 			ContratoDAO dao = new ContratoDAO();
