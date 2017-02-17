@@ -95,7 +95,7 @@ function removeByAttr(arr, attr, value) {
             })
         	.state('13', {
         		url: '/13',
-                templateUrl : 'usuario/cambio_contra_gral.html',
+                templateUrl : 'templates/contra_general.html',
                 controller  : 'adminDatos'
         	})
             .state('20', {
