@@ -130,8 +130,8 @@ function removeByAttr(arr, attr, value) {
             })
             .state('40', {
             	url: '/40',
-                templateUrl : 'buzoncentral pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/buzon.html',
+                controller  : 'buzon'
             })
             .state('41', {
             	url: '/41',
