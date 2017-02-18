@@ -10,7 +10,7 @@
                             <label for="fecha" class="control-label">Fecha</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="text" name="fecha" ng-model="asistencia.fecha" class="form-control" disabled>
+                  			<input type="date" name="fechaIngreso" id="fechaIngreso" class="form-control" disabled>   
                				 </div>
                         </div>
 
@@ -21,7 +21,7 @@
                             <label for="horarioSolicitado" class="control-label">Horario</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="text" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" disabled ng-model="asistencia.horario" class="form-control">
+                  			<input type="time" name="horarioAsistencia" id="horarioAsistencia" class="form-control" disabled>   
                				 </div>
                         </div>
                     </div>

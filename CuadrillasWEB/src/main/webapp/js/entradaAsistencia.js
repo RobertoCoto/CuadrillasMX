@@ -15,7 +15,38 @@ app.controller('entradaAsistencia', function ($scope, $http) {
 //		};
 //		$scope.get = $scope.obtainGet();
 		
-	
+	  //Fecha del sistema 
+   var	hoy = new Date()
+   var	dd = hoy.getDate()
+	var mm = hoy.getMonth()+1 //hoy es 0!
+   var  yyyy = hoy.getFullYear()
+    
+    if(dd<10) {
+    dd='0'+dd
+	} 
+
+	if(mm<10) {
+    mm='0'+mm
+	} 
+
+   hoy = yyyy+'-'+mm+'-'+dd;
+   console.log(hoy);
+   	document.getElementById("fechaIngreso").value = hoy;
+   	
+   	//hora
+   	var momentoActual = new Date()
+   	var hora = momentoActual.getHours() 
+   	var minuto = momentoActual.getMinutes() 
+   	var str_minuto = new String (minuto) 
+   	if (str_minuto.length == 1) 
+      	minuto = "0" + minuto 
+   	str_hora = new String (hora) 
+   	if (str_hora.length == 1) 
+      	hora = "0" + hora 
+   	var horaImprimible = hora + " : " + minuto
+   	console.log(horaImprimible)
+   	document.getElementById("horarioAsistencia").value = horaImprimible;
+   	setTimeout(1000)
 		    $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
