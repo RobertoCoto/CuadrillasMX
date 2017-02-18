@@ -90,7 +90,7 @@ function removeByAttr(arr, attr, value) {
             })
             .state('12', {
             	url: '/12',
-            	templateUrl : 'usuario/cambio_contra.html',
+            	templateUrl : 'templates/cambio_contra.html',
             	controller  : 'cambioDatos'
             })
         	.state('13', {
@@ -100,12 +100,12 @@ function removeByAttr(arr, attr, value) {
         	})
             .state('20', {
             	url: '/20',
-                templateUrl : 'empleado/index.html',
+                templateUrl : 'templates/empleado.html',
                 controller  : 'registraEmpleado'
             })
             .state('30', {
             	url: '/30',
-                templateUrl : 'cuadrillas/admin_cuadrillas.html',
+                templateUrl : 'templates/admin_cuadrillas.html',
                 controller  : 'adminCuad'
             })
             .state('31', {
@@ -125,7 +125,7 @@ function removeByAttr(arr, attr, value) {
             })
             .state('34', {
             	url: '/34',
-                templateUrl : 'asistencia/index.html',
+                templateUrl : 'templates/asistencia.html',
                 controller  : 'entradaAsistencia'
             })
             .state('40', {
@@ -391,4 +391,9 @@ function removeByAttr(arr, attr, value) {
                     //console.log(result);
             });
           };
+          
+          
         });
+
+
+       

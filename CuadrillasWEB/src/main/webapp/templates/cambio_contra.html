@@ -1,0 +1,30 @@
+<div class="container">
+				<h2>Cambio de Contrase&ntilde;a</h2>
+				<br>
+				<div ng-repeat="datos in resultadoEmpleado">
+ 				<b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}} 
+				&nbsp <b>Perfil:</b> {{datos.nombrePerfil}}
+				<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
+				<input type="hidden" id="contra" value={{datos.contrasena}}>
+				</div>
+				<form ng-submit="actualizar(user)">
+				 <br>
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Anterior:</label>
+				 <input type="password" id="contraAnterior" requiered class="form-control">
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Nueva:</label>
+				 <input type="password" id="contraNueva" requiered class="form-control">
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Repetir Contrase&ntilde;a Nueva:</label>
+				 <input type="password"  id="repetirContraNueva" requiered class="form-control">
+				 </div>
+				 <br>
+				<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success">
+				</form>
+				
+		</div>

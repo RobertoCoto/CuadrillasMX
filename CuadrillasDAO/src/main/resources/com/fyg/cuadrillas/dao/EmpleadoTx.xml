@@ -14,7 +14,7 @@
 	VALUES
 		(
 		upper(#{noEmpleado}), upper(#{nombre}), upper(#{apellidoPat}), upper(#{apellidoMat}), upper(#{sexo}), upper(#{rfc}), upper(#{rfcCalculado}), #{fechaNacimiento},
-		#{fechaIngreso}, #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo},#{calificacion},#{frecuenciaPago},
+		now(), #{codigoPuesto}, #{codigoVialidad}, #{codigoArea}, #{codigoTalla},#{idCuadrilla},#{sueldo},#{calificacion},#{frecuenciaPago},
 		#{nss},#{noCreditoInfonavit}, #{telefono}, #{observaciones}, #{usuarioAlta}, now(),
 		 #{usuarioAlta}, now(), 'A', #{altaImss}
 		)

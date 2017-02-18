@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<title>Administraci√≥n de Empleados</title>
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	
-    	<script src="js/bootstrap.min.js"></script>
-    	
-    	
-<script type="text/javascript">
- 	function mueveReloj(){ 
-   	 
-   	hoy = new Date()
-   	dd = hoy.getDate()
-	mm = hoy.getMonth()+1 //hoy es 0!
-    yyyy = hoy.getFullYear()
-    
-    if(dd<10) {
-    dd='0'+dd
-	} 
-
-	if(mm<10) {
-    mm='0'+mm
-	} 
-
-   hoy = yyyy+'-'+mm+'-'+dd;
-   	document.form_reloj.fechaIngreso.value = hoy
-   	
-} 
-</script>
 <style>
 .inpurError
 	{
@@ -62,22 +27,15 @@
   resize: none;
 }
 </style>
-
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
-<script type="text/javascript" src="js/registraEmpleado.js"></script>
-
-</head>
-<body onload="mueveReloj()" ng-app="tatei" ng-controller="registraEmpleado">
-	<div class="container">
-	<h2>Administraci√≥n de Empleados</h2>
+<div class="container">
+	<h2>Administraci&oacute;n de Empleados</h2>
 		<div class="panel panel-default">
 		<div class="panel-body">
 			<form name="form_reloj" id="formEmpleado">
 			     <div class="row">
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
-                            <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
+                            <label for="numeroEmpleado" class="control-label">N&uacute;mero de Empleado</label>
                             <input type="text" name="numeroEmpleado" id="noEmpleado"  class="form-control"  data-form="nEmpleado"/>
                             <div class="amt_err"></div>
                         </div>
@@ -112,7 +70,7 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="puesto" class="control-label">Puesto</label>
-                            <select class="form-control"  id="codigoPuesto" data-ng-model="empleado.puesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(empleado.puesto)">
+                            <select class="form-control"  id="codigoPuesto" data-ng-model="empleado.puesto" data-ng-options="catalogo.descripcion for catalogo in resultado track by catalogo.codigo">
                             <option value="">--Seleccione Puesto--</option>
                             </select>
                             <div class="amt_errorPuesto"></div>
@@ -136,8 +94,7 @@
                             <label for="fechaIngreso" class="control-label">Fecha de Ingreso</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" name="fechaIngreso" id="fechaIngreso" class="form-control" disabled>
-               				 </div>
+                  			<input type="date" name="fechaIngreso" id="fechaIngreso" class="form-control" disabled>               				 </div>
                         </div>
                     </div>
 			     </div>
@@ -294,7 +251,7 @@
 			     </div>
 			     <p class="control-label">Documentacion</p>
 		
-			     <div data-id="documentosData" class="row" ng-repeat="documentos  in resultadoDocumentos" >
+			     <div data-id="documentosData" class="row" data-ng-repeat="documentos in resultadoDocumentos">
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="documento" class="control-label">{{documentos.descripcion}}</label>
@@ -310,32 +267,32 @@
                     </div>
 			     </div>
 			     
-			      <div data-id="documentosResultado" class="row" ng-repeat="documentos  in resultadoDocumentoEmp" >
+			      <div data-id="documentosResultado" class="row" data-ng-repeat="docs in resultadoDocumentoEmp">
 			      <div class="col-sm-6">
                         <div class="form-group form-group-sm">
-                            <label for="documento" class="control-label">{{documentos.descripcionDocumento}}</label>
+                            <label for="documento" class="control-label">{{docs.descripcionDocumento}}</label>
                         </div>
                     </div>
                     
-                    <div class="col-sm-6" ng-if="documentos.estatus == 'NA'">
+                    <div class="col-sm-6" ng-if="docs.estatus == 'NA'">
                         <div class="form-group form-group-sm">
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="1" data-form="documentData">SI 
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="3" data-form="documentData">NO
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="2" data-form="documentData" ng-checked="true">N/A 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="1" data-form="documentData">SI 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="3" data-form="documentData">NO
+							<input type="radio" name={{docs.codigoEmpDoc}} value="2" data-form="documentData" ng-checked="true">N/A 
                         </div>
                     </div>
-                     <div class="col-sm-6" ng-if="documentos.estatus == 'NO'">
+                     <div class="col-sm-6" ng-if="docs.estatus == 'NO'">
                         <div class="form-group form-group-sm">
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="1" data-form="documentData">SI 
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="3" data-form="documentData" ng-checked="true">NO
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="2" data-form="documentData" >N/A 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="1" data-form="documentData">SI 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="3" data-form="documentData" ng-checked="true">NO
+							<input type="radio" name={{docs.codigoEmpDoc}} value="2" data-form="documentData" >N/A 
                         </div>
                     </div>
-                     <div class="col-sm-6" ng-if="documentos.estatus == 'SI'">
+                     <div class="col-sm-6" ng-if="docs.estatus == 'SI'">
                         <div class="form-group form-group-sm">
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="1" data-form="documentData" ng-checked="true">SI 
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="3" data-form="documentData">NO
-							<input type="radio" name={{documentos.codigoEmpDoc}} value="2" data-form="documentData">N/A 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="1" data-form="documentData" ng-checked="true">SI 
+							<input type="radio" name={{docs.codigoEmpDoc}} value="3" data-form="documentData">NO
+							<input type="radio" name={{docs.codigoEmpDoc}} value="2" data-form="documentData">N/A 
                         </div>
                     </div>
 			     </div>
@@ -438,12 +395,8 @@
 		</div>
 		</div>
 	</div>
-
-
-
-
-		
-<script> 
+	
+	<script> 
 $(document).ready(function(){
 	$("#formEmpleado").submit(function () {
 		if($("#noEmpleado").val().length < 1) {
@@ -610,7 +563,7 @@ $(document).ready(function(){
 	$("#formEmpleado").submit(function () {
 		if($("#calificacion").val() == "") {
 			 $('.amt_errorCalificacion')
-				.text('Asigne una calificaci√≥n.')
+				.text('Asigne una calificaciÛn.')
 				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
 				.fadeIn('fast');
 				
@@ -717,7 +670,7 @@ $('input[data-form=nombreE]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-z √Å√â√ç√ì√ö√°√©√≠√≥√∫√ë√±]+$/;
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_error').fadeOut('slow');
@@ -737,7 +690,7 @@ $('input[data-form=apellidoP]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-z √Å√â√ç√ì√ö√°√©√≠√≥√∫√ë√±]+$/;
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorApellidoP').fadeOut('slow');
@@ -756,7 +709,7 @@ $('input[data-form=apellidoM]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-z √Å√â√ç√ì√ö√°√©√≠√≥√∫√ë√±]+$/;
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorApellidoM').fadeOut('slow');
@@ -867,9 +820,3 @@ $('input[data-form=tel]').keyup(function() {
 		
     });
 </script>
-
-    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-</body>
-
-</html>

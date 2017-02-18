@@ -1,0 +1,249 @@
+
+<div class="container"> 
+    <h2>Administraci&oacute;n de Cuadrillas</h2>
+<div class="panel panel-default">
+		<div class="panel-body">
+			<form name="form_reloj" id="formCuadrilla">
+                <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="numero" class="control-label">Numero </label>
+                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla"  class="form-control" required data-form="numeroCuadrilla"/>
+                           <div class="amt_errorCuadrilla"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="vialidad" class="control-label">Vialidad</label>
+                          <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> 
+                          <option value="">--Seleccione una Vialidad--</option>
+                          </select>
+                          <input type="hidden" id="dataVialidad"  value={{cuadrilla.vialidad}}>
+                        <div class="amt_errorVialidad"></div>
+                        </div>
+                    </div>
+
+                     <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="nombre" class="control-label">Nombre</label>
+                            <input type="text" name="nombre" id="nombre"  class="form-control" required data-form="nombreCuadrilla"/>
+                           <div class="amt_errorNombreCuadrilla"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                 <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="calificacion" class="control-label">Calificaci&oacute;n</label>
+                            <select id="calificacion" class="form-control">
+                              <option value="">---Seleccione una Calificaci&oacute;n----</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                            </select>
+                           <div class="amt_errorCalificacionCuadrilla"></div>
+                        </div>
+                    </div>
+                
+                </div>
+                
+                <div class="row">
+                	<div class="col-sm-12">
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>N&uacute;mero</b></td>
+                				<td><b>Nombre</b></td>
+                				<td><b>Vialidad</b></td>
+                				<td><b>Residente</b></td>
+                				<td><b>#Per</b></td>
+                				<td><b>Cal</b></td>
+                				<td><b>Estatus</b></td>
+                				<td colspan="2"><b>Operaciones</b></td>
+                				</tr>
+                				
+                				<tr ng-repeat="datosCuadrilla in resultadoCuadrilla">
+                				<input type="hidden" id="idData" value={{datosCuadrilla.idCuadrilla}}>
+                				<td>{{datosCuadrilla.idCuadrilla}}</td>
+                				<td>{{datosCuadrilla.nombreCuadrilla}}</td>
+                				<td>{{datosCuadrilla.nombreVialidad}}</td>
+                				<td>{{datosCuadrilla.nombreResidente}}</td>
+                				<td>{{datosCuadrilla.numeroPersonas}}</td>
+                				<td>{{datosCuadrilla.calificacion}}</td>
+                				<td data-ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
+                				<td data-ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>
+                				<td><button class="btn btn-info" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
+                				<td><button class="btn" ng-click="bajaCuadrilla(datosCuadrilla)" style="background-color:#f44336;color:white;">Baja</button></td>
+                				</tr>
+       
+                			</table>
+                		</div>
+                	</div>
+                </div>
+      
+                
+                 <div class="row" id="colab" style="display:none;">
+                 <h2>Colaboradores</h2>
+                	<div class="col-sm-12">
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>Perfil</b></td>
+                				<td><b>Nombre</b></td>
+                				<td><b>Cal</b></td>
+                				<td><b>Estatus</b></td>
+                				</tr>
+                				
+                				<tr ng-repeat="colaborador in resultadoColaborador">
+                				<td>{{colaborador.perfilEmpleado}}</td>
+                				<td>{{colaborador.nombre}} {{colaborador.apellidoPat}} {{colaborador.apellidoMat}}</td>
+                				<td>{{colaborador.calificacion}}</td>
+                				<td>{{colaborador.estatus}}</td>
+                				</tr>
+                				
+                				
+                			</table>
+                		</div>
+                	</div>
+                </div>
+                
+               <div class="btn-group" >
+			     <input class="btn btn-info btn-primary" type="reset" value="Limpiar Campos">
+			     
+			     </div>
+			     <div class="btn-group" >
+			     <input class="btn btn-success btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrilla)" id="editar">
+				 <input class="btn btn-success btn-primary"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrilla)" id="guardarDato" style="display:none;" >
+				 </div>
+			</form>
+		</div>
+</div>
+</div>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#numeroCuadrilla").val().length < 1) {
+			    $('.amt_errorCuadrilla')
+				.text('Numero de la cuadrilla vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#vialidad").val() == "") {
+			    $('.amt_errorVialidad')
+				.text('No se ha elegido una vialidad.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorVialidad').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#nombre").val().length < 1) {
+			    $('.amt_errorNombreCuadrilla')
+				.text('Nombre de la cuadrilla vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorNombreCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formCuadrilla").submit(function () {
+		if($("#calificacion").val() == "") {
+			    $('.amt_errorCalificacionCuadrilla')
+				.text('No se ha elegido una calificaciÛn.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_errorCalificacionCuadrilla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script>
+$('input[data-form=numeroCuadrilla]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorCuadrilla').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorCuadrilla')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=nombreCuadrilla]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorNombreCuadrilla').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorNombreCuadrilla')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=calificacionCuadrilla]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorCalificacionCuadrilla').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorCalificacionCuadrilla')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>

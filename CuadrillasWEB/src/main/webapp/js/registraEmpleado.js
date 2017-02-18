@@ -1,5 +1,25 @@
-var app = angular.module('tatei', []);
+ 
+
 app.controller('registraEmpleado', function ($scope, $http, $window) {
+	
+     //Fecha del sistema 
+   var	hoy = new Date()
+   var	dd = hoy.getDate()
+	var mm = hoy.getMonth()+1 //hoy es 0!
+   var  yyyy = hoy.getFullYear()
+    
+    if(dd<10) {
+    dd='0'+dd
+	} 
+
+	if(mm<10) {
+    mm='0'+mm
+	} 
+
+   hoy = yyyy+'-'+mm+'-'+dd;
+   console.log(hoy);
+   	document.getElementById("fechaIngreso").value = hoy;
+   	
 
 	 $http({
               method: 'GET',
@@ -949,3 +969,4 @@ $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scop
     
     	   
 	 });
+	    

@@ -1,0 +1,78 @@
+<div class="container">
+<h2>Toma de Asistencia</h2>
+
+<div class="panel panel-default">
+		<div class="panel-body">
+			<form  name="form_reloj" id="formAsistencia">
+			<div class="row">
+			 <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="fecha" class="control-label">Fecha</label>
+                            <div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  			<input type="text" name="fecha" ng-model="asistencia.fecha" class="form-control" disabled>
+               				 </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="horarioSolicitado" class="control-label">Horario</label>
+                           <div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                  			<input type="text" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" disabled ng-model="asistencia.horario" class="form-control">
+               				 </div>
+                        </div>
+                    </div>
+			</div>
+			
+			
+			
+			
+			<div class="row">
+			<h2>Colaboradores</h2>
+			<div class="col-sm-12">
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>Perfil</b></td>
+                				<td><b>Nombre</b></td>
+                				<td><b>Comentarios Entrada</b></td>
+                				<td><b>Entrada</b></td>
+                				<td><b>Salida</b></td>
+                				<td><b>Operaciones</b></td>
+                				</tr>
+                				<tr ng-repeat="asistencia in resultadoAsistencia">
+                				<td>{{asistencia.perfilEmpleado}}</td>
+                				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencia.apellidoMaterno}}</td>
+                				<td ng-if="asistencia.horaEntrada === NULLL"><input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" >
+                				<div class="amt_errorComentario" id=errdata:{{asistencia.idEmpleado}}></div>
+                				</td>
+                				
+                				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
+                				<td>{{asistencia.horaEntrada}}</td>
+                				<td>{{asistencia.horaSalida}}</td>
+                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)"></td>
+                				<td ng-if="asistencia.horaEntrada != NULL">
+                				<p ng-if="asistencia.horaSalida === NULL">
+                				<button class="btn btn-success" ng-click="salida(asistencia)">Salida</button>
+                				</p>
+                				
+                				</td>
+                		
+                				
+                				
+                				
+                				
+                				</tr>
+                				
+                			</table>
+                		</div>
+            </div>
+			</div>
+			</form>
+		</div>
+</div>
+
+</div>
