@@ -1,4 +1,62 @@
 app.controller('adminCuad', function ($scope, $http) {
+	$('input[data-form=numeroCuadrilla]').keyup(function() {
+
+
+var data = $(this).val();
+var regx = /^[0-9]+$/;
+
+if ( data === '' || data.match(regx) ){
+	$('.amt_errorCuadrilla').fadeOut('slow');
+}
+else {
+	$('.amt_errorCuadrilla')
+		.text('No se permite letras o caracteres invalidos.')
+		.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+		.fadeIn('fast');
+}
+
+});
+	
+$('input[data-form=nombreCuadrilla]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorNombreCuadrilla').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorNombreCuadrilla')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+
+    $('input[data-form=calificacionCuadrilla]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorCalificacionCuadrilla').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorCalificacionCuadrilla')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+
+    
+		    	
+		    	
+		   
 	
  $http({
               method: 'GET',
@@ -30,6 +88,39 @@ app.controller('adminCuad', function ($scope, $http) {
 		    });
 		    
 		    $scope.registrar = function(cuadrilla) {
+		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
+		    	var nombreCuadrilla = document.getElementById("nombre").value;
+		    	$scope.vialidad = document.getElementById("vialidad").value;
+		    	var calificacion = document.getElementById("calificacion").value;
+     if(noCuadrilla == "") {
+    	    $('.amt_errorCuadrilla')
+			.text('Numero de la cuadrilla vacio.')
+			.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+			.fadeIn('fast');
+    	 return false
+    	 }
+         if($scope.vialidad == "") {
+    		 $('.amt_errorVialidad')
+				.text('No se ha elegido una vialidad.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+    	 return false
+    	 }
+    	 if(nombreCuadrilla == "") {
+    		 $('.amt_errorNombreCuadrilla')
+ 			.text('No ha ingresado un nombre.')
+ 			.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+ 			.fadeIn('fast');
+    	 return false
+    	 }
+    	 if(calificacion == "") {
+    		 $('.amt_errorCalificacionCuadrilla')
+				.text('No se ha elegido una calificaciÛn.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+    	 return false
+    	 }
+    	 
 		    	 var confirmar = confirm("øEsta seguro de registrar la cuadrilla?"); 
 
 		    	 if (!confirmar) 
@@ -38,25 +129,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    		 return false;
 		    	 } 	
 		    
-		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
-		    	var nombreCuadrilla = document.getElementById("nombre").value;
-		    	$scope.vialidad = document.getElementById("vialidad").value;
-		    	var calificacion = document.getElementById("calificacion").value;
-     if(noCuadrilla == "") {
-    	
-    	 return false
-    	 }
-     
-    	 if(nombreCuadrilla == "") {
-    	 return false
-    	 }
-    	 if($scope.vialidad == "") {
-    	 return false
-    	 }
-    	 
-    	 if(calificacion == "") {
-    	 return false
-    	 }
+		    	
      
 		    	 $http({
 		              method: 'GET',
@@ -103,45 +176,46 @@ app.controller('adminCuad', function ($scope, $http) {
 		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = $scope.calif;
-		    			
-		    		 //validacion vialidad
-		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "1";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "2";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "3";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "4";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    	
-		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "5";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
-		       	    {
-		       	    	console.log(datosCuadrilla.codigoVialidad);
-		       	    	document.getElementById("vialidad").selectedIndex = "6";
-		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    }
+		    			document.getElementById("vialidad").value = "3";
+		    			$('select[name="vialidad"]').find('option[value="3"]').attr("selected",true);
+//		    		 //validacion vialidad
+//		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	document.getElementById("vialidad").selectedIndex = "1";
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    }
+//		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	document.getElementById("vialidad").selectedIndex = "2";
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    }
+//		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	document.getElementById("vialidad").selectedIndex = "3";
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    }
+//		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	$("#vialidad").val("3");
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    	
+//		       	    }
+//		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	document.getElementById("vialidad").selectedIndex = "5";
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    }
+//		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
+//		       	    {
+//		       	    	console.log(datosCuadrilla.codigoVialidad);
+//		       	    	document.getElementById("vialidad").selectedIndex = "6";
+//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+//		       	    }
 		       	    
 		    			document.getElementById("numeroCuadrilla").disabled = true;
 		    			document.getElementById('editar').style.display='none'; 

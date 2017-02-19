@@ -395,4 +395,427 @@
 		</div>
 		</div>
 	</div>
-	
+	<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#noEmpleado").val().length < 1) {
+			    $('.amt_err')
+				.text('Numero Empleado vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+	$('.amt_err').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#nombre").val().length < 1) {
+			 $('.amt_error')
+				.text('El nombre esta vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+		$('.amt_error').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#apellidoPaterno").val().length < 1) {
+			 $('.amt_errorApellidoP')
+				.text('El apellido paterno esta vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+		$('.amt_errorApellidoP').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#apellidoMaterno").val().length < 1) {
+			 $('.amt_errorApellidoM')
+				.text('El apellido materno esta vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+			return false;
+		}
+		$('.amt_errorApellidoM').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#codigoPuesto").val() == "") {
+			 $('.amt_errorPuesto')
+				.text('No se ha seleccionado un puesto.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorPuesto').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#fechaNacimiento").val() == "") {
+			 $('.amt_errorNacimiento')
+				.text('No se ha seleccionado una fecha.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorNacimiento').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#nss").val().length < 1) {
+			 $('.amt_errorNSS')
+				.text('Numero de seguro vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorNSS').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#noCreditoInfonavit").val().length < 1) {
+			 $('.amt_errorInfonavit')
+				.text('Credito Infonavit vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorInfonavit').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#rfc").val().length < 1) {
+			 $('.amt_errorRFC')
+				.text('RFC vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorRFC').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#sueldo").val().length < 1) {
+			 $('.amt_errorSueldo')
+				.text('Sueldo vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorSueldo').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#calificacion").val() == "") {
+			 $('.amt_errorCalificacion')
+				.text('Asigne una calificaciÛn.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorCalificacion').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+
+
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#telefono").val().length < 1) {
+			 $('.amt_errorTel')
+				.text('Telefono vacio.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorTel').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#codigoTalla").val() == "") {
+			 $('.amt_errorTalla')
+				.text('No se ha seleccionado una talla.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorTalla').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#sexo").val() == "") {
+			 $('.amt_errorSexo')
+				.text('No se ha seleccionado un sexo.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorSexo').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+<script> 
+$(document).ready(function(){
+	$("#formEmpleado").submit(function () {
+		if($("#codigoArea").val() == "") {
+			 $('.amt_errorArea')
+				.text('No se ha seleccionado un Area.')
+				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+				.fadeIn('fast');
+				
+			return false;
+			
+		}
+		$('.amt_errorArea').fadeOut('slow');
+		return false;
+	});
+});
+</script>
+    	<script>
+	$('input[data-form=nEmpleado]').keyup(function() {
+
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_err').fadeOut('slow');
+		}
+		else {
+			$('.amt_err')
+				.text('No se permite letras minusculas o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=nombreE]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_error').fadeOut('slow');
+		}
+		else {
+			$('.amt_error')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=apellidoP]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorApellidoP').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorApellidoP')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=apellidoM]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorApellidoM').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorApellidoM')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=nss]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorNSS').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorNSS')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+
+<script>
+$('input[data-form=infonavit]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorInfonavit').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorInfonavit')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=rfc]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorRFC').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorRFC')
+				.text('No se permite letras minusculas o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=sueldo]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9.]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorSueldo').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorSueldo')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
+<script>
+$('input[data-form=tel]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorTel').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorTel')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+</script>
