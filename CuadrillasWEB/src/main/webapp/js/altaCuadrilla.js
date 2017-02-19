@@ -176,46 +176,45 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = $scope.calif;
-		    			document.getElementById("vialidad").value = "3";
-		    			$('select[name="vialidad"]').find('option[value="3"]').attr("selected",true);
-//		    		 //validacion vialidad
-//		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	document.getElementById("vialidad").selectedIndex = "1";
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    }
-//		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	document.getElementById("vialidad").selectedIndex = "2";
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    }
-//		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	document.getElementById("vialidad").selectedIndex = "3";
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    }
-//		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	$("#vialidad").val("3");
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    	
-//		       	    }
-//		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	document.getElementById("vialidad").selectedIndex = "5";
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    }
-//		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
-//		       	    {
-//		       	    	console.log(datosCuadrilla.codigoVialidad);
-//		       	    	document.getElementById("vialidad").selectedIndex = "6";
-//		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-//		       	    }
+		    			
+		    		 //validacion vialidad
+		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="0"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="1"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="2"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="3"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    	
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="4"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    }
+		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
+		       	    {
+		       	    	console.log(datosCuadrilla.codigoVialidad);
+		       	    	$('select[name="vialidad"]').find('option[value="5"]').attr("selected",true).change();
+		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    }
 		       	    
 		    			document.getElementById("numeroCuadrilla").disabled = true;
 		    			document.getElementById('editar').style.display='none'; 
