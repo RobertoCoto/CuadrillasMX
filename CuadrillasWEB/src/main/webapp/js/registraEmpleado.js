@@ -20,7 +20,164 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
    console.log(hoy);
    	document.getElementById("fechaIngreso").value = hoy;
    	
+//validaciones
+$('input[data-form=nEmpleado]').keyup(function() {
 
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_err').fadeOut('slow');
+		}
+		else {
+			$('.amt_err')
+				.text('No se permite letras minusculas o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+
+    $('input[data-form=nombreE]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_error').fadeOut('slow');
+		}
+		else {
+			$('.amt_error')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+    
+    $('input[data-form=apellidoP]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorApellidoP').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorApellidoP')
+				.text('no se permiten numeros o caracteres invalidos')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+    $('input[data-form=apellidoM]').keyup(function() {
+
+
+var data = $(this).val();
+var regx = /^[A-z ¡…Õ”⁄·ÈÌÛ˙—Ò]+$/;
+
+if ( data === '' || data.match(regx) ){
+	$('.amt_errorApellidoM').fadeOut('slow');
+}
+else {
+	$('.amt_errorApellidoM')
+		.text('no se permiten numeros o caracteres invalidos')
+		.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+		.fadeIn('fast');
+}
+
+});
+$('input[data-form=nss]').keyup(function() {
+
+
+var data = $(this).val();
+var regx = /^[0-9]+$/;
+
+if ( data === '' || data.match(regx) ){
+	$('.amt_errorNSS').fadeOut('slow');
+}
+else {
+	$('.amt_errorNSS')
+		.text('No se permite letras o caracteres invalidos.')
+		.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+		.fadeIn('fast');
+}
+
+});
+$('input[data-form=infonavit]').keyup(function() {
+
+
+var data = $(this).val();
+var regx = /^[0-9]+$/;
+
+if ( data === '' || data.match(regx) ){
+	$('.amt_errorInfonavit').fadeOut('slow');
+}
+else {
+	$('.amt_errorInfonavit')
+		.text('No se permite letras o caracteres invalidos.')
+		.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+		.fadeIn('fast');
+}
+
+});
+
+$('input[data-form=rfc]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[A-Z0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorRFC').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorRFC')
+				.text('No se permite letras minusculas o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+
+ $('input[data-form=sueldo]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9.]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorSueldo').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorSueldo')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
+ 
+  $('input[data-form=tel]').keyup(function() {
+
+
+		var data = $(this).val();
+		var regx = /^[0-9]+$/;
+
+		if ( data === '' || data.match(regx) ){
+			$('.amt_errorTel').fadeOut('slow');
+		}
+		else {
+			$('.amt_errorTel')
+				.text('No se permite letras o caracteres invalidos.')
+				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
+				.fadeIn('fast');
+		}
+		
+    });
 	 $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -240,45 +397,108 @@ $scope.pagoValor = $scope.datoPago;
 
 		   //validaciones front
  if (noEmpleado == null) {
+	 $('.amt_err')
+		.text('Numero Empleado vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (nombre == null) {
+	 $('.amt_error')
+		.text('El nombre esta vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (apellidoPat == null) {
+	 $('.amt_errorApellidoP')
+		.text('El apellido paterno esta vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (apellidoMat == null) {
+	 $('.amt_errorApellidoM')
+		.text('El apellido materno esta vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (puesto == null) {
+	 $('.amt_errorPuesto')
+		.text('No se ha seleccionado un puesto.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (nacimiento == null) {
+	 $('.amt_errorNacimiento')
+		.text('No se ha seleccionado una fecha.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (nss == null) {
+	 $('.amt_errorNSS')
+		.text('Numero de seguro vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
+	 return false;
+	 }
+ if (infonavit == null) {
+	 $('.amt_errorNSS')
+		.text('Numero de seguro vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (rfc == null) {
+	 $('.amt_errorRFC')
+		.text('RFC vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (telefono == null) {
+	 $('.amt_errorTel')
+		.text('Telefono vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (talla == "") {
+	 $('.amt_errorTalla')
+		.text('No se ha seleccionado una talla.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (sexo == "") {
+	 $('.amt_errorSexo')
+		.text('No se ha seleccionado un sexo.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (area == "") {
+	 $('.amt_errorArea')
+		.text('No se ha seleccionado un Area.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if (calif == "") {
+	 $('.amt_errorCalificacion')
+		.text('Asigne una calificaciÛn.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if($scope.sueldo == 0) {
+	 $('.amt_errorSueldo')
+		.text('Sueldo vacio.')
+		.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
+		.fadeIn('fast');
 	 return false;
 	 }
  if ($scope.sueldo == "")
