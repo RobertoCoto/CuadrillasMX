@@ -16,12 +16,12 @@ else {
 }
 
 });
-	
+
 $('input[data-form=nombreCuadrilla]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
+		var regx = /^[A-z ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorNombreCuadrilla').fadeOut('slow');
@@ -32,7 +32,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
 				.fadeIn('fast');
 		}
-		
+
     });
 
     $('input[data-form=calificacionCuadrilla]').keyup(function() {
@@ -50,14 +50,14 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
 				.fadeIn('fast');
 		}
-		
+
     });
 
-    
-		    	
-		    	
-		   
-	
+
+
+
+
+
  $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -73,7 +73,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
- 
+
 		    $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
@@ -86,7 +86,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		        alert(response.data.header.mensajeFuncional);
 		        //$scope.resultado2.push(objecto);
 		    });
-		    
+
 		    $scope.registrar = function(cuadrilla) {
 		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
 		    	var nombreCuadrilla = document.getElementById("nombre").value;
@@ -115,22 +115,22 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
     	 }
     	 if(calificacion == "") {
     		 $('.amt_errorCalificacionCuadrilla')
-				.text('No se ha elegido una calificación.')
+				.text('No se ha elegido una calificaciï¿½n.')
 				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
 				.fadeIn('fast');
     	 return false
     	 }
-    	 
-		    	 var confirmar = confirm("¿Esta seguro de registrar la cuadrilla?"); 
 
-		    	 if (!confirmar) 
+		    	 var confirmar = confirm("ï¿½Esta seguro de registrar la cuadrilla?");
+
+		    	 if (!confirmar)
 		    	 {
-		    		 alert('se ha cancelado la operacion.'); 
+		    		 alert('se ha cancelado la operacion.');
 		    		 return false;
-		    	 } 	
-		    
-		    	
-     
+		    	 }
+
+
+
 		    	 $http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
@@ -140,7 +140,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		              "vialidad": document.getElementById("dataVialidad").value ,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
-		    		 
+
 		    	 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
@@ -151,9 +151,20 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
-		    	
+
+					$scope.reset = function(form) {
+						$scope.cuadrilla = {};
+						$scope.cuadrilla.actualizar = false;
+						$scope.cuadrilla.editar = false;
+						$('#colab').hide();
+					}
+
 		    $scope.editarCuadrilla = function(datosCuadrilla) {
-		    	
+					console.log(datosCuadrilla);
+					$scope.cuadrilla = datosCuadrilla;
+					$scope.cuadrilla.actualizar = true;
+					$scope.cuadrilla.editar = true;
+					$('#colab').show();
 		    	 $http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaColaborador',
@@ -169,100 +180,102 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				        alert(response.data.header.mensajeFuncional);
 				        //$scope.resultado2.push(objecto);
 				    });
-		    	 
+/*
 		    $scope.calif = datosCuadrilla.calificacion;
 		    console.log("calidf "+ $scope.calif);
-		    
+
 		    			document.getElementById("numeroCuadrilla").value = datosCuadrilla.idCuadrilla;
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = $scope.calif;
-		    			
+
 		    		 //validacion vialidad
-		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
+		                 if(datosCuadrilla.codigoVialidad == "5MAY")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="0"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "EJE6") 
+		       	     if(datosCuadrilla.codigoVialidad == "EJE6")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="1"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "EJE7") 
+		       	     if(datosCuadrilla.codigoVialidad == "EJE7")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="2"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "INSU") 
+		       	     if(datosCuadrilla.codigoVialidad == "INSU")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="3"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
-		       	    	
+
 		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
+		       	     if(datosCuadrilla.codigoVialidad == "UNIV")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="4"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
-		       	     if(datosCuadrilla.codigoVialidad == "ZARA") 
+		       	     if(datosCuadrilla.codigoVialidad == "ZARA")
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	$('select[name="vialidad"]').find('option[value="5"]').attr("selected",true).change();
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
 		       	    }
-		       	    
+
 		    			document.getElementById("numeroCuadrilla").disabled = true;
-		    			document.getElementById('editar').style.display='none'; 
+		    			document.getElementById('editar').style.display='none';
     	                document.getElementById('guardarDato').style.display='block';
     	                document.getElementById('colab').style.display='block';
+											*/
 		    	};
-		    
-		    $scope.actualizar = function(cuadrilla) {
-		    	
-		    var confirmar = confirm("¿Esta seguro de actualizar la cuadrilla?"); 
 
-		    	 if (!confirmar) 
+		    $scope.actualizar = function(cuadrilla) {
+				console.log(cuadrilla);
+				console.log(data.data.usuario.usuario);
+		    var confirmar = confirm("Â¿Esta seguro de actualizar la cuadrilla?");
+
+		    	 if (!confirmar)
 		    	 {
-		    		 alert('se ha cancelado la operacion.'); 
+		    		 alert('se ha cancelado la operacion.');
 		    		 return false;
-		    	 } 	
-		    	
+		    	 }
+
 		    	$scope.vialidad = document.getElementById("dataVialidad").value;
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
-		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
-		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
-		              "vialidad": $scope.vialidad,
-		    		 "calificacion" : document.getElementById("calificacion").value,
-		    		 "usuario" : "SISTEMAS"
-		    		 
+		    		 "idCuadrilla" : cuadrilla.idCuadrilla,
+		    		 "nombreCuadrilla" : cuadrilla.nombreCuadrilla,
+		              "vialidad": cuadrilla.codigoVialidad,
+		    		 "calificacion" : cuadrilla.calificacion,
+		    		 "usuario" : data.data.usuario.usuario
+
 		    	 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
-				    	 location.reload();
+				    	 //location.reload();
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
-		    	
-		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
-		    		var confirmar = confirm(" ¿Esta seguro de dar de baja la cuadrilla? "); 
 
-		    		if (!confirmar) 
+		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
+		    		var confirmar = confirm(" ï¿½Esta seguro de dar de baja la cuadrilla? ");
+
+		    		if (!confirmar)
 		    		{
-		    			alert('se ha cancelado la operacion.'); 
+		    			alert('se ha cancelado la operacion.');
 						return false;
 		    		}
-		    		
+
 		    		$scope.CuadrillaData = datosCuadrilla.idCuadrilla;
 		    	$http({
 		              method: 'GET',
@@ -280,5 +293,5 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				        alert(response.data.mensajeFuncional);
 				    });
 		    	};
-		    
+
 		    });
