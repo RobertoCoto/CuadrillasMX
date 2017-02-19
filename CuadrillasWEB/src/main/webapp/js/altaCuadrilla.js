@@ -40,10 +40,10 @@ app.controller('adminCuad', function ($scope, $http) {
 		    
 		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
 		    	var nombreCuadrilla = document.getElementById("nombre").value;
-		    	$scope.vialidad = cuadrilla.vialidad;
+		    	$scope.vialidad = document.getElementById("vialidad").value;
 		    	var calificacion = document.getElementById("calificacion").value;
-		    	
      if(noCuadrilla == "") {
+    	
     	 return false
     	 }
      
@@ -64,7 +64,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
-		    		 "vialidad": $scope.vialidad ,
+		              "vialidad": document.getElementById("dataVialidad").value ,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : "SISTEMAS"
 		    		 
@@ -104,7 +104,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    			document.getElementById("nombre").value = datosCuadrilla.nombreCuadrilla;
 		    			document.getElementById("calificacion").value = $scope.calif;
 		    			
-		    			 //validacion vialidad
+		    		 //validacion vialidad
 		                 if(datosCuadrilla.codigoVialidad == "5MAY") 
 		       	    {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
@@ -128,6 +128,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		       	    	console.log(datosCuadrilla.codigoVialidad);
 		       	    	document.getElementById("vialidad").selectedIndex = "4";
 		       	    	document.getElementById("dataVialidad").value = datosCuadrilla.codigoVialidad;
+		       	    	
 		       	    }
 		       	     if(datosCuadrilla.codigoVialidad == "UNIV") 
 		       	    {

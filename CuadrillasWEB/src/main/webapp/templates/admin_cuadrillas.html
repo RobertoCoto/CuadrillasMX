@@ -1,3 +1,5 @@
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
 
 <div class="container"> 
     <h2>Administraci&oacute;n de Cuadrillas</h2>
@@ -18,7 +20,7 @@
                      <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="vialidad" class="control-label">Vialidad</label>
-                          <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> 
+                           <select class="form-control"  id="vialidad" ng-model="cuadrilla.vialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)"> 
                           <option value="">--Seleccione una Vialidad--</option>
                           </select>
                           <input type="hidden" id="dataVialidad"  value={{cuadrilla.vialidad}}>
