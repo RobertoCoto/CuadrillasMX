@@ -217,14 +217,16 @@ function removeByAttr(arr, attr, value) {
 		            	$scope.$apply();
 		            }, 200);
 		          }			    
-			}						
-	    	console.info(data.data.menu);
-	    	console.info("usuario");
-	    	console.info(data.data.usuario);
-	    	$scope.usuario = data.data.usuario;
-	    	$scope.items = data.data.menu;
-	        $scope.default = $scope.items[0];
-
+			}
+			else
+			{
+				console.info(data.data.menu);
+				console.info("usuario");
+				console.info(data.data.usuario);
+				$scope.usuario = data.data.usuario;
+				$scope.items = data.data.menu;
+				$scope.default = $scope.items[0];
+			}
 	    });
 
     app.controller('ItemController', ['$scope', function (scope) {
