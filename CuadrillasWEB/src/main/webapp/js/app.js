@@ -216,8 +216,8 @@ function removeByAttr(arr, attr, value) {
 		            setTimeout(function() {
 		            	$scope.$apply();
 		            }, 200);
-		          }			    
-			}						
+		          }
+			}
 	    	console.info(data.data.menu);
 	    	console.info("usuario");
 	    	console.info(data.data.usuario);
@@ -246,6 +246,10 @@ function removeByAttr(arr, attr, value) {
           $('#alert').hide();
           $('#success').hide();
 
+          $scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					}
 
           var tipoCataloPadre = undefined;
 
@@ -402,9 +406,6 @@ function removeByAttr(arr, attr, value) {
                     //console.log(result);
             });
           };
-          
-          
+
+
         });
-
-
-       
