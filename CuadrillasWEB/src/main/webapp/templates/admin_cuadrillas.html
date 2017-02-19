@@ -4,6 +4,14 @@
 		<div class="panel-body">
 			<form name="form" id="formCuadrilla">
                 <div class="row">
+                  <div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+                  </div>
                       <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="numero" class="control-label">Numero </label>

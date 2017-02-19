@@ -1,4 +1,8 @@
 app.controller('adminCuad', function ($scope, $http) {
+
+	$('#success').hide();
+	$('#alert').hide();
+	$('#msload').modal('show');
 	$('input[data-form=numeroCuadrilla]').keyup(function() {
 
 
@@ -74,18 +78,29 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		        //$scope.resultado2.push(objecto);
 		    });
 
-		    $http({
-              method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
-              data: { }
-		    }).then(function mySucces(result) {
-		    	$scope.resultadoCuadrilla = result.data.cuadrilla;
-	             console.log(result);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
-		    });
+				$scope.consultaCuadrilla = function() {
+					$('#msload').modal('show');
+			    $http({
+	              method: 'GET',
+	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+	              data: { }
+			    }).then(function mySucces(result) {
+						$('#msload').modal('hide');
+						$('#alert').hide();
+						$('#success').hide();
+			    	$scope.resultadoCuadrilla = result.data.cuadrilla;
+		             console.log(result);
+			    }, function myError(response) {
+						$('#msload').modal('hide');
+			        console.error(response);
+							$('#alert').show();
+							$('#msgerror').text(response.data.header.mensajeFuncional)
+			        //alert(response.data.header.mensajeFuncional);
+			        //$scope.resultado2.push(objecto);
+			    });
+				}
+
+				$scope.consultaCuadrilla();
 
 		    $scope.registrar = function(cuadrilla) {
 		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
@@ -139,7 +154,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
 		              "vialidad": document.getElementById("dataVialidad").value ,
 		    		 "calificacion" : document.getElementById("calificacion").value,
-		    		 "usuario" : "SISTEMAS"
+		    		 "usuario" : data.data.usuario.usuario
 
 		    	 }
 				    }).then(function mySucces(response) {
@@ -157,6 +172,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 						$scope.cuadrilla.actualizar = false;
 						$scope.cuadrilla.editar = false;
 						$('#colab').hide();
+						$scope.consultaCuadrilla();
 					}
 
 		    $scope.editarCuadrilla = function(datosCuadrilla) {
@@ -241,9 +257,14 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 
 		    	 if (!confirmar)
 		    	 {
-		    		 alert('se ha cancelado la operacion.');
+						 $('#alert').show();
+						 $('#msgerror').text('Se ha cancelado la operacion.');
+		    		 //alert('se ha cancelado la operacion.');
 		    		 return false;
-		    	 }
+		    	 } else {
+						 $('#msload').modal('show');
+						 $('#alert').hide();
+					 }
 
 		    	$scope.vialidad = document.getElementById("dataVialidad").value;
 		    	$http({
@@ -252,27 +273,40 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		              params: {
 		    		 "idCuadrilla" : cuadrilla.idCuadrilla,
 		    		 "nombreCuadrilla" : cuadrilla.nombreCuadrilla,
-		              "vialidad": cuadrilla.codigoVialidad,
+		         "vialidad": cuadrilla.codigoVialidad,
 		    		 "calificacion" : cuadrilla.calificacion,
 		    		 "usuario" : data.data.usuario.usuario
 
 		    	 }
 				    }).then(function mySucces(response) {
-				    	alert(response.data.mensajeFuncional);
+							$('#msload').modal('hide');
+							$('#success').show();
+							$('#msgaviso').text(response.data.mensajeFuncional);
+				    	//alert(response.data.mensajeFuncional);
 				    	 console.info(response);
 				    	 //location.reload();
 				    }, function myError(response) {
+							$('#msload').modal('hide');
+							$('#alert').show();
+							$('#msgerror').text(response.data.mensajeFuncional);
 				        console.error(response);
-				        alert(response.data.mensajeFuncional);
+				        //alert(response.data.mensajeFuncional);
 				    });
 		    	};
+
+					$scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					}
 
 		    	$scope.bajaCuadrilla = function(datosCuadrilla) {
 		    		var confirmar = confirm(" �Esta seguro de dar de baja la cuadrilla? ");
 
 		    		if (!confirmar)
 		    		{
-		    			alert('se ha cancelado la operacion.');
+		    			//alert('se ha cancelado la operacion.');
+							$('#alert').show();
+ 						  $('#msgerror').text('Se ha cancelado la operacion.');
 						return false;
 		    		}
 
@@ -282,7 +316,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaCuadrilla',
 		              params: {
 		    		 "idCuadrilla" : $scope.CuadrillaData,
-		              "usuario" : "SISTEMAS"
+		              "usuario" : data.data.usuario.usuario
 		    	 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
