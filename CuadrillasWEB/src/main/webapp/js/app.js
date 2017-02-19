@@ -206,7 +206,18 @@ function removeByAttr(arr, attr, value) {
 
 
 	app.controller('MainController',
-		function ($scope) {
+		function ($scope, $location) {
+			if(jQuery.type(data) === "undefined"){
+				$location.path('/login');
+		        if (!$scope.$$phase && !$scope.$root.$$phase) {
+		            $scope.$apply();
+		          }
+		          else {
+		            setTimeout(function() {
+		            	$scope.$apply();
+		            }, 200);
+		          }			    
+			}						
 	    	console.info(data.data.menu);
 	    	console.info("usuario");
 	    	console.info(data.data.usuario);
