@@ -1,5 +1,5 @@
 
-app.controller('entradaAsistencia', function ($scope, $http) {  
+app.controller('entradaAsistencia', function ($scope, $http,$timeout) {  
 //	//obtener el id enviado por GET
 //	   $scope.obtainGet = function getGET(){
 //		   var loc = document.location.href;
@@ -33,6 +33,7 @@ app.controller('entradaAsistencia', function ($scope, $http) {
    console.log(hoy);
    	document.getElementById("fechaIngreso").value = hoy;
    	
+   	$scope.reloj = function(){
    	//hora
    	var momentoActual = new Date()
    	var hora = momentoActual.getHours() 
@@ -44,9 +45,9 @@ app.controller('entradaAsistencia', function ($scope, $http) {
    	if (str_hora.length == 1) 
       	hora = "0" + hora 
    	var horaImprimible = hora + " : " + minuto
-   	console.log(horaImprimible)
    	document.getElementById("horarioAsistencia").value = horaImprimible;
-   	setTimeout(1000)
+   	$timeout($scope.reloj,1000)
+   	};
 		    $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
