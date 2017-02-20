@@ -391,7 +391,7 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('ARTICULO','CALE',upper('Careta o Lentes'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ARTICULO','CHALE',upper('Chalecos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ARTICULO','CHAL',upper('Chalecos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ARTICULO','FACU',upper('Faja de Cuero'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
