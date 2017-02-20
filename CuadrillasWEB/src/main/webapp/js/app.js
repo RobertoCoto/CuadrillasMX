@@ -110,7 +110,7 @@ function removeByAttr(arr, attr, value) {
             })
             .state('31', {
             	url: '/31',
-                templateUrl : 'altaContrato/index.html',
+                templateUrl : 'templates/altaContratos.html',
                 controller  : 'altacontratoctrl'
             })
             .state('32', {
@@ -216,7 +216,7 @@ function removeByAttr(arr, attr, value) {
 		            setTimeout(function() {
 		            	$scope.$apply();
 		            }, 200);
-		          }			    
+		          }
 			}
 			else
 			{
@@ -411,3 +411,490 @@ function removeByAttr(arr, attr, value) {
 
 
         });
+
+        var map;
+        var medida;
+
+          function initMap() {
+            medida = {
+                mvcLine: new google.maps.MVCArray(),
+                mvcPolygon: new google.maps.MVCArray(),
+                mvcMarkers: new google.maps.MVCArray(),
+                line: null,
+                polygon: null
+            };
+            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 7,
+              center: mx1
+            });
+            google.maps.event.addListener(map, 'click', function(event) {
+              //console.log(event);
+                setMarcador(event.latLng);
+            });
+          }
+
+            var markers = [];
+
+
+            app.controller('altacontratoctrl', function ($scope, $http) {
+              $('#mainPanel').hide();
+              $('#alert').hide();
+              $('#success').hide();
+              var fechaInicioForm=$('input[name="fechaInicio"]');
+              var fechaTerminoForm=$('input[name="fechaTermino"]');
+              var fechaRegistroForm=$('input[name="fechaRegistro"]');
+              var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+              var a = undefined;
+              var b = undefined;
+              fechaInicioForm.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+              }).on("change", function (e) {
+                console.log(e)
+                  console.log("fecha inicio: ", e.target.value);
+                  var s = e.target.value.split("/")
+                  a = moment([s[2], s[1]-1, s[0]]);
+                  if (b) {
+                    $('#diasDuracion').val(b.diff(a,'days')+1);
+                  }
+              });
+              fechaTerminoForm.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+              }).on("change", function (e) {
+                  var s = e.target.value.split("/")
+                  b = moment([s[2], s[1]-1, s[0]]);
+                  console.log("Fecha termino: ", e.target.value);
+                  if (a) {
+                    $('#diasDuracion').val(b.diff(a,'days')+1);
+                  }
+              });
+              fechaRegistroForm.datepicker({
+                format: 'dd/mm/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+              })
+              $scope.contratoFocus = {}; // contrato undefined
+              $scope.nContrato = true;
+              $http({
+                      method: 'GET',
+                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                      params: {
+                        'tipoCatalogo': 'CONTR_TIPO'
+                      },
+                      data: { }
+                }).then(function successfn(result) {
+                  $scope.catContratos = result.data.catalogo;
+                        console.log(result);
+                }, function errorfn(response) {
+                    console.error(response);
+                    alert(response.data.header.mensajeFuncional);
+                    $('#msload').modal('hide');
+                    //$('#msgerror').val(response.data.header.mensajeFuncional);
+                });
+
+
+              $http({
+                      method: 'GET',
+                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                      params: {
+                        'tipoCatalogo': 'DOCUMENTO'
+                      },
+                      data: { }
+                }).then(function successfn(result) {
+                      $scope.documentos = result.data.catalogo;
+                        console.log(result);
+                }, function errorfn(response) {
+                    console.error(response);
+                    alert(response.data.header.mensajeFuncional);
+                    $('#msload').modal('hide');
+                    //$('#msgerror').val(response.data.header.mensajeFuncional);
+                });
+
+                $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                        params: {
+                          'tipoCatalogo': 'EMPRESAS'
+                        },
+                        data: { }
+                  }).then(function successfn(result) {
+                        $scope.empresas = result.data.catalogo;
+                          console.log(result);
+                  }, function errorfn(response) {
+                      console.error(response);
+                      alert(response.data.header.mensajeFuncional);
+                      $('#msload').modal('hide');
+                      //$('#msgerror').val(response.data.header.mensajeFuncional);
+                  });
+
+                $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                        params: {
+                          'tipoCatalogo': 'VIALIDAD'
+                        },
+                        data: { }
+                  }).then(function successfn(result) {
+                        $scope.vialidades = result.data.catalogo;
+                          console.log(result);
+                  }, function errorfn(response) {
+                      console.error(response);
+                      alert(response.data.header.mensajeFuncional);
+                      $('#msload').modal('hide');
+                      //$('#msgerror').val(response.data.header.mensajeFuncional);
+                  });
+
+
+
+                  $scope.nuevoContrato = function() {
+                    $('#mainPanel').show();
+                    $('#nuevoContrato').hide();
+                    $('#panelContratos').hide();
+                    $scope.nContrato = true;
+                    $scope.contratoFocus = {};
+                    $scope.initMap();
+                    $scope.limpiarMarcadores();
+                  }
+
+                  $scope.cancelar = function() {
+                    $('#mainPanel').hide();
+                    $('#nuevoContrato').show();
+                    $scope.consultaContratos();
+                    $('#panelContratos').show();
+                    $scope.contratoFocus = {};
+                    $scope.limpiarMarcadores();
+                  }
+
+                  $scope.altaContrato = function() {
+                    $('#mainPanel').hide();
+                    $scope.consultaContratos();
+                    $('#panelContratos').show();
+                    $('#nuevoContrato').show();
+                    console.log($scope.contratoFocus);
+                    $scope.contratoFocus = {}; //para el final
+                  }
+
+                  $scope.consultaContratos = function() {
+                    $('#msload').modal('show');
+                    //setTimeout(function () {
+                      $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
+                        params: {
+                        },
+                        data: {}
+                      }).then(function successfn(result) {
+                        //console.log('contratos:');
+                        $scope.contratos = result.data.contrato;
+                        //console.log(result);
+                        /*for (var i = 0; i < result.data.contrato[0].coordenadas.length; i++) {
+                          setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud, result.data.contrato[0].coordenadas[i].longitud);
+                        }*/
+                        $('#msload').modal('hide');
+                      }, function errorfn(response) {
+                        console.error(response);
+                        alert(response.data.header.mensajeFuncional);
+                        $('#msload').modal('hide');
+                      });
+                    //}, 2000);
+                  }
+
+                  $scope.editarContrato = function(contrato) {
+                    $scope.contratoFocus = contrato;
+                    $('#mainPanel').show();
+                    $('#nuevoContrato').hide();
+                    $('#panelContratos').hide();
+                    $scope.nContrato = false;
+                    $scope.initMap();
+                    for (var i = 0; i < contrato.coordenadas.length; i++) {
+                      $scope.setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
+                    }
+                  }
+
+                  //Ejecución inicial
+                  $scope.consultaContratos();
+
+                /*$('#msload').modal('show');
+                $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+                        params: {
+                        },
+                        data: { }
+                  }).then(function successfn(result) {
+                        $scope.cuadrillas = result.data.cuadrilla;
+                          console.log(result);
+                           $('#msload').modal('hide');
+                  }, function errorfn(response) {
+                      console.error(response);
+                      alert(response.data.header.mensajeFuncional);
+                      $('#msload').modal('hide');
+                      //$('#msgerror').val(response.data.header.mensajeFuncional);
+                  });*/
+
+                  /*$('#msload').modal('show');
+                  setTimeout(function () {
+                    $http({
+                      method: 'GET',
+                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
+                      params: {
+                      },
+                      data: {}
+                    }).then(function successfn(result) {
+                      console.log('contratos:');
+                      $scope.contratos = result.data.contrato;
+                      console.log(result);
+                      for (var i = 0; i < result.data.contrato[0].coordenadas.length; i++) {
+                        setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud, result.data.contrato[0].coordenadas[i].longitud);
+                      }
+                      $('#msload').modal('hide');
+                    }, function errorfn(response) {
+                      console.error(response);
+                      alert(response.data.header.mensajeFuncional);
+                      $('#msload').modal('hide');
+                    });
+                  }, 2000); */
+
+
+                  $scope.setMarcador = function(latLng) {
+                    var geocoder = new google.maps.Geocoder;
+                    var img_mark = 'altaContrato/mark.png';
+                    var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+                    medida.mvcLine.push(latLng);
+                    medida.mvcPolygon.push(latLng);
+                    medida.mvcMarkers.push(marcador);
+                    var latLngIndex = medida.mvcLine.getLength() - 1;
+                    google.maps.event.addListener(marcador, "drag", function(evt) {
+                        medida.mvcLine.setAt(latLngIndex, evt.latLng);
+                        medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
+                    });
+                    google.maps.event.addListener(marcador, "dragend", function() {
+                        if (medida.mvcLine.getLength() > 1) {
+                            $scope.calculaDistancia();
+                        }
+                    });
+                    var latlng = {lat: latLng.lat(), lng: latLng.lng()};
+                    var direccion = 'SN';
+                    geocoder.geocode({'location': latlng}, function(results, status) {
+                      //console.log(results);
+                      if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                          direccion =  results[0].formatted_address;
+                          var coordenadaP = {};
+                          var coordenadasTemp = [];
+                          coordenadaP.latitud = latLng.lat();
+                          coordenadaP.longitud = latLng.lng();
+                          coordenadaP.direccion = direccion;
+                          if($scope.contratoFocus.coordenadas) {
+                            $scope.contratoFocus.coordenadas.push(coordenadaP);
+                          } else {
+                            coordenadasTemp.push(coordenadaP);
+                            $scope.contratoFocus.coordenadas = coordenadasTemp;
+                          }
+
+
+                          $( "#tramos" ).append( $( "<tr>"
+                                  + "<td>" + direccion + "</td>"
+                                + "</tr>") );
+                          /*$( "#tramos" ).append( $( "<div class=\"row\""
+                           + "<div class=\"col-sm-12\">"
+                             + "<div class=\"form-group\">"
+                               + "<label for=\"direccionInicial\" class=\"control-label\">Dirección</label>"
+                               + "<input type=\"text\" id=\"direccionInicial\" class=\"form-control\" value=\"" + direccion + "\" disabled=\"true\">"
+                             + "</div>"
+                           + "</div>"
+                         + "</div>"
+                         + "<div class=\"row\">"
+                           + "<div class=\"col-sm-3\">"
+                               + "<label for=\"\" class=\"control-label\">Coordenadas</label>"
+                           +"</div>"
+                           + "<div class=\"col-sm-4\">"
+                             + "<input type=\"text\" id=\"latitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lat() + "\">"
+                            + "</div>"
+                            + "<div class=\"col-sm-4\">"
+                            + "<input type=\"text\" id=\"longitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lng() + "\">"
+                           + "</div>"
+                          + "</div>") );*/
+                        } else {
+                          $('#alert').show();
+                          $('#msgerror').text('No se encontro una dirección disponible.')
+                          //alert('No se encontraron resultados');
+                        }
+                      } else {
+                        $('#alert').show();
+                        $('#msgerror').text('Problemas en la geolocalización debido ' + status + '')
+                        //alert('Geocoder fallo debido al estatus: ' + status);
+                      }
+                    });
+
+
+
+                    /*
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="direccionInicial" class="control-label">Dirección</label>
+                          <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-3">
+                          <label for="" class="control-label">Coordenadas</label>
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
+                      </div>
+                    </div>
+                    */
+
+                    $scope.mLineaRecta();
+                  }
+
+                  $scope.initMap = function() {
+                    medida = {
+                        mvcLine: new google.maps.MVCArray(),
+                        mvcPolygon: new google.maps.MVCArray(),
+                        mvcMarkers: new google.maps.MVCArray(),
+                        line: null,
+                        polygon: null
+                    };
+                    var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                    map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 7,
+                      center: mx1
+                    });
+                    /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                    var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
+
+                    var marker = new google.maps.Marker({
+                      position: mx1,
+                      map: map
+                    });
+                    var marker = new google.maps.Marker({
+                      position: mx2,
+                      map: map
+                    }); */
+                    google.maps.event.addListener(map, 'click', function(event) {
+                        //console.log(event);
+                        $scope.setMarcador(event.latLng);
+                    });
+                  }
+
+                  $scope.calculaDistancia = function() {
+                      var length = 0;
+                      if (medida.mvcPolygon.getLength() > 1) {
+                          length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                      }
+                      var area = 0;
+                      if (medida.mvcPolygon.getLength() > 2) {
+                          area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                      }
+                  //    lM = document.forms["mb"].elements["mode"][0].checked;
+                      var km = length / 1000;
+                      var unidad_de_medida = " metros";
+                      $scope.contratoFocus.metros = length;
+                      $( "#km" ).text(km.toFixed(2) + ' km');
+                      //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                  }
+
+                  $scope.calculaDistancia = function() {
+                      var length = 0;
+                      if (medida.mvcPolygon.getLength() > 1) {
+                          length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                      }
+                      var area = 0;
+                      if (medida.mvcPolygon.getLength() > 2) {
+                          area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                      }
+                  //    lM = document.forms["mb"].elements["mode"][0].checked;
+                      var km = length / 1000;
+                      var unidad_de_medida = " metros";
+                      $scope.contratoFocus.metros = length;
+                      $( "#km" ).text(km.toFixed(2) + ' km');
+                      //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                  }
+
+                  $scope.mLineaRecta = function() {
+                      if (medida.mvcLine.getLength() > 1) {
+                          if (!medida.line) {
+                              medida.line = new google.maps.Polyline({
+                                  map: map,
+                                  clickable: false,
+                                  strokeColor: "#ad04ef",
+                                  strokeOpacity: 1,
+                                  strokeWeight: 3,
+                                  path: medida.mvcLine
+                              });
+                          }
+
+                          if (medida.mvcPolygon.getLength() > 2) {
+
+                              if (medida.polygon != null)
+                              {
+                                  medida.polygon.setMap(null);
+                              }
+
+
+                              medida.polygon = new google.maps.Polygon({
+                                  clickable: false,
+                                  map: map,
+                                  fillOpacity: 0.0,
+                                  strokeOpacity: 0,
+                                  paths: medida.mvcPolygon
+                              });
+
+                          }
+                      }
+                      if (medida.mvcLine.getLength() > 1) {
+                          $scope.calculaDistancia();
+                      }
+                  }
+
+                  $scope.setDireccionEnReversa = function(lat, lng) {
+                      var latlng = {lat: lat, lng: lng};
+                      var geocoder = new google.maps.Geocoder();
+                      //var address = document.getElementById('direccion').value;
+                      //geocoder.geocode({'address': address}, function(results, status) {
+                      geocoder.geocode({'location': latlng}, function(results, status) {
+                          if (status == google.maps.GeocoderStatus.OK) {
+                              map.setCenter(results[0].geometry.location);
+                              $scope.setMarcador(results[0].geometry.location);
+                          } else {
+                              alert('No se encontro la direccion , debido: ' + status);
+                          }
+                      });
+                  }
+
+                  $scope.limpiarMarcadores = function() {
+                      if (medida.polygon) {
+                          medida.polygon.setMap(null);
+                          medida.polygon = null;
+                      }
+                      if (medida.line) {
+                          medida.line.setMap(null);
+                          medida.line = null
+                      }
+                      medida.mvcLine.clear();
+                      medida.mvcPolygon.clear();
+                      medida.mvcMarkers.forEach(function(elem, index) {
+                          elem.setMap(null);
+                      });
+                      $scope.contratoFocus.coordenadas = [];
+                      medida.mvcMarkers.clear();
+                      $( "#tramos" ).empty();
+                      $( "#km" ).text('');
+                      //document.getElementById('lineLength').innerHTML = '';
+                      //document.getElementById('polyArea').innerHTML = '';
+                  }
+            });
