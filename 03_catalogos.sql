@@ -72,7 +72,7 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('ESTA_HERRA','REGU',upper('Regular'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('ESTA_HERRA','DANA',upper('Da�ado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('ESTA_HERRA','DANA',upper('Da�ado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ESTA_HERRA','ENRE',upper('En reparacion'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
@@ -253,6 +253,65 @@ VALUES('ACTIVIDADE','POAR',upper('Poda de Arbol Pza'),'SISTEMAS', 'SISTEMAS',now
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ACTIVIDADE','AMUL',upper('Aplicacion de Mulch M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','COPZ',upper('Construccion de Cajetes Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','DTSF',upper('Derribo y Troceado de Sujetos Forestales PZA'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','DEST',upper('Descompactacion de Terreno M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','OTRA',upper('Otra'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','PLCE',upper('Plantacion de cesped M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','PLAR',upper('Plantacion de Especies Arbostivas Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','PLCU',upper('Plantacion de Especies Cubresuelos Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','POCE',upper('Poda de cesped M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','POOR',upper('Poda de Ornamentales M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','POSM',upper('Poda de Seto M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','RAST',upper('Rastrillado M2'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','REBA',upper('Recoleccion de Basura M3'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','REPC',upper('Recoleccion de Piedra y Cascajo M3'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','RETD',upper('Recoleccion y Traslado de Desecho M3'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','RECE',upper('Remate de Cesped ML'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','INCI',upper('Incidencia'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','TREA',upper('Transplante de Especies Arbustivas Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','TREC',upper('Transplante de Especies Cubresuelos Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','TREO',upper('Transplante de Especies Ornamentales Pza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ACTIVIDADE','TRMU',upper('Traslado de Mulch M3'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 /*CATALOGO ARTICULOS*/
 
@@ -267,3 +326,111 @@ VALUES('ARTICULO','CU12',upper('Cuerda 1/2'),'SISTEMAS', 'SISTEMAS',now(),now(),
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ARTICULO','CAMI',upper('Camioneta'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CAPA',upper('Carretilla Pajera'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CU58',upper('Cuerda 5/8'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ESCA',upper('Escalera'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ESMI',upper('Escoba de Mijo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ESAR',upper('Escoba de Araña'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','HACH',upper('Hacha'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','MACH',upper('Machete'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','PACA',upper('Pala Carbonera'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','PAJR',upper('Pala Jardinera'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','SECU',upper('Serrote Curvo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','TIMA',upper('Tijerra 2 Manos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CONO',upper('Conos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','TRAF',upper('Trafitambos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','DESM',upper('Desmalezadora'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','MO25',upper('Moto 25'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','MO14',upper('Moto 14'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ESTA',upper('Estacas'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','VOLT',upper('Volteo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','MECA',upper('Mecahilo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','SETE',upper('Seteadora'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CALE',upper('Careta o Lentes'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','CHALE',upper('Chalecos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','FACU',upper('Faja de Cuero'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','GUCA',upper('Guantes de Carnaza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','BOTI',upper('Botiquin'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ZAPT',upper('Zapatos de Trabajo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','GORR',upper('Gorra'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','TAMS',upper('Tambo de Señalamiento'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','UNIF',upper('Uniformes'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','LOVE',upper('Lona Vehiculos'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','ARNE',upper('Arnes'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','IMPE',upper('Impermeables'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','LORE',upper('Lona Para Recoger'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','BARS',upper('Barsinas'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','BOLS',upper('Bolsas'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ARTICULO','COST',upper('Costales'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
