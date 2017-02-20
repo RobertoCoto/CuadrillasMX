@@ -36,6 +36,13 @@ public class ContratoDTO extends ObjetoValor {
 	private String usuarioAlta;
 	private String usuarioBaja;
 	private String usuarioUltMod;
+	private Integer numeroPersonas;
+    private Integer horasTotales;
+	private Integer idEmpleadoResidente;
+	private String nombreResidente;
+	private String descripcionVialidad;
+	private String nombreCuadrilla;
+	private Integer calificacionCuadrilla;
 
 	/**
 	 * @return the idContrato
@@ -312,5 +319,89 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setUsuarioUltMod(String usuarioUltMod) {
 		this.usuarioUltMod = usuarioUltMod;
+	}
+	/**
+	 * @return the numeroPersonas
+	 */
+	public Integer getNumeroPersonas() {
+		return numeroPersonas;
+	}
+	/**
+	 * @param numeroPersonas the numeroPersonas to set
+	 */
+	public void setNumeroPersonas(Integer numeroPersonas) {
+		this.numeroPersonas = numeroPersonas;
+	}
+	/**
+	 * @return the horasTotales
+	 */
+	public Integer getHorasTotales() {
+		return horasTotales;
+	}
+	/**
+	 * @param horasTotales the horasTotales to set
+	 */
+	public void setHorasTotales(Integer horasTotales) {
+		this.horasTotales = horasTotales;
+	}
+	/**
+	 * @return the idEmpleadoResidente
+	 */
+	public Integer getIdEmpleadoResidente() {
+		return idEmpleadoResidente;
+	}
+	/**
+	 * @param idEmpleadoResidente the idEmpleadoResidente to set
+	 */
+	public void setIdEmpleadoResidente(Integer idEmpleadoResidente) {
+		this.idEmpleadoResidente = idEmpleadoResidente;
+	}
+	/**
+	 * @return the nombreResidente
+	 */
+	public String getNombreResidente() {
+		return nombreResidente;
+	}
+	/**
+	 * @param nombreResidente the nombreResidente to set
+	 */
+	public void setNombreResidente(String nombreResidente) {
+		this.nombreResidente = nombreResidente;
+	}
+	/**
+	 * @return the descripcionVialidad
+	 */
+	public String getDescripcionVialidad() {
+		return descripcionVialidad;
+	}
+	/**
+	 * @param descripcionVialidad the descripcionVialidad to set
+	 */
+	public void setDescripcionVialidad(String descripcionVialidad) {
+		this.descripcionVialidad = descripcionVialidad;
+	}
+	/**
+	 * @return the nombreCuadrilla
+	 */
+	public String getNombreCuadrilla() {
+		return nombreCuadrilla;
+	}
+	/**
+	 * @param nombreCuadrilla the nombreCuadrilla to set
+	 */
+	public void setNombreCuadrilla(String nombreCuadrilla) {
+		this.nombreCuadrilla = nombreCuadrilla;
+	}
+	/**
+	 * @return the calificacionCuadrilla
+	 */
+	public Integer getCalificacionCuadrilla() {
+		return calificacionCuadrilla;
+	}
+	/**
+	 * @param calificacionCuadrilla the calificacionCuadrilla to set
+	 */
+	public void setCalificacionCuadrilla(Integer calificacionCuadrilla) {
+		this.calificacionCuadrilla = calificacionCuadrilla;
 	}
 }
