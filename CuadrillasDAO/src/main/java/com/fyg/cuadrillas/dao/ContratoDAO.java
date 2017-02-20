@@ -10,7 +10,6 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
-import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 
 public class ContratoDAO {
 	/**
@@ -198,5 +197,41 @@ public class ContratoDAO {
 		}
 		return listaContrato;
 	  }
+	/**
+	 * Metodo para consultar contratos activos
+	 * @param uid unico de registro
+	 * @param contrato recibe valores de contrato
+	 * @return regresa una lista de contrato
+	 * @throws Exception si existe un error
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ContratoDTO> contratoActivo (String uid, ContratoDTO contrato) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<ContratoDTO> listaContratoActivo = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			listaContratoActivo = sessionNTx.selectList("ContratoDAO.consultaContrato", contrato);
+			for (ContratoDTO c : listaContratoActivo) {
+					List<CoordenadaDTO> coordenadas = null;
+					coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
+					c.setCoordenadas(coordenadas);
+			}
+		}catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaContratoActivo;
+		
+	}
 
 }
