@@ -43,6 +43,7 @@ public class ContratoDTO extends ObjetoValor {
 	private String descripcionVialidad;
 	private String nombreCuadrilla;
 	private Integer calificacionCuadrilla;
+	private Integer horaLaboral;
 
 	/**
 	 * @return the idContrato
@@ -403,5 +404,17 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setCalificacionCuadrilla(Integer calificacionCuadrilla) {
 		this.calificacionCuadrilla = calificacionCuadrilla;
+	}
+	/**
+	 * @return the horaLaboral
+	 */
+	public Integer getHoraLaboral() {
+		return horaLaboral;
+	}
+	/**
+	 * @param horaLaboral the horaLaboral to set
+	 */
+	public void setHoraLaboral(Integer horaLaboral) {
+		this.horaLaboral = horaLaboral;
 	}
 }

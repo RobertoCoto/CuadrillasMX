@@ -10,6 +10,7 @@ import com.fyg.cuadrillas.comun.Funciones;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.ContratoDAO;
+import com.fyg.cuadrillas.dao.ParametroDAO;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
@@ -218,5 +219,43 @@ public class ContratoNegocio {
 	    }
 	    LogHandler.debug(uid, this.getClass(), "consultaContrato - Datos Salida: " + respuesta);
 	    return respuesta;
+	}
+	/**
+	 * Metodo para consultar Contratos Activos
+	 * @param contrato recibe valores de contrato
+	 * @return regresa respuesta
+	 */
+	public ContratoRespuesta contratoActivo (ContratoDTO contrato) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(contrato);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "contratoActivo - Datos Entrada: " + contrato);
+				//Variable de resultado
+				ContratoRespuesta respuesta = new ContratoRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				List<ContratoDTO> listaContratosActivos = null;
+				try {
+					String parametroLaboral = "empleado.notifica.imss";
+					String valor = new ParametroDAO().consultaParametro(uid, parametroLaboral);
+					contrato.setHoraLaboral(Integer.parseInt(valor));
+					listaContratosActivos = new ContratoDAO().contratoActivo(uid, contrato);
+					respuesta.setContrato(listaContratosActivos);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "contratoActivo - Error: " + ex.getMessage(), ex);
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "contratoActivo- Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "contratoActivo - Datos Salida: " + respuesta);
+			    return respuesta;
+
 	}
 }
