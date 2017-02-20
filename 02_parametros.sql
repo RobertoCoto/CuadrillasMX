@@ -14,4 +14,8 @@ VALUES  ('perfil.crea.usuario',	'RESI;OFCE',	now(),	now(),	'A'	);
 INSERT INTO parametros  (	parametro,	valor,	fecha_alta,	fecha_ult_mod,	estatus	)
 VALUES  ('empleado.notifica.imss',	'90',	now(),	now(),	'A'	);
 
+INSERT INTO parametros  (	parametro,	valor,	fecha_alta,	fecha_ult_mod,	estatus	)
+VALUES  ('empleado.hora.laboral',	'8',	now(),	now(),	'A'	);
+
+
  
