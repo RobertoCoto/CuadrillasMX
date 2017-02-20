@@ -217,7 +217,7 @@ public class ContratoDAO {
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
-			listaContratoActivo = sessionNTx.selectList("ContratoDAO.consultaContrato", contrato);
+			listaContratoActivo = sessionNTx.selectList("ContratoDAO.contratoActivo", contrato);
 			for (ContratoDTO c : listaContratoActivo) {
 					List<CoordenadaDTO> coordenadas = null;
 					coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
