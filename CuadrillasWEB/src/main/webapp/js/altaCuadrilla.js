@@ -103,6 +103,8 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				$scope.consultaCuadrilla();
 
 		    $scope.registrar = function(cuadrilla) {
+		    	$scope.cuadrilla = {};
+				$scope.cuadrilla.actualizar = true;
 		    	var noCuadrilla = document.getElementById("numeroCuadrilla").value;
 		    	var nombreCuadrilla = document.getElementById("nombre").value;
 		    	$scope.vialidad = document.getElementById("vialidad").value;
@@ -152,7 +154,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		              params: {
 		    		 "idCuadrilla" : document.getElementById("numeroCuadrilla").value,
 		    		 "nombreCuadrilla" : document.getElementById("nombre").value,
-		              "vialidad": document.getElementById("dataVialidad").value ,
+		              "vialidad": cuadrilla.codigoVialidad,
 		    		 "calificacion" : document.getElementById("calificacion").value,
 		    		 "usuario" : data.data.usuario.usuario
 
@@ -160,7 +162,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
 				    	 console.info(response);
-				    	 location.reload();
+				    	 
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
