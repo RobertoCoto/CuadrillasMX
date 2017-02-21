@@ -119,10 +119,10 @@
                         <div class="row">
                           <div class="col-sm-9">
                             <label for="actividadCombo" class="control-label">Actividad</label>
-     						<select id="cboActividad" class="form-control" placeholder="Actividad" ng-model="codigoActividad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in catActividades"></select>
+     						<select id="cboActividad" class="form-control" placeholder="Actividad" ng-model="datosActividad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in catActividades"></select>
                           </div>
                           <div class="col-sm-3">
-                            <button type="button" class="btn btn-primary" name="agregarActividadBtn" id="agregarActividadBtn" style="margin-top: 25px;">Agregar</button>
+                            <button type="button" class="btn btn-primary" name="agregarActividadBtn" id="agregarActividadBtn" style="margin-top: 25px;" ng-click="agregarActividades(datosActividad)">Agregar</button>
                           </div>
                         </div>
                         <br>
@@ -138,15 +138,10 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>001</td>
-                                    <td>Poda de cesped</td>
+                                  <tr ng-repeat="actividad in gridActividades">
+                                    <td>{{actividad.codigo}}</td>
+                                    <td>{{actividad.descripcion}}</td>
                                     <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd;"></span></center></td>
-                                  </tr>
-                                  <tr>
-                                    <td>002</td>
-                                    <td>Poda de arbol</td>
-                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
                                   </tr>
                                 </tbody>
                               </table>

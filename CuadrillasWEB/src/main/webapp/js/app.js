@@ -988,18 +988,15 @@ var data;
         });
       
         //se agregan elementos al objeto de actividades
-//      $scope.agregaActividades = function(objecto) {
+      $scope.agregarActividades = function(objActividad) {
         //$('#msload').modal('show');
         //$('#alert').hide();
-        //$('#success').hide();
-//        var fila = {};
-//        fila.descripcion = {{}}
-//        fila.codigo = document.getElementById("codigof").value.toUpperCase();
-//        fila.tipo = 0;
-//        $scope.gridActividades.push(fila);
+        //$('#success').hide();        
+        $scope.gridActividades.push(objActividad);
           //console.info(response);
           //$('#msload').modal('hide');
           //$('#success').show();
           //$('#msgaviso').text(response.data.mensajeFuncional);
+      };
     });
     //FIN REGISTRO AGENDA SEMANAL
