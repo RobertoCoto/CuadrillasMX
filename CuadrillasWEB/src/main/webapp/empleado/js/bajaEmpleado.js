@@ -90,32 +90,51 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		
 		    //para registrar la baja del empleado
 		    $scope.grabar = function(empleado) {
-		    	$scope.empleado = {};
-		    	var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
-                  
-				if (!confirmar) 
-				{
-					alert('se ha cancelado la operacion.'); 
-					return false;
-				} 		    
-
-		    	$http({
-		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',
-		              params : {
-				 		"usuario": 'SISTEMAS',
-				 		"comentario": empleado.comentario,
-				 		"codigoTipoSalida": empleado.codigoTipoSalida,
-				 		"codigoCausaSalida": empleado.codigoCausaSalida,
-		              "idEmpleado": $scope.get.idEmpleado
-				 }
-				    }).then(function mySucces(response) {
-				    	alert(response.data.mensajeFuncional);
-				    	 console.info(response);
-				    }, function myError(response) {
-				        console.error(response);
-				        alert(response.data.mensajeFuncional);
-				    });
+		    	if ($scope.formBaja.$valid) {
+		    		$scope.empleado = {};
+			    	var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
+	                  
+					if (!confirmar) 
+					{
+						 $('#alert').show();
+						 $('#msgerror').text('Se ha cancelado la operacion.'); 
+						return false;
+					} else  {
+						 $('#msload').modal('show');
+						 $('#alert').hide();
+					}
+			
+			    	$http({
+			              method: 'GET',
+			              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',
+			              params : {
+					 		"usuario": 'SISTEMAS',
+					 		"comentario": empleado.comentario,
+					 		"codigoTipoSalida": empleado.codigoTipoSalida,
+					 		"codigoCausaSalida": empleado.codigoCausaSalida,
+			              "idEmpleado": $scope.get.idEmpleado
+					 }
+					    }).then(function mySucces(response) {
+					    	$('#msload').modal('hide');
+							$('#success').show();
+							$('#msgaviso').text(response.data.mensajeFuncional);
+							$scope.empleado.comentario ="";
+							$scope.formBaja.$setPristine();
+					    	 console.info(response);
+					    }, function myError(response) {
+					    	$('#msload').modal('hide');
+							$('#alert').show();
+							$('#msgerror').text(response.data.mensajeFuncional);
+					        console.error(response);
+					        
+					    });
+				}
+		    	
 		    	};
+		    	
+		    $scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					}
 		    
 });

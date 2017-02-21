@@ -67,13 +67,9 @@ body { padding-top:30px; }
           </div>
       </div>
       <!-- Modal fin -->
+      
 		<h2>Baja de Empleados</h2>
-         <div class="panel panel-default">
-			<div class="panel-body">
-			<form name="formBaja"  ng-submit="grabar(empleado)" novalidate>
-			
-			<div class="row">
-			<div id="success" class="alert alert-success alert-dismissable fade in">
+		<div id="success" class="alert alert-success alert-dismissable fade in">
                     <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
                     <strong>AVISO!</strong> <span id="msgaviso"></span>
                   </div>
@@ -81,6 +77,10 @@ body { padding-top:30px; }
                     <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
                     <strong>ATENCIÃ“N!</strong> <span id="msgerror"></span>
                   </div>
+         <div class="panel panel-default">
+			<div class="panel-body">
+			<form name="formBaja"  ng-submit="grabar(empleado)" novalidate>
+			<div class="row">
 			<div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-repeat="empleado in resultado">
                             <label for="numeroEmpleado" class="control-label">Numero de Empleado</label>
