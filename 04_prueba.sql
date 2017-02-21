@@ -87,3 +87,20 @@ SELECT 5, codigo_emp_doc, fecha_alta, estatus FROM empleado_documentos WHERE id_
 
 INSERT INTO empleado_documentos (id_empleado, codigo_emp_doc, fecha_alta, estatus)
 SELECT 6, codigo_emp_doc, fecha_alta, estatus FROM empleado_documentos WHERE id_empleado = 1;
+
+
+
+INSERT INTO `contrato` (`id_contrato`, `codigo_vialidad`, `codigo_contrato`, `codigo_documento`, `codigo_empresa`, `numero_documento`, `monto`, `subtotal`, `fecha_inicio`, `fecha_fin`, `dias_duracion`, `pct_avance`, `fecha_registro`, `id_cuadrilla`, `observaciones`, `url`, `metros`, `usuario_alta`, `fecha_alta`, `usuario_baja`, `fecha_baja`, `usuario_ult_mod`, `fecha_ult_mod`, `estatus`) VALUES
+(1, 'UNIV', 'ARVE', 'CONT', 'TATE', 'A-12345567', '0.00', '0.00', '2015-12-01', '2016-12-01', 364, '0.00', '2017-02-20', 1, '', '', 2000, 'usuario', '2017-02-20 13:19:27', NULL, NULL, NULL, NULL, 'A');
+
+INSERT INTO `contrato` (`id_contrato`, `codigo_vialidad`, `codigo_contrato`, `codigo_documento`, `codigo_empresa`, `numero_documento`, `monto`, `subtotal`, `fecha_inicio`, `fecha_fin`, `dias_duracion`, `pct_avance`, `fecha_registro`, `id_cuadrilla`, `observaciones`, `url`, `metros`, `usuario_alta`, `fecha_alta`, `usuario_baja`, `fecha_baja`, `usuario_ult_mod`, `fecha_ult_mod`, `estatus`) VALUES
+(2, 'UNIV', 'ARVE', 'CONT', 'TATE', 'A-12345567', '0.00', '0.00', '2015-12-01', '2016-12-01', 364, '0.00', '2017-02-20', 2, '', '', 2000, 'usuario', '2017-02-20 13:19:27', NULL, NULL, NULL, NULL, 'A');
+
+
+INSERT INTO `contrato_coordenadas` (`id_coordenada`, `id_contrato`, `orden`, `direccion`, `latitud`, `longitud`, `fecha_alta`, `estatus`) VALUES
+(1, 1, 1, '', 19.3507, -99.0748, '2017-02-20 13:19:27', 'A'),
+(2, 1, 2, '', 19.3556, -99.0967, '2017-02-20 13:19:27', 'A');
+
+INSERT INTO `contrato_coordenadas` (`id_coordenada`, `id_contrato`, `orden`, `direccion`, `latitud`, `longitud`, `fecha_alta`, `estatus`) VALUES
+(3, 2, 1, '', 19.3507, -99.0748, '2017-02-20 13:19:27', 'A'),
+(4, 2, 2, '', 19.3556, -99.0967, '2017-02-20 13:19:27', 'A');
