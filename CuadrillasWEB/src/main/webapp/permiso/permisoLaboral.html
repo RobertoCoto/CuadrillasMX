@@ -24,9 +24,9 @@
 	} 
 
    hoy = yyyy+'-'+mm+'-'+dd;
-   	document.form_reloj.fechaSolicitud.value = hoy
-   	document.form_reloj.fechaSolicitudMinima.value = hoy
-   	document.form_reloj.fechaSolicitudMaxima.value = hoy
+   	document.formPermiso.fechaSolicitud.value = hoy
+   	document.formPermiso.fechaSolicitudMinima.value = hoy
+   	document.formPermiso.fechaSolicitudMaxima.value = hoy
 } 
 </script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -43,10 +43,41 @@
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="registraPermiso">
 
 <div class="container">
-<div class="panel panel-default">
+ <!-- Modal -->
+      <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+          role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">
+                          <span class="glyphicon glyphicon-time">
+                          </span>Espera un momento..
+                       </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-info
+                          progress-bar-striped active"
+                          style="width: 100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal fin -->
+      <div class="panel panel-default">
 		<div class="panel-body">
 		<h2>Permiso Laboral</h2>
-			<form ng-submit="registrar(permiso)" name="form_reloj" id="formPermiso">
+		<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCIÃ“N!</strong> <span id="msgerror"></span>
+                  </div>
+			<form ng-submit="registrar(permiso)" name="formPermiso" novalidate>
 					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
@@ -87,10 +118,10 @@
 			  
 			  <div class="row">
 			  <div class="col-sm-12">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.comentario.$invalid && !formPermiso.comentario.$pristine }">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" class="form-control responsive-input" style="height: 63px; "></textarea>
-                             <div class="amt_errorComentario"></div>
+                           <textarea name="comentario" class="form-control responsive-input" style="height: 63px; " ng-model="permiso.comentario" required></textarea>
+                             <p ng-show="formPermiso.comentario.$invalid && !formPermiso.comentario.$pristine" class="help-block">El comentario es necesario.</p>
                         </div>
                     </div>
 			  </div>
@@ -163,23 +194,5 @@
 		</div>
 </div>
 </div>
-
-
-    
-    	<script> 
-$(document).ready(function(){
-	$("#formPermiso").submit(function () {
-		if($("#comentario").val().length < 1) {
-			    $('.amt_errorComentario')
-				.text('es necesario un comentario.')
-				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
-				.fadeIn('fast');
-			return false;
-		}
-	$('.amt_errorComentario').fadeOut('slow');
-		return false;
-	});
-});
-</script>
 </body>
 </html>
