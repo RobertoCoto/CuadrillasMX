@@ -34,6 +34,14 @@
       </div>
       <h2> Alta de Contrato </h2>
       <div id="panelContratos" class="row">
+        <div id="success" class="alert alert-success alert-dismissable fade in">
+          <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+          <strong>AVISO!</strong> <span id="msgaviso"></span>
+        </div>
+        <div id="alert" class="alert alert-danger alert-dismissable fade in">
+          <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+          <strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+        </div>
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-bordered">
