@@ -15,22 +15,37 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		};
 		$scope.get = $scope.obtainGet();
 		
-	$http({
-        method: 'GET',
-        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
-        params: {
-	 		"idEmpleado" : $scope.get.idEmpleado
-	         },
-        data: { }
-	    }).then(function (result) {
-	    	$scope.resultado = result.data.empleado;
-          console.log($scope.resultado);
-	    }, function myError(response) {
-	        console.error(response);
-	        alert(response.data.header.mensajeFuncional);
-	    });
-   
-	     $http({
+		
+     // msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+	    
+	$scope.consultaEmpleado = function() {
+		$('#msload').modal('show');
+		$http({
+	        method: 'GET',
+	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+	        params: {
+		 		"idEmpleado" : $scope.get.idEmpleado
+		         },
+	        data: { }
+		    }).then(function (result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
+		    	$scope.resultado = result.data.empleado;
+	          console.log($scope.resultado);
+		    }, function myError(response) {
+		    	$('#msload').modal('hide');
+		        console.error(response);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
+		    });
+		    
+		    //consulta la causa de la salida
+		    $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
               params : {
@@ -38,14 +53,19 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoSalida = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
-	     
+		    
+	       //consulta tipo renuncia
 		    $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -54,21 +74,24 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoRenuncia = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
-		    
+		};
+		$scope.consultaEmpleado();
+		
+		    //para registrar la baja del empleado
 		    $scope.grabar = function(empleado) {
 		    	$scope.empleado = {};
-    			
-		    	//validacion campo comentario por angular
-		    	
-		    	
-    			var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
+		    	var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
                   
 				if (!confirmar) 
 				{
@@ -84,17 +107,15 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 				 		"comentario": empleado.comentario,
 				 		"codigoTipoSalida": empleado.codigoTipoSalida,
 				 		"codigoCausaSalida": empleado.codigoCausaSalida,
-		              "idEmpleado": empleado.idEmpleado
+		              "idEmpleado": $scope.get.idEmpleado
 				 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);
-				    	//opener.top.location.reload();
 				    	 console.info(response);
 				    }, function myError(response) {
 				        console.error(response);
 				        alert(response.data.mensajeFuncional);
 				    });
-		    		   
-		    	}
+		    	};
 		    
 });
