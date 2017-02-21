@@ -16,13 +16,13 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ContratoActivo
  */
-public class ContratoActivo extends HttpServlet {
+public class ConsultaContratoActivo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContratoActivo() {
+    public ConsultaContratoActivo() {
         super();
         // TODO Auto-generated constructor stub
     }
