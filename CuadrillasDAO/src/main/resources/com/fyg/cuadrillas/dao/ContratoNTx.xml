@@ -29,6 +29,7 @@
 	<result column="descripcion_vialidad" property="descripcionVialidad"/>
 	<result column="nombre_cuadrilla" property="nombreCuadrilla"/>
 	<result column="calificacion_cuadrilla" property="calificacionCuadrilla"/>
+</resultMap>
 
 <resultMap type="Coordenada" id="coordenada">	
 	<result column="id_contrato" property="idContrato"/>
@@ -144,14 +145,13 @@ co.estatus,
 ca.descripcion AS descripcion_vialidad,
 cua.nombre_cuadrilla AS nombre_cuadrilla,
 cua.calificacion  AS calificacion_cuadrilla,
-count(e.id_empleado) AS numero_personas,
-(count(e.id_empleado)) * {horaLaboral} AS horas_totales,
 er.id_empleado AS id_empleado_residente,
-CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombre_residente
+CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombre_residente,
+(SELECT count(*) FROM empleado  where id_cuadrilla = cua.id_cuadrilla AND estatus = 'A')  AS numero_personas,
+(SELECT count(*) FROM empleado  where id_cuadrilla = cua.id_cuadrilla AND estatus = 'A') * #{horaLaboral} AS horas_totales
 FROM contrato co
 LEFT JOIN cuadrilla cua	ON cua.id_cuadrilla = co.id_cuadrilla
 LEFT JOIN catalogo ca ON co.codigo_vialidad = ca.codigo
-LEFT JOIN empleado e ON e.id_cuadrilla = cua.id_cuadrilla AND e.estatus = 'A'
 LEFT JOIN empleado er ON er.id_cuadrilla = cua.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 WHERE co.estatus = 'A'
 </select>

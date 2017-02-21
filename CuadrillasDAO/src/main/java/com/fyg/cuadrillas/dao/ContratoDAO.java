@@ -219,10 +219,10 @@ public class ContratoDAO {
 			//Se hace una consulta a la tabla
 			listaContratoActivo = sessionNTx.selectList("ContratoDAO.contratoActivo", contrato);
 			for (ContratoDTO c : listaContratoActivo) {
-					List<CoordenadaDTO> coordenadas = null;
-					coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
-					c.setCoordenadas(coordenadas);
-			}
+				List<CoordenadaDTO> coordenadas = null;
+				coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
+				c.setCoordenadas(coordenadas);
+		    }
 		}catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());

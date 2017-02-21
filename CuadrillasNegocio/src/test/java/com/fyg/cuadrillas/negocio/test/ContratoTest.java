@@ -70,7 +70,7 @@ public class ContratoTest {
 			
 			//negocio.altaContrato(contrato);
 			
-			negocio.consultaContrato(null);
+			negocio.altaContrato(contrato);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

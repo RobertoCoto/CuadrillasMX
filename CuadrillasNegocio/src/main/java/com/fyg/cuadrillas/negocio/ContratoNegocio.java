@@ -15,7 +15,10 @@ import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
 
+
+
 public class ContratoNegocio {
+	private ContratoDTO con;
 	/**
 	 * Metodo para dar de alta un contrato
 	 * @param contrato recibe valores del contrato
@@ -225,11 +228,12 @@ public class ContratoNegocio {
 	 * @param contrato recibe valores de contrato
 	 * @return regresa respuesta
 	 */
-	public ContratoRespuesta contratoActivo (ContratoDTO contrato) {
+	public ContratoRespuesta contratoActivo () {
+		 con = new ContratoDTO();
 		//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(contrato);
+				String uid = GUIDGenerator.generateGUID(con);
 				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "contratoActivo - Datos Entrada: " + contrato);
+				LogHandler.debug(uid, this.getClass(), "contratoActivo - Datos Entrada: " + con);
 				//Variable de resultado
 				ContratoRespuesta respuesta = new ContratoRespuesta();
 				respuesta.setHeader( new EncabezadoRespuesta());
@@ -238,10 +242,10 @@ public class ContratoNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<ContratoDTO> listaContratosActivos = null;
 				try {
-					String parametroLaboral = "empleado.notifica.imss";
+					String parametroLaboral = "empleado.hora.laboral";
 					String valor = new ParametroDAO().consultaParametro(uid, parametroLaboral);
-					contrato.setHoraLaboral(Integer.parseInt(valor));
-					listaContratosActivos = new ContratoDAO().contratoActivo(uid, contrato);
+					con.setHoraLaboral(Integer.parseInt(valor));
+					listaContratosActivos = new ContratoDAO().contratoActivo(uid, con);
 					respuesta.setContrato(listaContratosActivos);
 				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "contratoActivo - Error: " + ex.getMessage(), ex);
