@@ -18,7 +18,10 @@ import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
 
 
 public class ContratoNegocio {
-	private ContratoDTO con;
+
+	/** The METROS_KM. */
+	private static final  int METROS_KM = 1000;
+
 	/**
 	 * Metodo para dar de alta un contrato
 	 * @param contrato recibe valores del contrato
@@ -93,10 +96,10 @@ public class ContratoNegocio {
 						}
 					}
 					SimpleDateFormat formateador = new SimpleDateFormat("YYYY-mm-dd");
-					
+
 					Date fechaInicio = formateador.parse(contrato.getFechaInicio());
 					Date fechaFin = formateador.parse(contrato.getFechaFin());
-					
+
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));
 					System.out.println("Comparacion Fechas " + fechaInicio.before(fechaFin));
@@ -119,7 +122,7 @@ public class ContratoNegocio {
 						System.out.println("distancia =" + distancia);
 						metros += distancia;
 					}
-					contrato.setMetros((int) metros * 1000);
+					contrato.setMetros((int) metros * METROS_KM);
 
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
@@ -225,11 +228,10 @@ public class ContratoNegocio {
 	}
 	/**
 	 * Metodo para consultar Contratos Activos
-	 * @param contrato recibe valores de contrato
 	 * @return regresa respuesta
 	 */
-	public ContratoRespuesta contratoActivo () {
-		 con = new ContratoDTO();
+	public ContratoRespuesta contratoActivo() {
+		ContratoDTO con = new ContratoDTO();
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(con);
 				//Mandamos a log el objeto de entrada

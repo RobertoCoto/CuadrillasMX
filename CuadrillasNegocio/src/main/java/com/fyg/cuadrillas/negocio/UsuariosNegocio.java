@@ -18,11 +18,8 @@ import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 public class UsuariosNegocio {
 	/** The LONGITUD_RFC. */
 	private static final  int LONGITUD_PSSWD= 8;
+
 	/**
-	 * Objeto para recibir  datos perfil
-	 */
-	 private PerfilDTO perfilUsuario;
-	 /**
 		 * Metodo para dar de alta un usuario
 		 * @param usuario Recibe valores de usuario
 		 * @return regresa la respuesta si fue registrado
@@ -42,7 +39,7 @@ public class UsuariosNegocio {
 					throw new ExcepcionesCuadrillas("Es necesario especificar un usuario.");
 				}
 				 //se incia con la obtencion del perfil
-				 perfilUsuario = new PerfilDTO();
+				 PerfilDTO perfilUsuario = new PerfilDTO();
 				 perfilUsuario.setIdPerfil(usuario.getIdPerfil());
 				 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
 				 for (int k = 0; k < listaPerfil.size(); k++) {
