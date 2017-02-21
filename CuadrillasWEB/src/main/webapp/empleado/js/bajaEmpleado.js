@@ -63,30 +63,28 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 		    });
 		    
 		    $scope.grabar = function(empleado) {
-		    	var coment = document.getElementById("comentario").value;
-		    	if(coment === "") {
-                	
-                	return false;
-                	}
-    				
+		    	$scope.empleado = {};
+    			
+		    	//validacion campo comentario por angular
+		    	
+		    	
     			var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
-
+                  
 				if (!confirmar) 
 				{
 					alert('se ha cancelado la operacion.'); 
 					return false;
 				} 		    
 
-                
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',
 		              params : {
 				 		"usuario": 'SISTEMAS',
-				 		"comentario": document.getElementById("comentario").value,
-				 		"codigoTipoSalida": document.getElementById("salida").value,
-				 		"codigoCausaSalida": document.getElementById("causaSalida").value,
-		              "idEmpleado": document.getElementById("idEmpleado").value
+				 		"comentario": empleado.comentario,
+				 		"codigoTipoSalida": empleado.codigoTipoSalida,
+				 		"codigoCausaSalida": empleado.codigoCausaSalida,
+		              "idEmpleado": empleado.idEmpleado
 				 }
 				    }).then(function mySucces(response) {
 				    	alert(response.data.mensajeFuncional);

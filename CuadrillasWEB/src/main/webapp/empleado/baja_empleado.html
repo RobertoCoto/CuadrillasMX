@@ -37,7 +37,7 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/baja.js"></script>
+<script type="text/javascript" src="js/bajaEmpleado.js"></script>
 
 </head>
 <body onload="mueveReloj()" ng-app="tatei" ng-controller="bajaEmpleado" >
@@ -114,7 +114,7 @@
 			 <div class="col-sm-12">
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario"  class="form-control responsive-input" style="height: 78px; "></textarea>
+                           <textarea id="comentario"  class="form-control responsive-input" style="height: 78px;" ng-model="empleado.comentario" ng-minlength="1"></textarea>
                         <div class="amt_errorComentario"></div>
                         </div>
                     </div>
