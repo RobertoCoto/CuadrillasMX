@@ -155,4 +155,5 @@ LEFT JOIN catalogo ca ON co.codigo_vialidad = ca.codigo
 LEFT JOIN empleado er ON er.id_cuadrilla = cua.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 WHERE co.estatus = 'A'
 </select>
+
 </mapper>

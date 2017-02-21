@@ -64,5 +64,4 @@ public class ContratoActivo extends HttpServlet {
 			out.flush();
 		}
 	}
-
 }

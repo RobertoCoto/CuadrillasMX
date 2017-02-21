@@ -231,7 +231,5 @@ public class ContratoDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaContratoActivo;
-		
 	}
-
 }

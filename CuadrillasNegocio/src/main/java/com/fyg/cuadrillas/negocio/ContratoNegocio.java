@@ -260,6 +260,5 @@ public class ContratoNegocio {
 			    }
 			    LogHandler.debug(uid, this.getClass(), "contratoActivo - Datos Salida: " + respuesta);
 			    return respuesta;
-
 	}
 }
