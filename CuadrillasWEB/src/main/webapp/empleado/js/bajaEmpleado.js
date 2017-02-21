@@ -97,7 +97,8 @@ app.controller('bajaEmpleado', function ($scope, $http) {
 					if (!confirmar) 
 					{
 						 $('#alert').show();
-						 $('#msgerror').text('Se ha cancelado la operacion.'); 
+						 $('#msgerror').text('Se ha cancelado la operacion.');
+						 $scope.formBaja.$setPristine();
 						return false;
 					} else  {
 						 $('#msload').modal('show');

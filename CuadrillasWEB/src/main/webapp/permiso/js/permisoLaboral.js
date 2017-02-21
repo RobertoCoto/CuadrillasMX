@@ -1,5 +1,11 @@
 var app = angular.module('tatei', []);
 app.controller('registraPermiso', function ($scope, $http) {
+     //fecha Sistema
+   $scope.permiso = {};
+   $scope.fecha = (new Date(), 'yyyy-MM-dd');
+   $scope.permiso.fechaSolicitud = $scope.fecha;
+   $scope.permiso.fechaMinima = $scope.fecha;
+   $scope.permiso.fechaMaxima = $scope.fecha;
 	//obtener el id enviado por GET
 	   $scope.obtainGet = function getGET(){
 		   var loc = document.location.href;
@@ -15,79 +21,109 @@ app.controller('registraPermiso', function ($scope, $http) {
 		};
 		$scope.get = $scope.obtainGet();
 		
-	$http({
-        method: 'GET',
-        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
-        params: {
-	 		"idEmpleado" : $scope.get.idEmpleado
-	         },
-        data: { }
-	    }).then(function (result) {
-	    	$scope.resultado = result.data.empleado;
-          console.log($scope.resultado);
-	    }, function myError(response) {
-	        console.error(response);
-	        alert(response.data.header.mensajeFuncional);
-	    });
-	
-	    $http({
-              method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
-              params : {
-		 		"tipoCatalogo": 'PERMI_LABO'
-		 },
-              data: { }
-		    }).then(function mySucces(result) {
-		    	$scope.resultadoLaboral = result.data.catalogo;
-	              console.log(result);
+		   // msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+	$scope.consultaEmpleado = function() {
+		$('#msload').modal('show');
+		$http({
+	        method: 'GET',
+	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+	        params: {
+		 		"idEmpleado" : $scope.get.idEmpleado
+		         },
+	        data: { }
+		    }).then(function (result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
+		    	$scope.resultado = result.data.empleado;
+	          console.log($scope.resultado);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
-		    $scope.datoPermiso = [];
+		
+		    $http({
+	              method: 'GET',
+	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+	              params : {
+			 		"tipoCatalogo": 'PERMI_LABO'
+			 },
+	              data: { }
+			    }).then(function mySucces(result) {
+			    	$('#msload').modal('hide');
+					$('#alert').hide();
+					$('#success').hide();
+			    	$scope.resultadoLaboral = result.data.catalogo;
+		              console.log(result);
+			    }, function myError(response) {
+			    	$('#msload').modal('hide');
+			        console.error(response);
+			        $('#alert').show();
+					$('#msgerror').text(response.data.header.mensajeFuncional)
+			    });
 		    
-		    //aquiii
+			     
+		};
+		$scope.consultaEmpleado();
+		   
+		    
+		    //registra el permiso en la base de datos
 		    $scope.registrar = function(permiso) {
-		    	var coment = document.getElementById("comentario").value;
-		    	if(coment === "") {
-                	
-                	return false;
-                	}
-		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
-
-		    		if (!confirmar) 
-		    			{
-		    				alert('se ha cancelado la operacion.'); 
+		    	//valida si el form es valido
+		    	if ($scope.formPermiso.$valid) {
+		    		$scope.permiso = {};
+			    	
+		    		var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+		    			if (!confirmar) 
+		    				{
+		    					 $('#alert').show();
+								 $('#msgerror').text('Se ha cancelado la operacion.');
+								 $scope.formPermiso.$setPristine();
 		    					return false;
-		    			} 	
-		    			
+		    				} else  {
+								 $('#msload').modal('show');
+								 $('#alert').hide();
+		    				}
+						$http({
+						      method: 'GET',
+						      url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
+						      params: {
+						 		"idEmpleado" : $scope.get.idEmpleado,
+						 		"comentario" : permiso.comentario,
+						 		"fechaSolicitud": permiso.fechaSolicitud,
+						 		"fechaSolicitudMinima" : permiso.fechaMinima,
+						      "fechaSolicitudMaxima" : permiso.fechaMaxima,
+						      "horaSolicitudMinima" : permiso.horaSolicitudMinima,
+						      "horaSolicitudMaxima" : permiso.horaSolicitudMaxima,
+						      "tipoPermiso" : permiso.codigo,
+						 		"usuario" : 'SISTEMAS'
+						         }
+						    }).then(function mySucces(response) {
+						    	$('#msload').modal('hide');
+								$('#success').show();
+								$('#msgaviso').text(response.data.mensajeFuncional);
+								$scope.permiso.comentario ="";
+								$scope.formPermiso.$setPristine();
+						    	 console.info(response);
+						    	 //opener.top.location.reload();
+						    }, function myError(response) {
+						    	$('#msload').modal('hide');
+								$('#alert').show();
+								$('#msgerror').text(response.data.mensajeFuncional);
+						        console.error(response);
+						    });
+		    		}
+		    	};
 		    	
-               
-                
-                
-		    	$http({
-		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
-		              params: {
-				 		"idEmpleado" : document.getElementById("idEmpleado").value,
-				 		"comentario" : document.getElementById("comentario").value,
-				 		"fechaSolicitud": document.getElementById("fechaSolicitud").value,
-				 		"fechaSolicitudMinima" : document.getElementById("fechaSolicitudMinima").value,
-		              "fechaSolicitudMaxima" : document.getElementById("fechaSolicitudMaxima").value,
-		              "horaSolicitudMinima" : document.getElementById("horaSolicitudMinima").value,
-		              "horaSolicitudMaxima" : document.getElementById("horaSolicitudMaxima").value,
-		              "tipoPermiso" : document.getElementById("permisoCodigo").value,
-				 		"usuario" : 'SISTEMAS'
-				         }
-				    }).then(function mySucces(response) {
-				    	alert(response.data.mensajeFuncional);
-				    	 console.info(response);
-				    	 //opener.top.location.reload();
-				    }, function myError(response) {
-				        console.error(response);
-				        alert(response.data.mensajeFuncional);
-				    });
-		    	}
+		    $scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					};
 		    
 });
