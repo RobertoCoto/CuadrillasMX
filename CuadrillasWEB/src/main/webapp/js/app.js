@@ -1,20 +1,21 @@
 var app = angular.module('tatei', ['ui.bootstrap', 'ui.router']);
 var data;
-function removeByAttr(arr, attr, value) {
-  var i = arr.length;
-  while(i--){
-     if( arr[i]
-         && arr[i].hasOwnProperty(attr)
-         && (arguments.length > 2 && arr[i][attr] === value ) ){
 
-         arr.splice(i,1);
-     }
-  }
-  return arr;
-}
+	function removeByAttr(arr, attr, value) {
+	  var i = arr.length;
+	  while(i--){
+	     if( arr[i]
+	         && arr[i].hasOwnProperty(attr)
+	         && (arguments.length > 2 && arr[i][attr] === value ) ){
+	
+	         arr.splice(i,1);
+	     }
+	  }
+	  return arr;
+	}
 
- app.config(function($routeProvider, $stateProvider) {
-	 $routeProvider
+ 	app.config(function($routeProvider, $stateProvider) {
+ 		$routeProvider
             // route for the home page
             .when('/login', {
                 templateUrl : 'templates/login.html',
@@ -115,8 +116,8 @@ function removeByAttr(arr, attr, value) {
             })
             .state('32', {
             	url: '/32',
-                templateUrl : 'registroAgenda/index.html',
-                controller  : 'pendiente'
+                templateUrl : 'templates/registro_agenda.html',
+                controller  : 'registroagendactrl'
             })
             .state('33', {
             	url: '/33',
@@ -154,9 +155,10 @@ function removeByAttr(arr, attr, value) {
                 controller  : 'pendiente'
             })
             .state('otherwise', {redirectTo : '/login'});
-    });
+ 	});
 
-    app.controller('validaUsuario',["$scope","$http", "$location", function ($scope,$http, $location) {
+ 	//LOGIN
+ 	app.controller('validaUsuario',["$scope","$http", "$location", function ($scope,$http, $location) {
 		    $scope.validar = function() {
 		    	$http({
 		              method: 'GET',
@@ -202,9 +204,10 @@ function removeByAttr(arr, attr, value) {
 				        //  }
 				    });
 		    }
-}]);
+ 	}]);
+ 	//FIN LOGIN
 
-
+ 	//MENÚ
 	app.controller('MainController',
 		function ($scope, $location) {
 			if(jQuery.type(data) === "undefined"){
@@ -227,7 +230,7 @@ function removeByAttr(arr, attr, value) {
 				$scope.items = data.data.menu;
 				$scope.default = $scope.items[0];
 			}
-	    });
+	});
 
     app.controller('ItemController', ['$scope', function (scope) {
                 scope.$parent.isopen = (scope.$parent.default === scope.item);
@@ -236,12 +239,13 @@ function removeByAttr(arr, attr, value) {
                     scope.$parent.isopen = newvalue;
                 });
 
-            }]);
+    }]);
 
     app.controller('vistaController',
         function ($scope) {
             document.getElementById("contenedor").style.marginLeft = "260px";
-        });
+    });
+    //FIN MENÚ
 
     app.controller('catalogoctrl', function ($scope, $http) {
 
@@ -898,3 +902,104 @@ function removeByAttr(arr, attr, value) {
                       //document.getElementById('polyArea').innerHTML = '';
                   }
             });
+
+            
+    //REGISTRO AGENDA SEMANAL
+    app.controller('registroagendactrl', function ($scope, $http) {
+  /*$('#mainPanel').hide();
+      $('#alert').hide();
+      $('#success').hide();
+      var fechaInicioForm=$('input[name="fechaInicio"]');
+      var fechaTerminoForm=$('input[name="fechaTermino"]');
+      var fechaRegistroForm=$('input[name="fechaRegistro"]');
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var a = undefined;
+      var b = undefined;
+      fechaInicioForm.datepicker({
+        format: 'dd/mm/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      }).on("change", function (e) {
+        console.log(e)
+          console.log("fecha inicio: ", e.target.value);
+          var s = e.target.value.split("/")
+          a = moment([s[2], s[1]-1, s[0]]);
+          if (b) {
+            $('#diasDuracion').val(b.diff(a,'days')+1);
+          }
+      });
+      fechaTerminoForm.datepicker({
+        format: 'dd/mm/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      }).on("change", function (e) {
+          var s = e.target.value.split("/")
+          b = moment([s[2], s[1]-1, s[0]]);
+          console.log("Fecha termino: ", e.target.value);
+          if (a) {
+            $('#diasDuracion').val(b.diff(a,'days')+1);
+          }
+      });
+      fechaRegistroForm.datepicker({
+        format: 'dd/mm/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      })
+      $scope.contratoFocus = {}; // contrato undefined
+      $scope.nContrato = true;*/
+    
+      //se llena catálogo de actividades	
+      $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params: {
+                'tipoCatalogo': 'ACTIVIDADE'
+              },
+              data: { }
+        }).then(function successfn(result) {
+          $scope.catActividades = result.data.catalogo;
+          console.log(result);
+        }, function errorfn(response) {
+            console.error(response);
+            alert(response.data.header.mensajeFuncional);
+            $('#msload').modal('hide');
+            //$('#msgerror').val(response.data.header.mensajeFuncional);
+        });
+
+      //se llena catálogo de articulos
+      $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params: {
+                'tipoCatalogo': 'ARTICULO'
+              },
+              data: { }
+        }).then(function successfn(result) {
+              $scope.catArticulos = result.data.catalogo;
+                console.log(result);
+        }, function errorfn(response) {
+            console.error(response);
+            alert(response.data.header.mensajeFuncional);
+            $('#msload').modal('hide');
+            //$('#msgerror').val(response.data.header.mensajeFuncional);
+        });
+      
+        //se agregan elementos al objeto de actividades
+//      $scope.agregaActividades = function(objecto) {
+        //$('#msload').modal('show');
+        //$('#alert').hide();
+        //$('#success').hide();
+//        var fila = {};
+//        fila.descripcion = {{}}
+//        fila.codigo = document.getElementById("codigof").value.toUpperCase();
+//        fila.tipo = 0;
+//        $scope.gridActividades.push(fila);
+          //console.info(response);
+          //$('#msload').modal('hide');
+          //$('#success').show();
+          //$('#msgaviso').text(response.data.mensajeFuncional);
+    });
+    //FIN REGISTRO AGENDA SEMANAL
