@@ -7,7 +7,7 @@ var data;
 	     if( arr[i]
 	         && arr[i].hasOwnProperty(attr)
 	         && (arguments.length > 2 && arr[i][attr] === value ) ){
-	
+
 	         arr.splice(i,1);
 	     }
 	  }
@@ -207,7 +207,7 @@ var data;
  	}]);
  	//FIN LOGIN
 
- 	//MENÚ
+ 	//MENï¿½
 	app.controller('MainController',
 		function ($scope, $location) {
 			if(jQuery.type(data) === "undefined"){
@@ -245,7 +245,7 @@ var data;
         function ($scope) {
             document.getElementById("contenedor").style.marginLeft = "260px";
     });
-    //FIN MENÚ
+    //FIN MENï¿½
 
     app.controller('catalogoctrl', function ($scope, $http) {
 
@@ -704,9 +704,11 @@ var data;
                           }
 
 
-                          $( "#tramos" ).append( $( "<tr>"
-                                  + "<td>" + direccion + "</td>"
-                                + "</tr>") );
+                          $( "#tramos" ).append( $( "<div class=\"row\">"
+																	+ "<div class=\"col-sm-12\">"
+                                  	+ "<i>" + direccion + "</i>"
+																	+ "</div>"
+                                + "</div>") );
                           /*$( "#tramos" ).append( $( "<div class=\"row\""
                            + "<div class=\"col-sm-12\">"
                              + "<div class=\"form-group\">"
@@ -903,7 +905,7 @@ var data;
                   }
             });
 
-            
+
     //REGISTRO AGENDA SEMANAL
     app.controller('registroagendactrl', function ($scope, $http) {
   /*$('#mainPanel').hide();
@@ -950,8 +952,8 @@ var data;
       })
       $scope.contratoFocus = {}; // contrato undefined
       $scope.nContrato = true;*/
-    
-      //se llena catálogo de actividades	
+
+      //se llena catï¿½logo de actividades
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -969,7 +971,7 @@ var data;
             //$('#msgerror').val(response.data.header.mensajeFuncional);
         });
 
-      //se llena catálogo de articulos
+      //se llena catï¿½logo de articulos
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -986,7 +988,7 @@ var data;
             $('#msload').modal('hide');
             //$('#msgerror').val(response.data.header.mensajeFuncional);
         });
-      
+
         //se agregan elementos al objeto de actividades
 //      $scope.agregaActividades = function(objecto) {
         //$('#msload').modal('show');
