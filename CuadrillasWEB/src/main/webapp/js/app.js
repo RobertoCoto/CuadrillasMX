@@ -91,7 +91,7 @@ var data;
             })
             .state('12', {
             	url: '/12',
-            	templateUrl : 'templates/cambio_contra.html',
+            	templateUrl : 'templates/cambioContra.html',
             	controller  : 'cambioDatos'
             })
         	.state('13', {
