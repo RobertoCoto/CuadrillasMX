@@ -101,7 +101,7 @@ var data;
         	})
             .state('20', {
             	url: '/20',
-                templateUrl : 'templates/empleado.html',
+                templateUrl : 'templates/administracionEmpleado.html',
                 controller  : 'registraEmpleado'
             })
             .state('30', {
