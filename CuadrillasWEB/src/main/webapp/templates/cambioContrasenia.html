@@ -20,20 +20,22 @@
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Anterior:</label>
 				 <input type="password" id="contraAnterior" requiered class="form-control" name="contraAnterior" ng-model="user.conAnterior" required>
-				 <p ng-show="cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine" class="help-block">El necesaria la contrasena anteror.</p>
+				 <p ng-show="cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine" class="help-block">El necesaria la contrasena anterior.</p>
 				 </div>
 				 
-				 <div class="row">
+				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraNueva.$invalid && !cambioContra.contraNueva.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Nueva:</label>
-				 <input type="password" id="contraNueva" requiered class="form-control">
+				 <input type="password" id="contraNueva" requiered class="form-control" name="contraNueva" required ng-model="user.nueva">
+				 <p ng-show="cambioContra.contraNueva.$invalid && !cambioContra.contraNueva.$pristine" class="help-block">El necesaria la contrasena nueva.</p>
 				 </div>
 				 
-				 <div class="row">
+				 <div class="row" ng-class="{ 'has-error' : cambioContra.repetirContra.$invalid && !cambioContra.repetirContra.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Repetir Contrase&ntilde;a Nueva:</label>
-				 <input type="password"  id="repetirContraNueva" requiered class="form-control">
+				 <input type="password"  id="repetirContraNueva" requiered class="form-control" name="repetirContra" ng-model="user.repetirNueva">
+				 <p ng-show="cambioContra.repetirContra.$invalid && !cambioContra.repetirContra.$pristine" class="help-block">El necesaria reptir la nueva contraseña.</p>
 				 </div>
 				 <br>
-				<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success">
+				<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success" ng-disabled="cambioContra.$invalid">
 				</form>
 				
 		</div>
