@@ -96,7 +96,7 @@ var data;
             })
         	.state('13', {
         		url: '/13',
-                templateUrl : 'templates/contra_general.html',
+                templateUrl : 'templates/cambioContraseniaGeneral.html',
                 controller  : 'adminDatos'
         	})
             .state('20', {
