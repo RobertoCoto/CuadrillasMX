@@ -6,8 +6,10 @@ public class CoordenadaDTO extends ObjetoValor {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 5058719064050928933L;
-	/** id */
+	/** id Contrato*/
 	private int idContrato;
+	/** id Agenda */
+	private int idAgenda;
 	/** orden */
 	private int orden;
 	/** direccion */
@@ -76,5 +78,17 @@ public class CoordenadaDTO extends ObjetoValor {
 	 */
 	public void setLongitud(Float longitud) {
 		this.longitud = longitud;
+	}
+	/**
+	 * @return the idAgenda
+	 */
+	public int getIdAgenda() {
+		return idAgenda;
+	}
+	/**
+	 * @param idAgenda the idAgenda to set
+	 */
+	public void setIdAgenda(int idAgenda) {
+		this.idAgenda = idAgenda;
 	}
 }

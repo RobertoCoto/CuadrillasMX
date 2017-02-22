@@ -95,7 +95,7 @@ public class ActividadDTO extends ObjetoValor {
 	 */
 	private Float  actividadesDia;
 	/**
-	 * observaciones 
+	 * observaciones
 	 */
 	private String observaciones;
 	/**
@@ -313,7 +313,7 @@ public class ActividadDTO extends ObjetoValor {
 		return porcentajeCompletado;
 	}
 	/**
-	 * @param porcentajeContemplado the porcentajeContemplado to set
+	 * @param porcentajeCompletado the porcentajeContemplado to set
 	 */
 	public void setPorcentajeCompletado(Float porcentajeCompletado) {
 		this.porcentajeCompletado = porcentajeCompletado;
@@ -521,5 +521,5 @@ public class ActividadDTO extends ObjetoValor {
 	 */
 	public void setFechaAutorizacion(Date fechaAutorizacion) {
 		this.fechaAutorizacion = fechaAutorizacion;
-	} 
+	}
 }

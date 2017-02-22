@@ -7,46 +7,58 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Permiso Laboral</title>
-<script type="text/javascript">
- 	function mueveReloj(){ 
-   	 
-   	hoy = new Date()
-   	dd = hoy.getDate()
-	mm = hoy.getMonth()+1 //hoy es 0!
-    yyyy = hoy.getFullYear()
-    
-    if(dd<10) {
-    dd='0'+dd
-	} 
-
-	if(mm<10) {
-    mm='0'+mm
-	} 
-
-   hoy = yyyy+'-'+mm+'-'+dd;
-   	document.form_reloj.fechaSolicitud.value = hoy
-   	document.form_reloj.fechaSolicitudMinima.value = hoy
-   	document.form_reloj.fechaSolicitudMaxima.value = hoy
-} 
-</script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/permisoLaboral.js"></script>
+
 <style>
 .responsive-input{
   width: 100%;
   resize: none;
 }
+body { padding-top:30px; }
 </style>
+
 </head>
-<body onload="mueveReloj()" ng-app="tatei" ng-controller="registraPermiso">
+<body ng-app="tatei" ng-controller="registraPermiso">
 
 <div class="container">
-<div class="panel panel-default">
+ <!-- Modal -->
+      <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+          role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">
+                          <span class="glyphicon glyphicon-time">
+                          </span>Espera un momento..
+                       </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-info
+                          progress-bar-striped active"
+                          style="width: 100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal fin -->
+      <div class="panel panel-default">
 		<div class="panel-body">
 		<h2>Permiso Laboral</h2>
-			<form ng-submit="registrar(permiso)" name="form_reloj" id="formPermiso">
+		<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
+			<form ng-submit="registrar(permiso)" name="formPermiso" novalidate>
 					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
                         <div class="form-group form-group-sm">
@@ -81,16 +93,17 @@
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                   			<input type="date" value={{emp2.fechaIngreso}} disabled class="form-control">
                				 </div>
+               				
                         </div>
                     </div>
 			  </div>
 			  
 			  <div class="row">
 			  <div class="col-sm-12">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.comentario.$invalid && !formPermiso.comentario.$pristine }">
                             <label for="comentarios" class="control-label">Comentarios</label>
-                           <textarea id="comentario" class="form-control responsive-input" style="height: 63px; "></textarea>
-                             <div class="amt_errorComentario"></div>
+                           <textarea name="comentario" class="form-control responsive-input" style="height: 63px; " ng-model="permiso.comentario" required></textarea>
+                             <p ng-show="formPermiso.comentario.$invalid && !formPermiso.comentario.$pristine" class="help-block">El comentario es necesario.</p>
                         </div>
                     </div>
 			  </div>
@@ -100,7 +113,7 @@
                             <label for="fechaSolicitud" class="control-label">Fecha de Solicitud</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled>
+                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled ng-model="permiso.fechaSolicitud" value={{FromDate}}>
                				 </div>
                         </div>
                     </div>
@@ -112,74 +125,62 @@
                             <label for="fechaAusencia" class="control-label">Fecha de Ausencia</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMinima" name="fechaSolicitudMinima" class="form-control">
+                  			<input type="date" id="fechaSolicitudMinima" ng-model="permiso.fechaMinima" name="fechaSolicitudMinima" class="form-control" value={{FromDate}}>
                				 </div>
+               				 
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine }">
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMaxima" name="fechaSolicitudMaxima" class="form-control">
+                  			<input type="date" id="fechaSolicitudMaxima" ng-model="permiso.fechaMaxima" name="fechaSolicitudMaxima" class="form-control" required date-format="yyyy-MM-dd">
                				 </div>
+               				 <p ng-show="formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine" class="help-block">Es necesario la fecha maxima.</p>
                         </div>
                     </div>
 			  </div>
 			  <div class="row">
 			  <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.horaSolicitudMinima.$invalid && !formPermiso.horaSolicitudMinima.$pristine }">
                             <label for="horarioSolicitado" class="control-label">Horario Solicitado</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" id="horaSolicitudMinima" class="form-control">
+                  			<input type="time" id="horaSolicitudMinima" name="horaSolicitudMinima" format="hh:mm" class="form-control" ng-model="permiso.horaSolicitudMinima" required>
                				 </div>
+               				 <p ng-show="formPermiso.horaSolicitudMinima.$invalid && !formPermiso.horaSolicitudMinima.$pristine" class="help-block">Es necesario la hora minima.</p>
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.horaSolicitudMaxima.$invalid && !formPermiso.horaSolicitudMaxima.$pristine }">
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" id="horaSolicitudMaxima" class="form-control">
+                  			<input type="time" id="horaSolicitudMaxima" name="horaSolicitudMaxima"  format="hh:mm" class="form-control" ng-model="permiso.horaSolicitudMaxima" required>
                				 </div>
+               				 <p ng-show="formPermiso.horaSolicitudMaxima.$invalid && !formPermiso.horaSolicitudMaxima.$pristine" class="help-block">Es necesario la hora maxima.</p>
                         </div>
                     </div>
 			  </div>
 			  
 			  <div class="row">
 			  <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.tipoPermiso.$invalid && !formPermiso.tipoPermiso.$pristine }">
                             <label for="tipoPermiso" class="control-label">Tipo de Permiso</label>
-                           <select class="form-control"  ng-model="permiso.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)">
-</select> <input type="hidden" id="permisoCodigo" value={{permiso.codigo}}>
+                           <select class="form-control" name="tipoPermiso" ng-model="permiso.codigo" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoLaboral" ng-change="getOptions2(permiso.codigo)" required>
+                           <option value="">---Seleccione el tipo de permiso---</option>
+                           </select> 
                         </div>
+                        <p ng-show="formPermiso.tipoPermiso.$invalid && !formPermiso.tipoPermiso.$pristine" class="help-block">Es necesario seleccionar un permiso.</p>
                     </div>
 			  </div>
-			  <input type="submit" value="Registrar" class="btn btn-success">
+			  <input type="submit" value="Registrar" class="btn btn-success" ng-disabled="formPermiso.$invalid">
 			</form>
 		</div>
 </div>
 </div>
-
-
-    
-    	<script> 
-$(document).ready(function(){
-	$("#formPermiso").submit(function () {
-		if($("#comentario").val().length < 1) {
-			    $('.amt_errorComentario')
-				.text('es necesario un comentario.')
-				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
-				.fadeIn('fast');
-			return false;
-		}
-	$('.amt_errorComentario').fadeOut('slow');
-		return false;
-	});
-});
-</script>
 </body>
 </html>
