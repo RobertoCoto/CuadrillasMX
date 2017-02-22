@@ -14,41 +14,82 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 //	   return get;
 //	};
 //	$scope.get = $scope.obtainGet();
-   $http({
-            method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
-            params: {
-		 		"idEmpleado": "1",
-		         }
-		    }).then(function (result) {
-		    	$scope.resultadoEmpleado = result.data.empleado;
-	            console.log($scope.resultadoEmpleado);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		    });
+
+ // msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+  $scope.consultaEmpleado = function() {
+	  $('#msload').modal('show');
+				  $http({
+					  
+			method: 'GET',
+			url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+			params: {
+					"idEmpleado": "1", //aqui va ir variable que nos llegara del general
+			     }
+			}).then(function (result) {
+				$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
+				$scope.resultadoEmpleado = result.data.empleado;
+			    console.log($scope.resultadoEmpleado);
+			}, function myError(response) {
+				$('#msload').modal('hide');
+			    console.error(response);
+			    $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
+			});
+	  };
+	  
+	  $scope.consultaEmpleado();
+  
     
 		    $scope.actualizar = function(user) {
+		    	$scope.user = {};
+		    if ($scope.cambioContra.$valid) {
+		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+    			if (!confirmar) 
+    				{
+    					 $('#alert').show();
+						 $('#msgerror').text('Se ha cancelado la operacion.');
+						 $scope.cambioContra.$setPristine();
+    					return false;
+    				} else  {
+						 $('#msload').modal('show');
+						 $('#alert').hide();
+    				}
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/CambioContrasena',
 		              params: {
-		    			"contrasena" : document.getElementById("contra").value,
-				 		"contrasenaAnterior": document.getElementById("contraAnterior").value,
-				 		"contrasenaNueva": document.getElementById("contraNueva").value,
-				 		"repiteContrasena": document.getElementById("repetirContraNueva").value,
-				 		"idEmpleado": document.getElementById("idEmpleado").value
+		    			"contrasena" : user.conAnterior,
+				 		"contrasenaAnterior": user.conAnterior,
+				 		"contrasenaNueva": user.nueva,
+				 		"repiteContrasena": user.repetirNueva,
+				 		"idEmpleado": "1" //aqui va ir la variable que nos llegara del general
 				         }
 				    }).then(function mySucces(response) {
-                        console.info(response);
-                        alert(response.data.mensajeFuncional);
-                        document.getElementById("contraNueva").value="";
-                        document.getElementById("contraAnterior").value="";
-                        document.getElementById("repetirContraNueva").value="";
-                  }, function myError(response) {
+				    	$('#msload').modal('hide');
+						$('#success').show();
+						$('#msgaviso').text(response.data.mensajeFuncional);
+						$scope.cambioContra.$setPristine();
+                      console.info(response);
+                }, function myError(response) {
+				        $('#msload').modal('hide');
 				        console.error(response);
-				        alert(response.data.mensajeFuncional);
+						$('#alert').show();
+						$('#msgerror').text(response.data.mensajeFuncional);
 				    });
-		    }
+		    	}
+		    
+		    	
+		    };
+		    
+		     $scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					};
 		    
 }]);

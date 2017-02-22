@@ -9,30 +9,28 @@
                   </div>
 				<h2>Cambio de Contrase&ntilde;a</h2>
 				<br>
-				<div ng-repeat="datos in resultadoEmpleado">
- 				<b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}} 
-				&nbsp <b>Perfil:</b> {{datos.nombrePerfil}}
-				<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
-				<input type="hidden" id="contra" value={{datos.contrasena}}>
+				<div ng-repeat="user in resultadoEmpleado">
+ 				<b>Nombre:</b> {{user.nombre}} {{user.apellidoPat}} {{user.apellidoMat}} 
+				&nbsp <b>Perfil:</b> {{user.nombrePerfil}}
 				</div>
 				<form ng-submit="actualizar(user)" name="cambioContra">
 				 <br>
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Anterior:</label>
 				 <input type="password" id="contraAnterior" requiered class="form-control" name="contraAnterior" ng-model="user.conAnterior" required>
-				 <p ng-show="cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine" class="help-block">El necesaria la contrasena anterior.</p>
+				 <p ng-show="cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine" class="help-block">El necesaria la contrase&ntilde;a anterior.</p>
 				 </div>
 				 
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraNueva.$invalid && !cambioContra.contraNueva.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Nueva:</label>
-				 <input type="password" id="contraNueva" requiered class="form-control" name="contraNueva" required ng-model="user.nueva">
-				 <p ng-show="cambioContra.contraNueva.$invalid && !cambioContra.contraNueva.$pristine" class="help-block">El necesaria la contrasena nueva.</p>
+				 <input type="password" id="contraNueva" requiered class="form-control" name="contraNueva" required ng-model="user.nueva" ng-minlength="8">
+				 <p ng-show="cambioContra.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
 				 </div>
 				 
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.repetirContra.$invalid && !cambioContra.repetirContra.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Repetir Contrase&ntilde;a Nueva:</label>
-				 <input type="password"  id="repetirContraNueva" requiered class="form-control" name="repetirContra" ng-model="user.repetirNueva">
-				 <p ng-show="cambioContra.repetirContra.$invalid && !cambioContra.repetirContra.$pristine" class="help-block">El necesaria reptir la nueva contraseña.</p>
+				 <input type="password"  id="repetirContraNueva" required class="form-control" name="repetirContra" ng-model="user.repetirNueva" ng-minlength="8">
+				 <p ng-show="cambioContra.repetirContra.$error.minlength" class="help-block">La contrase&ntilde;a no debe ser menos de 8 caracteres.</p>
 				 </div>
 				 <br>
 				<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success" ng-disabled="cambioContra.$invalid">
