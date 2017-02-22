@@ -1,184 +1,12 @@
 app.controller('registraEmpleado', function ($scope, $http, $window) {
-	
-						//Fecha del sistema 
-						var	hoy = new Date()
-						var	dd = hoy.getDate()
-						var mm = hoy.getMonth()+1 //hoy es 0!
-						var  yyyy = hoy.getFullYear()
-						
-						if(dd<10) {
-						dd='0'+dd
-						} 
-						
-						if(mm<10) {
-						mm='0'+mm
-						} 
-						
-						hoy = yyyy+'-'+mm+'-'+dd;
-						console.log(hoy);
-							document.getElementById("fechaIngreso").value = hoy;
-							
-						//validaciones
-						$('input[data-form=nEmpleado]').keyup(function() {
-						
-							var data = $(this).val();
-							var regx = /^[A-Z0-9]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_err').fadeOut('slow');
-							}
-							else {
-								$('.amt_err')
-									.text('No se permite letras minusculas o caracteres invalidos.')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
-						
-						$('input[data-form=nombreE]').keyup(function() {
-						
-						
-							var data = $(this).val();
-							var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_error').fadeOut('slow');
-							}
-							else {
-								$('.amt_error')
-									.text('no se permiten numeros o caracteres invalidos')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
-						
-						$('input[data-form=apellidoP]').keyup(function() {
-						
-						
-							var data = $(this).val();
-							var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_errorApellidoP').fadeOut('slow');
-							}
-							else {
-								$('.amt_errorApellidoP')
-									.text('no se permiten numeros o caracteres invalidos')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
-						$('input[data-form=apellidoM]').keyup(function() {
-						
-						
-						var data = $(this).val();
-						var regx = /^[A-z ÁÉÍÓÚáéíóúÑñ]+$/;
-						
-						if ( data === '' || data.match(regx) ){
-						$('.amt_errorApellidoM').fadeOut('slow');
-						}
-						else {
-						$('.amt_errorApellidoM')
-							.text('no se permiten numeros o caracteres invalidos')
-							.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-							.fadeIn('fast');
-						}
-						
-						});
-						$('input[data-form=nss]').keyup(function() {
-						
-						
-						var data = $(this).val();
-						var regx = /^[0-9]+$/;
-						
-						if ( data === '' || data.match(regx) ){
-						$('.amt_errorNSS').fadeOut('slow');
-						}
-						else {
-						$('.amt_errorNSS')
-							.text('No se permite letras o caracteres invalidos.')
-							.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-							.fadeIn('fast');
-						}
-						
-						});
-						$('input[data-form=infonavit]').keyup(function() {
-						
-						
-						var data = $(this).val();
-						var regx = /^[0-9]+$/;
-						
-						if ( data === '' || data.match(regx) ){
-						$('.amt_errorInfonavit').fadeOut('slow');
-						}
-						else {
-						$('.amt_errorInfonavit')
-							.text('No se permite letras o caracteres invalidos.')
-							.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-							.fadeIn('fast');
-						}
-						
-						});
-						
-						$('input[data-form=rfc]').keyup(function() {
-						
-						
-							var data = $(this).val();
-							var regx = /^[A-Z0-9]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_errorRFC').fadeOut('slow');
-							}
-							else {
-								$('.amt_errorRFC')
-									.text('No se permite letras minusculas o caracteres invalidos.')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
-						
-						$('input[data-form=sueldo]').keyup(function() {
-						
-						
-							var data = $(this).val();
-							var regx = /^[0-9.]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_errorSueldo').fadeOut('slow');
-							}
-							else {
-								$('.amt_errorSueldo')
-									.text('No se permite letras o caracteres invalidos.')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
-						
-						$('input[data-form=tel]').keyup(function() {
-						
-						
-							var data = $(this).val();
-							var regx = /^[0-9]+$/;
-						
-							if ( data === '' || data.match(regx) ){
-								$('.amt_errorTel').fadeOut('slow');
-							}
-							else {
-								$('.amt_errorTel')
-									.text('No se permite letras o caracteres invalidos.')
-									.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
-									.fadeIn('fast');
-							}
-							
-						});
+	  // msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
 						
 		// consulta el perfil del empleado
     $scope.consultaTodo = function () {
+    	$('#msload').modal('show');
 			$http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -187,12 +15,16 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultado = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			
 		    //consulta la talla
@@ -204,12 +36,16 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoRopa = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			
 		    //consulta la vialidad
@@ -221,12 +57,16 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoVialidad = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			 	 
 		    //consulta el area
@@ -238,12 +78,16 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoArea = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			 	  
 		    //consulta los documentos
@@ -255,12 +99,16 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		 },
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoDocumentos = result.data.catalogo;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			//consulta la cuadrilla
 		    
@@ -269,15 +117,17 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
               data: { }
 		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
 		    	$scope.resultadoCuadrilla = result.data.cuadrilla;
 	              console.log(result);
 		    }, function myError(response) {
+		    	$('#msload').modal('hide');
 		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		        //$scope.resultado2.push(objecto);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
-			
-		   
                 };
                 
 		$scope.consultaTodo();
