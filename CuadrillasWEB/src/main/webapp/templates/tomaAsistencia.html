@@ -54,15 +54,15 @@
                 				<td>{{asistencia.perfilEmpleado}}</td>
                 				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencia.apellidoMaterno}}</td>
                 				<td ng-if="asistencia.horaEntrada === NULLL" ng-class="{ 'has-error' : form_reloj.comentario.$invalid && !form_reloj.comentario.$pristine }">
-                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario" ng-minlength="10">
-                				<p ng-show="userForm.username.$error.minlength" class="help-block">El comentario debe ser mas de 10 caracteres.</p>
+                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario" ng-minlength="10" required>
+                				<p ng-show="form_reloj.comentario.$error.minlength" class="help-block">El comentario debe ser mas de 10 caracteres.</p>
           
                 				</td>
                 				
                 				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
-                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)" ng-disabled=></td>
+                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)" ng-disabled="form_reloj.$invalid"></td>
                 				<td ng-if="asistencia.horaEntrada != NULL">
                 				<p ng-if="asistencia.horaSalida === NULL">
                 				<button class="btn btn-success" ng-click="salida(asistencia)">Salida</button>

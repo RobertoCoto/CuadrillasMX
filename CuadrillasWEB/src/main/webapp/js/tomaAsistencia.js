@@ -1,5 +1,6 @@
 
-app.controller('entradaAsistencia', function ($scope, $http,$timeout) {  
+app.controller('entradaAsistencia', function ($scope, $http,$timeout) { 
+
 //	//obtener el id enviado por GET
 //	   $scope.obtainGet = function getGET(){
 //		   var loc = document.location.href;
@@ -48,64 +49,75 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
    	document.getElementById("horarioAsistencia").value = horaImprimible;
    	$timeout($scope.reloj,1000)
    	};
-		    $http({
-              method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
-              params: {
-            	  "idCuadrilla" : "1"
-              },
-              data: { }
-		    }).then(function (result) {
-		    	$scope.resultadoAsistencia = result.data.asistencia;
-	            console.log($scope.resultadoAsistencia);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		    });
+   	
+   	// msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+		  $scope.asistencia = function(){
+			  $('#msload').modal('show');
+			  $http({
+	              method: 'GET',
+	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
+	              params: {
+	            	  "idCuadrilla" : "1"
+	              },
+	              data: { }
+			    }).then(function (result) {
+			    	$('#msload').modal('hide');
+					$('#alert').hide();
+					$('#success').hide();
+			    	$scope.resultadoAsistencia = result.data.asistencia;
+		            console.log($scope.resultadoAsistencia);
+			    }, function myError(response) {
+			    	$('#msload').modal('hide');
+			        console.error(response);
+			        $('#alert').show();
+					$('#msgerror').text(response.data.header.mensajeFuncional)
+			    });
+		  };
+		  $scope.asistencia();  
             
-            $scope.datosAsistencia = [];
             
-            
+            //registra la entrada del empleado
            $scope.entrada = function(asistencia) {
-        	   
-           var confirmar = confirm("¿Esta seguro de registrar la entrada?"); 
+        	
+           if ($scope.form_reloj.$valid) {
+        	   var confirmar = confirm("¿Esta seguro de registrar la entrada?"); 
 
-				if (!confirmar) 
-				{
-					alert('se ha cancelado la operacion.'); 
-					return false;
-				} 	
-
-           $scope.idEmpleado = asistencia.idEmpleado;
-           $scope.coment = document.getElementById(""+$scope.idEmpleado+"").value;
-           
-           if($scope.coment == "") {
-        	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">Escriba un Comentario.</span>';
-        	   return false;
+						if (!confirmar) 
+						{
+							 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.'); 
+							 $scope.form_reloj.$setPristine();
+							return false;
+						} else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+	    				}	
+						$scope.idEmpleado = asistencia.idEmpleado;						
+						$http({
+						    method: 'GET',
+						    url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
+						    params: {
+								"idEmpleado" : $scope.idEmpleado,
+								"comentarios" : asistencia.observacion,
+								"usuario" : data.data.usuario.usuario
+						       }
+						  }).then(function mySucces(response) {
+							    $('#msload').modal('hide');
+								$('#success').show();
+								$('#msgaviso').text(response.data.mensajeFuncional);
+								$scope.form_reloj.$setPristine();
+						  	 console.info(response);
+						  }, function myError(response) {
+							   $('#msload').modal('hide');
+								$('#alert').show();
+								$('#msgerror').text(response.data.mensajeFuncional);
+						      console.error(response); 
+						  });
         	   }
-           
-        if($scope.coment.length < 10) {
-        	  $scope.msg = document.getElementById("errdata:"+$scope.idEmpleado+"").innerHTML = '<span style="width:80px;height:80px;background-color:red;color:white">El comentario debe tener minimo 10 carac.</span>';
-        	   return false;
-        	   }
-    
-             
-        		$http({
-                    method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
-                    params: {
-      		 		"idEmpleado" : $scope.idEmpleado,
-      		 		"comentarios" : $scope.coment,
-      		 		"usuario" : 'SISTEMAS'
-      		         }
-      		    }).then(function mySucces(response) {
-      		    	 alert(response.data.mensajeFuncional);
-      		    	 console.info(response);
-      		    	location.reload();
-      		    }, function myError(response) {
-      		        console.error(response);
-      		        alert(response.data.mensajeFuncional);
-      		    });
         	   };
            
             $scope.salida = function(asistencia) {
@@ -114,11 +126,17 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 
 				if (!confirmar) 
 				{
-					alert('se ha cancelado la operacion.'); 
+					$('#alert').show();
+					 $('#msgerror').text('Se ha cancelado la operacion.'); 
+					 $scope.form_reloj.$setPristine(); 
 					return false;
-				} 	
+				}  else  {
+					 $('#msload').modal('show');
+					 $('#alert').hide();
+				}	
             	
               $scope.idEmpleado = asistencia.idEmpleado;
+              
         		$http({
                     method: 'GET',
                     url: 'http://localhost:8080/CuadrillasWEB/SalidaAsistencia',
@@ -127,12 +145,16 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
       		 		"usuario" : 'SISTEMAS'
       		         }
       		    }).then(function mySucces(response) {
-      		    	alert(response.data.mensajeFuncional);
+      		    	$('#msload').modal('hide');
+					$('#success').show();
+					$('#msgaviso').text(response.data.mensajeFuncional);
+					 $scope.form_reloj.$setPristine();
      		    	 console.info(response);
-     		    	location.reload();
       		    }, function myError(response) {
+      		    	$('#msload').modal('hide');
+					$('#alert').show();
+					$('#msgerror').text(response.data.mensajeFuncional);
       		        console.error(response);
-      		        alert(response.data.header.mensajeFuncional);
       		    });
         	   };
            
