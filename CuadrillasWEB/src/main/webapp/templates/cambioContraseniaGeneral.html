@@ -1,37 +1,50 @@
 <div class="container">
 		<h2>Administraci&oacute;n de Usuarios</h2>
+			<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
 		
-		<div class="row">
-		<label for="estatus" class="control-label">Seleccione Usuario a consultar:</label>
-		<select class="form-control" ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario  for datos in resultadoAdmin" ng-change="getOptions2(user.select)"></select>
-		</div>
+		<form class="form-horizontal" name="formCambioGeneral" novalidate>
+		
+				<div class="row" ng-class="{ 'has-error' : formCambioGeneral.selectUsuario.$invalid && !formCambioGeneral.selectUsuario.$pristine }">
+				<label for="estatus" class="control-label">Seleccione Usuario a consultar:</label>
+				<select class="form-control" name="selectUsuario" required ng-model="user.select" ng-options="datos.idEmpleado as datos.usuario  for datos in resultadoAdmin" ng-change="getOptions2(user.select)">
+				<option value="">---Seleccione un usuario---</option>
+				</select>
+				<p ng-show="formCambioGeneral.selectUsuario.$invalid && !formCambioGeneral.selectUsuario.$pristine" class="help-block">El necesario seleccionar a un usuario.</p>
+				</div>
 		<br>
-		<form class="form-horizontal" ng-submit="actualizar(usuario)">
 		<div class="wraper" data-ng-show='resultadoAdmin'>
 		  
 			<div class="form-group">
     		<label class="col-sm-2 control-label">Nombre Empleado:</label>
-    		<div class="col-sm-10" ng-repeat="data in resultadoAdmin">
-      		<span ng-if="data.idEmpleado == user.select">{{data.nombre}} {{data.apellidoPat}} {{data.apellidoMat}}</span>
-      		<input type="hidden" value={{user.select}} id="idEmpleado">
+    		<div class="col-sm-10" ng-repeat="user in resultadoAdmin">
+      		<span ng-if="user.idEmpleado == user.select">{{user.nombre}} {{user.apellidoPat}} {{user.apellidoMat}}</span>
     		</div>
   			</div>
   			
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error' : formCambioGeneral.contraNueva.$invalid && !formCambioGeneral.contraNueva.$pristine }">
     		<label class="col-sm-2 control-label">Contrase&ntilde;a Nueva:</label>
     		<div class="col-sm-10">
-      		<input type="password" id="contraNueva" class="form-control">
+      		<input type="password" id="contraNueva" class="form-control" name="contraNueva" required ng-model="user.contraNueva" ng-minlength="8">
     		</div>
+    		 <p ng-show="formCambioGeneral.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
   			</div>
   			
-  			<div class="form-group">
+  			<div class="form-group" ng-class="{ 'has-error' : formCambioGeneral.contraNueva.$invalid && !formCambioGeneral.contraNueva.$pristine }">
    		 	<label for="inputPassword" class="col-sm-2 control-label">Repetir Contrase&ntilde;a nueva:</label>
     		<div class="col-sm-10">
-      		<input type="password"  class="form-control" id="repetirContraNueva">
+      		<input type="password"  class="form-control" id="repetirContraNueva" name="repetirContraNueva" required ng-model="user.repetirContranueva" ng-minlength="8">
     		</div>
+    		<p ng-show="formCambioGeneral.repetirContraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
   			</div>
-  			<input type="reset" value="Limpiar campos" class="btn btn-success">
-			<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success"/>
+  			<input type="submit" value="Limpiar campos" class="btn btn-success"  ng-click="reset()">
+			<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success" ng-disabled="formCambioGeneral.$invalid" ng-click="actualizar(user)"/>
   			</div>
 		</form>
 		</div>

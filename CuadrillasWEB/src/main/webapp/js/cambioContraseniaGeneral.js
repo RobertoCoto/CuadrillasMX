@@ -1,40 +1,77 @@
 app.controller('adminDatos', function ($scope, $http) { 
-	
-			$http({
-            method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralUsuario',
-            data: { }
-		    }).then(function (result) {
-		    	$scope.resultadoAdmin = result.data.lista;
-	            console.log($scope.resultadoAdmin);
-		    }, function myError(response) {
-		        console.error(response);
-		        alert(response.data.header.mensajeFuncional);
-		    });
-			
-		    
-		    
-			 
+	// msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+			$scope.consultaUsuario = function()  {
+				$('#msload').modal('show');
+				$http({		
+				method: 'GET',
+				url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralUsuario',
+				data: { }
+				}).then(function (result) {
+					$('#msload').modal('hide');
+					$('#alert').hide();
+					$('#success').hide();
+					$scope.resultadoAdmin = result.data.lista;
+				    console.log($scope.resultadoAdmin);
+				}, function myError(response) {
+					$('#msload').modal('hide');
+				    console.error(response);
+				    $('#alert').show();
+					$('#msgerror').text(response.data.header.mensajeFuncional)
+				});
+				};
+				
+		 $scope.consultaUsuario();		
+		 	
+		 	//para actualizar contraseña
 		    $scope.actualizar = function(usuario) {
-		    	$http({
-		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/RecuperaContrasena',
-		              params: {
-				 		"contrasenaNueva": document.getElementById("contraNueva").value,
-				 		"repiteContrasena": document.getElementById("repetirContraNueva").value,
-				 		"idEmpleado": document.getElementById("idEmpleado").value
-				         }
-				    }).then(function mySucces(response) {
-	                         console.info(response);
-	                         alert(response.data.mensajeFuncional);
-	                         document.getElementById("contraNueva").value="";
-	                         document.getElementById("repetirContraNueva").value="";
-	                   }, function myError(response) {
-	                       console.error(response);
-	                       alert(response.data.mensajeFuncional);
-	                       //$scope.resultado2.push(objecto);
-	                   });
+		    	$scope.user = {};
+		    	if ($scope.formCambioGeneral.$valid) {
+		    		var confirmar = confirm("¿Esta seguro de actualizar?"); 
+	    			if (!confirmar) 
+	    				{
+	    					 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.');
+							 $scope.formCambioGeneral.$setPristine();
+	    					return false;
+	    				} else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+	    				}
+		    		$http({
+			              method: 'GET',
+			              url: 'http://localhost:8080/CuadrillasWEB/RecuperaContrasena',
+			              params: {
+					 		"contrasenaNueva": user.contraNueva,
+					 		"repiteContrasena": user.repetirContranueva,
+					 		"idEmpleado": user.select
+					         }
+					    }).then(function mySucces(response) {
+					    	$('#msload').modal('hide');
+	 						$('#success').show();
+	 						$('#msgaviso').text(response.data.mensajeFuncional);
+	 						$scope.formCambioGeneral.$setPristine();
+		                         console.info(response);
+		                   }, function myError(response) {
+		                	   $('#msload').modal('hide');
+		                       console.error(response);
+		                       $('#alert').show();
+							   $('#msgerror').text(response.data.mensajeFuncional);
+		                   });
+		    		}
 		    	};
-		    
+		    	
+		    	$scope.hideAlerts = function() {
+					$('#alert').hide();
+					$('#success').hide();
+				};
+				
+				$scope.reset = function(){
+					$scope.formCambioGeneral.$setPristine();
+					};
+				
 
 });

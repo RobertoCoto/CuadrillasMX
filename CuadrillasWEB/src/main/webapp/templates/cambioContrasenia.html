@@ -13,7 +13,7 @@
  				<b>Nombre:</b> {{user.nombre}} {{user.apellidoPat}} {{user.apellidoMat}} 
 				&nbsp <b>Perfil:</b> {{user.nombrePerfil}}
 				</div>
-				<form ng-submit="actualizar(user)" name="cambioContra">
+				<form ng-submit="actualizar(user)" name="cambioContra" novalidate>
 				 <br>
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine }">
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Anterior:</label>
