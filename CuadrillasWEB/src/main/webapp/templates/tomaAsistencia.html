@@ -50,11 +50,11 @@
                 				<td><b>Salida</b></td>
                 				<td><b>Operaciones</b></td>
                 				</tr>
-                				<tr ng-repeat="asistencia in resultadoAsistencia">
+                				<tr ng-repeat="asistencia in resultadoAsistencia" ng-class="{ 'has-error' : form_reloj.comentario.$invalid && !form_reloj.comentario.$pristine }">
                 				<td>{{asistencia.perfilEmpleado}}</td>
                 				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencia.apellidoMaterno}}</td>
-                				<td ng-if="asistencia.horaEntrada === NULLL" ng-class="{ 'has-error' : form_reloj.comentario.$invalid && !form_reloj.comentario.$pristine }">
-                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario" ng-minlength="10" required>
+                				<td ng-if="asistencia.horaEntrada === NULLL" >
+                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario" ng-minlength="10">
                 				<p ng-show="form_reloj.comentario.$error.minlength" class="help-block">El comentario debe ser mas de 10 caracteres.</p>
           
                 				</td>

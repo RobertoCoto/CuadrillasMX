@@ -91,17 +91,17 @@ var data;
             })
             .state('12', {
             	url: '/12',
-            	templateUrl : 'templates/cambio_contra.html',
+            	templateUrl : 'templates/cambioContrasenia.html',
             	controller  : 'cambioDatos'
             })
         	.state('13', {
         		url: '/13',
-                templateUrl : 'templates/contra_general.html',
+                templateUrl : 'templates/cambioContraseniaGeneral.html',
                 controller  : 'adminDatos'
         	})
             .state('20', {
             	url: '/20',
-                templateUrl : 'templates/empleado.html',
+                templateUrl : 'templates/administracionEmpleado.html',
                 controller  : 'registraEmpleado'
             })
             .state('30', {
