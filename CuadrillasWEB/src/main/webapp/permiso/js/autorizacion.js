@@ -17,48 +17,59 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		$scope.get = $scope.obtainGet();
 
 
-	
-	$http({
-        method: 'GET',
-        url: 'http://localhost:8080/CuadrillasWEB/ConsultaPermisoTemporal',
-        params: {
-	 		"idPermiso" : $scope.get.idPermiso
-	         },
-        data: { }
-	    }).then(function (result) {
-	    	$scope.resultado = result.data.permiso;
-	    	
-          console.log($scope.resultado);
-        
-	    }, function myError(response) {
-	        console.error(response);
-	        alert(response.data.mensajeFuncional);
-	    });
+	   // msload 
+		$('#success').hide();
+	    $('#alert').hide();
+	    $('#msload').modal('show');
+	    
+	$scope.consultaPermiso = function() {
+		$('#msload').modal('show');
+		$http({
+				method: 'GET',
+				url: 'http://localhost:8080/CuadrillasWEB/ConsultaPermisoTemporal',
+				params: {
+						"idPermiso" : $scope.get.idPermiso
+				     },
+				data: { }
+				}).then(function (result) {
+					$('#msload').modal('hide');
+					$('#alert').hide();
+					$('#success').hide();
+					$scope.resultado = result.data.permiso;
+				    console.log($scope.resultado);
+				
+				}, function myError(response) {
+					$('#msload').modal('hide');
+			        console.error(response);
+			        $('#alert').show();
+					$('#msgerror').text(response.data.header.mensajeFuncional)
+				});
+		};
+		
+		$scope.consultaPermiso();
 	
 	   
 		     $scope.aceptar = function(permiso) {
+		    	 $scope.permiso = {};
 		    	 
-		     var coment = document.getElementById("comentario").value;
-		    	
-		    	
                 	var confirmar = confirm("¿Esta seguro de autorizar el permiso?"); 
 
 		    		if (!confirmar) 
 		    			{
-		    				alert('se ha cancelado la operacion.'); 
+		    				 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.');
 		    					return false;
-		    			} 	
-		    	 
-		    	 var checkSueldo = document.getElementById("goce");
-		    	 
-		    	 if(checkSueldo.checked == true) {
+		    			}else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+	    				} 	
+		    	 if($("#goce").is(':checked')) {
 		    	       $scope.goce = "S";	 
-		    	 } else if(checkSueldo.checked == false) {
-		    		 $scope.goce = "N";
+		    	 }else {
+		    		   $scope.goce = "N";
 		    	 }
 		    	 
-		    	 
-		    	 
+
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
@@ -69,25 +80,33 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 				 		"usuario": "SISTEMAS"
 				         }
 				    }).then(function mySucces(response) {
-				    	 alert(response.data.mensajeFuncional);
+				    	$('#msload').modal('hide');
+						$('#success').show();
+						$('#msgaviso').text(response.data.mensajeFuncional);
 				    	 console.info(response);
 				    	 //opener.top.location.reload();
 				    }, function myError(response) {
+				    	$('#msload').modal('hide');
+						$('#alert').show();
+						$('#msgerror').text(response.data.mensajeFuncional);
 				        console.error(response);
-				        alert(response.data.mensajeFuncional);
 				    });
 		    	
 		    	}
 		    
 		     $scope.rechazar = function(permiso) {
-						
+		    	 $scope.permiso = {};
 						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
 						
 						if (!confirmar) 
-							{
-								alert('se ha cancelado la operacion.'); 
-									return false;
-							} 	
+		    			{
+		    				 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.');
+		    					return false;
+		    			}else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+	    				} 		
 				    	$http({
 				              method: 'GET',
 				              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
@@ -98,12 +117,21 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 					 		"usuario": "SISTEMAS"
 					         }
 						    }).then(function mySucces(response) {
-						    	 alert(response.data.mensajeFuncional);
+						    	$('#msload').modal('hide');
+								$('#success').show();
+								$('#msgaviso').text(response.data.mensajeFuncional);
 						    	 console.info(response);
 						    	 //opener.top.location.reload();
 						    }, function myError(response) {
+						    	$('#msload').modal('hide');
+								$('#alert').show();
+								$('#msgerror').text(response.data.mensajeFuncional);
 						        console.error(response);
-						        alert(response.data.mensajeFuncional);
 						    });
-				    	}
+				    	};
+				    	
+				    $scope.hideAlerts = function() {
+						$('#alert').hide();
+						$('#success').hide();
+					};
 	});
