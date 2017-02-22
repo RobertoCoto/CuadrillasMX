@@ -27,7 +27,7 @@ app.controller('adminDatos', function ($scope, $http) {
 		 $scope.consultaUsuario();		
 		 	
 		 	//para actualizar contraseña
-		    $scope.actualizar = function(usuario) {
+		    $scope.actualizar = function(user) {
 		    	$scope.user = {};
 		    	if ($scope.formCambioGeneral.$valid) {
 		    		var confirmar = confirm("¿Esta seguro de actualizar?"); 
@@ -69,7 +69,10 @@ app.controller('adminDatos', function ($scope, $http) {
 					$('#success').hide();
 				};
 				
-				$scope.reset = function(){
+				$scope.reset = function(user){
+					$scope.user = {};
+					$scope.user.contraNueva = "";
+					$scope.user.repetirContraNueva = "";
 					$scope.formCambioGeneral.$setPristine();
 					};
 				

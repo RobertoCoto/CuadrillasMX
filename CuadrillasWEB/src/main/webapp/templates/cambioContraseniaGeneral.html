@@ -23,8 +23,8 @@
 		  
 			<div class="form-group">
     		<label class="col-sm-2 control-label">Nombre Empleado:</label>
-    		<div class="col-sm-10" ng-repeat="user in resultadoAdmin">
-      		<span ng-if="user.idEmpleado == user.select">{{user.nombre}} {{user.apellidoPat}} {{user.apellidoMat}}</span>
+    		<div class="col-sm-10" ng-repeat="data in resultadoAdmin">
+      		<span ng-if="data.idEmpleado == user.select">{{data.nombre}} {{data.apellidoPat}} {{data.apellidoMat}}</span>
     		</div>
   			</div>
   			
@@ -43,7 +43,7 @@
     		</div>
     		<p ng-show="formCambioGeneral.repetirContraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
   			</div>
-  			<input type="submit" value="Limpiar campos" class="btn btn-success"  ng-click="reset()">
+  			<input type="submit" value="Limpiar campos" class="btn btn-success"  ng-click="reset(user)">
 			<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success" ng-disabled="formCambioGeneral.$invalid" ng-click="actualizar(user)"/>
   			</div>
 		</form>
