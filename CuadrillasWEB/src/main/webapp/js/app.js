@@ -991,18 +991,61 @@ var data;
 
         //se agregan elementos al objeto de actividades
   		$scope.gridActividades = [];
-  		$scope.agregarActividades = function(objActividad) {
+  		$scope.gridArticulos = [];
+  		$scope.agregarActividades = function(objActividad) {  			
+  			var encontrado = false;
+  			
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();
-  			var actividad = {};
-  			actividad.codigo = objActividad.codigo;
-  			actividad.descripcion = objActividad.descripcion;  			  		
-  			$scope.gridActividades.push(actividad);  			
-          //console.info(response);
-          //$('#msload').modal('hide');
-          //$('#success').show();
-          //$('#msgaviso').text(response.data.mensajeFuncional);
+  			//$('#success').hide();  			
+  			
+  			for(indice in $scope.gridActividades)
+  			{  				
+  				if (objActividad.codigo == $scope.gridActividades[indice].codigo)
+  				{
+  					encontrado = true;
+  				}
+  			}
+  			  		
+  			if (encontrado == false)
+  			{
+  				var actividad = {};
+  				actividad.codigo = objActividad.codigo;
+	  			actividad.descripcion = objActividad.descripcion;  			  		
+	  			$scope.gridActividades.push(actividad);
+	          //console.info(response);
+	          //$('#msload').modal('hide');
+	          //$('#success').show();
+	          //$('#msgaviso').text(response.data.mensajeFuncional);
+  			}
   		};
+  		
+  		$scope.agregarArticulos = function(objArticulo) {  			
+  			var encontrado = false;
+  			
+  			//$('#msload').modal('show');
+  			//$('#alert').hide();
+  			//$('#success').hide();  			  		
+  			for(indice in $scope.gridArticulos)
+  			{  				
+  				if (objArticulo.codigo == $scope.gridArticulos[indice].codigo)
+  				{
+  					encontrado = true;
+  				}
+  			}
+  			  		
+  			if (encontrado == false)
+  			{
+  				var articulo = {};
+  				articulo.codigo = objArticulo.codigo;
+	  			articulo.descripcion = objArticulo.descripcion;  			  		
+	  			$scope.gridArticulos.push(articulo);
+	  			
+	          //console.info(response);
+	          //$('#msload').modal('hide');
+	          //$('#success').show();
+	          //$('#msgaviso').text(response.data.mensajeFuncional);
+  			}
+  		};  		
     });
     //FIN REGISTRO AGENDA SEMANAL
