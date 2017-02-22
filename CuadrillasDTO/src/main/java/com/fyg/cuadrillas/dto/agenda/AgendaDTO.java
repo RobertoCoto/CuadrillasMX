@@ -22,8 +22,14 @@ public class AgendaDTO extends ObjetoValor {
 	private String fechaFin;
 	/** noSemana */
 	private int noSemana;
+	/** noTrabajadores */
+	private int noTrabajadores;
+	/** noHoras */
+	private int noHoras;
 	/** diasAgenda */
 	private List<AgendaDetalleDTO> diasAgenda;
+	/** fechaFin */
+	private String usuario;
 
 	/**
 	 * @return the idAgenda
@@ -96,6 +102,42 @@ public class AgendaDTO extends ObjetoValor {
 	 */
 	public void setDiasAgenda(List<AgendaDetalleDTO> diasAgenda) {
 		this.diasAgenda = diasAgenda;
+	}
+	/**
+	 * @return the usuario
+	 */
+	public String getUsuario() {
+		return usuario;
+	}
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	/**
+	 * @return the noTrabajadores
+	 */
+	public int getNoTrabajadores() {
+		return noTrabajadores;
+	}
+	/**
+	 * @param noTrabajadores the noTrabajadores to set
+	 */
+	public void setNoTrabajadores(int noTrabajadores) {
+		this.noTrabajadores = noTrabajadores;
+	}
+	/**
+	 * @return the noHoras
+	 */
+	public int getNoHoras() {
+		return noHoras;
+	}
+	/**
+	 * @param noHoras the noHoras to set
+	 */
+	public void setNoHoras(int noHoras) {
+		this.noHoras = noHoras;
 	}
 
 }
