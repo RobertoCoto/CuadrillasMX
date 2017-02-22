@@ -7,11 +7,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Permiso Laboral</title>
-
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/permisoLaboral.js"></script>
+
 <style>
 .responsive-input{
   width: 100%;
@@ -19,8 +19,9 @@
 }
 body { padding-top:30px; }
 </style>
+
 </head>
-<body  ng-app="tatei" ng-controller="registraPermiso">
+<body ng-app="tatei" ng-controller="registraPermiso">
 
 <div class="container">
  <!-- Modal -->
@@ -92,6 +93,7 @@ body { padding-top:30px; }
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                   			<input type="date" value={{emp2.fechaIngreso}} disabled class="form-control">
                				 </div>
+               				
                         </div>
                     </div>
 			  </div>
@@ -111,7 +113,7 @@ body { padding-top:30px; }
                             <label for="fechaSolicitud" class="control-label">Fecha de Solicitud</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled ng-model="permiso.fechaSolicitud">
+                  			<input type="date" id="fechaSolicitud" name="fechaSolicitud" class="form-control" disabled ng-model="permiso.fechaSolicitud" value={{FromDate}}>
                				 </div>
                         </div>
                     </div>
@@ -123,18 +125,20 @@ body { padding-top:30px; }
                             <label for="fechaAusencia" class="control-label">Fecha de Ausencia</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMinima" ng-model="permiso.fechaMinima" name="fechaSolicitudMinima" class="form-control">
+                  			<input type="date" id="fechaSolicitudMinima" ng-model="permiso.fechaMinima" name="fechaSolicitudMinima" class="form-control" value={{FromDate}}>
                				 </div>
+               				 
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine }">
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMaxima" ng-model="permiso.fechaMaxima" name="fechaSolicitudMaxima" class="form-control">
+                  			<input type="date" id="fechaSolicitudMaxima" ng-model="permiso.fechaMaxima" name="fechaSolicitudMaxima" class="form-control" required date-format="yyyy-MM-dd">
                				 </div>
+               				 <p ng-show="formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine" class="help-block">Es necesario la fecha maxima.</p>
                         </div>
                     </div>
 			  </div>
@@ -144,7 +148,7 @@ body { padding-top:30px; }
                             <label for="horarioSolicitado" class="control-label">Horario Solicitado</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" name="horaSolicitudMinima" class="form-control" ng-model="permiso.horaSolicitudMinima" required>
+                  			<input type="time" id="horaSolicitudMinima" name="horaSolicitudMinima" format="hh:mm" class="form-control" ng-model="permiso.horaSolicitudMinima" required>
                				 </div>
                				 <p ng-show="formPermiso.horaSolicitudMinima.$invalid && !formPermiso.horaSolicitudMinima.$pristine" class="help-block">Es necesario la hora minima.</p>
                         </div>
@@ -155,7 +159,7 @@ body { padding-top:30px; }
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                  			<input type="time" name="horaSolicitudMaxima" class="form-control" ng-model="permiso.horaSolicitudMaxima" required>
+                  			<input type="time" id="horaSolicitudMaxima" name="horaSolicitudMaxima"  format="hh:mm" class="form-control" ng-model="permiso.horaSolicitudMaxima" required>
                				 </div>
                				 <p ng-show="formPermiso.horaSolicitudMaxima.$invalid && !formPermiso.horaSolicitudMaxima.$pristine" class="help-block">Es necesario la hora maxima.</p>
                         </div>

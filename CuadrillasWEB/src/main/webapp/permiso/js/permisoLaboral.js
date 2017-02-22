@@ -1,11 +1,10 @@
 var app = angular.module('tatei', []);
-app.controller('registraPermiso', function ($scope, $http) {
+app.controller('registraPermiso', function ($scope, $http,$filter) {
      //fecha Sistema
-   $scope.permiso = {};
-   $scope.fecha = (new Date(), 'yyyy-MM-dd');
-   $scope.permiso.fechaSolicitud = $scope.fecha;
-   $scope.permiso.fechaMinima = $scope.fecha;
-   $scope.permiso.fechaMaxima = $scope.fecha;
+   var date = new Date();
+   $scope.FromDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+   $scope.fecha = new Date();
+  
 	//obtener el id enviado por GET
 	   $scope.obtainGet = function getGET(){
 		   var loc = document.location.href;
@@ -75,10 +74,13 @@ app.controller('registraPermiso', function ($scope, $http) {
 		    
 		    //registra el permiso en la base de datos
 		    $scope.registrar = function(permiso) {
+		    	 $scope.permiso = {};
 		    	//valida si el form es valido
 		    	if ($scope.formPermiso.$valid) {
-		    		$scope.permiso = {};
-			    	
+		    		$scope.fechaMinima = $("#fechaSolicitudMinima").val(); 
+		    		$scope.fechaMaxima = $("#fechaSolicitudMaxima").val();
+		    		$scope.horaMin = $("#horaSolicitudMaxima").val();
+		    		$scope.horaMax = $("#horaSolicitudMinima").val();
 		    		var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
 		    			if (!confirmar) 
 		    				{
@@ -96,11 +98,11 @@ app.controller('registraPermiso', function ($scope, $http) {
 						      params: {
 						 		"idEmpleado" : $scope.get.idEmpleado,
 						 		"comentario" : permiso.comentario,
-						 		"fechaSolicitud": permiso.fechaSolicitud,
-						 		"fechaSolicitudMinima" : permiso.fechaMinima,
-						      "fechaSolicitudMaxima" : permiso.fechaMaxima,
-						      "horaSolicitudMinima" : permiso.horaSolicitudMinima,
-						      "horaSolicitudMaxima" : permiso.horaSolicitudMaxima,
+						 		"fechaSolicitud": $scope.FromDate,
+						 		"fechaSolicitudMinima" : $scope.fechaMinima,
+						      "fechaSolicitudMaxima" : $scope.fechaMaxima,
+						      "horaSolicitudMinima" : $scope.horaMin,
+						      "horaSolicitudMaxima" : $scope.horaMax,
 						      "tipoPermiso" : permiso.codigo,
 						 		"usuario" : 'SISTEMAS'
 						         }
