@@ -1,0 +1,39 @@
+<div class="container">
+<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
+				<h2>Cambio de Contrase&ntilde;a</h2>
+				<br>
+				<div ng-repeat="datos in resultadoEmpleado">
+ 				<b>Nombre:</b> {{datos.nombre}} {{datos.apellidoPat}} {{datos.apellidoMat}} 
+				&nbsp <b>Perfil:</b> {{datos.nombrePerfil}}
+				<input type="hidden" id="idEmpleado" value={{datos.idEmpleado}}>
+				<input type="hidden" id="contra" value={{datos.contrasena}}>
+				</div>
+				<form ng-submit="actualizar(user)" name="cambioContra">
+				 <br>
+				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine }">
+				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Anterior:</label>
+				 <input type="password" id="contraAnterior" requiered class="form-control" name="contraAnterior" ng-model="user.conAnterior" required>
+				 <p ng-show="cambioContra.contraAnterior.$invalid && !cambioContra.contraAnterior.$pristine" class="help-block">El necesaria la contrasena anteror.</p>
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Nueva:</label>
+				 <input type="password" id="contraNueva" requiered class="form-control">
+				 </div>
+				 
+				 <div class="row">
+				 <label for="cuadrilla" class="control-label">*Repetir Contrase&ntilde;a Nueva:</label>
+				 <input type="password"  id="repetirContraNueva" requiered class="form-control">
+				 </div>
+				 <br>
+				<input type="submit" value="Actualizar Contrase&ntilde;a" class="btn btn-success">
+				</form>
+				
+		</div>

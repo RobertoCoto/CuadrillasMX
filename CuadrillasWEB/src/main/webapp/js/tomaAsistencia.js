@@ -106,10 +106,12 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 								"usuario" : data.data.usuario.usuario
 						       }
 						  }).then(function mySucces(response) {
+							    $scope.asistencia();
 							    $('#msload').modal('hide');
 								$('#success').show();
 								$('#msgaviso').text(response.data.mensajeFuncional);
 								$scope.form_reloj.$setPristine();
+								
 						  	 console.info(response);
 						  }, function myError(response) {
 							   $('#msload').modal('hide');
@@ -145,10 +147,12 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
       		 		"usuario" : 'SISTEMAS'
       		         }
       		    }).then(function mySucces(response) {
+      		    	$scope.asistencia();
       		    	$('#msload').modal('hide');
 					$('#success').show();
 					$('#msgaviso').text(response.data.mensajeFuncional);
 					 $scope.form_reloj.$setPristine();
+					 
      		    	 console.info(response);
       		    }, function myError(response) {
       		    	$('#msload').modal('hide');
