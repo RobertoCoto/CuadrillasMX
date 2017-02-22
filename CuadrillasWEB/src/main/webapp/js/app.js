@@ -126,12 +126,12 @@ var data;
             })
             .state('34', {
             	url: '/34',
-                templateUrl : 'templates/asistencia.html',
+                templateUrl : 'templates/tomaAsistencia.html',
                 controller  : 'entradaAsistencia'
             })
             .state('40', {
             	url: '/40',
-                templateUrl : 'templates/buzon.html',
+                templateUrl : 'templates/buzonCentral.html',
                 controller  : 'buzon'
             })
             .state('41', {
