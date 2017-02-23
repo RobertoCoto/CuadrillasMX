@@ -122,7 +122,7 @@ public class ContratoDAO {
 	 * @param contrato recibe valores de contrat
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta bajaContrato (String uid, ContratoDTO contrato) {
+	public EncabezadoRespuesta bajaContrato(String uid, ContratoDTO contrato) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -205,7 +205,7 @@ public class ContratoDAO {
 	 * @throws Exception si existe un error
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ContratoDTO> contratoActivo (String uid, ContratoDTO contrato) throws Exception {
+	public List<ContratoDTO> contratoActivo(String uid, ContratoDTO contrato) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -218,12 +218,15 @@ public class ContratoDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
 			listaContratoActivo = sessionNTx.selectList("ContratoDAO.contratoActivo", contrato);
+			if ( listaContratoActivo.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen contratos actualmente.");
+			}
 			for (ContratoDTO c : listaContratoActivo) {
 				List<CoordenadaDTO> coordenadas = null;
 				coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
 				c.setCoordenadas(coordenadas);
 		    }
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
 		}

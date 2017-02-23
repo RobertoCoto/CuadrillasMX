@@ -103,7 +103,7 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("El permiso ha sido autorizado exitosamente.");	
+		respuesta.setMensajeFuncional("Ha sido registrado Correctamente.");	
 		try {
 			//Validamos si ya existe una autorizacion
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();

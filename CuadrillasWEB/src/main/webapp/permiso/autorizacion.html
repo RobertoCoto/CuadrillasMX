@@ -36,9 +36,40 @@ input[type=checkbox]
 </head>
 <body ng-app="tatei" ng-controller="autorizacionLaboral">
 <div class="container">
+<!-- Modal -->
+      <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+          role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">
+                          <span class="glyphicon glyphicon-time">
+                          </span>Espera un momento..
+                       </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-info
+                          progress-bar-striped active"
+                          style="width: 100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal fin -->
 <div class="panel panel-default">
 		<div class="panel-body">
 		<h2>Autorizacion Permiso Laboral</h2>
+		<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
 			<form name="form_reloj" id="formPermiso">
 					<div class="row" ng-repeat="empleado in resultado">
 					 <div class="col-sm-4">
@@ -154,7 +185,7 @@ input[type=checkbox]
 			  <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <span style="font-weight: bold;font-size:17">Goce de Sueldo: &nbsp</span>
-                           <input type="checkbox" id="goce" size="4"><span class="checkboxtext">
+                           <input type="checkbox" id="goce" size="4" ng-model="permiso.goce"><span class="checkboxtext">
                            &nbsp
                               </span>
                         </div>
@@ -171,21 +202,6 @@ input[type=checkbox]
     	<script src="js/bootstrap.min.js"></script>
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    	<script> 
-$(document).ready(function(){
-	$("#formPermiso").submit(function () {
-		if($("#comentario").val().length < 1) {
-			    $('.amt_errorComentario')
-				.text('es necesario un comentario.')
-				.css({'color':'#fff', 'background':'#EAA001', 'padding':'3px'})
-				.fadeIn('fast');
-			return false;
-		}
-	$('.amt_errorComentario').fadeOut('slow');
-		return false;
-	});
-});
-</script>
 
 </body>
 </html>

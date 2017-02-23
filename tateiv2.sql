@@ -285,6 +285,8 @@ DROP TABLE IF EXISTS perfil;
 		fecha_inicio DATE NOT NULL,
 		fecha_fin DATE NOT NULL,
 		no_semana INTEGER NOT NULL,
+		no_trabajadores INTEGER NOT NULL,
+		no_horas INTEGER NOT NULL,
 		fecha_alta DATETIME NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_baja DATETIME NULL,
