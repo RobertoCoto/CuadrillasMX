@@ -218,6 +218,9 @@ public class ContratoDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
 			listaContratoActivo = sessionNTx.selectList("ContratoDAO.contratoActivo", contrato);
+			if ( listaContratoActivo.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existen contratos actualmente.");
+			}
 			for (ContratoDTO c : listaContratoActivo) {
 				List<CoordenadaDTO> coordenadas = null;
 				coordenadas = sessionNTx.selectList("ContratoDAO.consultaContratoCoordenadas", c);
