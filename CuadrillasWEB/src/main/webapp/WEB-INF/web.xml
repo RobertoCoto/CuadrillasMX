@@ -297,6 +297,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.ConsultaContratoActivo</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AltaAgenda</servlet-name>
+  	<display-name>AltaAgenda</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.agenda.AltaAgenda</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -492,5 +498,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaContratoActivo</servlet-name>
 		<url-pattern>/ConsultaContratoActivo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AltaAgenda</servlet-name>
+		<url-pattern>/AltaAgenda</url-pattern>
 	</servlet-mapping>
 </web-app>
