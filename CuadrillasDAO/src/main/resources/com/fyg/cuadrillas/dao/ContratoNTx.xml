@@ -30,6 +30,7 @@
 	<result column="nombre_cuadrilla" property="nombreCuadrilla"/>
 	<result column="calificacion_cuadrilla" property="calificacionCuadrilla"/>
 	<result column="fecha_registro_contrato" property="fechaRegistroContrato"/>
+	<result column="fecha_actual" property="fechaActual"/>
 </resultMap>
 
 <resultMap type="Coordenada" id="coordenada">	
@@ -143,6 +144,7 @@ co.fecha_baja,
 co.usuario_ult_mod,
 co.fecha_ult_mod,
 co.estatus,
+now() AS fecha_actual,
 ca.descripcion AS descripcion_vialidad,
 cua.nombre_cuadrilla AS nombre_cuadrilla,
 cua.calificacion  AS calificacion_cuadrilla,

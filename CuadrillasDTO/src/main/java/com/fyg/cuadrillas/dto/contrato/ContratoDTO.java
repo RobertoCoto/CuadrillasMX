@@ -45,6 +45,7 @@ public class ContratoDTO extends ObjetoValor {
 	private Integer calificacionCuadrilla;
 	private Integer horaLaboral;
 	private String fechaRegistroContrato;
+	private String fechaActual;
 
 	/**
 	 * @return the idContrato
@@ -430,4 +431,16 @@ public class ContratoDTO extends ObjetoValor {
 	public void setFechaRegistroContrato(String fechaRegistroContrato) {
 		this.fechaRegistroContrato = fechaRegistroContrato;
 	}
+	/**
+	 * @return the fechaActual
+	 */
+	public String getFechaActual() {
+		return fechaActual;
+	}
+	/**
+	 * @param fechaActual the fechaActual to set
+	 */
+	public void setFechaActual(String fechaActual) {
+		this.fechaActual = fechaActual;
+	} 
 }
