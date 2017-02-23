@@ -29,6 +29,7 @@
 	<result column="descripcion_vialidad" property="descripcionVialidad"/>
 	<result column="nombre_cuadrilla" property="nombreCuadrilla"/>
 	<result column="calificacion_cuadrilla" property="calificacionCuadrilla"/>
+	<result column="fecha_registro_contrato" property="fechaRegistroContrato"/>
 </resultMap>
 
 <resultMap type="Coordenada" id="coordenada">	
@@ -77,7 +78,7 @@
 		fecha_fin,
 		dias_duracion,
 		pct_avance,
-		fecha_registro,
+		fecha_registro AS fecha_registro_contrato,
 		id_cuadrilla,
 		observaciones,
 		url,
