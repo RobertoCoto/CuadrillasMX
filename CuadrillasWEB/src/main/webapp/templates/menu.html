@@ -7,6 +7,7 @@
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="templates/assets/css/layoutPagInter.css" />
+    <link rel="stylesheet" href="templates/assets/css/altaContrato.css" />
   </head>
     <script type="text/javascript" language="javascript">
     	  /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
@@ -22,6 +23,10 @@
 		    document.getElementById("main").style.marginLeft = "0";
 		    document.getElementById("contenedor").style.marginLeft = "0";
 		  };
+      $(window).on("load resize ", function() {
+        var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+        $('.tbl-header').css({'padding-right':scrollWidth});
+      }).resize();
 
 	</script>
   <body>
@@ -62,8 +67,11 @@
 			</button>
       	</span>
       </div>
-
-		<div id="contenedor" ui-view></div>
+      <div class="row">
+          <div class="col-sm-12">
+            <div id="contenedor" ui-view></div>
+          </div>
+      </div>
     </div>
   </body>
 </html>

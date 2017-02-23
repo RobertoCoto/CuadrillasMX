@@ -442,6 +442,10 @@ var data;
 
 
             app.controller('altacontratoctrl', function ($scope, $http) {
+							$(window).on("load resize ", function() {
+							  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+							  $('.tbl-header').css({'padding-right':scrollWidth});
+							}).resize();
               $('#mainPanel').hide();
               $('#alert').hide();
               $('#success').hide();
@@ -668,6 +672,7 @@ var data;
 
 
                   $scope.setMarcador = function(latLng) {
+										$('#msload').modal('show');
                     var geocoder = new google.maps.Geocoder;
                     var img_mark = 'altaContrato/mark.png';
                     var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
@@ -704,39 +709,22 @@ var data;
                           }
 
 
-                          $( "#tramos" ).append( $( "<div class=\"row\">"
-																	+ "<div class=\"col-sm-12\">"
-                                  	+ "<i>" + direccion + "</i>"
-																	+ "</div>"
-                                + "</div>") );
-                          /*$( "#tramos" ).append( $( "<div class=\"row\""
-                           + "<div class=\"col-sm-12\">"
-                             + "<div class=\"form-group\">"
-                               + "<label for=\"direccionInicial\" class=\"control-label\">Dirección</label>"
-                               + "<input type=\"text\" id=\"direccionInicial\" class=\"form-control\" value=\"" + direccion + "\" disabled=\"true\">"
-                             + "</div>"
-                           + "</div>"
-                         + "</div>"
-                         + "<div class=\"row\">"
-                           + "<div class=\"col-sm-3\">"
-                               + "<label for=\"\" class=\"control-label\">Coordenadas</label>"
-                           +"</div>"
-                           + "<div class=\"col-sm-4\">"
-                             + "<input type=\"text\" id=\"latitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lat() + "\">"
-                            + "</div>"
-                            + "<div class=\"col-sm-4\">"
-                            + "<input type=\"text\" id=\"longitudInicial" + latLngIndex + "\" class=\"form-control\" value=\"" + latLng.lng() + "\">"
-                           + "</div>"
-                          + "</div>") );*/
+                          $( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
+                            + "<td class=\"td\" width=\"30px\"> </td>"
+                            + "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
+                          + "</tr>") );
+													
                         } else {
                           $('#alert').show();
                           $('#msgerror').text('No se encontro una dirección disponible.')
                           //alert('No se encontraron resultados');
                         }
+												$('#msload').modal('hide');
                       } else {
                         $('#alert').show();
                         $('#msgerror').text('Problemas en la geolocalización debido ' + status + '')
                         //alert('Geocoder fallo debido al estatus: ' + status);
+												$('#msload').modal('hide');
                       }
                     });
 
@@ -811,6 +799,7 @@ var data;
                       var unidad_de_medida = " metros";
                       $scope.contratoFocus.metros = length;
                       $( "#km" ).text(km.toFixed(2) + ' km');
+											$( "#txtkm" ).text('Distancia');
                       //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
                   }
 
@@ -828,6 +817,7 @@ var data;
                       var unidad_de_medida = " metros";
                       $scope.contratoFocus.metros = length;
                       $( "#km" ).text(km.toFixed(2) + ' km');
+											$( "#txtkm" ).text('Distancia');
                       //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
                   }
 
@@ -900,6 +890,7 @@ var data;
                       medida.mvcMarkers.clear();
                       $( "#tramos" ).empty();
                       $( "#km" ).text('');
+											$( "#txtkm" ).text('');
                       //document.getElementById('lineLength').innerHTML = '';
                       //document.getElementById('polyArea').innerHTML = '';
                   }
