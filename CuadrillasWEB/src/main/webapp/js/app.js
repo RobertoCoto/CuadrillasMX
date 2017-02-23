@@ -953,7 +953,7 @@ var data;
       $scope.contratoFocus = {}; // contrato undefined
       $scope.nContrato = true;*/
 
-      //se llena cat�logo de actividades
+      //se llena catalogo de actividades
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -968,10 +968,9 @@ var data;
             console.error(response);
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
-            //$('#msgerror').val(response.data.header.mensajeFuncional);
         });
 
-      //se llena cat�logo de articulos
+      //se llena catalogo de articulos
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -982,6 +981,22 @@ var data;
         }).then(function successfn(result) {
               $scope.catArticulos = result.data.catalogo;
                 console.log(result);
+        }, function errorfn(response) {
+            console.error(response);
+            alert(response.data.header.mensajeFuncional);
+            $('#msload').modal('hide');
+        });
+      
+        //Se consultan los contratos activos
+      	$http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaContratoActivo',
+              params: { },
+              data: { }
+        }).then(function successfn(result) {
+              $scope.contratos = result.data.contrato;
+              console.info("contratos");
+              console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
