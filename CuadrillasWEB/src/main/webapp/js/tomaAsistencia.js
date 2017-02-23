@@ -83,19 +83,29 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
             //registra la entrada del empleado
            $scope.entrada = function(asistencia) {
         	
-           if ($scope.form_reloj.$valid) {
+        	   if($('#'+asistencia.idEmpleado).val() == "")
+				{
+					$('#alert').show();
+					$('#msgerror').text("Es necesario un comentario");
+					return false;
+				}
+				if($('#'+asistencia.idEmpleado).val().length < 10)
+				{
+					$('#alert').show();
+					$('#msgerror').text("El comentario debe tener como minimo 10 caracteres");
+					return false;
+				}
         	   var confirmar = confirm("¿Esta seguro de registrar la entrada?"); 
-
+                       
 						if (!confirmar) 
 						{
 							 $('#alert').show();
 							 $('#msgerror').text('Se ha cancelado la operacion.'); 
-							 $scope.form_reloj.$setPristine();
 							return false;
 						} else  {
 							 $('#msload').modal('show');
 							 $('#alert').hide();
-	    				}	
+	    				}
 						$scope.idEmpleado = asistencia.idEmpleado;						
 						$http({
 						    method: 'GET',
@@ -110,8 +120,6 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 							    $('#msload').modal('hide');
 								$('#success').show();
 								$('#msgaviso').text(response.data.mensajeFuncional);
-								$scope.form_reloj.$setPristine();
-								
 						  	 console.info(response);
 						  }, function myError(response) {
 							   $('#msload').modal('hide');
@@ -119,7 +127,6 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 								$('#msgerror').text(response.data.mensajeFuncional);
 						      console.error(response); 
 						  });
-        	   }
         	   };
            
             $scope.salida = function(asistencia) {
@@ -130,7 +137,6 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 				{
 					$('#alert').show();
 					 $('#msgerror').text('Se ha cancelado la operacion.'); 
-					 $scope.form_reloj.$setPristine(); 
 					return false;
 				}  else  {
 					 $('#msload').modal('show');
@@ -151,8 +157,6 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
       		    	$('#msload').modal('hide');
 					$('#success').show();
 					$('#msgaviso').text(response.data.mensajeFuncional);
-					 $scope.form_reloj.$setPristine();
-					 
      		    	 console.info(response);
       		    }, function myError(response) {
       		    	$('#msload').modal('hide');
@@ -161,5 +165,10 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
       		        console.error(response);
       		    });
         	   };
-           
+        	   
+        	 //para ocultar las alertas
+     		$scope.hideAlerts = function() {
+     						$('#alert').hide();
+     						$('#success').hide();
+     					};
 });

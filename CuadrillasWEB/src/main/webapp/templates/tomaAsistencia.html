@@ -50,31 +50,24 @@
                 				<td><b>Salida</b></td>
                 				<td><b>Operaciones</b></td>
                 				</tr>
-                				<tr ng-repeat="asistencia in resultadoAsistencia" ng-class="{ 'has-error' : form_reloj.comentario.$invalid && !form_reloj.comentario.$pristine }">
+                				<tr ng-repeat="asistencia in resultadoAsistencia" >
                 				<td>{{asistencia.perfilEmpleado}}</td>
                 				<td>{{asistencia.nombre}} {{asistencia.apellidoPaterno}} {{asistencia.apellidoMaterno}}</td>
                 				<td ng-if="asistencia.horaEntrada === NULLL" >
-                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario" ng-minlength="10">
-                				<p ng-show="form_reloj.comentario.$error.minlength" class="help-block">El comentario debe ser mas de 10 caracteres.</p>
+                				<input type="text" id={{asistencia.idEmpleado}} class="form-control" data-ng-model="asistencia.observacion" name="comentario">
           
                 				</td>
                 				
                 				<td ng-if="asistencia.horaEntrada != NULL">{{asistencia.comentarios}}</td>
                 				<td>{{asistencia.horaEntrada}}</td>
                 				<td>{{asistencia.horaSalida}}</td>
-                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)" ng-disabled="form_reloj.$invalid"></td>
+                				<td ng-if="asistencia.horaEntrada === NULL"> <input type="submit" value="Entrada" class="btn btn-success" data-ng-click="entrada(asistencia)"></td>
                 				<td ng-if="asistencia.horaEntrada != NULL">
                 				<p ng-if="asistencia.horaSalida === NULL">
                 				<button class="btn btn-success" ng-click="salida(asistencia)">Salida</button>
                 				</p>
                 				
                 				</td>
-                		
-                				
-                				
-                				
-                				
-                				</tr>
                 				
                 			</table>
                 		</div>
