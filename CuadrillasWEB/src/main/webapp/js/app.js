@@ -207,7 +207,7 @@ var data;
  	}]);
  	//FIN LOGIN
 
- 	//MEN�
+ 	//MENU
 	app.controller('MainController',
 		function ($scope, $location) {
 			if(jQuery.type(data) === "undefined"){
@@ -245,7 +245,7 @@ var data;
         function ($scope) {
             document.getElementById("contenedor").style.marginLeft = "260px";
     });
-    //FIN MEN�
+    //FIN MENU
 
     app.controller('catalogoctrl', function ($scope, $http) {
 
@@ -908,52 +908,69 @@ var data;
 
     //REGISTRO AGENDA SEMANAL
     app.controller('registroagendactrl', function ($scope, $http) {
-  /*$('#mainPanel').hide();
-      $('#alert').hide();
-      $('#success').hide();
-      var fechaInicioForm=$('input[name="fechaInicio"]');
-      var fechaTerminoForm=$('input[name="fechaTermino"]');
-      var fechaRegistroForm=$('input[name="fechaRegistro"]');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var a = undefined;
-      var b = undefined;
-      fechaInicioForm.datepicker({
-        format: 'dd/mm/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      }).on("change", function (e) {
-        console.log(e)
-          console.log("fecha inicio: ", e.target.value);
-          var s = e.target.value.split("/")
-          a = moment([s[2], s[1]-1, s[0]]);
-          if (b) {
-            $('#diasDuracion').val(b.diff(a,'days')+1);
-          }
-      });
-      fechaTerminoForm.datepicker({
-        format: 'dd/mm/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      }).on("change", function (e) {
-          var s = e.target.value.split("/")
-          b = moment([s[2], s[1]-1, s[0]]);
-          console.log("Fecha termino: ", e.target.value);
-          if (a) {
-            $('#diasDuracion').val(b.diff(a,'days')+1);
-          }
-      });
-      fechaRegistroForm.datepicker({
-        format: 'dd/mm/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      })
-      $scope.contratoFocus = {}; // contrato undefined
-      $scope.nContrato = true;*/
+	  /*$('#mainPanel').hide();
+	      $('#alert').hide();
+	      $('#success').hide();
+	*/
 
-      //se llena catalogo de actividades
+    	var actualizacion = false;
+    	var fecha=$('input[name="fecha"]');
+    	var diaActividad = $('input[name="diaActividad"]');
+    	var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+	    fecha.datepicker({
+	      format: 'dd/mm/yyyy',
+	      container: container,
+	      todayHighlight: true,
+	      weekStart: 1,
+	      language: "es",
+	      regional:"es",
+	  	  calendarWeeks: false,
+	      autoclose: true,
+	    });
+	    diaActividad.datepicker({
+	      format: 'dd/mm/yyyy',
+	      language: "es",
+	      regional:"es",
+	      container: container,
+	      todayHighlight: true,
+	      calendarWeeks: false,
+	      autoclose: true
+	    });
+	    $('.datepicker-semana').datepicker(
+	  	{
+	  		weekStart: 1,
+	  		language: "es",
+	  		regional:"es",
+	  		calendarWeeks: false
+	  	}).on('changeDate', function (e)
+	  	{
+	  		if (actualizacion)
+	  			return;
+  			
+	  		actualizacion = true;
+	  		var value = e.date;
+	  		var iniSemana = moment(value).day(1);
+	  		var finSemana =  moment(value).day(7);
+	  		$(this).datepicker('clearDate');
+	  		$(this).datepicker('setDates', [
+	  		    moment(value).day(1).toDate(),
+  				moment(value).day(2).toDate(),
+  				moment(value).day(3).toDate(),
+  				moment(value).day(4).toDate(),
+  				moment(value).day(5).toDate(),
+  				moment(value).day(6).toDate(),
+  				moment(value).day(7).toDate()
+  			]);
+	  		
+	  		var semanaInicioDate = moment(iniSemana.toDate());
+	  		var semanaFinDate = moment(finSemana.toDate());
+	  		$('#ini').val(semanaInicioDate.format("DD/MM/YYYY"));
+	  		$('#fin').val(semanaFinDate.format("DD/MM/YYYY"));
+	  		$('#semana').val(moment(iniSemana.toDate()).week());
+	  		actualizacion = false;
+	  });
+        
+	  //se llena catalogo de actividades
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -994,7 +1011,7 @@ var data;
               params: { },
               data: { }
         }).then(function successfn(result) {
-              $scope.contratos = result.data.contrato;
+              $scope.contratosActivos = result.data.contrato;
               console.info("contratos");
               console.log(result);
         }, function errorfn(response) {
@@ -1061,6 +1078,42 @@ var data;
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   			}
+  		};
+  		
+  		$scope.eliminarActividades = function(actividad) {			
+  			//$('#msload').modal('show');
+  			//$('#alert').hide();
+  			//$('#success').hide();  			  		
+  			for(indice in $scope.gridActividades)
+  			{  				
+  				if (actividad == $scope.gridActividades[indice].codigo)
+  				{
+  					$scope.gridActividades.splice(indice,1);
+  				}
+  			}  			  		
+	  			
+	          //console.info(response);
+	          //$('#msload').modal('hide');
+	          //$('#success').show();
+	          //$('#msgaviso').text(response.data.mensajeFuncional);  		
+  		};
+  		
+  		$scope.eliminarArticulos = function(articulo) {			
+  			//$('#msload').modal('show');
+  			//$('#alert').hide();
+  			//$('#success').hide();  			  		
+  			for(indice in $scope.gridArticulos)
+  			{  				
+  				if (articulo == $scope.gridArticulos[indice].codigo)
+  				{
+  					$scope.gridArticulos.splice(indice,1);
+  				}
+  			}  			  		
+	  			
+	          //console.info(response);
+	          //$('#msload').modal('hide');
+	          //$('#success').show();
+	          //$('#msgaviso').text(response.data.mensajeFuncional);  		
   		};  		
     });
     //FIN REGISTRO AGENDA SEMANAL
