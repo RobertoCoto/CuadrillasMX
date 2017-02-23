@@ -16,6 +16,8 @@ import org.json.simple.parser.JSONParser;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
+import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 /**
@@ -59,6 +61,30 @@ public class AltaAgenda extends HttpServlet {
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
 			
+			//crea objeto de negocio
+			final AgendaNegocio negocio = new AgendaNegocio();
+			
+			//se crea objeto agenda
+			AgendaDTO agenda = new AgendaDTO();
+			
+			//se desglosan los datos para convertirlos a objetos 
+			Integer idContrato = (Integer) jsonObject.get("idContrato");
+			String  fechaInicio = (String) jsonObject.get("fechaInicio");
+			String  fechaFin = (String) jsonObject.get("fechaFin");
+			Integer noHoras = (Integer) jsonObject.get("noHoras");
+			Integer noTrabajadores = (Integer) jsonObject.get("noTrabajadores");
+			Integer noSemana = (Integer) jsonObject.get("noSemana"); 
+			String usuario = (String) jsonObject.get("codigoContrato");
+			
+			//se pasan a nuestros objetos 
+			agenda.setIdContrato(idContrato);
+			agenda.setFechaInicio(fechaInicio);
+			agenda.setFechaFin(fechaFin);
+			agenda.setNoHoras(noHoras);
+			agenda.setNoSemana(noSemana);
+			agenda.setNoTrabajadores(noTrabajadores);
+			agenda.setUsuario(usuario);
+			respuesta = negocio.altaAgenda(agenda);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
