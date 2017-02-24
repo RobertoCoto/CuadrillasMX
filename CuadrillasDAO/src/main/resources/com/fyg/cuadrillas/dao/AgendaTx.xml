@@ -62,4 +62,15 @@ VALUES
 )
 </foreach>
 </insert>
+
+<update id="bajaAgenda" parameterType="Agenda">
+UPDATE agenda SET
+		estatus = 'I',
+		usuario_baja = #{usuario},
+		usuario_ult_mod= #{usuario},
+		fecha_baja = now(),
+		fecha_ult_mod = now()
+WHERE id_agenda = #{idAgenda}
+AND estatus = 'A'			
+</update>
 </mapper>
