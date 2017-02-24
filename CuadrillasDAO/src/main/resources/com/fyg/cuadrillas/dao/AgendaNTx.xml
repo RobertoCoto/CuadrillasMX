@@ -8,4 +8,11 @@ FROM agenda
 WHERE id_contrato = #{idContrato}
 AND estatus = 'A'
 </select>
+
+<select id="existeBajaAgenda" parameterType="Agenda" resultType="int">
+SELECT count(estatus)
+FROM agenda 
+WHERE id_agenda = #{idAgenda}
+AND estatus ='I'
+</select>
 </mapper>
