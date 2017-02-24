@@ -13,7 +13,7 @@ public class AgendaDTO extends ObjetoValor {
 	private static final long serialVersionUID = 356484323175106651L;
 
 	/** idAgenda */
-	private int idAgenda;
+	private Integer idAgenda;
 	/**idContrato*/
 	private Integer idContrato;
 	/** contrato */
@@ -36,13 +36,13 @@ public class AgendaDTO extends ObjetoValor {
 	/**
 	 * @return the idAgenda
 	 */
-	public int getIdAgenda() {
+	public Integer getIdAgenda() {
 		return idAgenda;
 	}
 	/**
 	 * @param idAgenda the idAgenda to set
 	 */
-	public void setIdAgenda(int idAgenda) {
+	public void setIdAgenda(Integer idAgenda) {
 		this.idAgenda = idAgenda;
 	}
 	/**
