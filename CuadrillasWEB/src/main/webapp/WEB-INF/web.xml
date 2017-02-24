@@ -303,6 +303,18 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.agenda.AltaAgenda</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BajaAgenda</servlet-name>
+  	<display-name>BajaAgenda</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.agenda.BajaAgenda</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ConsultaAgenda</servlet-name>
+  	<display-name>ConsultaAgenda</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.agenda.ConsultaAgenda</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -502,5 +514,13 @@
 	<servlet-mapping>
 		<servlet-name>AltaAgenda</servlet-name>
 		<url-pattern>/AltaAgenda</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BajaAgenda</servlet-name>
+		<url-pattern>/BajaAgenda</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaAgenda</servlet-name>
+		<url-pattern>/ConsultaAgenda</url-pattern>
 	</servlet-mapping>
 </web-app>
