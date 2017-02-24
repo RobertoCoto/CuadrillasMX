@@ -14,6 +14,8 @@ public class AgendaDTO extends ObjetoValor {
 
 	/** idAgenda */
 	private int idAgenda;
+	/**idContrato*/
+	private Integer idContrato;
 	/** contrato */
 	private ContratoDTO contrato;
 	/** fechaInicio */
@@ -139,5 +141,16 @@ public class AgendaDTO extends ObjetoValor {
 	public void setNoHoras(int noHoras) {
 		this.noHoras = noHoras;
 	}
-
+	/**
+	 * @return the idContrato
+	 */
+	public Integer getIdContrato() {
+		return idContrato;
+	}
+	/**
+	 * @param idContrato the idContrato to set
+	 */
+	public void setIdContrato(Integer idContrato) {
+		this.idContrato = idContrato;
+	}
 }

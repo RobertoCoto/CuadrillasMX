@@ -21,6 +21,8 @@
 <typeAlias alias="Actividad" type="com.fyg.cuadrillas.dto.actividad.ActividadDTO"/>
 <typeAlias alias="VialidadCoordenadas" type="com.fyg.cuadrillas.dto.vialidad.VialidadCoordenadasDTO"/>
 <typeAlias alias="Coordenada" type="com.fyg.cuadrillas.dto.CoordenadaDTO"/>
+<typeAlias alias="Agenda" type="com.fyg.cuadrillas.dto.agenda.AgendaDTO"/>
+<typeAlias alias="AgendaDetalle" type="com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO"/>
 </typeAliases>
 
 
@@ -51,6 +53,7 @@
 	<mapper resource="com/fyg/cuadrillas/dao/CuadrillaTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/PermisoTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/ActividadTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/AgendaTx.xml" />
 	</mappers>
 
 </configuration>

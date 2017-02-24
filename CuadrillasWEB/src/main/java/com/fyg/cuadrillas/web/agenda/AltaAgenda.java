@@ -106,28 +106,34 @@ public class AltaAgenda extends HttpServlet {
 				JSONArray agendaMateriales = (JSONArray) detalleAgenda.get("Materiales");
 				JSONArray agendaCoordenadas = (JSONArray)  detalleAgenda.get("coordenadas");
 				
-				List<String> actividades = new ArrayList<String>();
-				List<String> materiales  = new ArrayList<String>();
+				List<AgendaDetalleDTO> actividades = new ArrayList<AgendaDetalleDTO>();
+				List<AgendaDetalleDTO> materiales  = new ArrayList<AgendaDetalleDTO>();
 				List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
 				
 				for (int k = 0; k < agendaActividades.size(); k++)
 				{
+					AgendaDetalleDTO act = new AgendaDetalleDTO();
 					
 					JSONObject agendaActividad = (JSONObject) agendaActividades.get(k);
 					String codigoActividad = (String) agendaActividad.get("codigoActividad");
 					String usuarioActividad = (String) agendaActividad.get("usuarioActividad");
-					actividades.add(codigoActividad);
-					actividades.add(usuarioActividad);
+					act.setCodigoActividad(codigoActividad);
+					act.setUsuarioAlta(usuarioActividad);
+					actividades.add(act);
+					
 					
 				}
 				
 				for (int j=0; j< agendaMateriales.size(); j++) {
+					
+					AgendaDetalleDTO materia = new AgendaDetalleDTO();
 					JSONObject material = (JSONObject) agendaMateriales.get(j);
 					String codigoMaterial = (String) material.get("codigoMaterial");
 					String usuarioMaterial = (String) material.get("usuarioMaterial");
+					materia.setCodigoMaterial(codigoMaterial);
+					materia.setUsuarioAlta(usuarioMaterial);
+					materiales.add(materia);
 					
-					materiales.add(usuarioMaterial);
-					materiales.add(codigoMaterial);
 				}
 				
 				for (int l=0; l< agendaCoordenadas.size(); l++) {

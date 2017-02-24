@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.AgendaNTx">
 
+<select id="existeAgenda" parameterType="Agenda" resultType="int">
+SELECT count(id_contrato)
+FROM agenda
+WHERE id_contrato = #{idContrato}
+AND estatus = 'A'
+</select>
 </mapper>

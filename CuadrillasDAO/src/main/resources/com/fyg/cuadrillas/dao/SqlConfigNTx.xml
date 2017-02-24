@@ -23,6 +23,8 @@
 <typeAlias alias="Actividad" type="com.fyg.cuadrillas.dto.actividad.ActividadDTO"/>
 <typeAlias alias="Coordenada" type="com.fyg.cuadrillas.dto.CoordenadaDTO"/>
 <typeAlias alias="Buzon" type="com.fyg.cuadrillas.dto.buzon.BuzonDTO"/>
+<typeAlias alias="Agenda" type="com.fyg.cuadrillas.dto.agenda.AgendaDTO"/>
+<typeAlias alias="AgendaDetalle" type="com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO"/>
 </typeAliases>
 
 	<environments default="development">
@@ -55,5 +57,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/PermisoNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/ActividadNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/BuzonNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/AgendaNTx.xml" />
 	</mappers>
 </configuration>

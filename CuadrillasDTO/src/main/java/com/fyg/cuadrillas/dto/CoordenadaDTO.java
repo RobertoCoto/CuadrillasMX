@@ -10,6 +10,8 @@ public class CoordenadaDTO extends ObjetoValor {
 	private int idContrato;
 	/** id Agenda */
 	private int idAgenda;
+	/**id agenda detalle*/
+	private Integer idAgendaDetalle;
 	/** orden */
 	private int orden;
 	/** direccion */
@@ -90,5 +92,17 @@ public class CoordenadaDTO extends ObjetoValor {
 	 */
 	public void setIdAgenda(int idAgenda) {
 		this.idAgenda = idAgenda;
+	}
+	/**
+	 * @return the idAgendaDetalle
+	 */
+	public Integer getIdAgendaDetalle() {
+		return idAgendaDetalle;
+	}
+	/**
+	 * @param idAgendaDetalle the idAgendaDetalle to set
+	 */
+	public void setIdAgendaDetalle(Integer idAgendaDetalle) {
+		this.idAgendaDetalle = idAgendaDetalle;
 	}
 }

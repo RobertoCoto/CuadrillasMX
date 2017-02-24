@@ -46,7 +46,6 @@ public class ContratoDTO extends ObjetoValor {
 	private Integer horaLaboral;
 	private String fechaRegistroContrato;
 	private String fechaActual;
-
 	/**
 	 * @return the idContrato
 	 */

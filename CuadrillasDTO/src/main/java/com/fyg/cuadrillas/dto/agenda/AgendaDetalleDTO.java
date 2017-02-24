@@ -13,7 +13,7 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	private static final long serialVersionUID = -5414801533183797568L;
 
 	/** idAgendaDetalle */
-	private int idAgendaDetalle;
+	private Integer idAgendaDetalle;
 	/** idAgenda */
 	private int idAgenda;
 	/** fecha */
@@ -25,19 +25,32 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** actividades */
-	private List<String> actividades;
+	private List<AgendaDetalleDTO> actividades;
 	/** materiales */
-	private List<String> materiales;
+	private List<AgendaDetalleDTO> materiales;
+	/**
+	 * Usuario alta
+	 */
+	private String usuarioAlta;
+	/**
+	 * codigo actividad
+	 */
+	private String codigoActividad;
+	/**
+	 * ccodigo Material
+	 */
+	private String codigoMaterial;
+	
 	/**
 	 * @return the idAgendaDetalle
 	 */
-	public int getIdAgendaDetalle() {
+	public Integer getIdAgendaDetalle() {
 		return idAgendaDetalle;
 	}
 	/**
 	 * @param idAgendaDetalle the idAgendaDetalle to set
 	 */
-	public void setIdAgendaDetalle(int idAgendaDetalle) {
+	public void setIdAgendaDetalle(Integer idAgendaDetalle) {
 		this.idAgendaDetalle = idAgendaDetalle;
 	}
 	/**
@@ -100,29 +113,65 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	public void setCoordenadas(List<CoordenadaDTO> coordenadas) {
 		this.coordenadas = coordenadas;
 	}
+	
 	/**
 	 * @return the actividades
 	 */
-	public List<String> getActividades() {
+	public List<AgendaDetalleDTO> getActividades() {
 		return actividades;
 	}
 	/**
 	 * @param actividades the actividades to set
 	 */
-	public void setActividades(List<String> actividades) {
+	public void setActividades(List<AgendaDetalleDTO> actividades) {
 		this.actividades = actividades;
 	}
 	/**
 	 * @return the materiales
 	 */
-	public List<String> getMateriales() {
+	public List<AgendaDetalleDTO> getMateriales() {
 		return materiales;
 	}
 	/**
 	 * @param materiales the materiales to set
 	 */
-	public void setMateriales(List<String> materiales) {
+	public void setMateriales(List<AgendaDetalleDTO> materiales) {
 		this.materiales = materiales;
 	}
-
+	/**
+	 * @return the codigoActividad
+	 */
+	public String getCodigoActividad() {
+		return codigoActividad;
+	}
+	/**
+	 * @param codigoActividad the codigoActividad to set
+	 */
+	public void setCodigoActividad(String codigoActividad) {
+		this.codigoActividad = codigoActividad;
+	}
+	/**
+	 * @return the codigoMaterial
+	 */
+	public String getCodigoMaterial() {
+		return codigoMaterial;
+	}
+	/**
+	 * @param codigoMaterial the codigoMaterial to set
+	 */
+	public void setCodigoMaterial(String codigoMaterial) {
+		this.codigoMaterial = codigoMaterial;
+	}
+	/**
+	 * @return the usuarioAlta
+	 */
+	public String getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	/**
+	 * @param usuarioAlta the usuarioAlta to set
+	 */
+	public void setUsuarioAlta(String usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
 }
