@@ -4,7 +4,7 @@
     <title> Registro Agenda Semanal </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
 <!--     <link href="css/bootstrap.min.css" rel="stylesheet">  lrss -->
 <!--     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />  lrss-->
     <!--script type="text/javascript" src="js/angular.min.js"></script-->
@@ -49,8 +49,8 @@
                 <div class="form-group">
                   <label for="fecha" class="control-label">Fecha</label>
                   <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                    <input class="form-control" id="fecha" name="fecha" placeholder="DD/MM/YYYY" type="text"/>
+                    <div class="input-group-addon"><i class="fa fa-calendar" readonly></i></div>
+                    <input class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" type="text" value="{{objContratos.fechaActual}}" disabled="true"/>
                   </div>
                 </div>
               </div>
@@ -99,6 +99,19 @@
                 </div>
               </div>
             </div>
+            <div>
+            	<div class="row">
+                	<div class="col-sm-12" align="center">
+						<button type="button" class="btn btn-primary" name="btnLunes" id="btnLunes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(1);" >Lunes</button>
+						<button type="button" class="btn btn-primary" name="btnMartes" id="btnMartes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(2);">Martes</button>
+						<button type="button" class="btn btn-primary" name="btnMiercoles" id="btnMiercoles" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(3);">Miercoles</button>
+						<button type="button" class="btn btn-primary" name="btnJueves" id="btnJueves" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(4);">Jueves</button>
+						<button type="button" class="btn btn-primary" name="btnViernes" id="btnViernes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(5);">Viernes</button>
+						<button type="button" class="btn btn-primary" name="btnSabado" id="btnSabado" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(6);">Sabado</button>
+						<button type="button" class="btn btn-primary" name="btnDomingo" id="btnDomingo" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(7);">Domingo</button>
+            		</div>
+            	</div>
+            </div>
             <div class="row">
                 <div class="panel panel-default" style="margin: 5px;">
                   <div class="panel-heading">
@@ -110,7 +123,7 @@
                         <label for="diaActividad" class="control-label">Día</label>
                         <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                          <input class="form-control" id="diaActividad" name="diaActividad" placeholder="DD/MM/YYYY" type="text"/>
+                          <input class="form-control" id="diaActividad" name="diaActividad" placeholder="YYYY-MM-DD" type="text" disabled="true"/>
                         </div>
                       </div>
                     </div>

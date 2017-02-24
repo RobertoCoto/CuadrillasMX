@@ -890,7 +890,7 @@ var data;
                       medida.mvcMarkers.clear();
                       $( "#tramos" ).empty();
                       $( "#km" ).text('');
-											$( "#txtkm" ).text('');
+					  $( "#txtkm" ).text('');
                       //document.getElementById('lineLength').innerHTML = '';
                       //document.getElementById('polyArea').innerHTML = '';
                   }
@@ -899,17 +899,16 @@ var data;
 
     //REGISTRO AGENDA SEMANAL
     app.controller('registroagendactrl', function ($scope, $http) {
-	  /*$('#mainPanel').hide();
-	      $('#alert').hide();
-	      $('#success').hide();
-	*/
-
+		  /*$('#mainPanel').hide();
+		      $('#alert').hide();
+		      $('#success').hide();
+		*/
     	var actualizacion = false;
     	var fecha=$('input[name="fecha"]');
     	var diaActividad = $('input[name="diaActividad"]');
     	var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
 	    fecha.datepicker({
-	      format: 'dd/mm/yyyy',
+	      format: 'yyyy-mm-dd',
 	      container: container,
 	      todayHighlight: true,
 	      weekStart: 1,
@@ -919,7 +918,7 @@ var data;
 	      autoclose: true,
 	    });
 	    diaActividad.datepicker({
-	      format: 'dd/mm/yyyy',
+	      format: 'yyyy-mm-dd',
 	      language: "es",
 	      regional:"es",
 	      container: container,
@@ -934,7 +933,7 @@ var data;
 	  		regional:"es",
 	  		calendarWeeks: false
 	  	}).on('changeDate', function (e)
-	  	{
+	  	{	  		
 	  		if (actualizacion)
 	  			return;
   			
@@ -955,10 +954,20 @@ var data;
 	  		
 	  		var semanaInicioDate = moment(iniSemana.toDate());
 	  		var semanaFinDate = moment(finSemana.toDate());
-	  		$('#ini').val(semanaInicioDate.format("DD/MM/YYYY"));
-	  		$('#fin').val(semanaFinDate.format("DD/MM/YYYY"));
+	  		$('#ini').val(semanaInicioDate.format("YYYY-MM-DD"));
+	  		$('#fin').val(semanaFinDate.format("YYYY-MM-DD"));
 	  		$('#semana').val(moment(iniSemana.toDate()).week());
 	  		actualizacion = false;
+	  		
+	  		//se arma el arreglo de dias de la semana
+	  		$scope.fechasSemana= [];
+	  		for (var i=1; i<=7; i++)
+	  		{
+	  			var contador = i;
+	  			$scope.fechasSemana.push(mostrarFecha(contador, semanaInicioDate.format("YYYY-MM-DD")))	  			
+	  		}
+	  		
+	  		$('#diaActividad').val("");
 	  });
         
 	  //se llena catalogo de actividades
@@ -971,7 +980,7 @@ var data;
               data: { }
         }).then(function successfn(result) {
           $scope.catActividades = result.data.catalogo;
-          console.log(result);
+          //console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
@@ -988,7 +997,7 @@ var data;
               data: { }
         }).then(function successfn(result) {
               $scope.catArticulos = result.data.catalogo;
-                console.log(result);
+              //console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
@@ -1105,6 +1114,49 @@ var data;
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);  		
-  		};  		
+  		};
+  		
+  		//funcion para agregar días a una fecha
+  		function mostrarFecha(days, fechaInicio){
+		    milisegundos=parseInt(35*24*60*60*1000);
+
+		    fecha_parametro = Date.parse(fechaInicio);
+		    fecha=new Date(fecha_parametro);
+		    day=fecha.getDate();
+		    // el mes es devuelto entre 0 y 11
+		    month=fecha.getMonth()+1;
+		    year=fecha.getFullYear();
+		 		    		 		 
+		    //Obtenemos los milisegundos desde media noche del 1/1/1970
+		    tiempo=fecha.getTime();
+		    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
+		    milisegundos=parseInt(days*24*60*60*1000);
+		    //Modificamos la fecha actual
+		    total=fecha.setTime(tiempo+milisegundos);
+		    day=fecha.getDate();
+		    month=fecha.getMonth()+1;
+		    year=fecha.getFullYear();
+		    
+		    monthAux = month.toString();    				  
+		    if (monthAux.length ==1)
+		    {
+		    	monthAux = "0" + monthAux;
+		    }
+		    
+		    dayAux = day.toString();
+		    if (dayAux.length ==1)
+		    {
+		    	dayAux = "0" + dayAux;
+		    }		    
+		    		 
+		    return year + "-" + monthAux + "-" + dayAux;  
+  		};
+  		
+  		//funcion para colocar la fecha de plan de actividades de acuerdo al botón seleccionado
+  		$scope.obtenerFechaSeleccionada = function(dia)
+  		{
+  			$('#diaActividad').val($scope.fechasSemana[dia-1]);  			
+  		}  	
+
     });
     //FIN REGISTRO AGENDA SEMANAL
