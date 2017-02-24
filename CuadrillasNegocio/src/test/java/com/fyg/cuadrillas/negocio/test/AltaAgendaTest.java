@@ -82,10 +82,12 @@ public class AltaAgendaTest {
 	@Test
 	public void testAltaAgenda() throws Exception {
 		String guid = "123456789";
+		
 		negocio = new AgendaNegocio();
 		
 		try {
 			negocio.altaAgenda(agenda);
+			
 		}catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}
