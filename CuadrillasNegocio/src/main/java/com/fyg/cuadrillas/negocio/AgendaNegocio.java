@@ -2,6 +2,7 @@ package com.fyg.cuadrillas.negocio;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
@@ -10,6 +11,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.AgendaDAO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
+import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
 
 public class AgendaNegocio {
 
@@ -98,4 +100,70 @@ public class AgendaNegocio {
 		LogHandler.debug(uid, this.getClass(), "altaAgenda - Datos Salida: " + respuesta);
 		return respuesta;
 	}
-}
+	/**
+	 * Metodo para dar de baja la agenda 
+	 * @param agenda recibe valores de agenda
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta bajaAgenda (AgendaDTO agenda){
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(agenda);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "bajaAgenda - Datos Entrada: " + agenda);
+				
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try { 
+			if(agenda.getIdAgenda() == null || agenda.getIdAgenda() <= 0) {
+				throw new ExcepcionesCuadrillas("Es necesario el ID del Contrato de la Agenda.");
+			}
+			if (agenda.getUsuario() == null || agenda.getUsuario().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el usuario para la operacion.");
+			}
+			
+			AgendaDAO dao = new AgendaDAO();
+			respuesta = dao.bajaAgenda(uid, agenda);
+		} catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "altaAgenda - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "altaAgenda - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+	/**
+	 * Metodo para consultar las agendas disponibles
+	 * @return regresa respuesta
+	 */
+	public AgendaRespuesta consultaAgenda () {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Entrada: ");
+		 AgendaRespuesta respuesta = new AgendaRespuesta();
+		 respuesta.setHeader( new EncabezadoRespuesta());
+		 respuesta.getHeader().setUid(uid);
+		 respuesta.getHeader().setEstatus(true);
+		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		 List<AgendaDTO> listaAgenda = null;
+		 try {
+			 listaAgenda = new AgendaDAO().consultaAgenda(uid);
+			 respuesta.setAgenda(listaAgenda);
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Salida: " + respuesta);
+			return respuesta;
+		}
+	}
+

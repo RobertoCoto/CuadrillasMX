@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,12 +42,20 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("Error al registrar la agenda.");
 			}
 			System.out.println("ID agenda = " + agenda.getIdAgenda());
+			List<AgendaDetalleDTO> datoAgenda = new ArrayList<AgendaDetalleDTO>();
+			
 			if (agenda.getDiasAgenda().size() > 0) {
 				for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
 					agendaDetalle.setIdAgenda(agenda.getIdAgenda());
 				}
 				altaAgendaDetalle(uid, agenda.getDiasAgenda(), sessionTx);
+
+				
 			}
+			for (int j = 0; j < datoAgenda.size(); j++) {
+				System.out.println("es este el id: " + datoAgenda.get(j).getIdAgendaDetalle());
+		}	
+			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -90,31 +99,30 @@ public class AgendaDAO {
 			throw new ExcepcionesCuadrillas("No se pudo registrar.");
 		}
 		//enviamos los demas datos a la BD
-		for (int j = 0; j < agendaDetalle.size(); j++) {
-			System.out.println("ID agenda = " + agendaDetalle.get(j).getIdAgendaDetalle());
-			
-			if (agendaDetalle.get(j).getActividades().size() > 0) {
-				for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
-					agendaActividad.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
+				for (int j = 0; j < agendaDetalle.size(); j++) {
+					System.out.println("ID agendaDetalle = " + agendaDetalle.get(j).getIdAgendaDetalle());
+					
+					if (agendaDetalle.get(j).getActividades().size() > 0) {
+						for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
+							agendaActividad.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
+						}
+						altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
+					}
+					
+					if (agendaDetalle.get(j).getMateriales().size() > 0) {
+						for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
+							agendaMaterial.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
+						}
+						altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
+					}
+					
+					if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
+						for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {
+							agendaCoordenadas.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
+						}
+						altaCoordenadaDetalle(uid, agendaDetalle.get(j).getCoordenadas(), sessionTx);
+					}
 				}
-				altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
-			}
-			
-			if (agendaDetalle.get(j).getMateriales().size() > 0) {
-				for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
-					agendaMaterial.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
-				}
-				altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
-			}
-			
-			if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
-				for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {
-					agendaCoordenadas.setIdAgendaDetalle((agendaDetalle.get(j).getIdAgendaDetalle()));
-				}
-				altaCoordenadaDetalle(uid, agendaDetalle.get(j).getCoordenadas(), sessionTx);
-			}
-		}
-		
 		
 		//La conexion no es atomica realizamos commit
 		if ( session == null ) {
@@ -233,5 +241,79 @@ public class AgendaDAO {
 			LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
 			FabricaConexiones.close(sessionTx);
 		}
+	}
+	/**
+	 * Metodo para dar de baja la agenda
+	 * @param uid unico de registro
+	 * @param agenda recibe valores de agenda
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta bajaAgenda (String uid, AgendaDTO agenda) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La agenda ha sido dado de baja correctamente.");
+		try {
+			//Validamos si ya esta dado de baja la agenda
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeBajaAgenda = (Integer) sessionNTx.selectOne("AgendaDAO.existeBajaAgenda", agenda);
+			if (existeBajaAgenda > 0) {
+				throw new ExcepcionesCuadrillas("Error al dar de baja, la agenda ya se encuentra inactivo.");
+			}
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("AgendaDAO.bajaAgenda", agenda);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al dar de baja la agenda.");
+			}
+			
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
+	/**
+	 * Metodo para consultar las agendas disponibles
+	 * @param uid unico de registro
+	 * @param agenda recibe valores de agenda
+	 * @return regresa lista de las agendas disponibles
+	 * @throws Exception si se genera un error
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AgendaDTO> consultaAgenda (String uid) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<AgendaDTO> listaConsultaAgenda = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgenda");
+			if ( listaConsultaAgenda.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
+			}
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaConsultaAgenda;
 	}
 }
