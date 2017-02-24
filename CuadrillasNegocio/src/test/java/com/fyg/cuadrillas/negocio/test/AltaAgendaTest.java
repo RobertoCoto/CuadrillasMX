@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.LogHandler;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
@@ -29,15 +30,48 @@ public class AltaAgendaTest {
 		agenda.setUsuario("SISTEMAS");
 		
 		agendaDetalle = new AgendaDetalleDTO();
+		List<AgendaDetalleDTO> detalles = new ArrayList<AgendaDetalleDTO>();
+		detalles.add(agendaDetalle);
+		agenda.setDiasAgenda(detalles);
+		
+		CoordenadaDTO coordenada1 = new CoordenadaDTO();
+		coordenada1.setOrden(1);
+		coordenada1.setLatitud(19.3507338f);
+		coordenada1.setLongitud(-99.0747743f);
+		
+		CoordenadaDTO coordenada2 = new CoordenadaDTO();
+		coordenada2.setOrden(2);
+		coordenada2.setLatitud(19.3556158f);
+		coordenada2.setLongitud(-99.0967412f);		
+		
+		List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
+		coordenadas.add(coordenada1);
+		coordenadas.add(coordenada2);
+		
+		AgendaDetalleDTO actividad = new AgendaDetalleDTO();
+		actividad.setCodigoActividad("AMUL");
+		actividad.setUsuarioAlta("SISTEMAS");
+		
+		List<AgendaDetalleDTO> listaActividades = new ArrayList<AgendaDetalleDTO>();
+		listaActividades.add(actividad);
+		
+		AgendaDetalleDTO material = new AgendaDetalleDTO();
+		material.setCodigoMaterial("BOLS");
+		material.setUsuarioAlta("SISTEMAS");
+		
+		List<AgendaDetalleDTO> listaMateriales = new ArrayList<AgendaDetalleDTO>();
+		listaMateriales.add(material);
+		
 		agendaDetalle.setAvanceEsperado(40);
 		agendaDetalle.setFecha("2017-02-07");
 		agendaDetalle.setObservaciones("alta de agenda detalle");
 		agendaDetalle.setUsuarioAlta("SISTEMAS");
+		agendaDetalle.setCoordenadas(coordenadas);
+		agendaDetalle.setActividades(listaActividades);
+		agendaDetalle.setMateriales(listaMateriales);
 		
 		
-		List<AgendaDetalleDTO> detalles = new ArrayList<AgendaDetalleDTO>();
-		detalles.add(agendaDetalle);
-		agenda.setDiasAgenda(detalles);
+		
 		
 	}
 	/**
