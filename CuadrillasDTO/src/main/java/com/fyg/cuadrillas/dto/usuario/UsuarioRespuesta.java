@@ -81,11 +81,25 @@ public class UsuarioRespuesta extends ObjetoValor {
 	public void setMenu(List<MenuDTO> menu) {
 		this.menu = menu;
 	}
+	/**
+	 * @return the lista
+	 */
 	public List<UsuarioDTO> getLista() {
 		return lista;
 	}
 
+	/**
+	 * @param lista the lista to set
+	 */
 	public void setLista(List<UsuarioDTO> lista) {
 		this.lista = lista;
-	} 
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

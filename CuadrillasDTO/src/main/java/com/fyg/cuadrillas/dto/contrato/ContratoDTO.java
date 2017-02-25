@@ -12,39 +12,70 @@ public class ContratoDTO extends ObjetoValor {
 	/** Serial UID */
 	private static final long serialVersionUID = -1670407171238552004L;
 	/** idContrato */
-	private Integer idContrato;	
+	private Integer idContrato;
+	/** codigoVialidad */
 	private String codigoVialidad;
+	/** codigoContrato */
 	private String codigoContrato;
+	/** codigoDocumento */
 	private String codigoDocumento;
+	/** codigoEmpresa */
 	private String codigoEmpresa;
 	/** numero del contrato */
 	private String numeroDocumento;
+	/** monto */
 	private double monto;
+	/** subtotal */
 	private double subtotal;
+	/** fechaInicio */
 	private String fechaInicio;
+	/** fechaFin */
 	private String fechaFin;
+	/** diasDuracion */
 	private int diasDuracion;
+	/** pctAvance */
 	private double pctAvance;
+	/** fechaRegistro */
 	private Date fechaRegistro;
+	/** idCuadrilla */
 	private Integer idCuadrilla;
+	/** cuadrilla */
 	private CuadrillaDTO cuadrilla;
+	/** observaciones */
 	private String observaciones;
+	/** url */
 	private String url;
+	/** metros */
 	private int metros;
+	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
+	/** estatus */
 	private String estatus;
+	/** usuarioAlta */
 	private String usuarioAlta;
+	/** usuarioBaja */
 	private String usuarioBaja;
+	/** usuarioUltMod */
 	private String usuarioUltMod;
+	/** numeroPersonas */
 	private Integer numeroPersonas;
+	/** horasTotales */
     private Integer horasTotales;
+    /** idEmpleadoResidente */
 	private Integer idEmpleadoResidente;
+	/** nombreResidente */
 	private String nombreResidente;
+	/** descripcionVialidad */
 	private String descripcionVialidad;
+	/** nombreCuadrilla */
 	private String nombreCuadrilla;
+	/** calificacionCuadrilla */
 	private Integer calificacionCuadrilla;
+	/** horaLaboral */
 	private Integer horaLaboral;
+	/** fechaRegistroContrato */
 	private String fechaRegistroContrato;
+	/** fechaActual */
 	private String fechaActual;
 	/**
 	 * @return the idContrato
@@ -441,5 +472,5 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setFechaActual(String fechaActual) {
 		this.fechaActual = fechaActual;
-	} 
+	}
 }

@@ -4,13 +4,13 @@ import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class HerramientaDTO extends ObjetoValor{
+public class HerramientaDTO extends ObjetoValor {
 /**
  * Serial UID
  */
  private static final long serialVersionUID = -7463726708107865845L;
  /**
-  * Id de herramienta 
+  * Id de herramienta
   */
  private String idHerramienta;
  /**
@@ -18,7 +18,7 @@ public class HerramientaDTO extends ObjetoValor{
   */
  private String nombre;
  /**
-  * Descripcion 
+  * Descripcion
   */
  private String descripcion;
  /**

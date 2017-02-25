@@ -130,7 +130,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	 * id de la cuadrilla
 	 */
 	private Integer idCuadrilla;
-	/** 
+	/**
 	 * usuario
 	 */
 	private String usuario;
@@ -254,7 +254,6 @@ public class EmpleadoDTO extends ObjetoValor {
 	public void setRfcCalculado(String rfcCalculado) {
 		this.rfcCalculado = rfcCalculado;
 	}
-	
 	/**
 	 * @return the fechaIngreso
 	 */

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class EmpleadoDocumentoDTO extends ObjetoValor{
+public class EmpleadoDocumentoDTO extends ObjetoValor {
 	/**
 	 * Serial uid
 	 */
@@ -30,7 +30,7 @@ public class EmpleadoDocumentoDTO extends ObjetoValor{
 	 */
 	private Date fechaUltMod;
 	/**
-	 * estatus 
+	 * estatus
 	 */
 	private String estatus;
 	/**
@@ -40,7 +40,7 @@ public class EmpleadoDocumentoDTO extends ObjetoValor{
 		return idEmpleado;
 	}
 	/**
-	 * @param id_empleado the id_empleado to set
+	 * @param idEmpleado the id_empleado to set
 	 */
 	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;

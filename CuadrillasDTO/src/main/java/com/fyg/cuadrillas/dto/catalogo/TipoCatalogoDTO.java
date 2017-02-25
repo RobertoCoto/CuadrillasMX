@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto.catalogo;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class TipoCatalogoDTO extends ObjetoValor{
+public class TipoCatalogoDTO extends ObjetoValor {
 
 	/**
 	 * serialVersionUID

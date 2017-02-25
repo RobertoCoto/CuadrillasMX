@@ -162,7 +162,7 @@ public class PermisoLaboralDTO extends ObjetoValor {
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
-	
+
 	/**
 	 * @return the codigoPermiso
 	 */

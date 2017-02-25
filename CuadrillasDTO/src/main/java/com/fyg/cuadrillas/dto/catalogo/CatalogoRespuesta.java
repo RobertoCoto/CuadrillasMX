@@ -5,7 +5,7 @@ import java.util.List;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class CatalogoRespuesta extends ObjetoValor{
+public class CatalogoRespuesta extends ObjetoValor {
 
 	/**
 	 * serialVersionUID
@@ -56,5 +56,5 @@ public class CatalogoRespuesta extends ObjetoValor{
 	public void setCatalogo(List<CatalogoDTO> catalogo) {
 		this.catalogo = catalogo;
 	}
-	
+
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class VialidadCoordenadasRespuesta extends ObjetoValor{
+public class VialidadCoordenadasRespuesta extends ObjetoValor {
 
 	/**
-	 * Serial UID 
+	 * Serial UID
 	 */
 	private static final long serialVersionUID = 9163911224204979146L;
 	/**

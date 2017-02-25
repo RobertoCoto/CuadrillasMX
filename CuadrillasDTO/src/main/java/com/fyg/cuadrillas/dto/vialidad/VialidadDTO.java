@@ -26,7 +26,7 @@ public class VialidadDTO extends ObjetoValor {
 	 * fecha de alta
 	 */
 	private Date fechaAlta;
-	/** 
+	/**
 	 * usuario Baja
 	 */
 	private String usuarioBaja;
@@ -47,9 +47,10 @@ public class VialidadDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
-	 * Orden 
+	 * Orden
 	 */
 	private String orden;
+	/** coordenadas */
 	private List<VialidadCoordenadasDTO> coordenadas;
 	/**
 	 * @return the idVialidad
