@@ -16,7 +16,7 @@ public class ActividadNegocio {
 	 * @param actividad recibe valores de la actividad
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta registraActividad (ActividadDTO actividad) {
+	public EncabezadoRespuesta registraActividad(ActividadDTO actividad) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(actividad);
 		//Mandamos a log el objeto de entrada
@@ -54,7 +54,7 @@ public class ActividadNegocio {
 			if (actividad.getNumeroPersonas() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario especificar el numero de personas.");
 			}
-			if (actividad.getNumeroUnidades()== null) {
+			if (actividad.getNumeroUnidades() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario especificar el numero de unidades.");
 			}
 			if (actividad.getListoVencido() == null || actividad.getListoVencido().trim().isEmpty()) {
@@ -65,7 +65,7 @@ public class ActividadNegocio {
 			}
 			ActividadDAO dao = new ActividadDAO();
 			respuesta = dao.registraActividad(uid, actividad);
-			
+
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraActividad - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -88,17 +88,17 @@ public class ActividadNegocio {
 	 * @param actividad recibe valores de actividad
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta autorizaActividad (ActividadDTO actividad) {
+	public EncabezadoRespuesta autorizaActividad(ActividadDTO actividad) {
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(actividad);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "autorizaActividad - Datos Entrada: " + actividad);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-				
+
 				try {
 					if (actividad.getAutorizacion() == null || actividad.getAutorizacion().trim().isEmpty()) {
-						throw new ExcepcionesCuadrillas("Es necesario especificar la autorizacion.");	
+						throw new ExcepcionesCuadrillas("Es necesario especificar la autorizacion.");
 					}
 					if (actividad.getIdActividad() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario especificar el id de la actividad.");
@@ -106,7 +106,7 @@ public class ActividadNegocio {
 					if (actividad.getIdCuadrilla() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario especificar el id de la cuadrilla.");
 					}
-					if(actividad.getUsuarioAutorizacion() == null || actividad.getUsuarioAutorizacion().trim().isEmpty()) {
+					if (actividad.getUsuarioAutorizacion() == null || actividad.getUsuarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario especificar el usuario que autoriza.");
 					}
 					ActividadDAO dao = new ActividadDAO();
@@ -140,7 +140,7 @@ public class ActividadNegocio {
 		LogHandler.debug(uid, this.getClass(), "bajaActividad - Datos Entrada: " + actividad);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		
+
 		try {
 			if (actividad.getIdActividad() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario especificar el id de la actividad.");
@@ -148,7 +148,7 @@ public class ActividadNegocio {
 			if (actividad.getIdCuadrilla() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario especificar el id de la cuadrilla.");
 			}
-			if(actividad.getUsuarioBaja() == null || actividad.getUsuarioBaja().trim().isEmpty()) {
+			if (actividad.getUsuarioBaja() == null || actividad.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario especificar el usuario.");
 			}
 			ActividadDAO dao = new ActividadDAO();
@@ -175,7 +175,7 @@ public class ActividadNegocio {
 	 * @param actividad resibe valores de actividad
 	 * @return regresa respuesta
 	 */
-	public ActividadRespuesta consultaActividad (ActividadDTO actividad) {
+	public ActividadRespuesta consultaActividad(ActividadDTO actividad) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(actividad);
 		//Mandamos a log el objeto de entrada
@@ -188,14 +188,14 @@ public class ActividadNegocio {
 		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 		List<ActividadDTO> listaActividad = null;
 		try {
-			if(actividad.getIdCuadrilla() == null)
+			if (actividad.getIdCuadrilla() == null)
 	    	{
 	    		throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la busqueda.");
 	    	}
 			listaActividad = new ActividadDAO().consultaActividad(uid, actividad);
 			respuesta.setActividad(listaActividad);
 		} catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "consultaActividad - Error: " + ex.getMessage(), ex);			
+			LogHandler.error(uid, this.getClass(), "consultaActividad - Error: " + ex.getMessage(), ex);
 			respuesta.getHeader().setEstatus(false);
 			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 			respuesta.getHeader().setMensajeTecnico(ex.getMessage());

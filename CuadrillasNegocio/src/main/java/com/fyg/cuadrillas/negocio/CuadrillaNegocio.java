@@ -14,7 +14,7 @@ public class CuadrillaNegocio {
 
 	/**
 	 * Metodo para dar de alta una cuadrilla
-	 * @param cuadrilla
+	 * @param cuadrilla dto
 	 * @return regresa una respuesta
 	 */
 	public EncabezadoRespuesta altaCuadrilla(CuadrillaDTO cuadrilla) {
@@ -24,7 +24,7 @@ public class CuadrillaNegocio {
 		LogHandler.debug(uid, this.getClass(), "altaCuadrilla - Datos Entrada: " + cuadrilla);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try { 
+		try {
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
 			}
@@ -33,7 +33,7 @@ public class CuadrillaNegocio {
 			}
 			CuadrillaDAO dao = new CuadrillaDAO();
 			respuesta = dao.altaCuadrilla(uid, cuadrilla);
-			
+
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "altaCuadrilla - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -56,14 +56,14 @@ public class CuadrillaNegocio {
 	 * @param cuadrilla recibe valores de cuadrillas
 	 * @return regrea una respuesta
 	 */
-	public EncabezadoRespuesta bajaCuadrilla (CuadrillaDTO cuadrilla) {
+	public EncabezadoRespuesta bajaCuadrilla(CuadrillaDTO cuadrilla) {
 				//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(cuadrilla);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "bajaCuadrilla - Datos Entrada: " + cuadrilla);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-				
+
 				try {
 					if (cuadrilla.getIdCuadrilla() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la baja.");
@@ -88,7 +88,11 @@ public class CuadrillaNegocio {
 				LogHandler.debug(uid, this.getClass(), "bajaCuadrilla - Datos Salida: " + respuesta);
 				return respuesta;
 	}
-	
+
+	/**
+	 * Metodo para consultar una cuadrilla
+	 * @return respuesta
+	 */
 	public CuadrillaRespuesta consultaCuadrilla() {
 				//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(new String(""));
@@ -102,7 +106,7 @@ public class CuadrillaNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<CuadrillaDTO> listaCuadrilla = null;
 				try {
-					listaCuadrilla= new CuadrillaDAO().consultaCuadrilla(uid);
+					listaCuadrilla = new CuadrillaDAO().consultaCuadrilla(uid);
 			    	respuesta.setCuadrilla(listaCuadrilla);
 				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "consultaCuadrilla - Error: " + ex.getMessage(), ex);
@@ -118,7 +122,7 @@ public class CuadrillaNegocio {
 			    LogHandler.debug(uid, this.getClass(), "consultaCuadrilla - Datos Salida: " + respuesta);
 				return respuesta;
 	}
-	
+
 	/**
 	 * Metodo para modificar una cuadrilla
 	 * @param cuadrilla recibe valores de cuadrilla
@@ -131,7 +135,7 @@ public class CuadrillaNegocio {
 		LogHandler.debug(uid, this.getClass(), "modificaCuadrilla - Datos Entrada: " + cuadrilla);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try { 
+		try {
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
 			}
@@ -140,7 +144,7 @@ public class CuadrillaNegocio {
 			}
 			CuadrillaDAO dao = new CuadrillaDAO();
 			respuesta = dao.modificaCuadrilla(uid, cuadrilla);
-			
+
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "modificaCuadrilla - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);

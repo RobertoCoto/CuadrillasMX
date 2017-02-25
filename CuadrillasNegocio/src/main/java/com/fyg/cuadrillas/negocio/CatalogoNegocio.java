@@ -22,7 +22,6 @@ public class CatalogoNegocio {
 
 	/**
 	 * Metodo para la consulta de catalogos
-	 * @param catalogoOV recibe valores
 	 * @return regresa los resultados del catalogo
 	 */
 	public TipoCatalogoRespuesta consultarTipoCatalogos() {
@@ -77,7 +76,6 @@ public class CatalogoNegocio {
 	    try {
 	    	//validaciones
 	    	if (catalogoOV.getTipoCatalogo() == null || catalogoOV.getTipoCatalogo().trim().isEmpty()) {
-	    		
 	    		throw new ExcepcionesCuadrillas("Es necesario el tipo catalogo para la busqueda.");
 	    	}
 	    	if (catalogoOV.getOrden() == null || catalogoOV.getOrden().isEmpty()) {
@@ -126,7 +124,7 @@ public class CatalogoNegocio {
 			}
 			if (catalogoOV.getUsuarioAlta() == null || catalogoOV.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en la peticion.");
-			}	
+			}
 			if (catalogoOV.getCodigo().contains(" ")) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo NO puede tener espacios.");
 			}
@@ -136,7 +134,7 @@ public class CatalogoNegocio {
 			}
 			if (catalogoOV.getCodigo().trim().length() != LONGITUD_CODIGO_CATALOGO) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo debe ser de 4 caracteres.");
-			}			
+			}
 			if (!Funciones.checkAlpha(catalogoOV.getCodigo().trim())) {
 				throw new ExcepcionesCuadrillas("El codigo del catalogo solo puede contener letras A-Z.");
 			}

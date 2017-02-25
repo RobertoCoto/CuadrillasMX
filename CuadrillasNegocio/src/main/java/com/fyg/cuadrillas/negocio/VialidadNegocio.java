@@ -16,7 +16,7 @@ public class VialidadNegocio {
  * @param vialidad recibe valores de vialidad
  * @return regresa un resultado
  */
-	public VialidadRespuesta consultaVialidad (VialidadDTO vialidad) {
+	public VialidadRespuesta consultaVialidad(VialidadDTO vialidad) {
 		       //Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(vialidad);
 				//Mandamos a log el objeto de entrada
@@ -34,7 +34,7 @@ public class VialidadNegocio {
 			    	}
 					listaVialidad = new VialidadDAO().consultaVialidad(uid, vialidad);
 					respuesta.setVialidad(listaVialidad);
-				}catch  (ExcepcionesCuadrillas ex) {
+				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "consultaVialidad - Error: " + ex.getMessage(), ex);
 					respuesta.getHeader().setEstatus(false);
 					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
@@ -61,15 +61,15 @@ public class VialidadNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
-					if(vialidad.getNombre() == null || vialidad.getNombre().trim().isEmpty()) {
+					if (vialidad.getNombre() == null || vialidad.getNombre().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el nombre de la vialidad.");
 					}
-					if(vialidad.getCoordenadas().size() == 0) {
+					if (vialidad.getCoordenadas().size() == 0) {
 						throw new ExcepcionesCuadrillas("Es necesario las coordenadas para la vialidad.");
 					}
 					VialidadDAO dao = new VialidadDAO();
 					respuesta = dao.altaVialidad(uid, vialidad);
-				}catch  (ExcepcionesCuadrillas ex) {
+				} catch (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "altaVialidad - Error: " + ex.getMessage(), ex);
 					respuesta.setUid(uid);
 					respuesta.setEstatus(false);
@@ -99,7 +99,7 @@ public class VialidadNegocio {
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
-			if(vialidad.getIdVialidad() == null) {
+			if (vialidad.getIdVialidad() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id de la vialidad.");
 			}
 			VialidadDAO dao = new VialidadDAO();

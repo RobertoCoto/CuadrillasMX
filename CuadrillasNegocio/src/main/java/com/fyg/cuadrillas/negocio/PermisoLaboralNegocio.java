@@ -27,7 +27,7 @@ public class PermisoLaboralNegocio {
 		LogHandler.debug(uid, this.getClass(), "altaPermiso - Datos Entrada: " + permiso);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		
+
 		try {
 			if (permiso.getIdEmpleado() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
@@ -44,7 +44,7 @@ public class PermisoLaboralNegocio {
 			if (permiso.getFechaSolicitudMaximo() == null || permiso.getFechaSolicitudMaximo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario la fecha maxima solicitada.");
 			}
-			
+
 			if (permiso.getHoraSolicitudMinimo() == null || permiso.getHoraSolicitudMinimo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario una hora minima para la solicitud.");
 			}
@@ -52,29 +52,29 @@ public class PermisoLaboralNegocio {
 				throw new ExcepcionesCuadrillas("Es necesario una hora maxima para la solicitud.");
 			}
 			//conversor fecha
-			
+
 			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-mm-dd");
 			 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-			 
+
 			Date fechaMin = formateador.parse(permiso.getFechaSolicitudMinimo());
 			Date fechaMax = formateador.parse(permiso.getFechaSolicitudMaximo());
-			
+
 			Date horaMin = dateFormat.parse(permiso.getHoraSolicitudMinimo());
 			Date horaMax = dateFormat.parse(permiso.getHoraSolicitudMaxima());
-			
-			if(fechaMax.before(fechaMin)) {
+
+			if (fechaMax.before(fechaMin)) {
 				throw new ExcepcionesCuadrillas("La fecha maxima no debe ser menor a la fecha minima.");
 			}
-			
-			if(horaMin.compareTo(horaMax) < 1) {
+
+			if (horaMin.compareTo(horaMax) < 1) {
 				throw new ExcepcionesCuadrillas("la hora maxima no debe ser menor a la hora minima");
 			}
-			if(horaMin.equals(horaMax)) {
+			if (horaMin.equals(horaMax)) {
 				throw new ExcepcionesCuadrillas("La hora no puede ser igual debe ser mayor.");
 			}
 			PermisoLaboralDAO dao = new PermisoLaboralDAO();
 			respuesta = dao.altaPermiso(uid, permiso);
-			
+
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "altaPermiso - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
@@ -111,10 +111,10 @@ public class PermisoLaboralNegocio {
 					if (permiso.getUsuarioAutorizacion() == null || permiso.getUsuarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 					}
-					
+
 					PermisoLaboralDAO dao = new PermisoLaboralDAO();
 					respuesta = dao.autorizacionPermiso(uid, permiso);
-					
+
 				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "autorizacionPermiso - Error: " + ex.getMessage(), ex);
 					respuesta.setUid(uid);
@@ -144,14 +144,14 @@ public class PermisoLaboralNegocio {
 		LogHandler.debug(uid, this.getClass(), "bajaPermiso - Datos Entrada: " + permiso);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try { 
+		try {
 			if (permiso.getIdPermiso() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del permiso.");
 			}
 			if (permiso.getIdEmpleado() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
 			}
-			if(permiso.getUsuarioBaja() == null || permiso.getUsuarioBaja().trim().isEmpty()) {
+			if (permiso.getUsuarioBaja() == null || permiso.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el usuario.");
 			}
 			PermisoLaboralDAO dao = new PermisoLaboralDAO();
@@ -191,13 +191,13 @@ public class PermisoLaboralNegocio {
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<PermisoLaboralDTO> listaPermiso = null;
 				try {
-					if(permiso.getIdPermiso() == null) {
+					if (permiso.getIdPermiso() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id del permiso para la busqueda.");
 					}
 					listaPermiso = new PermisoLaboralDAO().consultaPermisoTemporal(uid, permiso);
 					respuesta.setPermiso(listaPermiso);
 				} catch  (ExcepcionesCuadrillas ex) {
-					LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);			
+					LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);
 					respuesta.getHeader().setEstatus(false);
 					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 					respuesta.getHeader().setMensajeTecnico(ex.getMessage());

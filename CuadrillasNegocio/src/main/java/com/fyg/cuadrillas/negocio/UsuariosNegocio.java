@@ -208,23 +208,23 @@ public class UsuariosNegocio {
 			LogHandler.debug(uid, this.getClass(), "modificaContrasena - Datos Entrada: " + usuario);
 			//Variable de resultado
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-			
-			try {				
-				if(usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
+
+			try {
+				if (usuario.getContrasenaAnterior() == null || usuario.getContrasenaAnterior().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña anterior.");
 				}
-				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
+				if (usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
 				}
-				if(usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
+				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de repetir la nueva contraseña.");
-				}				
+				}
 				if (usuario.getContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
 					throw new ExcepcionesCuadrillas("La contraseña nueva debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
 				}
 				if (usuario.getRepetirContrasenaNueva().trim().length() < LONGITUD_PSSWD) {
 					throw new ExcepcionesCuadrillas("La contraseña debe tener minimo " + LONGITUD_PSSWD + " caracteres.");
-				}							
+				}
 				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
 					//encriptacion de contraseña
 					String contrasenaNueva = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasenaNueva());
@@ -232,7 +232,7 @@ public class UsuariosNegocio {
 				} else {
 					throw new ExcepcionesCuadrillas("No coincide la nueva contraseña, intente de nuevo.");
 				}
-				if(usuario.getContrasenaNueva().equals(usuario.getContrasena())) {
+				if (usuario.getContrasenaNueva().equals(usuario.getContrasena())) {
 					throw new ExcepcionesCuadrillas("No se permite utilizar la misma contraseña anterior.");
 				}
 				//Se encripta la contraseña anterior
@@ -242,7 +242,7 @@ public class UsuariosNegocio {
 				//se envia al dao
 				UsuarioDAO dao = new UsuarioDAO();
 				respuesta = dao.modificaContrasena(uid, usuario);
-				
+
 			} catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "modificaContrasena - Error: " + ex.getMessage(), ex);
 				respuesta.setUid(uid);
@@ -259,9 +259,9 @@ public class UsuariosNegocio {
 			}
 			LogHandler.debug(uid, this.getClass(), "modificaContrasena - Datos Salida: " + respuesta);
 			return respuesta;
-			
+
 		}
-		
+
 		/**
 		 * Metodo para recuperar la contraseña
 		 * @param usuario recibe el valor del usuario
@@ -274,12 +274,12 @@ public class UsuariosNegocio {
 			LogHandler.debug(uid, this.getClass(), "recuperaContrasena - Datos Entrada: " + usuario);
 			//Variable de resultado
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-			
+
 			try {
-				if(usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
+				if (usuario.getContrasenaNueva() == null || usuario.getContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de ingresar la contraseña nueva.");
 				}
-				if(usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
+				if (usuario.getRepetirContrasenaNueva() == null || usuario.getRepetirContrasenaNueva().trim().isEmpty()) {
 					throw new ExcepcionesCuadrillas("El campo esta vacio, favor de repetir la nueva contraseña.");
 				}
 				if (usuario.getRepetirContrasenaNueva().equals(usuario.getContrasenaNueva())) {
@@ -298,7 +298,7 @@ public class UsuariosNegocio {
 				//se envia al dao
 				UsuarioDAO dao = new UsuarioDAO();
 				respuesta = dao.recuperaContrasena(uid, usuario);
-				
+
 			} catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "recuperaContrasena - Error: " + ex.getMessage(), ex);
 				respuesta.setUid(uid);
@@ -315,8 +315,9 @@ public class UsuariosNegocio {
 			}
 			LogHandler.debug(uid, this.getClass(), "recuperaContrasena - Datos Salida: " + respuesta);
 			return respuesta;
-			
-		} 
+
+		}
+
 		/**
 		 * Metodo para consultar todos los usuarios
 		 * @return regresa lista de usuarios

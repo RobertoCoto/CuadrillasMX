@@ -165,7 +165,7 @@ public class EmpleadoNegocio {
 			if (empleado.getCodigoCausaSalida() == null || empleado.getCodigoCausaSalida().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("La causa de la salida es necesario para la baja.");
 			}
-			
+
 			if (empleado.getUsuarioBaja() == null || empleado.getUsuarioBaja().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El Usuario es necesario para la baja.");
 			}
@@ -209,7 +209,7 @@ public class EmpleadoNegocio {
 	 * Metodo para modificar empleado
 	 * @param empleado recibe valores de empleado
 	 * @return regresa una respuesta
-	 */	
+	 */
 	public EncabezadoRespuesta modificaEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -242,7 +242,6 @@ public class EmpleadoNegocio {
 			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en la actualizacion del empleado.");
 			}
-			 
 			if (empleado.getCodigoArea() == null || empleado.getCodigoArea().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el codigo area en la actualizacion del empleado.");
 			}
@@ -260,7 +259,7 @@ public class EmpleadoNegocio {
 			if (empleado.getFrecuenciaPago() == null) {
 				empleado.setFrecuenciaPago("");
 			}
-			
+
 			/*if (empleado.getDocumentos().size() == 0) {
 				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de actualizacion del empleado. del empleado.");
 			}
@@ -328,7 +327,7 @@ public class EmpleadoNegocio {
 	    	 listaEmpleado = new EmpleadoDAO().consultaGeneral(uid, empleado);
 	    	 respuesta.setEmpleado(listaEmpleado);
 	    } catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(),"ConsultaEmpleado - Error: "+ex.getMessage(),ex);
+			LogHandler.error(uid, this.getClass(), "ConsultaEmpleado - Error: " + ex.getMessage(), ex);
 			respuesta.getHeader().setEstatus(false);
 			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
@@ -347,34 +346,34 @@ public class EmpleadoNegocio {
 	 * @throws Exception si se crea un error
 	 */
 	public EmpleadoRespuesta consultaGeneral() throws Exception {
-				//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(new String(""));
-				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "consultaGeneral - Daton Entrada: ");
-				EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
-				respuesta.setHeader( new EncabezadoRespuesta());
-				respuesta.getHeader().setUid(uid);
-				respuesta.getHeader().setEstatus(true);
-				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
-				List<EmpleadoDTO> listaEmpleado = null;
-						try {
-							listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleado(uid);
-							respuesta.setEmpleado(listaEmpleado);
-						}catch  (ExcepcionesCuadrillas ex) {
-							LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
-							respuesta.getHeader().setEstatus(false);
-							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-						} catch (Exception ex) {
-					    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
-					    	respuesta.getHeader().setEstatus(false);
-							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-					    }
-					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
-						return respuesta;
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(new String(""));
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaGeneral - Daton Entrada: ");
+		EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		List<EmpleadoDTO> listaEmpleado = null;
+		try {
+			listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleado(uid);
+			respuesta.setEmpleado(listaEmpleado);
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
+		return respuesta;
 	}
-	
+
 	/**
 	 * Metodo para consultar los documentos
 	 * @param empleadoDocumento recibe valores de los docs
@@ -402,7 +401,7 @@ public class EmpleadoNegocio {
 	    	 listaDocumento = new EmpleadoDAO().consultaDocumentos(uid, empleadoDocumento);
 	    	 respuesta.setEmpleadoDocumento(listaDocumento);
 	    } catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(),"consultaDocumento - Error: "+ex.getMessage(),ex);
+			LogHandler.error(uid, this.getClass(), "consultaDocumento - Error: " + ex.getMessage(), ex);
 			respuesta.getHeader().setEstatus(false);
 			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
@@ -420,7 +419,7 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe parametros de empleado
 	 * @return regresa lista de colaboradores
 	 */
-	public EmpleadoRespuesta consultaColaborador (EmpleadoDTO empleado) {
+	public EmpleadoRespuesta consultaColaborador(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(empleado);
 				//Mandamos a log el objeto de entrada
@@ -442,8 +441,8 @@ public class EmpleadoNegocio {
 			    	listaColaborador = new EmpleadoDAO().consultaColaborador(uid, empleado);
 			    	respuesta.setEmpleado(listaColaborador);
 			    } catch  (ExcepcionesCuadrillas ex) {
-					LogHandler.error(uid, this.getClass(),"consultaColaborador - Error: "+ex.getMessage(),ex);
-					respuesta.getHeader().setEstatus(false); 
+					LogHandler.error(uid, this.getClass(), "consultaColaborador - Error: " + ex.getMessage(), ex);
+					respuesta.getHeader().setEstatus(false);
 					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 				} catch (Exception ex) {
@@ -460,7 +459,7 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores del usuario
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta notificaImss (EmpleadoDTO empleado) {
+	public EncabezadoRespuesta notificaImss(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(empleado);
 				//Mandamos a log el objeto de entrada
@@ -471,7 +470,7 @@ public class EmpleadoNegocio {
 					if (empleado.getIdEmpleado() == null || empleado.getIdEmpleado().intValue() <= 0) {
 						throw new ExcepcionesCuadrillas("El ID de empleado es necesario para la notificación al imss.");
 					}
-					if(empleado.getUsuarioAutImss() == null || empleado.getUsuarioAutImss().trim().isEmpty()) {
+					if (empleado.getUsuarioAutImss() == null || empleado.getUsuarioAutImss().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario para la notificacion al imss.");
 					}
 					EmpleadoDAO dao = new EmpleadoDAO();
