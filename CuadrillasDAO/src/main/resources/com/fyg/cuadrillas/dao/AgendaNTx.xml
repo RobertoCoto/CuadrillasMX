@@ -2,6 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.AgendaNTx">
 
+<resultMap type="Agenda" id="agenda">
+<result column="id_agenda" property="idAgenda"/>
+<result column="id_contrato" property="idContrato"/>
+<result column="fecha_inicio" property="fechaInicio"/>
+<result column="fecha_fin" property="fechaFin"/>
+<result column="no_semana" property="noSemana"/>
+<result column="no_trabajadores" property="noTrabajadores"/>
+<result column="no_horas" property="noHoras"/>
+<result column="estatus" property="estatus"/>
+<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+<result column="fecha_agenda" property="fechaAgenda"/>
+<result column="avance_esperado" property="avanceEsperado"/>
+<result column="observaciones_detalle" property="observacionesDetalle"/>
+<result column="actividad" property="actividad"/>
+<result column="material" property="material"/>
+<result column="descripcion_actividad" property="descripcionActividad"/>
+<result column="descripcion_material" property="descripcionMaterial"/>
+</resultMap> 
+
+<resultMap type="Coordenada" id="coordenada">	
+	<result column="orden" property="orden"/>
+	<result column="direccion" property="direccion"/>
+	<result column="latitud" property="latitud"/>
+	<result column="longitud" property="longitud"/>	
+</resultMap>
+
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
 SELECT count(id_contrato)
 FROM agenda
@@ -14,5 +40,46 @@ SELECT count(estatus)
 FROM agenda 
 WHERE id_agenda = #{idAgenda}
 AND estatus ='I'
+</select>
+
+<select id="consultaAgenda" parameterType="Agenda" resultMap="agenda">
+SELECT 
+a.id_agenda,
+a.id_contrato,
+a.fecha_inicio,
+a.fecha_fin,
+a.no_semana,
+a.no_trabajadores,
+a.no_horas,
+a.estatus,
+ag.id_agenda_detalle AS id_agenda_detalle,
+ag.fecha AS fecha_agenda,
+ag.avance_esperado AS avance_esperado,
+ag.observaciones  AS observaciones_detalle,
+act.codigo_actividad AS actividad,
+ma.codigo_material AS material,
+cat.descripcion AS descripcion_actividad,
+cata.descripcion AS descripcion_material
+FROM agenda a
+LEFT JOIN agenda_detalle ag ON a.id_agenda = ag.id_agenda
+LEFT JOIN agenda_actividades act ON ag.id_agenda_detalle = act.id_agenda_detalle
+LEFT JOIN agenda_materiales ma ON ag.id_agenda_detalle = ma.id_agenda_detalle
+LEFT JOIN catalogo cat ON act.codigo_actividad = cat.codigo
+LEFT JOIN catalogo cata ON ma.codigo_material = cata.codigo
+WHERE a.estatus = 'A'
+</select>
+
+<select id="consultaAgendaCoordenadas" parameterType="Agenda" resultMap="coordenada">
+	SELECT 
+		orden,
+		direccion,
+		latitud,
+		longitud
+	FROM agenda_coordenadas
+	WHERE estatus = 'A'	
+	<if test="idAgendaDetalle !=null">
+	 	AND id_agenda_detalle = #{idAgendaDetalle}
+	</if>	
+	
 </select>
 </mapper>
