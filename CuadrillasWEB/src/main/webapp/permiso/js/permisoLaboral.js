@@ -3,8 +3,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter) {
      //fecha Sistema
    var date = new Date();
    $scope.FromDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-   $scope.fecha = new Date();
-  
+   
 	//obtener el id enviado por GET
 	   $scope.obtainGet = function getGET(){
 		   var loc = document.location.href;
@@ -118,6 +117,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter) {
 						    	$('#msload').modal('hide');
 								$('#alert').show();
 								$('#msgerror').text(response.data.mensajeFuncional);
+								$scope.formPermiso.$setPristine();
 						        console.error(response);
 						    });
 		    		}

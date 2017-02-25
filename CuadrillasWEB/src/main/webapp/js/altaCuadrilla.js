@@ -25,14 +25,14 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 
 
 		var data = $(this).val();
-		var regx = /^[A-z ������������]+$/;
+		var regx = /^[A-z0-9 ������������]+$/;
 
 		if ( data === '' || data.match(regx) ){
 			$('.amt_errorNombreCuadrilla').fadeOut('slow');
 		}
 		else {
 			$('.amt_errorNombreCuadrilla')
-				.text('no se permiten numeros o caracteres invalidos')
+				.text('no se permiten caracteres invalidos')
 				.css({'color':'#fff', 'background':'#990000', 'padding':'3px'})
 				.fadeIn('fast');
 		}
@@ -137,9 +137,15 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 
 		    	 if (!confirmar)
 		    	 {
-		    		 alert('se ha cancelado la operacion.');
+		    		 $('#alert').show();
+					 $('#msgerror').text('Se ha cancelado la operacion.');
+		    		 $scope.cuadrilla.actualizar = false;
+					 $scope.cuadrilla.editar = false;
 		    		 return false;
-		    	 }
+		    	 }else  {
+					 $('#msload').modal('show');
+					 $('#alert').hide();
+				}
 
 		    	 $http({
 		              method: 'GET',
@@ -153,12 +159,19 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 
 		    	 }
 				    }).then(function mySucces(response) {
-				    	alert(response.data.mensajeFuncional);
+				    	$('#msload').modal('hide');
+						$('#success').show();
+						$('#msgaviso').text(response.data.mensajeFuncional);
+						$scope.consultaCuadrilla();
 				    	 console.info(response);
 				    	 
 				    }, function myError(response) {
-				        console.error(response);
-				        alert(response.data.mensajeFuncional);
+				    	$('#msload').modal('hide');
+				    	 console.error(response);
+						$('#alert').show();
+						$('#msgerror').text(response.data.mensajeFuncional);
+						$scope.cuadrilla.actualizar = false;
+						$scope.cuadrilla.editar = false;
 				    });
 		    	};
 
@@ -226,6 +239,7 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 							$('#msload').modal('hide');
 							$('#success').show();
 							$('#msgaviso').text(response.data.mensajeFuncional);
+							$scope.consultaCuadrilla();
 				    	//alert(response.data.mensajeFuncional);
 				    	 console.info(response);
 				    	 //location.reload();
@@ -252,7 +266,10 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 							$('#alert').show();
  						  $('#msgerror').text('Se ha cancelado la operacion.');
 						return false;
-		    		}
+		    		}else  {
+						 $('#msload').modal('show');
+						 $('#alert').hide();
+    				}
 
 		    		$scope.CuadrillaData = datosCuadrilla.idCuadrilla;
 		    	$http({
@@ -263,12 +280,16 @@ $('input[data-form=nombreCuadrilla]').keyup(function() {
 		              "usuario" : data.data.usuario.usuario
 		    	 }
 				    }).then(function mySucces(response) {
-				    	alert(response.data.mensajeFuncional);
+				    	$('#msload').modal('hide');
+						$('#success').show();
+						$('#msgaviso').text(response.data.mensajeFuncional);
+						$scope.consultaCuadrilla();
 				    	 console.info(response);
-				    	 location.reload();
 				    }, function myError(response) {
-				        console.error(response);
-				        alert(response.data.mensajeFuncional);
+				    	$('#msload').modal('hide');
+				    	 console.error(response);
+						$('#alert').show();
+						$('#msgerror').text(response.data.mensajeFuncional);
 				    });
 		    	};
 

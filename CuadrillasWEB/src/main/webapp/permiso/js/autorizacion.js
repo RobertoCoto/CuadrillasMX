@@ -87,6 +87,7 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 				    	 //opener.top.location.reload();
 				    }, function myError(response) {
 				    	$('#msload').modal('hide');
+				    	$('#success').hide();
 						$('#alert').show();
 						$('#msgerror').text(response.data.mensajeFuncional);
 				        console.error(response);
@@ -124,6 +125,7 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 						    	 //opener.top.location.reload();
 						    }, function myError(response) {
 						    	$('#msload').modal('hide');
+						    	$('#success').hide();
 								$('#alert').show();
 								$('#msgerror').text(response.data.mensajeFuncional);
 						        console.error(response);

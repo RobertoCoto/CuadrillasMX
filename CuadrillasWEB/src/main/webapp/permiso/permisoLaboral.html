@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Permiso Laboral</title>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+
     	<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/permisoLaboral.js"></script>
@@ -132,13 +133,13 @@ body { padding-top:30px; }
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine }">
+                        <div class="form-group form-group-sm" >
                             <label for="fechaMaxima" class="control-label">a</label>
                            <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input type="date" id="fechaSolicitudMaxima" ng-model="permiso.fechaMaxima" name="fechaSolicitudMaxima" class="form-control" required date-format="yyyy-MM-dd">
+                  			<input type="date" id="fechaSolicitudMaxima" ng-model="permiso.fechaMaxima" name="fechaSolicitudMaxima" class="form-control">
                				 </div>
-               				 <p ng-show="formPermiso.fechaSolicitudMaxima.$invalid && !formPermiso.fechaSolicitudMaxima.$pristine" class="help-block">Es necesario la fecha maxima.</p>
+               				 
                         </div>
                     </div>
 			  </div>
@@ -182,5 +183,20 @@ body { padding-top:30px; }
 		</div>
 </div>
 </div>
+<script>
+$(document).ready( function() {
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+   $('#fechaSolicitudMaxima').val(today);
+    
+
+});
+</script>
 </body>
 </html>
