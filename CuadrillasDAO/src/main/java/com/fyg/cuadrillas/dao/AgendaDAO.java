@@ -12,6 +12,7 @@ import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 
+
 public class AgendaDAO {
 
 	/**
@@ -307,6 +308,11 @@ public class AgendaDAO {
 			if ( listaConsultaAgenda.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
 			}
+			for (AgendaDTO c : listaConsultaAgenda) {
+				List<CoordenadaDTO> coordenadas = null;
+				coordenadas = sessionNTx.selectList("AgendaDAO.consultaContratoCoordenadas", c);
+				c.setCoordenadas(coordenadas);
+		    }
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());

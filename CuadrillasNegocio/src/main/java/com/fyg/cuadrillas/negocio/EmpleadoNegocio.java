@@ -88,18 +88,6 @@ public class EmpleadoNegocio {
 			if (empleado.getFrecuenciaPago() == null) {
 				empleado.setFrecuenciaPago("");
 			}
-
-			/*if (empleado.getDocumentos().size() == 0) {
-				throw new ExcepcionesCuadrillas("La lista de documentos es necesaria en la peticion de alta del empleado.");
-			}
-			for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
-				if (documento.getCodigoEmpDoc() == null || documento.getCodigoEmpDoc().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El codigo del documento es obligatorio.");
-				}
-				if (documento.getEstatus() == null || documento.getEstatus().trim().isEmpty()) {
-					throw new ExcepcionesCuadrillas("El estatus es obligatorio.");
-				}
-			}*/
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en el alta del empleado.");
 			}
