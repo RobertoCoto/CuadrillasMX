@@ -36,11 +36,13 @@ public class AltaAgendaTest {
 		
 		CoordenadaDTO coordenada1 = new CoordenadaDTO();
 		coordenada1.setOrden(1);
+		coordenada1.setDireccion("AV VASCO DE QUIROGA 22");
 		coordenada1.setLatitud(19.3507338f);
 		coordenada1.setLongitud(-99.0747743f);
 		
 		CoordenadaDTO coordenada2 = new CoordenadaDTO();
 		coordenada2.setOrden(2);
+		coordenada2.setDireccion("AV CONSTITUYENTES 22");
 		coordenada2.setLatitud(19.3556158f);
 		coordenada2.setLongitud(-99.0967412f);		
 		
