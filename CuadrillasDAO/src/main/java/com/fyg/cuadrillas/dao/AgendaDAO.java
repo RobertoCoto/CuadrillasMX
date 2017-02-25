@@ -310,7 +310,7 @@ public class AgendaDAO {
 			}
 			for (AgendaDTO c : listaConsultaAgenda) {
 				List<CoordenadaDTO> coordenadas = null;
-				coordenadas = sessionNTx.selectList("AgendaDAO.consultaContratoCoordenadas", c);
+				coordenadas = sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", c);
 				c.setCoordenadas(coordenadas);
 		    }
 		} catch (Exception ex) {
