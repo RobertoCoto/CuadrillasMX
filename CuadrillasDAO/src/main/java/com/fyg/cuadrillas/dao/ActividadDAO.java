@@ -51,18 +51,18 @@ public class ActividadDAO {
 	 * @param actividad recibe valores de actividad
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta autorizaActividad (String uid, ActividadDTO actividad) {
+	public EncabezadoRespuesta autorizaActividad(String uid, ActividadDTO actividad) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("autorización correcta.");
-		
+
 		try {
 			//Validamos si ya esta autorizado la actividad
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeAutorizacion= (Integer) sessionNTx.selectOne("ActividadDAO.existeActividad", actividad);
+			int existeAutorizacion = (Integer) sessionNTx.selectOne("ActividadDAO.existeActividad", actividad);
 			if (existeAutorizacion > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar, la actividad esta autorizada.");
 			}
@@ -75,7 +75,7 @@ public class ActividadDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
+
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -89,7 +89,7 @@ public class ActividadDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
-		
+
 	}
 	/**
 	 * metodo para dar de baja una actividad
@@ -97,7 +97,7 @@ public class ActividadDAO {
 	 * @param actividad recibe valores d actividad
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta bajaActividad (String uid, ActividadDTO actividad) {
+	public EncabezadoRespuesta bajaActividad(String uid, ActividadDTO actividad) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -107,7 +107,7 @@ public class ActividadDAO {
 		try {
 			//Validamos si ya esta inactivo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeBaja= (Integer) sessionNTx.selectOne("ActividadDAO.existeBajaActividad", actividad);
+			int existeBaja = (Integer) sessionNTx.selectOne("ActividadDAO.existeBajaActividad", actividad);
 			if (existeBaja > 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar, la actividad ya esta dado de baja.");
 			}
@@ -120,8 +120,8 @@ public class ActividadDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
-		}catch (Exception ex) {
+
+		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
 			FabricaConexiones.rollBack(sessionTx);
@@ -133,7 +133,7 @@ public class ActividadDAO {
 			FabricaConexiones.close(sessionTx);
 			FabricaConexiones.close(sessionNTx);
 		}
-		return respuesta;	
+		return respuesta;
 	}
 	/**
 	 * Metodo para consultar actividades
@@ -143,14 +143,14 @@ public class ActividadDAO {
 	 * @throws Exception si surgen excepciones
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ActividadDTO> consultaActividad (String uid, ActividadDTO actividad) throws Exception {
+	public List<ActividadDTO> consultaActividad(String uid, ActividadDTO actividad) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
 		List<ActividadDTO> listaActividad = null;
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
