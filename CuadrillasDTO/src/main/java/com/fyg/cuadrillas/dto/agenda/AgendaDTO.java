@@ -3,6 +3,7 @@ package com.fyg.cuadrillas.dto.agenda;
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 
 public class AgendaDTO extends ObjetoValor {
@@ -30,9 +31,46 @@ public class AgendaDTO extends ObjetoValor {
 	private int noHoras;
 	/** diasAgenda */
 	private List<AgendaDetalleDTO> diasAgenda;
+	private List<CoordenadaDTO> coordenadas;
 	/** fechaFin */
 	private String usuario;
-
+	/**
+	 * id agenda detalle
+	 */
+	private Integer idAgendaDetalle;
+	private Integer agendaDetalle;
+	/**
+	 * fecha agenda
+	 */
+	private String fechaAgenda;
+	/**
+	 * avance
+	 */
+	private Integer avanceEsperado;
+	/**
+	 * obsevraciones
+	 */
+	private String observacionesDetalle;
+	/**
+	 * codigo
+	 */
+	private String Actividad;
+	/**
+	 * material
+	 */
+	private String Material;
+	/**
+	 * descripcion actividad
+	 */
+	private String descripcionActividad;
+	/**
+	 * descripcion material
+	 */
+	private String descripcionMaterial;
+	/**
+	 * estatus
+	 */
+	private String estatus;
 	/**
 	 * @return the idAgenda
 	 */
@@ -153,4 +191,136 @@ public class AgendaDTO extends ObjetoValor {
 	public void setIdContrato(Integer idContrato) {
 		this.idContrato = idContrato;
 	}
+	/**
+	 * @return the coordenadas
+	 */
+	public List<CoordenadaDTO> getCoordenadas() {
+		return coordenadas;
+	}
+	/**
+	 * @param coordenadas the coordenadas to set
+	 */
+	public void setCoordenadas(List<CoordenadaDTO> coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+	/**
+	 * @return the idAgendaDetalle
+	 */
+	public Integer getIdAgendaDetalle() {
+		return idAgendaDetalle;
+	}
+	/**
+	 * @param idAgendaDetalle the idAgendaDetalle to set
+	 */
+	public void setIdAgendaDetalle(Integer idAgendaDetalle) {
+		this.idAgendaDetalle = idAgendaDetalle;
+	}
+	/**
+	 * @return the fechaAgenda
+	 */
+	public String getFechaAgenda() {
+		return fechaAgenda;
+	}
+	/**
+	 * @param fechaAgenda the fechaAgenda to set
+	 */
+	public void setFechaAgenda(String fechaAgenda) {
+		this.fechaAgenda = fechaAgenda;
+	}
+	/**
+	 * @return the avanceEsperado
+	 */
+	public Integer getAvanceEsperado() {
+		return avanceEsperado;
+	}
+	/**
+	 * @param avanceEsperado the avanceEsperado to set
+	 */
+	public void setAvanceEsperado(Integer avanceEsperado) {
+		this.avanceEsperado = avanceEsperado;
+	}
+	/**
+	 * @return the observacionesDetalle
+	 */
+	public String getObservacionesDetalle() {
+		return observacionesDetalle;
+	}
+	/**
+	 * @param observacionesDetalle the observacionesDetalle to set
+	 */
+	public void setObservacionesDetalle(String observacionesDetalle) {
+		this.observacionesDetalle = observacionesDetalle;
+	}
+	/**
+	 * @return the actividad
+	 */
+	public String getActividad() {
+		return Actividad;
+	}
+	/**
+	 * @param actividad the actividad to set
+	 */
+	public void setActividad(String actividad) {
+		Actividad = actividad;
+	}
+	/**
+	 * @return the material
+	 */
+	public String getMaterial() {
+		return Material;
+	}
+	/**
+	 * @param material the material to set
+	 */
+	public void setMaterial(String material) {
+		Material = material;
+	}
+	/**
+	 * @return the descripcionActividad
+	 */
+	public String getDescripcionActividad() {
+		return descripcionActividad;
+	}
+	/**
+	 * @param descripcionActividad the descripcionActividad to set
+	 */
+	public void setDescripcionActividad(String descripcionActividad) {
+		this.descripcionActividad = descripcionActividad;
+	}
+	/**
+	 * @return the descripcionMaterial
+	 */
+	public String getDescripcionMaterial() {
+		return descripcionMaterial;
+	}
+	/**
+	 * @param descripcionMaterial the descripcionMaterial to set
+	 */
+	public void setDescripcionMaterial(String descripcionMaterial) {
+		this.descripcionMaterial = descripcionMaterial;
+	}
+	/**
+	 * @return the estatus
+	 */
+	public String getEstatus() {
+		return estatus;
+	}
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
+	/**
+	 * @return the agendaDetalle
+	 */
+	public Integer getAgendaDetalle() {
+		return agendaDetalle;
+	}
+	/**
+	 * @param agendaDetalle the agendaDetalle to set
+	 */
+	public void setAgendaDetalle(Integer agendaDetalle) {
+		this.agendaDetalle = agendaDetalle;
+	} 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class AgendaRespuesta extends ObjetoValor {
+public class AgendaRespuesta extends ObjetoValor{
 
 	/**
 	 * Serial UID
