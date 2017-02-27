@@ -17,8 +17,10 @@ import com.google.gson.Gson;
  * Servlet implementation class ConsultaGeneralEmpleado
  */
 public class ConsultaGeneralEmpleado extends HttpServlet {
+	/**
+	 * SERIAL UID
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,14 +31,17 @@ public class ConsultaGeneralEmpleado extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
@@ -48,7 +53,7 @@ public class ConsultaGeneralEmpleado extends HttpServlet {
 //	        System.setProperty("http.proxyPort", "8080");
 //	        System.setProperty("https.proxyHost", "169.169.4.85");
 //	        System.setProperty("https.proxyPort", "8080");
-			
+
 			//crea objeto de negocio
 			final EmpleadoNegocio negocio = new EmpleadoNegocio();
 			respuesta = negocio.consultaGeneral();
@@ -60,7 +65,7 @@ public class ConsultaGeneralEmpleado extends HttpServlet {
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);

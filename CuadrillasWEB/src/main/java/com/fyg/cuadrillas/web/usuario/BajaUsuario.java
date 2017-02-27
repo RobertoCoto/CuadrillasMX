@@ -18,8 +18,10 @@ import com.google.gson.Gson;
  * Servlet implementation class BajaUsuario
  */
 public class BajaUsuario extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,6 +32,8 @@ public class BajaUsuario extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -37,25 +41,27 @@ public class BajaUsuario extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		try {
 			String user = request.getParameter("user");
-			
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			 //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
-	        
+
 	        //Login usuario
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
@@ -68,8 +74,8 @@ public class BajaUsuario extends HttpServlet {
 	      //convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);

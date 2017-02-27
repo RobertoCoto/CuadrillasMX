@@ -17,8 +17,11 @@ import com.google.gson.Gson;
  * Servlet implementation class BajaActividad
  */
 public class BajaActividad extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,6 +32,8 @@ public class BajaActividad extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -36,28 +41,29 @@ public class BajaActividad extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		try {
 			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
 			Integer idActividad = Integer.parseInt(request.getParameter("idActividad"));
 			String usuario = request.getParameter("usuario");
-			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			//crea objeto de negocio
 			final ActividadNegocio negocio = new ActividadNegocio();
-			
-			//datos 
+
+			//datos
 			ActividadDTO actividad = new ActividadDTO();
 			actividad.setIdActividad(idActividad);
 			actividad.setIdCuadrilla(idCuadrilla);

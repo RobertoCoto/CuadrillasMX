@@ -18,8 +18,11 @@ import com.google.gson.Gson;
  * Servlet implementation class NotificaImss
  */
 public class NotificaImss extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,6 +33,8 @@ public class NotificaImss extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -37,6 +42,8 @@ public class NotificaImss extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -46,16 +53,16 @@ public class NotificaImss extends HttpServlet {
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String usuario = request.getParameter("usuario");
-			
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			//crea objeto de negocio
 			final EmpleadoNegocio negocio = new EmpleadoNegocio();
-			
+
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setIdEmpleado(idEmpleado);
 			empleado.setUsuarioAutImss(usuario);
@@ -76,7 +83,6 @@ public class NotificaImss extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
-		
 	}
 
 }

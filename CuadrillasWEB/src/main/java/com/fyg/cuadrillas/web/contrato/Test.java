@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * @fecha_creacion: 25-02-2017
  */
-public class test extends HttpServlet {
+public class Test extends HttpServlet {
 	/**
 	 *Serializable
 	 */
@@ -64,12 +64,14 @@ public class test extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public Test() {
         super();
     }
 
     /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -77,6 +79,8 @@ public class test extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -100,7 +104,7 @@ public class test extends HttpServlet {
 				          System.out.println("Nombre Archivo FormField() = " + item.getFieldName());
 				          System.out.println("item: " + item.toString());
 						  if (item.isFormField()) {
-							  
+
 							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 								  System.out.println(item.getString());
 								  //incidencia.setIdAmbito(Integer.valueOf(item.getString()));
@@ -124,7 +128,6 @@ public class test extends HttpServlet {
 				}
 
 				if (!(rutaImagen == null || rutaImagen.trim().isEmpty())) {
-					
 					/*Imagen imagen = new Imagen();
 					imagen.setRuta(rutaImagen);
 					imagen.setEstatus("A");

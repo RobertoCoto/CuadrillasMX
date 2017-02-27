@@ -18,8 +18,10 @@ import com.google.gson.Gson;
  * Servlet implementation class SalidaAsistencia
  */
 public class SalidaAsistencia extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,6 +32,8 @@ public class SalidaAsistencia extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -37,27 +41,28 @@ public class SalidaAsistencia extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		try {
 			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 			String usuario = request.getParameter("usuario");
-			
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			//crea objeto de negocio
 			final AsistenciaNegocio  negocio = new AsistenciaNegocio();
-			
-			
+
 			AsistenciaDTO asistencia = new AsistenciaDTO();
 			asistencia.setIdEmpleado(idEmpleado);
 			asistencia.setUsuarioUltMod(usuario);
@@ -70,7 +75,7 @@ public class SalidaAsistencia extends HttpServlet {
 			//convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
-			
+
 		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());

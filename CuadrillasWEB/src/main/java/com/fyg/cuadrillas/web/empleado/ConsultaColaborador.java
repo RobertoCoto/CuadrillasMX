@@ -19,8 +19,10 @@ import com.google.gson.Gson;
  * Servlet implementation class ConsultaColaborador
  */
 public class ConsultaColaborador extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,6 +33,8 @@ public class ConsultaColaborador extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -38,6 +42,8 @@ public class ConsultaColaborador extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
@@ -46,13 +52,13 @@ public class ConsultaColaborador extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
-			
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			//crea objeto de negocio
 			final EmpleadoNegocio negocio = new EmpleadoNegocio();
 			EmpleadoDTO empleado = new EmpleadoDTO();

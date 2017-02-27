@@ -20,8 +20,10 @@ import com.google.gson.Gson;
  * Servlet implementation class ConsultaAsistencia
  */
 public class ConsultaAsistencia extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,6 +34,8 @@ public class ConsultaAsistencia extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -39,6 +43,8 @@ public class ConsultaAsistencia extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AsistenciaRespuesta respuesta = new AsistenciaRespuesta();
@@ -47,16 +53,15 @@ public class ConsultaAsistencia extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
-			
-//			System.setProperty("http.proxyHost", "169.169.4.85");
+			//			System.setProperty("http.proxyHost", "169.169.4.85");
 //	        System.setProperty("http.proxyPort", "8080");
 //	        System.setProperty("https.proxyHost", "169.169.4.85");
 //	        System.setProperty("https.proxyPort", "8080");
-			 
+
 			 Date fechaActual = new Date();
 			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 			 String fechaSistema = formateador.format(fechaActual);
-			 
+
 			//crea objeto de negocio
 			final AsistenciaNegocio negocio = new AsistenciaNegocio();
 			AsistenciaDTO  asistencia = new AsistenciaDTO();

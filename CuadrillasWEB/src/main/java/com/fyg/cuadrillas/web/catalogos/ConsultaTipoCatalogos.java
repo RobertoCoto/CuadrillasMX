@@ -18,6 +18,9 @@ import com.google.gson.Gson;
  * Servlet implementation class ConsultaTipoCatalogos
  */
 public class ConsultaTipoCatalogos extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -30,6 +33,8 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -37,6 +42,8 @@ public class ConsultaTipoCatalogos extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TipoCatalogoRespuesta respuesta = new TipoCatalogoRespuesta();

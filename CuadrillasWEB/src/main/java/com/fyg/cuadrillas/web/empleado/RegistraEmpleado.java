@@ -24,8 +24,10 @@ import com.google.gson.Gson;
  * Servlet implementation class AltaEmpleado
  */
 public class RegistraEmpleado extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,6 +38,8 @@ public class RegistraEmpleado extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -43,15 +47,14 @@ public class RegistraEmpleado extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		
 		try {
 			//Se obtiene parametros
 			String noEmpleado = request.getParameter("noEmpleado");
@@ -76,22 +79,22 @@ public class RegistraEmpleado extends HttpServlet {
 			String noCreditoInfonavit = request.getParameter("noCreditoInfonavit");
 			String observaciones = request.getParameter("observaciones");
 			String usuario = request.getParameter("usuario");
-			
+
 			//leer json Array
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(request.getParameter("documentoEmpleado"));
 			JSONObject jsonObject = (JSONObject) obj;
-			
+
 			/* proxy fisa
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080");
 	        */
-			
+
 			//crea objeto de negocio
 			final EmpleadoNegocio negocio = new EmpleadoNegocio();
-			
+
 			//Lista de direcciones
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setNoEmpleado(noEmpleado);
@@ -117,11 +120,11 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setNoCreditoInfonavit(noCreditoInfonavit);
 			empleado.setObservaciones(observaciones);
 			empleado.setUsuarioAlta(usuario);
-			
+
 			JSONArray listaDocumentos = (JSONArray) jsonObject.get("documentacion");
-			
+
 			List <EmpleadoDocumentoDTO> documentos = new ArrayList<EmpleadoDocumentoDTO>();
-			for(int i = 0; i < listaDocumentos.size(); i++)
+			for (int i = 0; i < listaDocumentos.size(); i++)
 			{
 				EmpleadoDocumentoDTO codigo = new EmpleadoDocumentoDTO();
 				JSONObject docs = (JSONObject) listaDocumentos.get(i);
@@ -131,10 +134,10 @@ public class RegistraEmpleado extends HttpServlet {
 				codigo.setEstatus(estatusDocumento);
 				documentos.add(codigo);
 				LogHandler.debug(null, this.getClass(), "datos " + documentos);
-				
+
 			}
-			
-			empleado.setDocumentos(documentos);	
+
+			empleado.setDocumentos(documentos);
 			respuesta = negocio.registraEmpleado(empleado);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

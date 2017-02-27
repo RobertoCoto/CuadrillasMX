@@ -20,8 +20,10 @@ import com.google.gson.Gson;
  * Servlet implementation class RegistraUsuario
  */
 public class RegistraUsuario extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,6 +34,8 @@ public class RegistraUsuario extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -39,13 +43,14 @@ public class RegistraUsuario extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
 		try {
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
@@ -57,7 +62,7 @@ public class RegistraUsuario extends HttpServlet {
 			String rfc = request.getParameter("rfc");
 			String fechaNac = request.getParameter("fechaNac");
 			Integer idPerfil = Integer.parseInt(request.getParameter("idPerfil"));
-			
+
 			//Conversor de fecha
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
 			Date fechaNacimiento = formato.parse(fechaNac);
@@ -66,10 +71,10 @@ public class RegistraUsuario extends HttpServlet {
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			 //crea objeto del negocio usuario
 	        final UsuariosNegocio negocio = new UsuariosNegocio();
-	        
+
 	        //Login usuario
 	        UsuarioDTO usuario = new UsuarioDTO();
 	        usuario.setUsuario(user);
@@ -83,7 +88,7 @@ public class RegistraUsuario extends HttpServlet {
 	        usuario.setIdPerfil(idPerfil);
 	        usuario.setIdEmpleado(idEmpleado);
 	        respuesta = negocio.altaUsuario(usuario);
-	        
+
 	        if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
@@ -92,8 +97,8 @@ public class RegistraUsuario extends HttpServlet {
 	      //convierte  a formato Json
 			out.println(sg.toJson(respuesta));
 			out.flush();
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);

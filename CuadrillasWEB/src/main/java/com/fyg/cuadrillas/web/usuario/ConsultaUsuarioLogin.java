@@ -10,18 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
-import com.fyg.cuadrillas.dto.menu.MenuDTO;
-import com.fyg.cuadrillas.dto.menu.MenuRespuesta;
 import com.fyg.cuadrillas.dto.usuario.UsuarioRespuesta;
 import com.fyg.cuadrillas.negocio.UsuariosNegocio;
-import com.fyg.cuadrillas.negocio.MenuNegocio;
 import com.google.gson.Gson;
 /**
  * Servlet implementation class ConsultaUsuarioLogin
  */
 public class ConsultaUsuarioLogin extends HttpServlet {
+	/**
+	 * serial uid
+	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,15 +30,19 @@ public class ConsultaUsuarioLogin extends HttpServlet {
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioRespuesta respuesta = new UsuarioRespuesta();		
+		UsuarioRespuesta respuesta = new UsuarioRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
