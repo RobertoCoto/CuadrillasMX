@@ -270,6 +270,9 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("Error al dar de baja la agenda.");
 			}
 			
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -321,5 +324,42 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaConsultaAgenda;
+	}
+	/**
+	 * Metodo para actualizar la agenda 
+	 * @param uid unico de registro
+	 * @param agenda recibira valores de agenda
+	 * @return regresara respuesta
+	 */
+	public EncabezadoRespuesta actualizaAgenda (String uid, AgendaDTO agenda) {
+		SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La agenda ha sido modificada correctamente.");
+		try {
+			
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("AgendaDAO.modificaAgenda", agenda);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al modificar la agenda.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+			
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
 	}
 }
