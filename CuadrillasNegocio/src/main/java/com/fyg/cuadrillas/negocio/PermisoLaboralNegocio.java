@@ -65,7 +65,7 @@ public class PermisoLaboralNegocio {
 			if (fechaMax.before(fechaMin)) {
 				throw new ExcepcionesCuadrillas("La fecha maxima no debe ser menor a la fecha minima.");
 			}
-			if(fechaMax.equals(fechaMin)) {
+			if (fechaMax.equals(fechaMin)) {
 				throw new ExcepcionesCuadrillas("La fecha maxima no debe ser igual a la fecha minima.");
 			}
 
