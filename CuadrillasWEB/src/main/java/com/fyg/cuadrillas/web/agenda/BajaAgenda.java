@@ -65,8 +65,8 @@ public class BajaAgenda extends HttpServlet {
 			//se crea objeto agenda
 			AgendaDTO agenda = new AgendaDTO();
 			
-			Integer idAgenda = (Integer) jsonObject.get("idagenda");
-			String usuario = (String) jsonObject.get("codigoContrato");
+			Integer idAgenda = (Integer) jsonObject.get("idAgenda");
+			String usuario = (String) jsonObject.get("usuario");
 			
 			//agenda
 			agenda.setIdAgenda(idAgenda);
