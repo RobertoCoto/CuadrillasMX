@@ -181,7 +181,6 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	    }
 	    });
 	      $scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } ); 
-	      console.log($scope.JSONDocumentation)
         });
  
 			  //Form de pago
