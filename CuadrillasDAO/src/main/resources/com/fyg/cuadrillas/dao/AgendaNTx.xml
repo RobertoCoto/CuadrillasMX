@@ -19,13 +19,13 @@
 <result column="material" property="material"/>
 <result column="descripcion_actividad" property="descripcionActividad"/>
 <result column="descripcion_material" property="descripcionMaterial"/>
-</resultMap> 
+</resultMap>
 
-<resultMap type="Coordenada" id="coordenada">	
+<resultMap type="Coordenada" id="coordenada">
 	<result column="orden" property="orden"/>
 	<result column="direccion" property="direccion"/>
 	<result column="latitud" property="latitud"/>
-	<result column="longitud" property="longitud"/>	
+	<result column="longitud" property="longitud"/>
 </resultMap>
 
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
@@ -37,7 +37,7 @@ AND estatus = 'A'
 
 <select id="existeBajaAgenda" parameterType="Agenda" resultType="int">
 SELECT count(estatus)
-FROM agenda 
+FROM agenda
 WHERE id_agenda = #{idAgenda}
 AND estatus ='I'
 </select>

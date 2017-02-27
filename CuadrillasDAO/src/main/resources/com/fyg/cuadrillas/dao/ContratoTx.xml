@@ -10,7 +10,7 @@
 		pct_avance,	fecha_registro,	id_cuadrilla, observaciones, url, metros,
 		usuario_alta, fecha_alta, estatus
 	)
-VALUES 
+VALUES
 	(
 		#{codigoVialidad}, #{codigoContrato},	#{codigoDocumento}, #{codigoEmpresa},
 		#{numeroDocumento}, #{monto}, #{subtotal}, #{fechaInicio}, #{fechaFin},	#{diasDuracion},
@@ -25,13 +25,13 @@ VALUES
 <insert id="registraCoordenadasContrato" parameterType="Coordenada">
 	INSERT INTO contrato_coordenadas
 		(
-			id_contrato,	orden,	direccion,	
+			id_contrato,	orden,	direccion,
 			latitud,	longitud,	fecha_alta,	estatus
 		)
 	VALUES
 	<foreach collection="list" item="element" index="index" separator=",">
 	 	(
-	 	 	#{element.idContrato},	 #{element.orden},	#{element.direccion},	
+	 	 	#{element.idContrato},	 #{element.orden},	#{element.direccion},
 			#{element.latitud},	#{element.longitud}, now(),	'A'
 	 	)
 	</foreach>
@@ -40,7 +40,7 @@ VALUES
 <update id="bajaContrato" parameterType="Contrato">
 	UPDATE contrato SET
 		fecha_baja = now(),
-		usuario_baja = #{usuarioBaja},		
+		usuario_baja = #{usuarioBaja},
 	    estatus = 'I'
 	WHERE id_contrato = #{idContrato}
 	AND estatus = 'A'

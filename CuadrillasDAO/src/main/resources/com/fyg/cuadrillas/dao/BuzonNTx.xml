@@ -13,20 +13,20 @@
 SELECT tipo_tarea,
 	   fecha_tarea,
 	   descripcion,
-	   id 
+	   id
 FROM (
 
-	SELECT 
-		'IMSS' AS tipo_tarea, 
+	SELECT
+		'IMSS' AS tipo_tarea,
 		date_add( e.fecha_ingreso , INTERVAL 5 DAY) AS fecha_tarea,
 		CONCAT('Alta IMSS Emp: ', e.nombre, ' ', e.apellido_pat) AS descripcion,
 		id_empleado AS id
 	FROM empleado e
 	WHERE e.alta_imss = 'S'
 	AND e.usuario_aut_imss IS NULL
-	AND datediff(now(), e.fecha_ingreso ) <![CDATA[>]]> #{notificaImss} 
+	AND datediff(now(), e.fecha_ingreso ) <![CDATA[>]]> #{notificaImss}
 	UNION ALL
-	SELECT 
+	SELECT
 		'PELA' AS tipo_tarea,
 		 pl.fecha_solicitud AS fecha_tarea,
 		 CONCAT('Aut. Permiso Laboral: ', e.nombre, ' ', e.apellido_pat) AS descripcion,

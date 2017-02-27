@@ -19,7 +19,7 @@
 	<result column="id_cuadrilla" property="idCuadrilla"/>
 	<result column="observaciones" property="observaciones"/>
 	<result column="url" property="url"/>
-	<result column="metros" property="metros"/>	
+	<result column="metros" property="metros"/>
 	<result column="estatus" property="estatus"/>
 	<result column="usuarioAlta" property="estatus"/>
 	<result column="numero_personas" property="numeroPersonas"/>
@@ -33,27 +33,27 @@
 	<result column="fecha_actual" property="fechaActual"/>
 </resultMap>
 
-<resultMap type="Coordenada" id="coordenada">	
+<resultMap type="Coordenada" id="coordenada">
 	<result column="id_contrato" property="idContrato"/>
 	<result column="orden" property="orden"/>
 	<result column="direccion" property="direccion"/>
 	<result column="latitud" property="latitud"/>
-	<result column="longitud" property="longitud"/>	
+	<result column="longitud" property="longitud"/>
 </resultMap>
 
 <select id="existeContrato" parameterType="Contrato" resultType="int">
 	SELECT count(*)
-	FROM contrato 
+	FROM contrato
 	WHERE 1 = 1
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
 	</if>
 	<if test="numeroDocumento !=null">
 	 	AND numero_documento = #{numeroDocumento}
-	</if>	
+	</if>
 	<if test="codigoDocumento !=null">
 	 	AND codigo_documento = #{codigoDocumento}
-	</if>	
+	</if>
 	AND estatus = 'A'
 </select>
 
@@ -66,7 +66,7 @@
 
 <select id="consultaContrato" parameterType="Contrato" resultMap="contrato">
 
-	SELECT 
+	SELECT
 		id_contrato,
 		codigo_vialidad,
 		codigo_contrato,
@@ -95,13 +95,13 @@
 	WHERE estatus = 'A'
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
-	</if>	
+	</if>
 	
 </select>
 
 <select id="consultaContratoCoordenadas" parameterType="Contrato" resultMap="coordenada">
 	
-	SELECT 
+	SELECT
 		id_coordenada,
 		id_contrato,
 		orden,
@@ -111,15 +111,15 @@
 		fecha_alta,
 		estatus
 	FROM contrato_coordenadas
-	WHERE estatus = 'A'	
+	WHERE estatus = 'A'
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
-	</if>	
+	</if>
 	
 </select>
 
 <select id="contratoActivo" parameterType="Contrato" resultMap="contrato">
-SELECT 
+SELECT
 co.id_contrato,
 co.codigo_vialidad,
 co.codigo_contrato,

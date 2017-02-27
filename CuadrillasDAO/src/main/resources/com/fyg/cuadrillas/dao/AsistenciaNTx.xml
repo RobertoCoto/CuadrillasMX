@@ -18,7 +18,7 @@
 
 <select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
 SELECT count(hora_entrada) AS hora_entrada
-FROM asistencia 
+FROM asistencia
 WHERE id_empleado = #{idEmpleado}
 </select>
 
@@ -36,20 +36,20 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaAsistencia" parameterType="Asistencia" resultMap="asistencia">
-SELECT c.descripcion AS perfil_empleado, 
-	   e.nombre AS nombre, 
-	   e.apellido_pat AS apellido_paterno, 
-	   e.apellido_mat AS apellido_materno, 
-	   ae.comentarios AS comentarios, 
-	   ae.fecha AS fecha, 
-	   ae.hora_entrada AS hora_entrada, 
-	   ae.hora_salida AS hora_salida, 
+SELECT c.descripcion AS perfil_empleado,
+	   e.nombre AS nombre,
+	   e.apellido_pat AS apellido_paterno,
+	   e.apellido_mat AS apellido_materno,
+	   ae.comentarios AS comentarios,
+	   ae.fecha AS fecha,
+	   ae.hora_entrada AS hora_entrada,
+	   ae.hora_salida AS hora_salida,
 	   e.id_empleado AS id_empleado
 FROM empleado e
 LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
 LEFT JOIN asistencia ae ON ae.fecha = #{fecha} AND ae.id_empleado = e.id_empleado
 WHERE e.id_cuadrilla = #{idCuadrilla}
 AND e.estatus = 'A'
-ORDER BY e.fecha_ingreso 
+ORDER BY e.fecha_ingreso
 </select>
 </mapper>
