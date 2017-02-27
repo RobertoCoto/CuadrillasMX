@@ -681,7 +681,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                   }
 
-                  //Ejecuci贸n inicial
+                  //Ejecuci髇 inicial
                   $scope.consultaContratos();
 
                 /*$('#msload').modal('show');
@@ -790,13 +790,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                         } else {
                           $('#alert').show();
-                          $('#msgerror').text('No se encontro una direcci贸n disponible.')
+                          $('#msgerror').text('No se encontro una direcci髇 disponible.')
                           //alert('No se encontraron resultados');
                         }
 												$('#msload').modal('hide');
                       } else {
                         $('#alert').show();
-                        $('#msgerror').text('Problemas en la geolocalizaci贸n debido ' + status + '')
+                        $('#msgerror').text('Problemas en la geolocalizaci髇 debido ' + status + '')
                         //alert('Geocoder fallo debido al estatus: ' + status);
 												$('#msload').modal('hide');
                       }
@@ -808,7 +808,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <label for="direccionInicial" class="control-label">Direcci贸n</label>
+                          <label for="direccionInicial" class="control-label">Direcci髇</label>
                           <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
                         </div>
                       </div>
@@ -996,6 +996,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		      $('#alert').hide();
 		      $('#success').hide();
 		*/
+  		$scope.gridActividades = [];
+  		$scope.gridArticulos = [];
+  		$scope.gridActividadesSemana = [];
+  		$scope.gridArticulosSemana = [];
+
     	var actualizacion = false;
     	var fecha=$('input[name="fecha"]');
     	var diaActividad = $('input[name="diaActividad"]');
@@ -1063,6 +1068,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		$('#diaActividad').val("");
 	  });
 
+	  
 	  //se llena catalogo de actividades
       $http({
               method: 'GET',
@@ -1113,20 +1119,27 @@ app.directive('fileModel', ['$parse', function ($parse) {
             $('#msload').modal('hide');
             //$('#msgerror').val(response.data.header.mensajeFuncional);
         });
-
-        //se agregan elementos al objeto de actividades
-  		$scope.gridActividades = [];
-  		$scope.gridArticulos = [];
+  		
+        
+        //***agregar actividades
   		$scope.agregarActividades = function(objActividad) {
   			var encontrado = false;
 
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();
-
+  			//$('#success').hide();  			
+  			//se validan dias
+  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			if (validaDiaSel == false)
+  			{  				
+  				return;
+  			}
+  			
+  			var fecha = $('#diaActividad').val();
+  			
   			for(indice in $scope.gridActividades)
   			{
-  				if (objActividad.codigo == $scope.gridActividades[indice].codigo)
+  				if (objActividad.codigo == $scope.gridActividades[indice].codigo && fecha == $scope.gridActividades[indice].fecha)
   				{
   					encontrado = true;
   				}
@@ -1135,25 +1148,42 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			if (encontrado == false)
   			{
   				var actividad = {};
+  				actividad.fecha = $('#diaActividad').val();  				
   				actividad.codigo = objActividad.codigo;
 	  			actividad.descripcion = objActividad.descripcion;
 	  			$scope.gridActividades.push(actividad);
+	  			reseteaColorBotones();
+	  			cambiaColorBoton($scope.gridActividades);
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   			}
+  			
   		};
-
-  		$scope.agregarArticulos = function(objArticulo) {
+  		
+  		
+  		//***agregar articulos
+  		$scope.agregarArticulos = function(objArticulo) {  			
   			var encontrado = false;
 
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();
+  			//$('#success').hide();  			
+  			
+  			//se validan dias
+  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			if (validaDiaSel == false)
+  			{
+  				return;
+  			}
+  			
+  			var fecha = $('#diaActividad').val();
+  			
+  			
   			for(indice in $scope.gridArticulos)
   			{
-  				if (objArticulo.codigo == $scope.gridArticulos[indice].codigo)
+  				if (objArticulo.codigo == $scope.gridArticulos[indice].codigo &&  fecha == $scope.gridArticulos[indice].fecha)
   				{
   					encontrado = true;
   				}
@@ -1162,54 +1192,72 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			if (encontrado == false)
   			{
   				var articulo = {};
+  				articulo.fecha = $('#diaActividad').val();
   				articulo.codigo = objArticulo.codigo;
 	  			articulo.descripcion = objArticulo.descripcion;
 	  			$scope.gridArticulos.push(articulo);
-
+	  			reseteaColorBotones();
+	  			cambiaColorBoton($scope.gridArticulos);		
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   			}
+  		
   		};
-
-  		$scope.eliminarActividades = function(actividad) {
+  		
+  		
+  		//***eliminar actividades
+  		$scope.eliminarActividades = function(actividad) {			
   			//$('#msload').modal('show');
   			//$('#alert').hide();
   			//$('#success').hide();
+  			fecha = $('#diaActividad').val();
   			for(indice in $scope.gridActividades)
   			{
-  				if (actividad == $scope.gridActividades[indice].codigo)
+  				if (actividad == $scope.gridActividades[indice].codigo && fecha == $scope.gridActividades[indice].fecha)
   				{
   					$scope.gridActividades.splice(indice,1);
   				}
   			}
 
+  			reseteaColorBotones();
+  			cambiaColorBoton($scope.gridActividades);
+  			cambiaColorBoton($scope.gridArticulos);
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   		};
-
-  		$scope.eliminarArticulos = function(articulo) {
+  		
+  		
+  		//***eliminar articulos
+  		$scope.eliminarArticulos = function(articulo) {			
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();
+  			//$('#success').hide(); 
+  			
+  			fecha = $('#diaActividad').val();
+  			
   			for(indice in $scope.gridArticulos)
   			{
-  				if (articulo == $scope.gridArticulos[indice].codigo)
+  				if (articulo == $scope.gridArticulos[indice].codigo && fecha == $scope.gridArticulos[indice].fecha)
   				{
   					$scope.gridArticulos.splice(indice,1);
   				}
-  			}
-
+  			}  			  		
+	  	
+  			reseteaColorBotones();
+  			cambiaColorBoton($scope.gridArticulos);
+  			cambiaColorBoton($scope.gridActividades);
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   		};
-
-  		//funcion para agregar d锟絘s a una fecha
+  		
+  		
+  		//***funcion para agregar d韆s a una fecha
   		function mostrarFecha(days, fechaInicio){
 		    milisegundos=parseInt(35*24*60*60*1000);
 
@@ -1244,12 +1292,157 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 		    return year + "-" + monthAux + "-" + dayAux;
   		};
-
-  		//funcion para colocar la fecha de plan de actividades de acuerdo al bot锟絥 seleccionado
+  		
+  		
+  		//***funcion para colocar la fecha de plan de actividades de acuerdo al bot髇 seleccionado
   		$scope.obtenerFechaSeleccionada = function(dia)
   		{
+  			var fecha = $('#diaActividad').val();
+  			
+  			//se pasa lo capturado al arreglo de toda la semana
+  			//actividades  			
+  			//for(indice in $scope.gridActividadesSemana)
+  			for(var indice=$scope.gridActividadesSemana.length-1; indice>=0; indice--)
+  			{  				
+  				if ( fecha == $scope.gridActividadesSemana[indice].fecha)
+  				{
+  					$scope.gridActividadesSemana.splice(indice,1);
+  				}
+  			}
+  			
+  			for(indice in $scope.gridActividades)
+  			{
+  				$scope.gridActividadesSemana.push($scope.gridActividades[indice]);  			
+  			}  			
+  			
+  			//articulos
+  			//for(indice in $scope.gridArticulosSemana)
+  			for(var indice=$scope.gridArticulosSemana.length-1; indice>=0; indice--)  				
+  			{  				
+  				if (fecha == $scope.gridArticulosSemana[indice].fecha)
+  				{
+  					$scope.gridArticulosSemana.splice(indice,1);
+  				}
+  			}
+  			
+  			for(indice in $scope.gridArticulos)
+  			{  				
+  				$scope.gridArticulosSemana.push($scope.gridArticulos[indice]);  			
+  			}  			
+  			
   			$('#diaActividad').val($scope.fechasSemana[dia-1]);
-  		}
+  			fecha = $('#diaActividad').val();
+  			$scope.gridActividades = [];
+  			$scope.gridArticulos = [];
+  			
+  			
+  			//se revisa si hay informaci髇 en el arreglo general para la fecha seleccionada
+  			for(indice in $scope.gridActividadesSemana)
+  			{  				
+  				if ( fecha == $scope.gridActividadesSemana[indice].fecha)
+  				{
+  					$scope.gridActividades.push($scope.gridActividadesSemana[indice]);
+  				}
+  			}
+  			
+  			for(indice in $scope.gridArticulosSemana)
+  			{  				
+  				if (fecha == $scope.gridArticulosSemana[indice].fecha)
+  				{
+  					$scope.gridArticulos.push($scope.gridArticulosSemana[indice]);
+  				}
+  			}
+  			  			
+  			//console.info("*****actividades y articulos semana")
+  			//console.info($scope.gridArticulosSemana);
+  			//console.info($scope.gridActividadesSemana);
+  		};
+  		
+  		
+  		//***para saber si esta seleccionado un d韆 de actividad para su captura
+  		$scope.validaDiaSeleccionado = function()
+  		{
+  			var respuesta = true;
+  			if ($('#diaActividad').val() == "")
+  			{
+  				alert("Debe seleccionar un dia de la semana");  				
+  				respuesta = false;
+  			}
+  			
+  			return respuesta;
+  		};
+  		
+  		//***para limpiar toda la pantalla
+  		$scope.reiniciarPantalla = function()
+  		{
+  	  		$scope.gridActividades = [];
+  	  		$scope.gridArticulos = [];
+  	  		$scope.gridActividadesSemana = [];
+  	  		$scope.gridArticulosSemana = [];  	  		
+  	  		$('#diaActividad').val("");
+  	  		$scope.fechasSemana= [];
+  	  		$("#btnD1").removeClass("btn-success").addClass("btn-primary");
 
+  	  		$("#btnD2").removeClass("btn-success").addClass("btn-primary");
+  	  		$("#btnD3").removeClass("btn-success").addClass("btn-primary");
+  	  		$("#btnD4").removeClass("btn-success").addClass("btn-primary");
+  	  		$("#btnD5").removeClass("btn-success").addClass("btn-primary");
+  	  		$("#btnD6").removeClass("btn-success").addClass("btn-primary");
+  	  		$("#btnD7").removeClass("btn-success").addClass("btn-primary");
+  		};
+  		
+  		//***se cambia el color de los botones
+  		cambiaColorBoton = function(objCaptura)
+  		{  			  		
+  			//se revisan los arreglos generales de acuerdo al arreglo de la semana
+  			var numeroBoton = -1;
+  			var fecha = $("#diaActividad").val();
+
+  			for(var i=0; i < $scope.fechasSemana.length; i++)
+  			{
+  				//console.info($scope.fechasSemana[indice]);
+  				//console.info(fecha);
+  				if ($scope.fechasSemana[i] == fecha)
+  				{
+  					numeroBoton = Number(i) +1;
+  					break;
+  				} 				  				
+  			}
+  			  			
+  			if (numeroBoton == -1)
+  			{
+  				return;
+  			}
+  			
+  			$("#btnD" + numeroBoton.toString()).removeClass("btn-success").addClass("btn-primary");
+  			
+  			
+			for (indice2 in objCaptura)
+			{	
+  				if (fecha == objCaptura[indice2].fecha)
+  				{  					
+  					$("#btnD" + numeroBoton.toString()).removeClass("btn-primary").addClass("btn-success");
+  					break;
+  				}
+			}  			
+  		};
+  		
+  		
+  		//***resetea color de botones
+  		reseteaColorBotones = function()
+  		{  	
+  			var fecha = $("#diaActividad").val();
+  			for(var i=0; i < $scope.fechasSemana.length; i++)
+  			{
+  				if ($scope.fechasSemana[i] == fecha)
+  				{  				
+  					var numeroBoton = Number(i) +1;				
+  					$("#btnD" + numeroBoton.toString()).removeClass("btn-success").addClass("btn-primary");
+  					break;
+  				}
+  			}  			   		
+  		};
     });
     //FIN REGISTRO AGENDA SEMANAL
+
+    
