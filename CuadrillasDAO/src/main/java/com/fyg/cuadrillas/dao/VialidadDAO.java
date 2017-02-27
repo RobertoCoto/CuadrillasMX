@@ -33,7 +33,7 @@ public class VialidadDAO {
 				throw new ExcepcionesCuadrillas("Error al registrar el catalogo.");
 			}
 			//registramos nuestras coordenadas
-			if(vialidad.getCoordenadas().size() > 0) {
+			if (vialidad.getCoordenadas().size() > 0) {
 				for (VialidadCoordenadasDTO coordenadas : vialidad.getCoordenadas()) {
 					coordenadas.setIdVialidad(vialidad.getIdVialidad());
 				}
@@ -67,7 +67,7 @@ public class VialidadDAO {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("La baja de la vialidad fue correcta.");
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.update("VialidadDAO.inactivaVialidad", vialidad);
@@ -105,11 +105,11 @@ public class VialidadDAO {
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
 		List<VialidadDTO> listaVialidad = null;
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			
-			//Se hace una consulta a la tabla 
+
+			//Se hace una consulta a la tabla
 			if ( vialidad.getOrden().equals("A")) {
 				listaVialidad = sessionNTx.selectList("VialidadDAO.consultaVialidadAsc", vialidad);
 			} else {
@@ -134,7 +134,7 @@ public class VialidadDAO {
 	 * @param session indica session
 	 * @throws Exception si surge una excepcion
 	 */
-	public void registraCoordenadas (String uid, List<VialidadCoordenadasDTO> coordenadas, SqlSession session) throws Exception{
+	public void registraCoordenadas(String uid, List<VialidadCoordenadasDTO> coordenadas, SqlSession session) throws Exception {
 		  SqlSession sessionTx = null;
 			//Logica para saber si es atomica la transaccion
 			if ( session == null ) {
@@ -169,7 +169,7 @@ public class VialidadDAO {
 	 * @param session crea una session
 	 * @throws Exception si surge un error
 	 */
-	public void eliminaCoordenadas(String uid,VialidadDTO vialidad,  SqlSession session) throws Exception  {
+	public void eliminaCoordenadas(String uid, VialidadDTO vialidad,  SqlSession session) throws Exception  {
 		int registros = session.delete("VialidadDAO.eliminaCoordenadas", vialidad);
 		LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 	}

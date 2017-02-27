@@ -192,7 +192,7 @@ public class CatalogoDAO {
 				int existeDes = (Integer) sessionNTx.selectOne("CatalogoDAO.existeCatalogoDescripcion", catalogo);
 				if (existeDes > 0) {
 					throw new ExcepcionesCuadrillas("Error en registrar catalogo, la descripcion ya existe.");
-				}				
+				}
 		        int registros = sessionTx.update("CatalogoDAO.actualizarCatalogo", catalogo);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("No fue posible actualizar el catalogo.");

@@ -18,7 +18,7 @@ public class PermisoLaboralDAO {
 	 * @throws Exception se crea excepciones
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PermisoLaboralDTO> consultaPermisoTemporal(String uid, PermisoLaboralDTO permiso) throws Exception{
+	public List<PermisoLaboralDTO> consultaPermisoTemporal(String uid, PermisoLaboralDTO permiso) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -45,8 +45,6 @@ public class PermisoLaboralDAO {
 		}
 		return permisoTemporal;
 	}
-	
-	
 	/**
 	 * Metodo para dar de alta el permiso.
 	 * @param uid unico de registro
@@ -63,9 +61,9 @@ public class PermisoLaboralDAO {
 		try {
 			//Validamos si ya existe un permiso
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existePermiso= (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existePermiso", permiso);
+			int existePermiso = (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existePermiso", permiso);
 			if (existePermiso > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, el empleado no puede tener 2 permisos en el rango de fecha solicitado.");
+				throw new ExcepcionesCuadrillas("Error al registrar, el empleado no puede tener 2 permisos.");
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -76,7 +74,7 @@ public class PermisoLaboralDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
+
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -103,16 +101,16 @@ public class PermisoLaboralDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Ha sido registrado Correctamente.");	
+		respuesta.setMensajeFuncional("Ha sido registrado Correctamente.");
 		try {
 			//Validamos si ya existe una autorizacion
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeAutorizacion= (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existeAutorizacion", permiso);
+			int existeAutorizacion = (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existeAutorizacion", permiso);
 			if (existeAutorizacion > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, ya se encuentra autorizado el permiso.");
 			}
 			//si esta rechazado el doc
-			int existeRechazo= (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existeRechazada", permiso);
+			int existeRechazo = (Integer) sessionNTx.selectOne("PermisoLaboralDAO.existeRechazada", permiso);
 			if (existeRechazo > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, ya se encuentra rechazado el permiso.");
 			}
@@ -125,7 +123,7 @@ public class PermisoLaboralDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
 			FabricaConexiones.rollBack(sessionTx);
@@ -136,7 +134,7 @@ public class PermisoLaboralDAO {
 		finally {
 			FabricaConexiones.close(sessionNTx);
 			FabricaConexiones.close(sessionTx);
-			
+
 		}
 		return respuesta;
 	}
@@ -153,7 +151,7 @@ public class PermisoLaboralDAO {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("El permiso ha sido dado de baja.");
-		
+
 		try {
 			//Validamos si ya esta dado de baja
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -170,7 +168,7 @@ public class PermisoLaboralDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
+
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");

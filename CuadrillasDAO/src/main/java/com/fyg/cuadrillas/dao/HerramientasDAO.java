@@ -13,7 +13,7 @@ public class HerramientasDAO {
 	/**
 	 * Metodo para consultar Herramientas
 	 * @param uid unico de registro
-	 * @param herramientasOV recibe valores de herramienta
+	 * @param herramienta recibe valores de herramienta
 	 * @return regresa lista de herramientas
 	 */
 	@SuppressWarnings("unchecked")
@@ -28,12 +28,11 @@ public class HerramientasDAO {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			 if(herramienta.getOrden().equals("A")) {
+			 if (herramienta.getOrden().equals("A")) {
 				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaAsc", herramienta);
 			 } else {
 				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaDesc", herramienta);
 			 }
-			
 			if ( listaHerramientas.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen herramientas definidas.");
 			}
@@ -52,7 +51,7 @@ public class HerramientasDAO {
 	/**
 	 * Metodo general para consultar
 	 * @param uid unico de registro
-	 * @param herramientasOV recibe valores de herramientas
+	 * @param herramienta recibe valores de herramientas
 	 * @return regresa una lista de herramientas
 	 */
 	@SuppressWarnings("unchecked")
@@ -84,7 +83,7 @@ public class HerramientasDAO {
 	/**
 	  * Metodo para registrar herramientas
 	  * @param uid unico de registro
-	  * @param herramientaOV recibe valores de herramienta
+	  * @param herramienta recibe valores de herramienta
 	  * @return regresa la respuesta de la transaccion
 	  */
 	 public EncabezadoRespuesta registraHerramienta(String uid, HerramientaDTO herramienta) {
@@ -120,7 +119,7 @@ public class HerramientasDAO {
 	 /**
 	  * Metodo para dar de baja las herramientas
 	  * @param uid unico de registgro
-	  * @param herramientaOV recibe valores de herramientas
+	  * @param herramienta recibe valores de herramientas
 	  * @return regresa el resultado de la transaccion
 	  */
 	 public EncabezadoRespuesta eliminarHerramienta(String uid, HerramientaDTO herramienta) {

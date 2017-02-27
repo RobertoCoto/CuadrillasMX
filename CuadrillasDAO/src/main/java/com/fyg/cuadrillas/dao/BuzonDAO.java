@@ -13,11 +13,12 @@ public class BuzonDAO {
 	/**
 	 * Metodo para consultar las tareas activas
 	 * @param uid unico de registro
+	 * @param buzon recive valores de buzon
 	 * @return devuelve una lista de tareas
 	 * @throws Exception para una excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BuzonDTO> consultaTareas(String uid,BuzonDTO buzon)throws Exception {
+	public List<BuzonDTO> consultaTareas(String uid, BuzonDTO buzon)throws Exception {
 		 SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -30,11 +31,10 @@ public class BuzonDAO {
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla contacto
-				listaTareas = sessionNTx.selectList("BuzonDAO.consultaTareas",buzon);
+				listaTareas = sessionNTx.selectList("BuzonDAO.consultaTareas", buzon);
 				if ( listaTareas.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existen tareas pendientes.");
 				}
-				
 			} catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 				throw new Exception(ex.getMessage());

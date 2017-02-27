@@ -23,16 +23,15 @@ public class AsistenciaDAO {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Se ha registrado la entrada del empleado correctamente.");
-		
 		try {
 			//Validamos si el empleado esta activo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int activoEmpleado= (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
+			int activoEmpleado = (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
 			if (activoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
 			}
 			int existeEntradaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia");
-			if(existeEntradaAsistencia > 0) {
+			if (existeEntradaAsistencia > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El empleado no puede registrar su entrada 2 veces.");
 			}
 			//Abrimos conexion Transaccional
@@ -44,7 +43,7 @@ public class AsistenciaDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-		} 
+		}
 		catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -72,19 +71,18 @@ public class AsistenciaDAO {
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Se ha registrado la salida del empleado correctamente..");
-		
-		try { 
+		try {
 			//Validamos si la hora de entrada ya fue registrada
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeHoraEntrada= (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
+			int existeHoraEntrada = (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
 			if (existeHoraEntrada <= 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
 			}
 			int existeSalidaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeSalidaAsistencia");
-			if(existeSalidaAsistencia > 0) {
+			if (existeSalidaAsistencia > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El Empleado no puede registrar su salida 2 veces.");
 			}
-			int activoEmpleado= (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
+			int activoEmpleado = (Integer) sessionNTx.selectOne("AsistenciaDAO.empleadoActivo", asistencia);
 			if (activoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
 			}
@@ -118,19 +116,19 @@ public class AsistenciaDAO {
 	 * @param asistencia recibe valores de la asistencia
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta bajaAsistencia (String uid, AsistenciaDTO asistencia) {
+	public EncabezadoRespuesta bajaAsistencia(String uid, AsistenciaDTO asistencia) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Se ha realizado la baja de la asistencia correctamente.");
-		
+
 		try {
 			//Validamos si la hora de entrada ya fue registrada
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeBajaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeBajaAsistencia");
-			if(existeBajaAsistencia > 0) {
+			if (existeBajaAsistencia > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El Empleado no puede registrar su baja 2 veces.");
 			}
 			//Abrimos conexion Transaccional
@@ -142,8 +140,8 @@ public class AsistenciaDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
-		}catch (Exception ex) {
+
+		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
 			FabricaConexiones.rollBack(sessionTx);
@@ -155,15 +153,16 @@ public class AsistenciaDAO {
 			FabricaConexiones.close(sessionTx);
 		}
 		return respuesta;
- } 
+ }
 	/**
 	 * Metodo para consultar lista de Asistencia
 	 * @param uid unico de registro
+	 * @param asistencia recibe valores de asistencia
 	 * @return regresa lista de asistencia
 	 * @throws Exception crea una excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AsistenciaDTO> consultaAsistencia (String uid, AsistenciaDTO asistencia) throws Exception {
+	public List<AsistenciaDTO> consultaAsistencia(String uid, AsistenciaDTO asistencia) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);

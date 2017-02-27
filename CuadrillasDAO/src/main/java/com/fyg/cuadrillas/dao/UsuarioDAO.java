@@ -152,7 +152,7 @@ public class UsuarioDAO {
 	 * @param usuario recibe valores de usuario
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta modificaContrasena(String uid,UsuarioDTO usuario) {
+	public EncabezadoRespuesta modificaContrasena(String uid, UsuarioDTO usuario) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -162,7 +162,7 @@ public class UsuarioDAO {
 		try {
 			//Validamos si el usuario esta activo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeUsuarioActivo= (Integer) sessionNTx.selectOne("UsuarioDAO.existeUsuarioActivo", usuario);
+			int existeUsuarioActivo = (Integer) sessionNTx.selectOne("UsuarioDAO.existeUsuarioActivo", usuario);
 			if (existeUsuarioActivo > 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar, el usuario esta inactivo.");
 			}
@@ -170,7 +170,7 @@ public class UsuarioDAO {
 			if (verificaContrasena == 0) {
 				throw new ExcepcionesCuadrillas("La contraseña anterior no coincide.");
 			}
-			
+
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("UsuarioDAO.modificaContrasena", usuario);
@@ -180,7 +180,7 @@ public class UsuarioDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-		} 
+		}
 		catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!!");
@@ -194,14 +194,13 @@ public class UsuarioDAO {
 		}
 		return respuesta;
 	}
-	
 	/**
 	 * Metodo para actualizar la contraseña
 	 * @param uid unico de registro
 	 * @param usuario recibe valores de usuario
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta recuperaContrasena(String uid,UsuarioDTO usuario) {
+	public EncabezadoRespuesta recuperaContrasena(String uid, UsuarioDTO usuario) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -211,7 +210,7 @@ public class UsuarioDAO {
 		try {
 			//Validamos si el usuario esta activo
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeUsuarioActivo= (Integer) sessionNTx.selectOne("UsuarioDAO.existeUsuarioActivo", usuario);
+			int existeUsuarioActivo = (Integer) sessionNTx.selectOne("UsuarioDAO.existeUsuarioActivo", usuario);
 			if (existeUsuarioActivo > 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar, el usuario esta inactivo.");
 			}
@@ -224,7 +223,7 @@ public class UsuarioDAO {
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-		} 
+		}
 		catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!!");
@@ -261,7 +260,7 @@ public class UsuarioDAO {
 			if ( listaUsuario.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
 			}
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
 		}
@@ -269,6 +268,5 @@ public class UsuarioDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaUsuario;
-		
 	}
 }

@@ -16,7 +16,7 @@ public class CuadrillaDAO {
 	 * @param cuadrilla recibe valores de cuadrilla
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta altaCuadrilla (String uid, CuadrillaDTO cuadrilla) {
+	public EncabezadoRespuesta altaCuadrilla(String uid, CuadrillaDTO cuadrilla) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -26,8 +26,8 @@ public class CuadrillaDAO {
 		try {
 			//Validamos si ya existe una misma cuadrilla
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			
-			int existeMismaCuadrilla= (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaCuadrilla", cuadrilla);
+
+			int existeMismaCuadrilla = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaCuadrilla", cuadrilla);
 			if (existeMismaCuadrilla > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar, ya existe la cuadrilla.");
 			}
@@ -58,25 +58,24 @@ public class CuadrillaDAO {
 		}
 		return respuesta;
 	}
-	
 	/**
 	 * Metodo para dar de baja una cuadrilla
 	 * @param uid unico de registro
 	 * @param cuadrilla recibe valores de cuadrilla
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta bajaCuadrilla (String uid, CuadrillaDTO cuadrilla) {
+	public EncabezadoRespuesta bajaCuadrilla(String uid, CuadrillaDTO cuadrilla) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("La cuadrilla ha sido dado de baja exitosamente.");
-		
+
 		try {
 			//Validamos si ya esta dado de baja el contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeBaja= (Integer) sessionNTx.selectOne("CuadrillaDAO.existeBajaCuadrilla", cuadrilla);
+			int existeBaja = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeBajaCuadrilla", cuadrilla);
 			if (existeBaja > 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja, la cuadrilla ya se encuentra inactiva.");
 			}
@@ -88,7 +87,7 @@ public class CuadrillaDAO {
 			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
-			sessionTx.commit();	
+			sessionTx.commit();
 		}
 		 catch (Exception ex) {
 				//Realizamos rollBack
@@ -107,7 +106,6 @@ public class CuadrillaDAO {
 	/**
 	 * Metodo para consultar Cuadrillas
 	 * @param uid unico de registro
-	 * @param cuadrilla recibo valores de cuadrilla
 	 * @return regresa lista de cuadrillas
 	 * @throws Exception se genera excepcion
 	 */
@@ -119,7 +117,7 @@ public class CuadrillaDAO {
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
 		List<CuadrillaDTO> listaCuadrilla = null;
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -144,7 +142,7 @@ public class CuadrillaDAO {
 	 * @param cuadrilla recibe valores de cuadrilla
 	 * @return regresa una lista
 	 */
-	public EncabezadoRespuesta modificaCuadrilla (String uid, CuadrillaDTO cuadrilla) {
+	public EncabezadoRespuesta modificaCuadrilla(String uid, CuadrillaDTO cuadrilla) {
 		SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);

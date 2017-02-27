@@ -1,12 +1,8 @@
 package com.fyg.cuadrillas.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
-import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.ParametroDTO;
 
 public class ParametroDAO {
 	/**
@@ -14,18 +10,17 @@ public class ParametroDAO {
 	 * @param uid unico
 	 * @param parametro recibe el valor de parametro
 	 * @return regresa el parametro
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	public String consultaParametro(String uid, String  parametro) throws Exception {
-		SqlSession sessionNTx = null;		
+		SqlSession sessionNTx = null;
 		String valor = null;
-		try {			
+		try {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla parametros
 			valor = (String) sessionNTx.selectOne("ConsultasCuadrillasDAO.consultaParametro", parametro);
-			
+
 			if (valor == null || valor.trim().isEmpty()) {
 				throw new Exception("No se encontro el valor en parametros: " + parametro);
 			}
