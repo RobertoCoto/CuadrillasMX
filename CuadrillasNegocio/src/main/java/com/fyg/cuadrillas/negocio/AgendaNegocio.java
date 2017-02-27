@@ -62,7 +62,7 @@ public class AgendaNegocio {
 
 			for ( AgendaDetalleDTO detalleAgenda : agenda.getDiasAgenda() ) {
 				Date fechaAgenda = formateador.parse(detalleAgenda.getFecha());
-				if ((fechaAgenda.after(fechaInicio) && fechaAgenda.before(fechaFin))) {
+				if (fechaAgenda.after(fechaInicio) && fechaAgenda.before(fechaFin)) {
 					throw new ExcepcionesCuadrillas("La fecha de la Agenda no esta en el rango de fechas indicado.");
 				}
 				if (detalleAgenda.getAvanceEsperado() <= 0) {
@@ -167,5 +167,90 @@ public class AgendaNegocio {
 		    LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Salida: " + respuesta);
 			return respuesta;
 		}
+	/**
+	 * Metodo que modifica la agenda actual
+	 * @param agenda recibe valores de agenda
+	 * @return regresa una respuesta
+	 */
+	public EncabezadoRespuesta modificaAgenda(AgendaDTO agenda) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(agenda);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "modificaAgenda - Datos Entrada: " + agenda);
+				SimpleDateFormat formateador = new SimpleDateFormat("YYYY-mm-dd");
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (agenda.getIdContrato() == null || agenda.getIdContrato() <= 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el ID del Contrato de la Agenda.");
+					}
+					if (agenda.getFechaInicio() == null || agenda.getFechaInicio().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesaria la Fecha de Inicio de la Agenda.");
+					}
+					if (agenda.getFechaFin() == null || agenda.getFechaFin().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesaria la Fecha de Fin de la Agenda.");
+					}
+					if (agenda.getUsuario() == null || agenda.getUsuario().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario para la operacion.");
+					}
+					if (agenda.getNoSemana() <= 0) {
+						throw new ExcepcionesCuadrillas("Es necesaria el numero de semana de la Agenda.");
+					}
+					if (agenda.getNoTrabajadores() <= 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el numero de trabajadores de la Agenda.");
+					}
+					if (agenda.getNoHoras() <= 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el numero de horas de la Agenda.");
+					}
+					if (agenda.getDiasAgenda().size() == 0) {
+						throw new ExcepcionesCuadrillas("Es necesario al menos un dia de actividades de la Agenda.");
+					}
+
+					Date fechaInicio = formateador.parse(agenda.getFechaInicio());
+					Date fechaFin = formateador.parse(agenda.getFechaFin());
+					if ( fechaInicio.before(fechaFin) ) {
+						throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
+					}
+
+					for ( AgendaDetalleDTO detalleAgenda : agenda.getDiasAgenda() ) {
+						Date fechaAgenda = formateador.parse(detalleAgenda.getFecha());
+						if (fechaAgenda.after(fechaInicio) && fechaAgenda.before(fechaFin)) {
+							throw new ExcepcionesCuadrillas("La fecha de la Agenda no esta en el rango de fechas indicado.");
+						}
+						if (detalleAgenda.getAvanceEsperado() <= 0) {
+							throw new ExcepcionesCuadrillas("Fecha Agenda: " + detalleAgenda.getFecha()
+									+ ", es necesario el avance esperado.");
+						}
+						if (detalleAgenda.getObservaciones() == null || detalleAgenda.getObservaciones().trim().isEmpty()) {
+							throw new ExcepcionesCuadrillas("Fecha Agenda: " + detalleAgenda.getFecha()
+									+ ", es necesario las observaciones.");
+						}
+						if (detalleAgenda.getCoordenadas() == null || detalleAgenda.getCoordenadas().size() < 2)  {
+							throw new ExcepcionesCuadrillas("Fecha Agenda: " + detalleAgenda.getFecha()
+									+ ", es necesario al menos dos coordenadas GPS.");
+						}
+						if (detalleAgenda.getMateriales() == null || detalleAgenda.getMateriales().size() == 0) {
+							throw new ExcepcionesCuadrillas("Fecha Agenda: " + detalleAgenda.getFecha()
+									+ ", es necesario al menos un material.");
+						}
+						if (detalleAgenda.getActividades() == null || detalleAgenda.getActividades().size() == 0) {
+							throw new ExcepcionesCuadrillas("Fecha Agenda: " + detalleAgenda.getFecha()
+									+ ", es necesaria al menos una actividad.");
+						}
+					}
+
+					AgendaDAO dao = new AgendaDAO();
+					respuesta = dao.actualizaAgenda(uid, agenda);
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "modificaAgenda - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "modificaAgenda - Datos Salida: " + respuesta);
+				return respuesta;
+	}
 	}
 

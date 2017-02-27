@@ -23,17 +23,17 @@ import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AltaAgenda
+ * Servlet implementation class ModificaAgenda
  */
-public class AltaAgenda extends HttpServlet {
+public class ModificaAgenda extends HttpServlet {
 	/**
-	 * serial uid
+	 * Serial uid
 	 */
 	private static final long serialVersionUID = 1L;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AltaAgenda() {
+    public ModificaAgenda() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -60,8 +60,8 @@ public class AltaAgenda extends HttpServlet {
 		try {
 			//leer json Array
 			JSONParser parser = new JSONParser();
-			Object jsonAltaAgenda = parser.parse(request.getParameter("JSONAltaAgenda"));
-			JSONObject jsonObject = (JSONObject) jsonAltaAgenda;
+			Object jsonModificaAgenda = parser.parse(request.getParameter("JSONModificaAgenda"));
+			JSONObject jsonObject = (JSONObject) jsonModificaAgenda;
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -162,7 +162,7 @@ public class AltaAgenda extends HttpServlet {
 
 			}
 			agenda.setDiasAgenda(agendaDetalle);
-			respuesta = negocio.altaAgenda(agenda);
+			respuesta = negocio.modificaAgenda(agenda);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
