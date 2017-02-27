@@ -29,7 +29,5 @@ public class Encriptacion {
         }
         System.out.print(sb);
     	return sb.toString();
-    	
-    	
 	}
 }

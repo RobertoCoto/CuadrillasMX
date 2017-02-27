@@ -41,7 +41,7 @@ public class LogHandler extends Logger {
 	     This method overrides {@link Logger#getInstance} by supplying
 	     its own factory type as a parameter.
 	  * @param name .
-	  * @return Logger	
+	  * @return Logger
 	  */
 	  public  static  Category getInstance(final String name) {
 	    return Logger.getLogger(name, MYFACTORY);
@@ -106,8 +106,7 @@ public class LogHandler extends Logger {
 		 * @param msg the msg
 		 */
 		public static void debug(final String uid, final Class<?> clase, final String msg) {
-			
-			logger = Logger.getLogger(clase);			
+			logger = Logger.getLogger(clase);
 			logger.debug( formatMsg( uid, clase, msg  ) );
 		}
 

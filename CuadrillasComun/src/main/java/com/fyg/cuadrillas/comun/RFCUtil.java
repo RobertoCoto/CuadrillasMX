@@ -24,12 +24,12 @@ public final class RFCUtil {
 	/**
 	 * Lista de vocales.
 	 */
-	private final static String[] ARRAY_VOCALES = { "A", "E", "I", "O", "U" };
+	private static final String[] ARRAY_VOCALES = {"A", "E", "I", "O", "U" };
 
 	/**
 	 * Lista de palabras obscenas.
 	 */
-	private final static String[] ARRAY_PALABRAS_OBSCENAS = { "BUEI", "BATO", "BOFE", "BUEY", "CACA", "CACO", "CAGO",
+	private static final String[] ARRAY_PALABRAS_OBSCENAS = {"BUEI", "BATO", "BOFE", "BUEY", "CACA", "CACO", "CAGO",
 			"CAKO", "CAGA", "CAKA", "COGI", "COJA", "COJI", "COJO", "COLA", "CULO", "COGE", "COJE", "COJO", "FALO",
 			"FOCA", "FETO", "GATA", "GETA", "GUEI", "GUEY", "JETA", "JOTO", "KAKA", "KAGA", "KACA", "KOGE", "KOGI",
 			"KOJA", "KOJE", "KOJI", "KACO", "KOLA", "KAGO", "KOJO", "KULO", "LILO", "LOBA", "LOCA", "LOKA", "LOKO",
@@ -43,44 +43,44 @@ public final class RFCUtil {
 	 * Lista de sufijos para no ser considerados como nombre en el
 	 * c&aacute;lculo en el RFC.
 	 */
-	private final static String[] ARRAY_SUFIJOS_NOMBRES = { "MARIA", "JOSE", "DE", "DEL", "LOS", "LAS", "LA", "MA",
+	private static final String[] ARRAY_SUFIJOS_NOMBRES = {"MARIA", "JOSE", "DE", "DEL", "LOS", "LAS", "LA", "MA",
 			"MA.", "J.", "J" };
 
 	/**
 	 * Lista de sufijos para no ser considerados como apellidos en el
 	 * c&aacute;lculo en el RFC.
 	 */
-	private final static String[] ARRAY_SUFIJOS_APELLIDOS = { "DE", "LA", "LAS", "MC", "VON", "DEL", "LOS", "Y", "MAC",
+	private static final String[] ARRAY_SUFIJOS_APELLIDOS = {"DE", "LA", "LAS", "MC", "VON", "DEL", "LOS", "Y", "MAC",
 			"VAN" };
 
 	/**
 	 * Set con la lista de vocales, este Set es para acceder de forma m&aacute;s
 	 * r&aacute;pida a la lista de vocales.
 	 */
-	private final static Set<String> VOCALES = new HashSet<String>(Arrays.asList(ARRAY_VOCALES));
+	private static final Set<String> VOCALES = new HashSet<String>(Arrays.asList(ARRAY_VOCALES));
 
 	/**
 	 * Set con la lista de sufijos, este Set es para acceder de forma m&aacute;s
 	 * r&aacute;pida a la lista de sufijos.
 	 */
-	private final static Set<String> SUFIJOS_NOMBRES = new HashSet<String>(Arrays.asList(ARRAY_SUFIJOS_NOMBRES));
+	private static final Set<String> SUFIJOS_NOMBRES = new HashSet<String>(Arrays.asList(ARRAY_SUFIJOS_NOMBRES));
 
 	/**
 	 * Set con la lista de sufijos, este Set es para acceder de forma m&aacute;s
 	 * r&aacute;pida a la lista de sufijos.
 	 */
-	private final static Set<String> SUFIJOS_APELLIDOS = new HashSet<String>(Arrays.asList(ARRAY_SUFIJOS_APELLIDOS));
+	private static final Set<String> SUFIJOS_APELLIDOS = new HashSet<String>(Arrays.asList(ARRAY_SUFIJOS_APELLIDOS));
 
 	/**
 	 * Set con la lista de palabras obscenas, este Set es para acceder de forma
 	 * m&aacute;s r&aacute;pida a la lista de palabras obscenas.
 	 */
-	private final static Set<String> PALABRAS_OBSCENAS = new HashSet<String>(Arrays.asList(ARRAY_PALABRAS_OBSCENAS));
+	private static final Set<String> PALABRAS_OBSCENAS = new HashSet<String>(Arrays.asList(ARRAY_PALABRAS_OBSCENAS));
 
 	/**
 	 * Mapa de equivalencias para obtener el nombre num&eacute;rico.
 	 */
-	private final static Map<Character, String> EQUIVALENCIAS_NOMBRE_NUMERICO = new HashMap<Character, String>();
+	private static final Map<Character, String> EQUIVALENCIAS_NOMBRE_NUMERICO = new HashMap<Character, String>();
 
 	/**
 	 * Inicializa los mapas de equivalencias.
@@ -313,7 +313,7 @@ public final class RFCUtil {
 	 * en caso de que solo tenga un nombre aunque sea sufijo, regresa ese
 	 * nombre.
 	 *
-	 * @param nombres
+	 * @param apellidos
 	 *            String
 	 * @return String
 	 */
@@ -421,7 +421,7 @@ public final class RFCUtil {
 		}
 
 		if (esPalabraObsena(nombreRFC.toString())) {
-			replaceUltimaLetraConX(nombreRFC);// Cambios
+			replaceUltimaLetraConX(nombreRFC); // Cambios
 		}
 		return nombreRFC.toString();
 	}
@@ -455,7 +455,10 @@ public final class RFCUtil {
 	// // Regla 9.
 	// // string.replace(3, 4, "X");
 	// }
-
+/**
+ * Method replaceUltimateLetraConX
+ * @param string recibe valores String
+ */
 	private static void replaceUltimaLetraConX(StringBuilder string) {
 		// En el SP es la segunda letra la que cambia con X.
 		string.replace(3, 4, "X");
@@ -537,11 +540,11 @@ public final class RFCUtil {
 	/**
 	 * Regresa el c&aacute;lculo de la homoclave del RFC.
 	 *
-	 * @param nombre
+	 * @param nombre_
 	 *            String
-	 * @param apellidoPaterno
+	 * @param apellidoPaterno_
 	 *            String
-	 * @param apellidoMaterno
+	 * @param apellidoMaterno_
 	 *            String
 	 * @return String
 	 */
@@ -617,7 +620,7 @@ public final class RFCUtil {
 
 	/**
 	 * Regresa el c&aacute;lculo del d&iacute;gito verificador.
-	 * 
+	 *
 	 * @param rfc
 	 *            String
 	 * @return String
