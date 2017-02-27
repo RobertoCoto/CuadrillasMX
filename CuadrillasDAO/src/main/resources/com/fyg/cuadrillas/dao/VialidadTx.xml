@@ -20,11 +20,11 @@ UPDATE vialidad
     estatus = 'I'
 WHERE id_vialidad = #{idVialidad}
 AND estatus = 'A'
-</update> 
+</update>
 
 <insert id="registraCoordenadas" parameterType="VialidadCoordenadas">
 INSERT INTO vialidad_coordenadas(id_vialidad,latitud,longitud,fecha_alta,estatus)
-VALUES 
+VALUES
 <foreach collection="list" item="element" index="index" separator=",">
 (#{element.idVialidad},#{element.latitud},#{element.longitud},now(),'A')
 </foreach>

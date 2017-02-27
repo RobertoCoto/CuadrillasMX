@@ -9,33 +9,33 @@
 <result column="codigo_tipo_articulo" property="codigoTipoArticulo"/>
 <result column="codigo_estado" property="codigoEstado"/>
 <result column="estatus" property="estatus"/>
-</resultMap>	
-	
+</resultMap>
+
 <!-- Consulta Herramientas-->
 <select id="consultaHerramientaAsc" parameterType="Herramienta" resultMap="herramienta">
-SELECT 
+SELECT
      nombre,
      descripcion,
      codigo_tipo_combustible,
      codigo_tipo_articulo,
      codigo_estado,
      estatus
-FROM herramienta 
-WHERE nombre = #{nombre} 
+FROM herramienta
+WHERE nombre = #{nombre}
 AND estatus = 'A'
 ORDER BY descripcion ASC
 </select>
 
 <select id="consultaHerramientaDesc" parameterType="Herramienta" resultMap="herramienta">
-SELECT 
+SELECT
      nombre,
      descripcion,
      codigo_tipo_combustible,
      codigo_tipo_articulo,
      codigo_estado,
      estatus
-FROM herramienta 
-WHERE nombre = #{nombre} 
+FROM herramienta
+WHERE nombre = #{nombre}
 AND estatus = 'A'
 ORDER BY descripcion DESC
 </select>

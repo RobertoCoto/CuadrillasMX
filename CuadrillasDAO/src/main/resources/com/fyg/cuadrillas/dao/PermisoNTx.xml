@@ -27,21 +27,21 @@
 <result column="descripcion_puesto" property="descripcionPuesto"/>
 </resultMap>
 <select id="existePermiso" parameterType="Permiso" resultType="int">
-SELECT count(*) 
-FROM permiso_laboral 
-WHERE ( #{fechaSolicitudMinimo} <![CDATA[<=]]>  fecha_solicitud AND fecha_solicitud <![CDATA[<=]]> #{fechaSolicitudMaximo}) 
-AND id_empleado = #{idEmpleado} 
+SELECT count(*)
+FROM permiso_laboral
+WHERE ( #{fechaSolicitudMinimo} <![CDATA[<=]]>  fecha_solicitud AND fecha_solicitud <![CDATA[<=]]> #{fechaSolicitudMaximo})
+AND id_empleado = #{idEmpleado}
 AND estatus = 'A'
 </select>
 <select id="existeAutorizacion" parameterType="Permiso" resultType="int">
-SELECT count(autorizacion) 
+SELECT count(autorizacion)
 FROM permiso_laboral
 WHERE id_permiso = #{idPermiso}
 AND autorizacion = 'S'
 </select>
 
 <select id="existeRechazada" parameterType="Permiso" resultType="int">
-SELECT count(autorizacion) 
+SELECT count(autorizacion)
 FROM permiso_laboral
 WHERE id_permiso = #{idPermiso}
 AND autorizacion = 'N'
@@ -51,7 +51,7 @@ AND autorizacion = 'N'
 SELECT count(estatus)
 FROM permiso_laboral
 WHERE id_permiso = #{idPermiso}
-AND id_empleado = #{idEmpleado} 
+AND id_empleado = #{idEmpleado}
 AND estatus = 'I'
 </select>
 

@@ -27,7 +27,7 @@ ORDER BY nombre ASC
 </select>
 
 <select id="consultaVialidadDesc" parameterType="Vialidad" resultMap="vialidad">
-SELECT 
+SELECT
     nombre,
     estatus
 FROM vialidad
