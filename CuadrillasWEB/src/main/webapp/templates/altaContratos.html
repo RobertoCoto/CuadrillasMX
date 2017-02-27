@@ -27,7 +27,7 @@
               <tbody>
                 <tr ng-repeat="contrato in contratos">
                   <td>{{contrato.numeroDocumento}}</td>
-                  <td>{{contrato.fechaRegistro}}</td>
+                  <td>{{contrato.fechaRegistroContrato}}</td>
                   <td>{{contrato.codigoVialidad}}</td>
                   <td>{{contrato.coordenadas[0].direccion}}</td>
                   <td>{{contrato.coordenadas[contrato.coordenadas.length -1].direccion}}</td>
@@ -49,7 +49,7 @@
         <div class="col-sm-12">
         <div id="mainPanel" class="panel panel-default">
           <div class="panel-body">
-            <form action="#">
+            <form action="http://localhost:8080/CuadrillasWEB/test">
               <div class="row">
                       <div class="col-sm-4">
                           <div class="form-group">
@@ -126,7 +126,7 @@
                   <label for="fechaRegistro" class="control-label">Fecha de Registro</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                    <input class="form-control" id="fechaRegistro" name="fechaRegistro" ng-model="contratoFocus.fechaRegistro" placeholder="DD/MM/YYYY" type="text" disabled="true" />
+                    <input class="form-control" id="fechaRegistro" name="fechaRegistro" ng-model="contratoFocus.fechaRegistroContrato" placeholder="DD/MM/YYYY" type="text" disabled="true" />
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -203,7 +203,7 @@
                   <h4>Adjuntar Contrato</h4>
                     <div class="form-inline">
                       <div class="form-group">
-                        <input type="file" id="adjuntarContrato">
+                        <input type="file" file-model="contratoAdjunto" id="adjuntarContrato">
                         <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
                       </div>
                     </div>
@@ -229,7 +229,7 @@
                   <button type="button" class="btn btn-block btn-success" ng-click="altaContrato()" ng-show="nContrato">Alta</button>
                 </div>
                 <div class="col-sm-2">
-                  <button type="button" class="btn btn-block btn-warning" ng-show="!nContrato">Guardar</button>
+                  <button type="button" class="btn btn-block btn-warning" ng-click="guardaContrato()" ng-show="!nContrato">Guardar</button>
                 </div>
                 <div class="col-sm-2 col-sm-offset-3">
                   <button id="cancelarBtn" type="button" ng-click="cancelar()" class="btn btn-block btn-danger">Cancelar</button>

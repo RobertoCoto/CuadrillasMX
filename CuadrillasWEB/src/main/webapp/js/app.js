@@ -206,7 +206,36 @@ var data;
 		    }
  	}]);
  	//FIN LOGIN
+	app.service('fileUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(contrato, json, uploadUrl){
+	        var fd = new FormData();
+	        fd.append('contrato', contrato);
+					fd.append('json', json);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(){
+	        })
+	        .error(function(){
+	        });
+	    }
+	}]);
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
 
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
  	//MENU
 	app.controller('MainController',
 		function ($scope, $location) {
@@ -441,7 +470,7 @@ var data;
             var markers = [];
 
 
-            app.controller('altacontratoctrl', function ($scope, $http) {
+            app.controller('altacontratoctrl', function ($scope, $http, fileUpload) {
 							$(window).on("load resize ", function() {
 							  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
 							  $('.tbl-header').css({'padding-right':scrollWidth});
@@ -565,8 +594,10 @@ var data;
                     $('#mainPanel').show();
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
+										$('form')[0].reset();
                     $scope.nContrato = true;
                     $scope.contratoFocus = {};
+										$scope.contratoFocus.fechaRegistroContrato = new JsSimpleDateFormat("dd/MM/yyyy").format(new Date());
                     $scope.initMap();
                     $scope.limpiarMarcadores();
                   }
@@ -578,15 +609,36 @@ var data;
                     $('#panelContratos').show();
                     $scope.contratoFocus = {};
                     $scope.limpiarMarcadores();
+										$('form')[0].reset();
                   }
 
                   $scope.altaContrato = function() {
-                    $('#mainPanel').hide();
-                    $scope.consultaContratos();
-                    $('#panelContratos').show();
-                    $('#nuevoContrato').show();
+                    //$('#mainPanel').hide();
+                    //$scope.consultaContratos();
+                    //$('#panelContratos').show();
+                    //$('#nuevoContrato').show();
                     console.log($scope.contratoFocus);
-                    $scope.contratoFocus = {}; //para el final
+										var contrato = $scope.contratoAdjunto;
+										var json = JSON.stringify($scope.contratoFocus);
+										console.log('Archivo a subir: ' );
+										console.dir(contrato);
+										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
+										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
+                    //$scope.contratoFocus = {}; //para el final
+
+                  }
+
+									$scope.guardaContrato = function() {
+                    //$('#mainPanel').hide();
+                    //$scope.consultaContratos();
+                    //$('#panelContratos').show();
+                    //$('#nuevoContrato').show();
+                    console.log($scope.contratoFocus);
+										var json = JSON.stringify($scope.contratoFocus);
+										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
+										fileUpload.uploadFileToUrl(null, json, uploadUrl);
+                    //$scope.contratoFocus = {}; //para el final
+
                   }
 
                   $scope.consultaContratos = function() {
@@ -621,9 +673,12 @@ var data;
                     $('#panelContratos').hide();
                     $scope.nContrato = false;
                     $scope.initMap();
-                    for (var i = 0; i < contrato.coordenadas.length; i++) {
-                      $scope.setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
-                    }
+										setTimeout(function () {
+											for (var i = 0; i < contrato.coordenadas.length; i++) {
+												$scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion);
+											}
+										}, 100);
+
                   }
 
                   //Ejecuci√≥n inicial
@@ -670,6 +725,25 @@ var data;
                     });
                   }, 2000); */
 
+									$scope.setMarcadorEdicion = function(latLng, direccion) {
+										//$('#msload').modal('show');
+                    var geocoder = new google.maps.Geocoder;
+                    var img_mark = 'altaContrato/mark.png';
+                    var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+                    medida.mvcLine.push(latLng);
+                    medida.mvcPolygon.push(latLng);
+                    medida.mvcMarkers.push(marcador);
+                    var latLngIndex = medida.mvcLine.getLength() - 1;
+                    var latlng = {lat: latLng.lat, lng: latLng.lng};
+                    var direccion = 'SN';
+                      //console.log(results);
+                      $( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
+                        + "<td class=\"td\" width=\"30px\"> </td>"
+                        + "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
+                      + "</tr>") );
+										//$('#msload').modal('hide');
+                    $scope.mLineaRecta();
+                  }
 
                   $scope.setMarcador = function(latLng) {
 										$('#msload').modal('show');
@@ -713,7 +787,7 @@ var data;
                             + "<td class=\"td\" width=\"30px\"> </td>"
                             + "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
                           + "</tr>") );
-													
+
                         } else {
                           $('#alert').show();
                           $('#msgerror').text('No se encontro una direcci√≥n disponible.')
@@ -781,7 +855,11 @@ var data;
                     }); */
                     google.maps.event.addListener(map, 'click', function(event) {
                         //console.log(event);
-                        $scope.setMarcador(event.latLng);
+												if($scope.nContrato) {
+                        	$scope.setMarcador(event.latLng);
+												} else {
+													$scope.setMarcadorEdicion(event.latLng);
+												}
                     });
                   }
 
@@ -871,6 +949,21 @@ var data;
                           }
                       });
                   }
+									$scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+                      var latlng = {lat: lat, lng: lng};
+											var geocoder = new google.maps.Geocoder();
+											setTimeout(function () {
+													geocoder.geocode({'location': latlng}, function(results, status) {
+		                          if (status == google.maps.GeocoderStatus.OK) {
+		                              map.setCenter(results[0].geometry.location);
+																	$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+		                          }
+		                      });
+											}, 100);
+
+
+                  }
+
 
                   $scope.limpiarMarcadores = function() {
                       if (medida.polygon) {
@@ -933,10 +1026,10 @@ var data;
 	  		regional:"es",
 	  		calendarWeeks: false
 	  	}).on('changeDate', function (e)
-	  	{	  		
+	  	{
 	  		if (actualizacion)
 	  			return;
-  			
+
 	  		actualizacion = true;
 	  		var value = e.date;
 	  		var iniSemana = moment(value).day(1);
@@ -951,25 +1044,25 @@ var data;
   				moment(value).day(6).toDate(),
   				moment(value).day(7).toDate()
   			]);
-	  		
+
 	  		var semanaInicioDate = moment(iniSemana.toDate());
 	  		var semanaFinDate = moment(finSemana.toDate());
 	  		$('#ini').val(semanaInicioDate.format("YYYY-MM-DD"));
 	  		$('#fin').val(semanaFinDate.format("YYYY-MM-DD"));
 	  		$('#semana').val(moment(iniSemana.toDate()).week());
 	  		actualizacion = false;
-	  		
+
 	  		//se arma el arreglo de dias de la semana
 	  		$scope.fechasSemana= [];
 	  		for (var i=1; i<=7; i++)
 	  		{
 	  			var contador = i;
-	  			$scope.fechasSemana.push(mostrarFecha(contador, semanaInicioDate.format("YYYY-MM-DD")))	  			
+	  			$scope.fechasSemana.push(mostrarFecha(contador, semanaInicioDate.format("YYYY-MM-DD")))
 	  		}
-	  		
+
 	  		$('#diaActividad').val("");
 	  });
-        
+
 	  //se llena catalogo de actividades
       $http({
               method: 'GET',
@@ -1003,7 +1096,7 @@ var data;
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
         });
-      
+
         //Se consultan los contratos activos
       	$http({
               method: 'GET',
@@ -1024,26 +1117,26 @@ var data;
         //se agregan elementos al objeto de actividades
   		$scope.gridActividades = [];
   		$scope.gridArticulos = [];
-  		$scope.agregarActividades = function(objActividad) {  			
+  		$scope.agregarActividades = function(objActividad) {
   			var encontrado = false;
-  			
+
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();  			
-  			
+  			//$('#success').hide();
+
   			for(indice in $scope.gridActividades)
-  			{  				
+  			{
   				if (objActividad.codigo == $scope.gridActividades[indice].codigo)
   				{
   					encontrado = true;
   				}
   			}
-  			  		
+
   			if (encontrado == false)
   			{
   				var actividad = {};
   				actividad.codigo = objActividad.codigo;
-	  			actividad.descripcion = objActividad.descripcion;  			  		
+	  			actividad.descripcion = objActividad.descripcion;
 	  			$scope.gridActividades.push(actividad);
 	          //console.info(response);
 	          //$('#msload').modal('hide');
@@ -1051,72 +1144,72 @@ var data;
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   			}
   		};
-  		
-  		$scope.agregarArticulos = function(objArticulo) {  			
+
+  		$scope.agregarArticulos = function(objArticulo) {
   			var encontrado = false;
-  			
+
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();  			  		
+  			//$('#success').hide();
   			for(indice in $scope.gridArticulos)
-  			{  				
+  			{
   				if (objArticulo.codigo == $scope.gridArticulos[indice].codigo)
   				{
   					encontrado = true;
   				}
   			}
-  			  		
+
   			if (encontrado == false)
   			{
   				var articulo = {};
   				articulo.codigo = objArticulo.codigo;
-	  			articulo.descripcion = objArticulo.descripcion;  			  		
+	  			articulo.descripcion = objArticulo.descripcion;
 	  			$scope.gridArticulos.push(articulo);
-	  			
+
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
 	          //$('#msgaviso').text(response.data.mensajeFuncional);
   			}
   		};
-  		
-  		$scope.eliminarActividades = function(actividad) {			
+
+  		$scope.eliminarActividades = function(actividad) {
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();  			  		
+  			//$('#success').hide();
   			for(indice in $scope.gridActividades)
-  			{  				
+  			{
   				if (actividad == $scope.gridActividades[indice].codigo)
   				{
   					$scope.gridActividades.splice(indice,1);
   				}
-  			}  			  		
-	  			
+  			}
+
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);  		
+	          //$('#msgaviso').text(response.data.mensajeFuncional);
   		};
-  		
-  		$scope.eliminarArticulos = function(articulo) {			
+
+  		$scope.eliminarArticulos = function(articulo) {
   			//$('#msload').modal('show');
   			//$('#alert').hide();
-  			//$('#success').hide();  			  		
+  			//$('#success').hide();
   			for(indice in $scope.gridArticulos)
-  			{  				
+  			{
   				if (articulo == $scope.gridArticulos[indice].codigo)
   				{
   					$scope.gridArticulos.splice(indice,1);
   				}
-  			}  			  		
-	  			
+  			}
+
 	          //console.info(response);
 	          //$('#msload').modal('hide');
 	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);  		
+	          //$('#msgaviso').text(response.data.mensajeFuncional);
   		};
-  		
-  		//funcion para agregar dÌas a una fecha
+
+  		//funcion para agregar dÔøΩas a una fecha
   		function mostrarFecha(days, fechaInicio){
 		    milisegundos=parseInt(35*24*60*60*1000);
 
@@ -1126,7 +1219,7 @@ var data;
 		    // el mes es devuelto entre 0 y 11
 		    month=fecha.getMonth()+1;
 		    year=fecha.getFullYear();
-		 		    		 		 
+
 		    //Obtenemos los milisegundos desde media noche del 1/1/1970
 		    tiempo=fecha.getTime();
 		    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
@@ -1136,27 +1229,27 @@ var data;
 		    day=fecha.getDate();
 		    month=fecha.getMonth()+1;
 		    year=fecha.getFullYear();
-		    
-		    monthAux = month.toString();    				  
+
+		    monthAux = month.toString();
 		    if (monthAux.length ==1)
 		    {
 		    	monthAux = "0" + monthAux;
 		    }
-		    
+
 		    dayAux = day.toString();
 		    if (dayAux.length ==1)
 		    {
 		    	dayAux = "0" + dayAux;
-		    }		    
-		    		 
-		    return year + "-" + monthAux + "-" + dayAux;  
+		    }
+
+		    return year + "-" + monthAux + "-" + dayAux;
   		};
-  		
-  		//funcion para colocar la fecha de plan de actividades de acuerdo al botÛn seleccionado
+
+  		//funcion para colocar la fecha de plan de actividades de acuerdo al botÔøΩn seleccionado
   		$scope.obtenerFechaSeleccionada = function(dia)
   		{
-  			$('#diaActividad').val($scope.fechasSemana[dia-1]);  			
-  		}  	
+  			$('#diaActividad').val($scope.fechasSemana[dia-1]);
+  		}
 
     });
     //FIN REGISTRO AGENDA SEMANAL
