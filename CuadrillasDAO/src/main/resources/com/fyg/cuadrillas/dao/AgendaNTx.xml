@@ -43,7 +43,7 @@ AND estatus ='I'
 </select>
 
 <select id="consultaAgenda" parameterType="Agenda" resultMap="agenda">
-SELECT 
+SELECT
 a.id_agenda,
 a.id_contrato,
 a.fecha_inicio,
@@ -66,20 +66,21 @@ LEFT JOIN agenda_actividades act ON ag.id_agenda_detalle = act.id_agenda_detalle
 LEFT JOIN agenda_materiales ma ON ag.id_agenda_detalle = ma.id_agenda_detalle
 LEFT JOIN catalogo cat ON act.codigo_actividad = cat.codigo
 LEFT JOIN catalogo cata ON ma.codigo_material = cata.codigo
-WHERE a.estatus = 'A'
+WHERE a.id_agenda = #{idAgenda}
+AND a.estatus = 'A'
 </select>
 
 <select id="consultaAgendaCoordenadas" parameterType="Agenda" resultMap="coordenada">
-	SELECT 
+SELECT
 		orden,
 		direccion,
 		latitud,
 		longitud
 	FROM agenda_coordenadas
-	WHERE estatus = 'A'	
-	<if test="idAgendaDetalle !=null">
+WHERE estatus = 'A'
+<if test="idAgendaDetalle !=null">
 	 	AND id_agenda_detalle = #{idAgendaDetalle}
-	</if>	
-	
+</if>
+
 </select>
 </mapper>

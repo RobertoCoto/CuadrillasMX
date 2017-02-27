@@ -101,26 +101,24 @@ public class AgendaNegocio {
 		return respuesta;
 	}
 	/**
-	 * Metodo para dar de baja la agenda 
+	 * Metodo para dar de baja la agenda
 	 * @param agenda recibe valores de agenda
 	 * @return regresa respuesta
 	 */
-	public EncabezadoRespuesta bajaAgenda (AgendaDTO agenda){
+	public EncabezadoRespuesta bajaAgenda(AgendaDTO agenda) {
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(agenda);
 				//Mandamos a log el objeto de entrada
 				LogHandler.debug(uid, this.getClass(), "bajaAgenda - Datos Entrada: " + agenda);
-				
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try { 
-			if(agenda.getIdAgenda() == null || agenda.getIdAgenda() <= 0) {
+		try {
+			if (agenda.getIdAgenda() == null || agenda.getIdAgenda() <= 0) {
 				throw new ExcepcionesCuadrillas("Es necesario el ID del Contrato de la Agenda.");
 			}
 			if (agenda.getUsuario() == null || agenda.getUsuario().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el usuario para la operacion.");
 			}
-			
 			AgendaDAO dao = new AgendaDAO();
 			respuesta = dao.bajaAgenda(uid, agenda);
 		} catch  (Exception ex) {
@@ -135,9 +133,10 @@ public class AgendaNegocio {
 	}
 	/**
 	 * Metodo para consultar las agendas disponibles
+	 * @param agenda recibe valores de agenda
 	 * @return regresa respuesta
 	 */
-	public AgendaRespuesta consultaAgenda () {
+	public AgendaRespuesta consultaAgenda(AgendaDTO agenda) {
 		//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(new String(""));
 				//Mandamos a log el objeto de entrada
@@ -149,7 +148,10 @@ public class AgendaNegocio {
 		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 		 List<AgendaDTO> listaAgenda = null;
 		 try {
-			 listaAgenda = new AgendaDAO().consultaAgenda(uid);
+			 if (agenda.getIdAgenda() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la de la Agenda.");
+			 }
+			 listaAgenda = new AgendaDAO().consultaAgenda(uid, agenda);
 			 respuesta.setAgenda(listaAgenda);
 		 } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);

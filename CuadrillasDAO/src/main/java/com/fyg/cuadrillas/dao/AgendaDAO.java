@@ -53,9 +53,6 @@ public class AgendaDAO {
 
 				
 			}
-			for (int j = 0; j < datoAgenda.size(); j++) {
-				System.out.println("es este el id: " + datoAgenda.get(j).getIdAgendaDetalle());
-		}	
 			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -249,7 +246,7 @@ public class AgendaDAO {
 	 * @param agenda recibe valores de agenda
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta bajaAgenda (String uid, AgendaDTO agenda) {
+	public EncabezadoRespuesta bajaAgenda(String uid, AgendaDTO agenda) {
 		SqlSession sessionTx = null;
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -269,7 +266,6 @@ public class AgendaDAO {
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al dar de baja la agenda.");
 			}
-			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -295,7 +291,7 @@ public class AgendaDAO {
 	 * @throws Exception si se genera un error
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AgendaDTO> consultaAgenda (String uid) throws Exception {
+	public List<AgendaDTO> consultaAgenda(String uid, AgendaDTO agenda) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -307,7 +303,7 @@ public class AgendaDAO {
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
-			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgenda");
+			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgenda", agenda);
 			if ( listaConsultaAgenda.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
 			}
@@ -326,29 +322,35 @@ public class AgendaDAO {
 		return listaConsultaAgenda;
 	}
 	/**
-	 * Metodo para actualizar la agenda 
+	 * Metodo para actualizar la agenda
 	 * @param uid unico de registro
 	 * @param agenda recibira valores de agenda
 	 * @return regresara respuesta
 	 */
-	public EncabezadoRespuesta actualizaAgenda (String uid, AgendaDTO agenda) {
+	public EncabezadoRespuesta actualizaAgenda(String uid, AgendaDTO agenda) {
 		SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("La agenda ha sido modificada correctamente.");
 		try {
-			
+
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-	        int registros = sessionTx.update("AgendaDAO.modificaAgenda", agenda);
+			int registros = sessionTx.update("AgendaDAO.modificaAgenda", agenda);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar la agenda.");
+			}
+
+			if (agenda.getDiasAgenda().size() > 0) {
+				for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
+					agendaDetalle.setIdAgenda(agenda.getIdAgenda());
+				}
+				modificaAgendaDetalle(uid, agenda.getDiasAgenda(), sessionTx);
 			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
-			
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");
@@ -362,4 +364,14 @@ public class AgendaDAO {
 		}
 		return respuesta;
 	}
+	/**
+	 * Metodo para actualizar agenda detalle
+	 * @param uid unico de registro
+	 * @param agendaDetalle recibe valores de agenda detalle
+	 * @param session crea una session de BD
+	 * @throws Exception por si surge una excepcion
+	 */
+ public void modificaAgendaDetalle(String uid, List<AgendaDetalleDTO> agendaDetalle, SqlSession session) throws Exception {
+	 
+ }
 }
