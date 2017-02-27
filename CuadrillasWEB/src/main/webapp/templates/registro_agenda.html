@@ -102,13 +102,13 @@
             <div>
             	<div class="row">
                 	<div class="col-sm-12" align="center">
-						<button type="button" class="btn btn-primary" name="btnLunes" id="btnLunes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(1);" >Lunes</button>
-						<button type="button" class="btn btn-primary" name="btnMartes" id="btnMartes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(2);">Martes</button>
-						<button type="button" class="btn btn-primary" name="btnMiercoles" id="btnMiercoles" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(3);">Miercoles</button>
-						<button type="button" class="btn btn-primary" name="btnJueves" id="btnJueves" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(4);">Jueves</button>
-						<button type="button" class="btn btn-primary" name="btnViernes" id="btnViernes" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(5);">Viernes</button>
-						<button type="button" class="btn btn-primary" name="btnSabado" id="btnSabado" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(6);">Sabado</button>
-						<button type="button" class="btn btn-primary" name="btnDomingo" id="btnDomingo" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(7);">Domingo</button>
+						<button type="button" class="btn btn-primary" name="btnLunes" id="btnD1" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(1);" >Lunes</button>
+						<button type="button" class="btn btn-primary" name="btnMartes" id="btnD2" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(2);">Martes</button>
+						<button type="button" class="btn btn-primary" name="btnMiercoles" id="btnD3" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(3);">Miercoles</button>
+						<button type="button" class="btn btn-primary" name="btnJueves" id="btnD4" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(4);">Jueves</button>
+						<button type="button" class="btn btn-primary" name="btnViernes" id="btnD5" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(5);">Viernes</button>
+						<button type="button" class="btn btn-primary" name="btnSabado" id="btnD6" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(6);">Sabado</button>
+						<button type="button" class="btn btn-primary" name="btnDomingo" id="btnD7" style="margin-top: 25px;" ng-click="obtenerFechaSeleccionada(7);">Domingo</button>
             		</div>
             	</div>
             </div>
@@ -146,16 +146,15 @@
 	                              <table class="table table-bordered">
 	                                <thead>
 	                                  <tr class="info">
-	                                    <td>Num</td>
-	                                    <td>Actividad</td>
-	                                    <td></td>
+	                                    <td width="90%">Actividad</td>
+	                                    <td width=10%"></td>
 	                                  </tr>
 	                                </thead>
 	                                <tbody>
 	                                  <tr ng-repeat="actividad in gridActividades">
-	                                    <td>{{actividad.codigo}}</td>
-	                                    <td>{{actividad.descripcion}}</td>
-	                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarActividades(actividad.codigo)"></span></center></td>
+	                                    <!--<td>{{actividad.codigo}}</td>  -->
+	                                    <td width="90%">{{actividad.descripcion}}</td>
+	                                    <td width="10%"><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarActividades(actividad.codigo)"></span></center></td>
 	                                  </tr>
 	                                </tbody>
 	                              </table>
@@ -168,7 +167,7 @@
                         <div class="row">
                           <div class="col-sm-9">
                           	<label for="materialesCombo" class="control-label">Materiales</label>
-							<select id="cboActiculo" class="form-control" placeholder="Articulo" ng-model="objArticulos" ng-options="catalogo as catalogo.descripcion for catalogo in catArticulos"></select>
+							<select id="cboArticulo" class="form-control" placeholder="Articulo" ng-model="objArticulos" ng-options="catalogo as catalogo.descripcion for catalogo in catArticulos"></select>
                           </div>
                           <div class="col-sm-3">
                             <button type="button" class="btn btn-primary" name="agregarMaterialesBtn" id="agregarMaterialesBtn" style="margin-top: 25px;" ng-click="agregarArticulos(objArticulos)">Agregar</button>
@@ -182,16 +181,15 @@
 	                              <table class="table table-bordered">
 	                                <thead>
 	                                  <tr class="info">
-	                                    <td>Num</td>
-	                                    <td>Materiales</td>
-	                                    <td></td>
+	                                    <td width="90%">Materiales</td>
+	                                    <td width="10%"></td>
 	                                  </tr>
 	                                </thead>
 	                                <tbody>
 	                                  <tr ng-repeat="articulo in gridArticulos">
-	                                    <td>{{articulo.codigo}}</td>
-	                                    <td>{{articulo.descripcion}}</td>
-	                                    <td><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarArticulos(articulo.codigo)"></span></center></td>
+	                                    <!--<td>{{articulo.codigo}}</td> -->
+	                                    <td width="90%">{{articulo.descripcion}}</td>
+	                                    <td width="10%"><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarArticulos(articulo.codigo)"></span></center></td>
 	                                  </tr>
 	                                </tbody>
 	                              </table>
