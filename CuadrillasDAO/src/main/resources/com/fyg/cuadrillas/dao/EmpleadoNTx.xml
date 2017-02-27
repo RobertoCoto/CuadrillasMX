@@ -59,7 +59,7 @@
 	 <if test="rfcCalculado !=null">
 	 	AND e.rfc_calculado like #{rfcCalculado}
 	 </if>
-	 <!-- 
+	 <!--
 	 <if test="nombre != null">
 	 AND nombre like #{nombre}
 	  </if>
@@ -69,41 +69,40 @@
 	 <if test="apellidoMat !=null">
 	 AND apellido_mat like #{apellidoMat}
 	 </if>
-	 
 	  -->
 	</where>
 </select>
 
 <select id="empleadoActivo" parameterType="asistencia" resultType="int">
 SELECT count(estatus) as estatus
-FROM empleado 
+FROM empleado
 WHERE id_empleado = #{idEmpleado}
 AND estatus ='I'
 </select>
 
 <select id="existeNoEmpleado" parameterType="empleado" resultType="int">
 SELECT count(no_empleado) as no_empleado
-FROM empleado 
+FROM empleado
 WHERE no_empleado = #{noEmpleado}
 </select>
 
 <select id="existeRfcCalculado" parameterType="empleado" resultType="int">
 SELECT count(rfc_calculado) as rfc_calculado
-FROM empleado 
+FROM empleado
 WHERE rfc_calculado = #{rfcCalculado}
 </select>
 
 <select id="existeNoEmpleadoDato" parameterType="empleado" resultType="int">
 SELECT count(no_empleado) as no_empleado
-FROM empleado 
+FROM empleado
 WHERE no_empleado = #{noEmpleado}
 AND id_empleado != #{idEmpleado}
 </select>
 
 <select id="existeRfcCalculadoDato" parameterType="empleado" resultType="int">
 SELECT count(rfc_calculado) as rfc_calculado
-FROM empleado 
-WHERE rfc_calculado = #{rfcCalculado} 
+FROM empleado
+WHERE rfc_calculado = #{rfcCalculado}
 AND id_empleado != #{idEmpleado}
 </select>
 
@@ -115,11 +114,11 @@ WHERE id_empleado = #{idEmpleado}
 </select>
 
 <select id="consultaColaboradores" parameterType="Empleado" resultMap="empleado">
-SELECT c.descripcion AS perfil_empleado, 
-       e.nombre AS nombre, 
-       e.apellido_pat AS apellido_pat, 
+SELECT c.descripcion AS perfil_empleado,
+       e.nombre AS nombre,
+       e.apellido_pat AS apellido_pat,
        e.apellido_mat AS apellido_mat,
-	   CASE 
+	   CASE
 	   	WHEN e.estatus = 'A' THEN 'Activo'
 	   	WHEN e.estatus = 'I' THEN 'Suspendido'
 	   END AS estatus,
@@ -127,7 +126,7 @@ SELECT c.descripcion AS perfil_empleado,
 FROM empleado e
 LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
 WHERE e.id_cuadrilla = #{idCuadrilla}
-ORDER BY e.estatus, e.fecha_ingreso 
+ORDER BY e.estatus, e.fecha_ingreso
 </select>
 
 <select id="existeAutImss" parameterType="empleado" resultType="int">

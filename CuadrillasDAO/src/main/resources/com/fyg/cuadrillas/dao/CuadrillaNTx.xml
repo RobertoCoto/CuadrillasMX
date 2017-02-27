@@ -32,7 +32,7 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">
-SELECT c.id_cuadrilla, 
+SELECT c.id_cuadrilla,
  c.nombre_cuadrilla,
  c.codigo_vialidad,
  c.calificacion,
@@ -44,8 +44,8 @@ FROM cuadrilla c
 LEFT JOIN empleado e ON e.id_cuadrilla = c.id_cuadrilla AND e.estatus = 'A'
 LEFT JOIN empleado er ON er.id_cuadrilla = c.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 LEFT JOIN catalogo ca ON c.codigo_vialidad = ca.codigo
-WHERE c.estatus = 'A' 
-GROUP BY c.id_cuadrilla, 
+WHERE c.estatus = 'A'
+GROUP BY c.id_cuadrilla,
  c.nombre_cuadrilla
 </select>
 </mapper>
