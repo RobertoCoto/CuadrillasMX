@@ -154,50 +154,36 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
           $('input[data-form=document]:checked').each(function(){
 			   var $Name  =  $(this).attr('name');
 			   var $Value =  $(this).val();
+			   var $status = null;
 			   if( $Value == 1 )
 				 {
 					var $Element = {};
-						$Element = $Name;
+					$status = "SI";
+					$Element["codigoDocumento"] = $Name;
+				    $Element["estatusDocumento"] = $status;
 		  $scope.datosDocumentos.push( $Element );
-	    }										
+	    }	
+				 if( $Value == 3 )
+				 {
+					var $Element = {};
+					    $status = "NO";
+					    $Element["codigoDocumento"] = $Name;
+					    $Element["estatusDocumento"] = $status;
+						$scope.datosDocumentos.push( $Element );
+	    }
+				 if( $Value == 2 )
+				 {
+					    var $Element = {};
+					    $status = "NA";
+					    $Element["codigoDocumento"] = $Name;
+					    $Element["estatusDocumento"] = $status;
+		  $scope.datosDocumentos.push( $Element);
+	    }
 	    });
 	      $scope.JSONDocumentation = JSON.stringify( { 'documentacion' : $scope.datosDocumentos } ); 
+	      console.log($scope.JSONDocumentation)
         });
  
-        //Registrar Documentos estatus NO
-		 $scope.JSONDocumentationNoDocs = null;
-		 $('input[type=submit]').on('click',function(){
-		 $scope.datosDocumentosD = [];
-         $('input[data-form=document]:checked').each(function(){
-		        var $Name  =  $(this).attr('name');
-				var $Value =  $(this).val();
-					if( $Value == 3 )
-					  {
-					     var $Element = {};
-						     $Element = $Name;
-					$scope.datosDocumentosD.push( $Element );
-												}
-											});
-		 $scope.JSONDocumentationNoDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosD } );
-			});
-		 
-			//registre documentos estatus N/A
-		 	 $scope.JSONDocumentationNaDocs = null;
-		 	 $('input[type=submit]').on('click',function(){
-			 $scope.datosDocumentosDa = [];
-			 $('input[data-form=document]:checked').each(function(){
-				   var $Name  =  $(this).attr('name');
-				   var $Value =  $(this).val();
-				       if( $Value == 2 )
-						 {
-							var $Element = {};
-							$Element = $Name;
-							$scope.datosDocumentosDa.push( $Element );
-						 }
-              });
-			$scope.JSONDocumentationNaDocs = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDa } );
-			  });
-		 	 
 			  //Form de pago
 		 	 $scope.pagoValor = null;
 			 $('input[type=submit]').on('click',function(){
@@ -258,9 +244,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	              "noCreditoInfonavit": general.noCreditoInfonavit,
 	              "observaciones": general.coment,
 	              "usuario": data.data.usuario.usuario,
-	              "documentoEmpleado" : $scope.JSONDocumentation,
-	              "noDocs" : $scope.JSONDocumentationNoDocs,
-	              "naDocs" :$scope.JSONDocumentationNaDocs
+	              "documentoEmpleado" : $scope.JSONDocumentation
 			         }
 			    }).then(function mySucces(response) {
 			    	$('#msload').modal('hide');
@@ -358,47 +342,31 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			   if( $Value == 1 )
 				 {
 					var $Element = {};
-						$Element = $Name;
+					$status = "SI";
+					$Element["codigoDocumento"] = $Name;
+				    $Element["estatusDocumento"] = $status;
 		$scope.datosDocumentosUpdate.push( $Element );
-	    }										
+	    }
+				  if( $Value == 3 )
+				 {
+					var $Element = {};
+					$status = "NO";
+					$Element["codigoDocumento"] = $Name;
+				    $Element["estatusDocumento"] = $status;
+		$scope.datosDocumentosUpdate.push( $Element );
+	    }
+				  if( $Value == 2 )
+				 {
+					var $Element = {};
+					$status = "NA";
+					$Element["codigoDocumento"] = $Name;
+				    $Element["estatusDocumento"] = $status;
+		$scope.datosDocumentosUpdate.push( $Element );
+	    }
 	    });
 	    $scope.JSONDocumentationUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosUpdate } ); 
         });
- 
-        //Registrar Documentos estatus NO
-		$scope.JSONDocumentationNoDocsUpdate = null;
-		 $('input[type=submit]').on('click',function(){
-			 $scope.datosDocumentosDUpdate = [];
-         $('input[data-form=documentData]:checked').each(function(){
-		        var $Name  =  $(this).attr('name');
-				var $Value =  $(this).val();
-					if( $Value == 3 )
-					  {
-					     var $Element = {};
-						     $Element = $Name;
-						     $scope.datosDocumentosDUpdate.push( $Element );
-					  }
-			});
-			$scope.JSONDocumentationNoDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDUpdate } );
-			});
-		 
-			//registre documentos estatus N/A
-		 	 $scope.JSONDocumentationNaDocsUpdate = null;
-		 	 $('input[type=submit]').on('click',function(){
-		 		$scope.datosDocumentosDaUpdate = [];
-			 $('input[data-form=document]:checked').each(function(){
-				   var $Name  =  $(this).attr('name');
-				   var $Value =  $(this).val();
-				       if( $Value == 2 )
-						 {
-							var $Element = {};
-							$Element = $Name;
-							$scope.datosDocumentosDaUpdate.push( $Element );
-						 }
-              });
-              $scope.JSONDocumentationNaDocsUpdate = JSON.stringify( { 'documentacion' : $scope.datosDocumentosDaUpdate } );
-			  });
-		 	 
+  	 
 		//actualiza el empleado
 		 	 $scope.actualizarDato = function(general) {
 		 		$scope.general = {};
@@ -446,9 +414,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		              "noCreditoInfonavit": general.noCreditoInfonavit,
 		              "observaciones": general.coment,
 		              "usuario": data.data.usuario.usuario,
-		              "documentoEmpleado" : $scope.JSONDocumentationUpdate,
-		              "noDocs" : $scope.JSONDocumentationNoDocsUpdate,
-		              "naDocs" :$scope.JSONDocumentationNaDocsUpdate
+		              "documentoEmpleado" : $scope.JSONDocumentationUpdate
 				         }
 				    }).then(function mySucces(response) {
 				    	$('#msload').modal('hide');
