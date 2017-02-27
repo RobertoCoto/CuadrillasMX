@@ -41,13 +41,13 @@ VALUES
 <insert id="registraAgendaCoordenada" parameterType="Coordenada">
 INSERT INTO agenda_coordenadas
 		(
-			id_contrato,id_agenda_detalle,	orden,	direccion,	
+			id_contrato,id_agenda_detalle,	orden,	direccion,
 			latitud,	longitud,	fecha_alta,	estatus
 		)
 	VALUES
 	<foreach collection="list" item="element" index="index" separator=",">
 	 	(
-	 	 	#{element.idContrato},#{element.idAgendaDetalle}, #{element.orden},	#{element.direccion},	
+			#{element.idContrato},#{element.idAgendaDetalle}, #{element.orden},	#{element.direccion},
 			#{element.latitud},	#{element.longitud}, now(),	'A'
 	 	)
 	</foreach>
@@ -71,7 +71,7 @@ UPDATE agenda SET
 		fecha_baja = now(),
 		fecha_ult_mod = now()
 WHERE id_agenda = #{idAgenda}
-AND estatus = 'A'			
+AND estatus = 'A'
 </update>
 
 <update id="modificaAgenda" parameterType="Agenda">
@@ -88,9 +88,9 @@ WHERE id_agenda = #{idAgenda}
 AND estatus = 'A'
 </update>
 
-<update id="modificaAgenda" parameterType="AgendaDetalles">
+<update id="modificaAgendaDetalle" parameterType="AgendaDetalles">
 UPDATE agenda_detalle
-		SET 
+		SET
 		fecha = #{fecha},
 		avance_esperado = #{avanceEsperado},
 		observaciones = #{observaciones},
@@ -101,12 +101,12 @@ AND estatus = 'A'
 </update>
 
 <delete id="eliminaActividades" parameterType="AgendaDetalle">
-DELETE FROM agenda_actividades 
+DELETE FROM agenda_actividades
 WHERE id_agenda_detalle = #{idAgendaDetalle}
 </delete>
 
 <delete id="eliminaMateriales" parameterType="AgendaDetalle">
-DELETE FROM agenda_materiales 
+DELETE FROM agenda_materiales
 WHERE id_agenda_detalle = #{idAgendaDetalle}
 </delete>
 

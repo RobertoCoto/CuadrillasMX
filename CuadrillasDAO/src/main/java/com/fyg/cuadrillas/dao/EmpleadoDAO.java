@@ -26,15 +26,13 @@ public class EmpleadoDAO {
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("El empleado ha sido registrado exitosamente.");
 			try {
-				
-				//Validamos si ya existe el noEmpleado 
+				//Validamos si ya existe el noEmpleado
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
-				int existeNoEmpleado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleado", empleado);
+				int existeNoEmpleado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleado", empleado);
 				if (existeNoEmpleado > 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
 				}
-				
-				int existeRFCCalculado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculado", empleado);
+				int existeRFCCalculado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculado", empleado);
 				if (existeRFCCalculado > 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el RFC calculado del empleado.");
 				}
@@ -51,7 +49,6 @@ public class EmpleadoDAO {
 					}
 					registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
 				}
-				
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
 				sessionTx.commit();
@@ -147,18 +144,18 @@ public class EmpleadoDAO {
     * @throws Exception se crea una excepcion
     */
    @SuppressWarnings("unchecked")
-public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws Exception{
+public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws Exception {
 	   SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
 		List<EmpleadoDTO> listaEmpleado = null;
-		try { 
+		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla 
+			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "Consultando");
 			listaEmpleado = sessionNTx.selectList("EmpleadoDAO.consultaEmpleado", empleado);
 		} catch (Exception ex) {
@@ -186,12 +183,11 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
 		try {
 			//validaciones conexion transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeNoEmpleado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleadoDato", empleado);
+			int existeNoEmpleado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeNoEmpleadoDato", empleado);
 			if (existeNoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al editar, ya existe el numero del empleado.");
 			}
-			
-			int existeRFCCalculado= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculadoDato", empleado);
+			int existeRFCCalculado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeRfcCalculadoDato", empleado);
 			if (existeRFCCalculado > 0) {
 				throw new ExcepcionesCuadrillas("Error al editar, ya existe el RFC calculado del empleado.");
 			}
@@ -235,7 +231,7 @@ public List<EmpleadoDTO> consultaGeneral(String uid, EmpleadoDTO empleado)throws
     * @throws Exception crea una excepcion
     */
    @SuppressWarnings("unchecked")
-public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
+public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	    SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -316,7 +312,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 	/**
 	    * Metodo para consultar documentos
 	    * @param uid unico de consulta
-	    * @param empleadoDocumento recibe los valores del id Empleado para doc.
+	    * @param empleadoDocumentos recibe los valores del id Empleado para doc.
 	    * @return retorna lista documento
 	    */
 	   @SuppressWarnings("unchecked")
@@ -333,7 +329,6 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla
-			
 				listaDocumento = sessionNTx.selectList("EmpleadoDAO.consultaDocumentos", empleadoDocumentos);
 				LogHandler.info(uid, this.getClass(), "consultaDocumentos: " + listaDocumento);
 			}
@@ -347,7 +342,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			return listaDocumento;
 		}
 	   /**
-	    * Metodo para consultar los colaboradores 
+	    * Metodo para consultar los colaboradores
 	    * @param uid unico de empleado
 	    * @param empleado recibe parametro de empleado
 	    * @return regresa la lista de colaboradores
@@ -367,7 +362,6 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla
-			
 				listaColaborador = sessionNTx.selectList("EmpleadoDAO.consultaColaboradores", empleado);
 				if ( listaColaborador.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existen colaboradores en esta cuadrilla.");
@@ -388,7 +382,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 	    * @param empleado recibe valores de empleado
 	    * @return regresa respuesta
 	    */
-	   public EncabezadoRespuesta notificaImss(String uid,EmpleadoDTO empleado) {
+	   public EncabezadoRespuesta notificaImss(String uid, EmpleadoDTO empleado) {
 		   SqlSession sessionTx = null;
 		   SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
@@ -396,13 +390,12 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Se ha notificado correctamente Al IMSS.");
 			try {
-				//Validamos si ya existe una autorizacion 
+				//Validamos si ya existe una autorizacion
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
-				int existeIMSS= (Integer) sessionNTx.selectOne("EmpleadoDAO.existeAutImss", empleado);
+				int existeIMSS = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeAutImss", empleado);
 				if (existeIMSS > 0) {
 					throw new ExcepcionesCuadrillas("Error al notificar, No se puede notificar 2 veces al imss.");
 				}
-				
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("EmpleadoDAO.notificaImss", empleado);
@@ -412,7 +405,6 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception{
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
 				sessionTx.commit();
-				
 			} catch (Exception ex) {
 				//Realizamos rollBack
 				LogHandler.debug(uid, this.getClass(), "RollBack!!");
