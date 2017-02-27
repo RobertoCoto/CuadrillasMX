@@ -40,7 +40,6 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	 * ccodigo Material
 	 */
 	private String codigoMaterial;
-	
 	/**
 	 * @return the idAgendaDetalle
 	 */
@@ -113,7 +112,6 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	public void setCoordenadas(List<CoordenadaDTO> coordenadas) {
 		this.coordenadas = coordenadas;
 	}
-	
 	/**
 	 * @return the actividades
 	 */

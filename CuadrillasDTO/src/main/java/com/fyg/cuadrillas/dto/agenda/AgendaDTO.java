@@ -31,6 +31,9 @@ public class AgendaDTO extends ObjetoValor {
 	private int noHoras;
 	/** diasAgenda */
 	private List<AgendaDetalleDTO> diasAgenda;
+	/**
+	 * coordenadas
+	 */
 	private List<CoordenadaDTO> coordenadas;
 	/** fechaFin */
 	private String usuario;
@@ -38,6 +41,9 @@ public class AgendaDTO extends ObjetoValor {
 	 * id agenda detalle
 	 */
 	private Integer idAgendaDetalle;
+	/**
+	 * agendaDetalle
+	 */
 	private Integer agendaDetalle;
 	/**
 	 * fecha agenda
@@ -54,11 +60,11 @@ public class AgendaDTO extends ObjetoValor {
 	/**
 	 * codigo
 	 */
-	private String Actividad;
+	private String actividad;
 	/**
 	 * material
 	 */
-	private String Material;
+	private String material;
 	/**
 	 * descripcion actividad
 	 */
@@ -255,25 +261,25 @@ public class AgendaDTO extends ObjetoValor {
 	 * @return the actividad
 	 */
 	public String getActividad() {
-		return Actividad;
+		return actividad;
 	}
 	/**
 	 * @param actividad the actividad to set
 	 */
 	public void setActividad(String actividad) {
-		Actividad = actividad;
+		this.actividad = actividad;
 	}
 	/**
 	 * @return the material
 	 */
 	public String getMaterial() {
-		return Material;
+		return material;
 	}
 	/**
 	 * @param material the material to set
 	 */
 	public void setMaterial(String material) {
-		Material = material;
+		this.material = material;
 	}
 	/**
 	 * @return the descripcionActividad
@@ -322,5 +328,5 @@ public class AgendaDTO extends ObjetoValor {
 	 */
 	public void setAgendaDetalle(Integer agendaDetalle) {
 		this.agendaDetalle = agendaDetalle;
-	} 
+	}
 }
