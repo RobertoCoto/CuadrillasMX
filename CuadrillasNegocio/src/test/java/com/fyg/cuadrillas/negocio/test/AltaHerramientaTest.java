@@ -30,7 +30,6 @@ public class AltaHerramientaTest {
 	public void setUp() throws Exception {
 		altaHerramientas = new HerramientaNegocio();
 		datoHerramientas = new HerramientaDTO();
-		
 		Date fecha = new Date();
 		datoHerramientas.setNombre("ABUS");
 		datoHerramientas.setDescripcion("PRUEBA HERRAMIENTA");

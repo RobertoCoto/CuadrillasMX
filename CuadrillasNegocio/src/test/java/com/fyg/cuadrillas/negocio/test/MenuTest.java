@@ -27,10 +27,10 @@ private MenuDTO menu;
 	 */
 @Before
 public void setUp() throws Exception {
-	menuDatos = new MenuNegocio();	
+	menuDatos = new MenuNegocio();
 }
 /**
- * Manda los valores al metodo 
+ * Manda los valores al metodo
  * @throws Exception
  */
 	@SuppressWarnings("static-access")

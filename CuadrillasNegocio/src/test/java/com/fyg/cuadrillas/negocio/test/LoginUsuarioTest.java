@@ -40,7 +40,7 @@ public class LoginUsuarioTest {
 	 */
 	@SuppressWarnings("static-access")
 	@Test
-	public void testLoginUsuario()  throws Exception{
+	public void testLoginUsuario()  throws Exception {
 		String guid = uid.generateGUID(loginUser);
 		System.setProperty("http.proxyHost", "169.169.4.85");
         System.setProperty("http.proxyPort", "8080");

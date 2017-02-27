@@ -1,9 +1,9 @@
 package com.fyg.cuadrillas.negocio.test;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -24,8 +24,17 @@ public class AltaEmpleadoTest {
 	 * Documentos
 	 */
 	private EmpleadoDocumentoDTO docEmpleado;
+	/**
+	 * doc1
+	 */
 	private EmpleadoDocumentoDTO docEmpleado2;
+	/**
+	 * doc2
+	 */
 	private EmpleadoDocumentoDTO docEmpleado3;
+	/**
+	 * doc3
+	 */
 	private EmpleadoDocumentoDTO docEmpleado4;
 	/**
 	 * lista para guardar documentos
@@ -47,31 +56,30 @@ public class AltaEmpleadoTest {
 		docEmpleado2 = new EmpleadoDocumentoDTO();
 		docEmpleado3 = new EmpleadoDocumentoDTO();
 		docEmpleado4 = new EmpleadoDocumentoDTO();
-		
+
 		/**
 		 * Se crea un ArrayList para recibir varios docs
 		 */
 		dataDocumentos = new ArrayList<EmpleadoDocumentoDTO>();
 		docEmpleado.setCodigoEmpDoc("ACNA");
 		docEmpleado.setEstatus("SI");
-		
+
 		docEmpleado2.setCodigoEmpDoc("CURP");
 		docEmpleado2.setEstatus("NO");
-		
+
 		docEmpleado3.setCodigoEmpDoc("CUVI");
 		docEmpleado3.setEstatus("NA");
-		
+
 		docEmpleado4.setCodigoEmpDoc("RFC");
 		docEmpleado4.setEstatus("NA");
-		
+
 		dataDocumentos.add(docEmpleado);
 		dataDocumentos.add(docEmpleado2);
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
 
-		
 		String strFecha = "1985-03-06";
-	
+
 		/**
 		 * Valores a enviar
 		 */
@@ -80,7 +88,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setApellidoPat("MEJORADA");
 		altaEmpleado.setApellidoMat("HERRERA");
 		altaEmpleado.setSexo("M");
-		altaEmpleado.setRfc("MAHJ830101");		
+		altaEmpleado.setRfc("MAHJ830101");
 		altaEmpleado.setFechaNacimiento(strFecha);
 		altaEmpleado.setCodigoPuesto("AYGE");
 		altaEmpleado.setCodigoVialidad("5MAY");
@@ -94,7 +102,6 @@ public class AltaEmpleadoTest {
 		//altaEmpleado.setFechaIngreso(new Date(2016,10,10));
 		altaEmpleado.setUsuarioAlta("usuario");
 		altaEmpleado.setFrecuenciaPago("S");
-		
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario

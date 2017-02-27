@@ -29,8 +29,17 @@ public class ModificaEmpleadoTest {
 	 * Documentos
 	 */
 	private EmpleadoDocumentoDTO docEmpleado;
+	/**
+	 * doc
+	 */
 	private EmpleadoDocumentoDTO docEmpleado2;
+	/**
+	 * doc2
+	 */
 	private EmpleadoDocumentoDTO docEmpleado3;
+	/**
+	 * doc3
+	 */
 	private EmpleadoDocumentoDTO docEmpleado4;
 	/**
 	 * lista para guardar documentos
@@ -48,30 +57,23 @@ public class ModificaEmpleadoTest {
 		docEmpleado2 = new EmpleadoDocumentoDTO();
 		docEmpleado3 = new EmpleadoDocumentoDTO();
 		docEmpleado4 = new EmpleadoDocumentoDTO();
-		
 		/**
 		 * Se crea un ArrayList para recibir varios docs
 		 */
 		dataDocumentos = new ArrayList<EmpleadoDocumentoDTO>();
 		docEmpleado.setCodigoEmpDoc("ACNA");
 		docEmpleado.setEstatus("A");
-		
 		docEmpleado2.setCodigoEmpDoc("CURP");
 		docEmpleado2.setEstatus("A");
-		
 		docEmpleado3.setCodigoEmpDoc("CUVI");
 		docEmpleado3.setEstatus("A");
-		
 		docEmpleado4.setCodigoEmpDoc("RFC");
 		docEmpleado4.setEstatus("A");
-		
 		dataDocumentos.add(docEmpleado);
 		dataDocumentos.add(docEmpleado2);
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
-		
 		String strFecha = "1983-01-01";
-		
 		modificaEmpleado.setIdEmpleado(3);
 		modificaEmpleado.setNombre("ARMANDO");
 		modificaEmpleado.setApellidoPat("GONZALEZ");
@@ -103,7 +105,6 @@ public class ModificaEmpleadoTest {
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");
 		try {
-			
 			dataEmpleado.modificaEmpleado(modificaEmpleado);
 		}
 		catch (Exception ex) {
