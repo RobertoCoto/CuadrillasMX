@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title> Registro Agenda Semanal </title>
+    <title> Registros Agenda Semanal </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
@@ -200,93 +200,42 @@
 	                    </div>
                     </div>
                     <br>
-                    <div class="row">
-                      <div class="col-sm-2">
-                        <h5>Avance esperado</h5>
-                      </div>
-                      <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="m2">
-                      </div>
-                      <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="m">
-                      </div>
-                    </div>
+                    <!-- mapa -->
+	                <div class="row">
+	                	<div class="col-sm-6">
+	                  		<div class="row">
+	                    		<div class="col-sm-12 ">	
+	                      			<h4>Dirección</h4>
+	                      			<div class="row">
+	                        			<div class="col-sm-3">
+	                          				<span id="txtkm"></span>
+	                        			</div>
+	                        			<div class="col-sm-9">
+	                          				<span id="km"></span>
+	                        			</div>
+	                      			</div>
+	                    			<div class="tbl-content" style="height:590px;">
+	                      				<table cellpadding="0" cellspacing="0" border="0">
+	                        				<tbody id="tramos" width="493px">
+	                        				</tbody>
+	                      				</table>
+	                    			</div>
+	                    		</div>
+	                  		</div>
+	                	</div>
+	                	<div class="col-sm-6">
+	                  		<div class="row">
+	                    		<div class="col-sm-offset-4 col-sm-4"><button type="button" ng-click="limpiarMarcadores()" class="btn btn-danger" style="margin: 25px;">Limpiar Mapa</button></div>
+	                  		</div>
+	                  		<div class="row">
+	                    		<div class="col-sm-12">
+	                      			<div id="map" style="width:100%; height:550px"></div>
+	                    		</div>
+	                  		</div>
+	                	</div>
+	                </div>
+                <!-- fin nuevo -->                    
                     <br>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Tramo Inicial</h3>
-                              </div>
-                              <div class="panel-body">
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <div class="form-group">
-                                      <label for="direccionInicial" class="control-label">Dirección</label>
-                                      <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-sm-3">
-                                      <label for="" class="control-label">Coordenadas</label>
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Tramo Final</h3>
-                              </div>
-                              <div class="panel-body">
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <div class="form-group">
-                                      <label for="direccionTermino" class="control-label">Dirección</label>
-                                      <input type="text" id="direccionTermino" class="form-control" placeholder="Av. Morelos S/N Col 10 Abril">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-sm-3">
-                                      <label for="" class="control-label">Coordenadas</label>
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <input type="text" id="latitudTermino" class="form-control" placeholder="-0.9999999">
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <input type="text" id="longitudTermino" class="form-control" placeholder="1.2366526">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-offset-8 col-sm-4"><button class="btn btn-warning" style="margin: 25px;">Agregar</button></div>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div id="map" style="width:100%; height:450px;"></div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">

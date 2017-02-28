@@ -157,7 +157,7 @@ var data;
             .state('otherwise', {redirectTo : '/login'});
  	});
 
- 	//LOGIN
+ 	// LOGIN
  	app.controller('validaUsuario',["$scope","$http", "$location", function ($scope,$http, $location) {
 		    $scope.validar = function() {
 		    	$http({
@@ -192,20 +192,22 @@ var data;
                         data = response;
                         console.info("*******prueba*******");
                         console.info(data);
-				        //$location.path('/menu');
-				        //if (!$scope.$$phase && !$scope.$root.$$phase) {
-				        //    $scope.$apply();
-				        //    console.log("Scope Apply Done !!");
-				        //  }
-				        //  else {
-				        //    setTimeout(function() {
-				        //    	$scope.$apply();
-				        //    }, 200);
-				        //  }
+				        // $location.path('/menu');
+				        // if (!$scope.$$phase && !$scope.$root.$$phase) {
+				        // $scope.$apply();
+				        // console.log("Scope Apply Done !!");
+				        // }
+				        // else {
+				        // setTimeout(function() {
+				        // $scope.$apply();
+				        // }, 200);
+				        // }
 				    });
 		    }
  	}]);
- 	//FIN LOGIN
+ 	// FIN LOGIN
+ 	
+ 	
 	app.service('fileUpload', ['$http', function ($http) {
 	    this.uploadFileToUrl = function(contrato, json, uploadUrl){
 	        var fd = new FormData();
@@ -236,7 +238,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
- 	//MENU
+
+
+ 	// MENU
 	app.controller('MainController',
 		function ($scope, $location) {
 			if(jQuery.type(data) === "undefined"){
@@ -274,7 +278,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         function ($scope) {
             document.getElementById("contenedor").style.marginLeft = "260px";
     });
-    //FIN MENU
+    // FIN MENU
 
     app.controller('catalogoctrl', function ($scope, $http) {
 
@@ -288,7 +292,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
           var tipoCataloPadre = undefined;
 
-          //$scope.options1 = option1Options;
+          // $scope.options1 = option1Options;
           $('#msload').modal('show');
           $('#alert').hide();
           $('#success').hide();
@@ -298,15 +302,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   data: { }
             }).then(function successfn(result) {
               $scope.resultado = result.data.catalogo;
-                    //console.log(result);
+                    // console.log(result);
                      $('#msload').modal('hide');
             }, function errorfn(response) {
                 console.error(response);
-                //alert(response.data.header.mensajeFuncional);
+                // alert(response.data.header.mensajeFuncional);
                 $('#msload').modal('hide');
                 $('#alert').show();
                 $('#msgerror').val(response.data.header.mensajeFuncional);
-                //$scope.resultado2.push(objecto);
+                // $scope.resultado2.push(objecto);
             });
 
           $scope.options2 = []; // we'll get these later
@@ -317,7 +321,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             $('#success').hide();
             $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWEB/RegistrarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
+                    url: 'http://localhost:8080/CuadrillasWEB/RegistrarCatalogo',// ?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
                     params: {
                       "tipoCatalogo": tipoCataloPadre,
                       "codigo": document.getElementById("codigof").value.toUpperCase(),
@@ -332,17 +336,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 document.getElementById("descripcionf").value = '';
                 document.getElementById("codigof").value = '';
                 $scope.resultado2.push(fila);
-                  //console.info(response);
+                  // console.info(response);
                   $('#msload').modal('hide');
                   $('#success').show();
                   $('#msgaviso').text(response.data.mensajeFuncional);
             }, function errorfn(response) {
                 console.error(response);
-                //alert(response.data.mensajeFuncional);
+                // alert(response.data.mensajeFuncional);
                 $('#msload').modal('hide');
                 $('#alert').show();
                 $('#msgerror').text(response.data.mensajeFuncional);
-                //$scope.resultado2.push(objecto);
+                // $scope.resultado2.push(objecto);
             });
 
 
@@ -350,7 +354,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
           $scope.getOptions2 = function(aaa){
             tipoCataloPadre = aaa;
-            //console.log(aaa);
+            // console.log(aaa);
             $('#msload').modal('show');
             $('#alert').hide();
             $('#success').hide();
@@ -377,14 +381,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
                      }
 
                      $scope.update = function(catalogo){
-                        //console.warn(catalogo);
-                        //TODO ----- ACTUALIZAR HTTP
+                        // console.warn(catalogo);
+                        // TODO ----- ACTUALIZAR HTTP
                         $('#msload').modal('show');
                         $('#alert').hide();
                         $('#success').hide();
                         $http({
                                method: 'GET',
-                               url: 'http://localhost:8080/CuadrillasWEB/ActualizarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
+                               url: 'http://localhost:8080/CuadrillasWEB/ActualizarCatalogo',// ?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
                                params: {
                                  "tipoCatalogo": tipoCataloPadre,
                                  "descripcion": catalogo.descripcion,
@@ -393,29 +397,29 @@ app.directive('fileModel', ['$parse', function ($parse) {
                                 }
                        }).then(function successfn(response) {
                          $scope.editingData[catalogo.codigo] = false;
-                             //console.info(response);
+                             // console.info(response);
                              $('#msload').modal('hide');
                              $('#success').show();
                              $('#msgaviso').text(response.data.mensajeFuncional);
                        }, function errorfn(response) {
                            console.error(response);
-                           //alert(response.data.mensajeFuncional);
+                           // alert(response.data.mensajeFuncional);
                            $('#msload').modal('hide');
                            $('#alert').show();
                            $('#msgerror').text(response.data.mensajeFuncional);
-                           //$scope.resultado2.push(objecto);
+                           // $scope.resultado2.push(objecto);
                        });
 
                      };
 
                      $scope.remove = function(catalogo) {
-                       //console.info(catalogo);
+                       // console.info(catalogo);
                        $('#msload').modal('show');
                        $('#alert').hide();
                        $('#success').hide();
                        $http({
                                method: 'GET',
-                               url: 'http://localhost:8080/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
+                               url: 'http://localhost:8080/CuadrillasWEB/EliminarCatalogo',// ?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
                                params: {
                                  "tipoCatalogo": tipoCataloPadre,
                                  "codigo": catalogo.codigo,
@@ -423,22 +427,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
                                 }
                        }).then(function successfn(response) {
                            removeByAttr($scope.resultado2, 'codigo',catalogo.codigo);
-                             //console.info(response);
+                             // console.info(response);
                              $('#msload').modal('hide');
                              $('#success').show();
                              $('#msgaviso').text(response.data.mensajeFuncional);
                        }, function errorfn(response) {
                            console.error(response);
-                           //alert(response.data.mensajeFuncional);
+                           // alert(response.data.mensajeFuncional);
                            $('#msload').modal('hide');
                            $('#alert').show();
                            $('#msgerror').text(response.data.mensajeFuncional);
-                           //$scope.resultado2.push(objecto);
+                           // $scope.resultado2.push(objecto);
                        });
 
 
                      }
-                    //console.log(result);
+                    // console.log(result);
             });
           };
 
@@ -448,26 +452,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
         var map;
         var medida;
 
-          function initMap() {
-            medida = {
-                mvcLine: new google.maps.MVCArray(),
-                mvcPolygon: new google.maps.MVCArray(),
-                mvcMarkers: new google.maps.MVCArray(),
-                line: null,
-                polygon: null
-            };
-            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-            map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
-              center: mx1
-            });
-            google.maps.event.addListener(map, 'click', function(event) {
-              //console.log(event);
-                setMarcador(event.latLng);
-            });
-          }
+        function initMap() {
+        	medida = {
+        			mvcLine: new google.maps.MVCArray(),
+        			mvcPolygon: new google.maps.MVCArray(),
+        			mvcMarkers: new google.maps.MVCArray(),
+        			line: null,
+        			polygon: null
+        	};
+        	var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        	map = new google.maps.Map(document.getElementById('map'), {
+        		zoom: 7,
+        		center: mx1
+        	});
+        	google.maps.event.addListener(map, 'click', function(event) {
+        		// console.log(event);
+            setMarcador(event.latLng);
+        	});
+        }
 
-            var markers = [];
+        var markers = [];
 
 
             app.controller('altacontratoctrl', function ($scope, $http, fileUpload) {
@@ -533,7 +537,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     console.error(response);
                     alert(response.data.header.mensajeFuncional);
                     $('#msload').modal('hide');
-                    //$('#msgerror').val(response.data.header.mensajeFuncional);
+                    // $('#msgerror').val(response.data.header.mensajeFuncional);
                 });
 
 
@@ -551,7 +555,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     console.error(response);
                     alert(response.data.header.mensajeFuncional);
                     $('#msload').modal('hide');
-                    //$('#msgerror').val(response.data.header.mensajeFuncional);
+                    // $('#msgerror').val(response.data.header.mensajeFuncional);
                 });
 
                 $http({
@@ -568,7 +572,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       console.error(response);
                       alert(response.data.header.mensajeFuncional);
                       $('#msload').modal('hide');
-                      //$('#msgerror').val(response.data.header.mensajeFuncional);
+                      // $('#msgerror').val(response.data.header.mensajeFuncional);
                   });
 
                 $http({
@@ -585,7 +589,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       console.error(response);
                       alert(response.data.header.mensajeFuncional);
                       $('#msload').modal('hide');
-                      //$('#msgerror').val(response.data.header.mensajeFuncional);
+                      // $('#msgerror').val(response.data.header.mensajeFuncional);
                   });
 
 
@@ -613,10 +617,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   }
 
                   $scope.altaContrato = function() {
-                    //$('#mainPanel').hide();
-                    //$scope.consultaContratos();
-                    //$('#panelContratos').show();
-                    //$('#nuevoContrato').show();
+                    // $('#mainPanel').hide();
+                    // $scope.consultaContratos();
+                    // $('#panelContratos').show();
+                    // $('#nuevoContrato').show();
                     console.log($scope.contratoFocus);
 										var contrato = $scope.contratoAdjunto;
 										var json = JSON.stringify($scope.contratoFocus);
@@ -624,26 +628,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										console.dir(contrato);
 										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
-                    //$scope.contratoFocus = {}; //para el final
+                    // $scope.contratoFocus = {}; //para el final
 
                   }
 
 									$scope.guardaContrato = function() {
-                    //$('#mainPanel').hide();
-                    //$scope.consultaContratos();
-                    //$('#panelContratos').show();
-                    //$('#nuevoContrato').show();
+                    // $('#mainPanel').hide();
+                    // $scope.consultaContratos();
+                    // $('#panelContratos').show();
+                    // $('#nuevoContrato').show();
                     console.log($scope.contratoFocus);
 										var json = JSON.stringify($scope.contratoFocus);
 										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
 										fileUpload.uploadFileToUrl(null, json, uploadUrl);
-                    //$scope.contratoFocus = {}; //para el final
+                    // $scope.contratoFocus = {}; //para el final
 
                   }
 
                   $scope.consultaContratos = function() {
                     $('#msload').modal('show');
-                    //setTimeout(function () {
+                    // setTimeout(function () {
                       $http({
                         method: 'GET',
                         url: 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
@@ -651,19 +655,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
                         },
                         data: {}
                       }).then(function successfn(result) {
-                        //console.log('contratos:');
+                        // console.log('contratos:');
                         $scope.contratos = result.data.contrato;
-                        //console.log(result);
-                        /*for (var i = 0; i < result.data.contrato[0].coordenadas.length; i++) {
-                          setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud, result.data.contrato[0].coordenadas[i].longitud);
-                        }*/
+                        // console.log(result);
+                        /*
+						 * for (var i = 0; i <
+						 * result.data.contrato[0].coordenadas.length; i++) {
+						 * setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud,
+						 * result.data.contrato[0].coordenadas[i].longitud); }
+						 */
                         $('#msload').modal('hide');
                       }, function errorfn(response) {
                         console.error(response);
                         alert(response.data.header.mensajeFuncional);
                         $('#msload').modal('hide');
                       });
-                    //}, 2000);
+                    // }, 2000);
                   }
 
                   $scope.editarContrato = function(contrato) {
@@ -681,52 +688,40 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                   }
 
-                  //Ejecución inicial
+                  // Ejecución inicial
                   $scope.consultaContratos();
 
-                /*$('#msload').modal('show');
-                $http({
-                        method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
-                        params: {
-                        },
-                        data: { }
-                  }).then(function successfn(result) {
-                        $scope.cuadrillas = result.data.cuadrilla;
-                          console.log(result);
-                           $('#msload').modal('hide');
-                  }, function errorfn(response) {
-                      console.error(response);
-                      alert(response.data.header.mensajeFuncional);
-                      $('#msload').modal('hide');
-                      //$('#msgerror').val(response.data.header.mensajeFuncional);
-                  });*/
+                /*
+				 * $('#msload').modal('show'); $http({ method: 'GET', url:
+				 * 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+				 * params: { }, data: { } }).then(function successfn(result) {
+				 * $scope.cuadrillas = result.data.cuadrilla;
+				 * console.log(result); $('#msload').modal('hide'); }, function
+				 * errorfn(response) { console.error(response);
+				 * alert(response.data.header.mensajeFuncional);
+				 * $('#msload').modal('hide');
+				 * //$('#msgerror').val(response.data.header.mensajeFuncional);
+				 * });
+				 */
 
-                  /*$('#msload').modal('show');
-                  setTimeout(function () {
-                    $http({
-                      method: 'GET',
-                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
-                      params: {
-                      },
-                      data: {}
-                    }).then(function successfn(result) {
-                      console.log('contratos:');
-                      $scope.contratos = result.data.contrato;
-                      console.log(result);
-                      for (var i = 0; i < result.data.contrato[0].coordenadas.length; i++) {
-                        setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud, result.data.contrato[0].coordenadas[i].longitud);
-                      }
-                      $('#msload').modal('hide');
-                    }, function errorfn(response) {
-                      console.error(response);
-                      alert(response.data.header.mensajeFuncional);
-                      $('#msload').modal('hide');
-                    });
-                  }, 2000); */
+                  /*
+					 * $('#msload').modal('show'); setTimeout(function () {
+					 * $http({ method: 'GET', url:
+					 * 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
+					 * params: { }, data: {} }).then(function successfn(result) {
+					 * console.log('contratos:'); $scope.contratos =
+					 * result.data.contrato; console.log(result); for (var i =
+					 * 0; i < result.data.contrato[0].coordenadas.length; i++) {
+					 * setDireccionEnReversa(result.data.contrato[0].coordenadas[i].latitud,
+					 * result.data.contrato[0].coordenadas[i].longitud); }
+					 * $('#msload').modal('hide'); }, function errorfn(response) {
+					 * console.error(response);
+					 * alert(response.data.header.mensajeFuncional);
+					 * $('#msload').modal('hide'); }); }, 2000);
+					 */
 
 									$scope.setMarcadorEdicion = function(latLng, direccion) {
-										//$('#msload').modal('show');
+										// $('#msload').modal('show');
                     var geocoder = new google.maps.Geocoder;
                     var img_mark = 'altaContrato/mark.png';
                     var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
@@ -736,12 +731,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     var latLngIndex = medida.mvcLine.getLength() - 1;
                     var latlng = {lat: latLng.lat, lng: latLng.lng};
                     var direccion = 'SN';
-                      //console.log(results);
+                      // console.log(results);
                       $( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
                         + "<td class=\"td\" width=\"30px\"> </td>"
                         + "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
                       + "</tr>") );
-										//$('#msload').modal('hide');
+										// $('#msload').modal('hide');
                     $scope.mLineaRecta();
                   }
 
@@ -766,7 +761,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     var latlng = {lat: latLng.lat(), lng: latLng.lng()};
                     var direccion = 'SN';
                     geocoder.geocode({'location': latlng}, function(results, status) {
-                      //console.log(results);
+                      // console.log(results);
                       if (status === google.maps.GeocoderStatus.OK) {
                         if (results[1]) {
                           direccion =  results[0].formatted_address;
@@ -791,13 +786,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
                         } else {
                           $('#alert').show();
                           $('#msgerror').text('No se encontro una dirección disponible.')
-                          //alert('No se encontraron resultados');
+                          // alert('No se encontraron resultados');
                         }
 												$('#msload').modal('hide');
                       } else {
                         $('#alert').show();
                         $('#msgerror').text('Problemas en la geolocalización debido ' + status + '')
-                        //alert('Geocoder fallo debido al estatus: ' + status);
+                        // alert('Geocoder fallo debido al estatus: ' + status);
 												$('#msload').modal('hide');
                       }
                     });
@@ -805,26 +800,20 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
                     /*
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label for="direccionInicial" class="control-label">Dirección</label>
-                          <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-3">
-                          <label for="" class="control-label">Coordenadas</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
-                      </div>
-                      <div class="col-sm-4">
-                        <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
-                      </div>
-                    </div>
-                    */
+					 * <div class="row"> <div class="col-sm-12"> <div
+					 * class="form-group"> <label for="direccionInicial"
+					 * class="control-label">Dirección</label> <input
+					 * type="text" id="direccionInicial"
+					 * class="form-control"placeholder="Av. Gobernadores 102 Col
+					 * Bugambilias"> </div> </div> </div> <div class="row"> <div
+					 * class="col-sm-3"> <label for=""
+					 * class="control-label">Coordenadas</label> </div> <div
+					 * class="col-sm-4"> <input type="text" id="latitudInicial"
+					 * class="form-control" placeholder="-0.9999999"> </div>
+					 * <div class="col-sm-4"> <input type="text"
+					 * id="longitudInicial" class="form-control"
+					 * placeholder="1.2366526"> </div> </div>
+					 */
 
                     $scope.mLineaRecta();
                   }
@@ -842,19 +831,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       zoom: 7,
                       center: mx1
                     });
-                    /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-                    var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
-
-                    var marker = new google.maps.Marker({
-                      position: mx1,
-                      map: map
-                    });
-                    var marker = new google.maps.Marker({
-                      position: mx2,
-                      map: map
-                    }); */
+                    /*
+					 * var mx1 = {lat: 19.34751544463381, lng:
+					 * -98.98272888210454}; var mx2 = {lat: 19.38962144393955,
+					 * lng: -99.04332534816899};
+					 * 
+					 * var marker = new google.maps.Marker({ position: mx1, map:
+					 * map }); var marker = new google.maps.Marker({ position:
+					 * mx2, map: map });
+					 */
                     google.maps.event.addListener(map, 'click', function(event) {
-                        //console.log(event);
+                        // console.log(event);
 												if($scope.nContrato) {
                         	$scope.setMarcador(event.latLng);
 												} else {
@@ -872,13 +859,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       if (medida.mvcPolygon.getLength() > 2) {
                           area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
                       }
-                  //    lM = document.forms["mb"].elements["mode"][0].checked;
+                  // lM = document.forms["mb"].elements["mode"][0].checked;
                       var km = length / 1000;
                       var unidad_de_medida = " metros";
                       $scope.contratoFocus.metros = length;
                       $( "#km" ).text(km.toFixed(2) + ' km');
 											$( "#txtkm" ).text('Distancia');
-                      //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                      // console.log('Distancia total:' + length.toFixed(0) +
+						// ' metros ' + km.toFixed(3));
                   }
 
                   $scope.calculaDistancia = function() {
@@ -890,13 +878,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       if (medida.mvcPolygon.getLength() > 2) {
                           area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
                       }
-                  //    lM = document.forms["mb"].elements["mode"][0].checked;
+                  // lM = document.forms["mb"].elements["mode"][0].checked;
                       var km = length / 1000;
                       var unidad_de_medida = " metros";
                       $scope.contratoFocus.metros = length;
                       $( "#km" ).text(km.toFixed(2) + ' km');
 											$( "#txtkm" ).text('Distancia');
-                      //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                      // console.log('Distancia total:' + length.toFixed(0) +
+						// ' metros ' + km.toFixed(3));
                   }
 
                   $scope.mLineaRecta = function() {
@@ -938,8 +927,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   $scope.setDireccionEnReversa = function(lat, lng) {
                       var latlng = {lat: lat, lng: lng};
                       var geocoder = new google.maps.Geocoder();
-                      //var address = document.getElementById('direccion').value;
-                      //geocoder.geocode({'address': address}, function(results, status) {
+                      // var address =
+						// document.getElementById('direccion').value;
+                      // geocoder.geocode({'address': address},
+						// function(results, status) {
                       geocoder.geocode({'location': latlng}, function(results, status) {
                           if (status == google.maps.GeocoderStatus.OK) {
                               map.setCenter(results[0].geometry.location);
@@ -984,22 +975,25 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       $( "#tramos" ).empty();
                       $( "#km" ).text('');
 					  $( "#txtkm" ).text('');
-                      //document.getElementById('lineLength').innerHTML = '';
-                      //document.getElementById('polyArea').innerHTML = '';
+                      // document.getElementById('lineLength').innerHTML = '';
+                      // document.getElementById('polyArea').innerHTML = '';
                   }
             });
 
 
-    //REGISTRO AGENDA SEMANAL
+    // REGISTRO AGENDA SEMANAL
     app.controller('registroagendactrl', function ($scope, $http) {
-		  /*$('#mainPanel').hide();
-		      $('#alert').hide();
-		      $('#success').hide();
-		*/
+		  /*
+			 * $('#mainPanel').hide(); $('#alert').hide(); $('#success').hide();
+			 */
+    	
   		$scope.gridActividades = [];
   		$scope.gridArticulos = [];
   		$scope.gridActividadesSemana = [];
   		$scope.gridArticulosSemana = [];
+  		$scope.mapa = {};
+  		$scope.mapaSemana = [];
+  		$scope.mapa.gridCoordenadas = [];
 
     	var actualizacion = false;
     	var fecha=$('input[name="fecha"]');
@@ -1057,7 +1051,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		$('#semana').val(moment(iniSemana.toDate()).week());
 	  		actualizacion = false;
 
-	  		//se arma el arreglo de dias de la semana
+	  		// se arma el arreglo de dias de la semana
 	  		$scope.fechasSemana= [];
 	  		for (var i=1; i<=7; i++)
 	  		{
@@ -1069,7 +1063,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  });
 
 	  
-	  //se llena catalogo de actividades
+	  // se llena catalogo de actividades
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -1079,14 +1073,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
         }).then(function successfn(result) {
           $scope.catActividades = result.data.catalogo;
-          //console.log(result);
+          // console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
         });
 
-      //se llena catalogo de articulos
+      // se llena catalogo de articulos
       $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
@@ -1096,14 +1090,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
         }).then(function successfn(result) {
               $scope.catArticulos = result.data.catalogo;
-              //console.log(result);
+              // console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
         });
 
-        //Se consultan los contratos activos
+        // Se consultan los contratos activos
       	$http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaContratoActivo',
@@ -1117,18 +1111,18 @@ app.directive('fileModel', ['$parse', function ($parse) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
-            //$('#msgerror').val(response.data.header.mensajeFuncional);
+            // $('#msgerror').val(response.data.header.mensajeFuncional);
         });
   		
         
-        //***agregar actividades
+        // ***agregar actividades
   		$scope.agregarActividades = function(objActividad) {
   			var encontrado = false;
 
-  			//$('#msload').modal('show');
-  			//$('#alert').hide();
-  			//$('#success').hide();  			
-  			//se validan dias
+  			// $('#msload').modal('show');
+  			// $('#alert').hide();
+  			// $('#success').hide();
+  			// se validan dias
   			var validaDiaSel = $scope.validaDiaSeleccionado();
   			if (validaDiaSel == false)
   			{  				
@@ -1154,24 +1148,24 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  			$scope.gridActividades.push(actividad);
 	  			reseteaColorBotones();
 	  			cambiaColorBoton($scope.gridActividades);
-	          //console.info(response);
-	          //$('#msload').modal('hide');
-	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);
+	          // console.info(response);
+	          // $('#msload').modal('hide');
+	          // $('#success').show();
+	          // $('#msgaviso').text(response.data.mensajeFuncional);
   			}
   			
   		};
   		
   		
-  		//***agregar articulos
+  		// ***agregar articulos
   		$scope.agregarArticulos = function(objArticulo) {  			
   			var encontrado = false;
 
-  			//$('#msload').modal('show');
-  			//$('#alert').hide();
-  			//$('#success').hide();  			
+  			// $('#msload').modal('show');
+  			// $('#alert').hide();
+  			// $('#success').hide();
   			
-  			//se validan dias
+  			// se validan dias
   			var validaDiaSel = $scope.validaDiaSeleccionado();
   			if (validaDiaSel == false)
   			{
@@ -1198,20 +1192,20 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  			$scope.gridArticulos.push(articulo);
 	  			reseteaColorBotones();
 	  			cambiaColorBoton($scope.gridArticulos);		
-	          //console.info(response);
-	          //$('#msload').modal('hide');
-	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);
+	          // console.info(response);
+	          // $('#msload').modal('hide');
+	          // $('#success').show();
+	          // $('#msgaviso').text(response.data.mensajeFuncional);
   			}
   		
   		};
   		
   		
-  		//***eliminar actividades
+  		// ***eliminar actividades
   		$scope.eliminarActividades = function(actividad) {			
-  			//$('#msload').modal('show');
-  			//$('#alert').hide();
-  			//$('#success').hide();
+  			// $('#msload').modal('show');
+  			// $('#alert').hide();
+  			// $('#success').hide();
   			fecha = $('#diaActividad').val();
   			for(indice in $scope.gridActividades)
   			{
@@ -1224,18 +1218,19 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			reseteaColorBotones();
   			cambiaColorBoton($scope.gridActividades);
   			cambiaColorBoton($scope.gridArticulos);
-	          //console.info(response);
-	          //$('#msload').modal('hide');
-	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);
+  			cambiaColorBoton($scope.mapa);
+	          // console.info(response);
+	          // $('#msload').modal('hide');
+	          // $('#success').show();
+	          // $('#msgaviso').text(response.data.mensajeFuncional);
   		};
   		
   		
-  		//***eliminar articulos
+  		// ***eliminar articulos
   		$scope.eliminarArticulos = function(articulo) {			
-  			//$('#msload').modal('show');
-  			//$('#alert').hide();
-  			//$('#success').hide(); 
+  			// $('#msload').modal('show');
+  			// $('#alert').hide();
+  			// $('#success').hide();
   			
   			fecha = $('#diaActividad').val();
   			
@@ -1250,14 +1245,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			reseteaColorBotones();
   			cambiaColorBoton($scope.gridArticulos);
   			cambiaColorBoton($scope.gridActividades);
-	          //console.info(response);
-	          //$('#msload').modal('hide');
-	          //$('#success').show();
-	          //$('#msgaviso').text(response.data.mensajeFuncional);
+  			cambiaColorBoton($scope.mapa);
+	          // console.info(response);
+	          // $('#msload').modal('hide');
+	          // $('#success').show();
+	          // $('#msgaviso').text(response.data.mensajeFuncional);
   		};
   		
   		
-  		//***funcion para agregar días a una fecha
+  		// ***funcion para agregar días a una fecha
   		function mostrarFecha(days, fechaInicio){
 		    milisegundos=parseInt(35*24*60*60*1000);
 
@@ -1268,11 +1264,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		    month=fecha.getMonth()+1;
 		    year=fecha.getFullYear();
 
-		    //Obtenemos los milisegundos desde media noche del 1/1/1970
+		    // Obtenemos los milisegundos desde media noche del 1/1/1970
 		    tiempo=fecha.getTime();
-		    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
+		    // Calculamos los milisegundos sobre la fecha que hay que sumar o
+			// restar...
 		    milisegundos=parseInt(days*24*60*60*1000);
-		    //Modificamos la fecha actual
+		    // Modificamos la fecha actual
 		    total=fecha.setTime(tiempo+milisegundos);
 		    day=fecha.getDate();
 		    month=fecha.getMonth()+1;
@@ -1294,14 +1291,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		};
   		
   		
-  		//***funcion para colocar la fecha de plan de actividades de acuerdo al botón seleccionado
+  		// ***funcion para colocar la fecha de plan de actividades de acuerdo al
+		// botón seleccionado
   		$scope.obtenerFechaSeleccionada = function(dia)
   		{
   			var fecha = $('#diaActividad').val();
   			
-  			//se pasa lo capturado al arreglo de toda la semana
-  			//actividades  			
-  			//for(indice in $scope.gridActividadesSemana)
+  			// se pasa lo capturado al arreglo de toda la semana
+  			// actividades
+  			// ************************************************
   			for(var indice=$scope.gridActividadesSemana.length-1; indice>=0; indice--)
   			{  				
   				if ( fecha == $scope.gridActividadesSemana[indice].fecha)
@@ -1314,29 +1312,65 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			{
   				$scope.gridActividadesSemana.push($scope.gridActividades[indice]);  			
   			}  			
-  			
-  			//articulos
-  			//for(indice in $scope.gridArticulosSemana)
+  			  		
+  			// articulos
+  			// ************************************************
   			for(var indice=$scope.gridArticulosSemana.length-1; indice>=0; indice--)  				
   			{  				
   				if (fecha == $scope.gridArticulosSemana[indice].fecha)
   				{
   					$scope.gridArticulosSemana.splice(indice,1);
   				}
-  			}
+  			}  			
   			
   			for(indice in $scope.gridArticulos)
   			{  				
   				$scope.gridArticulosSemana.push($scope.gridArticulos[indice]);  			
-  			}  			
+  			}
+  			
+  			 // mapa
+  			// ************************************************
+  			if ($scope.mapa.gridCoordenadas.length >0)
+  			{  	  			
+  	  			for(var indice=$scope.mapaSemana.length-1; indice>=0; indice--)  				
+  	  			{  				
+  	  				if (fecha == $scope.mapaSemana[indice].fecha)
+  	  				{
+  	  					$scope.mapaSemana.splice(indice,1);
+  	  				}
+  	  			}
+  	  			    		
+	  			var mapaTemp = {};
+	  			mapaTemp.gridCoordenadas = [];
+	  			for(indice in $scope.mapa.gridCoordenadas)
+	  			{  				
+	    			var coordenadaP = {};
+	    			coordenadaP.latitud = $scope.mapa.gridCoordenadas[indice].latitud;
+	    			coordenadaP.longitud = $scope.mapa.gridCoordenadas[indice].longitud;
+	    			coordenadaP.direccion = $scope.mapa.gridCoordenadas[indice].direccion;
+	  				
+	  				mapaTemp.gridCoordenadas.push(coordenadaP);  			
+	  			}
+	  			mapaTemp.metros = $scope.mapa.metros;
+	  			mapaTemp.fecha = $scope.mapa.fecha;
+	  			$scope.mapaSemana.push(mapaTemp);
+	  		}
+	  			  			
+  			// console.info("MAPAS SEMANA");
+  			// console.info($scope.mapaSemana);
+  			
   			
   			$('#diaActividad').val($scope.fechasSemana[dia-1]);
   			fecha = $('#diaActividad').val();
   			$scope.gridActividades = [];
   			$scope.gridArticulos = [];
+  	  		$scope.mapa = {};
+  	  		$scope.mapa.gridCoordenadas = [];
+  	  		$scope.limpiarMarcadores();  	  		
   			
   			
-  			//se revisa si hay información en el arreglo general para la fecha seleccionada
+  			// se revisa si hay información en el arreglo general para la fecha
+			// seleccionada
   			for(indice in $scope.gridActividadesSemana)
   			{  				
   				if ( fecha == $scope.gridActividadesSemana[indice].fecha)
@@ -1352,14 +1386,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
   					$scope.gridArticulos.push($scope.gridArticulosSemana[indice]);
   				}
   			}
+  			
+  			//pendiente
+			/*setTimeout(function () {
+				for (var i = 0; i < contrato.coordenadas.length; i++) {
+					$scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion);
+				}
+			}, 100);*/  			
   			  			
-  			//console.info("*****actividades y articulos semana")
-  			//console.info($scope.gridArticulosSemana);
-  			//console.info($scope.gridActividadesSemana);
+  			// console.info("*****actividades y articulos semana")
+  			// console.info($scope.gridArticulosSemana);
+  			// console.info($scope.gridActividadesSemana);
   		};
   		
   		
-  		//***para saber si esta seleccionado un día de actividad para su captura
+  		// ***para saber si esta seleccionado un día de actividad para su
+		// captura
   		$scope.validaDiaSeleccionado = function()
   		{
   			var respuesta = true;
@@ -1372,7 +1414,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			return respuesta;
   		};
   		
-  		//***para limpiar toda la pantalla
+  		// ***para limpiar toda la pantalla
   		$scope.reiniciarPantalla = function()
   		{
   	  		$scope.gridActividades = [];
@@ -1389,19 +1431,24 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$("#btnD5").removeClass("btn-success").addClass("btn-primary");
   	  		$("#btnD6").removeClass("btn-success").addClass("btn-primary");
   	  		$("#btnD7").removeClass("btn-success").addClass("btn-primary");
+  	  		
+  	  		$scope.mapa = {};
+  	  		$scope.mapaSemana = [];
+  	  		$scope.mapa.gridCoordenadas = [];  	  		
   		};
   		
-  		//***se cambia el color de los botones
+  		// ***se cambia el color de los botones
   		cambiaColorBoton = function(objCaptura)
   		{  			  		
-  			//se revisan los arreglos generales de acuerdo al arreglo de la semana
+  			// se revisan los arreglos generales de acuerdo al arreglo de la
+			// semana
   			var numeroBoton = -1;
   			var fecha = $("#diaActividad").val();
 
   			for(var i=0; i < $scope.fechasSemana.length; i++)
   			{
-  				//console.info($scope.fechasSemana[indice]);
-  				//console.info(fecha);
+  				// console.info($scope.fechasSemana[indice]);
+  				// console.info(fecha);
   				if ($scope.fechasSemana[i] == fecha)
   				{
   					numeroBoton = Number(i) +1;
@@ -1416,19 +1463,29 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			
   			$("#btnD" + numeroBoton.toString()).removeClass("btn-success").addClass("btn-primary");
   			
-  			
 			for (indice2 in objCaptura)
 			{	
-  				if (fecha == objCaptura[indice2].fecha)
-  				{  					
-  					$("#btnD" + numeroBoton.toString()).removeClass("btn-primary").addClass("btn-success");
-  					break;
+				if (objCaptura[indice2].fecha != undefined)
+				{
+	  				if (fecha == objCaptura[indice2].fecha)
+	  				{
+	  					$("#btnD" + numeroBoton.toString()).removeClass("btn-primary").addClass("btn-success");
+	  					break;
+	  				}
   				}
+  				else
+				{
+	  				if (fecha == objCaptura.fecha)
+	  				{
+	  					$("#btnD" + numeroBoton.toString()).removeClass("btn-primary").addClass("btn-success");
+	  					break;
+	  				}					
+				}				
 			}  			
   		};
   		
   		
-  		//***resetea color de botones
+  		// ***resetea color de botones
   		reseteaColorBotones = function()
   		{  	
   			var fecha = $("#diaActividad").val();
@@ -1442,7 +1499,267 @@ app.directive('fileModel', ['$parse', function ($parse) {
   				}
   			}  			   		
   		};
+  		
+  		
+		$scope.setMarcadorEdicion = function(latLng, direccion) {
+  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			if (validaDiaSel == false)
+  			{  				
+  				return;
+  			}
+  			
+			// $('#msload').modal('show');
+            var geocoder = new google.maps.Geocoder;
+            var img_mark = 'altaContrato/mark.png';
+            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+            medida.mvcLine.push(latLng);
+            medida.mvcPolygon.push(latLng);
+            medida.mvcMarkers.push(marcador);
+            var latLngIndex = medida.mvcLine.getLength() - 1;
+            var latlng = {lat: latLng.lat, lng: latLng.lng};
+            var direccion = 'SN';
+            // console.log(results);
+            $( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
+            		+ "<td class=\"td\" width=\"30px\"> </td>"
+            		+ "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
+            		+ "</tr>") );
+			// $('#msload').modal('hide');
+	        $scope.mLineaRecta();
+        };
+
+        
+        $scope.setMarcador = function(latLng) {
+  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			if (validaDiaSel == false)
+  			{  				
+  				return;
+  			}	
+        
+        	$('#msload').modal('show');
+            var geocoder = new google.maps.Geocoder;
+            var img_mark = 'altaContrato/mark.png';
+            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+            medida.mvcLine.push(latLng);
+            medida.mvcPolygon.push(latLng);
+            medida.mvcMarkers.push(marcador);
+            var latLngIndex = medida.mvcLine.getLength() - 1;
+            google.maps.event.addListener(marcador, "drag", function(evt) {
+            	medida.mvcLine.setAt(latLngIndex, evt.latLng);
+                medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
+            });
+            
+            google.maps.event.addListener(marcador, "dragend", function() {
+            	alert(medida.mvcLine.getLength());
+                if (medida.mvcLine.getLength() > 1) {
+                    $scope.calculaDistancia();
+                }               
+            });
+            
+            var latlng = {lat: latLng.lat(), lng: latLng.lng()};
+            var direccion = 'SN';
+            geocoder.geocode({'location': latlng}, function(results, status) {
+            	// console.log(results);
+            	if (status === google.maps.GeocoderStatus.OK) {
+            		if (results[1]) {
+            			direccion =  results[0].formatted_address;
+            			var coordenadaP = {};
+            			var coordenadasTemp = [];
+            			coordenadaP.latitud = latLng.lat();
+            			coordenadaP.longitud = latLng.lng();
+            			coordenadaP.direccion = direccion;
+            			// if($scope.contratoFocus.coordenadas) {
+            				$scope.mapa.gridCoordenadas.push(coordenadaP);
+            				// console.info($scope.mapa);
+            			// } else {
+            			// coordenadasTemp.push(coordenadaP);
+                        // $scope.contratoFocus.coordenadas = coordenadasTemp;
+            			// }
+
+            			$( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
+            					+ "<td class=\"td\" width=\"30px\"> </td>"
+            					+ "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
+            					+ "</tr>") );
+
+                    } else {
+                    	$('#alert').show();
+                    	$('#msgerror').text('No se encontro una dirección disponible.')
+                          // alert('No se encontraron resultados');
+                    }
+            		$('#msload').modal('hide');
+            	} else {
+            		$('#alert').show();
+                    $('#msgerror').text('Problemas en la geolocalización debido ' + status + '')
+                    // alert('Geocoder fallo debido al estatus: ' + status);
+					$('#msload').modal('hide');
+            	}            	
+            });
+
+
+            $scope.mLineaRecta();
+    		reseteaColorBotones();        	
+			cambiaColorBoton($scope.mapa);            
+      };
+
+      
+      $scope.initMap = function() {
+        medida = {
+            mvcLine: new google.maps.MVCArray(),
+            mvcPolygon: new google.maps.MVCArray(),
+            mvcMarkers: new google.maps.MVCArray(),
+            line: null,
+            polygon: null
+        };
+        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: mx1
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            // console.log(event);
+        	// if($scope.nContrato) {
+            	$scope.setMarcador(event.latLng);
+			// } else {
+			// $scope.setMarcadorEdicion(event.latLng);
+			// }
+        });
+      }
+
+      
+/*
+ * $scope.calculaDistancia = function() { var length = 0; if
+ * (medida.mvcPolygon.getLength() > 1) { length =
+ * google.maps.geometry.spherical.computeLength(medida.line.getPath()); } var
+ * area = 0; if (medida.mvcPolygon.getLength() > 2) { area =
+ * google.maps.geometry.spherical.computeArea(medida.polygon.getPath()); } // lM =
+ * document.forms["mb"].elements["mode"][0].checked; var km = length / 1000; var
+ * unidad_de_medida = " metros"; $scope.coordenadas.metros = length; $( "#km"
+ * ).text(km.toFixed(2) + ' km'); $( "#txtkm" ).text('Distancia');
+ * //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +
+ * km.toFixed(3)); };
+ */
+      
+      $scope.calculaDistancia = function() {
+          var length = 0;
+          if (medida.mvcPolygon.getLength() > 1) {
+              length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+          }
+          var area = 0;
+          if (medida.mvcPolygon.getLength() > 2) {
+              area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+          }
+      // lM = document.forms["mb"].elements["mode"][0].checked;
+          var km = length / 1000;
+          var unidad_de_medida = " metros";
+          $scope.mapa.metros = length;
+          $scope.mapa.fecha= $('#diaActividad').val();
+          $( "#km" ).text(km.toFixed(2) + ' km');
+          $( "#txtkm" ).text('Distancia');
+          // console.log('Distancia total:' + length.toFixed(0) + ' metros ' +
+			// km.toFixed(3));
+      };
+
+      
+      $scope.mLineaRecta = function() {
+          if (medida.mvcLine.getLength() > 1) {
+              if (!medida.line) {
+                  medida.line = new google.maps.Polyline({
+                      map: map,
+                      clickable: false,
+                      strokeColor: "#ad04ef",
+                      strokeOpacity: 1,
+                      strokeWeight: 3,
+                      path: medida.mvcLine
+                  });
+              }
+
+              if (medida.mvcPolygon.getLength() > 2) {
+
+                  if (medida.polygon != null)
+                  {
+                      medida.polygon.setMap(null);
+                  }
+
+
+                  medida.polygon = new google.maps.Polygon({
+                      clickable: false,
+                      map: map,
+                      fillOpacity: 0.0,
+                      strokeOpacity: 0,
+                      paths: medida.mvcPolygon
+                  });
+
+              }
+          }
+          
+          if (medida.mvcLine.getLength() > 1) {
+              $scope.calculaDistancia();
+          }
+      };
+
+      
+      $scope.setDireccionEnReversa = function(lat, lng) {
+          var latlng = {lat: lat, lng: lng};
+          var geocoder = new google.maps.Geocoder();
+          // var address = document.getElementById('direccion').value;
+          // geocoder.geocode({'address': address}, function(results, status)
+			// {
+          geocoder.geocode({'location': latlng}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  map.setCenter(results[0].geometry.location);
+                  $scope.setMarcador(results[0].geometry.location);
+              } else {
+                  alert('No se encontro la direccion , debido: ' + status);
+              }
+          });
+      };
+      
+      
+      $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+          var latlng = {lat: lat, lng: lng};
+          var geocoder = new google.maps.Geocoder();
+          setTimeout(function () {
+        	  geocoder.geocode({'location': latlng}, function(results, status) {
+        		  if (status == google.maps.GeocoderStatus.OK) {
+        			  map.setCenter(results[0].geometry.location);
+					  $scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+		          }
+		      });
+          }, 100);
+      };
+
+
+      $scope.limpiarMarcadores = function() {
+          if (medida.polygon) {
+              medida.polygon.setMap(null);
+              medida.polygon = null;
+          }
+          if (medida.line) {
+              medida.line.setMap(null);
+              medida.line = null
+          }
+          medida.mvcLine.clear();
+          medida.mvcPolygon.clear();
+          medida.mvcMarkers.forEach(function(elem, index) {
+              elem.setMap(null);
+          });
+          $scope.mapa = {};          
+          $scope.mapa.gridCoordenadas = [];
+          medida.mvcMarkers.clear();
+          $( "#tramos" ).empty();
+          $( "#km" ).text('');
+		  $( "#txtkm" ).text('');
+          // document.getElementById('lineLength').innerHTML = '';
+          // document.getElementById('polyArea').innerHTML = '';
+          
+		  reseteaColorBotones();
+		  cambiaColorBoton($scope.gridArticulos);
+		  cambiaColorBoton($scope.gridActividades);
+		  cambiaColorBoton($scope.mapa);          
+      };
+      
+      $scope.initMap();
     });
-    //FIN REGISTRO AGENDA SEMANAL
+    // FIN REGISTRO AGENDA SEMANAL
 
     
