@@ -146,7 +146,7 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.sueldo.$invalid && !formEmpleado.sueldo.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.calificacion.$invalid && !formEmpleado.calificacion.$pristine }">
                             <label for="calificacion" class="control-label">Calificacion</label>
                            <select id="calificacion" class="form-control" ng-model="general.calificacion" name="calificacion" required>
                            <option value="">--Selecione una Calificacion--</option>
@@ -161,7 +161,7 @@
 							<option value="9">9</option>
 							<option value="10">10</option>
                            </select>
-                           <p ng-show="formEmpleado.fechaNac.$invalid && !formEmpleado.fechaNac.$pristine" class="help-block">Es necesario seleccionar una calificacion.</p>
+                           <p ng-show="formEmpleado.calificacion.$invalid && !formEmpleado.calificacion.$pristine" class="help-block">Es necesario seleccionar una calificacion.</p>
                         </div>
                     </div>
                     

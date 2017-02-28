@@ -2,7 +2,7 @@
     <h2>Administraci&oacute;n de Cuadrillas</h2>
 <div class="panel panel-default">
 		<div class="panel-body">
-			<form name="form" id="formCuadrilla">
+			<form name="formCuadrilla" id="formCuadrilla">
                 <div class="row">
                   <div id="success" class="alert alert-success alert-dismissable fade in">
                     <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
@@ -13,39 +13,38 @@
                     <strong>ATENCIÃ“N!</strong> <span id="msgerror"></span>
                   </div>
                       <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.numeroCuadrilla.$invalid && !formCuadrilla.numeroCuadrilla.$pristine }">
                             <label for="numero" class="control-label">Numero </label>
-                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla" ng-model="cuadrilla.idCuadrilla"  class="form-control"  ng-disabled="cuadrilla.editar" data-form="numeroCuadrilla"/>
-                           <div class="amt_errorCuadrilla"></div>
+                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla" ng-model="cuadrilla.idCuadrilla"  class="form-control"  ng-disabled="cuadrilla.editar"  required ng-pattern="/^[0-9]*$/"/>
+                           <p ng-show="formCuadrilla.numeroCuadrilla.$error.pattern && !formCuadrilla.numeroCuadrilla.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                      <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.vialidad.$invalid && !formCuadrilla.vialidad.$pristine }">
                             <label for="vialidad" class="control-label">Vialidad</label>
-                           <select class="form-control"  id="vialidad" name="vialidad" ng-model="cuadrilla.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)">
+                           <select class="form-control"  id="vialidad" name="vialidad" ng-model="cuadrilla.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(cuadrilla.vialidad)" required>
                           <option value="">--Seleccione una Vialidad--</option>
                           </select>
-                          <input type="hidden" id="dataVialidad"  value={{cuadrilla.vialidad}}>
-                        <div class="amt_errorVialidad"></div>
+                          <p ng-show="formCuadrilla.vialidad.$invalid && !formCuadrilla.vialidad.$pristine" class="help-block">Es necesario seleccionar una vialidad.</p>
                         </div>
                     </div>
 
                      <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.nombre.$invalid && !formCuadrilla.nombre.$pristine }">
                             <label for="nombre" class="control-label">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" ng-model="cuadrilla.nombreCuadrilla"  class="form-control" data-form="nombreCuadrilla"/>
-                           <div class="amt_errorNombreCuadrilla"></div>
+                            <input type="text" name="nombre" id="nombre" ng-model="cuadrilla.nombreCuadrilla"  class="form-control"  required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s0-9]*$/"/>
+                           <p ng-show="formCuadrilla.nombre.$error.pattern && !formCuadrilla.nombre.$pristine" class="help-block">No se permite caracteres invalidos.</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                  <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.calificacion.$invalid && !formCuadrilla.calificacion.$pristine }">
                             <label for="calificacion" class="control-label">Calificaci&oacute;n</label>
-                            <select id="calificacion" ng-model="cuadrilla.calificacion" class="form-control">
+                            <select id="calificacion" ng-model="cuadrilla.calificacion" class="form-control" name="calificacion" required>
                               <option value="">---Seleccione una Calificaci&oacute;n----</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
@@ -58,7 +57,7 @@
                               <option value="9">9</option>
                               <option value="10">10</option>
                             </select>
-                           <div class="amt_errorCalificacionCuadrilla"></div>
+                           <p ng-show="formCuadrilla.calificacion.$invalid && !formCuadrilla.calificacion.$pristine" class="help-block">Es necesario seleccionar una calificacion.</p>
                         </div>
                     </div>
 
@@ -129,7 +128,7 @@
 
 			     </div>
 			     <div class="btn-group" >
-			     <input class="btn btn-success btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrilla)" id="editar" ng-show="!cuadrilla.actualizar">
+			     <input class="btn btn-success btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrilla)" id="editar" ng-show="!cuadrilla.actualizar" ng-disabled="formCuadrilla.$invalid">
 				 <input class="btn btn-success btn-primary"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrilla)" id="guardarDato" ng-show="cuadrilla.actualizar" >
 				 </div>
 			</form>
