@@ -449,4 +449,42 @@ public class AgendaDAO {
 	 int registros = session.delete("AgendaDAO.eliminaCoordenadas", agendaDetalle);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
+ /**
+	 * Metodo para consultar las agendas disponibles con fecha
+	 * @param uid unico de registro
+	 * @param agenda recibe valores de agenda
+	 * @return regresa lista de las agendas disponibles
+	 * @throws Exception si se genera un error
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AgendaDTO> consultaAgendaContrato(String uid, AgendaDTO agenda) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<AgendaDTO> listaConsultaAgenda = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgendaContrato", agenda);
+			if ( listaConsultaAgenda.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
+			}
+			for (AgendaDTO c : listaConsultaAgenda) {
+				List<CoordenadaDTO> coordenadas = null;
+				coordenadas = sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", c);
+				c.setCoordenadas(coordenadas);
+		    }
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaConsultaAgenda;
+	}
 }
