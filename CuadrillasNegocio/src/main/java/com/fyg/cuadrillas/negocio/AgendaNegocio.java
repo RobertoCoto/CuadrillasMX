@@ -252,4 +252,43 @@ public class AgendaNegocio {
 				LogHandler.debug(uid, this.getClass(), "modificaAgenda - Datos Salida: " + respuesta);
 				return respuesta;
 	}
+	/**
+	 * Metodo para consultar las agendas disponibles
+	 * @param agenda recibe valores de agenda
+	 * @return regresa respuesta
+	 */
+	public AgendaRespuesta consultaAgendaContrato(AgendaDTO agenda) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaAgendaContrato - Datos Entrada: ");
+		 AgendaRespuesta respuesta = new AgendaRespuesta();
+		 respuesta.setHeader( new EncabezadoRespuesta());
+		 respuesta.getHeader().setUid(uid);
+		 respuesta.getHeader().setEstatus(true);
+		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		 List<AgendaDTO> listaAgenda = null;
+		 try {
+			 if (agenda.getIdContrato() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID del contrato.");
+			 }
+			 if (agenda.getFechaAgenda() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario una fecha para la busqueda.");
+			 }
+			 listaAgenda = new AgendaDAO().consultaAgendaContrato(uid, agenda);
+			 respuesta.setAgenda(listaAgenda);
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Salida: " + respuesta);
+			return respuesta;
+		}
 	}
