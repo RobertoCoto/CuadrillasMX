@@ -87,7 +87,6 @@ UPDATE agenda SET
 WHERE id_agenda = #{idAgenda}
 AND estatus = 'A'
 </update>
-
 <update id="modificaAgendaDetalle" parameterType="AgendaDetalle">
 UPDATE agenda_detalle
 		SET
