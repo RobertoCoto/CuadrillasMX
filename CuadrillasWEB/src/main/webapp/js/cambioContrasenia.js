@@ -91,5 +91,13 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 						$('#alert').hide();
 						$('#success').hide();
 					};
+			
+			$scope.reset = function(user){
+					$scope.user = {};
+					$scope.user.conAnterior = "";
+					$scope.user.nueva = "";
+					$scope.user.repetirNueva = "";
+					$scope.cambioContra.$setPristine();
+					};
 		    
 }]);
