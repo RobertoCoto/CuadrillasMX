@@ -626,7 +626,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										var json = JSON.stringify($scope.contratoFocus);
 										console.log('Archivo a subir: ' );
 										console.dir(contrato);
-										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
+										var uploadUrl = "http://localhost:8080/CuadrillasWEB/Test";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
                     // $scope.contratoFocus = {}; //para el final
 
@@ -639,7 +639,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     // $('#nuevoContrato').show();
                     console.log($scope.contratoFocus);
 										var json = JSON.stringify($scope.contratoFocus);
-										var uploadUrl = "http://localhost:8080/CuadrillasWEB/test";
+										var uploadUrl = "http://localhost:8080/CuadrillasWEB/Test";
 										fileUpload.uploadFileToUrl(null, json, uploadUrl);
                     // $scope.contratoFocus = {}; //para el final
 
