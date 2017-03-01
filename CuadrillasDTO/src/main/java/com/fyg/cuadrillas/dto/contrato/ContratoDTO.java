@@ -46,7 +46,7 @@ public class ContratoDTO extends ObjetoValor {
 	/** url */
 	private String url;
 	/** metros */
-	private int metros;
+	private double metros;
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** estatus */
@@ -244,18 +244,6 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
-	}
-	/**
-	 * @return the metros
-	 */
-	public int getMetros() {
-		return metros;
-	}
-	/**
-	 * @param metros the metros to set
-	 */
-	public void setMetros(int metros) {
-		this.metros = metros;
 	}
 	/**
 	 * @return the coordenadas
@@ -472,5 +460,17 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setFechaActual(String fechaActual) {
 		this.fechaActual = fechaActual;
+	}
+	/**
+	 * @return the metros
+	 */
+	public double getMetros() {
+		return metros;
+	}
+	/**
+	 * @param metros the metros to set
+	 */
+	public void setMetros(double metros) {
+		this.metros = metros;
 	}
 }
