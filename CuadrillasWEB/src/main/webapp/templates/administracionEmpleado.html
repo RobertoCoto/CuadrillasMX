@@ -146,7 +146,7 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.sueldo.$invalid && !formEmpleado.sueldo.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.calificacion.$invalid && !formEmpleado.calificacion.$pristine }">
                             <label for="calificacion" class="control-label">Calificacion</label>
                            <select id="calificacion" class="form-control" ng-model="general.calificacion" name="calificacion" required>
                            <option value="">--Selecione una Calificacion--</option>
@@ -161,7 +161,7 @@
 							<option value="9">9</option>
 							<option value="10">10</option>
                            </select>
-                           <p ng-show="formEmpleado.fechaNac.$invalid && !formEmpleado.fechaNac.$pristine" class="help-block">Es necesario seleccionar una calificacion.</p>
+                           <p ng-show="formEmpleado.calificacion.$invalid && !formEmpleado.calificacion.$pristine" class="help-block">Es necesario seleccionar una calificacion.</p>
                         </div>
                     </div>
                     
@@ -332,7 +332,7 @@
 							<td ng-if="general.estatus === 'I'">INACTIVO</td>
 							<td ng-if="general.estatus === 'A'">ACTIVO</td>
 							<td ng-if="general.estatus === 'A'">
-							<button class="btn btn-success btn-sm" data-ng-click="editarDatos(general)">Editar</button>
+							<button class="btn btn-info btn-sm" data-ng-click="editarDatos(general)">Editar</button>
 							</td>
 							<td ng-if="general.estatus === 'I'">
 							<button class="btn btn-success btn-sm" data-ng-click="consultaEmpleado(general)">Consultar</button>
@@ -353,8 +353,8 @@
 			     <input class="btn btn-info btn-primary" type="submit" value="Limpiar Campos" ng-click="limpiarCampos(formEmpleado)">
 			    </div>
 			    <div class="btn-group">
-			     <input class="btn btn-success btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(general)" id="editar" ng-disabled="formEmpleado.$invalid">
-				 <input class="btn btn-success btn-primary"  type="submit" value="Guardar" data-ng-click="actualizarDato(general)" id="guardarDato" style="display:none;" >
+			     <input class="btn btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(general)" id="editar" ng-disabled="formEmpleado.$invalid" style="background-color:#18FF08;color:white;">
+				 <input class="btn btn-primary"  type="submit" value="Guardar" data-ng-click="actualizarDato(general)" id="guardarDato" style="background-color:#18FF08;color:white;display:none;" >
 			    </div>
 			    <div class="btn-group">
 			     <input class="btn btn-info btn-primary" type="button" value="Consultar" data-ng-click="consultar(empleado)" >

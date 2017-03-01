@@ -1,10 +1,14 @@
 package com.fyg.cuadrillas.web.contrato;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -29,6 +36,35 @@ public class AltaContrato extends HttpServlet {
 	 * serial uid
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Directorio para almacenar la informacion.
+	 */
+	private static final String DESTINATION_DIR_PATH = "/testUpload";
+
+	/**
+	 * Directorio para almacenar las imagenes de las incidencias.
+	 */
+	private String uploadDirectory = "";
+	/**
+	 * Carga la ruta donde se guardara el archivo.
+	 * @param config Congiguracion Inicial del Servlet.
+	 */
+	public void init(ServletConfig config) throws ServletException {
+
+	    super.init(config);
+
+	    String realPathoracle = System.getProperty("user.dir").replace("\\", "/");
+	    System.out.println("INIT..." + realPathoracle);
+	    String realPath = DESTINATION_DIR_PATH;
+	    String rutaDestino = realPathoracle + realPath;
+	    uploadDirectory = rutaDestino;
+	    System.out.println("INIT uploadDirectory..." + uploadDirectory);
+
+	    File destinationDir = new File(uploadDirectory);
+	    if ( !destinationDir.isDirectory()) {
+	      throw new ServletException(uploadDirectory + " no es un directorio valido.");
+	    }
+    }
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,6 +94,42 @@ public class AltaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
+			String rutaImagen = "";
+
+			try {
+				List<FileItem> multiparts = null;
+				System.out.println("ARCHIVO...");
+				String fileName = "";
+				String name = "";
+				String rutaArchivo = "";
+				if (ServletFileUpload.isMultipartContent(request)) {
+					  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+					  for (FileItem item : multiparts) {
+						  if (item.isFormField()) {
+
+							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
+								  System.out.println(item.getString());
+								  //incidencia.setIdAmbito(Integer.valueOf(item.getString()));
+							  }
+					          if (item.getFieldName().trim().equalsIgnoreCase("contrato")) {
+					              fileName = item.getString().trim();
+					              System.out.println("Nombre Archivo FormField() = " + fileName );
+					          }
+						  }
+					      else {
+					            name = new File(item.getName()).getName();
+					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name));
+					            rutaArchivo = uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name;
+					            rutaImagen = rutaArchivo;
+					      }
+					   }
+
+				}
+			} catch (Exception e) {
+				System.out.println("No se enviaron todos los parametros para registrar la indicencia. Error: " + e.getMessage());
+				e.printStackTrace();
+				throw new Exception("FALTAN PARAMETROS");
+			}
 			//leer json Array
 			JSONParser parser = new JSONParser();
 			Object jsonContrato = parser.parse(request.getParameter("JSONContrato"));
@@ -79,7 +151,7 @@ public class AltaContrato extends HttpServlet {
 			String codigoEmpresa = (String) jsonObject.get("codigoEmpresa");
 			String codigoVialidad = (String) jsonObject.get("codigoVialidad");
 			String numeroDocumento = (String) jsonObject.get("numeroDocumento");
-			Integer metros = (Integer) jsonObject.get("metros");
+			Double metros = (Double) jsonObject.get("metros");
 			Double monto = (Double) jsonObject.get("monto");
 			Double subtotal = (Double) jsonObject.get("subtotal");
 			String fechaInicio = (String) jsonObject.get("fechaInicio");
@@ -104,7 +176,8 @@ public class AltaContrato extends HttpServlet {
 			contrato.setFechaFin(fechaTermino);
 			contrato.setUsuarioAlta(usuario);
 			contrato.setIdCuadrilla(idCuadrilla);
-
+			contrato.setUrl(rutaImagen);
+			LogHandler.debug(null, this.getClass(), "RUTA DE LA IMAGEN: " + rutaImagen);
 			//se obtienen las cordenadas
 
 			for (int i = 0; i < listaCoordenadas.size(); i++)
