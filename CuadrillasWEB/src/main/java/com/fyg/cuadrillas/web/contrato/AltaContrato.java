@@ -123,7 +123,6 @@ public class AltaContrato extends HttpServlet {
 					            rutaImagen = rutaArchivo;
 					      }
 					   }
-
 				}
 			} catch (Exception e) {
 				System.out.println("No se enviaron todos los parametros para registrar la indicencia. Error: " + e.getMessage());
