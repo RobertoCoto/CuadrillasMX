@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.AgendaTx">
 
-
-
 <insert id="altaAgenda" parameterType="Agenda" useGeneratedKeys="true" keyProperty="id_agenda"  keyColumn="id_agenda">
 INSERT INTO agenda(id_contrato,fecha_inicio,fecha_fin,no_trabajadores,no_horas,no_semana,fecha_alta,usuario_alta,estatus)
 VALUES(#{idContrato},#{fechaInicio},#{fechaFin},#{noTrabajadores},#{noHoras},#{noSemana},now(),#{usuario},'A')
@@ -16,15 +14,11 @@ VALUES(#{idContrato},#{fechaInicio},#{fechaFin},#{noTrabajadores},#{noHoras},#{n
 <insert id="registraAgendaDetalles" parameterType="AgendaDetalle" useGeneratedKeys="true" keyProperty="id_agenda_detalle"  keyColumn="id_agenda_detalle">
 
 INSERT INTO agenda_detalle(id_agenda,fecha,avance_esperado,observaciones,fecha_alta,usuario_alta,estatus)
-VALUES
-<foreach collection="list" item="element" index="index" separator=",">
-(
-
-#{element.idAgenda},#{element.fecha},#{element.avanceEsperado},#{element.observaciones},now(),#{element.usuarioAlta},'A'
+VALUES (
+#{idAgenda},#{fecha},#{avanceEsperado},#{observaciones},now(),#{usuarioAlta},'A'
 )
-</foreach>
 <selectKey keyProperty="idAgendaDetalle" resultType="Integer" order="AFTER">
-		SELECT LAST_INSERT_ID();
+		SELECT LAST_INSERT_ID(); 
 </selectKey>
 </insert>
 
