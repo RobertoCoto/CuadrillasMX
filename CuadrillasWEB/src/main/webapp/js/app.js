@@ -1813,13 +1813,74 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			{
 				if (fecha == "")
 				{
-					alert("Debe seleccionar algpun dia, favor de verificar");
+					alert("Debe seleccionar algun dia, favor de verificar");
 				}
 				return;
 			}
 			
 
-			$scope.obtenerFechaSeleccionada(0);    	  
+			$scope.obtenerFechaSeleccionada(0); 	  
+    	  
+      };
+      
+      $scope.validaAgregarAgenda = function(fecha)
+      {
+    	  
+    	  var encontrado = false;
+    	  
+  			// actividades
+  			// ************************************************
+  			for(var indice=$scope.gridActividades.length-1; indice>=0; indice--)
+  			{  				
+  				if ( fecha == $scope.gridActividades[indice].fecha)
+  				{
+  					encontrado = true;
+  					break;
+  				}
+  			}
+  			
+  			if (encontrado == false)
+  			{
+  				alert("Para agregar la agenda es necesario capturar las actividades, favor de verificar");
+  				return false;
+  			}
+  			
+  			encontrado = false;
+  			  			  		
+  			// articulos
+  			// ************************************************
+  			for(var indice=$scope.gridArticulos.length-1; indice>=0; indice--)  				
+  			{  				
+  				if (fecha == $scope.gridArticulos[indice].fecha)
+  				{
+  					encontrado = true;
+  					break;
+  				}
+  			}
+  			  		  			
+  			if (encontrado == false)
+  			{
+  				alert("Para agregar la agenda es necesario capturar los materiales, favor de verificar");
+  				return false;
+  			}
+  			
+  			encontrado = false;
+  			  			
+  			 // mapa
+  			// ************************************************
+  			var puntos =$scope.mapa.gridCoordenadas.length;
+  			
+  			if (puntos < 2)
+  			{
+  				alert("Para agregar la agenda es necesario capturar al menos 2 puntos en el mapa, favor de verificar");
+  				return false;
+  			}
+  			else
+  			{
+  				encontrado = true;
+  			}
+  			
+  			return true;
     	  
       };
            
