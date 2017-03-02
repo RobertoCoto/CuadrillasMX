@@ -158,5 +158,7 @@ LEFT JOIN catalogo ca ON co.codigo_vialidad = ca.codigo
 LEFT JOIN empleado er ON er.id_cuadrilla = cua.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 WHERE co.estatus = 'A'
 </select>
-
+<select id="consultaContratoDocumento" parameterType="Contrato" resultMap="contrato">
+SELECT id_contrato,url FROM contrato WHERE id_contrato = #{idContrato} AND estatus = 'A'
+</select>
 </mapper>
