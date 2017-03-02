@@ -39,7 +39,7 @@ public class AltaContrato extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/testUpload";
+	private static final String DESTINATION_DIR_PATH = "/bin/documentos/contratos";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
@@ -52,11 +52,8 @@ public class AltaContrato extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 
 	    super.init(config);
-
-	    String realPathoracle = System.getProperty("user.dir").replace("\\", "/");
-	    System.out.println("INIT..." + realPathoracle);
 	    String realPath = DESTINATION_DIR_PATH;
-	    String rutaDestino = realPathoracle + realPath;
+	    String rutaDestino = realPath;
 	    uploadDirectory = rutaDestino;
 	    System.out.println("INIT uploadDirectory..." + uploadDirectory);
 

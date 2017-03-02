@@ -27,7 +27,7 @@ public class ConsultaContratoDocumento extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/testUpload/";
+	private static final String DESTINATION_DIR_PATH = "/bin/documentos/contratos/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -74,7 +74,7 @@ public class ConsultaContratoDocumento extends HttpServlet {
 
 			String nombreArchivo =  resultado;
 			//Obtengo el path absoluto de la imagen
-			String carpetaArchivos = System.getProperty("user.dir").replace("\\", "/") + DESTINATION_DIR_PATH + nombreArchivo;
+			String carpetaArchivos = DESTINATION_DIR_PATH + nombreArchivo;
 			LogHandler.debug(null, this.getClass(), "carpetaArchivos = " + carpetaArchivos);
 			//Obtener el mimeType dinamicamente
 			String mime = null;
@@ -88,11 +88,11 @@ public class ConsultaContratoDocumento extends HttpServlet {
 				return;
 			}
 
-			if (array[1].equals("png")) {
-				mime = "image/png";
+			if (array[1].equals("doc")) {
+				mime = "application/msword";
 			}
-			else if (array[1].equals("jpg")) {
-				mime = "image/jpg";
+			else if (array[1].equals("docx")) {
+				mime = "application/msword";
 			}
 			else if (array[1].equals("pdf")) {
 				mime = "application/pdf";
