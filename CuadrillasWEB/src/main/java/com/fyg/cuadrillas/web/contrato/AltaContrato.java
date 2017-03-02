@@ -119,7 +119,7 @@ public class AltaContrato extends HttpServlet {
 					      else {
 					            name = new File(item.getName()).getName();
 					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name));
-					            rutaArchivo = uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name;
+					            rutaArchivo = new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name;
 					            rutaImagen = rutaArchivo;
 					      }
 					   }
