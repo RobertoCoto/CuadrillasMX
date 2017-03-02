@@ -152,6 +152,7 @@ app.controller('adminCuad', function ($scope, $http) {
 				    }).then(function mySucces(response) {
 				    		//$scope.consultaCuadrilla();
 				    		console.log(response);
+				    		$scope.consultaCuadrilla();
 							$('#msload').modal('hide');
 							$scope.formCuadrilla.$setPristine();
 							$scope.reset();
@@ -169,6 +170,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	
 		    	$scope.reset = function(form) {
 						$scope.cuadrilla = {};
+						$scope.cuadrillas = {};
 						$scope.cuadrilla.actualizar = false;
 						$scope.cuadrilla.editar = false;
 						$scope.formCuadrilla.$setPristine();
