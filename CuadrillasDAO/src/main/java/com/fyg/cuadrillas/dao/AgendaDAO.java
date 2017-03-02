@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -83,40 +84,17 @@ public class AgendaDAO {
 		} else {
 			sessionTx = session;
 		}
-	
-				for (int j = 0; j < agendaDetalle.size(); j++) {
-
-					//Validamos el registro
-					int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", agendaDetalle);
-					if ( registros == 0) {
-						if ( session == null ) {
-							FabricaConexiones.rollBack(sessionTx);
-							FabricaConexiones.close(sessionTx);
-						}
-						throw new ExcepcionesCuadrillas("No se pudo registrar.");
-						
-						
+			Iterator<AgendaDetalleDTO> detalle = agendaDetalle.iterator();
+			while (detalle.hasNext()) {
+				int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", detalle.next());
+				if ( registros == 0) {
+					if ( session == null ) {
+						FabricaConexiones.rollBack(sessionTx);
+						FabricaConexiones.close(sessionTx);
 					}
-					
-					if (agendaDetalle.get(j).getActividades().size() > 0) {
-					for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
-						agendaActividad.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-					}
-					altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
+					throw new ExcepcionesCuadrillas("No se pudo registrar.");
 				}
-				if (agendaDetalle.get(j).getMateriales().size() > 0) {
-					for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
-						agendaMaterial.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-					}
-					altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
-				}
-				if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
-					for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {
-						agendaCoordenadas.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-					}
-					altaCoordenadaDetalle(uid, agendaDetalle.get(j).getCoordenadas(), sessionTx);
-				}
-				}
+			}
 				
 		//La conexion no es atomica realizamos commit
 		if ( session == null ) {
