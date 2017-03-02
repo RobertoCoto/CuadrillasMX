@@ -171,6 +171,9 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	$scope.reset = function(form) {
 						$scope.cuadrilla = {};
 						$scope.cuadrillas = {};
+						$('#numeroCuadrilla').val("");
+						$('#nombre').val("");
+						$('#calificacion').val("");
 						$scope.cuadrilla.actualizar = false;
 						$scope.cuadrilla.editar = false;
 						$scope.formCuadrilla.$setPristine();
