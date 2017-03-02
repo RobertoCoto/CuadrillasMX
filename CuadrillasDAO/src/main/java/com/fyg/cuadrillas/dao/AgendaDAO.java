@@ -47,7 +47,9 @@ public class AgendaDAO {
 					agendaDetalle.setIdAgenda(agenda.getIdAgenda());
 				}
 				altaAgendaDetalle(uid, agenda.getDiasAgenda(), sessionTx);
+				
 			}
+			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -81,37 +83,41 @@ public class AgendaDAO {
 		} else {
 			sessionTx = session;
 		}
-		//Validamos el registro
-		int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", agendaDetalle);
-		if ( registros == 0) {
-			if ( session == null ) {
-				FabricaConexiones.rollBack(sessionTx);
-				FabricaConexiones.close(sessionTx);
-			}
-			throw new ExcepcionesCuadrillas("No se pudo registrar.");
-		}
-		//enviamos los demas datos a la BD
+	
 				for (int j = 0; j < agendaDetalle.size(); j++) {
-					System.out.println("ID agendaDetalle = " + agendaDetalle.get(j).getIdAgendaDetalle());
+
+					//Validamos el registro
+					int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", agendaDetalle);
+					if ( registros == 0) {
+						if ( session == null ) {
+							FabricaConexiones.rollBack(sessionTx);
+							FabricaConexiones.close(sessionTx);
+						}
+						throw new ExcepcionesCuadrillas("No se pudo registrar.");
+						
+						
+					}
+					
 					if (agendaDetalle.get(j).getActividades().size() > 0) {
-						for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
-							agendaActividad.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-						}
-						altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
+					for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
+						agendaActividad.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
 					}
-					if (agendaDetalle.get(j).getMateriales().size() > 0) {
-						for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
-							agendaMaterial.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-						}
-						altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
-					}
-					if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
-						for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {
-							agendaCoordenadas.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
-						}
-						altaCoordenadaDetalle(uid, agendaDetalle.get(j).getCoordenadas(), sessionTx);
-					}
+					altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
 				}
+				if (agendaDetalle.get(j).getMateriales().size() > 0) {
+					for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
+						agendaMaterial.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
+					}
+					altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
+				}
+				if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
+					for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {
+						agendaCoordenadas.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
+					}
+					altaCoordenadaDetalle(uid, agendaDetalle.get(j).getCoordenadas(), sessionTx);
+				}
+				}
+				
 		//La conexion no es atomica realizamos commit
 		if ( session == null ) {
 			LogHandler.debug(uid, this.getClass(), "Commit conexion.");
@@ -329,7 +335,6 @@ public class AgendaDAO {
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar la agenda.");
 			}
-
 			if (agenda.getDiasAgenda().size() > 0) {
 				for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
 					agendaDetalle.setIdAgenda(agenda.getIdAgenda());
