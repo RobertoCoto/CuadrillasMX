@@ -124,7 +124,6 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	
 		    	//Actualiza la cuadrilla
 		    	$scope.actualizar = function(cuadrillas) {
-		    		$scope.cuadrillas = {};
 				console.log(data.data.usuario.usuario);
 		    var confirmar = confirm("¿Esta seguro de actualizar la cuadrilla?");
 
@@ -143,10 +142,10 @@ app.controller('adminCuad', function ($scope, $http) {
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
-		    		 "idCuadrilla" : cuadrillas.idCuadrilla,
-		    		 "nombreCuadrilla" : cuadrillas.nombreCuadrilla,
+		    		 "idCuadrilla" : $('#numeroCuadrilla').val(),
+		    		 "nombreCuadrilla" : $('#nombre').val(),
 		             "vialidad": $scope.vialidad,
-		    		 "calificacion" : cuadrillas.calificacion,
+		    		 "calificacion" : $('#calificacion').val(),
 		    		 "usuario" : data.data.usuario.usuario
 
 		    	 }
