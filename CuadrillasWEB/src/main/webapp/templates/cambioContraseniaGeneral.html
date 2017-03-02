@@ -35,8 +35,9 @@
     		
     		<div class="col-sm-6 col-md-offset-3" >
     		Contrase&ntilde;a Nueva: 
-      		<input type="password" id="contraNueva" class="form-control" name="contraNueva" required ng-model="user.contraNueva" ng-minlength="8">
-      		 <p ng-show="formCambioGeneral.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+      		<input type="password" id="contraNueva" class="form-control" name="contraNueva" required ng-model="user.contraNueva" ng-minlength="8" ng-pattern="/^.*[0-9]+.*$/">
+      		 <p ng-if="formCambioGeneral.contraNueva.$error.minlength == true" ng-show="formCambioGeneral.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+      		 <p ng-if="formCambioGeneral.contraNueva.$error.pattern == true" ng-show="formCambioGeneral.contraNueva.$error.pattern" class="help-block">La contrase&ntilde;a debe tener almenos un numero.</p>
     		</div>
     		
   			</div>
@@ -44,8 +45,9 @@
   			<div class="form-group" ng-class="{ 'has-error' : formCambioGeneral.contraNueva.$invalid && !formCambioGeneral.contraNueva.$pristine }">
     		<div class="col-sm-6 col-md-offset-3">
     		Repetir Contrase&ntilde;a nueva:
-      		<input type="password"  class="form-control" id="repetirContraNueva" name="repetirContraNueva" required ng-model="user.repetirContranueva" ng-minlength="8">
-      		<p ng-show="formCambioGeneral.repetirContraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+      		<input type="password"  class="form-control" id="repetirContraNueva" name="repetirContraNueva" required ng-model="user.repetirContranueva" ng-minlength="8" ng-pattern="/^.*[0-9]+.*$/">
+      		<p ng-if="formCambioGeneral.repetirContraNueva.$error.minlength == true" ng-show="formCambioGeneral.repetirContraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+    		<p ng-if="formCambioGeneral.repetirContraNueva.$error.pattern == true" ng-show="formCambioGeneral.repetirContraNueva.$error.pattern" class="help-block">La contrase&ntilde;a debe tener almenos un numero.</p>
     		</div>
     		
   			</div>

@@ -30,16 +30,19 @@
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.contraNueva.$invalid && !cambioContra.contraNueva.$pristine }">
 				 <div class="col-md-7 col-md-offset-3"  >
 				 <label for="cuadrilla" class="control-label">*Contrase&ntilde;a Nueva:</label>
-				 <input type="password" id="contraNueva" requiered class="form-control" name="contraNueva" required ng-model="user.nueva" ng-minlength="8">
-				 <p ng-show="cambioContra.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+				 <input type="password" id="contraNueva" requiered class="form-control" name="contraNueva" required ng-model="user.nueva" ng-minlength="8" ng-pattern="/^.*[0-9]+.*$/">
+				 
+				 <p ng-if="cambioContra.contraNueva.$error.minlength == true" ng-show="cambioContra.contraNueva.$error.minlength" class="help-block">La contrase&ntilde;a nueva no debe ser menos de 8 caracteres.</p>
+				 <p ng-if="cambioContra.contraNueva.$error.pattern == true" ng-show="cambioContra.contraNueva.$error.pattern" class="help-block">La contrase&ntilde;a debe tener almenos un numero.</p>
 				 </div>
 				 </div>
 				 
 				 <div class="row" ng-class="{ 'has-error' : cambioContra.repetirContra.$invalid && !cambioContra.repetirContra.$pristine }">
 				 <div class="col-md-7 col-md-offset-3"  >
 				 <label for="cuadrilla" class="control-label">*Repetir Contrase&ntilde;a Nueva:</label>
-				 <input type="password"  id="repetirContraNueva" required class="form-control" name="repetirContra" ng-model="user.repetirNueva" ng-minlength="8">
-				 <p ng-show="cambioContra.repetirContra.$error.minlength" class="help-block">La contrase&ntilde;a no debe ser menos de 8 caracteres.</p>
+				 <input type="password"  id="repetirContraNueva" required class="form-control" name="repetirContra" ng-model="user.repetirNueva" ng-minlength="8"  ng-pattern="/^.*[0-9]+.*$/">
+				 <p ng-if="cambioContra.repetirContra.$error.minlength == true" ng-show="cambioContra.repetirContra.$error.minlength" class="help-block">La contrase&ntilde;a no debe ser menos de 8 caracteres.</p>
+				 <p ng-if="cambioContra.repetirContra.$error.pattern == true" ng-show="cambioContra.repetirContra.$error.pattern" class="help-block">La contrase&ntilde;a debe tener almenos un numero.</p>
 				 </div>
 				 </div>
 				 <br>
