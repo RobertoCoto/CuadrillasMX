@@ -51,8 +51,8 @@ app.controller('adminCuad', function ($scope, $http) {
 					}
 				
 				//alta de cuadrilla
-				$scope.registrar = function(cuadrilla) {
-		    	$scope.cuadrilla = {};
+				$scope.registrar = function(cuadrillas) {
+		    	$scope.cuadrillas = {};
 		    	if ($scope.formCuadrilla.$valid) {
 		    		var confirmar = confirm("�Esta seguro de registrar la cuadrilla?");
 					if (!confirmar)
@@ -65,14 +65,16 @@ app.controller('adminCuad', function ($scope, $http) {
 						 $('#msload').modal('show');
 						 $('#alert').hide();
 					}
+					
+					$scope.vialidad = $('#idVialidad').val();
 					$http({
 					     method: 'GET',
 					     url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
 					     params: {
-						 "idCuadrilla" : cuadrilla.idCuadrilla,
-						 "nombreCuadrilla" : cuadrilla.nombreCuadrilla,
-					     "vialidad": cuadrilla.codigoVialidad,
-						 "calificacion" : cuadrilla.calificacion,
+						 "idCuadrilla" : cuadrillas.idCuadrilla,
+						 "nombreCuadrilla" : cuadrillas.nombreCuadrilla,
+					     "vialidad": $scope.vialidad,
+						 "calificacion" : cuadrillas.calificacion,
 						 "usuario" : data.data.usuario.usuario
 					
 					}
@@ -115,12 +117,14 @@ app.controller('adminCuad', function ($scope, $http) {
 				        alert(response.data.header.mensajeFuncional);
 				        //$scope.resultado2.push(objecto);
 				    });
-
+				    $('#numeroCuadrilla').val(datosCuadrilla.idCuadrilla);
+				    $('#nombre').val(datosCuadrilla.nombreCuadrilla);
+				    $('#calificacion').val(datosCuadrilla.calificacion);
 		    	};
 		    	
 		    	//Actualiza la cuadrilla
-		    	$scope.actualizar = function(cuadrilla) {
-				console.log(cuadrilla);
+		    	$scope.actualizar = function(cuadrillas) {
+		    		$scope.cuadrillas = {};
 				console.log(data.data.usuario.usuario);
 		    var confirmar = confirm("¿Esta seguro de actualizar la cuadrilla?");
 
@@ -134,14 +138,15 @@ app.controller('adminCuad', function ($scope, $http) {
 						 $('#msload').modal('show');
 						 $('#alert').hide();
 					 }
+		    	$scope.vialidad = $('#idVialidad').val();
 		    	$http({
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
-		    		 "idCuadrilla" : cuadrilla.idCuadrilla,
-		    		 "nombreCuadrilla" : cuadrilla.nombreCuadrilla,
-		             "vialidad": cuadrilla.codigoVialidad,
-		    		 "calificacion" : cuadrilla.calificacion,
+		    		 "idCuadrilla" : cuadrillas.idCuadrilla,
+		    		 "nombreCuadrilla" : cuadrillas.nombreCuadrilla,
+		             "vialidad": $scope.vialidad,
+		    		 "calificacion" : cuadrillas.calificacion,
 		    		 "usuario" : data.data.usuario.usuario
 
 		    	 }

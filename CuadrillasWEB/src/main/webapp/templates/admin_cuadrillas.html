@@ -15,7 +15,7 @@
                       <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.numeroCuadrilla.$invalid && !formCuadrilla.numeroCuadrilla.$pristine }">
                             <label for="numero" class="control-label">Numero </label>
-                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla" ng-model="cuadrilla.idCuadrilla"  class="form-control"  ng-disabled="cuadrilla.editar"  required ng-pattern="/^[0-9]*$/"/>
+                            <input type="text" name="numeroCuadrilla" id="numeroCuadrilla" ng-model="cuadrillas.idCuadrilla"  class="form-control"  ng-disabled="cuadrilla.editar"  required ng-pattern="/^[0-9]*$/"/>
                            <p ng-show="formCuadrilla.numeroCuadrilla.$error.pattern && !formCuadrilla.numeroCuadrilla.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -29,13 +29,14 @@
                           <option value="">--Seleccione una Vialidad--</option>
                           </select>
                           <p ng-show="formCuadrilla.vialidad.$invalid && !formCuadrilla.vialidad.$pristine" class="help-block">Es necesario seleccionar una vialidad.</p>
+                         <input type="hidden" id="idVialidad" value={{cuadrilla.codigoVialidad}}>
                         </div>
                     </div>
 
                      <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.nombre.$invalid && !formCuadrilla.nombre.$pristine }">
                             <label for="nombre" class="control-label">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" ng-model="cuadrilla.nombreCuadrilla"  class="form-control"  required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s0-9]*$/"/>
+                            <input type="text" name="nombre" id="nombre" ng-model="cuadrillas.nombreCuadrilla"  class="form-control"  required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s0-9]*$/"/>
                            <p ng-show="formCuadrilla.nombre.$error.pattern && !formCuadrilla.nombre.$pristine" class="help-block">No se permite caracteres invalidos.</p>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                  <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formCuadrilla.calificacion.$invalid && !formCuadrilla.calificacion.$pristine }">
                             <label for="calificacion" class="control-label">Calificaci&oacute;n</label>
-                            <select id="calificacion" ng-model="cuadrilla.calificacion" class="form-control" name="calificacion" required>
+                            <select id="calificacion" ng-model="cuadrillas.calificacion" class="form-control" name="calificacion" required>
                               <option value="">---Seleccione una Calificaci&oacute;n----</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
@@ -128,8 +129,8 @@
 
 			     </div>
 			     <div class="btn-group" >
-			     <input class="btn  btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrilla)" id="editar" ng-show="!cuadrilla.actualizar" ng-disabled="formCuadrilla.$invalid" style="background-color:#18FF08;color:white;">
-				 <input class="btn  btn-primary"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrilla)" id="guardarDato" ng-show="cuadrilla.actualizar" style="background-color:#18FF08;color:white;">
+			     <input class="btn  btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrillas)" id="editar" ng-show="!cuadrilla.actualizar" ng-disabled="formCuadrilla.$invalid" style="background-color:#18FF08;color:white;">
+				 <input class="btn  btn-primary"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrillas)" id="guardarDato" ng-show="cuadrilla.actualizar" style="background-color:#18FF08;color:white;">
 				 </div>
 			</form>
 		</div>
