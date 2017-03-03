@@ -136,7 +136,7 @@ var data;
             })
             .state('41', {
             	url: '/41',
-                templateUrl : 'tenmplates/buzonResidente.html',
+                templateUrl : 'templates/buzonResidente.html',
                 controller  : 'buzonResidente'
             })
             .state('50', {
