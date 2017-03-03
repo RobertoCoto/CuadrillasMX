@@ -116,20 +116,14 @@ public class ModificaAgenda extends HttpServlet {
 				List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
 				for (int k = 0; k < agendaActividades.size(); k++)
 				{
-				
 					JSONObject agendaActividad = (JSONObject) agendaActividades.get(k);
 					String codigoActividad = (String) agendaActividad.get("codigoActividad");
-					String usuarioActividad = (String) agendaActividad.get("usuarioActividad");
-					
 					actividades.add(codigoActividad);
-					actividades.add(usuarioActividad);
 				}
 				for (int j = 0; j < agendaMateriales.size(); j++) {
 
 					JSONObject material = (JSONObject) agendaMateriales.get(j);
 					String codigoMaterial = (String) material.get("codigoMaterial");
-					String usuarioMaterial = (String) material.get("usuarioMaterial");
-					materiales.add(usuarioMaterial);
 					materiales.add(codigoMaterial);
 				}
 				for (int l = 0; l < agendaCoordenadas.size(); l++) {
