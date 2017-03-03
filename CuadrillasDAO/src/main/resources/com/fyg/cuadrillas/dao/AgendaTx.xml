@@ -17,18 +17,19 @@ VALUES (
 #{idAgenda},#{fecha},#{avanceEsperado},#{observaciones},now(),#{usuarioAlta},'A'
 )
 <selectKey keyProperty="idAgendaDetalle" resultType="Integer" order="AFTER">
-		SELECT LAST_INSERT_ID(); 
+		SELECT LAST_INSERT_ID();
 </selectKey>
 </insert>
 
-<insert id="registraAgendaActividad" parameterType="AgendaDetalle">
-INSERT INTO agenda_actividades(id_agenda_detalle,codigo_actividad,usuario_alta,fecha_alta,estatus)
-VALUES
-<foreach collection="list" item="element" index="index" separator=",">
-(
-#{element.idAgendaDetalle},#{element.codigoActividad},#{usuarioAlta},now(),'A'
-)
-</foreach>
+<insert id="registraAgendaActividad" parameterType="java.util.HashMap">
+	INSERT INTO agenda_actividades
+	(
+		id_agenda_detalle,codigo_actividad,usuario_alta,fecha_alta,estatus
+	)
+	VALUES
+	(
+		#{id_agenda_detalle}, #{actividad}, #{usuario}, now(), 'A'
+	)
 </insert>
 
 <insert id="registraAgendaCoordenada" parameterType="Coordenada">

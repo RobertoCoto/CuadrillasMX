@@ -1,6 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,14 +43,14 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("Error al registrar la agenda.");
 			}
 			System.out.println("ID agenda = " + agenda.getIdAgenda());
-			if (agenda.getDiasAgenda().size() > 0) {
-				for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
-					agendaDetalle.setIdAgenda(agenda.getIdAgenda());
-				}
-				altaAgendaDetalle(uid, agenda.getDiasAgenda(), sessionTx);
-				
+			for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
+				agendaDetalle.setIdAgenda(agenda.getIdAgenda());
+				altaAgendaDetalle(uid, agendaDetalle, sessionTx);
+				System.out.println("**********" + agendaDetalle.getIdAgendaDetalle());
+				altaActividadDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
+						agendaDetalle.getActividades(), sessionTx);
 			}
-			
+
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -76,7 +76,7 @@ public class AgendaDAO {
 	 * @param session se abre session bd
 	 * @throws Exception por si surge un error
 	 */
-	public void altaAgendaDetalle(String uid, List<AgendaDetalleDTO> agendaDetalle, SqlSession session) throws Exception {
+	public void altaAgendaDetalle(String uid, AgendaDetalleDTO agendaDetalle, SqlSession session) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -84,19 +84,16 @@ public class AgendaDAO {
 		} else {
 			sessionTx = session;
 		}
-		//iteracion
-			Iterator<AgendaDetalleDTO> detalle = agendaDetalle.iterator();
-			while (detalle.hasNext()) {
-				int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", detalle.next());
-				if ( registros == 0) {
-					if ( session == null ) {
-						FabricaConexiones.rollBack(sessionTx);
-						FabricaConexiones.close(sessionTx);
-					}
-					throw new ExcepcionesCuadrillas("No se pudo registrar.");
-				}
+
+		int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", agendaDetalle);
+		if ( registros == 0) {
+			if ( session == null ) {
+				FabricaConexiones.rollBack(sessionTx);
+				FabricaConexiones.close(sessionTx);
 			}
-				
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
+		}
+
 		//La conexion no es atomica realizamos commit
 		if ( session == null ) {
 			LogHandler.debug(uid, this.getClass(), "Commit conexion.");
@@ -108,14 +105,19 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionTx);
 		}
 	}
+
+
 	/**
 	 * Metodo para registrar los detalles de las actividades
 	 * @param uid unico de registro
-	 * @param actividad recibe valores
-	 * @param session abre session BD
-	 * @throws Exception crea una excepcion
+	 * @param idAgendaDetalle id agenda
+	 * @param usuario usuario
+	 * @param actividades lista de actividades
+	 * @param session transaccional
+	 * @throws Exception
 	 */
-	public void altaActividadDetalle(String uid, List<AgendaDetalleDTO> actividad, SqlSession session ) throws Exception {
+	public void altaActividadDetalle(String uid, int idAgendaDetalle, String usuario,
+				List<String> actividades, SqlSession session ) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -124,13 +126,19 @@ public class AgendaDAO {
 			sessionTx = session;
 		}
 		//Validamos el registro
-		int registros = sessionTx.insert("AgendaDAO.registraAgendaActividad", actividad);
-		if ( registros == 0) {
-			if ( session == null ) {
-				FabricaConexiones.rollBack(sessionTx);
-				FabricaConexiones.close(sessionTx);
+		for (String actividad : actividades) {
+			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+			parametros.put("id_agenda_detalle", idAgendaDetalle);
+			parametros.put("actividad", actividad);
+			parametros.put("usuario", usuario);
+			int registros = sessionTx.insert("AgendaDAO.registraAgendaActividad", parametros);
+			if ( registros == 0) {
+				if ( session == null ) {
+					FabricaConexiones.rollBack(sessionTx);
+					FabricaConexiones.close(sessionTx);
+				}
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
 			}
-			throw new ExcepcionesCuadrillas("No se pudo registrar.");
 		}
 		//La conexion no es atomica realizamos commit
 		if ( session == null ) {
@@ -372,16 +380,18 @@ public class AgendaDAO {
 				for (int j = 0; j < agendaDetalle.size(); j++) {
 					System.out.println("ID agendaDetalle = " + agendaDetalle.get(j).getIdAgendaDetalle());
 					if (agendaDetalle.get(j).getActividades().size() > 0) {
-						for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
+						/*for (AgendaDetalleDTO agendaActividad : agendaDetalle.get(j).getActividades()) {
 							agendaActividad.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
 						}
 						altaActividadDetalle(uid, agendaDetalle.get(j).getActividades(), sessionTx);
+						*/
 					}
 					if (agendaDetalle.get(j).getMateriales().size() > 0) {
-						for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
+						/*for (AgendaDetalleDTO agendaMaterial : agendaDetalle.get(j).getMateriales()) {
 							agendaMaterial.setIdAgendaDetalle(agendaDetalle.get(j).getIdAgendaDetalle());
 						}
 						altaMaterialDetalle(uid, agendaDetalle.get(j).getMateriales(), sessionTx);
+						*/
 					}
 					if (agendaDetalle.get(j).getCoordenadas().size() > 0) {
 						for (CoordenadaDTO agendaCoordenadas : agendaDetalle.get(j).getCoordenadas()) {

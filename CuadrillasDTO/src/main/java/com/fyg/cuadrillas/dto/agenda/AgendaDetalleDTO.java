@@ -25,21 +25,11 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** actividades */
-	private List<AgendaDetalleDTO> actividades;
+	private List<String> actividades;
 	/** materiales */
-	private List<AgendaDetalleDTO> materiales;
-	/**
-	 * Usuario alta
-	 */
+	private List<String> materiales;
+	/** Usuario alta */
 	private String usuarioAlta;
-	/**
-	 * codigo actividad
-	 */
-	private String codigoActividad;
-	/**
-	 * ccodigo Material
-	 */
-	private String codigoMaterial;
 	/**
 	 * @return the idAgendaDetalle
 	 */
@@ -115,50 +105,26 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/**
 	 * @return the actividades
 	 */
-	public List<AgendaDetalleDTO> getActividades() {
+	public List<String> getActividades() {
 		return actividades;
 	}
 	/**
 	 * @param actividades the actividades to set
 	 */
-	public void setActividades(List<AgendaDetalleDTO> actividades) {
+	public void setActividades(List<String> actividades) {
 		this.actividades = actividades;
 	}
 	/**
 	 * @return the materiales
 	 */
-	public List<AgendaDetalleDTO> getMateriales() {
+	public List<String> getMateriales() {
 		return materiales;
 	}
 	/**
 	 * @param materiales the materiales to set
 	 */
-	public void setMateriales(List<AgendaDetalleDTO> materiales) {
+	public void setMateriales(List<String> materiales) {
 		this.materiales = materiales;
-	}
-	/**
-	 * @return the codigoActividad
-	 */
-	public String getCodigoActividad() {
-		return codigoActividad;
-	}
-	/**
-	 * @param codigoActividad the codigoActividad to set
-	 */
-	public void setCodigoActividad(String codigoActividad) {
-		this.codigoActividad = codigoActividad;
-	}
-	/**
-	 * @return the codigoMaterial
-	 */
-	public String getCodigoMaterial() {
-		return codigoMaterial;
-	}
-	/**
-	 * @param codigoMaterial the codigoMaterial to set
-	 */
-	public void setCodigoMaterial(String codigoMaterial) {
-		this.codigoMaterial = codigoMaterial;
 	}
 	/**
 	 * @return the usuarioAlta
@@ -172,4 +138,6 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
+
+	
 }
