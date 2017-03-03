@@ -202,10 +202,10 @@
   	<servlet-class>com.fyg.cuadrillas.web.actividad.BajaActividad</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ConsultaActividad</servlet-name>
-  	<display-name>ConsultaActividad</display-name>
+  	<servlet-name>ConsultaActividadDiaria</servlet-name>
+  	<display-name>ConsultaActividadDiaria</display-name>
   	<description></description>
-  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividad</servlet-class>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividadDiaria</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>CambioContrasena</servlet-name>
@@ -478,8 +478,8 @@
 		<url-pattern>/BajaActividad</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ConsultaActividad</servlet-name>
-		<url-pattern>/ConsultaActividad</url-pattern>
+		<servlet-name>ConsultaActividadDiaria</servlet-name>
+		<url-pattern>/ConsultaActividadDiaria</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CambioContrasena</servlet-name>

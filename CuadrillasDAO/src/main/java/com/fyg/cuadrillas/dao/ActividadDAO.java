@@ -143,7 +143,7 @@ public class ActividadDAO {
 	 * @throws Exception si surgen excepciones
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ActividadDTO> consultaActividad(String uid, ActividadDTO actividad) throws Exception {
+	public List<ActividadDTO> consultaActividadDiaria(String uid, ActividadDTO actividad) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -156,7 +156,7 @@ public class ActividadDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "Consultando");
-			listaActividad = sessionNTx.selectList("ActividadDAO.consultaActividad", actividad);
+			listaActividad = sessionNTx.selectList("ActividadDAO.consultaActividadDiaria", actividad);
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());

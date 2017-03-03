@@ -39,7 +39,7 @@ AND id_cuadrilla = #{idCuadrilla}
 AND estatus = 'I'
 </select>
 
-<select id="consultaActividad" parameterType="Actividad" resultMap="actividad">
+<select id="consultaActividadDiaria" parameterType="Actividad" resultMap="actividad">
 SELECT id_cuadrilla,
 	   tramo_inicial_planificado,
 	   tramo_final_planificado,

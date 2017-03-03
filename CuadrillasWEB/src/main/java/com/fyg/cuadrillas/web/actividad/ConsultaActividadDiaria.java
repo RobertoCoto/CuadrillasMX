@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ConsultaActividad
  */
-public class ConsultaActividad extends HttpServlet {
+public class ConsultaActividadDiaria extends HttpServlet {
 	/**
 	 * serial uid
 	 */
@@ -26,7 +26,7 @@ public class ConsultaActividad extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaActividad() {
+    public ConsultaActividadDiaria() {
         super();
         // TODO Auto-generated constructor stub
     }

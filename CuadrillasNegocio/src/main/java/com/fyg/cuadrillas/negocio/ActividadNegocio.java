@@ -192,7 +192,7 @@ public class ActividadNegocio {
 	    	{
 	    		throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la busqueda.");
 	    	}
-			listaActividad = new ActividadDAO().consultaActividad(uid, actividad);
+			listaActividad = new ActividadDAO().consultaActividadDiaria(uid, actividad);
 			respuesta.setActividad(listaActividad);
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "consultaActividad - Error: " + ex.getMessage(), ex);
