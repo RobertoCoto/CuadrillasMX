@@ -9,7 +9,7 @@ app.controller('buzonResidente', function ($scope, $http) {
 		$('#msload').modal('show');
 	    $http({		
 		method: 'GET',
-		url: 'http://localhost:8080/CuadrillasWEB/ConsultaTareas',
+		url: 'http://localhost:8080/CuadrillasWEB/ConsultaBuzonResidente',
 		data: { }
 		}).then(function (result) {
 			$('#msload').modal('hide');
