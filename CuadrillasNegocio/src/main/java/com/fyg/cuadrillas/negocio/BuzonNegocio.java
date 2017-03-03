@@ -50,4 +50,42 @@ public class BuzonNegocio {
 	    LogHandler.debug(uid, this.getClass(), "consultaTarea - Datos Salida: " + respuesta);
 		return respuesta;
 	}
+	/**
+	 * Metodo para consultar las tareas disponibles
+	 * @return regresa lista de tareas
+	 */
+	public BuzonRespuesta consultaBuzonResidente() {
+		//
+		BuzonDTO buzon = new BuzonDTO();
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(new String(""));
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaTarea - Datos Entrada: ");
+		BuzonRespuesta respuesta = new BuzonRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		List<BuzonDTO> listaBuzonResidente = null;
+		try {
+			//hace consulta de nuetro parametro
+			String parametroImss = "empleado.notifica.imss";
+			String valor = new ParametroDAO().consultaParametro(uid, parametroImss);
+			buzon.setNotificaImss(Integer.parseInt(valor));
+			listaBuzonResidente = new BuzonDAO().consultaBuzonResidente(uid, buzon);
+			respuesta.setBuzon(listaBuzonResidente);
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultaTarea - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaTarea - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaTarea - Datos Salida: " + respuesta);
+		return respuesta;
+	}
 }
