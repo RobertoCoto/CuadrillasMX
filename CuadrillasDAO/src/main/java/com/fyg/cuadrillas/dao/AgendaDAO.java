@@ -84,6 +84,7 @@ public class AgendaDAO {
 		} else {
 			sessionTx = session;
 		}
+		//iteracion
 			Iterator<AgendaDetalleDTO> detalle = agendaDetalle.iterator();
 			while (detalle.hasNext()) {
 				int registros = sessionTx.insert("AgendaDAO.registraAgendaDetalles", detalle.next());
