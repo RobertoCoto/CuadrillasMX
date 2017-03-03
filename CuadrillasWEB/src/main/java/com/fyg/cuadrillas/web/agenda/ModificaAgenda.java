@@ -114,7 +114,6 @@ public class ModificaAgenda extends HttpServlet {
 				List<String> actividades = new ArrayList<String>();
 				List<String> materiales  = new ArrayList<String>();
 				List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
-
 				for (int k = 0; k < agendaActividades.size(); k++)
 				{
 				
@@ -125,7 +124,6 @@ public class ModificaAgenda extends HttpServlet {
 					actividades.add(codigoActividad);
 					actividades.add(usuarioActividad);
 				}
-
 				for (int j = 0; j < agendaMateriales.size(); j++) {
 
 					JSONObject material = (JSONObject) agendaMateriales.get(j);
