@@ -157,6 +157,29 @@ public class ActividadDAO {
 			//Se hace una consulta a la tabla
 			LogHandler.debug(uid, this.getClass(), "Consultando");
 			listaActividad = sessionNTx.selectList("ActividadDAO.consultaActividadDiaria", actividad);
+			if(listaActividad.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existe registro de actividades actualmente.");
+			}
+			for (ActividadDTO c : listaActividad) {
+				List<ActividadDTO> actividadValor = null;
+				actividadValor = sessionNTx.selectList("ActividadDAO.consultaAgendaDiaria", c);
+				if(actividadValor.size() == 0) {
+					throw new ExcepcionesCuadrillas("No existe actividades para la fecha solicitada.");
+				}
+				c.setListaActividades(actividadValor);
+		    }
+			
+			for (ActividadDTO d : listaActividad) {
+				List<ActividadDTO> materialValor = null;
+				materialValor = sessionNTx.selectList("ActividadDAO.consultaMaterialDiaria", d);
+				d.setListaMateriales(materialValor);
+		    }
+			
+			for (ActividadDTO f : listaActividad) {
+				List<ActividadDTO> coordenadaValor = null;
+				coordenadaValor = sessionNTx.selectList("ActividadDAO.consultaCoordenadaDiaria", f);
+				f.setListaCoordenadas(coordenadaValor);
+		    }
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());

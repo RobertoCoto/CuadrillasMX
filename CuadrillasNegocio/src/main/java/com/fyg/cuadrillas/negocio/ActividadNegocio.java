@@ -175,7 +175,7 @@ public class ActividadNegocio {
 	 * @param actividad resibe valores de actividad
 	 * @return regresa respuesta
 	 */
-	public ActividadRespuesta consultaActividad(ActividadDTO actividad) {
+	public ActividadRespuesta consultaActividadDiaria(ActividadDTO actividad) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(actividad);
 		//Mandamos a log el objeto de entrada
@@ -188,10 +188,13 @@ public class ActividadNegocio {
 		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 		List<ActividadDTO> listaActividad = null;
 		try {
-			if (actividad.getIdCuadrilla() == null)
-	    	{
-	    		throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla para la busqueda.");
-	    	}
+			if (actividad.getIdEmpleado() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+			}
+			if (actividad.getFechaDiaria()== null || actividad.getFechaDiaria().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la fecha para la busqueda.");
+			}
+			
 			listaActividad = new ActividadDAO().consultaActividadDiaria(uid, actividad);
 			respuesta.setActividad(listaActividad);
 		} catch  (ExcepcionesCuadrillas ex) {

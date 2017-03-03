@@ -21,6 +21,21 @@
 <result column="listo_vencido" property="listoVencido"/>
 <result column="observaciones_actividad" property="observacionesActividades"/>
 <result column="estatus" property="estatus"/>
+<result column="id_empleado" property="idEmpleado"/>
+<result column="id_contrato" property="idContrato"/>
+<result column="id_agenda" property="idAgenda"/>
+<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+<result column="nombre_residente" property="nombreResidente"/>
+<result column="codigo_actividad" property="codigoActividad"/>
+<result column="descripcion_actividad" property="descripcionActividad"/>
+<result column="fecha_actividad" property="fechaActividad"/>
+<result column="codigo_material" property="codigoMaterial"/>
+<result column="descripcion_material" property="descripcionMaterial"/>
+<result column="id_coordenada" property="idCoordenada"/>
+<result column="orden" property="orden"/>
+<result column="direccion" property="direccion"/>
+<result column="latitud" property="latitud"/>
+<result column="longitud" property="longitud"/>
 </resultMap>
 
 <select id="existeActividad" parameterType="Actividad" resultType="int">
@@ -40,25 +55,49 @@ AND estatus = 'I'
 </select>
 
 <select id="consultaActividadDiaria" parameterType="Actividad" resultMap="actividad">
-SELECT id_cuadrilla,
-	   tramo_inicial_planificado,
-	   tramo_final_planificado,
-	   alcance_planificado,
-	   tramo_inicial_real,
-	   tramo_final_real,
-	   alcance_real,
-	   actividad,
-	   prioridad,
-	   estado,
-	   tiempo_destinado,
-	   numero_personas,
-	   numero_unidades,
-	   porcentaje_completado,
-	   listo_vencido,
-	   observaciones_actividad,
-	   estatus
-FROM actividad_diaria
-WHERE id_cuadrilla = #{cuadrilla}
-AND estatus = 'A'
+SELECT e.id_empleado AS id_empleado,
+cu.id_cuadrilla AS id_cuadrilla,
+con.id_contrato AS id_contrato,
+ag.id_agenda AS id_agenda,
+de.id_agenda_detalle AS id_agenda_detalle,
+de.fecha AS fecha_actividad,
+CONCAT(e.nombre, ' ', e.apellido_pat, ' ', e.apellido_mat )  AS nombre_residente
+FROM empleado e
+LEFT JOIN cuadrilla cu ON cu.id_cuadrilla = e.id_cuadrilla
+LEFT JOIN contrato con ON con.id_cuadrilla = cu.id_cuadrilla
+LEFT JOIN agenda ag ON ag.id_contrato = con.id_contrato
+LEFT JOIN agenda_detalle de ON de.id_agenda = ag.id_agenda AND de.fecha = #{fechaDiaria}
+WHERE e.id_empleado = #{idEmpleado}
+AND e.codigo_puesto = 'RESI'
+</select>
+
+<select id="consultaAgendaDiaria" parameterType="Actividad" resultMap="actividad">
+	SELECT ac.codigo_actividad AS codigo_actividad,
+	cat.descripcion AS descripcion_actividad
+	FROM agenda_actividades ac
+	LEFT JOIN catalogo cat ON cat.codigo = ac.codigo_actividad
+	WHERE ac.id_agenda_detalle = #{idAgendaDetalle}
+	AND  ac.estatus = 'A'
+</select>
+
+<select id="consultaMaterialDiaria" parameterType="Actividad" resultMap="actividad">
+SELECT ma.codigo_material AS codigo_material,
+cat.descripcion AS descripcion_material
+FROM agenda_materiales ma
+LEFT JOIN catalogo cat ON cat.codigo = ma.codigo_material
+WHERE ma.id_agenda_detalle = #{idAgendaDetalle}
+	AND  ma.estatus = 'A'
+</select>
+
+<select id="consultaCoordenadaDiaria" parameterType="Actividad" resultMap="actividad">
+SELECT
+co.id_coordenada AS id_coordenada, 
+co.orden AS orden,
+co.direccion AS direccion,
+co.latitud AS latitud,
+co.longitud AS longitud
+FROM agenda_coordenadas co
+WHERE co.id_agenda_detalle = #{idAgendaDetalle}
+AND co.estatus = 'A'
 </select>
 </mapper>
