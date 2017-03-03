@@ -54,8 +54,6 @@ public class AltaAgendaTest {
 		coordenadas.add(coordenada1);
 		coordenadas.add(coordenada2);
 
-		
-		
 		List<String> listaActividades = new ArrayList<String>();
 		listaActividades.add("AMUL");
 		listaActividades.add("AAAA");
