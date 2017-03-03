@@ -136,8 +136,8 @@ var data;
             })
             .state('41', {
             	url: '/41',
-                templateUrl : 'buzonresidente pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'tenmplates/buzonResidente',
+                controller  : 'buzonResidente'
             })
             .state('50', {
             	url: '/50',
