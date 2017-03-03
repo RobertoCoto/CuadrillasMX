@@ -1,0 +1,41 @@
+<div class="container">
+<h2>Buz&oacute;n Residente</h2>
+		<div class="panel panel-default">
+		<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
+			<div class="panel-body">
+			<form name="form_reloj" id="formEmpleado">
+			    <div class="row">
+			         <div class="col-sm-12">
+			         <div align="center"><input class="btn btn-info btn-primary" type="submit" value="Actualizar" ng-click="actualizaTareas()"></div>
+			         <br>
+			         <br>
+                		<div class="table-responsive">
+                			<table class="table table-bordered">
+                				<tr class="success">
+                				<td><b>Fecha Actividad</b></td>
+                				<td><b>Descripci&oacute;n</b></td>
+                				<td><b>Ejecutar</b></td>
+                				</tr>
+                				<tr ng-repeat="tareas in resultado">
+                				<td>{{tareas.fechaTarea}}</td>
+                			    <td>{{tareas.descripcion}}</td>
+                			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="notificar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="autorizar(tareas)"/></td>
+                				</tr>
+                			</table>
+                		</div>
+                	</div>
+			    </div>
+			    
+			    
+			</form>
+			</div>
+		</div>
+</div>
