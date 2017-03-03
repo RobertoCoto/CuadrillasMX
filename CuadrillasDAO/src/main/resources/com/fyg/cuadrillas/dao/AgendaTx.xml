@@ -32,29 +32,25 @@ VALUES (
 	)
 </insert>
 
-<insert id="registraAgendaCoordenada" parameterType="Coordenada">
-INSERT INTO agenda_coordenadas
-		(
-			id_contrato,id_agenda_detalle,	orden,	direccion,
-			latitud,	longitud,	fecha_alta,	estatus
-		)
-	VALUES
-	<foreach collection="list" item="element" index="index" separator=",">
-	 	(
-			#{element.idContrato},#{element.idAgendaDetalle}, #{element.orden},	#{element.direccion},
-			#{element.latitud},	#{element.longitud}, now(),	'A'
-	 	)
-	</foreach>
-</insert>
-
-<insert id="registraAgendaMateria" parameterType="AgendaDetalle">
+<insert id="registraAgendaMateria" parameterType="java.util.HashMap">
 INSERT INTO agenda_materiales(id_agenda_detalle,codigo_material,usuario_alta,fecha_alta,estatus)
 VALUES
-<foreach collection="list" item="element" index="index" separator=",">
 (
-#{element.idAgendaDetalle},#{element.codigoMaterial},#{usuarioAlta},now(),'A'
+#{id_agenda_detalle},#{material},#{usuario},now(),'A'
 )
-</foreach>
+</insert>
+
+<insert id="registraAgendaCoordenada" parameterType="java.util.HashMap">
+INSERT INTO agenda_coordenadas
+		(
+			id_agenda_detalle,	orden,	direccion,
+			latitud,	longitud, usuario_alta,fecha_alta,	estatus
+		)
+	VALUES
+	 	(
+			#{id_agenda_detalle}, #{orden},	#{direccion},
+			#{latitud},	#{longitud},#{usuario}, now(),'A'
+	 	)
 </insert>
 
 <update id="bajaAgenda" parameterType="Agenda">
@@ -87,24 +83,25 @@ UPDATE agenda_detalle
 		fecha = #{fecha},
 		avance_esperado = #{avanceEsperado},
 		observaciones = #{observaciones},
-		usuario_ult_mod= #{usuario},
+		usuario_ult_mod= #{usuarioAlta},
 		fecha_ult_mod = now()
 WHERE id_agenda = #{idAgenda}
+AND id_agenda_detalle = #{idAgendaDetalle}
 AND estatus = 'A'
 </update>
 
-<delete id="eliminaActividades" parameterType="AgendaDetalle">
+<delete id="eliminaActividades" parameterType="java.util.HashMap">
 DELETE FROM agenda_actividades
-WHERE id_agenda_detalle = #{idAgendaDetalle}
+WHERE id_agenda_detalle = #{id_agenda_detalle}
 </delete>
 
-<delete id="eliminaMateriales" parameterType="AgendaDetalle">
+<delete id="eliminaMateriales" parameterType="java.util.HashMap">
 DELETE FROM agenda_materiales
-WHERE id_agenda_detalle = #{idAgendaDetalle}
+WHERE id_agenda_detalle = #{id_agenda_detalle}
 </delete>
 
-<delete id="eliminaCoordenadas" parameterType="AgendaDetalle">
+<delete id="eliminaAgendaCoordenadas" parameterType="java.util.HashMap">
 DELETE FROM agenda_coordenadas
-WHERE id_agenda_detalle = #{idAgendaDetalle}
+WHERE id_agenda_detalle = #{agenda_detalle}
 </delete>
 </mapper>

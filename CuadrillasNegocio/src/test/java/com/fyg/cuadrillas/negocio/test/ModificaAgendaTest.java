@@ -12,8 +12,7 @@ import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 
-public class AltaAgendaTest {
-
+public class ModificaAgendaTest {
 	private AgendaDTO agenda;
 	/**
 	 * metodo para inicializar valores
@@ -22,6 +21,7 @@ public class AltaAgendaTest {
 	@Before
 	public void setUp() throws Exception {
 		agenda = new AgendaDTO();
+		agenda.setIdAgenda(27);
 		agenda.setIdContrato(4);
 		agenda.setFechaInicio("2017-02-05");
 		agenda.setFechaFin("2017-02-10");
@@ -33,6 +33,7 @@ public class AltaAgendaTest {
 		List<AgendaDetalleDTO> detalles = new ArrayList<AgendaDetalleDTO>();
 		
 		AgendaDetalleDTO agendaDetalle = new AgendaDetalleDTO();
+		agendaDetalle.setIdAgendaDetalle(23);
 		agendaDetalle.setAvanceEsperado(40);
 		agendaDetalle.setFecha("2017-02-07");
 		agendaDetalle.setObservaciones("alta de agenda detalle");
@@ -73,12 +74,13 @@ public class AltaAgendaTest {
 
 		agenda.setDiasAgenda(detalles);
 	}
+	
 	/**
 	 * Manda los valores al metodo de alta usuario
 	 * @throws Exception
 	 */
 	@Test
-	public void testAltaAgenda() throws Exception {
+	public void testModificaAgenda() throws Exception {
 		String guid = "123456789";
 
 		/*System.setProperty("http.proxyHost", "169.169.4.85");
@@ -88,9 +90,10 @@ public class AltaAgendaTest {
 
 		AgendaNegocio negocio = new AgendaNegocio();
 		try {
-			negocio.altaAgenda(agenda);
+			negocio.modificaAgenda(agenda);
 		} catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}
 	}
+
 }
