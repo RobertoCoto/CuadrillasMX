@@ -11,6 +11,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
+import com.google.gson.Gson;
 
 public class ContratoTest {
 	/**
@@ -65,7 +66,8 @@ public class ContratoTest {
         ContratoNegocio negocio = new ContratoNegocio();
 
 		try {
-
+			Gson sg = new Gson();
+			System.out.println(sg.toJson(contrato));
 			//negocio.altaContrato(contrato);
 			negocio.altaContrato(contrato);
 		}
