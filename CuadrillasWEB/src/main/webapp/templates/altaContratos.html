@@ -188,7 +188,7 @@
               <div class="row">
                 <div class="col-sm-2">
                   <label for="estatus" class="control-label">Estatus</label>
-                  <select id="estatus" class="form-control" ng-model="contratoFocus.estatus"><option value="A">Activo</option><option value="I">Inactivo</option></select>
+                  <select id="estatus" class="form-control" ng-model="contratoFocus.estatus"><option value="A" selected="selected">Activo</option><option value="I">Inactivo</option></select>
                 </div>
                 <div class="col-sm-3">
                   <label for="cuadrillac" class="control-label">Cuadrilla</label>
@@ -199,19 +199,23 @@
                   <input type="number" id="noPer" ng-model="contratoFocus.noPersonas" class="form-control" placeholder="0">
                 </div>
                 <div class="col-sm-5">
-                  <!-- Form Estandar -->
-                  <h4>Adjuntar Contrato</h4>
-                    <div class="form-inline">
-                      <div class="form-group">
-                        <input type="file" file-model="contratoAdjunto" id="adjuntarContrato">
-                        <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
+                  <div id="contratoFile">
+                    <!-- Form Estandar -->
+                    <h4>Adjuntar Contrato</h4>
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <input type="file" file-model="contratoAdjunto" id="adjuntarContrato">
+                          <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
+                        </div>
                       </div>
-                    </div>
-                  <!-- Zona de Drop -->
-                  <!--h4>Arrastrar los archivos a esta zona</h4>
-                  <div class="upload-drop-zone" id="drop-zone">
-                    Solo arrastrar y soltar
-                  </div-->
+                    <!-- Zona de Drop -->
+                    <!--h4>Arrastrar los archivos a esta zona</h4>
+                    <div class="upload-drop-zone" id="drop-zone">
+                      Solo arrastrar y soltar
+                    </div-->
+                  </div>
+                  <div id="linkContrato">
+                  </div>
                 </div>
               </div>
               <div class="row">
