@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.dto.actividad;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
@@ -10,6 +11,14 @@ public class ActividadDTO extends ObjetoValor {
 	 * Serial UID
 	 */
 	private static final long serialVersionUID = -3786704476128984542L;
+	/**
+	 * id del empleado
+	 */
+	private Integer idEmpleado;
+	/**
+	 * fecha recibida actividad;
+	 */
+	private String fechaDiaria;
 	/**
 	 * id de la actividad
 	 */
@@ -138,6 +147,74 @@ public class ActividadDTO extends ObjetoValor {
 	 * fecha de la autorizacion
 	 */
 	private Date  fechaAutorizacion;
+	/**
+	 * agenda Detalle
+	 */
+	private Integer idAgendaDetalle;
+	/**
+	 * id contrato
+	 */
+	private Integer idContrato;
+	/**
+	 * agenda
+	 */
+	private Integer idAgenda;
+	/**
+	 * nombre del residente
+	 */
+	private String nombreResidente;
+	/**
+	 * codigo actividad
+	 */
+	private String codigoActividad;
+	/**
+	 * descripcion actividad
+	 */
+	private String descripcionActividad;
+	/**
+	 * fecha resultado
+	 */
+	private String fechaActividad;
+	/**
+	 * lista actividades
+	 */
+	private List<ActividadDTO> listaActividades;
+	/**
+	 * materiales
+	 */
+	private List<ActividadDTO> listaMateriales;
+	/**
+	 * coordenadas
+	 */
+	private List<ActividadDTO> listaCoordenadas;
+	/**
+	 * codigo Material
+	 */
+	 private String codigoMaterial;
+	/**
+	 * descripcion material
+	 */
+	private String descripcionMaterial;
+	/**
+	 * id de la coordenada
+	 */
+	private Integer idCoordenada;
+	/**
+	 * numero orden
+	 */
+	private Integer orden;
+	/**
+	 * la direccion
+	 */
+	private String direccion;
+	/**
+	 * la latitud
+	 */
+	private Float latitud;
+	/**
+	 * la longitud
+	 */
+	private Float longitud;
 	/**
 	 * @return the idActividad
 	 */
@@ -521,5 +598,233 @@ public class ActividadDTO extends ObjetoValor {
 	 */
 	public void setFechaAutorizacion(Date fechaAutorizacion) {
 		this.fechaAutorizacion = fechaAutorizacion;
+	}
+	/**
+	 * @return the idEmpleado
+	 */
+	public Integer getIdEmpleado() {
+		return idEmpleado;
+	}
+	/**
+	 * @param idEmpleado the idEmpleado to set
+	 */
+	public void setIdEmpleado(Integer idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+	/**
+	 * @return the fechaDiaria
+	 */
+	public String getFechaDiaria() {
+		return fechaDiaria;
+	}
+	/**
+	 * @param fechaDiaria the fechaDiaria to set
+	 */
+	public void setFechaDiaria(String fechaDiaria) {
+		this.fechaDiaria = fechaDiaria;
+	}
+	/**
+	 * @return the idAgendaDetalle
+	 */
+	public Integer getIdAgendaDetalle() {
+		return idAgendaDetalle;
+	}
+	/**
+	 * @param idAgendaDetalle the idAgendaDetalle to set
+	 */
+	public void setIdAgendaDetalle(Integer idAgendaDetalle) {
+		this.idAgendaDetalle = idAgendaDetalle;
+	}
+	/**
+	 * @return the idContrato
+	 */
+	public Integer getIdContrato() {
+		return idContrato;
+	}
+	/**
+	 * @param idContrato the idContrato to set
+	 */
+	public void setIdContrato(Integer idContrato) {
+		this.idContrato = idContrato;
+	}
+	/**
+	 * @return the idAgenda
+	 */
+	public Integer getIdAgenda() {
+		return idAgenda;
+	}
+	/**
+	 * @param idAgenda the idAgenda to set
+	 */
+	public void setIdAgenda(Integer idAgenda) {
+		this.idAgenda = idAgenda;
+	}
+	/**
+	 * @return the nombreResidente
+	 */
+	public String getNombreResidente() {
+		return nombreResidente;
+	}
+	/**
+	 * @param nombreResidente the nombreResidente to set
+	 */
+	public void setNombreResidente(String nombreResidente) {
+		this.nombreResidente = nombreResidente;
+	}
+	/**
+	 * @return the codigoActividad
+	 */
+	public String getCodigoActividad() {
+		return codigoActividad;
+	}
+	/**
+	 * @param codigoActividad the codigoActividad to set
+	 */
+	public void setCodigoActividad(String codigoActividad) {
+		this.codigoActividad = codigoActividad;
+	}
+	/**
+	 * @return the descripcionActividad
+	 */
+	public String getDescripcionActividad() {
+		return descripcionActividad;
+	}
+	/**
+	 * @param descripcionActividad the descripcionActividad to set
+	 */
+	public void setDescripcionActividad(String descripcionActividad) {
+		this.descripcionActividad = descripcionActividad;
+	}
+	/**
+	 * @return the fechaActividad
+	 */
+	public String getFechaActividad() {
+		return fechaActividad;
+	}
+	/**
+	 * @param fechaActividad the fechaActividad to set
+	 */
+	public void setFechaActividad(String fechaActividad) {
+		this.fechaActividad = fechaActividad;
+	}
+	/**
+	 * @return the listaActividades
+	 */
+	public List<ActividadDTO> getListaActividades() {
+		return listaActividades;
+	}
+	/**
+	 * @param listaActividades the listaActividades to set
+	 */
+	public void setListaActividades(List<ActividadDTO> listaActividades) {
+		this.listaActividades = listaActividades;
+	}
+	/**
+	 * @return the listaMateriales
+	 */
+	public List<ActividadDTO> getListaMateriales() {
+		return listaMateriales;
+	}
+	/**
+	 * @param listaMateriales the listaMateriales to set
+	 */
+	public void setListaMateriales(List<ActividadDTO> listaMateriales) {
+		this.listaMateriales = listaMateriales;
+	}
+	/**
+	 * @return the listaCoordenadas
+	 */
+	public List<ActividadDTO> getListaCoordenadas() {
+		return listaCoordenadas;
+	}
+	/**
+	 * @param listaCoordenadas the listaCoordenadas to set
+	 */
+	public void setListaCoordenadas(List<ActividadDTO> listaCoordenadas) {
+		this.listaCoordenadas = listaCoordenadas;
+	}
+	/**
+	 * @return the codigoMaterial
+	 */
+	public String getCodigoMaterial() {
+		return codigoMaterial;
+	}
+	/**
+	 * @param codigoMaterial the codigoMaterial to set
+	 */
+	public void setCodigoMaterial(String codigoMaterial) {
+		this.codigoMaterial = codigoMaterial;
+	}
+	/**
+	 * @return the descripcionMaterial
+	 */
+	public String getDescripcionMaterial() {
+		return descripcionMaterial;
+	}
+	/**
+	 * @param descripcionMaterial the descripcionMaterial to set
+	 */
+	public void setDescripcionMaterial(String descripcionMaterial) {
+		this.descripcionMaterial = descripcionMaterial;
+	}
+	/**
+	 * @return the idCoordenada
+	 */
+	public Integer getIdCoordenada() {
+		return idCoordenada;
+	}
+	/**
+	 * @param idCoordenada the idCoordenada to set
+	 */
+	public void setIdCoordenada(Integer idCoordenada) {
+		this.idCoordenada = idCoordenada;
+	}
+	/**
+	 * @return the orden
+	 */
+	public Integer getOrden() {
+		return orden;
+	}
+	/**
+	 * @param orden the orden to set
+	 */
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+	/**
+	 * @return the direccion
+	 */
+	public String getDireccion() {
+		return direccion;
+	}
+	/**
+	 * @param direccion the direccion to set
+	 */
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	/**
+	 * @return the latitud
+	 */
+	public Float getLatitud() {
+		return latitud;
+	}
+	/**
+	 * @param latitud the latitud to set
+	 */
+	public void setLatitud(Float latitud) {
+		this.latitud = latitud;
+	}
+	/**
+	 * @return the longitud
+	 */
+	public Float getLongitud() {
+		return longitud;
+	}
+	/**
+	 * @param longitud the longitud to set
+	 */
+	public void setLongitud(Float longitud) {
+		this.longitud = longitud;
 	}
 }

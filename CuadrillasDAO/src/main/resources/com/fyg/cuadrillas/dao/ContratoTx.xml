@@ -45,4 +45,32 @@ VALUES
 	WHERE id_contrato = #{idContrato}
 	AND estatus = 'A'
 </update>
+
+<delete id="eliminaCoordenadas" parameterType="java.util.HashMap">
+DELETE FROM contrato_coordenadas WHERE id_contrato = #{id_contrato}
+</delete>
+
+<update id="modificaContrato" parameterType="Contrato">
+UPDATE contrato SET
+codigo_vialidad = #{codigoVialidad},
+codigo_contrato = #{codigoContrato},	
+codigo_documento = #{codigoDocumento}, 
+codigo_empresa =  #{codigoEmpresa},
+numero_documento = #{numeroDocumento}, 
+monto = #{monto}, 
+subtotal = #{subtotal},
+fecha_inicio = #{fechaInicio}, 
+fecha_fin = #{fechaFin},
+dias_duracion = #{diasDuracion},
+pct_avance = #{pctAvance},	
+fecha_registro = #{fechaRegistro},
+id_cuadrilla = #{idCuadrilla},
+observaciones = #{observaciones},
+url = #{url},
+metros = #{metros},
+usuario_ult_mod = #{usuarioUltMod},
+fecha__ult_mod =  now()
+WHERE id_contrato = #{idContrato}
+AND estatus = 'A'
+</update>
 </mapper>

@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AltaActividad
  */
-public class AltaActividad extends HttpServlet {
+public class RegistraActividadDiaria extends HttpServlet {
 	/**
 	 * serial uid
 	 */
@@ -26,7 +26,7 @@ public class AltaActividad extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AltaActividad() {
+    public RegistraActividadDiaria() {
         super();
         // TODO Auto-generated constructor stub
     }

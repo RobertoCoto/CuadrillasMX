@@ -184,10 +184,10 @@
   	<servlet-class>com.fyg.cuadrillas.web.usuario.BajaUsuario</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>AltaActividad</servlet-name>
-  	<display-name>AltaActividad</display-name>
+  	<servlet-name>RegistraActividadDiaria</servlet-name>
+  	<display-name>RegistraActividadDiaria</display-name>
   	<description></description>
-  	<servlet-class>com.fyg.cuadrillas.web.actividad.AltaActividad</servlet-class>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.RegistraActividadDiaria</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>AutorizaActividad</servlet-name>
@@ -202,10 +202,10 @@
   	<servlet-class>com.fyg.cuadrillas.web.actividad.BajaActividad</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ConsultaActividad</servlet-name>
-  	<display-name>ConsultaActividad</display-name>
+  	<servlet-name>ConsultaActividadDiaria</servlet-name>
+  	<display-name>ConsultaActividadDiaria</display-name>
   	<description></description>
-  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividad</servlet-class>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividadDiaria</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>CambioContrasena</servlet-name>
@@ -345,6 +345,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.buzon.ConsultaBuzonResidente</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ActualizaContrato</servlet-name>
+  	<display-name>ActualizaContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.ActualizaContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -466,8 +472,8 @@
 		<url-pattern>/BajaUsuario</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AltaActividad</servlet-name>
-		<url-pattern>/AltaActividad</url-pattern>
+		<servlet-name>RegistraActividadDiaria</servlet-name>
+		<url-pattern>/RegistraActividadDiaria</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AutorizaActividad</servlet-name>
@@ -478,8 +484,8 @@
 		<url-pattern>/BajaActividad</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ConsultaActividad</servlet-name>
-		<url-pattern>/ConsultaActividad</url-pattern>
+		<servlet-name>ConsultaActividadDiaria</servlet-name>
+		<url-pattern>/ConsultaActividadDiaria</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CambioContrasena</servlet-name>
@@ -572,5 +578,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaBuzonResidente</servlet-name>
 		<url-pattern>/ConsultaBuzonResidente</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActualizaContrato</servlet-name>
+		<url-pattern>/ActualizaContrato</url-pattern>
 	</servlet-mapping>
 </web-app>

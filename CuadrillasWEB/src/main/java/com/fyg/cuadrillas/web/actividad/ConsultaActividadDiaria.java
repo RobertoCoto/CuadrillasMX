@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ConsultaActividad
  */
-public class ConsultaActividad extends HttpServlet {
+public class ConsultaActividadDiaria extends HttpServlet {
 	/**
 	 * serial uid
 	 */
@@ -26,7 +26,7 @@ public class ConsultaActividad extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaActividad() {
+    public ConsultaActividadDiaria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,7 +52,8 @@ public class ConsultaActividad extends HttpServlet {
 			PrintWriter out = response.getWriter();
 
 		try {
-			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+			String fecha = request.getParameter("fecha");
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -65,8 +66,9 @@ public class ConsultaActividad extends HttpServlet {
 
 			//valores
 			ActividadDTO actividad = new ActividadDTO();
-			actividad.setIdCuadrilla(idCuadrilla);
-			respuesta = negocio.consultaActividad(actividad);
+			actividad.setIdEmpleado(idEmpleado);
+			actividad.setFechaDiaria(fecha);
+			respuesta = negocio.consultaActividadDiaria(actividad);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {

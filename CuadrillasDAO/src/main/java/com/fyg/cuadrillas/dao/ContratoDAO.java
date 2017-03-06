@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -267,5 +268,72 @@ public class ContratoDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return listaContratoDocumento;
+	}
+	/**
+	 * Metodo para modificar un contrato
+	 * @param uid unico de registro
+	 * @param contrato recoibe valores de contrato
+	 * @return regresa la respuesta
+	 */
+	public EncabezadoRespuesta modificaContrato(String uid, ContratoDTO contrato) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("registro correcto.");
+		try {
+			//Validamos si ya existe un contrato
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeContrato = (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
+			if (existeContrato > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un registro del misto "
+						+ "tipo de documento y numero documento vigente.");
+			}
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.insert("ContratoDAO.modificaContrato", contrato);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar el contrato.");
+			}
+			System.out.println("ID Contrato = " + contrato.getIdContrato());
+			//elimina las coordenadas anteriores
+			EliminaCoordenadas(uid, contrato.getIdContrato(), sessionTx );
+			if (contrato.getCoordenadas().size() > 0) {
+				for (CoordenadaDTO coordenada : contrato.getCoordenadas()) {
+					coordenada.setIdContrato(contrato.getIdContrato());
+				}
+				registraCoordenadas(uid, contrato.getCoordenadas(), sessionTx);
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
+	/**
+	 * metodo para eliminar la coordenada
+	 * @param uid unico de registro
+	 * @param coordenadas recibe valores de coordenada
+	 * @param session abre session bd
+	 * @throws Exception si surge un error
+	 */
+public void EliminaCoordenadas(String uid, int idContrato , SqlSession session) throws Exception {
+	HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+	parametros.put("id_contrato", idContrato);
+	int registros = session.delete("ContratoDAO.eliminaCoordenadas", parametros);
+	LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 	}
 }
