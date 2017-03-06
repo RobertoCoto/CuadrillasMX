@@ -3,8 +3,8 @@ package com.fyg.cuadrillas.web.contrato;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -27,6 +27,7 @@ import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class AltaContrato
@@ -126,6 +127,9 @@ public class AltaContrato extends HttpServlet {
 				e.printStackTrace();
 				throw new Exception("FALTAN PARAMETROS");
 			}
+						
+
+			
 			//leer json Array
 			JSONParser parser = new JSONParser();
 			Object jsonContrato = parser.parse(request.getParameter("JSONContrato"));
@@ -136,7 +140,12 @@ public class AltaContrato extends HttpServlet {
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-
+			
+			//Forma Simple
+			String jSonEntrada = request.getParameter("JSONContrato").toString();
+			Gson gson = new GsonBuilder().create();
+			ContratoDTO documento = gson.fromJson(jSonEntrada, ContratoDTO.class);
+			
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
 
