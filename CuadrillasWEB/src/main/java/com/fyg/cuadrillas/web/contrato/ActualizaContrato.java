@@ -196,7 +196,7 @@ public class ActualizaContrato extends HttpServlet {
 			}
 			contrato.setCoordenadas(coordenadas);
 
-			respuesta = negocio.altaContrato(contrato);
+			respuesta = negocio.modificaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
