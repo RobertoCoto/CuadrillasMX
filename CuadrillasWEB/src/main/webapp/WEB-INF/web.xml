@@ -345,6 +345,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.buzon.ConsultaBuzonResidente</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ActualizaContrato</servlet-name>
+  	<display-name>ActualizaContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.ActualizaContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -572,5 +578,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaBuzonResidente</servlet-name>
 		<url-pattern>/ConsultaBuzonResidente</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActualizaContrato</servlet-name>
+		<url-pattern>/ActualizaContrato</url-pattern>
 	</servlet-mapping>
 </web-app>
