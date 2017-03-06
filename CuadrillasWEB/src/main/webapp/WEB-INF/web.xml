@@ -351,6 +351,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.ActualizaContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>TestContrato</servlet-name>
+  	<display-name>TestContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.TestContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -582,5 +588,9 @@
 	<servlet-mapping>
 		<servlet-name>ActualizaContrato</servlet-name>
 		<url-pattern>/ActualizaContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TestContrato</servlet-name>
+		<url-pattern>/TestContrato</url-pattern>
 	</servlet-mapping>
 </web-app>

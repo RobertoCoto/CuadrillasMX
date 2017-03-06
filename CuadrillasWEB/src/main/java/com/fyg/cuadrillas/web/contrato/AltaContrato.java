@@ -127,9 +127,7 @@ public class AltaContrato extends HttpServlet {
 				e.printStackTrace();
 				throw new Exception("FALTAN PARAMETROS");
 			}
-						
 
-			
 			//leer json Array
 			JSONParser parser = new JSONParser();
 			Object jsonContrato = parser.parse(request.getParameter("JSONContrato"));
