@@ -64,7 +64,7 @@ public class ActividadNegocio {
 				throw new ExcepcionesCuadrillas("Es necesario las observaciones a esta actividad.");
 			}
 			ActividadDAO dao = new ActividadDAO();
-			respuesta = dao.registraActividad(uid, actividad);
+			respuesta = dao.registraActividadDiaria(uid, actividad);
 
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraActividad - Error: " + ex.getMessage(), ex);

@@ -16,7 +16,7 @@ public class ActividadDAO {
 	 * @param actividad recibe los valores e actividad
 	 * @return regresa una respuesta
 	 */
-	public EncabezadoRespuesta registraActividad(String uid, ActividadDTO actividad) {
+	public EncabezadoRespuesta registraActividadDiaria(String uid, ActividadDTO actividad) {
 		SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -25,7 +25,7 @@ public class ActividadDAO {
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
-	        int registros = sessionTx.insert("ActividadDAO.registraActividad", actividad);
+	        int registros = sessionTx.insert("ActividadDAO.registraActividadDiaria", actividad);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("No fue posible registrar la actividad diaria.");
 			}

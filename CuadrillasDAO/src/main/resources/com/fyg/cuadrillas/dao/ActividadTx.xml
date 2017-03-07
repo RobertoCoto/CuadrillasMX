@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.fyg.cuadrillas.dao.ActividadTx">
 
-<insert id="registraActividad" parameterType="Actividad">
+<insert id="registraActividadDiaria" parameterType="Actividad">
 INSERT INTO actividad_diaria(id_cuadrilla,tramo_inicial_planificado,tramo_final_planificado,alcance_planificado,
 tramo_inicial_real,tramo_final_real,alcance_real,actividad,prioridad,estado,tiempo_destinado,numero_personas,numero_unidades,
 porcentaje_completado,listo_vencido,observaciones_actividad,fecha_alta,usuario_alta,estatus)
