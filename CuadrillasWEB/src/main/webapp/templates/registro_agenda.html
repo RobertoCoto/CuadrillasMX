@@ -240,7 +240,7 @@
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label for="observaciones" class="control-label">Observaciones</label>
-                          <textarea name="observaciones" class="form-control" rows="3" ></textarea>
+                          <textarea name="observaciones" class="form-control" rows="3" id="observaciones"></textarea>
                         </div>
                       </div>
                     </div>
@@ -258,24 +258,18 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr class="success">
-                        <td>Dia</td>
-                        <td>Avance</td>
-                        <td>Tramo</td>
-                        <td>Edicion</td>
+                        <td width="15%">Dia</td>
+                        <td width="15%">Avance</td>
+                        <td width="63%">Tramo</td>
+                        <td width="7%">Eliminar</td>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Lun 14 Nov</td>
-                        <td>1,500 m2</td>
-                        <td>San Juan a Santa Teresa</td>
-                        <td><center><span class="fa fa-pencil fa-2x" aria-hidden="true" style="color: #E57A2D;"></span>  <span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
-                      </tr>
-                      <tr>
-                        <td>Mar 15 Nov</td>
-                        <td>1,800 m2</td>
-                        <td>Santa Teresa a San Joaquin Haro</td>
-                        <td><center><span class="fa fa-pencil fa-2x" aria-hidden="true" style="color: #E57A2D;"></span>  <span class="fa fa-times fa-2x" aria-hidden="true" style="color: red;"></span></center></td>
+                      <tr ng-repeat="direccion in diasAgenda">
+                        <td width="15%">{{direccion.diaDesc}}</td>
+                        <td width="15%">{{direccion.metros}}</td>
+                        <td width="63%">{{direccion.direccion}}</td>
+                        <td width="7%"><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarDiaAgenda(direccion.fecha)"></span></center></td>
                       </tr>
                     </tbody>
                   </table>
