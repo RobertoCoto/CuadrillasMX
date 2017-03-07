@@ -8,14 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class ConsultaAgendaContrato
@@ -54,18 +52,13 @@ public class ConsultaAgendaContrato extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			//leer json Array
-			JSONParser parser = new JSONParser();
-			Object jsonConsultaAgenda = parser.parse(request.getParameter("JSONConsultaAgendaContrato"));
-			JSONObject jsonObject = (JSONObject) jsonConsultaAgenda;
+			//Forma Simple
+			String jSonEntrada = request.getParameter("JSONConsultaAgendaContrato").toString();
+			Gson gson = new GsonBuilder().create();
+			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
 
 			//crea objeto de negocio
 			final AgendaNegocio  negocio = new AgendaNegocio();
-			Integer idContrato = (Integer) jsonObject.get("idContrato");
-			String  fechaAgenda = (String) jsonObject.get("fechaAgenda");
-			AgendaDTO agenda = new AgendaDTO();
-			agenda.setIdContrato(idContrato);
-			agenda.setFechaAgenda(fechaAgenda);
 			respuesta = negocio.consultaAgenda(agenda);
 			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

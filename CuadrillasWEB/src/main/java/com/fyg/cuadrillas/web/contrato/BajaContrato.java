@@ -8,14 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class BajaContrato
@@ -54,10 +52,10 @@ public class BajaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			//leer json Array
-			JSONParser parser = new JSONParser();
-			Object jsonContratoBaja = parser.parse(request.getParameter("JSONContratoBaja"));
-			JSONObject jsonObject = (JSONObject) jsonContratoBaja;
+			//Forma Simple
+			String jSonEntrada = request.getParameter("JSONBajaContrato").toString();
+			Gson gson = new GsonBuilder().create();
+			ContratoDTO contrato = gson.fromJson(jSonEntrada, ContratoDTO.class);
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -68,14 +66,6 @@ public class BajaContrato extends HttpServlet {
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
 
-			ContratoDTO contrato = new ContratoDTO();
-
-			String idContrato = (String) jsonObject.get("idContrato");
-			String  usuario = (String) jsonObject.get("usuario");
-
-			//se le asignan los valores
-			contrato.setIdContrato(Integer.parseInt(idContrato));
-			contrato.setUsuarioBaja(usuario);
 			respuesta = negocio.bajaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

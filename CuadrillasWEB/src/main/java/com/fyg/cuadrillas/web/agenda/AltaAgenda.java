@@ -2,25 +2,18 @@ package com.fyg.cuadrillas.web.agenda;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
-import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class AltaAgenda
@@ -58,10 +51,10 @@ public class AltaAgenda extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			//leer json Array
-			JSONParser parser = new JSONParser();
-			Object jsonAltaAgenda = parser.parse(request.getParameter("JSONAltaAgenda"));
-			JSONObject jsonObject = (JSONObject) jsonAltaAgenda;
+			//Forma Simple
+			String jSonEntrada = request.getParameter("JSONAltaAgenda").toString();
+			Gson gson = new GsonBuilder().create();
+			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -71,86 +64,6 @@ public class AltaAgenda extends HttpServlet {
 
 			//crea objeto de negocio
 			final AgendaNegocio negocio = new AgendaNegocio();
-
-			//se crea objeto agenda
-			AgendaDTO agenda = new AgendaDTO();
-
-			//se desglosan los datos para convertirlos a objetos
-			Integer idContrato = (Integer) jsonObject.get("idContrato");
-			String  fechaInicio = (String) jsonObject.get("fechaInicio");
-			String  fechaFin = (String) jsonObject.get("fechaFin");
-			Integer noHoras = (Integer) jsonObject.get("noHoras");
-			Integer noTrabajadores = (Integer) jsonObject.get("noTrabajadores");
-			Integer noSemana = (Integer) jsonObject.get("noSemana");
-			String usuario = (String) jsonObject.get("codigoContrato");
-			JSONArray listaAgendaDetalle = (JSONArray) jsonObject.get("agendaDetalle");
-
-			//Se crea lista de agendaDetalle
-			List<AgendaDetalleDTO> agendaDetalle = new ArrayList<AgendaDetalleDTO>();
-
-			//se pasan a nuestros objetos
-			agenda.setIdContrato(idContrato);
-			agenda.setFechaInicio(fechaInicio);
-			agenda.setFechaFin(fechaFin);
-			agenda.setNoHoras(noHoras);
-			agenda.setNoSemana(noSemana);
-			agenda.setNoTrabajadores(noTrabajadores);
-			agenda.setUsuario(usuario);
-
-			//se obtiene los detalles de la agenda
-			for (int i = 0; i < listaAgendaDetalle.size(); i++)
-			{
-				AgendaDetalleDTO  detalle = new AgendaDetalleDTO();
-				JSONObject detalleAgenda = (JSONObject) listaAgendaDetalle.get(i);
-				String fecha = (String) detalleAgenda.get("fecha");
-				Integer avanceEsperado = (Integer) detalleAgenda.get("avanceEsperado");
-				String observaciones = (String) detalleAgenda.get("observaciones");
-				String usuarioAlta = (String) detalleAgenda.get("usuarioAgenda");
-
-				JSONArray agendaActividades = (JSONArray) detalleAgenda.get("Actividades");
-				JSONArray agendaMateriales = (JSONArray) detalleAgenda.get("Materiales");
-				JSONArray agendaCoordenadas = (JSONArray)  detalleAgenda.get("coordenadas");
-
-				List<String> actividades = new ArrayList<String>();
-				List<String> materiales  = new ArrayList<String>();
-				List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
-				for (int k = 0; k < agendaActividades.size(); k++)
-				{
-					JSONObject agendaActividad = (JSONObject) agendaActividades.get(k);
-					String codigoActividad = (String) agendaActividad.get("codigoActividad");
-					actividades.add(codigoActividad);
-				}
-				for (int j = 0; j < agendaMateriales.size(); j++) {
-
-					JSONObject material = (JSONObject) agendaMateriales.get(j);
-					String codigoMaterial = (String) material.get("codigoMaterial");
-					materiales.add(codigoMaterial);
-				}
-				for (int l = 0; l < agendaCoordenadas.size(); l++) {
-					CoordenadaDTO codigo = new CoordenadaDTO();
-
-					JSONObject coorde = (JSONObject) agendaCoordenadas.get(l);
-					Integer orden = (Integer) coorde.get("orden");
-					String direccion = (String)  coorde.get("direccion");
-					Float latitud = (Float) coorde.get("latitud");
-					Float longitud = (Float) coorde.get("longitud");
-					codigo.setDireccion(direccion);
-					codigo.setLatitud(latitud);
-					codigo.setLongitud(longitud);
-					codigo.setOrden(orden);
-				    coordenadas.add(codigo);
-				}
-				 detalle.setActividades(actividades);
-				 detalle.setMateriales(materiales);
-				 detalle.setCoordenadas(coordenadas);
-				 detalle.setAvanceEsperado(avanceEsperado);
-				 detalle.setFecha(fecha);
-				 detalle.setObservaciones(observaciones);
-				 detalle.setUsuarioAlta(usuarioAlta);
-				 agendaDetalle.add(detalle);
-
-			}
-			agenda.setDiasAgenda(agendaDetalle);
 			respuesta = negocio.altaAgenda(agenda);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
