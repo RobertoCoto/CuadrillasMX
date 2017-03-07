@@ -59,7 +59,7 @@ public class TestContrato extends HttpServlet {
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
-
+			contrato.setUrl("HTPPPEUEBA PRYEBA");
 			respuesta = negocio.altaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

@@ -123,85 +123,27 @@ public class AltaContrato extends HttpServlet {
 					   }
 				}
 			} catch (Exception e) {
-				System.out.println("No se enviaron todos los parametros para registrar la indicencia. Error: " + e.getMessage());
+				System.out.println("No se enviaron todos los parametros. Error: " + e.getMessage());
 				e.printStackTrace();
 				throw new Exception("FALTAN PARAMETROS");
 			}
-
-			//leer json Array
-			JSONParser parser = new JSONParser();
-			Object jsonContrato = parser.parse(request.getParameter("JSONContrato"));
-			JSONObject jsonObject = (JSONObject) jsonContrato;
-
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
 	        System.setProperty("https.proxyHost", "169.169.4.85");
 	        System.setProperty("https.proxyPort", "8080"); */
-			
+
 			//Forma Simple
 			String jSonEntrada = request.getParameter("JSONContrato").toString();
 			Gson gson = new GsonBuilder().create();
-			ContratoDTO documento = gson.fromJson(jSonEntrada, ContratoDTO.class);
-			
+			ContratoDTO contrato = gson.fromJson(jSonEntrada, ContratoDTO.class);
+
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
 
-			ContratoDTO contrato = new ContratoDTO();
-			//se desglosan los datos para convertirlos a objetos
-			String codigoContrato = (String) jsonObject.get("codigoContrato");
-			String codigoDocumento = (String) jsonObject.get("codigoDocumento");
-			String codigoEmpresa = (String) jsonObject.get("codigoEmpresa");
-			String codigoVialidad = (String) jsonObject.get("codigoVialidad");
-			String numeroDocumento = (String) jsonObject.get("numeroDocumento");
-			Double metros = (Double) jsonObject.get("metros");
-			Double monto = (Double) jsonObject.get("monto");
-			Double subtotal = (Double) jsonObject.get("subtotal");
-			String fechaInicio = (String) jsonObject.get("fechaInicio");
-			String fechaTermino = (String) jsonObject.get("fechaTermino");
-			String usuario = (String) jsonObject.get("usuario");
-			Integer idCuadrilla = (Integer) jsonObject.get("idCuadrilla");
-			JSONArray listaCoordenadas = (JSONArray) jsonObject.get("coordenadas");
-
-			//se crea objeto lista
-			List<CoordenadaDTO> coordenadas = new ArrayList<CoordenadaDTO>();
-
-			//se asignan para enviarlos a negocio
-			contrato.setCodigoContrato(codigoContrato);
-			contrato.setCodigoDocumento(codigoDocumento);
-			contrato.setCodigoEmpresa(codigoEmpresa);
-			contrato.setCodigoVialidad(codigoVialidad);
-			contrato.setNumeroDocumento(numeroDocumento);
-			contrato.setMetros(metros);
-			contrato.setMonto(monto);
-			contrato.setSubtotal(subtotal);
-			contrato.setFechaInicio(fechaInicio);
-			contrato.setFechaFin(fechaTermino);
-			contrato.setUsuarioAlta(usuario);
-			contrato.setIdCuadrilla(idCuadrilla);
 			contrato.setUrl(rutaImagen);
 			LogHandler.debug(null, this.getClass(), "RUTA DE LA IMAGEN: " + rutaImagen);
 			//se obtienen las cordenadas
-
-			for (int i = 0; i < listaCoordenadas.size(); i++)
-			{
-				CoordenadaDTO codigo = new CoordenadaDTO();
-				JSONObject direcc = (JSONObject) listaCoordenadas.get(i);
-
-				String direccion = (String) direcc.get("direccion");
-				Float latitud = (Float) direcc.get("latitud");
-				Float longitud =  (Float) direcc.get("longitud");
-
-				codigo.setDireccion(direccion);
-				codigo.setLatitud(latitud);
-				codigo.setLongitud(longitud);
-
-				coordenadas.add(codigo);
-				//LogHandler.debug(null, this.getClass(), "datos " + coordenadas);
-
-			}
-			contrato.setCoordenadas(coordenadas);
-
 			respuesta = negocio.altaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
