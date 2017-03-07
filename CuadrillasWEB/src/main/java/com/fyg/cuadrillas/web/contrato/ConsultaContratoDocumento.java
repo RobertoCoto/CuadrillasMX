@@ -73,8 +73,10 @@ public class ConsultaContratoDocumento extends HttpServlet {
 			}
 
 			String nombreArchivo =  resultado;
+			// ruta sistema
+			String rutaSistema = System.getProperty("user.dir").replace("\\", "/");
 			//Obtengo el path absoluto de la imagen
-			String carpetaArchivos = DESTINATION_DIR_PATH + nombreArchivo;
+			String carpetaArchivos = rutaSistema + DESTINATION_DIR_PATH + nombreArchivo;
 			LogHandler.debug(null, this.getClass(), "carpetaArchivos = " + carpetaArchivos);
 			//Obtener el mimeType dinamicamente
 			String mime = null;

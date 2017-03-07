@@ -49,7 +49,7 @@ public class ActualizaContrato extends HttpServlet {
 
 	    super.init(config);
 	    String realPath = DESTINATION_DIR_PATH;
-	    String rutaDestino = realPath;
+	    String rutaDestino = System.getProperty("user.dir").replace("\\", "/") + realPath;
 	    uploadDirectory = rutaDestino;
 	    System.out.println("INIT uploadDirectory..." + uploadDirectory);
 
@@ -83,20 +83,21 @@ public class ActualizaContrato extends HttpServlet {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
 		try {
 			String rutaImagen = "";
-
+			List<FileItem> multiparts = null;
+			String fileName = "";
+			String name = "";
+			String rutaArchivo = "";
 			try {
-				List<FileItem> multiparts = null;
-				System.out.println("ARCHIVO...");
-				String fileName = "";
-				String name = "";
-				String rutaArchivo = "";
 				if (ServletFileUpload.isMultipartContent(request)) {
 					  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 					  for (FileItem item : multiparts) {
+				          System.out.println("Nombre Archivo FormField() = " + item.getFieldName());
+				          System.out.println("item: " + item.toString());
 						  if (item.isFormField()) {
 
 							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
@@ -110,22 +111,23 @@ public class ActualizaContrato extends HttpServlet {
 						  }
 					      else {
 					            name = new File(item.getName()).getName();
-					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name));
-					            rutaArchivo = new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name;
-					            rutaImagen = rutaArchivo;
+					            System.out.println("name: " + name.toString());
+					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss").format(new Date()) + name));
+					            rutaArchivo = uploadDirectory + File.separator + name;
+					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
+					            rutaImagen = name;
+					            System.out.println("Archivo Guardado en la siguiente ruta: " + rutaImagen);
 					      }
 					   }
+
 				}
 			} catch (Exception e) {
-				System.out.println("No se enviaron todos los parametros para registrar la indicencia. Error: " + e.getMessage());
+				System.out.println("No se enviaron todos los parametros . Error: " + e.getMessage());
 				e.printStackTrace();
 				throw new Exception("FALTAN PARAMETROS");
 			}
-
-			//Forma Simple
-			String jSonEntrada = request.getParameter("JSONActualizaContrato").toString();
 			Gson gson = new GsonBuilder().create();
-			ContratoDTO contrato = gson.fromJson(jSonEntrada, ContratoDTO.class);
+			ContratoDTO contrato = gson.fromJson(fileName, ContratoDTO.class);
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
