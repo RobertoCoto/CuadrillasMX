@@ -1443,6 +1443,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$scope.mapa = {};
   	  		$scope.mapa.gridCoordenadas = [];
   	  		
+  	  		//se limpian los marcadores
   	  		if (dia != 0)
   	  		{
   	  			$scope.limpiarMarcadores(fecha);
@@ -1510,10 +1511,16 @@ app.directive('fileModel', ['$parse', function ($parse) {
   				}
   			}  			
   			  			
-  			// console.info("*****actividades y articulos semana")
-  			// console.info($scope.gridArticulosSemana);
-  			// console.info($scope.gridActividadesSemana);
-  			
+  			//se revisa si hay observaciones capturadas
+  			$('#observaciones').val("");
+  			for (var i=0; i<$scope.diasAgenda.length; i++)
+  			{
+  				if (fecha == $scope.diasAgenda[i].fecha)
+  				{
+  					$('#observaciones').val($scope.diasAgenda[i].observaciones);
+  				}
+  			}
+
   			reseteaColorBotones();
   			cambiaColorBoton($scope.gridArticulos);
   			cambiaColorBoton($scope.gridActividades);
@@ -2126,8 +2133,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					$scope.diasAgenda.splice(i,1);
 					break;
 				} 				  				
-			}
-    	  
+			}    	  
       };
       
       //valida agenda agregada
