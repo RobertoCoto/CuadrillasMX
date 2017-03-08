@@ -27,7 +27,7 @@ public class ConsultaContratoDocumento extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/bin/documentos/contratos/";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contratos/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -98,6 +98,12 @@ public class ConsultaContratoDocumento extends HttpServlet {
 			}
 			else if (array[1].equals("pdf")) {
 				mime = "application/pdf";
+			}
+			else if (array[1].equals("jpg")) {
+				mime = "image/jpg";
+			}
+			else if (array[1].equals("png")) {
+				mime = "image/png";
 			}
 			if (mime == null) {
 				LogHandler.debug(null, this.getClass(), "mime NULL");

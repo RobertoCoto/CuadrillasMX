@@ -286,9 +286,8 @@ public class ContratoDAO {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeContrato = (Integer) sessionNTx.selectOne("ContratoDAO.existeContrato", contrato);
-			if (existeContrato > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, ya existe un registro del misto "
-						+ "tipo de documento y numero documento vigente.");
+			if (existeContrato != 1) {
+				throw new ExcepcionesCuadrillas("Error al actualizar, no existe contrato ");
 			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -333,7 +332,7 @@ public class ContratoDAO {
 public void EliminaCoordenadas(String uid, int idContrato , SqlSession session) throws Exception {
 	HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 	parametros.put("id_contrato", idContrato);
-	int registros = session.delete("ContratoDAO.eliminaCoordenadas", parametros);
+	int registros = session.delete("ContratoDAO.eliminaCoordenadass", parametros);
 	LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 	}
 }

@@ -95,7 +95,7 @@ public class ContratoNegocio {
 							coordenada.setDireccion("");
 						}
 					}
-					SimpleDateFormat formateador = new SimpleDateFormat("YYYY-mm-dd");
+					SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 
 					Date fechaInicio = formateador.parse(contrato.getFechaInicio());
 					Date fechaFin = formateador.parse(contrato.getFechaFin());

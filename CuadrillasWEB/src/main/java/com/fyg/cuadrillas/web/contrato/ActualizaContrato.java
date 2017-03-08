@@ -1,13 +1,21 @@
 package com.fyg.cuadrillas.web.contrato;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -53,7 +61,20 @@ public class ActualizaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			String jSonEntrada = request.getParameter("JSONModificaContrato").toString();
+			List<FileItem> multiparts = null;
+			String jSonEntrada = null;
+			if (ServletFileUpload.isMultipartContent(request)) {
+				  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+				  for (FileItem item : multiparts) {
+					  if (item.isFormField()) {
+						  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
+							  System.out.println(item.getString());
+							  jSonEntrada = item.getString();
+						  }
+					  }
+				   }
+
+			}
 			Gson gson = new GsonBuilder().create();
 			ContratoDTO contrato = gson.fromJson(jSonEntrada, ContratoDTO.class);
 

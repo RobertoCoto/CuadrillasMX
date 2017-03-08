@@ -86,6 +86,7 @@ public class AltaContrato extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
+		String json = "";
 		try {
 			String rutaImagen = "";
 			List<FileItem> multiparts = null;
@@ -102,6 +103,7 @@ public class AltaContrato extends HttpServlet {
 
 							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 								  System.out.println(item.getString());
+								  json = item.getString();
 								  //incidencia.setIdAmbito(Integer.valueOf(item.getString()));
 							  }
 					          if (item.getFieldName().trim().equalsIgnoreCase("contrato")) {
@@ -112,10 +114,10 @@ public class AltaContrato extends HttpServlet {
 					      else {
 					            name = new File(item.getName()).getName();
 					            System.out.println("name: " + name.toString());
-					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss").format(new Date()) + name));
+					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name));
 					            rutaArchivo = uploadDirectory + File.separator + name;
 					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
-					            rutaImagen = name;
+					            rutaImagen = new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name;
 					            System.out.println("Archivo Guardado en la siguiente ruta: " + rutaImagen);
 					      }
 					   }
@@ -127,7 +129,7 @@ public class AltaContrato extends HttpServlet {
 				throw new Exception("FALTAN PARAMETROS");
 			}
 			Gson gson = new GsonBuilder().create();
-			ContratoDTO contrato = gson.fromJson(fileName, ContratoDTO.class);
+			ContratoDTO contrato = gson.fromJson(json, ContratoDTO.class);
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();

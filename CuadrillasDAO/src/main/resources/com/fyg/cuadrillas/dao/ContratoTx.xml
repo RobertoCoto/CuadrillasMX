@@ -46,7 +46,7 @@ VALUES
 	AND estatus = 'A'
 </update>
 
-<delete id="eliminaCoordenadas" parameterType="java.util.HashMap">
+<delete id="eliminaCoordenadass" parameterType="java.util.HashMap">
 DELETE FROM contrato_coordenadas WHERE id_contrato = #{id_contrato}
 </delete>
 
@@ -62,14 +62,11 @@ subtotal = #{subtotal},
 fecha_inicio = #{fechaInicio}, 
 fecha_fin = #{fechaFin},
 dias_duracion = #{diasDuracion},
-pct_avance = #{pctAvance},	
-fecha_registro = #{fechaRegistro},
 id_cuadrilla = #{idCuadrilla},
 observaciones = #{observaciones},
-url = #{url},
 metros = #{metros},
 usuario_ult_mod = #{usuarioUltMod},
-fecha__ult_mod =  now()
+fecha_ult_mod =  now()
 WHERE id_contrato = #{idContrato}
 AND estatus = 'A'
 </update>
