@@ -1327,7 +1327,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		};
   		
   		
-  		// ***funcion para agregar días a una fecha
+  		// ***funcion para agregar dï¿½as a una fecha
   		function mostrarFecha(days, fechaInicio){
 		    milisegundos=parseInt(35*24*60*60*1000);
 
@@ -1366,7 +1366,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		
   		
   		// ***funcion para colocar la fecha de plan de actividades de acuerdo al
-		// botón seleccionado
+		// botï¿½n seleccionado
   		$scope.obtenerFechaSeleccionada = function(dia)
   		{
   			var fecha = $('#diaActividad').val();  			
@@ -1453,7 +1453,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  			$scope.limpiarMarcadores('1900-01-01');
   	  		}
   	  		  			  			
-  			// se revisa si hay información en el arreglo general para la fecha
+  			// se revisa si hay informaciï¿½n en el arreglo general para la fecha
 			// seleccionada
   			for(indice in $scope.gridActividadesSemana)
   			{  				
@@ -1527,9 +1527,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			cambiaColorBoton($scope.mapa);  			
   			
   		};
-  		
-  		
-  		// ***para saber si esta seleccionado un día de actividad para su
+  		  		
+  		// ***para saber si esta seleccionado un dï¿½a de actividad para su
 		// captura
   		$scope.validaDiaSeleccionado = function()
   		{
@@ -1727,13 +1726,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                     } else {
                     	$('#alert').show();
-                    	$('#msgerror').text('No se encontro una dirección disponible.')
+                    	$('#msgerror').text('No se encontro una direcciï¿½n disponible.')
                           // alert('No se encontraron resultados');
                     }
             		$('#msload').modal('hide');
             	} else {
             		$('#alert').show();
-                    $('#msgerror').text('Problemas en la geolocalización debido ' + status + '')
+                    $('#msgerror').text('Problemas en la geolocalizaciï¿½n debido ' + status + '')
                     // alert('Geocoder fallo debido al estatus: ' + status);
 					$('#msload').modal('hide');
             	}            	
@@ -1949,7 +1948,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		  cambiaColorBoton($scope.mapa);          
       };
       
-      //regresa fecha descripción
+      //regresa fecha descripciï¿½n
       $scope.obtenerDiaDesc = function(fecha)
       {
     	  var dia=-1;
@@ -2015,7 +2014,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				return;
 			}
 			
-			//se valida que se hayan capturado actividades, materias y por lo menos 2 putnos de dirección
+			//se valida que se hayan capturado actividades, materias y por lo menos 2 putnos de direcciï¿½n
 			if (!$scope.validaAgregarAgenda(fecha))
 			{
 				return;
@@ -2033,7 +2032,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				} 				  				
 			}			
 
-			//se llena el objeto para llenar los días agregados a la agenda
+			//se llena el objeto para llenar los dï¿½as agregados a la agenda
 			if (!encontrado)
 			{
 	  			if ($scope.mapa.gridCoordenadas.length >0)
