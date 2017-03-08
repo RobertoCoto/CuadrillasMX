@@ -35,7 +35,7 @@ public class AltaContrato extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/bin/documentos/contratos";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contratos";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
