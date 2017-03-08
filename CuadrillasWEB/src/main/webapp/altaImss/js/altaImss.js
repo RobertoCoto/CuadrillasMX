@@ -1,26 +1,14 @@
 var app = angular.module('tatei', []);
-app.controller('altaImss', function ($scope, $http) {
-	//obtener el id enviado por GET
-	   $scope.obtainGet = function getGET(){
-		   var loc = document.location.href;
-		   var getString = loc.split('?')[1];
-		   var GET = getString.split('&');
-		   var get = {};
-
-		   for(var i = 0, l = GET.length; i < l; i++){
-		      var tmp = GET[i].split('=');
-		      get[tmp[0]] = unescape(decodeURI(tmp[1]));
-		   }
-		   return get;
-		};
-		$scope.get = $scope.obtainGet();
+app.controller('altaImss', function ($scope, $http, $window) {
+	$scope.imss = $window.idImss;
+	$scope.usuario = $window.user;
 		
     //Consulta el empleado solicitado por id
  $http({
         method: 'GET',
         url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
         params: {
-	 		"idEmpleado" : $scope.get.idEmpleado
+	 		"idEmpleado" : $scope.imss
 	         },
         data: { }
 	    }).then(function (result) {
@@ -44,8 +32,8 @@ app.controller('altaImss', function ($scope, $http) {
             method: 'GET',
             url: 'http://localhost:8080/CuadrillasWEB/NotificaImss',
             params: {
-		 		"idEmpleado" : $scope.get.idEmpleado,
-		 		"usuario": "SISTEMAS"
+		 		"idEmpleado" : $scope.imss,
+		 		"usuario": $scope.usuario
 		         }
 		    }).then(function mySucces(response) {
 		    	 alert(response.data.mensajeFuncional);

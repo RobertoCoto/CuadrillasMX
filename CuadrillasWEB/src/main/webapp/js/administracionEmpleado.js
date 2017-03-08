@@ -286,13 +286,15 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		
 			//baja empleado		
 		 $scope.bajaEmpleado = function(general) {
-    	    $scope.idE = general.idEmpleado;
-    	     window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html?idEmpleado='+ $scope.idE, '_blank','heigth=600,width=600');
+    	    var $popup = $window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html', '_blank','heigth=600,width=600');
+    	    $popup.idEmple = general.idEmpleado;
+    	    $popup.user = data.data.usuario.usuario;
     	  };
     	  //permisoEmpleado
       $scope.permisoEmpleado = function(general) {
-    	  $scope.id = general.idEmpleado;
-    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/permisoLaboral.html?idEmpleado='+ $scope.id, '_blank','heigth=600,width=600');
+    	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/permiso/permisoLaboral.html', '_blank','heigth=600,width=600');
+    	  $popup.idEmple = general.idEmpleado;
+    	  $popup.user = data.data.usuario.usuario;
     	  };
     	  
     	  //edita datos del empleado

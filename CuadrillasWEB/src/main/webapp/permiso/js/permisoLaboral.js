@@ -1,23 +1,11 @@
 var app = angular.module('tatei', []);
-app.controller('registraPermiso', function ($scope, $http,$filter) {
+app.controller('registraPermiso', function ($scope, $http,$filter, $window) {
      //fecha Sistema
    var date = new Date();
    $scope.FromDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
    
-	//obtener el id enviado por GET
-	   $scope.obtainGet = function getGET(){
-		   var loc = document.location.href;
-		   var getString = loc.split('?')[1];
-		   var GET = getString.split('&');
-		   var get = {};
-
-		   for(var i = 0, l = GET.length; i < l; i++){
-		      var tmp = GET[i].split('=');
-		      get[tmp[0]] = unescape(decodeURI(tmp[1]));
-		   }
-		   return get;
-		};
-		$scope.get = $scope.obtainGet();
+	$scope.id = $window.idEmple;
+	$scope.usuario  = $window.user;
 		
 		   // msload 
 		$('#success').hide();
@@ -30,7 +18,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter) {
 	        method: 'GET',
 	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
 	        params: {
-		 		"idEmpleado" : $scope.get.idEmpleado
+		 		"idEmpleado" : $scope.id
 		         },
 	        data: { }
 		    }).then(function (result) {
@@ -95,7 +83,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter) {
 						      method: 'GET',
 						      url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
 						      params: {
-						 		"idEmpleado" : $scope.get.idEmpleado,
+						 		"idEmpleado" : $scope.id,
 						 		"comentario" : permiso.comentario,
 						 		"fechaSolicitud": $scope.FromDate,
 						 		"fechaSolicitudMinima" : $scope.fechaMinima,
@@ -103,7 +91,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter) {
 						      "horaSolicitudMinima" : $scope.horaMin,
 						      "horaSolicitudMaxima" : $scope.horaMax,
 						      "tipoPermiso" : permiso.codigo,
-						 		"usuario" : 'SISTEMAS'
+						 		"usuario" : $scope.usuario
 						         }
 						    }).then(function mySucces(response) {
 						    	$('#msload').modal('hide');

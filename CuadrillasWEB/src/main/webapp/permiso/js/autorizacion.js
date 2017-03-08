@@ -1,22 +1,7 @@
 var app = angular.module('tatei', []);
-app.controller('autorizacionLaboral', function ($scope, $http) {
-
-	//obtener el id enviado por GET
-	   $scope.obtainGet = function getGET(){
-		   var loc = document.location.href;
-		   var getString = loc.split('?')[1];
-		   var GET = getString.split('&');
-		   var get = {};
-
-		   for(var i = 0, l = GET.length; i < l; i++){
-		      var tmp = GET[i].split('=');
-		      get[tmp[0]] = unescape(decodeURI(tmp[1]));
-		   }
-		   return get;
-		};
-		$scope.get = $scope.obtainGet();
-
-
+app.controller('autorizacionLaboral', function ($scope, $http, $window) {
+$scope.id = $window.idPermiso;
+$scope.usuario = $window.user;
 	   // msload 
 		$('#success').hide();
 	    $('#alert').hide();
@@ -28,7 +13,7 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 				method: 'GET',
 				url: 'http://localhost:8080/CuadrillasWEB/ConsultaPermisoTemporal',
 				params: {
-						"idPermiso" : $scope.get.idPermiso
+						"idPermiso" : $scope.id
 				     },
 				data: { }
 				}).then(function (result) {
@@ -74,10 +59,10 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 		              method: 'GET',
 		              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 		              params: {
-				 		"idPermiso" : $scope.get.idPermiso,
+				 		"idPermiso" : $scope.id,
 				 		"goceSueldo" : $scope.goce,
 				 		"estatusAutorizacion": "S",
-				 		"usuario": "SISTEMAS"
+				 		"usuario": $scope.usuario
 				         }
 				    }).then(function mySucces(response) {
 				    	$('#msload').modal('hide');
@@ -112,10 +97,10 @@ app.controller('autorizacionLaboral', function ($scope, $http) {
 				              method: 'GET',
 				              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
 				    	 params: {
-					 		"idPermiso" : $scope.get.idPermiso,
+					 		"idPermiso" : $scope.id,
 					 		"goceSueldo" : "N",
 					 		"estatusAutorizacion": "N",
-					 		"usuario": "SISTEMAS"
+					 		"usuario": $scope.usuario
 					         }
 						    }).then(function mySucces(response) {
 						    	$('#msload').modal('hide');

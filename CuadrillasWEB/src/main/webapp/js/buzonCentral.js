@@ -1,4 +1,4 @@
-app.controller('buzon', function ($scope, $http) {
+app.controller('buzon', function ($scope, $http, $window) {
 	  // msload 
 		$('#success').hide();
 	    $('#alert').hide();
@@ -29,14 +29,16 @@ app.controller('buzon', function ($scope, $http) {
 	 
 		 //abre una ventana para notificar imss   
       $scope.notificar = function(tareas) {
-    	    $scope.idImss = tareas.id;
-    	     window.open('http://localhost:8080/CuadrillasWEB/altaImss/alta_imss.html?idEmpleado='+ $scope.idImss, '_blank','heigth=300,width=500');
+    	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/altaImss/alta_imss.html', '_blank','heigth=300,width=500');
+ 	     $popup.idImss = tareas.id;
+ 	    $popup.user = data.data.usuario.usuario;
     	  };
     	  
     	  //abre una ventana para autorizacion laboral
       $scope.autorizar = function(tareas) {
-    	  $scope.idPermiso = tareas.id;
-    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/autorizacion.html?idPermiso='+ $scope.idPermiso, '_blank','heigth=600,width=600');
+    	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/permiso/autorizacion.html', '_blank','heigth=600,width=600');
+    	  $popup.idPermiso = tareas.id;
+    	  $popup.user = data.data.usuario.usuario;
     	  };
 	 
     	  $scope.hideAlerts = function() {
