@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+.botonGuardar {
+	background-color:#9200AC;
+	color:white;
+}
+
+.botonLimpiar {
+	background-color:#819FF7;
+	color:white;
+}
+
+.botonEditar {
+	background-color:#ABCF37;
+	 color:white;
+}
+
+.botonBaja {
+	background-color:#f44336;
+	color:white;
+}
