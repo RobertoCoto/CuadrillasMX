@@ -89,8 +89,8 @@
                 				<td>{{datosCuadrilla.calificacion}}</td>
                 				<td data-ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
                 				<td data-ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>
-                				<td><button class="btn btn-info" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
-                				<td><button class="btn" ng-click="bajaCuadrilla(datosCuadrilla)" style="background-color:#f44336;color:white;">Baja</button></td>
+                				<td><button class="btn botonEditar" ng-click="editarCuadrilla(datosCuadrilla)">Editar</button></td>
+                				<td><button class="btn botonBaja" ng-click="bajaCuadrilla(datosCuadrilla)" >Baja</button></td>
                 				</tr>
 
                 			</table>
@@ -125,12 +125,12 @@
                 </div>
 
                <div class="btn-group" >
-			     <input type="button" class="btn btn-info btn-primary" ng-click="reset(form)" value="Limpiar Campos">
+			     <input type="button" class="btn botonLimpiar" ng-click="reset(form)" value="Limpiar">
 
 			     </div>
 			     <div class="btn-group" >
-			     <input class="btn  btn-primary"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrillas)" id="editar" ng-show="!cuadrilla.actualizar" ng-disabled="formCuadrilla.$invalid" style="background-color:#18FF08;color:white;">
-				 <input class="btn  btn-primary"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrillas)" id="guardarDato" ng-show="cuadrilla.actualizar" style="background-color:#18FF08;color:white;">
+			     <input class="btn botonGuardar"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(cuadrillas)" id="editar" ng-show="!cuadrilla.actualizar" ng-disabled="formCuadrilla.$invalid">
+				 <input class="btn botonGuardar"  type="submit" value="Guardar" data-ng-click="actualizar(cuadrillas)" id="guardarDato" ng-show="cuadrilla.actualizar">
 				 </div>
 			</form>
 		</div>
