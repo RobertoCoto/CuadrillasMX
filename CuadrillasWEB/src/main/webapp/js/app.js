@@ -482,10 +482,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
             app.controller('altacontratoctrl', function ($scope, $http, fileUpload) {
-							$scope.hideAlerts = function() {
-								$('#alert').hide();
-								$('#success').hide();
-							}
+
 							$(window).on("load resize ", function() {
 							  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
 							  $('.tbl-header').css({'padding-right':scrollWidth});
@@ -722,6 +719,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       });
                     //}, 2000);
                   }
+
+									$scope.hideAlerts = function() {
+										$('#alert').hide();
+										$('#success').hide();
+										$scope.consultaContratos();
+									}
 
                   $scope.editarContrato = function(contrato) {
                     $scope.contratoFocus = contrato;
