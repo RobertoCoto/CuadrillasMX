@@ -1,21 +1,13 @@
 package com.fyg.cuadrillas.web.contrato;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -32,32 +24,6 @@ public class ActualizaContrato extends HttpServlet {
 	 * serial uid
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Directorio para almacenar la informacion.
-	 */
-	private static final String DESTINATION_DIR_PATH = "/bin/documentos/contratos";
-
-	/**
-	 * Directorio para almacenar las imagenes de las incidencias.
-	 */
-	private String uploadDirectory = "";
-	/**
-	 * Carga la ruta donde se guardara el archivo.
-	 * @param config Congiguracion Inicial del Servlet.
-	 */
-	public void init(ServletConfig config) throws ServletException {
-
-	    super.init(config);
-	    String realPath = DESTINATION_DIR_PATH;
-	    String rutaDestino = System.getProperty("user.dir").replace("\\", "/") + realPath;
-	    uploadDirectory = rutaDestino;
-	    System.out.println("INIT uploadDirectory..." + uploadDirectory);
-
-	    File destinationDir = new File(uploadDirectory);
-	    if ( !destinationDir.isDirectory()) {
-	      throw new ServletException(uploadDirectory + " no es un directorio valido.");
-	    }
-    }
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -87,55 +53,12 @@ public class ActualizaContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			String rutaImagen = "";
-			List<FileItem> multiparts = null;
-			String fileName = "";
-			String name = "";
-			String rutaArchivo = "";
-			try {
-				if (ServletFileUpload.isMultipartContent(request)) {
-					  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-					  for (FileItem item : multiparts) {
-				          System.out.println("Nombre Archivo FormField() = " + item.getFieldName());
-				          System.out.println("item: " + item.toString());
-						  if (item.isFormField()) {
-
-							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
-								  System.out.println(item.getString());
-								  //incidencia.setIdAmbito(Integer.valueOf(item.getString()));
-							  }
-					          if (item.getFieldName().trim().equalsIgnoreCase("contrato")) {
-					              fileName = item.getString().trim();
-					              System.out.println("Nombre Archivo FormField() = " + fileName );
-					          }
-						  }
-					      else {
-					            name = new File(item.getName()).getName();
-					            System.out.println("name: " + name.toString());
-					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss").format(new Date()) + name));
-					            rutaArchivo = uploadDirectory + File.separator + name;
-					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
-					            rutaImagen = name;
-					            System.out.println("Archivo Guardado en la siguiente ruta: " + rutaImagen);
-					      }
-					   }
-
-				}
-			} catch (Exception e) {
-				System.out.println("No se enviaron todos los parametros . Error: " + e.getMessage());
-				e.printStackTrace();
-				throw new Exception("FALTAN PARAMETROS");
-			}
+			String jSonEntrada = request.getParameter("JSONModificaContrato").toString();
 			Gson gson = new GsonBuilder().create();
-			ContratoDTO contrato = gson.fromJson(fileName, ContratoDTO.class);
+			ContratoDTO contrato = gson.fromJson(jSonEntrada, ContratoDTO.class);
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
-
-			contrato.setUrl(rutaImagen);
-			LogHandler.debug(null, this.getClass(), "RUTA DE LA IMAGEN: " + rutaImagen);
-			//se obtienen las cordenadas
-
 			respuesta = negocio.modificaContrato(contrato);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
