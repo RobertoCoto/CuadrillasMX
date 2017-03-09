@@ -73,32 +73,36 @@
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
                               <label for="numDocumento" class="control-label">N&uacute;mero de Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9-]*$/" required>
-                          <p ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required>
+                              <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
+                          <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
                       </div>
               </div>
               <div class="row">
                   <div class="col-sm-5">
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : formContrato.empresa.$invalid && !formContrato.empresa.$pristine }">
                       <label for="empresa" class="control-label">Empresa</label>
-                      <select id="empresa" class="form-control" ng-model="contratoFocus.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in empresas">
+                      <select id="empresa" name="empresa" required class="form-control" ng-model="contratoFocus.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in empresas">
                       <option value="">---Seleccione una empresa---</option>
                       </select>
+                      <p ng-show="formContrato.empresa.$invalid && !formContrato.empresa.$pristine" class="help-block">Es necesario seleccionar la empresa.</p>
                     </div>
                   </div>
                     <div class="col-sm-3">
                         <label for="monto" class="control-label">Monto</label>
-                        <div class="input-group">
+                        <div class="input-group" ng-class="{ 'has-error' : formContrato.monto.$invalid && !formContrato.monto.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00">
+                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00" required ng-pattern="/^[0-9.]*$/" name="monto">
+                       <p ng-show="formContrato.monto.$error.pattern && !formContrato.monto.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <label for="subtotal" class="control-label">Subtotal</label>
-                        <div class="input-group">
+                        <div class="input-group" ng-class="{ 'has-error' : formContrato.subtotal.$invalid && !formContrato.subtotal.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00">
+                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00" required ng-pattern="/^[0-9.]*$/" name="subtotal">
+                            <p ng-show="formContrato.subtotal.$error.pattern && !formContrato.subtotal.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
               </div>
@@ -142,7 +146,9 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="vialidad" class="control-label">Vialidad</label>
-                    <select id="vialidad" class="form-control" ng-model="contratoFocus.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in vialidades"></select>
+                    <select id="vialidad" class="form-control" ng-model="contratoFocus.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in vialidades">
+                    <option value="">---Seleccione una vialidad---</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-sm-2">
@@ -202,7 +208,9 @@
                 </div>
                 <div class="col-sm-3">
                   <label for="cuadrillac" class="control-label">Cuadrilla</label>
-                  <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas"></select>
+                  <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas">
+                  <option value="">---Seleccione una cuadrilla---</option>
+                  </select>
                 </div>
                 <div class="col-sm-2">
                   <label for="noPer" class="control-label">#Per</label>
