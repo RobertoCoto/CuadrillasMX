@@ -31,7 +31,8 @@
                   <td>{{contrato.codigoVialidad}}</td>
                   <td>{{contrato.coordenadas[0].direccion}}</td>
                   <td>{{contrato.coordenadas[contrato.coordenadas.length -1].direccion}}</td>
-                  <td>{{contrato.estatus}}</td>
+                  <td ng-if="contrato.estatus == 'A'">ACTIVO</td>
+                  <td ng-if="contrato.estatus == 'I'">INACTIVO</td>
                   <td><button type="button" class="btn btn-info" ng-click="editarContrato(contrato)">Editar</button></td>
                 </tr>
               </tbody>
