@@ -64,6 +64,9 @@ public class EmpleadoNegocio {
 			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
 				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
 			}
+			if (empleado.getCodigoEmpresa() == null || empleado.getCodigoEmpresa().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La empresa es necesaria en el alta del empleado.");
+			}
 			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en el alta del empleado.");
 			}
@@ -237,6 +240,9 @@ public class EmpleadoNegocio {
 			}
 			if (empleado.getRfc().trim().length() < LONGITUD_RFC) {
 				throw new ExcepcionesCuadrillas("La longitud del RFC debe ser minimo " + LONGITUD_RFC + " caracteres.");
+			}
+			if (empleado.getCodigoEmpresa() == null || empleado.getCodigoEmpresa().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("La empresa es necesaria en la actualizacion del empleado.");
 			}
 			if (empleado.getCodigoPuesto() == null || empleado.getCodigoPuesto().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El puesto es necesario en la actualizacion del empleado.");

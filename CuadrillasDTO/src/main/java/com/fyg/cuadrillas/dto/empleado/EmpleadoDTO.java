@@ -171,6 +171,14 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	private String usuarioAutImss;
 	/**
+	 * codigo de la empresa
+	 */
+	private String codigoEmpresa;
+	/**
+	 * descripcion de la empresa
+	 */
+	private String descripcionEmpresa;
+	/**
 	 * @return the idEmpleado
 	 */
 	public Integer getIdEmpleado() {
@@ -673,5 +681,29 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setUsuarioAutImss(String usuarioAutImss) {
 		this.usuarioAutImss = usuarioAutImss;
+	}
+	/**
+	 * @return the codigoEmpresa
+	 */
+	public String getCodigoEmpresa() {
+		return codigoEmpresa;
+	}
+	/**
+	 * @param codigoEmpresa the codigoEmpresa to set
+	 */
+	public void setCodigoEmpresa(String codigoEmpresa) {
+		this.codigoEmpresa = codigoEmpresa;
+	}
+	/**
+	 * @return the descripcionEmpresa
+	 */
+	public String getDescripcionEmpresa() {
+		return descripcionEmpresa;
+	}
+	/**
+	 * @param descripcionEmpresa the descripcionEmpresa to set
+	 */
+	public void setDescripcionEmpresa(String descripcionEmpresa) {
+		this.descripcionEmpresa = descripcionEmpresa;
 	}
 }

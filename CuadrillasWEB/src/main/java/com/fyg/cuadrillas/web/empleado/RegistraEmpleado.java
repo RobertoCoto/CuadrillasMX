@@ -66,6 +66,7 @@ public class RegistraEmpleado extends HttpServlet {
 			String altaIMSS = request.getParameter("altaIMSS");
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
 			String fechaIngreso = request.getParameter("fechaIngreso");
+			String codigoEmpresa = request.getParameter("codigoEmpresa");
 			String codigoPuesto = request.getParameter("codigoPuesto");
 			String codigoVialidad = request.getParameter("codigoVialidad");
 			String codigoArea = request.getParameter("codigoArea");
@@ -105,6 +106,7 @@ public class RegistraEmpleado extends HttpServlet {
 			empleado.setRfc(rfc);
 			empleado.setFechaNacimiento(fechaNacimiento);
 			empleado.setFechaIngreso(fechaIngreso);
+			empleado.setCodigoEmpresa(codigoEmpresa);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCalificacion(calificacion);
 			empleado.setCodigoVialidad(codigoVialidad);

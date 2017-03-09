@@ -71,6 +71,27 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			 	 
+		    //consulta la empresa
+			 	 $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'EMPRESAS'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
+		    	$scope.resultadoEmpresa = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		    	$('#msload').modal('hide');
+		        console.error(response);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
+		    });
+		    
 		    //consulta el area
 			 	  $http({
               method: 'GET',
@@ -143,6 +164,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			$("div[data-id=documentosResultado").hide();
 	    	$("div[data-id=documentosData").show();
 	    	$('#editar').show();
+	    	$('#guardarDato').hide();
 			$scope.general = {};
 			$scope.formEmpleado.$setPristine();
 			};
@@ -228,6 +250,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 		"apellidoMaterno" : general.apellidoMat,
 			 		"sexo": general.sexo,
 	              "fechaNacimiento": $scope.fechaNacimiento,
+	              "codigoEmpresa": general.codigoEmpresa,
 	              "codigoPuesto": general.codigoPuesto,
 	              "codigoVialidad": general.codigoVialidad,
 	              "codigoArea": general.codigoArea,
@@ -400,6 +423,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 				 		"apellidoMaterno" : general.apellidoMat,
 				 		"sexo": general.sexo,
 		              "fechaNacimiento": $scope.fechaNacimiento,
+		              "codigoEmpresa": general.codigoEmpresa,
 		              "codigoPuesto": general.codigoPuesto,
 		              "codigoVialidad": general.codigoVialidad,
 		              "codigoArea": general.codigoArea,

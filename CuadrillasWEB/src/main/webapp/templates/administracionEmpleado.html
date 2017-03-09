@@ -107,7 +107,7 @@
                     </div>
 			     </div>
 			     
-			     <div class="row">
+			     <div class="row">   
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nss.$invalid && !formEmpleado.nss.$pristine }">
                             <label for="nss" class="control-label">NSS</label>
@@ -133,7 +133,15 @@
                             <p ng-show="formEmpleado.rfc.$error.pattern && !formEmpleado.rfc.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                         </div>
                     </div>
-                    
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoEmpresa.$invalid && !formEmpleado.codigoEmpresa.$pristine }">
+                            <label for="empresa" class="control-label">Empresa</label>
+                            <select class="form-control"  name="codigoEmpresa" ng-model="general.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoEmpresa" ng-change="getOptions2(general.codigoEmpresa)" required>
+                            <option value="">--Seleccione Empresa--</option>
+                            </select>
+                            <p ng-show="formEmpleado.codigoEmpresa.$invalid && !formEmpleado.codigoEmpresa.$pristine" class="help-block">Es necesario seleccionar una empresa.</p>
+                        </div>
+                    </div>
 			     </div>
 			     
 			     <div class="row">
@@ -354,7 +362,7 @@
 			    </div>
 			    <div class="btn-group">
 			     <input class="btn botonGuardar"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(general)" id="editar" ng-disabled="formEmpleado.$invalid" >
-				 <input class="btn botonGuardar"  type="submit" value="Guardar" data-ng-click="actualizarDato(general)" id="guardarDato"  >
+				 <input class="btn botonGuardar"  type="submit" value="Guardar" data-ng-click="actualizarDato(general)" id="guardarDato" style="display:none;">
 			    </div>
 			    <div class="btn-group">
 			     <input class="btn botonGuardar" type="button" value="Consultar" data-ng-click="consultar(empleado)" >

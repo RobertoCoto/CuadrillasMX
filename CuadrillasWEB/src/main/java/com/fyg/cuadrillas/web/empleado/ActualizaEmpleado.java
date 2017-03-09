@@ -70,6 +70,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			String rfc = request.getParameter("rfc");
 			String altaIMSS = request.getParameter("altaIMSS");
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
+			String codigoEmpresa = request.getParameter("codigoEmpresa");
 			String codigoPuesto = request.getParameter("codigoPuesto");
 			String codigoVialidad = request.getParameter("codigoVialidad");
 			String codigoArea = request.getParameter("codigoArea");
@@ -109,6 +110,7 @@ public class ActualizaEmpleado extends HttpServlet {
 			empleado.setSexo(sexo);
 			empleado.setRfc(rfc);
 			empleado.setFechaNacimiento(fechaNacimiento);
+			empleado.setCodigoEmpresa(codigoEmpresa);
 			empleado.setCodigoPuesto(codigoPuesto);
 			empleado.setCodigoVialidad(codigoVialidad);
 			empleado.setCalificacion(calificacion);

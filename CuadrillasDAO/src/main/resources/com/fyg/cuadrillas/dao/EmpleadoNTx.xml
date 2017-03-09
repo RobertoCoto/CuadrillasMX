@@ -36,19 +36,23 @@
 	<result column="nombre_perfil" property="nombrePerfil"/>
 	<result column="calificacion" property="calificacion"/>
 	<result column="perfil_empleado" property="perfilEmpleado"/>
+	<result column="codigo_empresa" property="codigoEmpresa"/>
+	<result column="descripcion_empresa" property="descripcionEmpresa"/>
 </resultMap>
 
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
 	SELECT
 		e.id_empleado, e.no_empleado, e.nombre, e.apellido_pat, e.apellido_mat, e.sexo, e.rfc, e.rfc_calculado, e.fecha_nacimiento, e.fecha_ingreso,
 		e.codigo_puesto, e.codigo_vialidad, e.codigo_area,  e.codigo_talla, e.sueldo, e.frecuencia_pago,
-		e.nss, e.no_credito_infonavit, e.telefono, e.observaciones,e.id_cuadrilla,e.calificacion,
+		e.nss, e.no_credito_infonavit, e.telefono, e.observaciones,e.id_cuadrilla,e.calificacion,e.codigo_empresa,
 		e.fecha_baja, e.codigo_tipo_salida, e.codigo_causa_salida, e.estatus, e.alta_imss,u.usuario,u.contrasena,u.id_perfil,p.nombre AS nombre_perfil,
-		c.descripcion AS descripcion_puesto
+		c.descripcion AS descripcion_puesto,
+		ca.descripcion AS descripcion_empresa
 	FROM empleado e
 	LEFT JOIN usuario u ON u.id_empleado = e.id_empleado
 	LEFT JOIN perfil p ON p.id_perfil = u.id_perfil
 	LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
+	LEFT JOIN catalogo ca ON ca.codigo = e.codigo_empresa
 	<where>
 	 <if test="idEmpleado !=null">
 	 	e.id_empleado = #{idEmpleado}
