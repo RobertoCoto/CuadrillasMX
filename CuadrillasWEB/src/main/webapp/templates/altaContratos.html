@@ -50,24 +50,31 @@
         <div class="col-sm-12">
         <div id="mainPanel" class="panel panel-default">
           <div class="panel-body">
-            <form action="http://localhost:8080/CuadrillasWEB/test">
+            <form action="http://localhost:8080/CuadrillasWEB/test" name="formContrato" novalidate>
               <div class="row">
                       <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group" ng-class="{ 'has-error' : formContrato.tipoContrato.$invalid && !formContrato.tipoContrato.$pristine }">
                               <label for="tipoContrato" class="control-label">Tipo de Contrato</label>
-                              <select id="tipoContrato" class="form-control" placeholder="Tipo de Contrato" ng-model="contratoFocus.codigoContrato" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in catContratos"></select>
+                              <select id="tipoContrato" class="form-control" name="tipoContrato" placeholder="Tipo de Contrato" ng-model="contratoFocus.codigoContrato" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in catContratos" required>
+                              <option value="">---Seleccione el tipo de contrato---</option>
+                              </select>
+                          <p ng-show="formContrato.tipoContrato.$invalid && !formContrato.tipoContrato.$pristine" class="help-block">Es necesario seleccionar el tipo de contrato.</p>
                           </div>
                       </div>
                       <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group" ng-class="{ 'has-error' : formContrato.documento.$invalid && !formContrato.documento.$pristine }">
                               <label for="documento" class="control-label">Documento</label>
-                              <select id="documento" class="form-control" ng-model="contratoFocus.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in documentos"></select>
+                              <select id="documento" name="documento" required class="form-control" ng-model="contratoFocus.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in documentos">
+                              <option value="">---Seleccione un Documento---</option>
+                              </select>
+                          <p ng-show="formContrato.documento.$invalid && !formContrato.documento.$pristine" class="help-block">Es necesario seleccionar el documento.</p>
                           </div>
                       </div>
                       <div class="col-sm-4">
-                          <div class="form-group">
-                              <label for="numDocumento" class="control-label">Número de Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO">
+                          <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
+                              <label for="numDocumento" class="control-label">N&uacute;mero de Documento</label>
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9-]*$/" required>
+                          <p ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
                       </div>
               </div>
@@ -75,7 +82,9 @@
                   <div class="col-sm-5">
                     <div class="form-group">
                       <label for="empresa" class="control-label">Empresa</label>
-                      <select id="empresa" class="form-control" ng-model="contratoFocus.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in empresas"></select>
+                      <select id="empresa" class="form-control" ng-model="contratoFocus.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in empresas">
+                      <option value="">---Seleccione una empresa---</option>
+                      </select>
                     </div>
                   </div>
                     <div class="col-sm-3">
@@ -231,7 +240,7 @@
               <!-- table ini fin -->
               <div class="row">
                 <div class="col-sm-offset-3 col-sm-2">
-                  <button type="button" class="btn btn-block btn-success" ng-click="altaContrato()" ng-show="nContrato">Alta</button>
+                  <button type="button" class="btn btn-block btn-success" ng-click="altaContrato()" ng-show="nContrato" ng-disabled="formContrato.$invalid">Alta</button>
                 </div>
                 <div class="col-sm-2">
                   <button type="button" class="btn btn-block btn-warning" ng-click="guardaContrato()" ng-show="!nContrato">Guardar</button>
