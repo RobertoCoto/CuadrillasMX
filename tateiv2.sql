@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS perfil;
         huella  VARCHAR(200) NULL,
         alta_imss CHAR(1) NULL,
         observaciones VARCHAR(100) NULL,
-        
+        codigo_empresa  VARCHAR(10) NOT NULL,
         codigo_puesto  VARCHAR(10) NOT NULL,                
         codigo_vialidad VARCHAR(10) NULL,
         codigo_area VARCHAR(10) NULL,
