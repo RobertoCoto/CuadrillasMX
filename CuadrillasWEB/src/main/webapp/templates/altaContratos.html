@@ -204,9 +204,9 @@
               <div class="row">
                 <div class="col-sm-2">
                   <label for="estatus" class="control-label">Estatus</label>
-                  <select id="estatus" class="form-control" ng-model="contratoFocus.estatus"><option value="A" selected="selected">Activo</option><option value="I">Inactivo</option></select>
+                  <select id="estatus" disabled class="form-control" ng-model="contratoFocus.estatus"><option value="A" selected="selected">Activo</option><option value="I">Inactivo</option></select>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3" >
                   <label for="cuadrillac" class="control-label">Cuadrilla</label>
                   <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas">
                   <option value="">---Seleccione una cuadrilla---</option>
@@ -214,7 +214,11 @@
                 </div>
                 <div class="col-sm-2">
                   <label for="noPer" class="control-label">#Per</label>
-                  <input type="number" id="noPer" ng-model="contratoFocus.noPersonas" class="form-control" placeholder="0">
+                  <div ng-repeat="persona in cuadrillas">
+                   <span  ng-if="persona.idCuadrilla == contratoFocus.idCuadrilla">
+                  <input type="text" id="noPer" ng-model="contratoFocus.noPersonas" class="form-control" value={{persona.numeroPersonas}} />
+                  </span>
+                  </div>
                 </div>
                 <div class="col-sm-5">
                   <div id="contratoFile">

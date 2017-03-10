@@ -622,6 +622,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#mainPanel').show();
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
+                    $("#estatus").prop('disabled', true);
 										$('#contratoFile').show();
 										$('#linkContrato').hide();
 										$('#linkContrato').empty();
@@ -660,14 +661,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaContrato";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
                     $scope.contratoFocus = {}; //para el final
-										$scope.consultaContratos();
 
-                  }
+                  };
 
 									$scope.guardaContrato = function() {
                     $('#mainPanel').hide();
                     $('#panelContratos').show();
                     $('#nuevoContrato').show();
+                    
 										$('#linkContrato').empty();
                     console.log($scope.contratoFocus);
 										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
@@ -736,6 +737,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#mainPanel').show();
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
+                    $("#estatus").prop('disabled', false);
                     $scope.nContrato = false;
                     $scope.initMap();
 										setTimeout(function () {
