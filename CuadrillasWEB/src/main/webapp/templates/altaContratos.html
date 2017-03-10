@@ -107,18 +107,20 @@
                     </div>
               </div>
               <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3" ng-class="{ 'has-error' : formContrato.fechaInicio.$invalid && !formContrato.fechaInicio.$pristine }">
                   <label for="fechaInicio" class="control-label">Fecha de Inicio</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                    <input class="form-control" id="fechaInicio" name="fechaInicio" ng-model="contratoFocus.fechaInicio" placeholder="DD/MM/YYYY"/>
+                    <input class="form-control" id="fechaInicio" name="fechaInicio" ng-model="contratoFocus.fechaInicio" placeholder="DD/MM/YYYY" required/>
+                     <p ng-show="formContrato.fechaInicio.$invalid && !formContrato.fechaInicio.$pristine" class="help-block">Es necesario seleccionar la fecha de inicio.</p>
                   </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3"  ng-class="{ 'has-error' : formContrato.fechaTermino.$invalid && !formContrato.fechaTermino.$pristine }">
                    <label for="fechaTermino" class="control-label">Fecha de Término</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                    <input class="form-control" id="fechaTermino" name="fechaTermino" ng-model="contratoFocus.fechaFin" placeholder="DD/MM/YYYY" />
+                    <input class="form-control" id="fechaTermino" name="fechaTermino" ng-model="contratoFocus.fechaFin" placeholder="DD/MM/YYYY" required/>
+                   <p ng-show="formContrato.fechaTermino.$invalid && !formContrato.fechaTermino.$pristine" class="help-block">Es necesario seleccionar la fecha de termino.</p>
                   </div>
                 </div>
                 <div class="col-sm-3">
@@ -144,11 +146,12 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group">
+                  <div class="form-group" ng-class="{ 'has-error' : formContrato.vialidad.$invalid && !formContrato.vialidad.$pristine }">
                     <label for="vialidad" class="control-label">Vialidad</label>
-                    <select id="vialidad" class="form-control" ng-model="contratoFocus.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in vialidades">
+                    <select id="vialidad" required name="vialidad" class="form-control" ng-model="contratoFocus.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in vialidades">
                     <option value="">---Seleccione una vialidad---</option>
                     </select>
+                    <p ng-show="formContrato.vialidad.$invalid && !formContrato.vialidad.$pristine" class="help-block">Es necesario seleccionar una vialidad.</p>
                   </div>
                 </div>
                 <div class="col-sm-2">
