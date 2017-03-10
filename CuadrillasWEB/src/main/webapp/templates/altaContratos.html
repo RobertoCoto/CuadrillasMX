@@ -33,7 +33,7 @@
                   <td>{{contrato.coordenadas[contrato.coordenadas.length -1].direccion}}</td>
                   <td ng-if="contrato.estatus == 'A'">ACTIVO</td>
                   <td ng-if="contrato.estatus == 'I'">INACTIVO</td>
-                  <td><button type="button" class="btn btn-info" ng-click="editarContrato(contrato)">Editar</button></td>
+                  <td><button type="button" class="btn botonEditar" ng-click="editarContrato(contrato)">Editar</button></td>
                 </tr>
               </tbody>
             </table>
@@ -255,13 +255,13 @@
               <!-- table ini fin -->
               <div class="row">
                 <div class="col-sm-offset-3 col-sm-2">
-                  <button type="button" class="btn btn-block btn-success" ng-click="altaContrato()" ng-show="nContrato" ng-disabled="formContrato.$invalid">Alta</button>
+                  <button type="button" class="btn botonGuardar" ng-click="altaContrato()" ng-show="nContrato" ng-disabled="formContrato.$invalid">Alta</button>
                 </div>
                 <div class="col-sm-2">
-                  <button type="button" class="btn btn-block btn-warning" ng-click="guardaContrato()" ng-show="!nContrato">Guardar</button>
+                  <button type="button" class="btn botonGuardar" ng-click="guardaContrato()" ng-show="!nContrato">Guardar</button>
                 </div>
                 <div class="col-sm-2 col-sm-offset-3">
-                  <button id="cancelarBtn" type="button" ng-click="cancelar()" class="btn btn-block btn-danger">Cancelar</button>
+                  <button id="cancelarBtn" type="button" ng-click="cancelar()" class="btn botonBaja">Cancelar</button>
                 </div>
               </div>
           </form>

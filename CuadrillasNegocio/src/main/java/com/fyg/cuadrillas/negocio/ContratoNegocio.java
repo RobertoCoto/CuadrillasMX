@@ -387,7 +387,7 @@ public class ContratoNegocio {
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));
 					System.out.println("Comparacion Fechas " + fechaInicio.before(fechaFin));
-					if ( !fechaInicio.before(fechaFin) ) {
+					if ( !fechaFin.before(fechaInicio) ) {
 						throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
 					}
 					//Calculo Dias Duracion
