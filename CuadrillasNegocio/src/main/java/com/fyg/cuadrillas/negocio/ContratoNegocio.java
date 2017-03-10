@@ -80,6 +80,9 @@ public class ContratoNegocio {
 					if (contrato.getUrl() == null) {
 						contrato.setUrl("");
 					}
+					if (contrato.getSubtotal() > contrato.getMonto()) {
+						throw new ExcepcionesCuadrillas("El subtotal no puede ser mayor al total.");
+					}
 					for ( CoordenadaDTO coordenada : contrato.getCoordenadas()) {
 
 						if (coordenada.getOrden() == 0) {
@@ -357,6 +360,9 @@ public class ContratoNegocio {
 					}
 					if (contrato.getUrl() == null) {
 						contrato.setUrl("");
+					}
+					if (contrato.getSubtotal() > contrato.getMonto()) {
+						throw new ExcepcionesCuadrillas("El subtotal no puede ser mayor al total.");
 					}
 					for ( CoordenadaDTO coordenada : contrato.getCoordenadas()) {
 
