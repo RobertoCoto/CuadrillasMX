@@ -276,102 +276,40 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-2">
-                <h5>Avance esperado</h5>
-              </div>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="m2">
-              </div>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="m">
-              </div>
-            </div>
             <br>
             <div class="row">
               <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">Tramo Inicial</h3>
-                      </div>
-                      <div class="panel-body">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="form-group">
-                              <label for="direccionInicial" class="control-label">Dirección</label>
-                              <input type="text" id="direccionInicial" class="form-control"placeholder="Av. Gobernadores 102 Col Bugambilias">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              <label for="latitudInicial" class="control-label">Latitud</label>
-                              <input type="text" id="latitudInicial" class="form-control" placeholder="-0.9999999">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              <label for="longitudInicial" class="control-label">Longitud</label>
-                              <input type="text" id="longitudInicial" class="form-control" placeholder="1.2366526">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">Tramo Final</h3>
-                      </div>
-                      <div class="panel-body">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="form-group">
-                              <label for="direccionTermino" class="control-label">Dirección</label>
-                              <input type="text" id="direccionTermino" class="form-control" placeholder="Av. Morelos S/N Col 10 Abril">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              <label for="latitudTermino" class="control-label">Latitud</label>
-                              <input type="text" id="latitudTermino" class="form-control" placeholder="-0.9999999">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              <label for="longitudTermino" class="control-label">Longitud</label>
-                              <input type="text" id="longitudTermino" class="form-control" placeholder="1.2366526">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+           		<div class="row">
+             		<div class="col-sm-12 ">	
+               			<h4>Dirección</h4>
+               			<div class="row">
+                 			<div class="col-sm-3">
+                   				<span id="txtkm2"></span>
+                 			</div>
+                 			<div class="col-sm-9">
+                   				<span id="km2"></span>
+                 			</div>
+               			</div>
+             			<div class="tbl-content" style="height:590px;">
+               				<table cellpadding="0" cellspacing="0" border="0">
+                 				<tbody id="tramos2" width="493px">
+                 				</tbody>
+               				</table>
+             			</div>
+             		</div>
+           		</div>              
               </div>
               <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div id="map2" style="width:100%; height:600px"></div>
+                    <div id="map2" style="width:100%; height:550px"></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-2"><button class="btn btn-block btn-danger" style="margin: 25px;">Limpiar</button></div>
-              <div class="col-sm-offset-1 col-sm-2"><button class="btn btn-block btn-success" style="margin: 25px;">Guardar</button></div>
+            <div class="row">            
+              <div class="col-sm-2"><button type="button" class="btn btn-block btn-danger" style="margin: 25px;" ng-click="reiniciarPantalla()" id="limpiarTotal">Limpiar</button></div>
+              <div class="col-sm-offset-1 col-sm-2"><button type="button" class="btn btn-block btn-success" style="margin: 25px;">Guardar</button></div>
             </div>
           </form>
         </div>
@@ -383,125 +321,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/locales/bootstrap-datepicker.es.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    </script>
-
-    <script>
-      var actualizacion = false;
-      $(document).ready(function(){
-        var fecha=$('input[name="fecha"]');
-        var diaActividad = $('input[name="diaActividad"]');
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        fecha.datepicker({
-          format: 'dd/mm/yyyy',
-          container: container,
-          todayHighlight: true,
-          weekStart: 1,
-          language: "es",
-      		calendarWeeks: false,
-          autoclose: true,
-        });
-        diaActividad.datepicker({
-          format: 'dd/mm/yyyy',
-          language: "es",
-          container: container,
-          todayHighlight: true,
-          calendarWeeks: false,
-          autoclose: true
-        });
-        $('.datepicker-semana').datepicker(
-      	{
-      		weekStart: 1,
-          language: "es",
-      		calendarWeeks: false
-      	}).on('changeDate', function (e)
-      	{
-      		if (actualizacion)
-      			return;
-      		actualizacion = true;
-      		var value = e.date;
-      		var iniSemana = moment(value).day(1);
-      		var finSemana =  moment(value).day(7);
-      		$(this).datepicker('clearDate');
-      		$(this).datepicker('setDates', [
-      			moment(value).day(1).toDate(),
-      			moment(value).day(2).toDate(),
-      			moment(value).day(3).toDate(),
-      			moment(value).day(4).toDate(),
-      			moment(value).day(5).toDate(),
-      			moment(value).day(6).toDate(),
-      			moment(value).day(7).toDate()
-      		]);
-          var semanaInicioDate = moment(iniSemana.toDate());
-          var semanaFinDate = moment(finSemana.toDate());
-          $('#ini').val(semanaInicioDate.format("DD/MM/YYYY"));
-          $('#fin').val(semanaFinDate.format("DD/MM/YYYY"));
-          $('#semana').val(moment(iniSemana.toDate()).week());
-      		actualizacion = false;
-      	});
-      })
-
-      function initMap() {
-        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-        var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
-        var mx3 = {lat: 19.51262144393955, lng: -99.04332534816899};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: mx1
-        });
-        var marker = new google.maps.Marker({
-          position: mx1,
-          map: map
-        });
-        var marker2 = new google.maps.Marker({
-          position: mx2,
-          map: map
-        });
-        var marker22 = new google.maps.Marker({
-          position: mx3,
-          map: map
-        });
-        var map2 = new google.maps.Map(document.getElementById('map2'), {
-          zoom: 10,
-          center: mx1
-        });
-        var marker3 = new google.maps.Marker({
-          position: mx1,
-          map: map2
-        });
-        var marker4 = new google.maps.Marker({
-          position: mx2,
-          map: map2
-        });
-        var marker44 = new google.maps.Marker({
-          position: mx3,
-          map: map2
-        });
-      }
-
-      var map;
-        var markers = [];
-
-        function initialize() {
-          var myOptions = {
-            zoom: 10,
-            center: new google.maps.LatLng(100.090, -100.536),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          }
-          map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-          addMarker(new google.maps.LatLng(100.0747, -100.6274), "Tramo Inicial");
-          addMarker(new google.maps.LatLng(100.0758, -100.6254), "Tramo Final");
-
-        }
-
-        function addMarker(latlng, tit) {
-          markers.push(new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title: tit,
-            icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
-          }));
-        }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&callback=initMap"></script>
   </body>
