@@ -25,7 +25,7 @@ public class ContratoDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("El contrato ah sido registrado correctamente.");
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -281,7 +281,7 @@ public class ContratoDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("el contrato se ha modificado correctamente.");
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -293,7 +293,7 @@ public class ContratoDAO {
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("ContratoDAO.modificaContrato", contrato);
 			if ( registros == 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar el contrato.");
+				throw new ExcepcionesCuadrillas("Error al actualizar el contrato.");
 			}
 			System.out.println("ID Contrato = " + contrato.getIdContrato());
 			//elimina las coordenadas anteriores
