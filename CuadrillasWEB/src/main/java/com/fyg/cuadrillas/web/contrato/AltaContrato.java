@@ -83,8 +83,8 @@ public class AltaContrato extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
-		//response.setCharacterEncoding("UTF-8");
-		//request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String json = "";
 		try {
