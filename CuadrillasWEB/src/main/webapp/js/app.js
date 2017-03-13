@@ -1717,10 +1717,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			// $('#msload').modal('show');
             var geocoder = new google.maps.Geocoder;
             var img_mark = 'altaContrato/mark.png';
-            var marcador = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
+            var marcador2 = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
             medida2.mvcLine.push(latLng);
             medida2.mvcPolygon.push(latLng);
-            medida2.mvcMarkers.push(marcador);
+            medida2.mvcMarkers.push(marcador2);
             var latLngIndex = medida2.mvcLine.getLength() - 1;
             var latlng = {lat: latLng.lat, lng: latLng.lng};
             //var direccion = 'SN';
@@ -1748,6 +1748,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			}
 
   			//si ya esta agregado a la agenda se debe eliminar para poder editar
+  			var fecha = $('#diaActividad').val(); 
   			var agendado = $scope.validaAgendaAgregada(fecha);
   			if (agendado)
   			{
@@ -1977,7 +1978,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       strokeColor: "#ad04ef",
                       strokeOpacity: 1,
                       strokeWeight: 3,
-                      path: medida.mvcLine
+                      path: medida2.mvcLine
                   });
               }
 
@@ -1994,7 +1995,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       map: map2,
                       fillOpacity: 0.0,
                       strokeOpacity: 0,
-                      paths: medida.mvcPolygon
+                      paths: medida2.mvcPolygon
                   });
 
               }
@@ -2038,7 +2039,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         	  geocoder.geocode({'location': latlng}, function(results, status) {
         		  if (status == google.maps.GeocoderStatus.OK) {
         			  map2.setCenter(results[0].geometry.location);
-					  $scope.setMarcadorLectura(results[0].geometry.location, direccion);
+        			  $scope.setMarcadorLectura(results[0].geometry.location, direccion);        			  
 		          }
 		      });
           }, 100);
@@ -2087,6 +2088,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		  cambiaColorBoton($scope.gridArticulos);
 		  cambiaColorBoton($scope.gridActividades);
 		  cambiaColorBoton($scope.mapa);
+		  //$scope.colocaMarcadoresSeleccionados();
       };
       
       $scope.limpiarMarcadoresLectura = function() {
@@ -2309,6 +2311,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					break;
 				}
 			}
+			
+			$scope.limpiarMarcadoresLectura();
       };
 
       //valida agenda agregada
@@ -2333,7 +2337,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  //se limpian los marcadores existentes
     	  $scope.limpiarMarcadoresLectura();
     	  
-    	  //arreglo de fechas de la semana seleciconada
+    	  //arreglo de fechas de la semana seleccionada
     	  for(var i=0; i < $scope.fechasSemana.length; i++)
     	  {
     		  var fecha = $scope.fechasSemana[i];
@@ -2350,11 +2354,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  			  {
 			  				  if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
 			  				  {
-					  			//console.info("mapa");
-					  			//console.info($scope.mapa);
+					  			console.info("mapa");
+					  			console.info($scope.mapa);
 								setTimeout(function () {
-									for (var rec_coord = 0; rec_coord < $scope.mapa.gridCoordenadas.length; rec_coord++) {
-										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion);
+									for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length; rec_coord++) {										
+										var direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
+										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, direccion);
 										}
 									}, 100);
 			  				  }
@@ -2362,7 +2367,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  		  }  			  						
     			  }  					
     		  }  				
-    	  }    	
+    	  }
       };
       
       //***registra la agenda
@@ -2379,11 +2384,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  $scope.JSONAltaAgenda.agendaDetalle	= [];
     	  
     	  //se recorren los dias agendados
-    	  for (var liAgendados=0; liagendados<$scope.diasAgenda.length; liAgendados++)
+    	  for (var liAgendados=0; liAgendados<$scope.diasAgenda.length; liAgendados++)
     	  {    		  
     		  var agendaDetalleTemp = {};
     		  agendaDetalleTemp.Actividades = [];
     		  agendaDetalleTemp.Materiales = [];
+    		  agendaDetalleTemp.coordenadas = [];
+    		  
     		  var fecha = $scope.diasAgenda[liAgendados].fecha;
     		      		  
     		  //se arma el arreglo de actividades    		  
@@ -2395,7 +2402,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  			  {
 	  				  var actividadesTemp = {};
 	  				  actividadesTemp.codigoActividad	= $scope.gridActividadesSemana[liActividades].codigo;
-	  				  actividadesTemp.usuario			= $scope.usuario.usuario;
 	  				  
 	  				  actividades.push(actividadesTemp);
 	  			  }
@@ -2408,12 +2414,33 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  			  if ( fecha == $scope.gridArticulosSemana[liArticulos].fecha)
 	  			  {
 	  				  var articulosTemp = {};
-	  				  articulosTemp.codigoActividad	= $scope.gridArticulosSemana[liArticulos].codigo;
-	  				  articulosTemp.usuario			= $scope.usuario.usuario;
+	  				  articulosTemp.codigoMaterial		= $scope.gridArticulosSemana[liArticulos].codigo;
 	  				  
 	  				  articulos.push(articulosTemp);
 	  			  }
 	  		  }
+	  		  
+	  		  //se arma el arreglo de coordenadas
+			  var coordenadas = [];				  
+
+    		  for(var liMapa=0; liMapa < $scope.mapaSemana.length; liMapa++)
+    		  {    			  
+    			  if (fecha == $scope.mapaSemana[liMapa].fecha)
+    			  {
+    	    		  var orden = 0;
+    				  for(rec_coord in $scope.mapaSemana[liMapa].gridCoordenadas)
+    				  {
+    	    			  orden++;
+    					  var coordenadaP = {};
+    					  coordenadaP.orden		= orden;
+    					  coordenadaP.latitud 	= $scope.mapaSemana[liMapa].gridCoordenadas[rec_coord].latitud;
+    					  coordenadaP.longitud 	= $scope.mapaSemana[liMapa].gridCoordenadas[rec_coord].longitud;
+    					  coordenadaP.direccion = $scope.mapaSemana[liMapa].gridCoordenadas[rec_coord].direccion;
+
+    					  coordenadas.push(coordenadaP);
+    				  }    				      				  
+    			  }
+    		  }    		  
 	  		  
     		  agendaDetalleTemp.fecha 			= fecha;
     		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros;
@@ -2421,10 +2448,19 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		  agendaDetalleTemp.usuario 		= $scope.usuario.usuario;	  		  
     		  agendaDetalleTemp.Actividades 	= actividades;
     		  agendaDetalleTemp.Materiales		= articulos;
-    		  
+    		  agendaDetalleTemp.coordenadas		= coordenadas; 
+    		
+    		  $scope.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
+    		
+    		  console.info("*********agendaDetalleTEMP********");
     		  console.dir (agendaDetalleTemp);
     		  console.info(JSON.stringify(agendaDetalleTemp));
     	  }
+
+    	  console.info("*********agendaDetalle********");    	  
+    	  console.dir ($scope.JSONAltaAgenda.agendaDetalle);
+    	  console.info(JSON.stringify($scope.JSONAltaAgenda.agendaDetalle));
+
       };
 
       //para inicializar los mapas
