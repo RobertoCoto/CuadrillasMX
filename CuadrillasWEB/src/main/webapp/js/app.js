@@ -730,7 +730,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 									$scope.hideAlerts = function() {
 										$('#alert').hide();
 										$('#success').hide();
-										$scope.consultaContratos();
+										//$scope.consultaContratos();
 									}
 
                   $scope.editarContrato = function(contrato) {
