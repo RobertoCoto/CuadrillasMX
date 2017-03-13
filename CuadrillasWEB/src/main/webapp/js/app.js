@@ -666,8 +666,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										console.dir(contrato);
 										var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaContrato";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
-										
-
                   };
 
 									$scope.guardaContrato = function() {
