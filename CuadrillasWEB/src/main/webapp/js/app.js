@@ -634,6 +634,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$scope.contratoFocus.fechaRegistroContrato = new JsSimpleDateFormat("yyyy-MM-dd").format(new Date());
                     $scope.initMap();
                     $scope.limpiarMarcadores();
+                    $scope.formContrato.$setPristine();
                   }
 
                   $scope.cancelar = function() {
@@ -653,6 +654,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 	  $('#panelContratos').show();
                       $('#nuevoContrato').show();
                       $scope.contratoFocus = {}; //para el final
+                      $scope.formContrato.$setPristine();
                 	  };
                   
                   $scope.altaContrato = function() {
@@ -664,7 +666,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										console.dir(contrato);
 										var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaContrato";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
-                   
+										
 
                   };
 
