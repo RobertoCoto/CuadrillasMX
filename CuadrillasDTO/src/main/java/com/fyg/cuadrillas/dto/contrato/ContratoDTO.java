@@ -46,7 +46,7 @@ public class ContratoDTO extends ObjetoValor {
 	/** url */
 	private String url;
 	/** metros */
-	private float metros;
+	private Float metros;
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** estatus */
@@ -465,13 +465,13 @@ public class ContratoDTO extends ObjetoValor {
 	/**
 	 * @return the metros
 	 */
-	public float getMetros() {
+	public Float getMetros() {
 		return metros;
 	}
 	/**
 	 * @param metros the metros to set
 	 */
-	public void setMetros(float metros) {
+	public void setMetros(Float metros) {
 		this.metros = metros;
 	}
 }

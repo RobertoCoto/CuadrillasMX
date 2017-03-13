@@ -125,8 +125,6 @@ public class ContratoNegocio {
 						System.out.println("distancia =" + distancia);
 						metros += distancia;
 					}
-					contrato.setMetros((int) metros * METROS_KM);
-
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
 						contrato.setFechaRegistro(new Date());
@@ -406,8 +404,6 @@ public class ContratoNegocio {
 						System.out.println("distancia =" + distancia);
 						metros += distancia;
 					}
-					contrato.setMetros((int) metros * METROS_KM);
-
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
 						contrato.setFechaRegistro(new Date());
