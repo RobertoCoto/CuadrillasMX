@@ -253,14 +253,18 @@
                 </div>
               </div>
               <!-- table ini fin -->
+    
               <div class="row">
-                <div class="col-sm-offset-3 col-sm-2">
+              <div class="col-sm-4">
+             <button type="button" class="btn botonLimpiar" ng-click="limpiarContrato()">Limpiar</button>
+             </div>
+                <div class=" col-sm-2">
                   <button type="button" class="btn botonGuardar" ng-click="altaContrato()" ng-show="nContrato" ng-disabled="formContrato.$invalid">Alta</button>
                 </div>
                 <div class="col-sm-2">
                   <button type="button" class="btn botonGuardar" ng-click="guardaContrato()" ng-show="!nContrato">Guardar</button>
                 </div>
-                <div class="col-sm-2 col-sm-offset-3">
+                <div class="col-sm-4">
                   <button id="cancelarBtn" type="button" ng-click="cancelar()" class="btn botonBaja">Cancelar</button>
                 </div>
               </div>
