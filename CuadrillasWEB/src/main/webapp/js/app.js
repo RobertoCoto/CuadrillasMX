@@ -655,6 +655,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       $('#nuevoContrato').show();
                       $scope.contratoFocus = {}; //para el final
                       $scope.formContrato.$setPristine();
+                      $scope.consultaContratos();
                 	  };
                   
                   $scope.altaContrato = function() {
