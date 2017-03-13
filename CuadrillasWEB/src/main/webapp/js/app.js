@@ -647,6 +647,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
                     $scope.limpiarMarcadores();
 										$('form')[0].reset();
+										$scope.formContrato.$setPristine();
                   }
                   
                   $scope.limpiarContrato = function() {
