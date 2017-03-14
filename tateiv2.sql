@@ -237,7 +237,7 @@ DROP TABLE IF EXISTS perfil;
 		id_cuadrilla integer NULL,
 		observaciones VARCHAR(150) NULL,
 		url VARCHAR(200) NOT NULL,
-		metros INTEGER NOT NULL,
+		metros FLOAT NOT NULL,
 
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_alta DATETIME NOT NULL,

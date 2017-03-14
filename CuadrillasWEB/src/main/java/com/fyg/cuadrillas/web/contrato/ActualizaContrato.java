@@ -63,13 +63,15 @@ public class ActualizaContrato extends HttpServlet {
 		try {
 			List<FileItem> multiparts = null;
 			String jSonEntrada = null;
+			String dataJson = null;
 			if (ServletFileUpload.isMultipartContent(request)) {
 				  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 				  for (FileItem item : multiparts) {
 					  if (item.isFormField()) {
 						  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 							  System.out.println(item.getString());
-							  jSonEntrada = item.getString();
+							  dataJson = item.getString();
+							  jSonEntrada = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
 						  }
 					  }
 				   }

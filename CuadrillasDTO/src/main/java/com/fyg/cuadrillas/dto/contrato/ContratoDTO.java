@@ -32,7 +32,7 @@ public class ContratoDTO extends ObjetoValor {
 	/** fechaFin */
 	private String fechaFin;
 	/** diasDuracion */
-	private int diasDuracion;
+	private Integer diasDuracion;
 	/** pctAvance */
 	private double pctAvance;
 	/** fechaRegistro */
@@ -46,7 +46,7 @@ public class ContratoDTO extends ObjetoValor {
 	/** url */
 	private String url;
 	/** metros */
-	private double metros;
+	private Float metros;
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** estatus */
@@ -114,6 +114,18 @@ public class ContratoDTO extends ObjetoValor {
 		this.codigoContrato = codigoContrato;
 	}
 	/**
+	 * @return the diasDuracion
+	 */
+	public Integer getDiasDuracion() {
+		return diasDuracion;
+	}
+	/**
+	 * @param diasDuracion the diasDuracion to set
+	 */
+	public void setDiasDuracion(Integer diasDuracion) {
+		this.diasDuracion = diasDuracion;
+	}
+	/**
 	 * @return the codigoDocumento
 	 */
 	public String getCodigoDocumento() {
@@ -173,18 +185,7 @@ public class ContratoDTO extends ObjetoValor {
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-	/**
-	 * @return the diasDuracion
-	 */
-	public int getDiasDuracion() {
-		return diasDuracion;
-	}
-	/**
-	 * @param diasDuracion the diasDuracion to set
-	 */
-	public void setDiasDuracion(int diasDuracion) {
-		this.diasDuracion = diasDuracion;
-	}
+	
 	/**
 	 * @return the pctAvance
 	 */
@@ -464,13 +465,13 @@ public class ContratoDTO extends ObjetoValor {
 	/**
 	 * @return the metros
 	 */
-	public double getMetros() {
+	public Float getMetros() {
 		return metros;
 	}
 	/**
 	 * @param metros the metros to set
 	 */
-	public void setMetros(double metros) {
+	public void setMetros(Float metros) {
 		this.metros = metros;
 	}
 }

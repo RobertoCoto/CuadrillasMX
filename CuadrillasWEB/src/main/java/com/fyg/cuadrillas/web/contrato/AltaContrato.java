@@ -86,6 +86,7 @@ public class AltaContrato extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
+		String dataJson = "";
 		String json = "";
 		try {
 			String rutaImagen = "";
@@ -103,8 +104,9 @@ public class AltaContrato extends HttpServlet {
 
 							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 								  System.out.println(item.getString());
-								  json = item.getString();
-								  //incidencia.setIdAmbito(Integer.valueOf(item.getString()));
+								   dataJson = item.getString();
+								  json = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
+								  LogHandler.debug(null, this.getClass(), "JSON AQUI: " + json);
 							  }
 					          if (item.getFieldName().trim().equalsIgnoreCase("contrato")) {
 					              fileName = item.getString().trim();
