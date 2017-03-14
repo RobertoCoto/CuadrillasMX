@@ -1546,11 +1546,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  			//console.info($scope.mapa);
 			  			//console.info("coordenadas");
 			  			//console.info($scope.mapa.gridCoordenadas);
-						setTimeout(function () {
-							for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
-								$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
-							}
-						}, 100);
+			  			if (dia != 0)
+			  			{
+							setTimeout(function () { 
+								for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
+									$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
+								}
+							}, 100);
+						}
 			  		}
   				}
   			}
@@ -1740,10 +1743,16 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			// $('#msload').modal('hide');
 	        $scope.mLineaRectaLectura();
 
-	        /*var km = $scope.mapa.metros / metros_div;
+	        //se suman los tramos de todos los dias
+	        var metrosTotales = 0; 
+	        for (var i=0; i<$scope.diasAgenda.length; i++)
+	        {
+	        	metrosTotales = metrosTotales + $scope.diasAgenda[i].metros;
+	        }
+	        var km = metrosTotales / metros_div;
 	        var unidad_de_medida = " metros";
-	        $( "#km" ).text(km.toFixed(2) + ' mts');
-	        $( "#txtkm" ).text('Distancia');*/
+	        $( "#km2" ).text(km.toFixed(2) + ' mts');
+	        $( "#txtkm2" ).text('Distancia');
 
         };
 
@@ -2241,7 +2250,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			}
 
 			$scope.obtenerFechaSeleccionada(0);			
-			$scope.colocaMarcadoresSeleccionados();			
+			$scope.colocarMarcadoresSeleccionados();			
 
       };
 
@@ -2323,7 +2332,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			}
 			
 			$scope.limpiarMarcadoresLectura();
-			$scope.colocaMarcadoresSeleccionados();
+			$scope.colocarMarcadoresSeleccionados();
       };
 
       //valida agenda agregada
@@ -2343,7 +2352,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
       };
       
       //***coloca los marcadores agendados
-      $scope.colocaMarcadoresSeleccionados = function()
+      $scope.colocarMarcadoresSeleccionados = function()
       {
     	  //se limpian los marcadores existentes
     	  $scope.limpiarMarcadoresLectura();
@@ -2367,7 +2376,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
     				  
     				  //console.info("dias agenda:" +$scope.diasAgenda[j].fecha);
     				  //coordenadas de toda la semana
-			  		  for(var indice=0; indice<$scope.mapaSemana.length; indice++)
+			  		  //for(var indice=$scope.mapaSemana.length-1; indice>=0; indice--)
+    				  for(var indice=0; indice<$scope.mapaSemana.length; indice++)
 			  		  {
 			  			  if (fecha == $scope.mapaSemana[indice].fecha)
 			  			  {
@@ -2377,13 +2387,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  				  {
 			  					console.info($scope.mapaSemana[indice].gridCoordenadas);
 								//setTimeout(function () {
-									for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length; rec_coord++) {										
+									//for (var rec_coord = $scope.mapaSemana[indice].gridCoordenadas.length-1; rec_coord >=0 ; rec_coord--) {
+									  for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length ; rec_coord++) {								
 										var direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
 										//console.info("colocarMarcadoresSeleccionados");
 										console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
 										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, direccion);
 										}
-									//}, 100);
+									//}, 500);
 			  				  }
 			  				  break;
 			  			  }
@@ -2396,22 +2407,23 @@ app.directive('fileModel', ['$parse', function ($parse) {
       //***registra la agenda
       $scope.registrarAgenda = function()
       {
-    	  $scope.JSONAltaAgenda = {};
-    	  $scope.JSONAltaAgenda.idContrato 		= $('#cboContrato').val();
-    	  $scope.JSONAltaAgenda.fechaInicio 	= $('#ini').val();
-    	  $scope.JSONAltaAgenda.fechaFin 		= $('#fin').val();
-    	  $scope.JSONAltaAgenda.noHoras			= $('#totalHrsHombre').val();
-    	  $scope.JSONAltaAgenda.noTrabajadores	= $('#numPersonas').val();
-    	  $scope.JSONAltaAgenda.noSemana		= $('#semana').val();
-    	  $scope.JSONAltaAgenda.usuario 		= $scope.usuario.usuario;
-    	  $scope.JSONAltaAgenda.agendaDetalle	= [];
+    	  $scope.agendaObj = {};
+    	  $scope.agendaObj.JSONAltaAgenda = {};
+    	  $scope.agendaObj.JSONAltaAgenda.idContrato 		= $('#cboContrato').val();
+    	  $scope.agendaObj.JSONAltaAgenda.fechaInicio 	= $('#ini').val();
+    	  $scope.agendaObj.JSONAltaAgenda.fechaFin 		= $('#fin').val();
+    	  $scope.agendaObj.JSONAltaAgenda.noHoras			= $('#totalHrsHombre').val();
+    	  $scope.agendaObj.JSONAltaAgenda.noTrabajadores	= $('#numPersonas').val();
+    	  $scope.agendaObj.JSONAltaAgenda.noSemana		= $('#semana').val();
+    	  $scope.agendaObj.JSONAltaAgenda.usuario 		= $scope.usuario.usuario;
+    	  $scope.agendaObj.JSONAltaAgenda.agendaDetalle	= [];
     	  
     	  //se recorren los dias agendados
     	  for (var liAgendados=0; liAgendados<$scope.diasAgenda.length; liAgendados++)
     	  {    		  
     		  var agendaDetalleTemp = {};
-    		  agendaDetalleTemp.Actividades = [];
-    		  agendaDetalleTemp.Materiales = [];
+    		  agendaDetalleTemp.actividades = [];
+    		  agendaDetalleTemp.materiales = [];
     		  agendaDetalleTemp.coordenadas = [];
     		  
     		  var fecha = $scope.diasAgenda[liAgendados].fecha;
@@ -2467,13 +2479,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		  
     		  agendaDetalleTemp.fecha 			= fecha;
     		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros;
-    		  agendaDetalleTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;
-    		  agendaDetalleTemp.usuario 		= $scope.usuario.usuario;	  		  
-    		  agendaDetalleTemp.Actividades 	= actividades;
-    		  agendaDetalleTemp.Materiales		= articulos;
+    		  agendaDetalleTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
+    		  agendaDetalleTemp.actividades 	= actividades;
+    		  agendaDetalleTemp.materiales		= articulos;
     		  agendaDetalleTemp.coordenadas		= coordenadas; 
     		
-    		  $scope.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
+    		  $scope.agendaObj.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
     		
     		  console.info("*********agendaDetalleTEMP********");
     		  console.dir (agendaDetalleTemp);
@@ -2481,8 +2492,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  }
 
     	  console.info("*********agendaDetalle********");    	  
-    	  console.dir ($scope.JSONAltaAgenda.agendaDetalle);
-    	  console.info(JSON.stringify($scope.JSONAltaAgenda.agendaDetalle));
+    	  console.dir ($scope.agendaObj.JSONAltaAgenda.agendaDetalle);
+    	  console.info(JSON.stringify($scope.agendaObj));
 
       };
 
