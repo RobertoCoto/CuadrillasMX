@@ -25,6 +25,7 @@
 <typeAlias alias="Buzon" type="com.fyg.cuadrillas.dto.buzon.BuzonDTO"/>
 <typeAlias alias="Agenda" type="com.fyg.cuadrillas.dto.agenda.AgendaDTO"/>
 <typeAlias alias="AgendaDetalle" type="com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO"/>
+<typeAlias alias="ContratoDocumento" type="com.fyg.cuadrillas.dto.contrato.ContratoDocumentoDTO"/>
 </typeAliases>
 
 	<environments default="development">

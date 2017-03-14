@@ -736,6 +736,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   $scope.editarContrato = function(contrato) {
                     $scope.contratoFocus = contrato;
 										console.info(contrato);
+										
 										$('#contratoFile').hide();
 										$('#linkContrato').show();
 										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
@@ -746,12 +747,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $("#estatus").prop('disabled', false);
                     $scope.nContrato = false;
                     $scope.initMap();
-										setTimeout(function () {
-											for (var i = 0; i < contrato.coordenadas.length; i++) {
-												$scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion);
-											}
-										}, 100);
+                    for (var i = 0; i < contrato.coordenadas.length; i++) {
+                    	$scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion);
+                }
 										$scope.edicionMap = true;
+										$("#tramos").empty();
                   }
 
                   //Ejecuci�n inicial
@@ -1032,6 +1032,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		                          }
 		                      });
 											}, 100);
+											
+											
 
 
                   }

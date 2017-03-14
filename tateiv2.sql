@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS agenda_materiales;
 DROP TABLE IF EXISTS agenda_actividades;
 DROP TABLE IF EXISTS agenda_detalle;
 DROP TABLE IF EXISTS agenda;
+DROP TABLE IF EXISTS contrato_documentos;
 DROP TABLE IF EXISTS contrato_coordenadas;
 DROP TABLE IF EXISTS contrato;
 DROP TABLE IF EXISTS catalogo;
@@ -263,6 +264,22 @@ DROP TABLE IF EXISTS perfil;
 		KEY (id_coordenada)
 	);
 
+	CREATE TABLE contrato_documentos (
+		id_documento INTEGER NOT NULL AUTO_INCREMENT,
+		id_contrato INTEGER NOT  NULL,
+		nombre VARCHAR(150) NOT NULL,
+		codigo_documento VARCHAR(10) NOT NULL,		
+		url VARCHAR(200) NOT NULL,
+		usuario_alta VARCHAR(20) NOT NULL,
+		fecha_alta DATETIME NOT NULL,		
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_documento),
+		KEY (id_documento)
+	);
+
+
+
+
 	CREATE TABLE cuadrilla (
 		id_cuadrilla INTEGER NOT NULL AUTO_INCREMENT,
 		nombre_cuadrilla VARCHAR(50) NOT NULL,
@@ -413,6 +430,8 @@ ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_emplea
 ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);
 
 ALTER TABLE contrato_coordenadas ADD CONSTRAINT FK_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
+ALTER TABLE contrato_documentos ADD CONSTRAINT FK_cd_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
+
 
 ALTER TABLE asistencia ADD CONSTRAINT FK_idEmpleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
