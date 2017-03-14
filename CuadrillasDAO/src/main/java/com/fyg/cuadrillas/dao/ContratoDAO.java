@@ -10,6 +10,7 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
+import com.fyg.cuadrillas.dto.contrato.ContratoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 
 public class ContratoDAO {
@@ -304,6 +305,7 @@ public class ContratoDAO {
 				}
 				registraCoordenadas(uid, contrato.getCoordenadas(), sessionTx);
 			}
+			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -322,6 +324,41 @@ public class ContratoDAO {
 		}
 		return respuesta;
 	}
+/**
+ * Metodo para registrar los documentos extra del contrato
+ * @param uid unico de registro
+ * @param contratoDocumento recibe valores de documento
+ * @param session abre session bd
+ * @throws Exception si surge una excepcion
+ */
+public void RegistraDocumentosExtra(String uid, List<ContratoDocumentoDTO> contratoDocumento, SqlSession session) throws Exception {
+	SqlSession sessionTx = null;
+	//Logica para saber si es atomica la transaccion
+	if ( session == null ) {
+		 sessionTx = FabricaConexiones.obtenerSesionTx();
+	} else {
+		sessionTx = session;
+	}
+	//Validamos el registro
+	int registros = sessionTx.insert("ContratoDAO.registraContratoDocumentosExtra", contratoDocumento);
+	if ( registros == 0) {
+		if ( session == null ) {
+			FabricaConexiones.rollBack(sessionTx);
+			FabricaConexiones.close(sessionTx);
+		}
+		throw new ExcepcionesCuadrillas("No se pudo registrar.");
+	}
+	//La conexion no es atomica realizamos commit
+	if ( session == null ) {
+		LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+		sessionTx.commit();
+	}
+	//La conexion no es atomica cerramos
+	if ( session == null ) {
+		LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+		FabricaConexiones.close(sessionTx);
+	}
+}
 	/**
 	 * metodo para eliminar la coordenada
 	 * @param uid unico de registro
