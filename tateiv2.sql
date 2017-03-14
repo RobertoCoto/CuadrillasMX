@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS agenda_materiales;
 DROP TABLE IF EXISTS agenda_actividades;
 DROP TABLE IF EXISTS agenda_detalle;
 DROP TABLE IF EXISTS agenda;
+DROP TABLE IF EXISTS contrato_documentos;
 DROP TABLE IF EXISTS contrato_coordenadas;
 DROP TABLE IF EXISTS contrato;
 DROP TABLE IF EXISTS catalogo;
@@ -266,7 +267,8 @@ DROP TABLE IF EXISTS perfil;
 	CREATE TABLE contrato_documentos (
 		id_documento INTEGER NOT NULL AUTO_INCREMENT,
 		id_contrato INTEGER NOT  NULL,
-		codigo_documento VARCHAR(10) NOT NULL,
+		nombre VARCHAR(150) NOT NULL,
+		codigo_documento VARCHAR(10) NOT NULL,		
 		url VARCHAR(200) NOT NULL,
 		usuario_alta VARCHAR(20) NOT NULL,
 		fecha_alta DATETIME NOT NULL,		
