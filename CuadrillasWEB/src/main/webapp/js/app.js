@@ -1472,6 +1472,16 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
   			// console.info("MAPAS SEMANA");
   			// console.info($scope.mapaSemana);
+  			
+  	  		//se limpian los marcadores
+  	  		if (dia != 0)
+  	  		{
+  	  		//	$scope.limpiarMarcadores(fecha);
+  	  		//}
+  	  		//else
+  	  		//{  	  		
+  	  			$scope.limpiarMarcadores('1900-01-01');
+  	  		}  			
 
   			if (dia != 0)
   			{
@@ -1482,16 +1492,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			$scope.gridArticulos = [];
   	  		$scope.mapa = {};
   	  		$scope.mapa.gridCoordenadas = [];
-
-  	  		//se limpian los marcadores
-  	  		if (dia != 0)
-  	  		{
-  	  			$scope.limpiarMarcadores(fecha);
-  	  		}
-  	  		else
-  	  		{
-  	  			$scope.limpiarMarcadores('1900-01-01');
-  	  		}
 
   			// se revisa si hay informacion en el arreglo general para la fecha
 			// seleccionada
@@ -1515,8 +1515,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			//$scope.mapa = {};
   			//$scope.mapa.gridCoordenadas = [];
 
-  			//console.info("mapasemana");
-  			//console.info($scope.mapaSemana);
+  			console.info("mapasemana");
+  			console.info($scope.mapaSemana);
   			for(indice in $scope.mapaSemana)
   			{
   				if (fecha == $scope.mapaSemana[indice].fecha)
@@ -1542,6 +1542,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;
 			  			//console.info("mapa");
 			  			//console.info($scope.mapa);
+			  			//console.info("coordenadas");
+			  			//console.info($scope.mapa.gridCoordenadas);
 						setTimeout(function () {
 							for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
 								$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
@@ -2051,11 +2053,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
       $scope.limpiarMarcadores = function(fecha) {
 
+    	  
     	  if (fecha == undefined || fecha == 'undefined')
     	  {
     		  fecha = $("#diaActividad").val();
     	  }
 
+    	  //console.info("fecha:" + fecha);
     	  if (fecha != '1900-01-01')
     	  {
 	  		  var agendado = $scope.validaAgendaAgregada(fecha);
@@ -2234,8 +2238,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 			}
 
-			$scope.obtenerFechaSeleccionada(0);
-			$scope.colocaMarcadoresSeleccionados();
+			$scope.obtenerFechaSeleccionada(0);			
+			$scope.colocaMarcadoresSeleccionados();			
 
       };
 
@@ -2317,6 +2321,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			}
 			
 			$scope.limpiarMarcadoresLectura();
+			$scope.colocaMarcadoresSeleccionados();
       };
 
       //valida agenda agregada
@@ -2340,33 +2345,45 @@ app.directive('fileModel', ['$parse', function ($parse) {
       {
     	  //se limpian los marcadores existentes
     	  $scope.limpiarMarcadoresLectura();
-    	  
+
+    	  //console.info("colocarMarcadoresSeleccionados");
+    	  //console.info($scope.diasAgenda);
+    	  //console.info($scope.mapaSemana);
     	  //arreglo de fechas de la semana seleccionada
     	  for(var i=0; i < $scope.fechasSemana.length; i++)
     	  {
     		  var fecha = $scope.fechasSemana[i];
+    		  
+    		  //console.info("colocarMarcadoresSeleccionados");    		  
+    		  //console.info(fecha);
 				    			  
     		  //arreglo de las fechas agendadas
     		  for (j=0; j<$scope.diasAgenda.length; j++)
     		  {
     			  if (fecha == $scope.diasAgenda[j].fecha)
-    			  {
+    			  {    			
+    				  
+    				  //console.info("dias agenda:" +$scope.diasAgenda[j].fecha);
     				  //coordenadas de toda la semana
-			  		  for(indice in $scope.mapaSemana)
+			  		  for(var indice=0; indice<$scope.mapaSemana.length; indice++)
 			  		  {
 			  			  if (fecha == $scope.mapaSemana[indice].fecha)
 			  			  {
+			  				  console.info("colocarMarcadoresSeleccionados");
+			  				  console.info( $scope.mapaSemana[indice]);				  
 			  				  if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
 			  				  {
-					  			console.info("mapa");
-					  			console.info($scope.mapa);
-								setTimeout(function () {
+			  					console.info($scope.mapaSemana[indice].gridCoordenadas);
+								//setTimeout(function () {
 									for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length; rec_coord++) {										
 										var direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
+										//console.info("colocarMarcadoresSeleccionados");
+										console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
 										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, direccion);
 										}
-									}, 100);
+									//}, 100);
 			  				  }
+			  				  break;
 			  			  }
 			  		  }  			  						
     			  }  					
