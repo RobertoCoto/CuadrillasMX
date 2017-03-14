@@ -49,6 +49,10 @@ public class ContratoDTO extends ObjetoValor {
 	private Float metros;
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
+	/**
+	 * contrao documento
+	 */
+	private List<ContratoDocumentoDTO> contratoDocumento;
 	/** estatus */
 	private String estatus;
 	/** usuarioAlta */
@@ -473,5 +477,17 @@ public class ContratoDTO extends ObjetoValor {
 	 */
 	public void setMetros(Float metros) {
 		this.metros = metros;
+	}
+	/**
+	 * @return the contratoDocumento
+	 */
+	public List<ContratoDocumentoDTO> getContratoDocumento() {
+		return contratoDocumento;
+	}
+	/**
+	 * @param contratoDocumento the contratoDocumento to set
+	 */
+	public void setContratoDocumento(List<ContratoDocumentoDTO> contratoDocumento) {
+		this.contratoDocumento = contratoDocumento;
 	}
 }
