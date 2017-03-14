@@ -306,6 +306,13 @@ public class ContratoDAO {
 				registraCoordenadas(uid, contrato.getCoordenadas(), sessionTx);
 			}
 			
+			if (contrato.getContratoDocumento().size() > 0) {
+				for (ContratoDocumentoDTO documento : contrato.getContratoDocumento()) {
+					documento.setIdContrato(contrato.getIdContrato());
+				}
+				registraDocumentosExtra(uid, contrato.getContratoDocumento(), sessionTx);
+			}
+			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -331,7 +338,7 @@ public class ContratoDAO {
  * @param session abre session bd
  * @throws Exception si surge una excepcion
  */
-public void RegistraDocumentosExtra(String uid, List<ContratoDocumentoDTO> contratoDocumento, SqlSession session) throws Exception {
+public void registraDocumentosExtra(String uid, List<ContratoDocumentoDTO> contratoDocumento, SqlSession session) throws Exception {
 	SqlSession sessionTx = null;
 	//Logica para saber si es atomica la transaccion
 	if ( session == null ) {
