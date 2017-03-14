@@ -224,11 +224,18 @@ VALUES('DOCUMENTO','TIPO DE DOCUMENTOS','N',now(),now(),'A');
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('DOCUMENTO','CONT',upper('Contrato'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
-INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('DOCUMENTO','POLI',upper('Poliza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+
+/*CONTRATO DOCUMENTO*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONT_DOCU','DOCUMENTOS CONTRATOS','N',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
-VALUES('DOCUMENTO','FACT',upper('Factura'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+VALUES('CONT_DOCU','POLI',upper('Poliza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONT_DOCU','FACT',upper('Factura'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 
 /*CATALOGO EMPRESAS*/
