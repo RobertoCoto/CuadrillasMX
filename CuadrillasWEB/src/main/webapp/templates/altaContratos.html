@@ -271,8 +271,8 @@
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
                               <label for="numDocumento" class="control-label">Tipo de Documento</label>
-                              <select class="form-control"  ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
-                              <option value="">---Seleccione el tipo de documento---</option>
+                              <select id="documentoEmpleado" name="documentoEmpleado" required class="form-control" ng-model="contratoFocus.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
+                              <option value="">---Seleccione un Documento---</option>
                               </select>
                               <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
                           <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
@@ -289,7 +289,7 @@
     			</div>
     			</div>
     			<br>
-    			<div align="center"><button class="btn btn-warning" id="consultarDocumento" ng-click="consultarDocumentosContrato(contrato)">Consultar Documentos</button></div>
+    			
     			<br>
     			<div class="row" id="tablaDocumentos">
     			<div class="col-sm-12">

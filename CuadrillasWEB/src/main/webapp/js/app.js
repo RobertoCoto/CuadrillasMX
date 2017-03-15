@@ -567,6 +567,23 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#msload').modal('hide');
                     //$('#msgerror').val(response.data.header.mensajeFuncional);
                 });
+              
+                $http({
+                          method: 'GET',
+                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                          params : {
+            		 		"tipoCatalogo": 'CONT_DOCU'
+            		 },
+                          data: { }
+            		    }).then(function mySucces(result) {
+            		    	$scope.tipoDocumento = result.data.catalogo;
+            	              console.log($scope.tipoDocumento);
+            		    }, function myError(response) {
+            		    	$('#msload').modal('hide');
+            		        console.error(response);
+            		        $('#alert').show();
+            				$('#msgerror').text(response.data.header.mensajeFuncional)
+            		    });
 
                 $http({
                         method: 'GET',
@@ -737,25 +754,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 									}
 
                   $scope.editarContrato = function(contrato) {
-                	  $http({
-                          method: 'GET',
-                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
-                          params : {
-            		 		"tipoCatalogo": 'CONT_DOCU'
-            		 },
-                          data: { }
-            		    }).then(function mySucces(result) {
-            		    	$('#msload').modal('hide');
-            				$('#alert').hide();
-            				$('#success').hide();
-            		    	$scope.tipoDocumento = result.data.catalogo;
-            	              console.log(result);
-            		    }, function myError(response) {
-            		    	$('#msload').modal('hide');
-            		        console.error(response);
-            		        $('#alert').show();
-            				$('#msgerror').text(response.data.header.mensajeFuncional)
-            		    });
+                	  
                     $scope.contratoFocus = contrato;
 										console.info(contrato);
 										
@@ -763,8 +762,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$('#linkContrato').show();
 										$('#agregarDocumento').show();
 										$('#addDocument').hide();
-										 $('#consultarDocumento').show();
-										 $('#tablaDocumentos').hide();
+										 $('#tablaDocumentos').show();
 										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
 										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
                     $('#mainPanel').show();
@@ -780,12 +778,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$("#tramos").empty();
 										
                   }
-                  
-                  $scope.consultarDocumentosContrato = function(contrato) {
-                	  				$('#tablaDocumentos').show();
-                	  				
-                	  };
-                	  
+                    
                   $scope.addDocument = function() {
                 	  $('#addDocument').show();
                 	  
