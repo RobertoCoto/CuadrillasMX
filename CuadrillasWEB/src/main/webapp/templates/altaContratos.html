@@ -284,12 +284,12 @@
                         </div>
                       </div>
     			</div>
-    			<div align="center"><button class="btn botonGuardar" ng-click="registraDocumento()">Cargar Documento</button></div>
+    			<div align="center"><button class="btn botonGuardar" ng-click="registraDocumento()">Cargar Documento</button> <button class="btn botonEditar" id="showDocument" ng-click="listaDocumentos()">Consultar Documentos</button></div>
     			</form>
     			</div>
     			
     			<br>
-    			
+
     			<br>
     			<div class="row" id="tablaDocumentos">
     			<div class="col-sm-12">
@@ -306,7 +306,7 @@
                 			<td>{{docs.nombre}}</td>
                 			<td>{{docs.descripcionDocumento}}</td>
                 			<td>{{docs.fechaAlta}}</td>
-                			<td><button ng-click="muestraDocumento(docs)">Ver Documento</button>
+                			<td><button ng-click="muestraDocumento(docs)" class="btn">Ver Documento</button>
                 			</td>
                 			</tr>
                 			

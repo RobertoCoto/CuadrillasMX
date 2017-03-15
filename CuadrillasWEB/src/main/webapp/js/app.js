@@ -640,6 +640,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
                     $('#consultarDocumento').hide();
+                    $('#showDocument').hide();
                     $('#tablaDocumentos').hide();
                     $('#addDocument').hide();
                     $("#estatus").prop('disabled', true);
@@ -674,8 +675,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 	  $('#mainPanel').hide();
                 	  $('#panelContratos').show();
                       $('#nuevoContrato').show();
+                      $('#linkContrato').empty();
                       $scope.contratoFocus = {}; //para el final
-                      $scope.formContrato.$setPristine();
+                      $scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+                      $scope.limpiarMarcadores();
+										$('form')[0].reset();
+										$scope.formContrato.$setPristine();
                       $scope.consultaContratos();
                 	  };
                   
@@ -760,9 +765,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										
 										$('#contratoFile').hide();
 										$('#linkContrato').show();
-										
+										$('#showDocument').show();
 										$('#addDocument').show();
-										 $('#tablaDocumentos').show();
 										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
 										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
                     $('#mainPanel').show();
@@ -776,12 +780,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 }
 										$scope.edicionMap = true;
 										$("#tramos").empty();
-										
-						$http({
+														
+                  };
+                  
+                  $scope.muestraDocumento = function(docs) {
+                	  $scope.idDocument = docs.idDocumento;
+                	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/BusquedaDocumentoContrato?idDocumento='+ $scope.idDocument, '_blank','heigth=600,width=600');
+                	 
+                	  };
+                   
+                  $scope.consultaDocs = function () {
+                	  $scope.idCon = $('#contratoHidden').val(); 
+                	  $http({
                           method: 'GET',
                           url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentosContrato',
                           params : {
-            		 		"idContrato": contrato.idContrato
+            		 		"idContrato":  $scope.idCon
             		 },
                           data: { }
             		    }).then(function mySucces(result) {
@@ -793,18 +807,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
             		        $('#alert').show();
             				$('#msgerror').text(response.data.header.mensajeFuncional)
             		    });
-										
-                  };
-                  
-                  $scope.muestraDocumento = function(docs) {
-                	  $scope.idDocument = docs.idDocumento;
-                	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/BusquedaDocumentoContrato?idDocumento='+ $scope.idDocument, '_blank','heigth=600,width=600');
-                	 
                 	  };
-                  
-              
-                  $scope.registraDocumento = function() {
-                	  console.log($scope.contratoD);
+                	  
+                	  $scope.registraDocumento = function() {
                 	  $scope.contratoD.usuarioAlta = data.data.usuario.usuario;
                 	  $scope.contratoD.idContrato = $('#contratoHidden').val();
 						var contratoDocumento = $scope.contratoAdjuntoDocumento;
@@ -813,8 +818,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						console.dir(contratoDocumento);
 						var uploadUrl = "http://localhost:8080/CuadrillasWEB/RegistraDocumentoContrato";
 						fileUpload.uploadFileToUrl(contratoDocumento, json, uploadUrl);
+					 $scope.contratoD = {};
+					 $scope.consultaDocs();
                 	  };
                   
+                  $scope.listaDocumentos = function() {
+                	  $('#tablaDocumentos').show();
+                	  $scope.consultaDocs();
+                	  };
                   
 
                   //Ejecuci�n inicial
