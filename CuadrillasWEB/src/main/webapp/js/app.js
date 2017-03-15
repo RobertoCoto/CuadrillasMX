@@ -640,6 +640,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
                     $('#consultarDocumento').hide();
+                    
+                    $('#agregarDocumento').hide();
                     $('#showDocument').hide();
                     $('#tablaDocumentos').hide();
                     $('#addDocument').hide();
@@ -663,6 +665,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#nuevoContrato').show();
                     $scope.consultaContratos();
                     $('#panelContratos').show();
+                    $('#tablaDocumentos').hide();
 										$('#linkContrato').empty();
                     $scope.contratoFocus = {};
 										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
@@ -676,6 +679,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 	  $('#panelContratos').show();
                       $('#nuevoContrato').show();
                       $('#linkContrato').empty();
+                      $('#tablaDocumentos').hide();
                       $scope.contratoFocus = {}; //para el final
                       $scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
                       $scope.limpiarMarcadores();
@@ -766,6 +770,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$('#contratoFile').hide();
 										$('#linkContrato').show();
 										$('#showDocument').show();
+										$('#agregarDocumento').show();
 										$('#addDocument').show();
 										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
 										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
