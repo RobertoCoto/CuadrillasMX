@@ -256,26 +256,21 @@
     			
     			<!-- tabledocumento -->
     			<div id="agregarDocumento">
-    			<h2>Agregar Documentos</h2>
-    			<div align="center"><button class="btn botonGuardar" ng-click="addDocument()">Agregar Documento</button></div>
-    			
+    			<h4>Agregar Documentos</h4>
+ 				<form>
     			<div class="row" id="addDocument">
     			 <div class="col-sm-4">
-                          <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
+                          <div class="form-group">
                               <label for="numDocumento" class="control-label">Nombre del Documento</label>
                               <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required>
-                              <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
-                          <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
                       </div>
                       <div class="col-sm-4">
-                          <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
+                          <div class="form-group">
                               <label for="numDocumento" class="control-label">Tipo de Documento</label>
                               <select id="documentoEmpleado" name="documentoEmpleado" required class="form-control" ng-model="contratoFocus.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
                               <option value="">---Seleccione un Documento---</option>
                               </select>
-                              <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
-                          <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
                       </div>
                       
@@ -287,13 +282,17 @@
                         </div>
                       </div>
     			</div>
+    			<div align="center"><button class="btn botonGuardar">Cargar Documento</button></div>
+    			</form>
     			</div>
+    			
     			<br>
     			
     			<br>
     			<div class="row" id="tablaDocumentos">
     			<div class="col-sm-12">
                 		<div class="table-responsive">
+                		<h4>Documentos Entregados</h4>
                 			<table class="table table-bordered">
                 			<tr class="success">
                 			<td>Nombre del Documento</td>
@@ -301,11 +300,13 @@
                 			<td>Fecha del Documento</td>
                 			<td>Operaci&oacute;n</td>
                 			</tr>
-                			<tr>
-                			<td></td>
-                			<td></td>
-                			<td></td>
-                			<td><button>Ver Documento</button></td>
+                			<tr ng-repeat="docs in contratosDocs">
+                			<td>{{docs.nombre}}</td>
+                			<td>{{docs.descripcionDocumento}}</td>
+                			<td>{{docs.fechaAlta}}</td>
+                			<td><button onClick="">Ver Documento</button>
+                			<a href={{docs.url}} target="_blank">Documento</a>
+                			</td>
                 			</tr>
                 			
                 			</table>

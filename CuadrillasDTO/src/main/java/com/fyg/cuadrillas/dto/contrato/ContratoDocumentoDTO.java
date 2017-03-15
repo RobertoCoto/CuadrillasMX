@@ -41,6 +41,10 @@ public class ContratoDocumentoDTO extends ObjetoValor{
 	 */
 	private String estatus;
 	/**
+	 * descripcion documento
+	 */
+	private String descripcionDocumento;
+	/**
 	 * @return the idDocumento
 	 */
 	public Integer getIdDocumento() {
@@ -135,5 +139,17 @@ public class ContratoDocumentoDTO extends ObjetoValor{
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the descripcionDocumento
+	 */
+	public String getDescripcionDocumento() {
+		return descripcionDocumento;
+	}
+	/**
+	 * @param descripcionDocumento the descripcionDocumento to set
+	 */
+	public void setDescripcionDocumento(String descripcionDocumento) {
+		this.descripcionDocumento = descripcionDocumento;
 	}
 }

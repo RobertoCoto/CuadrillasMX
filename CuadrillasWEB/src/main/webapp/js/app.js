@@ -633,7 +633,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	                      //$('#msgerror').val(response.data.header.mensajeFuncional);
 	                  });
 
-						
+				
 
                   $scope.nuevoContrato = function() {
                     $('#mainPanel').show();
@@ -641,7 +641,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#panelContratos').hide();
                     $('#consultarDocumento').hide();
                     $('#tablaDocumentos').hide();
-                    $('#agregarDocumento').hide();
+                    $('#addDocument').hide();
                     $("#estatus").prop('disabled', true);
 										$('#contratoFile').show();
 										$('#linkContrato').hide();
@@ -760,8 +760,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										
 										$('#contratoFile').hide();
 										$('#linkContrato').show();
-										$('#agregarDocumento').show();
-										$('#addDocument').hide();
+										
+										$('#addDocument').show();
 										 $('#tablaDocumentos').show();
 										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
 										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
@@ -777,13 +777,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$scope.edicionMap = true;
 										$("#tramos").empty();
 										
-                  }
+						$http({
+                          method: 'GET',
+                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentosContrato',
+                          params : {
+            		 		"idContrato": contrato.idContrato
+            		 },
+                          data: { }
+            		    }).then(function mySucces(result) {
+            		    	$scope.contratosDocs = result.data;
+            	              console.log($scope.contratosDocs);
+            		    }, function myError(response) {
+            		    	$('#msload').modal('hide');
+            		        console.error(response);
+            		        $('#alert').show();
+            				$('#msgerror').text(response.data.header.mensajeFuncional)
+            		    });
+										
+                  };
                     
-                  $scope.addDocument = function() {
-                	  $('#addDocument').show();
-                	  
-                	  
-                	  };
+              
                   
                   
 
