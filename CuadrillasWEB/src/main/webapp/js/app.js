@@ -803,6 +803,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 	  };
                   
               
+                  $scope.registraDocumento = function() {
+                	  console.log($scope.contratoD);
+                	  $scope.contratoD.usuarioAlta = data.data.usuario.usuario;
+                	  $scope.contratoD.idContrato = $('#contratoHidden').val();
+						var contratoDocumento = $scope.contratoAdjuntoDocumento;
+						var json = JSON.stringify($scope.contratoD);
+						console.log('Archivo a subir: ' );
+						console.dir(contratoDocumento);
+						var uploadUrl = "http://localhost:8080/CuadrillasWEB/RegistraDocumentoContrato";
+						fileUpload.uploadFileToUrl(contratoDocumento, json, uploadUrl);
+                	  };
                   
                   
 

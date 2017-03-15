@@ -259,16 +259,18 @@
     			<h4>Agregar Documentos</h4>
  				<form>
     			<div class="row" id="addDocument">
+    			<input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
     			 <div class="col-sm-4">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Nombre del Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required>
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento">
+                              <input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
                           </div>
                       </div>
                       <div class="col-sm-4">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Tipo de Documento</label>
-                              <select id="documentoEmpleado" name="documentoEmpleado" required class="form-control" ng-model="contratoFocus.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
+                              <select  class="form-control" ng-model="contratoD.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
                               <option value="">---Seleccione un Documento---</option>
                               </select>
                           </div>
@@ -277,12 +279,12 @@
                        <h4>Adjuntar Documento</h4>
                       <div class="form-inline">
                         <div class="form-group">
-                          <input type="file" file-model="contratoAdjunto" id="adjuntarContrato">
+                          <input type="file" file-model="contratoAdjuntoDocumento" id="adjuntarContratoDocumento">
                           <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
                         </div>
                       </div>
     			</div>
-    			<div align="center"><button class="btn botonGuardar">Cargar Documento</button></div>
+    			<div align="center"><button class="btn botonGuardar" ng-click="registraDocumento()">Cargar Documento</button></div>
     			</form>
     			</div>
     			

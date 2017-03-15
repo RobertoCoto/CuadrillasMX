@@ -499,4 +499,45 @@ public class ContratoNegocio {
 	    LogHandler.debug(uid, this.getClass(), "documentoCont - Datos Salida: " + respuesta);
 	    return respuesta;
 	}
+	
+	public EncabezadoRespuesta RegistraDocumentosExtra(ContratoDocumentoDTO documento) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(documento);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "RegistraDocumentosExtra - Datos Entrada: " + documento);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			if (documento.getIdContrato() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el id del contrato.");
+			}
+			
+			if (documento.getNombre() == null || documento.getNombre().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el nombre del documento.");
+			}
+			if (documento.getCodigoDocumento() == null || documento.getCodigoDocumento().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el codigo del documento.");
+			}
+			if (documento.getUrl() == null) {
+				documento.setUrl("");
+			}
+			ContratoDAO dao = new ContratoDAO();
+			respuesta = dao.RegistraDocumentosExtra(uid, documento);
+		} catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "RegistraDocumentosExtra - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "RegistraDocumentosExtra - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "RegistraDocumentosExtra - Datos Salida: " + respuesta);
+		return respuesta;
+	}
 }
