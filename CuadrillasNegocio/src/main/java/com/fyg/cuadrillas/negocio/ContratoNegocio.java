@@ -465,4 +465,38 @@ public class ContratoNegocio {
 	    LogHandler.debug(uid, this.getClass(), "consultaDocumentoCon - Datos Salida: " + respuesta);
 	    return respuesta;
 	}
+	/**
+	 * Metodo para consultar el documento del contrato
+	 * @param contratoDocumento recibe valores del contacto
+	 * @return regresa respuesta del documento
+	 */
+	public ContratoDocumentoRespuesta documentoCont(ContratoDocumentoDTO contratoDocumento) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(contratoDocumento);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "documentoCont - Datos Entrada: " + contratoDocumento);
+		//Variable de resultado
+		ContratoDocumentoRespuesta respuesta = new ContratoDocumentoRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		List<ContratoDocumentoDTO> listaDocumento = null;
+		try {
+			listaDocumento = new ContratoDAO().documentoContrato(uid, contratoDocumento);
+			respuesta.setContratoDocumento(listaDocumento);
+		}  catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "documentoCont - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "documentoCont- Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "documentoCont - Datos Salida: " + respuesta);
+	    return respuesta;
+	}
 }

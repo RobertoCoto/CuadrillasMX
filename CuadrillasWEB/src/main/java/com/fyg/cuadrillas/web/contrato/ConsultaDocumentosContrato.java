@@ -2,8 +2,6 @@ package com.fyg.cuadrillas.web.contrato;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,10 +22,6 @@ public class ConsultaDocumentosContrato extends HttpServlet {
 	 * serial uid
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Directorio para almacenar las imagenes de las incidencias.
-	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contrato_documentos/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,21 +62,9 @@ public class ConsultaDocumentosContrato extends HttpServlet {
 			final ContratoNegocio negocio = new ContratoNegocio();
 			ContratoDocumentoDTO contratoDocumento = new ContratoDocumentoDTO();
 			contratoDocumento.setIdContrato(idContrato);
-			List<ContratoDocumentoDTO> res = new ArrayList<ContratoDocumentoDTO>();
 			respuesta = negocio.consultaDocumentoCon(contratoDocumento);
-			for (int i = 0; i < respuesta.getContratoDocumento().size(); i++) {
-				ContratoDocumentoDTO con = new ContratoDocumentoDTO();
-				String rutaSistema = System.getProperty("user.dir").replace("\\", "/");
-				con.setIdDocumento(respuesta.getContratoDocumento().get(i).getIdDocumento());
-				con.setIdContrato(respuesta.getContratoDocumento().get(i).getIdContrato());
-				con.setNombre(respuesta.getContratoDocumento().get(i).getNombre());
-				con.setDescripcionDocumento(respuesta.getContratoDocumento().get(i).getDescripcionDocumento());
-				con.setFechaAlta(respuesta.getContratoDocumento().get(i).getFechaAlta());
-				con.setUrl(rutaSistema + DESTINATION_DIR_PATH + respuesta.getContratoDocumento().get(i).getUrl());
-				res.add(con);
-			}
 			//convierte  a formato Json
-			out.println(sg.toJson(res));
+			out.println(sg.toJson(respuesta));
 			out.flush();
 		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);

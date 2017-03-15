@@ -11,27 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.contrato.ContratoDTO;
-import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
+import com.fyg.cuadrillas.dto.contrato.ContratoDocumentoDTO;
+import com.fyg.cuadrillas.dto.contrato.ContratoDocumentoRespuesta;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
 
-
 /**
- * Servlet implementation class ConsultaContratoDocumento
+ * Servlet implementation class BusquedaDocumentoContrato
  */
-public class ConsultaContratoDocumento extends HttpServlet {
+public class BusquedaDocumentoContrato extends HttpServlet {
 	/**
-	 * Serial UID
+	 * serial uid
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contrato/";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contrato_documentos/";
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaContratoDocumento() {
+    public BusquedaDocumentoContrato() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,9 +50,9 @@ public class ConsultaContratoDocumento extends HttpServlet {
 	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ContratoRespuesta respuesta = new ContratoRespuesta();
+		ContratoDocumentoRespuesta respuesta = new ContratoDocumentoRespuesta();
 		try {
-			Integer idContrato =  Integer.parseInt(request.getParameter("idContrato"));
+			Integer idDocumento=  Integer.parseInt(request.getParameter("idDocumento"));
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
@@ -63,13 +62,12 @@ public class ConsultaContratoDocumento extends HttpServlet {
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
-
-			ContratoDTO contrato = new ContratoDTO();
-			contrato.setIdContrato(idContrato);
-			respuesta = negocio.consultaContratoDocumento(contrato);
+			ContratoDocumentoDTO documentoContrato = new ContratoDocumentoDTO();
+			documentoContrato.setIdDocumento(idDocumento);
+			respuesta = negocio.documentoCont(documentoContrato);
 			String resultado = null;
-			for (int i = 0; i < respuesta.getContrato().size(); i++) {
-				resultado = respuesta.getContrato().get(i).getUrl();
+			for (int i = 0; i < respuesta.getContratoDocumento().size(); i++) {
+				resultado = respuesta.getContratoDocumento().get(i).getUrl();
 			}
 
 			String nombreArchivo =  resultado;

@@ -363,6 +363,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.ConsultaDocumentosContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BusquedaDocumentoContrato</servlet-name>
+  	<display-name>BusquedaDocumentoContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.BusquedaDocumentoContrato</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -602,5 +608,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaDocumentosContrato</servlet-name>
 		<url-pattern>/ConsultaDocumentosContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BusquedaDocumentoContrato</servlet-name>
+		<url-pattern>/BusquedaDocumentoContrato</url-pattern>
 	</servlet-mapping>
 </web-app>

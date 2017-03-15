@@ -412,4 +412,38 @@ public List<ContratoDocumentoDTO> consultaDocumentosCon(String uid, ContratoDocu
 	}
 	return listaDocumento;
 }
+
+/**
+ * metodo para consultar los documentos del contrato registrados
+ * @param uid unico de registro
+ * @param contratoDocumento recibe valores de contratos documentos
+ * @return regresa lista de documentos
+ * @throws Exception error
+ */
+@SuppressWarnings("unchecked")
+public List<ContratoDocumentoDTO> documentoContrato(String uid, ContratoDocumentoDTO contratoDocumento) throws Exception {
+	SqlSession sessionNTx = null;
+	EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+	respuesta.setUid(uid);
+	respuesta.setEstatus(true);
+	respuesta.setMensajeFuncional("Consulta correcta.");
+	List<ContratoDocumentoDTO> listaDocumento = null;
+	try {
+		//Abrimos conexion Transaccional
+		LogHandler.debug(uid, this.getClass(), "Abriendo");
+		sessionNTx = FabricaConexiones.obtenerSesionNTx();
+		//Se hace una consulta a la tabla
+		listaDocumento = sessionNTx.selectList("ContratoDAO.documentosContrac", contratoDocumento);
+		if ( listaDocumento.size() == 0) {
+			throw new ExcepcionesCuadrillas("No existen documentos actualmente.");
+		}
+	} catch (Exception ex) {
+		LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+		throw new Exception(ex.getMessage());
+	}
+	finally {
+		FabricaConexiones.close(sessionNTx);
+	}
+	return listaDocumento;
+}
 }

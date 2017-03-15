@@ -480,8 +480,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
             var markers = [];
 
-
-            app.controller('altacontratoctrl', function ($scope, $http, fileUpload) {
+            				//********************** contratos**********************************
+            app.controller('altacontratoctrl', function ($scope, $http, fileUpload, $window) {
 
 							$(window).on("load resize ", function() {
 							  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -785,7 +785,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             		 },
                           data: { }
             		    }).then(function mySucces(result) {
-            		    	$scope.contratosDocs = result.data;
+            		    	$scope.contratosDocs = result.data.contratoDocumento;
             	              console.log($scope.contratosDocs);
             		    }, function myError(response) {
             		    	$('#msload').modal('hide');
@@ -795,7 +795,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
             		    });
 										
                   };
-                    
+                  
+                  $scope.muestraDocumento = function(docs) {
+                	  $scope.idDocument = docs.idDocumento;
+                	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/BusquedaDocumentoContrato?idDocumento='+ $scope.idDocument, '_blank','heigth=600,width=600');
+                	 
+                	  };
+                  
               
                   
                   
