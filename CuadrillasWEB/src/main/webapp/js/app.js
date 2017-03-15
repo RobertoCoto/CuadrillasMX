@@ -737,7 +737,25 @@ app.directive('fileModel', ['$parse', function ($parse) {
 									}
 
                   $scope.editarContrato = function(contrato) {
-                	  
+                	  $http({
+                          method: 'GET',
+                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                          params : {
+            		 		"tipoCatalogo": 'CONT_DOCU'
+            		 },
+                          data: { }
+            		    }).then(function mySucces(result) {
+            		    	$('#msload').modal('hide');
+            				$('#alert').hide();
+            				$('#success').hide();
+            		    	$scope.tipoDocumento = result.data.catalogo;
+            	              console.log(result);
+            		    }, function myError(response) {
+            		    	$('#msload').modal('hide');
+            		        console.error(response);
+            		        $('#alert').show();
+            				$('#msgerror').text(response.data.header.mensajeFuncional)
+            		    });
                     $scope.contratoFocus = contrato;
 										console.info(contrato);
 										
@@ -760,25 +778,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 }
 										$scope.edicionMap = true;
 										$("#tramos").empty();
-										$http({
-					                          method: 'GET',
-					                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
-					                          params : {
-					            		 		"tipoCatalogo": 'CONT_DOCU'
-					            		 },
-					                          data: { }
-					            		    }).then(function mySucces(result) {
-					            		    	$('#msload').modal('hide');
-					            				$('#alert').hide();
-					            				$('#success').hide();
-					            		    	$scope.documentoContrato = result.data.catalogo;
-					            	              console.log(result);
-					            		    }, function myError(response) {
-					            		    	$('#msload').modal('hide');
-					            		        console.error(response);
-					            		        $('#alert').show();
-					            				$('#msgerror').text(response.data.header.mensajeFuncional)
-					            		    });
+										
                   }
                   
                   $scope.consultarDocumentosContrato = function(contrato) {

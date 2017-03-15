@@ -271,7 +271,7 @@
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
                               <label for="numDocumento" class="control-label">Tipo de Documento</label>
-                              <select class="form-control"  ng-options="catalogo.codigo as catalogo.descripcion for catalogo in documentoContrato">
+                              <select class="form-control"  ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
                               <option value="">---Seleccione el tipo de documento---</option>
                               </select>
                               <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
