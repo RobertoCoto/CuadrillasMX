@@ -13,8 +13,6 @@ import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 /**
  * Servlet implementation class ConsultaAgendaSemanal
  */
@@ -52,13 +50,15 @@ public class ConsultaAgendaSemanal extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			//Forma Simple
-			String jSonEntrada = request.getParameter("JSONConsultaAgendaSemanal").toString();
-			Gson gson = new GsonBuilder().create();
-			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
-
+			Integer idContrato = Integer.parseInt(request.getParameter("idContrato"));
+			Integer noSemana = Integer.parseInt(request.getParameter("noSemana"));
+			String fechaBusqueda = request.getParameter("fechaBusqueda");
 			//crea objeto de negocio
 			final AgendaNegocio  negocio = new AgendaNegocio();
+			AgendaDTO agenda = new AgendaDTO();
+			agenda.setIdContrato(idContrato);
+			agenda.setNoSemana(noSemana);
+			agenda.setFechaBusqueda(fechaBusqueda);
 			respuesta = negocio.consultaAgendaSemanal(agenda);
 			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
