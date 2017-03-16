@@ -111,4 +111,34 @@ WHERE a.id_contrato = #{idContrato}
 AND ag.fecha = #{fechaAgenda}
 AND a.estatus = 'A'
 </select>
+
+<select id="consultaAgendaSemanal" parameterType="Agenda" resultType="agenda">
+SELECT
+a.id_agenda,
+a.id_contrato,
+a.fecha_inicio,
+a.fecha_fin,
+a.no_semana,
+a.no_trabajadores,
+a.no_horas,
+a.estatus,
+ag.id_agenda_detalle AS id_agenda_detalle,
+ag.fecha AS fecha_agenda,
+ag.avance_esperado AS avance_esperado,
+ag.observaciones  AS observaciones_detalle,
+act.codigo_actividad AS actividad,
+ma.codigo_material AS material,
+cat.descripcion AS descripcion_actividad,
+cata.descripcion AS descripcion_material
+FROM agenda a
+LEFT JOIN agenda_detalle ag ON a.id_agenda = ag.id_agenda
+LEFT JOIN agenda_actividades act ON ag.id_agenda_detalle = act.id_agenda_detalle
+LEFT JOIN agenda_materiales ma ON ag.id_agenda_detalle = ma.id_agenda_detalle
+LEFT JOIN catalogo cat ON act.codigo_actividad = cat.codigo
+LEFT JOIN catalogo cata ON ma.codigo_material = cata.codigo
+WHERE a.id_contrato = #{idContrato}
+AND YEAR( a.fecha_inicio ) = #{fechaBusqueda}
+AND a.no_semana = #{noSemana}
+AND a.estatus = 'A'
+</select>
 </mapper>

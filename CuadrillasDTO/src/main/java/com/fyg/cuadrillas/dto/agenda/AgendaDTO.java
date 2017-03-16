@@ -78,6 +78,10 @@ public class AgendaDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * fecha para la busqueda
+	 */
+	private String fechaBusqueda;
+	/**
 	 * @return the idAgenda
 	 */
 	public Integer getIdAgenda() {
@@ -328,5 +332,17 @@ public class AgendaDTO extends ObjetoValor {
 	 */
 	public void setAgendaDetalle(Integer agendaDetalle) {
 		this.agendaDetalle = agendaDetalle;
+	}
+	/**
+	 * @return the fechaBusqueda
+	 */
+	public String getFechaBusqueda() {
+		return fechaBusqueda;
+	}
+	/**
+	 * @param fechaBusqueda the fechaBusqueda to set
+	 */
+	public void setFechaBusqueda(String fechaBusqueda) {
+		this.fechaBusqueda = fechaBusqueda;
 	}
 }
