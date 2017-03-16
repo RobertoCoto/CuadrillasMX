@@ -53,7 +53,7 @@ public class ConsultaAgendaSemanal extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			//Forma Simple
-			String jSonEntrada = request.getParameter("JSONConsultaAgendaContrato").toString();
+			String jSonEntrada = request.getParameter("JSONConsultaAgendaSemanal").toString();
 			Gson gson = new GsonBuilder().create();
 			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
 
