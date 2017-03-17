@@ -1144,7 +1144,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
     //REGISTRO AGENDA SEMANAL
-    app.controller('registroagendactrl', function ($scope, $http) {
+    app.controller('registroagendactrl', function ($scope, $http, fileUpload) {
 		  /*
 			 * $('#mainPanel').hide(); $('#alert').hide(); $('#success').hide();
 			 */
@@ -1698,8 +1698,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$scope.limpiarMarcadoresLectura();
   	  		$scope.limpiarMarcadores('1900-01-01');
   	  		
-  	  		$('#cboActividad').find('option:first').attr('selected', 'selected');
-  	  		$('#cboActividad option:eq(0)').attr('selected','selected');
+  	  		$("#txtResidente").val("");
+  	  		$("#numPersonas").val("");
+  	  		$("#totalHrsHombre").val("");
+  	  		$("#semana").val("");
   		};
 
   		// ***se cambia el color de los botones
@@ -2576,7 +2578,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
     	  //console.info("*********agendaDetalle********");    	  
     	  //console.dir ($scope.agendaObj.JSONAltaAgenda.agendaDetalle);
-    	  console.info(JSON.stringify($scope.agendaObj.JSONAltaAgenda));
+    	 
+    	  
+    	  	//comentarios Soto ---- aqui conviertes tu objeto a json
+    	  var jsonAgenda = JSON.stringify($scope.agendaObj.JSONAltaAgenda);
+    	  console.info(jsonAgenda);
     	  
     	  $('#msload').modal('show');
     	  
@@ -2596,25 +2602,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						$('#alert').show();
 						$('#msgerror').text(aa.mensajeFuncional);
 	        });*/    	  
-    	  
-	      $http({
-	              method: 'POST',
-	              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
-	              params: {
-	                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
-	              },
-	              data: { }
-	        }).then(function successfn(result) {
-	        	console.info(result);
-	        	alert(result.data.header.mensajeFuncional);
-	        	//$('#msload').modal('hide');
-	        	$scope.reiniciarPantalla
-	              // console.log(result);
-	        }, function errorfn(response) {
-	            console.error(response);
-	            alert(response.data.header.mensajeFuncional);
-	            $('#msload').modal('hide');
-	        });
+    
+	      //modifique la forma de enviar el json basandome como lo hizo herson *puedes preguntarle por el multipart*
+	        var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaAgenda";
+			fileUpload.uploadFileToUrl(null, jsonAgenda, uploadUrl);
       };
 
       //***funcion para consultar agenda existente
@@ -2622,9 +2613,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
       {
 	      $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaSemanal',
               params: {
-                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
+                'idContrato'	: $('#cboContrato').val(),
+                'noSemana' 		: $('#semana').val(),
+                'fechaBusqueda' : $('#fecha').val().substring(1,4);
               },
               data: { }
         }).then(function successfn(result) {
