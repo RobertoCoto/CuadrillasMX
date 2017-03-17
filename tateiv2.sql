@@ -299,6 +299,7 @@ DROP TABLE IF EXISTS perfil;
 	CREATE TABLE agenda (
 		id_agenda INTEGER NOT NULL AUTO_INCREMENT,
 		id_contrato INTEGER NOT NULL,
+		id_cuadrilla INTEGER NOT NULL,
 		fecha_inicio DATE NOT NULL,
 		fecha_fin DATE NOT NULL,
 		no_semana INTEGER NOT NULL,
@@ -362,9 +363,15 @@ DROP TABLE IF EXISTS perfil;
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
 	);
 	
-	CREATE TABLE actividad_diaria(
-		id_actividad INTEGER NOT NULL AUTO_INCREMENT,
-		id_cuadrilla INTEGER NOT NULL,
+	
+	
+	
+	CREATE TABLE actividad_diaria(		
+		id_agenda 			INTEGER NOT NULL,
+		id_agenda_detalle 	INTEGER NOT NULL,
+		codigo_actividad 	INTEGER NOT NULL,		
+		planeada 			CHAR NOT NULL,		
+					
 		tramo_inicial_planificado VARCHAR(100) NULL,
 		tramo_final_planificado VARCHAR(100) NULL,
 		alcance_planificado FLOAT NULL,
@@ -395,8 +402,7 @@ DROP TABLE IF EXISTS perfil;
 		usuario_ult_mod varchar(20)  NULL,
 		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-		PRIMARY KEY(id_actividad),
-		KEY(id_cuadrilla)
+		PRIMARY KEY(id_agenda, id_agenda_detalle, codigo_actividad)
 	);
 	
 
