@@ -1144,7 +1144,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
     //REGISTRO AGENDA SEMANAL
-    app.controller('registroagendactrl', function ($scope, $http) {
+    app.controller('registroagendactrl', function ($scope, $http, fileUpload) {
 		  /*
 			 * $('#mainPanel').hide(); $('#alert').hide(); $('#success').hide();
 			 */
@@ -2576,7 +2576,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
     	  //console.info("*********agendaDetalle********");    	  
     	  //console.dir ($scope.agendaObj.JSONAltaAgenda.agendaDetalle);
-    	  console.info(JSON.stringify($scope.agendaObj.JSONAltaAgenda));
+    	 
+    	  
+    	  	//comentarios Soto ---- aqui conviertes tu objeto a json
+    	  var jsonAgenda = JSON.stringify($scope.agendaObj.JSONAltaAgenda);
+    	  console.info(jsonAgenda);
     	  
     	  $('#msload').modal('show');
     	  
@@ -2596,25 +2600,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						$('#alert').show();
 						$('#msgerror').text(aa.mensajeFuncional);
 	        });*/    	  
-    	  
-	      $http({
-	              method: 'POST',
-	              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
-	              params: {
-	                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
-	              },
-	              data: { }
-	        }).then(function successfn(result) {
-	        	console.info(result);
-	        	alert(result.data.header.mensajeFuncional);
-	        	//$('#msload').modal('hide');
-	        	$scope.reiniciarPantalla
-	              // console.log(result);
-	        }, function errorfn(response) {
-	            console.error(response);
-	            alert(response.data.header.mensajeFuncional);
-	            $('#msload').modal('hide');
-	        });
+    
+	      //modifique la forma de enviar el json basandome como lo hizo herson *puedes preguntarle por el multipart*
+	        var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaAgenda";
+			fileUpload.uploadFileToUrl(null, jsonAgenda, uploadUrl);
       };
 
       //***funcion para consultar agenda existente

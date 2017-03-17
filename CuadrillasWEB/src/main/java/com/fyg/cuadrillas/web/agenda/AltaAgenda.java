@@ -2,11 +2,16 @@ package com.fyg.cuadrillas.web.agenda;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.LogHandler;
@@ -51,8 +56,22 @@ public class AltaAgenda extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			//Forma Simple
-			String jSonEntrada = request.getParameter("JSONAltaAgenda").toString();
+			List<FileItem> multiparts = null;
+			String jSonEntrada = null;
+			String dataJson = null;
+			if (ServletFileUpload.isMultipartContent(request)) {
+				  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+				  for (FileItem item : multiparts) {
+					  if (item.isFormField()) {
+						  if (item.getFieldName().trim().equalsIgnoreCase("jsonAgenda")) {
+							  System.out.println(item.getString());
+							  dataJson = item.getString();
+							  jSonEntrada = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
+						  }
+					  }
+				   }
+
+			}
 			Gson gson = new GsonBuilder().create();
 			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
 
