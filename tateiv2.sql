@@ -433,7 +433,7 @@ ALTER TABLE empleado_documentos ADD CONSTRAINT FK_emp_codigo_emp_doc  FOREIGN KE
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 
-ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);
+/*ALTER TABLE actividad_diaria ADD CONSTRAINT FK_id_cuadrilla FOREIGN KEY (id_cuadrilla) REFERENCES cuadrilla(id_cuadrilla);*/
 
 ALTER TABLE contrato_coordenadas ADD CONSTRAINT FK_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
 ALTER TABLE contrato_documentos ADD CONSTRAINT FK_cd_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
