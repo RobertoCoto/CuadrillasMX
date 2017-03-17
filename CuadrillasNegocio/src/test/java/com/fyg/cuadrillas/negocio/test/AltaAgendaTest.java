@@ -22,7 +22,7 @@ public class AltaAgendaTest {
 	@Before
 	public void setUp() throws Exception {
 		agenda = new AgendaDTO();
-		agenda.setIdContrato(4);
+		agenda.setIdContrato(1);
 		agenda.setFechaInicio("2017-02-05");
 		agenda.setFechaFin("2017-02-10");
 		agenda.setNoSemana(7);

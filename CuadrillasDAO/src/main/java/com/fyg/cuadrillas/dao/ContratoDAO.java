@@ -305,14 +305,6 @@ public class ContratoDAO {
 				}
 				registraCoordenadas(uid, contrato.getCoordenadas(), sessionTx);
 			}
-			
-			if (contrato.getContratoDocumento().size() > 0) {
-				for (ContratoDocumentoDTO documento : contrato.getContratoDocumento()) {
-					documento.setIdContrato(contrato.getIdContrato());
-				}
-				registraDocumentosExtra(uid, contrato.getContratoDocumento(), sessionTx);
-			}
-			
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -331,41 +323,42 @@ public class ContratoDAO {
 		}
 		return respuesta;
 	}
-/**
- * Metodo para registrar los documentos extra del contrato
- * @param uid unico de registro
- * @param contratoDocumento recibe valores de documento
- * @param session abre session bd
- * @throws Exception si surge una excepcion
- */
-public void registraDocumentosExtra(String uid, List<ContratoDocumentoDTO> contratoDocumento, SqlSession session) throws Exception {
-	SqlSession sessionTx = null;
-	//Logica para saber si es atomica la transaccion
-	if ( session == null ) {
-		 sessionTx = FabricaConexiones.obtenerSesionTx();
-	} else {
-		sessionTx = session;
-	}
-	//Validamos el registro
-	int registros = sessionTx.insert("ContratoDAO.registraContratoDocumentosExtra", contratoDocumento);
-	if ( registros == 0) {
-		if ( session == null ) {
+	/**
+	 * Metodo para dar de alta un contrato
+	 * @param uid unico de registro
+	 * @param contrato recoibe valores de contrato
+	 * @return regresa la respuesta
+	 */
+	public EncabezadoRespuesta RegistraDocumentosExtra(String uid, ContratoDocumentoDTO contratoDocumento) {
+		SqlSession sessionTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("El documento se ha registrado correctamente.");
+		try {
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.insert("ContratoDAO.registraContratoDocumentosExtra", contratoDocumento);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar el documento.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
 			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
 			FabricaConexiones.close(sessionTx);
 		}
-		throw new ExcepcionesCuadrillas("No se pudo registrar.");
+		return respuesta;
 	}
-	//La conexion no es atomica realizamos commit
-	if ( session == null ) {
-		LogHandler.debug(uid, this.getClass(), "Commit conexion.");
-		sessionTx.commit();
-	}
-	//La conexion no es atomica cerramos
-	if ( session == null ) {
-		LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
-		FabricaConexiones.close(sessionTx);
-	}
-}
 	/**
 	 * metodo para eliminar la coordenada
 	 * @param uid unico de registro
@@ -379,4 +372,71 @@ public void EliminaCoordenadas(String uid, int idContrato , SqlSession session) 
 	int registros = session.delete("ContratoDAO.eliminaCoordenadass", parametros);
 	LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
 	}
+/**
+ * metodo para consultar los documentos del contrato registrados
+ * @param uid unico de registro
+ * @param contratoDocumento recibe valores de contratos documentos
+ * @return regresa lista de documentos
+ * @throws Exception error
+ */
+@SuppressWarnings("unchecked")
+public List<ContratoDocumentoDTO> consultaDocumentosCon(String uid, ContratoDocumentoDTO contratoDocumento) throws Exception {
+	SqlSession sessionNTx = null;
+	EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+	respuesta.setUid(uid);
+	respuesta.setEstatus(true);
+	respuesta.setMensajeFuncional("Consulta correcta.");
+	List<ContratoDocumentoDTO> listaDocumento = null;
+	try {
+		//Abrimos conexion Transaccional
+		LogHandler.debug(uid, this.getClass(), "Abriendo");
+		sessionNTx = FabricaConexiones.obtenerSesionNTx();
+		//Se hace una consulta a la tabla
+		listaDocumento = sessionNTx.selectList("ContratoDAO.consultaDocumentosCon", contratoDocumento);
+		if ( listaDocumento.size() == 0) {
+			throw new ExcepcionesCuadrillas("No existen documentos actualmente.");
+		}
+	} catch (Exception ex) {
+		LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+		throw new Exception(ex.getMessage());
+	}
+	finally {
+		FabricaConexiones.close(sessionNTx);
+	}
+	return listaDocumento;
+}
+
+/**
+ * metodo para consultar los documentos del contrato registrados
+ * @param uid unico de registro
+ * @param contratoDocumento recibe valores de contratos documentos
+ * @return regresa lista de documentos
+ * @throws Exception error
+ */
+@SuppressWarnings("unchecked")
+public List<ContratoDocumentoDTO> documentoContrato(String uid, ContratoDocumentoDTO contratoDocumento) throws Exception {
+	SqlSession sessionNTx = null;
+	EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+	respuesta.setUid(uid);
+	respuesta.setEstatus(true);
+	respuesta.setMensajeFuncional("Consulta correcta.");
+	List<ContratoDocumentoDTO> listaDocumento = null;
+	try {
+		//Abrimos conexion Transaccional
+		LogHandler.debug(uid, this.getClass(), "Abriendo");
+		sessionNTx = FabricaConexiones.obtenerSesionNTx();
+		//Se hace una consulta a la tabla
+		listaDocumento = sessionNTx.selectList("ContratoDAO.documentosContrac", contratoDocumento);
+		if ( listaDocumento.size() == 0) {
+			throw new ExcepcionesCuadrillas("No existen documentos actualmente.");
+		}
+	} catch (Exception ex) {
+		LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+		throw new Exception(ex.getMessage());
+	}
+	finally {
+		FabricaConexiones.close(sessionNTx);
+	}
+	return listaDocumento;
+}
 }

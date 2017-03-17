@@ -76,10 +76,8 @@ INSERT INTO contrato_documentos
 		( id_contrato,nombre,codigo_documento,url,usuario_alta,fecha_alta,estatus
 		)
 VALUES
-		<foreach collection="list" item="element" index="index" separator=",">
 		(
-		#{element.idContrato}, #{element.nombre} , #{element.codigoDocumento}, #{element.url}, #{element.usuarioAlta}, now(), 'A'
+		#{idContrato}, #{nombre} , #{codigoDocumento}, #{url}, #{usuarioAlta}, now(), 'A'
 		)
-		</foreach>
 </insert>
 </mapper>

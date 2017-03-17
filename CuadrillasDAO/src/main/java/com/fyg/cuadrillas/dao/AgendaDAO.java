@@ -490,4 +490,42 @@ public class AgendaDAO {
 		}
 		return listaConsultaAgenda;
 	}
+	/**
+	 * Metodo para consultar agenda semanal
+	 * @param uid unico de registro
+	 * @param agenda recive valores de agenda
+	 * @return regresa lista de la agenda semanal
+	 * @throws Exception crea una excepcion
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AgendaDTO> consultaAgendaSemanal(String uid, AgendaDTO agenda) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<AgendaDTO> listaConsultaAgenda = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgendaSemanal", agenda);
+			if ( listaConsultaAgenda.size() == 0) {
+				throw new ExcepcionesCuadrillas("No existe agendas en esa semana.");
+			}
+			for (AgendaDTO c : listaConsultaAgenda) {
+				List<CoordenadaDTO> coordenadas = null;
+				coordenadas = sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", c);
+				c.setCoordenadas(coordenadas);
+		    }
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return listaConsultaAgenda;
+	}
 }

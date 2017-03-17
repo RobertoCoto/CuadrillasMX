@@ -357,6 +357,30 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.contrato.TestContrato</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaDocumentosContrato</servlet-name>
+  	<display-name>ConsultaDocumentosContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.ConsultaDocumentosContrato</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BusquedaDocumentoContrato</servlet-name>
+  	<display-name>BusquedaDocumentoContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.BusquedaDocumentoContrato</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RegistraDocumentoContrato</servlet-name>
+  	<display-name>RegistraDocumentoContrato</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.contrato.RegistraDocumentoContrato</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ConsultaAgendaSemanal</servlet-name>
+  	<display-name>ConsultaAgendaSemanal</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.agenda.ConsultaAgendaSemanal</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -592,5 +616,21 @@
 	<servlet-mapping>
 		<servlet-name>TestContrato</servlet-name>
 		<url-pattern>/TestContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaDocumentosContrato</servlet-name>
+		<url-pattern>/ConsultaDocumentosContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BusquedaDocumentoContrato</servlet-name>
+		<url-pattern>/BusquedaDocumentoContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistraDocumentoContrato</servlet-name>
+		<url-pattern>/RegistraDocumentoContrato</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaAgendaSemanal</servlet-name>
+		<url-pattern>/ConsultaAgendaSemanal</url-pattern>
 	</servlet-mapping>
 </web-app>
