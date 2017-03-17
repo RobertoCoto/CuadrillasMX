@@ -2495,13 +2495,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  $scope.agendaObj = {};
     	  $scope.agendaObj.JSONAltaAgenda = {};
     	  $scope.agendaObj.JSONAltaAgenda.idContrato 		= $('#cboContrato').val();
-    	  $scope.agendaObj.JSONAltaAgenda.fechaInicio 	= $('#ini').val();
-    	  $scope.agendaObj.JSONAltaAgenda.fechaFin 		= $('#fin').val();
+    	  $scope.agendaObj.JSONAltaAgenda.fechaInicio 		= $('#ini').val();
+    	  $scope.agendaObj.JSONAltaAgenda.fechaFin 			= $('#fin').val();
     	  $scope.agendaObj.JSONAltaAgenda.noHoras			= $('#totalHrsHombre').val();
     	  $scope.agendaObj.JSONAltaAgenda.noTrabajadores	= $('#numPersonas').val();
-    	  $scope.agendaObj.JSONAltaAgenda.noSemana		= $('#semana').val();
-    	  $scope.agendaObj.JSONAltaAgenda.usuario 		= $scope.usuario.usuario;
-    	  $scope.agendaObj.JSONAltaAgenda.agendaDetalle	= [];
+    	  $scope.agendaObj.JSONAltaAgenda.noSemana			= $('#semana').val();
+    	  $scope.agendaObj.JSONAltaAgenda.usuario 			= $scope.usuario.usuario;
+    	  //$scope.agendaObj.JSONAltaAgenda.agendaDetalle	= [];
+    	  $scope.agendaObj.JSONAltaAgenda.diasAgenda		= [];
     	  
     	  //se recorren los dias agendados
     	  for (var liAgendados=0; liAgendados<$scope.diasAgenda.length; liAgendados++)
@@ -2520,10 +2521,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		  {
 	  			  if ( fecha == $scope.gridActividadesSemana[liActividades].fecha)
 	  			  {
-	  				  var actividadesTemp = {};
-	  				  actividadesTemp.codigoActividad	= $scope.gridActividadesSemana[liActividades].codigo;
+	  				  //var actividadesTemp = {};
+	  				  //actividadesTemp.codigoActividad	= $scope.gridActividadesSemana[liActividades].codigo;
 	  				  
-	  				  actividades.push(actividadesTemp);
+	  				  actividades.push($scope.gridActividadesSemana[liActividades].codigo);
 	  			  }
 	  		  }
     		  
@@ -2533,10 +2534,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		  {
 	  			  if ( fecha == $scope.gridArticulosSemana[liArticulos].fecha)
 	  			  {
-	  				  var articulosTemp = {};
-	  				  articulosTemp.codigoMaterial		= $scope.gridArticulosSemana[liArticulos].codigo;
+	  				  //var articulosTemp = {};
+	  				  //articulosTemp.codigoMaterial		= $scope.gridArticulosSemana[liArticulos].codigo;
 	  				  
-	  				  articulos.push(articulosTemp);
+	  				  articulos.push($scope.gridArticulosSemana[liArticulos].codigo);
 	  			  }
 	  		  }
 	  		  
@@ -2569,7 +2570,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		  agendaDetalleTemp.materiales		= articulos;
     		  agendaDetalleTemp.coordenadas		= coordenadas; 
     		
-    		  $scope.agendaObj.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
+    		  $scope.agendaObj.JSONAltaAgenda.diasAgenda.push(agendaDetalleTemp);
     		
     		  //console.info("*********agendaDetalleTEMP********");
     		  //console.dir (agendaDetalleTemp);
@@ -2601,7 +2602,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						$('#msload').modal('hide');
 						$('#alert').show();
 						$('#msgerror').text(aa.mensajeFuncional);
-	        });*/    	  
+	        });*/
     
 	      //modifique la forma de enviar el json basandome como lo hizo herson *puedes preguntarle por el multipart*
 	        var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaAgenda";
@@ -2617,7 +2618,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               params: {
                 'idContrato'	: $('#cboContrato').val(),
                 'noSemana' 		: $('#semana').val(),
-                'fechaBusqueda' : $('#fecha').val().substring(1,4);
+                'fechaBusqueda' : $('#fecha').val().substring(1,4)
               },
               data: { }
         }).then(function successfn(result) {
