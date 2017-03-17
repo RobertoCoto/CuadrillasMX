@@ -1698,8 +1698,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$scope.limpiarMarcadoresLectura();
   	  		$scope.limpiarMarcadores('1900-01-01');
   	  		
-  	  		$('#cboActividad').find('option:first').attr('selected', 'selected');
-  	  		$('#cboActividad option:eq(0)').attr('selected','selected');
+  	  		$("#txtResidente").val("");
+  	  		$("#numPersonas").val("");
+  	  		$("#totalHrsHombre").val("");
+  	  		$("#semana").val("");
   		};
 
   		// ***se cambia el color de los botones
@@ -2622,9 +2624,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
       {
 	      $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaSemanal',
               params: {
-                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
+                'idContrato'	: $('#cboContrato').val(),
+                'noSemana' 		: $('#semana').val(),
+                'fechaBusqueda' : $('#fecha').val().substring(1,4);
               },
               data: { }
         }).then(function successfn(result) {
