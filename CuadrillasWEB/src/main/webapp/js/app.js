@@ -1749,8 +1749,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	        var metrosTotales = 0; 
 	        for (var i=0; i<$scope.diasAgenda.length; i++)
 	        {
-	        	metrosTotales = metrosTotales + $scope.diasAgenda[i].metros;
-	        }
+	        	//console.info("metros totales");
+	        	//console.info($scope.diasAgenda[i].metros);	        	
+	        	metrosTotales = metrosTotales + parseFloat($scope.diasAgenda[i].metros.replace(" mtrs", ""));
+	        }	        
 	        var km = metrosTotales / metros_div;
 	        var unidad_de_medida = " metros";
 	        $( "#km2" ).text(km.toFixed(2) + ' mts');
@@ -2480,7 +2482,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		  }    		  
 	  		  
     		  agendaDetalleTemp.fecha 			= fecha;
-    		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros;
+    		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros.replace(" mts", "");
     		  agendaDetalleTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
     		  agendaDetalleTemp.actividades 	= actividades;
     		  agendaDetalleTemp.materiales		= articulos;
@@ -2488,15 +2490,74 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		
     		  $scope.agendaObj.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
     		
-    		  console.info("*********agendaDetalleTEMP********");
-    		  console.dir (agendaDetalleTemp);
-    		  console.info(JSON.stringify(agendaDetalleTemp));
+    		  //console.info("*********agendaDetalleTEMP********");
+    		  //console.dir (agendaDetalleTemp);
+    		  //console.info(JSON.stringify(agendaDetalleTemp));
     	  }
 
-    	  console.info("*********agendaDetalle********");    	  
-    	  console.dir ($scope.agendaObj.JSONAltaAgenda.agendaDetalle);
-    	  console.info(JSON.stringify($scope.agendaObj));
+    	  //console.info("*********agendaDetalle********");    	  
+    	  //console.dir ($scope.agendaObj.JSONAltaAgenda.agendaDetalle);
+    	  console.info(JSON.stringify($scope.agendaObj.JSONAltaAgenda));
+    	  
+    	  $('#msload').modal('show');
+    	  
+	        /*$http.post('http://localhost:8080/CuadrillasWEB/AltaAgenda', $scope.agendaObj, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(aa){
+						console.log(aa);
+						$('#msload').modal('hide');
+						$('#success').show();
+						$('#msgaviso').text(aa.mensajeFuncional);
+	        })
+	        .error(function(aa){
+						console.log(aa);
+						$('#msload').modal('hide');
+						$('#alert').show();
+						$('#msgerror').text(aa.mensajeFuncional);
+	        });*/    	  
+    	  
+	      $http({
+	              method: 'POST',
+	              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+	              params: {
+	                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
+	              },
+	              data: { }
+	        }).then(function successfn(result) {
+	        	console.info(result);
+	        	alert(result.data.header.mensajeFuncional);
+	        	//$('#msload').modal('hide');
+	        	$scope.reiniciarPantalla
+	              // console.log(result);
+	        }, function errorfn(response) {
+	            console.error(response);
+	            alert(response.data.header.mensajeFuncional);
+	            $('#msload').modal('hide');
+	        });
+      };
 
+      //***funcion para consultar agenda existente
+      $scope.consultarAgenda = function()
+      {
+	      $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              params: {
+                'JSONAltaAgenda': $scope.agendaObj.JSONAltaAgenda
+              },
+              data: { }
+        }).then(function successfn(result) {
+        	alert(response.data.header.mensajeFuncional);
+        	//$('#msload').modal('hide');
+        	$scope.reiniciarPantalla
+              // console.log(result);
+        }, function errorfn(response) {
+            console.error(response);
+            alert(response.data.header.mensajeFuncional);
+            $('#msload').modal('hide');
+        });    	  
       };
 
       //para inicializar los mapas
