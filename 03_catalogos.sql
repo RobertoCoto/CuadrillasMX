@@ -441,3 +441,36 @@ VALUES('ARTICULO','BOLS',upper('Bolsas'),'SISTEMAS', 'SISTEMAS',now(),now(),'A')
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ARTICULO','COST',upper('Costales'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+/*CATALOGO ESTATUS ACTIVIDADES*/
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ESTA_ACT','NOIN',upper('No Iniciado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ESTA_ACT','PROG',upper('En Progreso'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ESTA_ACT','APLA',upper('Aplazada'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ESTA_ACT','COMP',upper('Completo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+/*CATALOGO PRIORIDAD ACTIVIDAD*/
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PRIO_ACT','BAJA',upper('Baja'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PRIO_ACT','NORM',upper('Normal'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PRIO_ACT','ALTA',upper('Alta'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+/*CATALOGO LISTO VENCIDO*/
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('LIST_VENC','PRIO',upper('Prioridad'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
+
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('LIST_VENC','PESP',upper('Puede Esperar'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
