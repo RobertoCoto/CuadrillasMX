@@ -19,7 +19,7 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/** fecha */
 	private String fecha;
 	/** avanceEsperado */
-	private int avanceEsperado;
+	private float avanceEsperado;
 	/** observaciones */
 	private String observaciones;
 	/** coordenadas */
@@ -69,13 +69,13 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/**
 	 * @return the avanceEsperado
 	 */
-	public int getAvanceEsperado() {
+	public float getAvanceEsperado() {
 		return avanceEsperado;
 	}
 	/**
 	 * @param avanceEsperado the avanceEsperado to set
 	 */
-	public void setAvanceEsperado(int avanceEsperado) {
+	public void setAvanceEsperado(float avanceEsperado) {
 		this.avanceEsperado = avanceEsperado;
 	}
 	/**

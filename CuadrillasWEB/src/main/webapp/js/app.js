@@ -2507,10 +2507,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  //se recorren los dias agendados
     	  for (var liAgendados=0; liAgendados<$scope.diasAgenda.length; liAgendados++)
     	  {    		  
-    		  var agendaDetalleTemp = {};
-    		  agendaDetalleTemp.actividades = [];
-    		  agendaDetalleTemp.materiales = [];
-    		  agendaDetalleTemp.coordenadas = [];
+    		  var diasAgendaTemp = {};
+    		  diasAgendaTemp.actividades = [];
+    		  diasAgendaTemp.materiales = [];
+    		  diasAgendaTemp.coordenadas = [];
     		  
     		  var fecha = $scope.diasAgenda[liAgendados].fecha;
     		      		  
@@ -2563,14 +2563,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     			  }
     		  }    		  
 	  		  
-    		  agendaDetalleTemp.fecha 			= fecha;
-    		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros.replace(" mts", "");
-    		  agendaDetalleTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
-    		  agendaDetalleTemp.actividades 	= actividades;
-    		  agendaDetalleTemp.materiales		= articulos;
-    		  agendaDetalleTemp.coordenadas		= coordenadas; 
+    		  diasAgendaTemp.fecha 			= fecha;
+    		  diasAgendaTemp.avanceEsperado = $scope.diasAgenda[liAgendados].metros.replace(" mts", "");
+    		  diasAgendaTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
+    		  diasAgendaTemp.actividades 	= actividades;
+    		  diasAgendaTemp.materiales		= articulos;
+    		  diasAgendaTemp.coordenadas	= coordenadas; 
     		
-    		  $scope.agendaObj.JSONAltaAgenda.diasAgenda.push(agendaDetalleTemp);
+    		  $scope.agendaObj.JSONAltaAgenda.diasAgenda.push(diasAgendaTemp);
     		
     		  //console.info("*********agendaDetalleTEMP********");
     		  //console.dir (agendaDetalleTemp);
@@ -2604,9 +2604,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						$('#msgerror').text(aa.mensajeFuncional);
 	        });*/
     
-	      //modifique la forma de enviar el json basandome como lo hizo herson *puedes preguntarle por el multipart*
-	        var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaAgenda";
-			fileUpload.uploadFileToUrl(null, jsonAgenda, uploadUrl);
+	      $http({
+              method: 'POST',
+              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              params: {
+                'JSONAltaAgenda': jsonAgenda
+              },
+              data: { }
+        }).then(function mySucces(response) {
+	    	$('#msload').modal('hide');
+	    	alert(response.data.mensajeFuncional);
+			//$('#success').show();
+			//$('#msgaviso').text(response.data.mensajeFuncional);
+	    	 console.info(response);
+	    }, function myError(response) {
+	    	$('#msload').modal('hide');
+	    	alert(response.data.mensajeFuncional);
+	    	//console.error(response);
+			//$('#alert').show();
+			//$('#msgerror').text(response.data.mensajeFuncional);
+	    });
       };
 
       //***funcion para consultar agenda existente

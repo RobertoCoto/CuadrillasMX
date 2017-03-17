@@ -19,6 +19,8 @@ import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 /**
  * Servlet implementation class AltaAgenda
@@ -56,22 +58,9 @@ public class AltaAgenda extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			List<FileItem> multiparts = null;
-			String jSonEntrada = null;
-			String dataJson = null;
-			if (ServletFileUpload.isMultipartContent(request)) {
-				  multiparts = (List<FileItem>) new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-				  for (FileItem item : multiparts) {
-					  if (item.isFormField()) {
-						  if (item.getFieldName().trim().equalsIgnoreCase("jsonAgenda")) {
-							  System.out.println(item.getString());
-							  dataJson = item.getString();
-							  jSonEntrada = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
-						  }
-					  }
-				   }
-
-			}
+			//Forma Simple
+			
+			String jSonEntrada = request.getParameter("JSONAltaAgenda").toString();
 			Gson gson = new GsonBuilder().create();
 			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
 

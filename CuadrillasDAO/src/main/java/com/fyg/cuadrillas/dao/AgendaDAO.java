@@ -27,7 +27,7 @@ public class AgendaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("registro correcto.");
+		respuesta.setMensajeFuncional("La agenda se ha registrado correctamente.");
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -45,6 +45,7 @@ public class AgendaDAO {
 			System.out.println("ID agenda = " + agenda.getIdAgenda());
 			for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
 				agendaDetalle.setIdAgenda(agenda.getIdAgenda());
+				agendaDetalle.setUsuarioAlta(agenda.getUsuario());
 				altaAgendaDetalle(uid, agendaDetalle, sessionTx);
 				System.out.println("**********" + agendaDetalle.getIdAgendaDetalle());
 				altaActividadDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),

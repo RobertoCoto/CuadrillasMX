@@ -11,6 +11,7 @@ import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
+import com.google.gson.Gson;
 
 public class AltaAgendaTest {
 
@@ -83,7 +84,8 @@ public class AltaAgendaTest {
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost", "169.169.4.85");
         System.setProperty("https.proxyPort", "8080");*/
-
+		Gson sg = new Gson();
+        System.out.println(sg.toJson(agenda));
 		AgendaNegocio negocio = new AgendaNegocio();
 		try {
 			negocio.altaAgenda(agenda);
