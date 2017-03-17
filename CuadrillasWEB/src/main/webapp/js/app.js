@@ -2501,15 +2501,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  $scope.agendaObj.JSONAltaAgenda.noTrabajadores	= $('#numPersonas').val();
     	  $scope.agendaObj.JSONAltaAgenda.noSemana		= $('#semana').val();
     	  $scope.agendaObj.JSONAltaAgenda.usuario 		= $scope.usuario.usuario;
-    	  $scope.agendaObj.JSONAltaAgenda.agendaDetalle	= [];
+    	  $scope.agendaObj.JSONAltaAgenda.diasAgenda	= [];
     	  
     	  //se recorren los dias agendados
     	  for (var liAgendados=0; liAgendados<$scope.diasAgenda.length; liAgendados++)
     	  {    		  
-    		  var agendaDetalleTemp = {};
-    		  agendaDetalleTemp.actividades = [];
-    		  agendaDetalleTemp.materiales = [];
-    		  agendaDetalleTemp.coordenadas = [];
+    		  var diasAgendaTemp = {};
+    		  diasAgendaTemp.actividades = [];
+    		  diasAgendaTemp.materiales = [];
+    		  diasAgendaTemp.coordenadas = [];
     		  
     		  var fecha = $scope.diasAgenda[liAgendados].fecha;
     		      		  
@@ -2562,14 +2562,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     			  }
     		  }    		  
 	  		  
-    		  agendaDetalleTemp.fecha 			= fecha;
-    		  agendaDetalleTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros.replace(" mts", "");
-    		  agendaDetalleTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
-    		  agendaDetalleTemp.actividades 	= actividades;
-    		  agendaDetalleTemp.materiales		= articulos;
-    		  agendaDetalleTemp.coordenadas		= coordenadas; 
+    		  diasAgendaTemp.fecha 			= fecha;
+    		  diasAgendaTemp.avanceEsperado 	= $scope.diasAgenda[liAgendados].metros.replace(" mts", "");
+    		  diasAgendaTemp.observaciones 	= $scope.diasAgenda[liAgendados].observaciones;	  		  
+    		  diasAgendaTemp.actividades 	= actividades;
+    		  diasAgendaTemp.materiales		= articulos;
+    		  diasAgendaTemp.coordenadas		= coordenadas; 
     		
-    		  $scope.agendaObj.JSONAltaAgenda.agendaDetalle.push(agendaDetalleTemp);
+    		  $scope.agendaObj.JSONAltaAgenda.diasAgenda.push(diasAgendaTemp);
     		
     		  //console.info("*********agendaDetalleTEMP********");
     		  //console.dir (agendaDetalleTemp);
@@ -2603,9 +2603,24 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						$('#msgerror').text(aa.mensajeFuncional);
 	        });*/    	  
     
-	      //modifique la forma de enviar el json basandome como lo hizo herson *puedes preguntarle por el multipart*
-	        var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaAgenda";
-			fileUpload.uploadFileToUrl(null, jsonAgenda, uploadUrl);
+	      $http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              params: {
+                'JSONAltaAgenda': jsonAgenda
+              },
+              data: { }
+        }).then(function mySucces(response) {
+	    	$('#msload').modal('hide');
+			$('#success').show();
+			$('#msgaviso').text(response.data.mensajeFuncional);
+	    	 console.info(response);
+	    }, function myError(response) {
+	    	$('#msload').modal('hide');
+	    	 console.error(response);
+			$('#alert').show();
+			$('#msgerror').text(response.data.mensajeFuncional);
+	    });
       };
 
       //***funcion para consultar agenda existente
@@ -2617,7 +2632,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               params: {
                 'idContrato'	: $('#cboContrato').val(),
                 'noSemana' 		: $('#semana').val(),
-                'fechaBusqueda' : $('#fecha').val().substring(1,4);
+                'fechaBusqueda' : $('#fecha').val().substring(1,4)
               },
               data: { }
         }).then(function successfn(result) {
