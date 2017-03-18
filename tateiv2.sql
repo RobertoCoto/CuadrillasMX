@@ -451,15 +451,14 @@ DROP TABLE IF EXISTS perfil;
 	);
 	
 	CREATE TABLE actividad_diaria_documentos (
-		id_documento 		INTEGER NOT NULL AUTO_INCREMENT,
 		id_agenda 			INTEGER NOT NULL,
-		id_agenda_detalle 	INTEGER NOT NULL,		
+		id_agenda_detalle 	INTEGER NOT NULL, 
+		codigo_actividad 	VARCHAR(10) NOT NULL,		
 		url 				VARCHAR(200) NOT NULL,
 		usuario_alta 		VARCHAR(20) NOT NULL,
 		fecha_alta 			DATETIME NOT NULL,		
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-		PRIMARY KEY(id_documento),
-		KEY (id_documento)
+	  	PRIMARY KEY(id_agenda, id_agenda_detalle, codigo_actividad)
 	);
 
 	
