@@ -8,8 +8,15 @@ DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
 DROP TABLE IF EXISTS perfil_menu;
 DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS actividad_diaria;
+
 DROP TABLE IF EXISTS cuadrilla;
+
+DROP TABLE IF EXISTS actividad_diaria_detalle;
+DROP TABLE IF EXISTS actividad_diaria;
+DROP TABLE IF EXISTS actividad_diaria_coordenadas;
+DROP TABLE IF EXISTS actividad_diaria_documentos;
+
+
 DROP TABLE IF EXISTS agenda_coordenadas;
 DROP TABLE IF EXISTS agenda_materiales;
 DROP TABLE IF EXISTS agenda_actividades;
@@ -22,6 +29,11 @@ DROP TABLE IF EXISTS catalogo;
 DROP TABLE IF EXISTS tipo_catalogo;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS perfil;
+
+
+
+
+
 
 
 	CREATE TABLE perfil (
@@ -320,6 +332,7 @@ DROP TABLE IF EXISTS perfil;
 		id_agenda_detalle INTEGER NOT NULL AUTO_INCREMENT,
 		id_agenda INTEGER NOT NULL,
 		fecha DATE NOT NULL,
+		metros FLOAT NOT NULL,
 		avance_esperado FLOAT NOT NULL,
 		observaciones VARCHAR(150) NULL,		
 		fecha_alta DATETIME NOT NULL,
@@ -366,45 +379,88 @@ DROP TABLE IF EXISTS perfil;
 	
 	
 	
-	CREATE TABLE actividad_diaria(		
-		id_agenda 			INTEGER NOT NULL,
-		id_agenda_detalle 	INTEGER NOT NULL,
-		codigo_actividad 	VARCHAR(10) NOT NULL,		
-		planeada 			CHAR NOT NULL,		
-					
-		tramo_inicial_planificado VARCHAR(100) NULL,
-		tramo_final_planificado VARCHAR(100) NULL,
-		alcance_planificado FLOAT NULL,
-		tramo_inicial_real VARCHAR(100) NULL,
-		tramo_final_real VARCHAR(100) NULL,
-		alcance_real FLOAT NULL,
-		actividad VARCHAR(80) NULL,
-		prioridad VARCHAR(10) NOT NULL,
-		estado  VARCHAR(15) NOT NULL,
-		tiempo_destinado  INTEGER  NULL,
-		numero_personas INTEGER  NULL,
-		numero_unidades INTEGER  NULL,
-		porcentaje_completado FLOAT  NULL,
-		listo_vencido VARCHAR(20)  NULL,
-		observaciones_actividad VARCHAR(50) NULL,
-		horas_total_trabajadas FLOAT NULL,
-		actividades_completas FLOAT  NULL,
-		horas_restantes INTEGER  NULL,
-		actividades_dia FLOAT  NULL,
-		observaciones VARCHAR(100) NULL,
-		autorizacion CHAR(1) NULL CHECK(autorizacion IN('S','N')),
-		fecha_autorizacion DATETIME NULL,
-		usuario_autorizacion VARCHAR(20) NULL,
-		fecha_alta DATETIME NOT NULL,
-		usuario_alta VARCHAR(20) NOT NULL,
-		fecha_baja DATETIME NULL,
-		usuario_baja VARCHAR(20) NULL,
-		usuario_ult_mod varchar(20)  NULL,
-		fecha_ult_mod  DATETIME  NULL,
+	CREATE TABLE actividad_diaria (				
+		id_agenda 					INTEGER NOT NULL,
+		id_agenda_detalle 			INTEGER NOT NULL,
+		metros_planificado			FLOAT NOT NULL,		
+		numero_personas 			INTEGER  NULL,
+		no_trabajadores 			INTEGER NOT NULL,
+		no_horas 					INTEGER NOT NULL,		
+		no_horas_trabajadas			INTEGER NOT NULL,
+		porcentaje			 		FLOAT  NULL,					   		   						
+		observaciones 	 			VARCHAR(500) NULL,
+								   	  										   	  				
+		autorizacion 				CHAR(1) NULL CHECK(autorizacion IN('S','N')),
+		fecha_autorizacion 			DATETIME NULL,
+		usuario_autorizacion 		VARCHAR(20) NULL,
+		comentario_autorizacion		VARCHAR(500) NULL,
+		
+		fecha_alta 					DATETIME NOT NULL,
+		usuario_alta 				VARCHAR(20) NOT NULL,
+		fecha_baja 					DATETIME NULL,
+		usuario_baja 				VARCHAR(20) NULL,
+		usuario_ult_mod 			VARCHAR(20)  NULL,
+		fecha_ult_mod  				DATETIME  NULL,
+		estatus 					CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		
+		PRIMARY KEY(id_agenda, id_agenda_detalle)
+	);
+	
+	
+	CREATE TABLE actividad_diaria_detalle (					
+		id_agenda 					INTEGER NOT NULL,
+		id_agenda_detalle 			INTEGER NOT NULL,		
+		codigo_actividad 			VARCHAR(10) NOT NULL,		
+		
+				
+		codigo_prioridad 			VARCHAR(10) NOT NULL,
+		codigo_estado  				VARCHAR(10) NOT NULL,	
+		codigo_listo_vencido 		VARCHAR(10)  NULL,		
+		tiempo_destinado  			INTEGER  NULL,
+		numero_personas 			INTEGER  NULL,	 
+		numero_unidades 			INTEGER  NULL,
+		porcentaje			 		FLOAT  NULL,
+		observaciones 	 			VARCHAR(500) NULL,		
+		planeada 					CHAR NOT NULL,		
+										   			   
+		fecha_alta 					DATETIME NOT NULL,
+		usuario_alta 				VARCHAR(20) NOT NULL,
+		fecha_baja 					DATETIME NULL,
+		usuario_baja 				VARCHAR(20)  NULL,		
+		usuario_ult_mod 			VARCHAR(20)  NULL,
+		fecha_ult_mod  				DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_agenda, id_agenda_detalle, codigo_actividad)
 	);
 	
+	
+   
+	CREATE TABLE actividad_diaria_coordenadas (	 
+		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,	
+		id_agenda 			INTEGER NOT NULL,
+		id_agenda_detalle 	INTEGER NOT NULL,
+		orden 				INTEGER NOT NULL,
+		direccion 			VARCHAR(150) NOT NULL,
+		latitud 			FLOAT NOT NULL,
+		longitud 			FLOAT NOT NULL,
+		usuario_alta 		VARCHAR(20) NOT NULL,
+		fecha_alta 			DATETIME NOT NULL,
+		estatus 			CHAR(1) NOT NULL CHECK(estatus IN('A','I')),  
+		PRIMARY KEY(id_coordenada),
+		KEY (id_coordenada)
+	);
+	
+	CREATE TABLE actividad_diaria_documentos (
+		id_documento 		INTEGER NOT NULL AUTO_INCREMENT,
+		id_agenda 			INTEGER NOT NULL,
+		id_agenda_detalle 	INTEGER NOT NULL,		
+		url 				VARCHAR(200) NOT NULL,
+		usuario_alta 		VARCHAR(20) NOT NULL,
+		fecha_alta 			DATETIME NOT NULL,		
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_documento),
+		KEY (id_documento)
+	);
 
 	
 ALTER TABLE catalogo ADD CONSTRAINT FK_tipo_catalogo FOREIGN KEY(tipo_catalogo) REFERENCES tipo_catalogo(tipo_catalogo);
@@ -454,4 +510,12 @@ ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agen
 /*ALTER TABLE cuadrilla ADD CONSTRAINT FK_cua_id_contrato FOREIGN KEY (id_contrato) REFERENCES contrato (id_contrato);*/
 
 ALTER TABLE permiso_laboral ADD CONSTRAINT FK_codigo_permiso  FOREIGN KEY (codigo_permiso) REFERENCES catalogo(codigo);
+
+
+ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_actividad  FOREIGN KEY (codigo_actividad) REFERENCES catalogo(codigo);
+ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_prioridad  FOREIGN KEY (codigo_prioridad) REFERENCES catalogo(codigo);
+ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
+ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_listo_vencido  FOREIGN KEY (codigo_listo_vencido) REFERENCES catalogo(codigo);
+
+ALTER TABLE actividad_diaria ADD CONSTRAINT FK_actividad_diaria  FOREIGN KEY (id_agenda, id_agenda_detalle) REFERENCES agenda_detalle(id_agenda, id_agenda_detalle);
 
