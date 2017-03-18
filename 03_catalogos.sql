@@ -444,6 +444,9 @@ VALUES('ARTICULO','COST',upper('Costales'),'SISTEMAS', 'SISTEMAS',now(),now(),'A
 
 /*CATALOGO ESTATUS ACTIVIDADES*/
 
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('ESTA_ACT','ESTADO ACTIVIDAD','N',now(),now(),'A');
+
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('ESTA_ACT','NOIN',upper('No Iniciado'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
@@ -458,6 +461,9 @@ VALUES('ESTA_ACT','COMP',upper('Completo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A
 
 /*CATALOGO PRIORIDAD ACTIVIDAD*/
 
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('PRIO_ACT','PRIORIDAD ACTIVIDAD','N',now(),now(),'A');
+
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('PRIO_ACT','BAJA',upper('Baja'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
@@ -468,6 +474,9 @@ INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_
 VALUES('PRIO_ACT','ALTA',upper('Alta'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 /*CATALOGO LISTO VENCIDO*/
+
+INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
+VALUES('LIST_VENC','LISTO VENCIDO','N',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('LIST_VENC','PRIO',upper('Prioridad'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
