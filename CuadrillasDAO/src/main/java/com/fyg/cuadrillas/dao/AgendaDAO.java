@@ -54,6 +54,8 @@ public class AgendaDAO {
 						agendaDetalle.getMateriales(), sessionTx);
 				altaCoordenadaDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getCoordenadas(), sessionTx);
+				altaActividadDiaria(uid,agendaDetalle.getIdAgenda() ,agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
+						agendaDetalle.getActividades(), sessionTx);
 			}
 
 			//Realizamos commit
@@ -244,6 +246,51 @@ public class AgendaDAO {
 		}
 	}
 	/**
+	 * Metodo para registrar las actividades diarias
+	 * @param uid unico de registro
+	 * @param idAgenda recibe el id de la agenda
+	 * @param idAgendaDetalle recibe el id agenda detalle
+	 * @param codigoActividad recibe el codigo act
+	 * @param usuario recibe el usuario
+	 * @param session abre una sesion de BD
+	 * @throws Exception genera excepcion
+	 */
+	public void altaActividadDiaria(String uid, int idAgenda, Integer idAgendaDetalle, String usuario, List<String> actividades, SqlSession session) throws Exception {
+		SqlSession sessionTx = null;
+		//Logica para saber si es atomica la transaccion
+		if ( session == null ) {
+			 sessionTx = FabricaConexiones.obtenerSesionTx();
+		} else {
+			sessionTx = session;
+		}
+		//Validamos el registro
+		for (String codigo_actividad : actividades) {
+			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+			parametros.put("id_agenda", idAgenda);
+			parametros.put("id_agenda_detalle", idAgendaDetalle);
+			parametros.put("codigo_actividad", codigo_actividad);
+			parametros.put("usuario_alta", usuario);
+			int registros = sessionTx.insert("AgendaDAO.registroDiarioActividad", parametros);
+			if ( registros == 0) {
+				if ( session == null ) {
+					FabricaConexiones.rollBack(sessionTx);
+					FabricaConexiones.close(sessionTx);
+				}
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
+			}
+		}
+		//La conexion no es atomica realizamos commit
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+			sessionTx.commit();
+		}
+		//La conexion no es atomica cerramos
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+			FabricaConexiones.close(sessionTx);
+		}
+	}
+	/**
 	 * Metodo para dar de baja la agenda
 	 * @param uid unico de registro
 	 * @param agenda recibe valores de agenda
@@ -357,12 +404,16 @@ public class AgendaDAO {
 				eliminaMateriales(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
 				//elimina las coordenadas
 				eliminaCoordenadas(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
+				//elimina las activ diarias
+				eliminaActividadesDiarias(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
 				altaActividadDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getActividades(), sessionTx);
 				altaMaterialDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getMateriales(), sessionTx);
 				altaCoordenadaDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getCoordenadas(), sessionTx);
+				altaActividadDiaria(uid,agendaDetalle.getIdAgenda() ,agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
+						agendaDetalle.getActividades(), sessionTx);
 			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
@@ -451,6 +502,19 @@ public class AgendaDAO {
 	 HashMap<Object, Object> coor = new HashMap<Object, Object>();
 		coor.put("agenda_detalle", idAgendaDetalle);
 	 int registros = session.delete("AgendaDAO.eliminaAgendaCoordenadas", coor);
+	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
+ }
+ /**
+  * Metodo para eliminar las actividades diarias
+  * @param uid unico de registro
+  * @param idAgendaDetalle recibe id de la agenda
+  * @param session abre sesion de bd
+  * @throws Exception se crea excepcion
+  */
+ public void eliminaActividadesDiarias(String uid, int idAgendaDetalle, SqlSession session) throws Exception {
+	 HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+		parametros.put("id_agenda_detalle", idAgendaDetalle);
+	 int registros = session.delete("AgendaDAO.eliminaActividadesDiarias", parametros);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
  /**

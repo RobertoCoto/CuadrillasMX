@@ -8,8 +8,8 @@ DELETE FROM empleado_documentos;
 DELETE FROM empleado;
 
 INSERT INTO `cuadrilla` (`id_cuadrilla`, `nombre_cuadrilla`, `codigo_vialidad`, `id_contrato`,`calificacion`, `fecha_alta`, `usuario_alta`, `fecha_baja`, `usuario_baja`, `usuario_ult_mod`, `fecha_ult_mod`, `estatus`) VALUES
-(1, 'Equipo Insurgentes','INSU', NULL, 10, '2017-01-12 00:00:00', 'SISTEMAS', NULL, NULL, 'SISTEMAS', '2017-01-12 00:00:00', 'A'),
-(2, 'Equipo EJE 6', 'EJE6', NULL,  8, '2017-01-12 00:00:00', 'SISTEMAS', NULL, NULL, 'SISTEMAS', '2017-01-12 00:00:00', 'A');
+(1, 'Equipo Insurgentes','INSU', 1, 10, '2017-01-12 00:00:00', 'SISTEMAS', NULL, NULL, 'SISTEMAS', '2017-01-12 00:00:00', 'A'),
+(2, 'Equipo EJE 6', 'EJE6', 2,  8, '2017-01-12 00:00:00', 'SISTEMAS', NULL, NULL, 'SISTEMAS', '2017-01-12 00:00:00', 'A');
 
 
 

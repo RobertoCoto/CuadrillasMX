@@ -104,4 +104,20 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 DELETE FROM agenda_coordenadas
 WHERE id_agenda_detalle = #{agenda_detalle}
 </delete>
+
+<insert id="registroDiarioActividad" parameterType="java.util.HashMap">
+ INSERT INTO actividad_diaria
+ (
+ id_agenda,id_agenda_detalle,codigo_actividad,planeada,estado,prioridad,fecha_alta,usuario_alta,estatus
+ )
+ VALUES
+ (
+ #{id_agenda},#{id_agenda_detalle},#{codigo_actividad},'S','NOIN','NORM',now(),#{usuario_alta},'A'
+ )
+</insert>
+
+<delete id="eliminaActividadesDiarias" parameterType="java.util.HashMap">
+DELETE FROM actividad_diaria
+WHERE id_agenda_detalle = #{id_agenda_detalle}
+</delete>
 </mapper>
