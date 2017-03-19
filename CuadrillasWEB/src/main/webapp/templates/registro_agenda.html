@@ -36,7 +36,7 @@
               <div class="col-sm-5">
                 <div class="form-group form-group-sm">
                   	<label class="control-label" for="vialidad">Vialidad</label>
-                	<select id="cboContrato" class="form-control" placeholder="Contrato" ng-model="objContratos" ng-options="contrato as contrato.descripcionVialidad for contrato in contratosActivos"></select>                  
+                	<select id="cboContrato" class="form-control" placeholder="Contrato" ng-model="objContratos" ng-options="contrato as contrato.descripcionVialidad for contrato in contratosActivos" ng-change="reiniciarPantalla(1)"></select>                  
                 </div>
               </div>
               <div class="col-sm-4">
@@ -97,6 +97,13 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group" align="center">                      
+                    	<button type="button" class="btn btn-primary" name="btnConsulta" id="btnConsulta" style="margin-top: 25px;" ng-click="consultarAgenda();" >Validar</button>
+                    </div>
+                  </div>
+                </div>                
               </div>
             </div>
             <div>

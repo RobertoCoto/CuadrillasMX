@@ -1158,6 +1158,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		$scope.mapa.gridCoordenadas = [];
   		$scope.diasAgenda = [];
 
+  		var validado = false;
   		var metros_div = 1;
     	var actualizacion = false;
     	var fecha=$('input[name="fecha"]');
@@ -1288,7 +1289,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			// $('#alert').hide();
   			// $('#success').hide();
   			// se validan dias
-  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			var validaDiaSel = $scope.validaSeleccion();
   			if (validaDiaSel == false)
   			{
   				return;
@@ -1339,7 +1340,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			// $('#success').hide();
 
   			// se validan dias
-  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			var validaDiaSel = $scope.validaSeleccion();
   			if (validaDiaSel == false)
   			{
   				return;
@@ -1658,20 +1659,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
   		// ***para saber si esta seleccionado un dia de actividad para su
 		// captura
-  		$scope.validaDiaSeleccionado = function()
-  		{
+  		$scope.validaSeleccion = function()
+  		{  			  		
   			var respuesta = true;
   			if ($('#diaActividad').val() == "")
   			{
   				alert("Debe seleccionar un dia de la semana");
   				respuesta = false;
   			}
+  			
+  			if ($('#cboContrato').val() == "?")
+  			{
+  				alert("Debe seleccionar un contrato");
+  				respuesta = false;  				
+  			}
 
   			return respuesta;
   		};
 
   		// ***para limpiar toda la pantalla
-  		$scope.reiniciarPantalla = function()
+  		$scope.reiniciarPantalla = function(cambiaCombo)
   		{
  
   	  		$scope.gridActividades = [];
@@ -1698,10 +1705,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$scope.limpiarMarcadoresLectura();
   	  		$scope.limpiarMarcadores('1900-01-01');
   	  		
-  	  		$("#txtResidente").val("");
-  	  		$("#numPersonas").val("");
-  	  		$("#totalHrsHombre").val("");
-  	  		$("#semana").val("");
+  	  		if (cambiaCombo == undefined || cambiaCombo == 'undefined')
+  	  		{
+  	  			$("#txtResidente").val("");
+  	  			$("#numPersonas").val("");
+  	  			$("#totalHrsHombre").val("");
+  	  			$("#semana").val("");
+  	  		}
+  	  			
   		};
 
   		// ***se cambia el color de los botones
@@ -1774,7 +1785,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
   		//***marcadores edicion map1
 		$scope.setMarcadorEdicion = function(latLng, direccion) {
-  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			var validaDiaSel = $scope.validaSeleccion();
   			if (validaDiaSel == false)
   			{
   				return;
@@ -1843,7 +1854,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
         $scope.setMarcador = function(latLng) {
-  			var validaDiaSel = $scope.validaDiaSeleccionado();
+  			var validaDiaSel = $scope.validaSeleccion();
   			if (validaDiaSel == false)
   			{
   				return;
@@ -2295,7 +2306,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				return;
 			}
 
-			//se valida que se hayan capturado actividades, materias y por lo menos 2 putnos de direcciï¿½n
+			//se valida que se hayan capturado actividades, materias y por lo menos 2 putnos de dirección
 			if (!$scope.validaAgregarAgenda(fecha))
 			{
 				return;
@@ -2395,7 +2406,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			else
   			{
   				encontrado = true;
-  			}
+  			}  			  		
 
   			return true;
 
@@ -2586,24 +2597,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  console.info(jsonAgenda);
     	  
     	  $('#msload').modal('show');
-    	  
-	        /*$http.post('http://localhost:8080/CuadrillasWEB/AltaAgenda', $scope.agendaObj, {
-	            transformRequest: angular.identity,
-	            headers: {'Content-Type': undefined}
-	        })
-	        .success(function(aa){
-						console.log(aa);
-						$('#msload').modal('hide');
-						$('#success').show();
-						$('#msgaviso').text(aa.mensajeFuncional);
-	        })
-	        .error(function(aa){
-						console.log(aa);
-						$('#msload').modal('hide');
-						$('#alert').show();
-						$('#msgerror').text(aa.mensajeFuncional);
-	        });*/
-    
+    	      
 	      $http({
               method: 'POST',
               url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
@@ -2613,6 +2607,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
         }).then(function mySucces(response) {
 	    	$('#msload').modal('hide');
+	    	$scope.reiniciarPantalla();
+	    	validado=false;
 	    	alert(response.data.mensajeFuncional);
 			//$('#success').show();
 			//$('#msgaviso').text(response.data.mensajeFuncional);
@@ -2629,22 +2625,42 @@ app.directive('fileModel', ['$parse', function ($parse) {
       //***funcion para consultar agenda existente
       $scope.consultarAgenda = function()
       {
+    	  //validaciones
+    	  if ($('#cboContrato').val() == "?")
+    	  {
+    		  alert("Debe seleccionar un contrato");
+    		  respuesta = false;  				
+    	  }
+    	  
+    	  if ($('#semana').val() == "")
+    	  {
+    		  alert("Debe seleccionar una semana");
+    		  respuesta = false;  				
+    	  }
+    	  $('#msload').modal('show');    	  
+    	  
+    	  validado = true;    	     	 
+    	  
 	      $http({
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaSemanal',
               params: {
                 'idContrato'	: $('#cboContrato').val(),
                 'noSemana' 		: $('#semana').val(),
-                'fechaBusqueda' : $('#fecha').val().substring(1,4)
+                'fechaBusqueda' : $('#fecha').val().substring(0,4)
               },
               data: { }
-        }).then(function successfn(result) {
+        }).then(function successfn(response) {
+        	console.info("***exito");
         	alert(response.data.header.mensajeFuncional);
-        	//$('#msload').modal('hide');
-        	$scope.reiniciarPantalla
+        	
+        	console.info(response);
+        	$('#msload').modal('hide');
+        	
               // console.log(result);
         }, function errorfn(response) {
-            console.error(response);
+        	//console.info("***error");
+        	//console.info(response);
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
         });    	  
