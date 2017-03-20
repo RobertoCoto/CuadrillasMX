@@ -28,6 +28,14 @@
 	<result column="longitud" property="longitud"/>
 </resultMap>
 
+<resultMap type="AgendaDetalle" id="agendaDetalle">
+<result column="id_agenda" property="idAgenda"/>
+<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+<result column="fecha" property="fecha"/>
+<result column="avance_esperado" property="avanceEsperado"/>
+<result column="observaciones" property="observaciones"/>
+</resultMap>
+
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
 SELECT count(id_contrato)
 FROM agenda
@@ -112,33 +120,51 @@ AND ag.fecha = #{fechaAgenda}
 AND a.estatus = 'A'
 </select>
 
-<select id="consultaAgendaSemanal" parameterType="Agenda" resultType="agenda">
+<select id="consultaAgendaSemanal" parameterType="Agenda" resultMap="agenda">
 SELECT
-a.id_agenda,
-a.id_contrato,
-a.fecha_inicio,
-a.fecha_fin,
-a.no_semana,
-a.no_trabajadores,
-a.no_horas,
-a.estatus,
-ag.id_agenda_detalle AS id_agenda_detalle,
-ag.fecha AS fecha_agenda,
-ag.avance_esperado AS avance_esperado,
-ag.observaciones  AS observaciones_detalle,
-act.codigo_actividad AS actividad,
-ma.codigo_material AS material,
-cat.descripcion AS descripcion_actividad,
-cata.descripcion AS descripcion_material
-FROM agenda a
-LEFT JOIN agenda_detalle ag ON a.id_agenda = ag.id_agenda
-LEFT JOIN agenda_actividades act ON ag.id_agenda_detalle = act.id_agenda_detalle
-LEFT JOIN agenda_materiales ma ON ag.id_agenda_detalle = ma.id_agenda_detalle
-LEFT JOIN catalogo cat ON act.codigo_actividad = cat.codigo
-LEFT JOIN catalogo cata ON ma.codigo_material = cata.codigo
-WHERE a.id_contrato = #{idContrato}
-AND YEAR( a.fecha_inicio ) = #{fechaBusqueda}
-AND a.no_semana = #{noSemana}
-AND a.estatus = 'A'
+id_agenda,
+id_contrato,
+fecha_inicio,
+fecha_fin,
+no_semana,
+no_trabajadores,
+no_horas,
+usuario_alta,
+estatus
+FROM agenda
+WHERE id_contrato = #{idContrato}
+AND YEAR( fecha_inicio ) = #{fechaBusqueda}
+AND no_semana = #{noSemana}
+AND estatus = 'A'
+</select>
+
+<select id="consultaAgendaDetalleSemanal" parameterType="AgendaDetalle" resultMap="agendaDetalle">
+SELECT id_agenda,id_agenda_detalle,fecha,avance_esperado,observaciones
+FROM agenda_detalle 
+WHERE id_agenda = #{idAgenda}
+AND estatus = 'A'
+</select>
+
+<select id="consultaActividadAgendaDetalleSemanal" parameterType="java.util.HashMap" resultType="String">
+SELECT codigo_actividad
+FROM agenda_actividades 
+WHERE id_agenda_detalle = #{id_agenda_detalle}
+</select>
+
+<select id="consultaMaterialAgendaDetalleSemanal" parameterType="java.util.HashMap" resultType="String">
+SELECT codigo_material
+FROM agenda_materiales 
+WHERE id_agenda_detalle = #{id_agenda_detalle}
+</select>
+
+<select id="consultaCoordenadaAgendaDetalleSemanal" parameterType="java.util.HashMap" resultMap="coordenada">
+SELECT
+		orden,
+		direccion,
+		latitud,
+		longitud
+	FROM agenda_coordenadas
+WHERE id_agenda_detalle = #{id_agenda_detalle}
+AND estatus = 'A'
 </select>
 </mapper>
