@@ -579,11 +579,40 @@ public class AgendaDAO {
 			if ( listaConsultaAgenda.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existe agendas en esa semana.");
 			}
-			for (AgendaDTO c : listaConsultaAgenda) {
-				List<CoordenadaDTO> coordenadas = null;
-				coordenadas = sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", c);
-				c.setCoordenadas(coordenadas);
-		    }
+			for (AgendaDTO diasAgenda : listaConsultaAgenda) {
+				List<AgendaDetalleDTO> detalle = null;
+				detalle = sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleSemanal", diasAgenda);
+				diasAgenda.setDiasAgenda(detalle);
+				
+				for (int i=0; i< detalle.size(); i++) {
+					Integer idAgendaDetalle =  detalle.get(i).getIdAgendaDetalle();
+				//consulta las actividades
+					for (AgendaDetalleDTO actividades : detalle ) {
+						List<String> actividad = null;
+						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+						parametros.put("id_agenda_detalle", idAgendaDetalle);
+						actividad = sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
+						actividades.setActividades(actividad);
+					}
+					//Consulta los materiales
+					for (AgendaDetalleDTO materiales : detalle) {
+						List<String> material = null;
+						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+						parametros.put("id_agenda_detalle", idAgendaDetalle);
+						material = sessionNTx.selectList("AgendaDAO.consultaMaterialAgendaDetalleSemanal", parametros);
+						materiales.setMateriales(material);
+					}
+					//consulta las coordenadas
+					for (AgendaDetalleDTO coordenadas : detalle) {
+						List<CoordenadaDTO> coorde = null;
+						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+						parametros.put("id_agenda_detalle", idAgendaDetalle);
+						coorde = sessionNTx.selectList("AgendaDAO.consultaCoordenadaAgendaDetalleSemanal", parametros);
+						coordenadas.setCoordenadas(coorde);
+				    }
+				}
+
+			}
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
@@ -591,6 +620,7 @@ public class AgendaDAO {
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
+		 
 		return listaConsultaAgenda;
 	}
 }
