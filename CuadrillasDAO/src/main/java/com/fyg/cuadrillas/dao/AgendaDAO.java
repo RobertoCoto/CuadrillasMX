@@ -138,7 +138,7 @@ public class AgendaDAO {
 		for (AgendaActividadDTO actividad : actividades) {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
-			parametros.put("actividad", actividad);
+			parametros.put("actividad", actividad.getCodigoActividad());
 			parametros.put("usuario", usuario);
 			int registros = sessionTx.insert("AgendaDAO.registraAgendaActividad", parametros);
 			if ( registros == 0) {
@@ -180,7 +180,7 @@ public class AgendaDAO {
 		for (AgendaMaterialDTO material : materiales) {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
-			parametros.put("material", material);
+			parametros.put("material", material.getCodigoMaterial());
 			parametros.put("usuario", usuario);
 			int registros = sessionTx.insert("AgendaDAO.registraAgendaMateria", parametros);
 			if ( registros == 0) {
@@ -585,12 +585,12 @@ public class AgendaDAO {
 				List<AgendaDetalleDTO> detalle = null;
 				detalle = sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleSemanal", diasAgenda);
 				diasAgenda.setDiasAgenda(detalle);
-				
+
 				Integer idAgendaDetalle = null;
 				
-				for (int i=0; i< detalle.size(); i++) {
-					idAgendaDetalle =  detalle.get(i).getIdAgendaDetalle();
-					//consulta las actividades
+				for (int i=0; i< detalle.size();i++) {
+					idAgendaDetalle = detalle.get(i).getIdAgendaDetalle();
+					
 					for (AgendaDetalleDTO actividades : detalle ) {
 						List<AgendaActividadDTO> actividad = null;
 						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
@@ -616,8 +616,6 @@ public class AgendaDAO {
 						coordenadas.setCoordenadas(coorde);
 				    }
 				}
-				
-
 			}
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
