@@ -56,8 +56,6 @@ public class AgendaDAO {
 						agendaDetalle.getMateriales(), sessionTx);
 				altaCoordenadaDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getCoordenadas(), sessionTx);
-				altaActividadDiaria(uid,agendaDetalle.getIdAgenda() ,agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
-						agendaDetalle.getActividades(), sessionTx);
 			}
 
 			//Realizamos commit
