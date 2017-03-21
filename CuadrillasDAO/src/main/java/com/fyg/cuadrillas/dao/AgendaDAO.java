@@ -584,9 +584,11 @@ public class AgendaDAO {
 				detalle = sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleSemanal", diasAgenda);
 				diasAgenda.setDiasAgenda(detalle);
 				
+				Integer idAgendaDetalle = null;
+				
 				for (int i=0; i< detalle.size(); i++) {
-					Integer idAgendaDetalle =  detalle.get(i).getIdAgendaDetalle();
-				//consulta las actividades
+					idAgendaDetalle =  detalle.get(i).getIdAgendaDetalle();
+					//consulta las actividades
 					for (AgendaDetalleDTO actividades : detalle ) {
 						List<String> actividad = null;
 						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
@@ -594,6 +596,7 @@ public class AgendaDAO {
 						actividad = sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
 						actividades.setActividades(actividad);
 					}
+					
 					//Consulta los materiales
 					for (AgendaDetalleDTO materiales : detalle) {
 						List<String> material = null;
@@ -611,6 +614,7 @@ public class AgendaDAO {
 						coordenadas.setCoordenadas(coorde);
 				    }
 				}
+				
 
 			}
 		} catch (Exception ex) {
