@@ -270,7 +270,7 @@ public class AgendaDAO {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda", idAgenda);
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
-			parametros.put("codigo_actividad", codigo_actividad);
+			parametros.put("codigo_actividad", codigo_actividad.getCodigoActividad());
 			parametros.put("usuario_alta", usuario);
 			int registros = sessionTx.insert("AgendaDAO.registroDiarioActividad", parametros);
 			if ( registros == 0) {
