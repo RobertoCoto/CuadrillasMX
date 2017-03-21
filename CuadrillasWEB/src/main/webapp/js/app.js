@@ -1572,6 +1572,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   				$('#diaActividad').val($scope.fechasSemana[dia-1]);
   				fecha = $('#diaActividad').val();
   			}
+  			
   			$scope.gridActividades = [];
   			$scope.gridArticulos = [];
   	  		$scope.mapa = {};
@@ -1673,6 +1674,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
   				alert("Debe seleccionar un contrato");
   				respuesta = false;  				
   			}
+  			
+  			if (!validado)
+  			{
+  				alert("Debe validar si existe informacion para el contrato y semana seleccionados");
+  				respuesta = false;  				
+  			}
 
   			return respuesta;
   		};
@@ -1680,7 +1687,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		// ***para limpiar toda la pantalla
   		$scope.reiniciarPantalla = function(cambiaCombo)
   		{
- 
+  			validado = false;
   	  		$scope.gridActividades = [];
   	  		$scope.gridArticulos = [];
   	  		$scope.gridActividadesSemana = [];
@@ -1704,15 +1711,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		
   	  		$scope.limpiarMarcadoresLectura();
   	  		$scope.limpiarMarcadores('1900-01-01');
-  	  		
-  	  		if (cambiaCombo == undefined || cambiaCombo == 'undefined')
+  	  		  	  	  	  		
+/*  	  		if (cambiaCombo == undefined || cambiaCombo == 'undefined')
   	  		{
   	  			$("#txtResidente").val("");
   	  			$("#numPersonas").val("");
   	  			$("#totalHrsHombre").val("");
   	  			$("#semana").val("");
   	  		}
-  	  			
+  */	  			
   		};
 
   		// ***se cambia el color de los botones
@@ -1721,8 +1728,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			// se revisan los arreglos generales de acuerdo al arreglo de la
 			// semana
   			var numeroBoton = -1;
-  			var fecha = $("#diaActividad").val();  			  		
-
+  			var fecha = $("#diaActividad").val();
+  			
   			for(var i=0; i < $scope.fechasSemana.length; i++)
   			{
   				// console.info($scope.fechasSemana[indice]);
@@ -1902,7 +1909,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             			coordenadaP.longitud = latLng.lng();
             			coordenadaP.direccion = direccion;
             			// if($scope.contratoFocus.coordenadas) {
-            				$scope.mapa.gridCoordenadas.push(coordenadaP);
+            			$scope.mapa.gridCoordenadas.push(coordenadaP);
             				// console.info($scope.mapa);
             			// } else {
             			// coordenadasTemp.push(coordenadaP);
@@ -2306,7 +2313,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				return;
 			}
 
-			//se valida que se hayan capturado actividades, materias y por lo menos 2 putnos de dirección
+			//se valida que se hayan capturado actividades, materias y por lo menos 2 puntos de dirección
 			if (!$scope.validaAgregarAgenda(fecha))
 			{
 				return;
@@ -2343,6 +2350,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					$scope.diasAgenda.push(mapaTemp);
 		  		}
 
+			}
+			else
+			{
+				alert("Este dia ya esta agregado en la agenda");
+				return;
 			}
 
 			$scope.obtenerFechaSeleccionada(0);			
@@ -2477,8 +2489,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  		  {
 			  			  if (fecha == $scope.mapaSemana[indice].fecha)
 			  			  {
-			  				  console.info("colocarMarcadoresSeleccionados");
-			  				  console.info( $scope.mapaSemana[indice]);				  
+			  				  //console.info("colocarMarcadoresSeleccionados");
+			  				  //console.info( $scope.mapaSemana[indice]);				  
 			  				  if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
 			  				  {
 			  					console.info($scope.mapaSemana[indice].gridCoordenadas);
@@ -2625,6 +2637,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
       //***funcion para consultar agenda existente
       $scope.consultarAgenda = function()
       {
+    	  var respuesta = true;
     	  //validaciones
     	  if ($('#cboContrato').val() == "?")
     	  {
@@ -2637,6 +2650,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		  alert("Debe seleccionar una semana");
     		  respuesta = false;  				
     	  }
+    	  
+    	  if (!respuesta)
+    	  {
+    		return;  
+    	  }
+    	  
     	  $('#msload').modal('show');    	  
     	  
     	  validado = true;    	     	 
@@ -2652,9 +2671,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
         }).then(function successfn(response) {
         	console.info("***exito");
-        	alert(response.data.header.mensajeFuncional);
-        	
         	console.info(response);
+        	//alert(response.data.header.mensajeFuncional);
+        	$scope.procesarConsulta(response.data);        	
         	$('#msload').modal('hide');
         	
               // console.log(result);
@@ -2666,9 +2685,282 @@ app.directive('fileModel', ['$parse', function ($parse) {
         });    	  
       };
 
+  	  // ***funcion para colocar la fecha de plan de actividades de acuerdo al
+      // boton seleccionado
+  	  $scope.llenaObjetosSemanales = function(fecha)
+  	  {  			
+  		  // se pasa lo capturado al arreglo de toda la semana
+  		  // actividades
+  		  // ************************************************
+  		  for(var indice=$scope.gridActividadesSemana.length-1; indice>=0; indice--)
+  		  {
+  			  if ( fecha == $scope.gridActividadesSemana[indice].fecha)
+  			  {
+  				  $scope.gridActividadesSemana.splice(indice,1);
+  			  }
+  		  }
+
+  		  for(indice in $scope.gridActividades)
+  		  {
+  			  $scope.gridActividadesSemana.push($scope.gridActividades[indice]);
+  		  }
+
+  		  // articulos
+  		  // ************************************************
+  		  for(var indice=$scope.gridArticulosSemana.length-1; indice>=0; indice--)
+  		  {
+  			  if (fecha == $scope.gridArticulosSemana[indice].fecha)
+  			  {
+  				  $scope.gridArticulosSemana.splice(indice,1);
+  			  }
+  		  }
+
+  		  for(indice in $scope.gridArticulos)
+  		  {
+  			  $scope.gridArticulosSemana.push($scope.gridArticulos[indice]);
+  		  }
+
+  		  // mapa
+  		  // ************************************************
+  		  if ($scope.mapa.gridCoordenadas.length >0)
+  		  {
+  			  for(var indice=$scope.mapaSemana.length-1; indice>=0; indice--)
+  			  {
+  				  if (fecha == $scope.mapaSemana[indice].fecha)
+  				  {
+  					  $scope.mapaSemana.splice(indice,1);
+  				  }
+  			  }
+
+  			  var mapaTemp = {};
+  			  mapaTemp.gridCoordenadas = [];
+  			  for(indice in $scope.mapa.gridCoordenadas)
+  			  {
+  				  var coordenadaP = {};
+  				  coordenadaP.latitud = $scope.mapa.gridCoordenadas[indice].latitud;
+  				  coordenadaP.longitud = $scope.mapa.gridCoordenadas[indice].longitud;
+  				  coordenadaP.direccion = $scope.mapa.gridCoordenadas[indice].direccion;
+
+  				  mapaTemp.gridCoordenadas.push(coordenadaP);
+  			  }
+  			  mapaTemp.metros = $scope.mapa.metros;
+  			  mapaTemp.fecha = $scope.mapa.fecha;
+  			  $scope.mapaSemana.push(mapaTemp);
+  		  }
+
+  		  // console.info("MAPAS SEMANA");
+  		  // console.info($scope.mapaSemana);
+  			
+  		  //se limpian los marcadores
+  		  /*if (dia != 0)
+  		  {  	  		
+  			  $scope.limpiarMarcadores('1900-01-01');
+  		  }  			
+
+  		  if (dia != 0)
+  		  {
+  			  $('#diaActividad').val($scope.fechasSemana[dia-1]);
+  			  fecha = $('#diaActividad').val();
+  		  }
+  		  $scope.gridActividades = [];
+  		  $scope.gridArticulos = [];
+  		  $scope.mapa = {};
+  		  $scope.mapa.gridCoordenadas = [];
+
+  		  // se revisa si hay informacion en el arreglo general para la fecha
+  		  // seleccionada
+  		  for(indice in $scope.gridActividadesSemana)
+  		  {
+  			  if ( fecha == $scope.gridActividadesSemana[indice].fecha)
+  			  {
+  				  $scope.gridActividades.push($scope.gridActividadesSemana[indice]);
+  			  }
+  		  }
+
+  		  for(indice in $scope.gridArticulosSemana)
+  		  {
+  			  if (fecha == $scope.gridArticulosSemana[indice].fecha)
+  			  {
+  				  $scope.gridArticulos.push($scope.gridArticulosSemana[indice]);
+  			  }
+  		  }
+
+  			//pendiente
+  			//$scope.mapa = {};
+  			//$scope.mapa.gridCoordenadas = [];
+
+  			console.info("mapasemana");
+  			console.info($scope.mapaSemana);
+  			for(indice in $scope.mapaSemana)
+  			{
+  				if (fecha == $scope.mapaSemana[indice].fecha)
+  				{
+		  			if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
+		  			{
+			  			var mapaTemp = {};
+			  			mapaTemp.gridCoordenadas = [];
+			  			for(rec_coord in $scope.mapaSemana[indice].gridCoordenadas)
+			  			{
+			    			var coordenadaP = {};
+			    			coordenadaP.latitud = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud;
+			    			coordenadaP.longitud = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud;
+			    			coordenadaP.direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
+
+			  				mapaTemp.gridCoordenadas.push(coordenadaP);
+			  			}
+			  			mapaTemp.metros = $scope.mapaSemana[indice].metros;
+			  			mapaTemp.fecha = $scope.mapaSemana[indice].fecha;
+
+			  			$scope.mapa.fecha = mapaTemp.fecha;
+			  			$scope.mapa.metros = mapaTemp.metros;
+			  			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;
+			  			//console.info("mapa");
+			  			//console.info($scope.mapa);
+			  			//console.info("coordenadas");
+			  			//console.info($scope.mapa.gridCoordenadas);
+			  			if (dia != 0)
+			  			{
+							setTimeout(function () { 
+								for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
+									$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
+								}
+							}, 100);
+						}
+			  		}
+  				}
+  			}
+
+  			//se revisa si hay observaciones capturadas
+  			$('#observaciones').val("");
+  			for (var i=0; i<$scope.diasAgenda.length; i++)
+  			{
+  				if (fecha == $scope.diasAgenda[i].fecha)
+  				{
+  					$('#observaciones').val($scope.diasAgenda[i].observaciones);
+  				}
+  			}
+			*/
+  			reseteaColorBotones();
+  			cambiaColorBoton($scope.gridArticulos);
+  			cambiaColorBoton($scope.gridActividades);
+  			cambiaColorBoton($scope.mapa);
+
+  	  };
+  		
+    //***Se procesa la consulta
+    $scope.procesarConsulta = function(objConsulta)
+    {    	
+    	//console.info(objConsulta.agenda[0]);
+    	//se arma el arreglo de fechas de la semana
+	  	var semanaInicioDate = objConsulta.agenda[0].fechaInicio;
+	  	var primerFechaCapturada = "";
+/*	  	var semanaFinDate = objConsulta.agenda[0].fechaFin.toDate();
+	  	$('#ini').val(semanaInicioDate.format("YYYY-MM-DD"));
+	  	$('#fin').val(semanaFinDate.format("YYYY-MM-DD"));
+	  	$('#semana').val(moment(semanaInicioDate).week());
+	  	$('#cboContrato').val(objConsulta.agenda[0].idContrato);
+*/	  	
+
+	  	// se arma el arreglo de dias de la semana
+	  	$scope.fechasSemana= [];
+	  	for (var i=1; i<=7; i++)
+	  	{
+	  		var contador = i;
+	  		$scope.fechasSemana.push(mostrarFecha(contador, semanaInicioDate))
+	  	}
+    	
+    	$scope.gridActividadesSemana	= [];
+  		$scope.gridArticulosSemana 		= [];
+  		$scope.mapaSemana 				= [];
+    	$scope.diasAgenda 				= [];
+  		
+    	//Se llena el objeto de dias agenda
+    	for (var i=0; i<objConsulta.agenda[0].diasAgenda.length; i++)
+    	{
+        	//se inicializan los arreglos
+        	$scope.gridActividades = [];    	
+      		$scope.gridArticulos = [];
+      		$scope.mapa = {};
+      		$scope.mapa.gridCoordenadas = [];      		
+      		
+    		var fechaObj = objConsulta.agenda[0].diasAgenda[i].fecha;    	
+    		    		
+    		$("#diaActividad").val(fechaObj);
+    		    		
+    		//se llena el objeto de actividades
+    		for(var liActividades=0; liActividades < objConsulta.agenda[0].diasAgenda[i].actividades.length; liActividades++)
+    		{
+    			var actividad = {};
+    			actividad.fecha = fechaObj;
+    			actividad.codigo = objConsulta.agenda[0].diasAgenda[i].actividades[liActividades]; //.codigo; pendiente luis
+    			actividad.descripcion = ""; //objActividad.descripcion; pendiente luis 
+    			$scope.gridActividades.push(actividad);
+	  		}
+	  		
+	  		//se llena el objeto de articulos
+    		for(var liArticulos=0; liArticulos < objConsulta.agenda[0].diasAgenda[i].materiales.length; liArticulos++)
+    		{
+    			var articulo = {};
+    			articulo.fecha = fechaObj;
+    			articulo.codigo = objConsulta.agenda[0].diasAgenda[i].materiales[liArticulos]; //.codigo; pendiente luis
+    			articulo.descripcion = ""; //objActividad.descripcion; pendiente luis
+    			$scope.gridArticulos.push(articulo);
+	  		}
+    		
+	  		//se llena el objeto de mapa
+	  		var mapaTemp = {};
+	  		mapaTemp.gridCoordenadas = [];
+	  		for(var liCoordenadas=0; liCoordenadas < objConsulta.agenda[0].diasAgenda[i].coordenadas.length; liCoordenadas++)
+	  		{
+	  			var coordenadaP = {};
+	    		coordenadaP.latitud 	= objConsulta.agenda[0].diasAgenda[i].coordenadas.gridCoordenadas[liCoordenadas].latitud;
+	    		coordenadaP.longitud 	= objConsulta.agenda[0].diasAgenda[i].coordenadas[liCoordenadas].longitud;
+	    		coordenadaP.direccion 	= objConsulta.agenda[0].diasAgenda[i].coordenadas[liCoordenadas].direccion;
+
+	  			mapaTemp.gridCoordenadas.push(coordenadaP);
+	  		}
+	  		mapaTemp.metros	= objConsulta.agenda[0].diasAgenda[i].avanceEsperado;
+	  		mapaTemp.fecha 	= objConsulta.agenda[0].diasAgenda[i].fecha;
+	  		
+			$scope.mapa.fecha = mapaTemp.fecha;
+			$scope.mapa.metros = mapaTemp.metros;
+			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;
+
+			//se llena dias agenda
+  			var agendaTemp = {};
+  			if ($scope.mapa.gridCoordenadas.length > 0)
+  			{
+  				agendaTemp.direccion = $scope.mapa.gridCoordenadas[0].direccion;
+  			}  			
+  			var metros = objConsulta.agenda[0].diasAgenda[i].avanceEsperado;
+            var km = metros / metros_div;            
+  			agendaTemp.metros = km.toFixed(2) + " mts";
+  			agendaTemp.fecha = fechaObj;
+  			agendaTemp.diaDesc = $scope.obtenerDiaDesc(fechaObj) + " " + fechaObj;
+  			agendaTemp.observaciones = objConsulta.agenda[0].diasAgenda[i].observaciones;
+			$scope.diasAgenda.push(agendaTemp);
+			
+			$scope.llenaObjetosSemanales(fechaObj);			
+    	}
+    	
+    	//para seleccionar el primer boton capturado
+  		var numeroBoton = -1;  		
+  		for(var i=0; i < $scope.fechasSemana.length; i++)
+  		{
+			if ($scope.fechasSemana[i] == fechaObj)
+			{
+				numeroBoton = Number(i) +1;
+				break;
+			}
+  		}    	
+    	$scope.obtenerFechaSeleccionada(numeroBoton);
+		$scope.colocarMarcadoresSeleccionados();           	
+    };
+  		
+  		
       //para inicializar los mapas
       $scope.initMap();
       $scope.initMap2();
     });
-
+    
     //FIN REGISTRO AGENDA SEMANAL
