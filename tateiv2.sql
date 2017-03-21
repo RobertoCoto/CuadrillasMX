@@ -332,7 +332,6 @@ DROP TABLE IF EXISTS perfil;
 		id_agenda_detalle INTEGER NOT NULL AUTO_INCREMENT,
 		id_agenda INTEGER NOT NULL,
 		fecha DATE NOT NULL,
-		metros FLOAT NOT NULL,
 		avance_esperado FLOAT NOT NULL,
 		observaciones VARCHAR(150) NULL,		
 		fecha_alta DATETIME NOT NULL,
