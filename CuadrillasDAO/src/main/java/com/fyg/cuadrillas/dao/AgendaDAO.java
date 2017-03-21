@@ -9,8 +9,10 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
+import com.fyg.cuadrillas.dto.agenda.AgendaActividadDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
+import com.fyg.cuadrillas.dto.agenda.AgendaMaterialDTO;
 
 
 public class AgendaDAO {
@@ -124,7 +126,7 @@ public class AgendaDAO {
 	 * @throws Exception
 	 */
 	public void altaActividadDetalle(String uid, int idAgendaDetalle, String usuario,
-				List<String> actividades, SqlSession session ) throws Exception {
+				List<AgendaActividadDTO> actividades, SqlSession session ) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -133,7 +135,7 @@ public class AgendaDAO {
 			sessionTx = session;
 		}
 		//Validamos el registro
-		for (String actividad : actividades) {
+		for (AgendaActividadDTO actividad : actividades) {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
 			parametros.put("actividad", actividad);
@@ -166,7 +168,7 @@ public class AgendaDAO {
 	 * @throws Exception crea una excepcion
 	 */
 	public void altaMaterialDetalle(String uid, int idAgendaDetalle, String usuario, 
-			List<String> materiales, SqlSession session ) throws Exception {
+			List<AgendaMaterialDTO> materiales, SqlSession session ) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -175,7 +177,7 @@ public class AgendaDAO {
 			sessionTx = session;
 		}
 		//Validamos el registro
-		for (String material : materiales) {
+		for (AgendaMaterialDTO material : materiales) {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
 			parametros.put("material", material);
@@ -255,7 +257,7 @@ public class AgendaDAO {
 	 * @param session abre una sesion de BD
 	 * @throws Exception genera excepcion
 	 */
-	public void altaActividadDiaria(String uid, int idAgenda, Integer idAgendaDetalle, String usuario, List<String> actividades, SqlSession session) throws Exception {
+	public void altaActividadDiaria(String uid, int idAgenda, Integer idAgendaDetalle, String usuario, List<AgendaActividadDTO> actividades, SqlSession session) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -264,7 +266,7 @@ public class AgendaDAO {
 			sessionTx = session;
 		}
 		//Validamos el registro
-		for (String codigo_actividad : actividades) {
+		for (AgendaActividadDTO codigo_actividad : actividades) {
 			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 			parametros.put("id_agenda", idAgenda);
 			parametros.put("id_agenda_detalle", idAgendaDetalle);
@@ -590,7 +592,7 @@ public class AgendaDAO {
 					idAgendaDetalle =  detalle.get(i).getIdAgendaDetalle();
 					//consulta las actividades
 					for (AgendaDetalleDTO actividades : detalle ) {
-						List<String> actividad = null;
+						List<AgendaActividadDTO> actividad = null;
 						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 						parametros.put("id_agenda_detalle", idAgendaDetalle);
 						actividad = sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
@@ -599,7 +601,7 @@ public class AgendaDAO {
 					
 					//Consulta los materiales
 					for (AgendaDetalleDTO materiales : detalle) {
-						List<String> material = null;
+						List<AgendaMaterialDTO> material = null;
 						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 						parametros.put("id_agenda_detalle", idAgendaDetalle);
 						material = sessionNTx.selectList("AgendaDAO.consultaMaterialAgendaDetalleSemanal", parametros);

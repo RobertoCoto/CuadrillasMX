@@ -26,6 +26,8 @@
 <typeAlias alias="Agenda" type="com.fyg.cuadrillas.dto.agenda.AgendaDTO"/>
 <typeAlias alias="AgendaDetalle" type="com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO"/>
 <typeAlias alias="ContratoDocumento" type="com.fyg.cuadrillas.dto.contrato.ContratoDocumentoDTO"/>
+<typeAlias alias="AgendaActividad" type="com.fyg.cuadrillas.dto.agenda.AgendaActividadDTO"/>
+<typeAlias alias="AgendaMaterial" type="com.fyg.cuadrillas.dto.agenda.AgendaMaterialDTO"/>
 </typeAliases>
 
 	<environments default="development">

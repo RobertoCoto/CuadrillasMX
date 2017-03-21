@@ -8,8 +8,10 @@ import org.junit.Test;
 
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
+import com.fyg.cuadrillas.dto.agenda.AgendaActividadDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
+import com.fyg.cuadrillas.dto.agenda.AgendaMaterialDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
@@ -55,14 +57,24 @@ public class AltaAgendaTest {
 		coordenadas.add(coordenada1);
 		coordenadas.add(coordenada2);
 
-		List<String> listaActividades = new ArrayList<String>();
-		listaActividades.add("AMUL");
-		listaActividades.add("AAAA");
-		listaActividades.add("BBBB");
+		List<AgendaActividadDTO> listaActividades = new ArrayList<AgendaActividadDTO>();
+		AgendaActividadDTO act1 = new AgendaActividadDTO();
+		AgendaActividadDTO act2 = new AgendaActividadDTO();
+		AgendaActividadDTO act3 = new AgendaActividadDTO();
+		act1.setCodigoActividad("AMUL");
+		act2.setCodigoActividad("AAAA");
+		act3.setCodigoActividad("BBBB");
+		listaActividades.add(act1);
+		listaActividades.add(act2);
+		listaActividades.add(act3);
 
-		List<String> listaMateriales = new ArrayList<String>();
-		listaMateriales.add("BOLS");
-		listaMateriales.add("DDDD");
+		List<AgendaMaterialDTO> listaMateriales = new ArrayList<AgendaMaterialDTO>();
+		AgendaMaterialDTO mat1 = new AgendaMaterialDTO();
+		AgendaMaterialDTO mat2 = new AgendaMaterialDTO();
+		mat1.setCodigoMaterial("BOLS");
+		mat2.setCodigoMaterial("DDDD");
+		listaMateriales.add(mat1);
+		listaMateriales.add(mat2);
 
 		agendaDetalle.setCoordenadas(coordenadas);
 		agendaDetalle.setActividades(listaActividades);

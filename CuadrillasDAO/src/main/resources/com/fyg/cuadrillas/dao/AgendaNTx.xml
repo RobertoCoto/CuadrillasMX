@@ -36,6 +36,16 @@
 <result column="observaciones" property="observaciones"/>
 </resultMap>
 
+<resultMap type="AgendaActividad" id="agendaActividad">
+<result column="codigo_actividad" property="codigoActividad"/>
+<result column="descripcion_actividad" property="descripcionActividad"/>
+</resultMap>
+
+<resultMap type="AgendaMaterial" id="agendaMaterial">
+<result column="codigo_material" property="codigoMaterial"/>
+<result column="descripcion_Material" property="descripcionMaterial"/>
+</resultMap>
+
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
 SELECT count(id_contrato)
 FROM agenda
@@ -145,16 +155,20 @@ WHERE id_agenda = #{idAgenda}
 AND estatus = 'A'
 </select>
 
-<select id="consultaActividadAgendaDetalleSemanal" parameterType="java.util.HashMap" resultType="String">
-SELECT codigo_actividad
-FROM agenda_actividades 
-WHERE id_agenda_detalle = #{id_agenda_detalle}
+<select id="consultaActividadAgendaDetalleSemanal" parameterType="java.util.HashMap" resultMap="agendaActividad">
+SELECT ac.codigo_actividad,
+ca.descripcion AS descripcion_actividad
+FROM agenda_actividades ac
+LEFT JOIN catalogo ca ON ca.codigo = ac.codigo_actividad
+WHERE ac.id_agenda_detalle = #{id_agenda_detalle}
 </select>
 
-<select id="consultaMaterialAgendaDetalleSemanal" parameterType="java.util.HashMap" resultType="String">
-SELECT codigo_material
-FROM agenda_materiales 
-WHERE id_agenda_detalle = #{id_agenda_detalle}
+<select id="consultaMaterialAgendaDetalleSemanal" parameterType="java.util.HashMap" resultMap="agendaMaterial">
+SELECT am.codigo_material,
+ca.descripcion AS descripcion_material
+FROM agenda_materiales am
+LEFT JOIN catalogo ca ON ca.codigo = am.codigo_material
+WHERE am.id_agenda_detalle = #{id_agenda_detalle}
 </select>
 
 <select id="consultaCoordenadaAgendaDetalleSemanal" parameterType="java.util.HashMap" resultMap="coordenada">

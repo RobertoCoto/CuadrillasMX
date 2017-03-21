@@ -25,9 +25,9 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** actividades */
-	private List<String> actividades;
+	private List<AgendaActividadDTO> actividades;
 	/** materiales */
-	private List<String> materiales;
+	private List<AgendaMaterialDTO> materiales;
 	/** Usuario alta */
 	private String usuarioAlta;
 	/**
@@ -105,25 +105,25 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	/**
 	 * @return the actividades
 	 */
-	public List<String> getActividades() {
+	public List<AgendaActividadDTO> getActividades() {
 		return actividades;
 	}
 	/**
 	 * @param actividades the actividades to set
 	 */
-	public void setActividades(List<String> actividades) {
+	public void setActividades(List<AgendaActividadDTO> actividades) {
 		this.actividades = actividades;
 	}
 	/**
 	 * @return the materiales
 	 */
-	public List<String> getMateriales() {
+	public List<AgendaMaterialDTO> getMateriales() {
 		return materiales;
 	}
 	/**
 	 * @param materiales the materiales to set
 	 */
-	public void setMateriales(List<String> materiales) {
+	public void setMateriales(List<AgendaMaterialDTO> materiales) {
 		this.materiales = materiales;
 	}
 	/**
