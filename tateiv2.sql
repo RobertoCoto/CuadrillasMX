@@ -378,7 +378,8 @@ DROP TABLE IF EXISTS perfil;
 	
 	
 	
-	CREATE TABLE actividad_diaria (				
+	CREATE TABLE actividad_diaria (
+		id_actividad_diaria		 	INTEGER NOT NULL AUTO_INCREMENT,				
 		id_agenda 					INTEGER NOT NULL,
 		id_agenda_detalle 			INTEGER NOT NULL,
 		metros_planificado			FLOAT NOT NULL,		
@@ -402,15 +403,14 @@ DROP TABLE IF EXISTS perfil;
 		fecha_ult_mod  				DATETIME  NULL,
 		estatus 					CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		
-		PRIMARY KEY(id_agenda, id_agenda_detalle)
+		PRIMARY KEY(id_agenda, id_agenda_detalle),
+		KEY (id_actividad_diaria)
 	);
 	
 	
-	CREATE TABLE actividad_diaria_detalle (					
-		id_agenda 					INTEGER NOT NULL,
-		id_agenda_detalle 			INTEGER NOT NULL,		
-		codigo_actividad 			VARCHAR(10) NOT NULL,		
-		
+	CREATE TABLE actividad_diaria_detalle (	  
+		id_actividad_diaria		 	INTEGER NOT NULL,	 
+		codigo_actividad 			VARCHAR(10) NOT NULL,				
 				
 		codigo_prioridad 			VARCHAR(10) NOT NULL,
 		codigo_estado  				VARCHAR(10) NOT NULL,	
@@ -429,35 +429,31 @@ DROP TABLE IF EXISTS perfil;
 		usuario_ult_mod 			VARCHAR(20)  NULL,
 		fecha_ult_mod  				DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-		PRIMARY KEY(id_agenda, id_agenda_detalle, codigo_actividad)
+		PRIMARY KEY(id_actividad_diaria, codigo_actividad)
 	);
 	
 	
    
 	CREATE TABLE actividad_diaria_coordenadas (	 
-		id_coordenada INTEGER NOT NULL AUTO_INCREMENT,	
-		id_agenda 			INTEGER NOT NULL,
-		id_agenda_detalle 	INTEGER NOT NULL,
+		id_actividad_diaria	INTEGER NOT NULL,
 		orden 				INTEGER NOT NULL,
 		direccion 			VARCHAR(150) NOT NULL,
 		latitud 			FLOAT NOT NULL,
 		longitud 			FLOAT NOT NULL,
 		usuario_alta 		VARCHAR(20) NOT NULL,
 		fecha_alta 			DATETIME NOT NULL,
-		estatus 			CHAR(1) NOT NULL CHECK(estatus IN('A','I')),  
-		PRIMARY KEY(id_coordenada),
-		KEY (id_coordenada)
+		estatus 			CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
 	);
 	
 	CREATE TABLE actividad_diaria_documentos (
-		id_agenda 			INTEGER NOT NULL,
-		id_agenda_detalle 	INTEGER NOT NULL, 
-		codigo_actividad 	VARCHAR(10) NOT NULL,		
+		id_actividad_diaria	INTEGER NOT NULL,
+		codigo_actividad 	VARCHAR(10) NOT NULL,
+		consecutivo 		INTEGER NOT NULL,				
 		url 				VARCHAR(200) NOT NULL,
 		usuario_alta 		VARCHAR(20) NOT NULL,
 		fecha_alta 			DATETIME NOT NULL,		
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-	  	PRIMARY KEY(id_agenda, id_agenda_detalle, codigo_actividad)
+	  	PRIMARY KEY(id_actividad_diaria,codigo_actividad,consecutivo)
 	);
 
 	
