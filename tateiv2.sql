@@ -389,6 +389,10 @@ DROP TABLE IF EXISTS perfil;
 		no_horas_trabajadas			INTEGER NOT NULL,
 		porcentaje			 		FLOAT  NULL,					   		   						
 		observaciones 	 			VARCHAR(500) NULL,
+		
+		envio_autorizacion 		 	CHAR(1) NULL CHECK(autorizacion IN('S','N')),
+		envio_fecha_autorizacion 	DATETIME NULL,
+		envio_usuario_autorizacion	VARCHAR(20) NULL,
 								   	  										   	  				
 		autorizacion 				CHAR(1) NULL CHECK(autorizacion IN('S','N')),
 		fecha_autorizacion 			DATETIME NULL,
