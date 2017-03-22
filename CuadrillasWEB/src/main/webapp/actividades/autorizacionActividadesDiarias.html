@@ -39,7 +39,7 @@
                             <label for="fecha" class="control-label">Fecha</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input class="form-control" type="date" name="fecha" id="fecha" />
+                  			<input class="form-control" type="date" name="fecha" id="fecha" disabled/>
                				 </div>
                         </div>
                     </div>
@@ -94,9 +94,6 @@
 	                	</div>
 	                	<div class="col-sm-6">
 	                  		<div class="row">
-	                    		<div class="col-sm-offset-4 col-sm-4"><button type="button" ng-click="limpiarMarcadores()" class="btn btn-danger" style="margin: 25px;">Limpiar Mapa</button></div>
-	                  		</div>
-	                  		<div class="row">
 	                    		<div class="col-sm-12">
 	                      			<div id="map" style="width:100%; height:550px"></div>
 	                    		</div>
@@ -143,9 +140,6 @@
 	                	</div>
 	                	<div class="col-sm-6">
 	                  		<div class="row">
-	                    		<div class="col-sm-offset-4 col-sm-4"><button type="button" ng-click="limpiarMarcadores()" class="btn btn-danger" style="margin: 25px;">Limpiar Mapa</button></div>
-	                  		</div>
-	                  		<div class="row">
 	                    		<div class="col-sm-12">
 	                      			<div id="map2" style="width:100%; height:550px"></div>
 	                    		</div>
@@ -170,13 +164,36 @@
                 <td>Estado</td>
                 <td>Tiempo destinado a la actividad</td>
                 <td>Numero de Personas destinadas a la actividad</td>
-                <td>Numero de unidades</td>
-                <td></td>
+                <td>Numero de unidades de medida según actividad (m2 pieza)</td>
+                <td>% Completado</td>
+                <td>Listo / Vencido</td>
+                <td>Observaciones</td>
                 </tr>
             </thead>
+            
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
             </table>
            </div>
          </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <label for="Vialidad" class="control-label">Vialidad</label>
+                            <input type="text" name="vialidad" id="vialidad" class="form-control" disabled>
+                        </div>
+                    </div>
 		</div>
 		</div>
 </body>
