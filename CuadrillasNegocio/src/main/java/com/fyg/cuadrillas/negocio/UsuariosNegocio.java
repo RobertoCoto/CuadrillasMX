@@ -172,7 +172,7 @@ public class UsuariosNegocio {
 		    	String idPerfilResidente = datoParametro.consultaParametro(uid, "perfil.residente");
 
 		    	if (!idPerfilResidente.trim().equals(loginUsuario.getIdPerfil())) {
-		    		loginUsuario.setIdCuadrilla(null);
+		    		loginUsuario.setIdCuadrilla(0);
 		    		LogHandler.debug(uid, this.getClass(), "Usuario No Residente");
 
 		    	} else {
