@@ -263,7 +263,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			}
 			else
 			{
-				console.info(data.data.menu);
+				//console.info(data.data.menu);
 				console.info("usuario");
 				console.info(data.data.usuario);
 				$scope.usuario = data.data.usuario;
@@ -1271,8 +1271,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
         }).then(function successfn(result) {
               $scope.contratosActivos = result.data.contrato;
-              console.info("contratos");
-              console.log(result);
+              //console.info("contratos");
+              //console.log(result);
         }, function errorfn(response) {
             console.error(response);
             alert(response.data.header.mensajeFuncional);
@@ -1596,12 +1596,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
   				}
   			}
 
-  			//pendiente
-  			//$scope.mapa = {};
-  			//$scope.mapa.gridCoordenadas = [];
-
-  			console.info("mapasemana");
-  			console.info($scope.mapaSemana);
+  			//console.info("mapasemana");
+  			//console.info($scope.mapaSemana);
   			for(indice in $scope.mapaSemana)
   			{
   				if (fecha == $scope.mapaSemana[indice].fecha)
@@ -2281,7 +2277,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				break;
     	  }
 
-    	  console.info("dia:" + diaDesc);
+    	  //console.info("dia:" + diaDesc);
     	  return diaDesc;
       };
 
@@ -2313,7 +2309,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				return;
 			}
 
-			//se valida que se hayan capturado actividades, materias y por lo menos 2 puntos de dirección
+			//se valida que se hayan capturado actividades, materias y por lo menos 2 puntos de direccion
 			if (!$scope.validaAgregarAgenda(fecha))
 			{
 				return;
@@ -2418,7 +2414,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			else
   			{
   				encontrado = true;
-  			}  			  		
+  			}
+  			
+  			if ($('#observaciones').val() == "")
+  			{
+  				alert("Debe capturar las observaciones");
+  				return false;
+  			}
 
   			return true;
 
@@ -2493,13 +2495,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  				  //console.info( $scope.mapaSemana[indice]);				  
 			  				  if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
 			  				  {
-			  					console.info($scope.mapaSemana[indice].gridCoordenadas);
+			  					//console.info($scope.mapaSemana[indice].gridCoordenadas);
 								//setTimeout(function () {
 									//for (var rec_coord = $scope.mapaSemana[indice].gridCoordenadas.length-1; rec_coord >=0 ; rec_coord--) {
 									  for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length ; rec_coord++) {								
 										var direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
 										//console.info("colocarMarcadoresSeleccionados");
-										console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
+										//console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
 										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, direccion);
 										}
 									//}, 500);
@@ -2513,11 +2515,18 @@ app.directive('fileModel', ['$parse', function ($parse) {
       };
       
       //***registra la agenda
-      $scope.registrarAgenda = function()
-      {
+      $scope.registrarAgenda = function(objContrato)
+      {      
+    	  //Se valida que haya dias agendados
+    	  if ($scope.diasAgenda.length == 0)
+    	  {
+    		  alert("No hay dias agendados por registrar");
+    		  return;
+    	  }
+    	  
     	  $scope.agendaObj = {};
     	  $scope.agendaObj.JSONAltaAgenda = {};
-    	  $scope.agendaObj.JSONAltaAgenda.idContrato 		= $('#cboContrato').val();
+    	  $scope.agendaObj.JSONAltaAgenda.idContrato 		= objContrato.idContrato;
     	  $scope.agendaObj.JSONAltaAgenda.fechaInicio 		= $('#ini').val();
     	  $scope.agendaObj.JSONAltaAgenda.fechaFin 			= $('#fin').val();
     	  $scope.agendaObj.JSONAltaAgenda.noHoras			= $('#totalHrsHombre').val();
@@ -2544,10 +2553,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		  {
 	  			  if ( fecha == $scope.gridActividadesSemana[liActividades].fecha)
 	  			  {
-	  				  //var actividadesTemp = {};
-	  				  //actividadesTemp.codigoActividad	= $scope.gridActividadesSemana[liActividades].codigo;
+	  				  var actividadesTemp = {};
+	  				  actividadesTemp.codigoActividad	= $scope.gridActividadesSemana[liActividades].codigo;
 	  				  
-	  				  actividades.push($scope.gridActividadesSemana[liActividades].codigo);
+	  				  actividades.push(actividadesTemp);
 	  			  }
 	  		  }
     		  
@@ -2557,15 +2566,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		  {
 	  			  if ( fecha == $scope.gridArticulosSemana[liArticulos].fecha)
 	  			  {
-	  				  //var articulosTemp = {};
-	  				  //articulosTemp.codigoMaterial		= $scope.gridArticulosSemana[liArticulos].codigo;
+	  				  var articulosTemp = {};
+	  				  articulosTemp.codigoMaterial		= $scope.gridArticulosSemana[liArticulos].codigo;
 	  				  
-	  				  articulos.push($scope.gridArticulosSemana[liArticulos].codigo);
+	  				  articulos.push(articulosTemp);
 	  			  }
 	  		  }
 	  		  
 	  		  //se arma el arreglo de coordenadas
-			  var coordenadas = [];				  
+			  var coordenadas = [];
 
     		  for(var liMapa=0; liMapa < $scope.mapaSemana.length; liMapa++)
     		  {    			  
@@ -2635,7 +2644,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
       };
 
       //***funcion para consultar agenda existente
-      $scope.consultarAgenda = function()
+      $scope.consultarAgenda = function(objContratos)
       {
     	  var respuesta = true;
     	  //validaciones
@@ -2664,13 +2673,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
               method: 'GET',
               url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaSemanal',
               params: {
-                'idContrato'	: $('#cboContrato').val(),
+                'idContrato'	: objContratos.idContrato,
                 'noSemana' 		: $('#semana').val(),
                 'fechaBusqueda' : $('#fecha').val().substring(0,4)
               },
               data: { }
         }).then(function successfn(response) {
-        	console.info("***exito");
+        	console.info("***consulta");
         	console.info(response);
         	//alert(response.data.header.mensajeFuncional);
         	$scope.procesarConsulta(response.data);        	
@@ -2892,8 +2901,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		{
     			var actividad = {};
     			actividad.fecha = fechaObj;
-    			actividad.codigo = objConsulta.agenda[0].diasAgenda[i].actividades[liActividades]; //.codigo; pendiente luis
-    			actividad.descripcion = ""; //objActividad.descripcion; pendiente luis 
+    			actividad.codigo = objConsulta.agenda[0].diasAgenda[i].actividades[liActividades].codigoActividad;
+    			actividad.descripcion = objConsulta.agenda[0].diasAgenda[i].actividades[liActividades].descripcionActividad;
     			$scope.gridActividades.push(actividad);
 	  		}
 	  		
@@ -2902,18 +2911,20 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		{
     			var articulo = {};
     			articulo.fecha = fechaObj;
-    			articulo.codigo = objConsulta.agenda[0].diasAgenda[i].materiales[liArticulos]; //.codigo; pendiente luis
-    			articulo.descripcion = ""; //objActividad.descripcion; pendiente luis
+    			articulo.codigo = objConsulta.agenda[0].diasAgenda[i].materiales[liArticulos].codigoMaterial;
+    			articulo.descripcion = objConsulta.agenda[0].diasAgenda[i].materiales[liArticulos].descripcionMaterial;
     			$scope.gridArticulos.push(articulo);
 	  		}
     		
 	  		//se llena el objeto de mapa
 	  		var mapaTemp = {};
 	  		mapaTemp.gridCoordenadas = [];
+	  		//console.info("coordenadas consulta");
+	  		//console.info(objConsulta.agenda[0].diasAgenda[i].coordenadas);
 	  		for(var liCoordenadas=0; liCoordenadas < objConsulta.agenda[0].diasAgenda[i].coordenadas.length; liCoordenadas++)
 	  		{
 	  			var coordenadaP = {};
-	    		coordenadaP.latitud 	= objConsulta.agenda[0].diasAgenda[i].coordenadas.gridCoordenadas[liCoordenadas].latitud;
+	    		coordenadaP.latitud 	= objConsulta.agenda[0].diasAgenda[i].coordenadas[liCoordenadas].latitud;
 	    		coordenadaP.longitud 	= objConsulta.agenda[0].diasAgenda[i].coordenadas[liCoordenadas].longitud;
 	    		coordenadaP.direccion 	= objConsulta.agenda[0].diasAgenda[i].coordenadas[liCoordenadas].direccion;
 
