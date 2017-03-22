@@ -1,7 +1,5 @@
 package com.fyg.cuadrillas.dto.agenda;
 
-import java.util.List;
-
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
@@ -14,7 +12,7 @@ public class AgendaRespuesta extends ObjetoValor {
 	/** respuesta */
 	private EncabezadoRespuesta header;
 	/** catalogo */
-	private List<AgendaDTO> agenda;
+	private AgendaDTO agenda;
 	/**
 	 * Estatus
 	 */
@@ -49,14 +47,15 @@ public class AgendaRespuesta extends ObjetoValor {
 	/**
 	 * @return the agenda
 	 */
-	public List<AgendaDTO> getAgenda() {
+	public AgendaDTO getAgenda() {
 		return agenda;
 	}
 
 	/**
 	 * @param agenda the agenda to set
 	 */
-	public void setAgenda(List<AgendaDTO> agenda) {
+	public void setAgenda(AgendaDTO agenda) {
 		this.agenda = agenda;
 	}
+
 }

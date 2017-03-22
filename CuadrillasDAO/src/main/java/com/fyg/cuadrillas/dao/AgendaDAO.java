@@ -563,58 +563,41 @@ public class AgendaDAO {
 	 * @throws Exception crea una excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AgendaDTO> consultaAgendaSemanal(String uid, AgendaDTO agenda) throws Exception {
+	public AgendaDTO consultaAgendaSemanal(String uid, AgendaDTO agenda) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<AgendaDTO> listaConsultaAgenda = null;
+		AgendaDTO consultaAgenda = null;
 		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
-			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgendaSemanal", agenda);
-			if ( listaConsultaAgenda.size() == 0) {
+			consultaAgenda = (AgendaDTO) sessionNTx.selectOne("AgendaDAO.consultaAgendaSemanal", agenda);
+
+			if ( consultaAgenda == null) {
 				throw new ExcepcionesCuadrillas("No existe agendas en esa semana.");
 			}
-			for (AgendaDTO diasAgenda : listaConsultaAgenda) {
-				List<AgendaDetalleDTO> detalle = null;
-				detalle = sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleSemanal", diasAgenda);
-				diasAgenda.setDiasAgenda(detalle);
 
-				Integer idAgendaDetalle = null;
-				
-				for (int i=0; i< detalle.size();i++) {
-					idAgendaDetalle = detalle.get(i).getIdAgendaDetalle();
-					
-					for (AgendaDetalleDTO actividades : detalle ) {
-						List<AgendaActividadDTO> actividad = null;
-						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-						parametros.put("id_agenda_detalle", idAgendaDetalle);
-						actividad = sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
-						actividades.setActividades(actividad);
-					}
-					
-					//Consulta los materiales
-					for (AgendaDetalleDTO materiales : detalle) {
-						List<AgendaMaterialDTO> material = null;
-						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-						parametros.put("id_agenda_detalle", idAgendaDetalle);
-						material = sessionNTx.selectList("AgendaDAO.consultaMaterialAgendaDetalleSemanal", parametros);
-						materiales.setMateriales(material);
-					}
-					//consulta las coordenadas
-					for (AgendaDetalleDTO coordenadas : detalle) {
-						List<CoordenadaDTO> coorde = null;
-						HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-						parametros.put("id_agenda_detalle", idAgendaDetalle);
-						coorde = sessionNTx.selectList("AgendaDAO.consultaCoordenadaAgendaDetalleSemanal", parametros);
-						coordenadas.setCoordenadas(coorde);
-				    }
-				}
+			List<AgendaDetalleDTO> diasAgenda =  sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleSemanal", consultaAgenda);
+
+			for ( AgendaDetalleDTO diaAgenda : diasAgenda) {
+
+				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+				parametros.put("id_agenda_detalle", diaAgenda.getIdAgendaDetalle());
+				List<AgendaActividadDTO> actividades
+					= sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
+				List<AgendaMaterialDTO> materiales
+					= sessionNTx.selectList("AgendaDAO.consultaMaterialAgendaDetalleSemanal", parametros);
+				List<CoordenadaDTO> coordenadas
+					= sessionNTx.selectList("AgendaDAO.consultaCoordenadaAgendaDetalleSemanal", parametros);
+				diaAgenda.setActividades(actividades);
+				diaAgenda.setMateriales(materiales);
+				diaAgenda.setCoordenadas(coordenadas);
 			}
+			consultaAgenda.setDiasAgenda(diasAgenda);
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
@@ -622,7 +605,7 @@ public class AgendaDAO {
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
-		 
-		return listaConsultaAgenda;
+
+		return consultaAgenda;
 	}
 }

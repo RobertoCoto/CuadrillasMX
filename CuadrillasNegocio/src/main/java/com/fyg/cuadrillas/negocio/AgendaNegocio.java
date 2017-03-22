@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.negocio;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -138,9 +139,9 @@ public class AgendaNegocio {
 	 */
 	public AgendaRespuesta consultaAgenda(AgendaDTO agenda) {
 		//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(new String(""));
-				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Entrada: ");
+		String uid = GUIDGenerator.generateGUID(new String(""));
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaAgenda - Datos Entrada: ");
 		 AgendaRespuesta respuesta = new AgendaRespuesta();
 		 respuesta.setHeader( new EncabezadoRespuesta());
 		 respuesta.getHeader().setUid(uid);
@@ -152,7 +153,7 @@ public class AgendaNegocio {
 				 throw new ExcepcionesCuadrillas("Es necesario el ID de la de la Agenda.");
 			 }
 			 listaAgenda = new AgendaDAO().consultaAgenda(uid, agenda);
-			 respuesta.setAgenda(listaAgenda);
+			 respuesta.setAgenda(listaAgenda.get(0));
 		 } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
 				respuesta.getHeader().setEstatus(false);
@@ -276,7 +277,7 @@ public class AgendaNegocio {
 				 throw new ExcepcionesCuadrillas("Es necesario una fecha para la busqueda.");
 			 }
 			 listaAgenda = new AgendaDAO().consultaAgendaContrato(uid, agenda);
-			 respuesta.setAgenda(listaAgenda);
+			 respuesta.setAgenda(listaAgenda.get(0));
 		 } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "consultaAgenda - Error: " + ex.getMessage(), ex);
 				respuesta.getHeader().setEstatus(false);
@@ -298,15 +299,15 @@ public class AgendaNegocio {
 	 */
 	public AgendaRespuesta consultaAgendaSemanal(AgendaDTO agenda) {
 		//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(new String(""));
-				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "consultaAgendaSemanal - Datos Entrada: ");
+		String uid = GUIDGenerator.generateGUID(new String(""));
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaAgendaSemanal - Datos Entrada: ");
 		 AgendaRespuesta respuesta = new AgendaRespuesta();
 		 respuesta.setHeader( new EncabezadoRespuesta());
 		 respuesta.getHeader().setUid(uid);
 		 respuesta.getHeader().setEstatus(true);
 		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
-		 List<AgendaDTO> listaAgenda = null;
+		 AgendaDTO agendaRespuesta = null;
 		 try {
 			 if (agenda.getIdContrato() == null) {
 				 throw new ExcepcionesCuadrillas("Es necesario el ID del contrato.");
@@ -317,8 +318,8 @@ public class AgendaNegocio {
 			 if (agenda.getNoSemana() < 0) {
 				 throw new ExcepcionesCuadrillas("Es necesario el numero de la semana.");
 			 }
-			 listaAgenda = new AgendaDAO().consultaAgendaSemanal(uid, agenda);
-			 respuesta.setAgenda(listaAgenda);
+			 agendaRespuesta = new AgendaDAO().consultaAgendaSemanal(uid, agenda);			 
+			 respuesta.setAgenda(agendaRespuesta);
 		 } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "consultaAgendaSemanal - Error: " + ex.getMessage(), ex);
 				respuesta.getHeader().setEstatus(false);
