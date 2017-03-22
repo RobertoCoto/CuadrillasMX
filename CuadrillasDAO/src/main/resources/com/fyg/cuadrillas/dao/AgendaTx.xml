@@ -77,32 +77,31 @@ UPDATE agenda SET
 WHERE id_agenda = #{idAgenda}
 AND estatus = 'A'
 </update>
-<update id="modificaAgendaDetalle" parameterType="AgendaDetalle">
-UPDATE agenda_detalle
-		SET
-		fecha = #{fecha},
-		avance_esperado = #{avanceEsperado},
-		observaciones = #{observaciones},
-		usuario_ult_mod= #{usuarioAlta},
-		fecha_ult_mod = now()
-WHERE id_agenda = #{idAgenda}
-AND id_agenda_detalle = #{idAgendaDetalle}
-AND estatus = 'A'
+
+<update id="eliminaAgendaDetalle" parameterType="java.util.HashMap">
+	DELETE FROM agenda_detalle
+	WHERE id_agenda = #{id_agenda}
 </update>
 
 <delete id="eliminaActividades" parameterType="java.util.HashMap">
-DELETE FROM agenda_actividades
-WHERE id_agenda_detalle = #{id_agenda_detalle}
+	DELETE FROM agenda_actividades
+	WHERE id_agenda_detalle IN (
+		SELECT id_agenda_detalle FROM agenda_detalle WHERE id_agenda =  #{id_agenda}
+	)
 </delete>
 
 <delete id="eliminaMateriales" parameterType="java.util.HashMap">
-DELETE FROM agenda_materiales
-WHERE id_agenda_detalle = #{id_agenda_detalle}
+	DELETE FROM agenda_materiales
+	WHERE id_agenda_detalle IN (
+		SELECT id_agenda_detalle FROM agenda_detalle WHERE id_agenda =  #{id_agenda}
+	)
 </delete>
 
 <delete id="eliminaAgendaCoordenadas" parameterType="java.util.HashMap">
-DELETE FROM agenda_coordenadas
-WHERE id_agenda_detalle = #{agenda_detalle}
+	DELETE FROM agenda_coordenadas
+	WHERE id_agenda_detalle IN (
+		SELECT id_agenda_detalle FROM agenda_detalle WHERE id_agenda =  #{id_agenda}
+	)
 </delete>
 
 <insert id="registroDiarioActividad" parameterType="java.util.HashMap">

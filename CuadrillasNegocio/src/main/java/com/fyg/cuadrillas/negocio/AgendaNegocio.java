@@ -1,7 +1,6 @@
 package com.fyg.cuadrillas.negocio;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,9 +86,16 @@ public class AgendaNegocio {
 							+ ", es necesaria al menos una actividad.");
 				}
 			}
+			if (agenda.getIdAgenda() == null) {
+				agenda.setIdAgenda(0);
+			}
 
 			AgendaDAO dao = new AgendaDAO();
-			respuesta = dao.altaAgenda(uid, agenda);
+			if (agenda.getIdAgenda() == 0) {
+				respuesta = dao.altaAgenda(uid, agenda);
+			} else {
+				respuesta = dao.actualizaAgenda(uid, agenda);
+			}
 		}
 		catch  (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "altaAgenda - Error: " + ex.getMessage(), ex);
@@ -318,7 +324,7 @@ public class AgendaNegocio {
 			 if (agenda.getNoSemana() < 0) {
 				 throw new ExcepcionesCuadrillas("Es necesario el numero de la semana.");
 			 }
-			 agendaRespuesta = new AgendaDAO().consultaAgendaSemanal(uid, agenda);			 
+			 agendaRespuesta = new AgendaDAO().consultaAgendaSemanal(uid, agenda);
 			 respuesta.setAgenda(agendaRespuesta);
 		 } catch  (ExcepcionesCuadrillas ex) {
 				LogHandler.error(uid, this.getClass(), "consultaAgendaSemanal - Error: " + ex.getMessage(), ex);

@@ -25,6 +25,9 @@ public class AltaAgendaTest {
 	@Before
 	public void setUp() throws Exception {
 		agenda = new AgendaDTO();
+
+		agenda.setIdAgenda(1);
+
 		agenda.setIdContrato(1);
 		agenda.setFechaInicio("2017-02-05");
 		agenda.setFechaFin("2017-02-10");
@@ -32,15 +35,15 @@ public class AltaAgendaTest {
 		agenda.setNoHoras(80);
 		agenda.setNoTrabajadores(10);
 		agenda.setUsuario("SISTEMAS");
-		
+
 		List<AgendaDetalleDTO> detalles = new ArrayList<AgendaDetalleDTO>();
-		
+
 		AgendaDetalleDTO agendaDetalle = new AgendaDetalleDTO();
 		agendaDetalle.setAvanceEsperado(40);
 		agendaDetalle.setFecha("2017-02-07");
 		agendaDetalle.setObservaciones("alta de agenda detalle");
 		agendaDetalle.setUsuarioAlta("SISTEMAS");
-		
+
 		CoordenadaDTO coordenada1 = new CoordenadaDTO();
 		coordenada1.setOrden(1);
 		coordenada1.setDireccion("AV VASCO DE QUIROGA 22");

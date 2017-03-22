@@ -52,7 +52,6 @@ public class AltaAgenda extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			//Forma Simple
-			
 			String jSonEntrada = request.getParameter("JSONAltaAgenda").toString();
 			Gson gson = new GsonBuilder().create();
 			AgendaDTO agenda = gson.fromJson(jSonEntrada, AgendaDTO.class);
