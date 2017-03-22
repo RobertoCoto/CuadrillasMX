@@ -161,11 +161,13 @@ public class AgendaDAO {
 	/**
 	 * Metodo para registrar los detalles de las materias
 	 * @param uid unico de registro
+	 * @param idAgendaDetalle id de la agenda detelle
+	 * @param usuario de la peticion
 	 * @param materiales recibe valores
 	 * @param session abre session BD
 	 * @throws Exception crea una excepcion
 	 */
-	public void altaMaterialDetalle(String uid, int idAgendaDetalle, String usuario, 
+	public void altaMaterialDetalle(String uid, int idAgendaDetalle, String usuario,
 			List<AgendaMaterialDTO> materiales, SqlSession session ) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
@@ -203,6 +205,8 @@ public class AgendaDAO {
 	/**
 	 * Metodo para registrar los detalles de las actividades
 	 * @param uid unico de registro
+	 * @param idAgendaDetalle id de la agenda detelle
+	 * @param usuario de la peticion
 	 * @param coordenada recibe valores
 	 * @param session abre session BD
 	 * @throws Exception crea una excepcion
@@ -250,12 +254,13 @@ public class AgendaDAO {
 	 * @param uid unico de registro
 	 * @param idAgenda recibe el id de la agenda
 	 * @param idAgendaDetalle recibe el id agenda detalle
-	 * @param codigoActividad recibe el codigo act
+	 * @param actividades recibe el codigo act
 	 * @param usuario recibe el usuario
 	 * @param session abre una sesion de BD
 	 * @throws Exception genera excepcion
 	 */
-	public void altaActividadDiaria(String uid, int idAgenda, Integer idAgendaDetalle, String usuario, List<AgendaActividadDTO> actividades, SqlSession session) throws Exception {
+	public void altaActividadDiaria(String uid, int idAgenda, Integer idAgendaDetalle, String usuario,
+			List<AgendaActividadDTO> actividades, SqlSession session) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -391,30 +396,32 @@ public class AgendaDAO {
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar la agenda.");
 			}
-			System.out.println("ID agenda = " + agenda.getIdAgenda());
+			System.out.println("ID agenda a Modificar = " + agenda.getIdAgenda());
+
+			//elimina actividades
+			eliminaActividades(uid, agenda.getIdAgenda(), sessionTx);
+			//elimina los Materiales
+			eliminaMateriales(uid, agenda.getIdAgenda(), sessionTx);
+			//elimina las coordenadas
+			eliminaCoordenadas(uid, agenda.getIdAgenda(), sessionTx);
+
+			//elimina agenda detellae
+			eliminaAgendaDetalle(uid, agenda.getIdAgenda(), sessionTx);
+
+			System.out.println("ID agenda Alta = " + agenda.getIdAgenda());
 			for (AgendaDetalleDTO agendaDetalle : agenda.getDiasAgenda()) {
 				agendaDetalle.setIdAgenda(agenda.getIdAgenda());
-				agendaDetalle.setIdAgendaDetalle(agendaDetalle.getIdAgendaDetalle());
 				agendaDetalle.setUsuarioAlta(agenda.getUsuario());
-				modificaAgendaDetalle(uid, agendaDetalle, sessionTx);
+				altaAgendaDetalle(uid, agendaDetalle, sessionTx);
 				System.out.println("**********" + agendaDetalle.getIdAgendaDetalle());
-				//elimina actividades
-				eliminaActividades(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
-				//eliminaMateriales
-				eliminaMateriales(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
-				//elimina las coordenadas
-				eliminaCoordenadas(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
-				//elimina las activ diarias
-				eliminaActividadesDiarias(uid, agendaDetalle.getIdAgendaDetalle(), sessionTx);
 				altaActividadDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getActividades(), sessionTx);
 				altaMaterialDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getMateriales(), sessionTx);
 				altaCoordenadaDetalle(uid, agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
 						agendaDetalle.getCoordenadas(), sessionTx);
-				altaActividadDiaria(uid,agendaDetalle.getIdAgenda() ,agendaDetalle.getIdAgendaDetalle(), agenda.getUsuario(),
-						agendaDetalle.getActividades(), sessionTx);
 			}
+
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -434,11 +441,11 @@ public class AgendaDAO {
 	/**
 	 * Metodo para actualizar agenda detalle
 	 * @param uid unico de registro
-	 * @param agendaDetalle recibe valores de agenda detalle
+	 * @param idAgenda recibe valores de agenda detalle
 	 * @param session crea una session de BD
 	 * @throws Exception por si surge una excepcion
 	 */
- public void modificaAgendaDetalle(String uid, AgendaDetalleDTO agendaDetalle, SqlSession session) throws Exception {
+ public void eliminaAgendaDetalle(String uid, int idAgenda, SqlSession session) throws Exception {
 	 SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -447,7 +454,9 @@ public class AgendaDAO {
 			sessionTx = session;
 		}
 		//Validamos el registro
-		int registros = sessionTx.update("AgendaDAO.modificaAgendaDetalle", agendaDetalle);
+		HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+		parametros.put("id_agenda", idAgenda);
+		int registros = sessionTx.delete("AgendaDAO.eliminaAgendaDetalle", parametros);
 		if ( registros == 0) {
 			if ( session == null ) {
 				FabricaConexiones.rollBack(sessionTx);
@@ -466,54 +475,56 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionTx);
 		}
  }
+
+
  /**
   * Metodo para dar de baja las actividades
   * @param uid unico de registro
-  * @param agendaDetalle recibe valores de agenda detalle
+  * @param idAgenda recibe valores de agenda detalle
   * @param session abre session de BD
   */
- public void eliminaActividades(String uid, int idAgendaDetalle, SqlSession session) throws Exception {
+ public void eliminaActividades(String uid, int idAgenda, SqlSession session) throws Exception {
 	 HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-		parametros.put("id_agenda_detalle", idAgendaDetalle);
+		parametros.put("id_agenda", idAgenda);
 	 int registros = session.delete("AgendaDAO.eliminaActividades", parametros);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
  /**
   * Metodo para eliminar los materiales
   * @param uid unico de registro
-  * @param agendaDetalle recibe valores de agenda detalle
+  * @param idAgenda recibe valores de agenda detalle
   * @param session abre session de BD
   * @throws Exception
   */
- public void eliminaMateriales(String uid, int idAgendaDetalle, SqlSession session) throws Exception {
+ public void eliminaMateriales(String uid, int idAgenda, SqlSession session) throws Exception {
 	 HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-		parametros.put("id_agenda_detalle", idAgendaDetalle);
+	parametros.put("id_agenda", idAgenda);
 	 int registros = session.delete("AgendaDAO.eliminaMateriales", parametros);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
  /**
   * Metodo para eliminar los materiales
   * @param uid unico de registro
-  * @param agendaDetalle recibe valores de agenda detalle
+  * @param idAgenda recibe valores de agenda detalle
   * @param session abre session de BD
   * @throws Exception
   */
- public void eliminaCoordenadas(String uid, int idAgendaDetalle, SqlSession session) throws Exception {
-	 HashMap<Object, Object> coor = new HashMap<Object, Object>();
-		coor.put("agenda_detalle", idAgendaDetalle);
-	 int registros = session.delete("AgendaDAO.eliminaAgendaCoordenadas", coor);
+ public void eliminaCoordenadas(String uid, int idAgenda, SqlSession session) throws Exception {
+	 HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+	 parametros.put("id_agenda", idAgenda);
+	 int registros = session.delete("AgendaDAO.eliminaAgendaCoordenadas", parametros);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
  /**
   * Metodo para eliminar las actividades diarias
   * @param uid unico de registro
-  * @param idAgendaDetalle recibe id de la agenda
+  * @param idAgenda recibe id de la agenda
   * @param session abre sesion de bd
   * @throws Exception se crea excepcion
   */
- public void eliminaActividadesDiarias(String uid, int idAgendaDetalle, SqlSession session) throws Exception {
+ public void eliminaActividadesDiarias(String uid, int idAgenda, SqlSession session) throws Exception {
 	 HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-		parametros.put("id_agenda_detalle", idAgendaDetalle);
+	parametros.put("id_agenda", idAgenda);
 	 int registros = session.delete("AgendaDAO.eliminaActividadesDiarias", parametros);
 	 LogHandler.debug(uid, this.getClass(), "Registros eliminados " + registros);
  }
