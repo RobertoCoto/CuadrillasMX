@@ -138,6 +138,4 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
-
-	
 }
