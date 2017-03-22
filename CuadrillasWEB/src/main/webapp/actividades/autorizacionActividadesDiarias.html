@@ -2,7 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 <title>Autorizacion Actividades Diarias</title>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
 </head>
 <body>
 		<div class="container">
@@ -12,17 +19,29 @@
 		<div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="Vialidad" class="control-label">Vialidad</label>
-                            <input type="text" name="vialidad" id="vialidad" class="form-control">
+                            <input type="text" name="vialidad" id="vialidad" class="form-control" disabled>
                         </div>
                     </div>
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
-                            <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
-                            <input type="text" name="apellidoPat" id="apellidoPaterno" class="form-control" data-form="apellidoP"/>
-                            <div class="amt_errorApellidoP"></div>
+                            <label for="residente" class="control-label">Residente</label>
+                            <input type="text" name="residente" id="residente" class="form-control" disabled/>
                         </div>
                     </div>
 		</div>
+		
+		<div class="row">
+		 			<div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="fecha" class="control-label">Fecha</label>
+                            <div class="input-group">
+                  			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                  			<input class="form-control" type="date" name="fecha" id="fecha" />
+               				 </div>
+                        </div>
+                    </div>
+		</div>
+		
 		</div>
 </body>
 </html>
