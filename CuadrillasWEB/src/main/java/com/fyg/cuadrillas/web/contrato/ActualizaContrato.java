@@ -1,11 +1,8 @@
 package com.fyg.cuadrillas.web.contrato;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -71,7 +68,7 @@ public class ActualizaContrato extends HttpServlet {
 						  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 							  System.out.println(item.getString());
 							  dataJson = item.getString();
-							  jSonEntrada = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
+							  jSonEntrada = new String(dataJson.getBytes("iso-8859-1"), "UTF-8");
 						  }
 					  }
 				   }

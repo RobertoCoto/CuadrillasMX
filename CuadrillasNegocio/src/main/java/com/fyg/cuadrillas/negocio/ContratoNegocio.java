@@ -21,9 +21,6 @@ import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
 
 public class ContratoNegocio {
 
-	/** The METROS_KM. */
-	private static final  int METROS_KM = 1000;
-
 	/**
 	 * Metodo para dar de alta un contrato
 	 * @param contrato recibe valores del contrato
@@ -115,18 +112,6 @@ public class ContratoNegocio {
 					contrato.setDiasDuracion(Funciones.diasEntreFechas(fechaInicio, fechaFin));
 
 					System.out.println("Dias Duracions " + contrato.getDiasDuracion());
-
-					//Calculo Distancia Total Contrato
-					double metros = 0;
-					for ( int i = 0; i < (contrato.getCoordenadas().size() - 1); i++) {
-						double distancia = Funciones.distanciaCoord(
-								contrato.getCoordenadas().get(i).getLatitud(),
-								contrato.getCoordenadas().get(i).getLongitud(),
-								contrato.getCoordenadas().get(i + 1).getLatitud(),
-								contrato.getCoordenadas().get(i + 1).getLongitud());
-						System.out.println("distancia =" + distancia);
-						metros += distancia;
-					}
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
 						contrato.setFechaRegistro(new Date());
@@ -313,7 +298,7 @@ public class ContratoNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
-					if (contrato.getIdContrato()== null) {
+					if (contrato.getIdContrato() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id del Contrato para la actualización.");
 					}
 					if (contrato.getNumeroDocumento() == null || contrato.getNumeroDocumento().trim().isEmpty()) {
@@ -394,18 +379,6 @@ public class ContratoNegocio {
 					contrato.setDiasDuracion(Funciones.diasEntreFechas(fechaInicio, fechaFin));
 
 					System.out.println("Dias Duracions " + contrato.getDiasDuracion());
-
-					//Calculo Distancia Total Contrato
-					double metros = 0;
-					for ( int i = 0; i < (contrato.getCoordenadas().size() - 1); i++) {
-						double distancia = Funciones.distanciaCoord(
-								contrato.getCoordenadas().get(i).getLatitud(),
-								contrato.getCoordenadas().get(i).getLongitud(),
-								contrato.getCoordenadas().get(i + 1).getLatitud(),
-								contrato.getCoordenadas().get(i + 1).getLongitud());
-						System.out.println("distancia =" + distancia);
-						metros += distancia;
-					}
 					//Alta Contrato
 					if (contrato.getIdContrato() == null || contrato.getIdContrato() == 0) {
 						contrato.setFechaRegistro(new Date());
@@ -499,8 +472,12 @@ public class ContratoNegocio {
 	    LogHandler.debug(uid, this.getClass(), "documentoCont - Datos Salida: " + respuesta);
 	    return respuesta;
 	}
-	
-	public EncabezadoRespuesta RegistraDocumentosExtra(ContratoDocumentoDTO documento) {
+	/**
+	 * Metodo para registrar nuevos docs
+	 * @param documento recibe vals de docs
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta registraDocumentosExtra(ContratoDocumentoDTO documento) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(documento);
 		//Mandamos a log el objeto de entrada
@@ -511,7 +488,6 @@ public class ContratoNegocio {
 			if (documento.getIdContrato() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del contrato.");
 			}
-			
 			if (documento.getNombre() == null || documento.getNombre().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre del documento.");
 			}
@@ -522,7 +498,7 @@ public class ContratoNegocio {
 				documento.setUrl("");
 			}
 			ContratoDAO dao = new ContratoDAO();
-			respuesta = dao.RegistraDocumentosExtra(uid, documento);
+			respuesta = dao.registraDocumentosExtra(uid, documento);
 		} catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "RegistraDocumentosExtra - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
