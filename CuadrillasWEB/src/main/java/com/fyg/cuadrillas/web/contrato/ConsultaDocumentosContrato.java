@@ -51,7 +51,6 @@ public class ConsultaDocumentosContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idContrato =  Integer.parseInt(request.getParameter("idContrato"));
-			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -72,7 +71,6 @@ public class ConsultaDocumentosContrato extends HttpServlet {
 			respuesta.getHeader().setEstatus(false);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		
 	}
 
 }

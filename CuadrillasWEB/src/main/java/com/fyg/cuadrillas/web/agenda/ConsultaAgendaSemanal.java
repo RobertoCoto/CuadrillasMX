@@ -21,7 +21,6 @@ public class ConsultaAgendaSemanal extends HttpServlet {
 	 * Serial uid
 	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
