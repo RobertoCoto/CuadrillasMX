@@ -104,15 +104,35 @@ AND estatus = 'A'
 	)
 </delete>
 
-<insert id="registroDiarioActividad" parameterType="java.util.HashMap">
- INSERT INTO actividad_diaria
- (
- id_agenda,id_agenda_detalle,codigo_actividad,planeada,estado,prioridad,fecha_alta,usuario_alta,estatus
- )
- VALUES
- (
- #{id_agenda},#{id_agenda_detalle},#{codigo_actividad},'S','NOIN','NORM',now(),#{usuario_alta},'A'
- )
+
+<insert id="registroActividadDiaria" parameterType="ActividadDiaria" useGeneratedKeys="true" keyProperty="id_actividad_diaria"  keyColumn="id_actividad_diaria">
+	INSERT INTO actividad_diaria
+	(
+	id_agenda, id_agenda_detalle, metros_planificado, no_trabajadores, no_horas, no_horas_trabajadas,
+	porcentaje, envio_autorizacion, fecha_alta, usuario_alta, estatus
+	)
+	VALUES
+	(
+	#{idAgenda}, #{idAgendaDetalle}, #{metrosPlanificados}, #{noTrabajadores}, #{noHoras}, #{noHorasTrabajadas},
+	#{porcentaje}, 'N', now(), #{usuarioAlta}, 'A'
+	)
+
+	<selectKey keyProperty="idActividadDiaria" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	</selectKey>
+</insert>
+
+<insert id="registroActividadDiariaDetalle" parameterType="java.util.HashMap">
+	INSERT INTO actividad_diaria_detalle
+	(
+	id_actividad_diaria, codigo_actividad, codigo_prioridad, codigo_estado, planeada,
+	fecha_alta, usuario_alta, estatus
+	)
+	VALUES
+	(
+	#{id_actividad_diaria}, #{codigo_actividad}, #{codigo_prioridad}, #{codigo_estado}, #{planeada},
+	now(), #{usuario_alta}, 'A'
+	)
 </insert>
 
 <delete id="eliminaActividadesDiarias" parameterType="java.util.HashMap">

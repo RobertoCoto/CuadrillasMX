@@ -383,7 +383,6 @@ DROP TABLE IF EXISTS perfil;
 		id_agenda 					INTEGER NOT NULL,
 		id_agenda_detalle 			INTEGER NOT NULL,
 		metros_planificado			FLOAT NOT NULL,		
-		numero_personas 			INTEGER  NULL,
 		no_trabajadores 			INTEGER NOT NULL,
 		no_horas 					INTEGER NOT NULL,		
 		no_horas_trabajadas			INTEGER NOT NULL,
@@ -503,6 +502,7 @@ ALTER TABLE agenda_detalle ADD CONSTRAINT FK_d_id_agenda FOREIGN KEY (id_agenda)
 ALTER TABLE agenda_coordenadas ADD CONSTRAINT FK_id_agenda_detalle FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
 ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+ALTER TABLE agenda_actividades ADD CONSTRAINT FK_codigo_actividad FOREIGN KEY (codigo_actividad) REFERENCES catalogo(codigo);
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 

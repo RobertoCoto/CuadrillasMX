@@ -30,6 +30,8 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	private List<AgendaMaterialDTO> materiales;
 	/** Usuario alta */
 	private String usuarioAlta;
+	/** idActividadDiaria */
+	private Integer idActividadDiaria;
 	/**
 	 * @return the idAgendaDetalle
 	 */
@@ -138,4 +140,17 @@ public class AgendaDetalleDTO  extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
+	/**
+	 * @return the idActividadDiaria
+	 */
+	public Integer getIdActividadDiaria() {
+		return idActividadDiaria;
+	}
+	/**
+	 * @param idActividadDiaria the idActividadDiaria to set
+	 */
+	public void setIdActividadDiaria(Integer idActividadDiaria) {
+		this.idActividadDiaria = idActividadDiaria;
+	}
+
 }

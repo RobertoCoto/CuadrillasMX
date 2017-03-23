@@ -26,12 +26,12 @@ public class AltaAgendaTest {
 	public void setUp() throws Exception {
 		agenda = new AgendaDTO();
 
-		agenda.setIdAgenda(1);
+		//agenda.setIdAgenda(1);
 
 		agenda.setIdContrato(1);
 		agenda.setFechaInicio("2017-02-05");
 		agenda.setFechaFin("2017-02-10");
-		agenda.setNoSemana(7);
+		agenda.setNoSemana(9);
 		agenda.setNoHoras(80);
 		agenda.setNoTrabajadores(10);
 		agenda.setUsuario("SISTEMAS");
@@ -65,8 +65,8 @@ public class AltaAgendaTest {
 		AgendaActividadDTO act2 = new AgendaActividadDTO();
 		AgendaActividadDTO act3 = new AgendaActividadDTO();
 		act1.setCodigoActividad("AMUL");
-		act2.setCodigoActividad("AAAA");
-		act3.setCodigoActividad("BBBB");
+		act2.setCodigoActividad("PLAR");
+		act3.setCodigoActividad("PLCE");
 		listaActividades.add(act1);
 		listaActividades.add(act2);
 		listaActividades.add(act3);
@@ -74,8 +74,8 @@ public class AltaAgendaTest {
 		List<AgendaMaterialDTO> listaMateriales = new ArrayList<AgendaMaterialDTO>();
 		AgendaMaterialDTO mat1 = new AgendaMaterialDTO();
 		AgendaMaterialDTO mat2 = new AgendaMaterialDTO();
-		mat1.setCodigoMaterial("BOLS");
-		mat2.setCodigoMaterial("DDDD");
+		mat1.setCodigoMaterial("ESCA");
+		mat2.setCodigoMaterial("CU58");
 		listaMateriales.add(mat1);
 		listaMateriales.add(mat2);
 
