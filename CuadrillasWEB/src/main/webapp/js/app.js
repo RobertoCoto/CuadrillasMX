@@ -2986,6 +2986,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
     //CONSULTA DE AGENDA
     app.controller('consultaagendactrl', function ($scope, $http) {
+    	
+        var map;
+        var medida;
+
         $scope.initMap = function() {
             medida = {
                 mvcLine: new google.maps.MVCArray(),
@@ -3005,5 +3009,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             });
           };
     	
+          //para incializar los mapas
+          //$scope.initMap();
     });
     //FIN CONSULTA DE AGENDA
