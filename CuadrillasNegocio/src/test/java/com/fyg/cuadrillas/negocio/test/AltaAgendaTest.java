@@ -16,7 +16,9 @@ import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 public class AltaAgendaTest {
-
+	/**
+	 * Agenda
+	 */
 	private AgendaDTO agenda;
 	/**
 	 * metodo para inicializar valores

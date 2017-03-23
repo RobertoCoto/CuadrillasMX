@@ -106,11 +106,9 @@
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
 	</if>
-	
 </select>
 
 <select id="consultaContratoCoordenadas" parameterType="Contrato" resultMap="coordenada">
-	
 	SELECT
 		id_coordenada,
 		id_contrato,
@@ -125,7 +123,6 @@
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
 	</if>
-	
 </select>
 
 <select id="contratoActivo" parameterType="Contrato" resultMap="contrato">
@@ -175,7 +172,7 @@ SELECT id_contrato,url FROM contrato WHERE id_contrato = #{idContrato} AND estat
 
 <select id="consultaDocumentosCon" parameterType="ContratoDocumento" resultMap="contratoDocumento">
 SELECT co.id_documento,co.id_contrato,co.nombre,co.codigo_documento,co.estatus,co.fecha_alta,
-cat.descripcion AS descripcion_documento 
+cat.descripcion AS descripcion_documento
 FROM contrato_documentos co
 LEFT JOIN catalogo cat ON cat.codigo = co.codigo_documento
 WHERE co.id_contrato = #{idContrato}

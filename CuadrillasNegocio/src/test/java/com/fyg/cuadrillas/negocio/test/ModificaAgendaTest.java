@@ -15,6 +15,9 @@ import com.fyg.cuadrillas.dto.agenda.AgendaMaterialDTO;
 import com.fyg.cuadrillas.negocio.AgendaNegocio;
 
 public class ModificaAgendaTest {
+	/**
+	 * Agenda
+	 */
 	private AgendaDTO agenda;
 	/**
 	 * metodo para inicializar valores
@@ -31,16 +34,16 @@ public class ModificaAgendaTest {
 		agenda.setNoHoras(80);
 		agenda.setNoTrabajadores(10);
 		agenda.setUsuario("SISTEMAS");
-		
+
 		List<AgendaDetalleDTO> detalles = new ArrayList<AgendaDetalleDTO>();
-		
+
 		AgendaDetalleDTO agendaDetalle = new AgendaDetalleDTO();
 		agendaDetalle.setIdAgendaDetalle(23);
 		agendaDetalle.setAvanceEsperado(40);
 		agendaDetalle.setFecha("2017-02-07");
 		agendaDetalle.setObservaciones("alta de agenda detalle");
 		agendaDetalle.setUsuarioAlta("SISTEMAS");
-		
+
 		CoordenadaDTO coordenada1 = new CoordenadaDTO();
 		coordenada1.setOrden(1);
 		coordenada1.setDireccion("AV VASCO DE QUIROGA 22");
@@ -57,8 +60,6 @@ public class ModificaAgendaTest {
 		coordenadas.add(coordenada1);
 		coordenadas.add(coordenada2);
 
-		
-		
 		List<AgendaActividadDTO> listaActividades = new ArrayList<AgendaActividadDTO>();
 		AgendaActividadDTO act1 = new AgendaActividadDTO();
 		AgendaActividadDTO act2 = new AgendaActividadDTO();
@@ -86,7 +87,6 @@ public class ModificaAgendaTest {
 
 		agenda.setDiasAgenda(detalles);
 	}
-	
 	/**
 	 * Manda los valores al metodo de alta usuario
 	 * @throws Exception

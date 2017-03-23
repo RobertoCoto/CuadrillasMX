@@ -34,7 +34,7 @@ public class ContratoTest {
 		contrato.setCodigoEmpresa("TATE");
 		contrato.setFechaInicio("2015-12-01");
 		contrato.setFechaFin("2016-12-01");
-		contrato.setUrl("C:/Program Files (x86)/Apache Software Foundation/Tomcat 8.5_Tatei/testUpload/01-03-2017 030305 DSC_0002.JPG");
+		contrato.setUrl("01-03-2017 030305 DSC_0002.JPG");
 		CoordenadaDTO coordenada1 = new CoordenadaDTO();
 		coordenada1.setOrden(1);
 		coordenada1.setLatitud(19.3507338f);
