@@ -162,5 +162,4 @@ public class ActividadDiariaDTO  extends ObjetoValor {
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
 	}
-
 }
