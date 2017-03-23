@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Consulta de Agenda </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <style media="screen">
+      label {
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 300;
+        }
+        .hh3 {
+          font-weight: bolder;
+          font-size: 19px;
+        }
+    </style>
+  </head>
+  <body ng-app="tatei">
+  	<div class="container">
+      <form class="form">
+        <div class="h2">Agendia del día</div>
+    		<div class="row">
+    			<div class="col-xs-12">
+    				<div class="panel panel-default">
+	  			        <div class="panel-body">
+	  			          	<div class="row">
+	  			            	<div class="col-xs-4">
+	  			              		<div class="form-group">
+	                            <label for="fecha" class="control-label">Fecha</label>
+	                            <div class="input-group">
+	                              <div class="input-group-addon">
+	                                <i class="fa fa-calendar" ></i>
+	                              </div>
+	                              <input class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" type="text" value=""/>
+	                            </div>
+	  			               		</div>
+	  			            	</div>
+	  			          	</div>
+	                    	<div class="row">
+	                			<div class="col-xs-12">
+	                				<div class="panel panel-default">
+		                              	<div class="row">
+		                                	<div class="col-xs-12">
+												<button data-toggle="collapse" data-target="#actividades" style="width:100%; background:#abcf37; color: #80298f; text-align:left">Actividades</button>
+												<div id="actividades" class="collapse">
+		                                        	<div>                                                                
+		                                          		<table class="table " width="100%">
+			                                            <thead>
+			                                            </thead>
+			                                            <tbody>
+			                                              <!--<tr ng-repeat="actividad in gridActividades">
+			                                                <td width="100%">{{actividad.descripcion}}</td>
+			                                              </tr>-->
+			                                              <tr><td>CONSTRUCCION DE CAJETES PZA</td></tr>
+			                                              <tr><td>DESHIERBE M2</td></tr>
+			                                              <tr><td>DESCOMPACTACION DE TERRENO M2</td></tr>
+			                                              <tr><td>DERRIBO Y TROCEADO DE SUJETOS FORESTALES PZA</td></tr>
+			                                              <tr><td>INCIDENCIA</td></tr>
+			                                            </tbody>
+			                                          </table>
+		                                        	</div>
+												</div>         
+											</div>
+										</div>
+										</br>
+		                              	<div class="row">
+		                                	<div class="col-xs-12">
+												<button data-toggle="collapse" data-target="#materiales" style="width:100%; background:#abcf37; color: #80298f; text-align:left">Materiales</button>
+												<div id="materiales" class="collapse">
+		                                        	<div>                                                                
+		                                          		<table class="table" width="100%">
+			                                            <thead>
+			                                            </thead>
+			                                            <tbody>
+	                                                      <!--<tr ng-repeat="actividad in gridActividades">
+	                                                        <td width="100%">{{actividad.descripcion}}</td>
+	                                                      </tr>-->
+	                                                      <tr><td>BARSINAS</td></tr>
+	                                                      <tr><td>BOTIQUIN</td></tr>
+	                                                      <tr><td>COSTALES</td></tr>
+	                                                      <tr><td>ESCALERA</td></tr>
+	                                                      <tr><td>DESMALEZADORA</td></tr>
+			                                            </tbody>
+			                                          </table>
+		                                        	</div>
+												</div>         
+											</div>
+										</div>
+										</br>
+										<div class="row">
+		                                	<div class="col-xs-12">
+												<button data-toggle="collapse" data-target="#mapa" style="width:100%; background:#abcf37; color: #80298f; text-align:left">Mapa</button>
+												<div id="mapa" class="collapse" class="col-xs-12">
+		                                        	<div>                                                                
+	                                                    <table class="table " width="100%">
+	                                                      <thead>
+	                                                      </thead>
+	                                                      <tbody>
+	                                                        <!--<tr ng-repeat="actividad in gridActividades">
+	                                                          <td width="100%">{{actividad.descripcion}}</td>
+	                                                        </tr>-->
+	                                                        <tr><td>Autopista México - Puebla 4, Dario Martinez 1ra Secc, 56619 Valle de Chalco Solidaridad, Méx., México</td></tr>
+	                                                        <tr><td>Autopista México - Puebla 1101, Emiliano Zapata, Ciudad de México, CDMX, México</td></tr>
+	                                                      </tbody>
+	                                                    </table>                                                                                          
+		                                        	</div>
+		                                        	<div id="map" style="width:100%; height:250px"></div>
+												</div>												         
+											</div>
+										</div>
+	                                </div>
+	                             </div>
+	                        </div>
+	                      </div>
+	                    </div>
+  			        </div>
+  			    </div>
+    		</div>
+    	</div>
+      </form>
+  	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/locales/bootstrap-datepicker.es.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&callback=initMap"></script>
+  </body>
+  </html>
