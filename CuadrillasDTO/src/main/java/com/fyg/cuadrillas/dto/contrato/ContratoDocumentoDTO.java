@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto.contrato;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class ContratoDocumentoDTO extends ObjetoValor{
+public class ContratoDocumentoDTO extends ObjetoValor {
 
 	/**
 	 * Serial UID
