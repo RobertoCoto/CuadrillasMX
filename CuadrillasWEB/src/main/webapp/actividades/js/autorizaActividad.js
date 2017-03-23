@@ -37,7 +37,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
               zoom: 7,
               center: mx1
             });
-            google.maps.event.addListener(map, 'click', function(event) {
+            google.maps.event.addListener(map2, 'click', function(event) {
               //console.log(event);
                 setMarcador(event.latLng);
             });
