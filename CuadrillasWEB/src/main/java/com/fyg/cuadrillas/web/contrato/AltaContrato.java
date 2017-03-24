@@ -105,7 +105,7 @@ public class AltaContrato extends HttpServlet {
 							  if (item.getFieldName().trim().equalsIgnoreCase("json")) {
 								  System.out.println(item.getString());
 								   dataJson = item.getString();
-								  json = new String (dataJson.getBytes ("iso-8859-1"), "UTF-8");
+								  json = new String(dataJson.getBytes("iso-8859-1"), "UTF-8");
 								  LogHandler.debug(null, this.getClass(), "JSON AQUI: " + json);
 							  }
 					          if (item.getFieldName().trim().equalsIgnoreCase("contrato")) {
@@ -116,7 +116,8 @@ public class AltaContrato extends HttpServlet {
 					      else {
 					            name = new File(item.getName()).getName();
 					            System.out.println("name: " + name.toString());
-					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name));
+					            item.write( new File(uploadDirectory
+					            		+ File.separator + new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name));
 					            rutaArchivo = uploadDirectory + File.separator + name;
 					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
 					            rutaImagen = new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name;

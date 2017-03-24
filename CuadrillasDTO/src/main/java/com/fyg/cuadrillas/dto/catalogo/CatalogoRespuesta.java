@@ -56,5 +56,4 @@ public class CatalogoRespuesta extends ObjetoValor {
 	public void setCatalogo(List<CatalogoDTO> catalogo) {
 		this.catalogo = catalogo;
 	}
-
 }

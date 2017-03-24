@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.log4j.Logger;
 
 /**
  * Servlet de prueba
@@ -116,8 +115,9 @@ public class Test extends HttpServlet {
 						  }
 					      else {
 					            name = new File(item.getName()).getName();
-					            System.out.println("name: " + name.toString());;
-					            item.write( new File(uploadDirectory + File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name));
+					            System.out.println("name: " + name.toString());
+					            item.write( new File(uploadDirectory
+					            		+ File.separator + new SimpleDateFormat("dd-MM-yyyy hhMMss ").format(new Date()) + name));
 					            rutaArchivo = uploadDirectory + File.separator + name;
 					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
 					            rutaImagen = name;
@@ -126,14 +126,6 @@ public class Test extends HttpServlet {
 					   }
 
 				}
-
-				if (!(rutaImagen == null || rutaImagen.trim().isEmpty())) {
-					/*Imagen imagen = new Imagen();
-					imagen.setRuta(rutaImagen);
-					imagen.setEstatus("A");
-					incidencia.setImagen(imagen);*/
-				}
-
 
 			} catch (Exception e) {
 				System.out.println("No se enviaron todos los parametros para registrar la indicencia. Error: " + e.getMessage());

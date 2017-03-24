@@ -298,7 +298,7 @@ public class ContratoDAO {
 			}
 			System.out.println("ID Contrato = " + contrato.getIdContrato());
 			//elimina las coordenadas anteriores
-			EliminaCoordenadas(uid, contrato.getIdContrato(), sessionTx );
+			eliminaCoordenadas(uid, contrato.getIdContrato(), sessionTx );
 			if (contrato.getCoordenadas().size() > 0) {
 				for (CoordenadaDTO coordenada : contrato.getCoordenadas()) {
 					coordenada.setIdContrato(contrato.getIdContrato());
@@ -326,10 +326,10 @@ public class ContratoDAO {
 	/**
 	 * Metodo para dar de alta un contrato
 	 * @param uid unico de registro
-	 * @param contrato recoibe valores de contrato
+	 * @param contratoDocumento recoibe valores de contrato
 	 * @return regresa la respuesta
 	 */
-	public EncabezadoRespuesta RegistraDocumentosExtra(String uid, ContratoDocumentoDTO contratoDocumento) {
+	public EncabezadoRespuesta registraDocumentosExtra(String uid, ContratoDocumentoDTO contratoDocumento) {
 		SqlSession sessionTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -362,11 +362,11 @@ public class ContratoDAO {
 	/**
 	 * metodo para eliminar la coordenada
 	 * @param uid unico de registro
-	 * @param coordenadas recibe valores de coordenada
+	 * @param idContrato session abre session bd
 	 * @param session abre session bd
 	 * @throws Exception si surge un error
 	 */
-public void EliminaCoordenadas(String uid, int idContrato , SqlSession session) throws Exception {
+public void eliminaCoordenadas(String uid, int idContrato , SqlSession session) throws Exception {
 	HashMap<Object, Object> parametros = new HashMap<Object, Object>();
 	parametros.put("id_contrato", idContrato);
 	int registros = session.delete("ContratoDAO.eliminaCoordenadass", parametros);

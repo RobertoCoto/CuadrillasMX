@@ -191,10 +191,9 @@ public class ActividadNegocio {
 			if (actividad.getIdEmpleado() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
 			}
-			if (actividad.getFechaDiaria()== null || actividad.getFechaDiaria().trim().isEmpty()) {
+			if (actividad.getFechaDiaria() == null || actividad.getFechaDiaria().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario la fecha para la busqueda.");
 			}
-			
 			listaActividad = new ActividadDAO().consultaActividadDiaria(uid, actividad);
 			respuesta.setActividad(listaActividad);
 		} catch  (ExcepcionesCuadrillas ex) {

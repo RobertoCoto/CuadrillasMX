@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto.agenda;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class AgendaMaterialDTO extends ObjetoValor{
+public class AgendaMaterialDTO extends ObjetoValor {
 	/**
 	 * Serial UID
 	 */
@@ -28,7 +28,7 @@ public class AgendaMaterialDTO extends ObjetoValor{
 	 */
 	private String fechaAlta;
 	/**
-	 * estatus 
+	 * estatus
 	 */
 	private String estatus;
 	/**

@@ -29,28 +29,44 @@
 </resultMap>
 
 <resultMap type="AgendaDetalle" id="agendaDetalle">
-<result column="id_agenda" property="idAgenda"/>
-<result column="id_agenda_detalle" property="idAgendaDetalle"/>
-<result column="fecha" property="fecha"/>
-<result column="avance_esperado" property="avanceEsperado"/>
-<result column="observaciones" property="observaciones"/>
+	<result column="id_agenda" property="idAgenda"/>
+	<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+	<result column="fecha" property="fecha"/>
+	<result column="avance_esperado" property="avanceEsperado"/>
+	<result column="observaciones" property="observaciones"/>
 </resultMap>
 
 <resultMap type="AgendaActividad" id="agendaActividad">
-<result column="codigo_actividad" property="codigoActividad"/>
-<result column="descripcion_actividad" property="descripcionActividad"/>
+	<result column="codigo_actividad" property="codigoActividad"/>
+	<result column="descripcion_actividad" property="descripcionActividad"/>
 </resultMap>
 
 <resultMap type="AgendaMaterial" id="agendaMaterial">
-<result column="codigo_material" property="codigoMaterial"/>
-<result column="descripcion_Material" property="descripcionMaterial"/>
+	<result column="codigo_material" property="codigoMaterial"/>
+	<result column="descripcion_Material" property="descripcionMaterial"/>
+</resultMap>
+
+<resultMap type="ActividadDiaria" id="actividadDiaria">
+	<result column="id_actividad_diaria" property="idActividadDiaria"/>
+	<result column="id_agenda" property="idAgenda"/>
+	<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+	<result column="metros_planificado" property="metrosPlanificados"/>
+	<result column="no_trabajadores" property="noTrabajadores"/>
+	<result column="no_horas" property="noHoras"/>
+	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/>
+	<result column="porcentaje" property="porcentaje"/>
+	<result column="observaciones" property="observaciones"/>
+	<result column="comentario_autorizacion" property="comentarioAutorizacion"/>
+	<result column="usuario_alta" property="usuarioAlta"/>
 </resultMap>
 
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
-SELECT count(id_contrato)
-FROM agenda
-WHERE id_contrato = #{idContrato}
-AND estatus = 'A'
+	SELECT count(id_contrato)
+	FROM agenda
+	WHERE id_contrato = #{idContrato}
+	and no_semana = #{noSemana}
+	and fecha_inicio = #{fechaInicio}
+	AND estatus = 'A'
 </select>
 
 <select id="existeBajaAgenda" parameterType="Agenda" resultType="int">
@@ -150,7 +166,7 @@ AND estatus = 'A'
 
 <select id="consultaAgendaDetalleSemanal" parameterType="AgendaDetalle" resultMap="agendaDetalle">
 SELECT id_agenda,id_agenda_detalle,fecha,avance_esperado,observaciones
-FROM agenda_detalle 
+FROM agenda_detalle
 WHERE id_agenda = #{idAgenda}
 AND estatus = 'A'
 </select>
@@ -181,4 +197,33 @@ SELECT
 WHERE id_agenda_detalle = #{id_agenda_detalle}
 AND estatus = 'A'
 </select>
+
+<select id="consultaAgendaDia" parameterType="Agenda" resultMap="agenda">
+	SELECT
+		a.id_agenda,
+		a.id_contrato,
+		a.fecha_inicio,
+		a.fecha_fin,
+		a.no_semana,
+		a.no_trabajadores,
+		a.no_horas,
+		a.usuario_alta,
+		a.estatus
+	FROM agenda a
+	INNER JOIN agenda_detalle ad ON ad.id_agenda = a.id_agenda
+	WHERE a.id_cuadrilla =  #{idCuadrilla}
+	AND ad.fecha = #{fechaBusqueda}
+  	AND a.estatus = 'A'
+  	AND ad.estatus = 'A'
+</select>
+
+<select id="consultaAgendaDetalleDia" parameterType="Agenda" resultMap="agendaDetalle">
+	SELECT
+		id_agenda, id_agenda_detalle, fecha,avance_esperado, observaciones
+	FROM agenda_detalle
+	WHERE id_agenda = #{idAgenda}
+	AND fecha = #{fechaBusqueda}
+	AND estatus = 'A'
+</select>
+
 </mapper>

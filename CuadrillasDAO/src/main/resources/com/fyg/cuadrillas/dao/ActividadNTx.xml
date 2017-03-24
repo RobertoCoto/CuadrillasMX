@@ -91,7 +91,7 @@ WHERE ma.id_agenda_detalle = #{idAgendaDetalle}
 
 <select id="consultaCoordenadaDiaria" parameterType="Actividad" resultMap="actividad">
 SELECT
-co.id_coordenada AS id_coordenada, 
+co.id_coordenada AS id_coordenada,
 co.orden AS orden,
 co.direccion AS direccion,
 co.latitud AS latitud,

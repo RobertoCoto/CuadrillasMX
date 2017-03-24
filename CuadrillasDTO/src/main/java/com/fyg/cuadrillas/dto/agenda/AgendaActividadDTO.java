@@ -28,7 +28,7 @@ public class AgendaActividadDTO extends ObjetoValor {
 	 */
 	private String fechaAlta;
 	/**
-	 * estatus 
+	 * estatus
 	 */
 	private String estatus;
 	/**

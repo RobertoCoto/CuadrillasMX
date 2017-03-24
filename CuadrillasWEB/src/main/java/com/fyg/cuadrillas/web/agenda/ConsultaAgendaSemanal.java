@@ -21,7 +21,6 @@ public class ConsultaAgendaSemanal extends HttpServlet {
 	 * Serial uid
 	 */
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -50,6 +49,7 @@ public class ConsultaAgendaSemanal extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
+			System.out.println("Prueba");
 			Integer idContrato = Integer.parseInt(request.getParameter("idContrato"));
 			Integer noSemana = Integer.parseInt(request.getParameter("noSemana"));
 			String fechaBusqueda = request.getParameter("fechaBusqueda");

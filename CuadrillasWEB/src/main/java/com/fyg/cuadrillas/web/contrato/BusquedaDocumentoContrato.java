@@ -52,7 +52,7 @@ public class BusquedaDocumentoContrato extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContratoDocumentoRespuesta respuesta = new ContratoDocumentoRespuesta();
 		try {
-			Integer idDocumento=  Integer.parseInt(request.getParameter("idDocumento"));
+			Integer idDocumento =  Integer.parseInt(request.getParameter("idDocumento"));
 
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");

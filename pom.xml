@@ -19,7 +19,7 @@
 		<module>CuadrillasDAO</module>
 		<module>CuadrillasNegocio</module>		
 		<module>CuadrillasWEB</module>
-
+		<module>CuadrillasWS</module>		
 	</modules>
 
 	

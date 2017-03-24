@@ -189,7 +189,6 @@ public class ContratoDTO extends ObjetoValor {
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-	
 	/**
 	 * @return the pctAvance
 	 */

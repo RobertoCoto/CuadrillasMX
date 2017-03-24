@@ -341,7 +341,7 @@ DROP TABLE IF EXISTS perfil;
 		usuario_ult_mod varchar(20) NULL,
 		fecha_ult_mod  DATETIME  NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
-		PRIMARY KEY(id_agenda_detalle),
+		PRIMARY KEY(id_agenda, fecha),
 		KEY (id_agenda_detalle)
 	);
 
@@ -383,7 +383,6 @@ DROP TABLE IF EXISTS perfil;
 		id_agenda 					INTEGER NOT NULL,
 		id_agenda_detalle 			INTEGER NOT NULL,
 		metros_planificado			FLOAT NOT NULL,		
-		numero_personas 			INTEGER  NULL,
 		no_trabajadores 			INTEGER NOT NULL,
 		no_horas 					INTEGER NOT NULL,		
 		no_horas_trabajadas			INTEGER NOT NULL,
@@ -503,6 +502,7 @@ ALTER TABLE agenda_detalle ADD CONSTRAINT FK_d_id_agenda FOREIGN KEY (id_agenda)
 ALTER TABLE agenda_coordenadas ADD CONSTRAINT FK_id_agenda_detalle FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
 ALTER TABLE agenda_actividades ADD CONSTRAINT FK_a_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
+ALTER TABLE agenda_actividades ADD CONSTRAINT FK_codigo_actividad FOREIGN KEY (codigo_actividad) REFERENCES catalogo(codigo);
 
 ALTER TABLE agenda_materiales ADD CONSTRAINT FK_m_id_agenda FOREIGN KEY (id_agenda_detalle) REFERENCES agenda_detalle (id_agenda_detalle);
 
@@ -516,5 +516,7 @@ ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_prioridad  FOREI
 ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
 ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_listo_vencido  FOREIGN KEY (codigo_listo_vencido) REFERENCES catalogo(codigo);
 
-ALTER TABLE actividad_diaria ADD CONSTRAINT FK_actividad_diaria  FOREIGN KEY (id_agenda, id_agenda_detalle) REFERENCES agenda_detalle(id_agenda, id_agenda_detalle);
+
+
+
 

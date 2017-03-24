@@ -17,6 +17,8 @@
 .set-width {
   width: 220px;
 }
+
+.separador {border: 2; border-top: 1px solid #999; border-bottom: 1px solid #333; height:0;}
 </style>
 </head>
 <body ng-app="tatei" ng-controller="autorizaActividad">
@@ -78,7 +80,7 @@
 	                <div class="row">
 	                	<div class="col-sm-6">
 	                  		<div class="row">
-	                    		<div class="col-sm-12 ">	
+	                    		<div class="col-sm-12 " style="width: 477px; height: 645px; ">	
 	                      			<h4>Dirección</h4>
 	                      			<div class="row">
 	                        			<div class="col-sm-3">
@@ -134,7 +136,7 @@
 	                          				<span id="km"></span>
 	                        			</div>
 	                      			</div>
-	                    			<div class="tbl-content" style="height:590px;">
+	                    			<div class="tbl-content" style="height: 533px; width: 434px">
 	                      				<table cellpadding="0" cellspacing="0" border="1">
 	                        				<tbody id="tramos" width="493px">
 	                        				</tbody>
@@ -173,6 +175,7 @@
                 <td>% Completado</td>
                 <td>Listo / Vencido</td>
                 <td>Observaciones</td>
+                <td>Operaciones</td>
                 </tr>
             </thead>
             
@@ -186,6 +189,7 @@
             <td>-</td>
             <td>-</td>
             <td>-</td>
+            <td><button class="btn btn-warning">Ver Fotos</button></td>
             </tr>
             </table>
            </div>
@@ -202,11 +206,6 @@
 		<div class="col-sm-4">
 		<label>% Actividades completadas:</label>
 		<input type="text" disabled size="5">
-		</div>
-		
-		<div class="col-sm-4">
-		<label>Fotos Evidencia: </label>
-		<button class="btn btn-warning">Ver Fotos</button>
 		</div>
 		<br>
 		<div class="row">
@@ -249,18 +248,22 @@
 		<div class="row">
 				<div class="col-sm-12">
 				<label>Observaciones</label>
-			     <textarea class="form-control"></textarea>
+			     <textarea class="form-control" disabled></textarea>
 				</div>
 		</div>
 		<br>
+		<hr class="separador">
 		<div class="row">
+		<h3>Resultado Revisión</h3>
 				<div class="col-sm-12">
 				<label>Observaciones</label>
 			     <textarea class="form-control"></textarea>
 				</div>
+			
 		</div>
 		<br>
-		<div align="center">
+		<div class="btn-group" role="group" align="center">
+			
 				<button class="btn btn-info">Autorizar</button>&nbsp;<button class="btn btn-danger">Rechazar</button>
 		</div>
 		</div>
