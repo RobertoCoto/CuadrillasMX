@@ -197,4 +197,33 @@ SELECT
 WHERE id_agenda_detalle = #{id_agenda_detalle}
 AND estatus = 'A'
 </select>
+
+<select id="consultaAgendaDia" parameterType="Agenda" resultMap="agenda">
+	SELECT
+		a.id_agenda,
+		a.id_contrato,
+		a.fecha_inicio,
+		a.fecha_fin,
+		a.no_semana,
+		a.no_trabajadores,
+		a.no_horas,
+		a.usuario_alta,
+		a.estatus
+	FROM agenda a
+	INNER JOIN agenda_detalle ad ON ad.id_agenda = a.id_agenda
+	WHERE a.id_cuadrilla =  #{idCuadrilla}
+	AND ad.fecha = #{fechaBusqueda}
+  	AND a.estatus = 'A'
+  	AND ad.estatus = 'A'
+</select>
+
+<select id="consultaAgendaDetalleDia" parameterType="Agenda" resultMap="agendaDetalle">
+	SELECT
+		id_agenda, id_agenda_detalle, fecha,avance_esperado, observaciones
+	FROM agenda_detalle
+	WHERE id_agenda = #{idAgenda}
+	AND fecha = #{fechaBusqueda}
+	AND estatus = 'A'
+</select>
+
 </mapper>

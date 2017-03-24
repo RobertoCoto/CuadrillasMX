@@ -15,8 +15,10 @@ public class AgendaDTO extends ObjetoValor {
 
 	/** idAgenda */
 	private Integer idAgenda;
-	/**idContrato*/
+	/**idContrato */
 	private Integer idContrato;
+	/**idCuadrilla */
+	private Integer idCuadrilla;
 	/** contrato */
 	private ContratoDTO contrato;
 	/** fechaInicio */
@@ -31,9 +33,7 @@ public class AgendaDTO extends ObjetoValor {
 	private int noHoras;
 	/** diasAgenda */
 	private List<AgendaDetalleDTO> diasAgenda;
-	/**
-	 * coordenadas
-	 */
+	/** coordenadas */
 	private List<CoordenadaDTO> coordenadas;
 	/** fechaFin */
 	private String usuario;
@@ -57,22 +57,6 @@ public class AgendaDTO extends ObjetoValor {
 	 * obsevraciones
 	 */
 	private String observacionesDetalle;
-	/**
-	 * codigo
-	 */
-	private String actividad;
-	/**
-	 * material
-	 */
-	private String material;
-	/**
-	 * descripcion actividad
-	 */
-	private String descripcionActividad;
-	/**
-	 * descripcion material
-	 */
-	private String descripcionMaterial;
 	/**
 	 * estatus
 	 */
@@ -262,54 +246,6 @@ public class AgendaDTO extends ObjetoValor {
 		this.observacionesDetalle = observacionesDetalle;
 	}
 	/**
-	 * @return the actividad
-	 */
-	public String getActividad() {
-		return actividad;
-	}
-	/**
-	 * @param actividad the actividad to set
-	 */
-	public void setActividad(String actividad) {
-		this.actividad = actividad;
-	}
-	/**
-	 * @return the material
-	 */
-	public String getMaterial() {
-		return material;
-	}
-	/**
-	 * @param material the material to set
-	 */
-	public void setMaterial(String material) {
-		this.material = material;
-	}
-	/**
-	 * @return the descripcionActividad
-	 */
-	public String getDescripcionActividad() {
-		return descripcionActividad;
-	}
-	/**
-	 * @param descripcionActividad the descripcionActividad to set
-	 */
-	public void setDescripcionActividad(String descripcionActividad) {
-		this.descripcionActividad = descripcionActividad;
-	}
-	/**
-	 * @return the descripcionMaterial
-	 */
-	public String getDescripcionMaterial() {
-		return descripcionMaterial;
-	}
-	/**
-	 * @param descripcionMaterial the descripcionMaterial to set
-	 */
-	public void setDescripcionMaterial(String descripcionMaterial) {
-		this.descripcionMaterial = descripcionMaterial;
-	}
-	/**
 	 * @return the estatus
 	 */
 	public String getEstatus() {
@@ -345,4 +281,17 @@ public class AgendaDTO extends ObjetoValor {
 	public void setFechaBusqueda(String fechaBusqueda) {
 		this.fechaBusqueda = fechaBusqueda;
 	}
+	/**
+	 * @return the idCuadrilla
+	 */
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
+	}
+	/**
+	 * @param idCuadrilla the idCuadrilla to set
+	 */
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
+	}
+
 }

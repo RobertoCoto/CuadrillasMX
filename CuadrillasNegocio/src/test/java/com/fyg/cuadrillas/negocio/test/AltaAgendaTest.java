@@ -87,10 +87,12 @@ public class AltaAgendaTest {
 
 		detalles.add(agendaDetalle);
 
-		agendaDetalle.setFecha("2017-02-08");
-		agendaDetalle.setObservaciones("alta de agenda detalle segunda");
+		AgendaDetalleDTO agendaDetalle2 = new AgendaDetalleDTO();
+		agendaDetalle2 = agendaDetalle;
+		agendaDetalle2.setFecha("2017-02-08");
+		agendaDetalle2.setObservaciones("alta de agenda detalle segunda");
 
-		detalles.add(agendaDetalle);
+		//detalles.add(agendaDetalle2);
 
 		agenda.setDiasAgenda(detalles);
 	}

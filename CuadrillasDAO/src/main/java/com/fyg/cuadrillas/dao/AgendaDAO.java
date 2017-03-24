@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -399,27 +400,42 @@ public class AgendaDAO {
 	 * @throws Exception si se genera un error
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AgendaDTO> consultaAgenda(String uid, AgendaDTO agenda) throws Exception {
+	public AgendaDTO consultaAgendaDia(String uid, AgendaDTO agenda) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
 		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<AgendaDTO> listaConsultaAgenda = null;
+		AgendaDTO consultaAgenda = null;
 		try {
 			//Abrimos conexion Transaccional
 			LogHandler.debug(uid, this.getClass(), "Abriendo");
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla
-			listaConsultaAgenda = sessionNTx.selectList("AgendaDAO.consultaAgenda", agenda);
-			if ( listaConsultaAgenda.size() == 0) {
+			consultaAgenda = (AgendaDTO) sessionNTx.selectOne("AgendaDAO.consultaAgendaDia", agenda);
+			if ( consultaAgenda == null) {
 				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
 			}
-			for (AgendaDTO c : listaConsultaAgenda) {
-				List<CoordenadaDTO> coordenadas = null;
-				coordenadas = sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", c);
-				c.setCoordenadas(coordenadas);
-		    }
+			agenda.setIdAgenda(consultaAgenda.getIdAgenda());
+			List<AgendaDetalleDTO> diasAgenda = new ArrayList<AgendaDetalleDTO>();
+			AgendaDetalleDTO diaAgenda =  (AgendaDetalleDTO) sessionNTx.selectOne("AgendaDAO.consultaAgendaDetalleDia", agenda);
+			System.out.println("dia Agenda ++++" + diaAgenda);
+			if ( diaAgenda == null) {
+				throw new ExcepcionesCuadrillas("No existe informacion para la fecha solicitada.");
+			}
+			HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+			parametros.put("id_agenda_detalle", diaAgenda.getIdAgendaDetalle());
+			List<AgendaActividadDTO> actividades
+				= sessionNTx.selectList("AgendaDAO.consultaActividadAgendaDetalleSemanal", parametros);
+			List<AgendaMaterialDTO> materiales
+				= sessionNTx.selectList("AgendaDAO.consultaMaterialAgendaDetalleSemanal", parametros);
+			List<CoordenadaDTO> coordenadas
+				= sessionNTx.selectList("AgendaDAO.consultaCoordenadaAgendaDetalleSemanal", parametros);
+			diaAgenda.setActividades(actividades);
+			diaAgenda.setMateriales(materiales);
+			diaAgenda.setCoordenadas(coordenadas);
+			diasAgenda.add(diaAgenda);
+			consultaAgenda.setDiasAgenda(diasAgenda);
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
@@ -427,7 +443,7 @@ public class AgendaDAO {
 		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
-		return listaConsultaAgenda;
+		return consultaAgenda;
 	}
 	/**
 	 * Metodo para actualizar la agenda
@@ -458,7 +474,7 @@ public class AgendaDAO {
 			//elimina las coordenadas
 			eliminaCoordenadas(uid, agenda.getIdAgenda(), sessionTx);
 
-			//elimina agenda detellae
+			//elimina agenda detalle
 			eliminaAgendaDetalle(uid, agenda.getIdAgenda(), sessionTx);
 
 			System.out.println("ID agenda Alta = " + agenda.getIdAgenda());
