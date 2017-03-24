@@ -93,7 +93,7 @@ public class LoginController extends javax.swing.JPanel {
             		   JOptionPane.showMessageDialog(null, "que pex",
             				   "Campo Vacio", JOptionPane.ERROR_MESSAGE);
             	   }*/
-               }
+             }
            };
         login.addActionListener(verificaSesion);
         frame.add(login);
