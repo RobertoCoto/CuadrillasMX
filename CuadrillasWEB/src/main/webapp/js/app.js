@@ -2684,22 +2684,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 'fechaBusqueda' : $('#fecha').val().substring(0,4)
               },
               data: { }
-        }).then(function successfn(response) {
-        	console.info("***consulta");
-        	console.info(response);
+	      }).then(function successfn(response) {
+        	//console.info("***consulta");
+        	//console.info(response);
         	//alert(response.data.header.mensajeFuncional);
         	idAgenda = response.data.agenda.idAgenda;
         	$scope.procesarConsulta(response.data);        	
         	$('#msload').modal('hide');
         	
               // console.log(result);
-        }, function errorfn(response) {
+	      }, function errorfn(response) {
         	//console.info("***error");
         	//console.info(response);
         	idAgenda = 0;
             alert(response.data.header.mensajeFuncional);
             $('#msload').modal('hide');
-        });    	  
+	      });    	  
       };
 
   	  // ***funcion para colocar la fecha de plan de actividades de acuerdo al
@@ -2765,103 +2765,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			  $scope.mapaSemana.push(mapaTemp);
   		  }
 
-  		  // console.info("MAPAS SEMANA");
-  		  // console.info($scope.mapaSemana);
-  			
-  		  //se limpian los marcadores
-  		  /*if (dia != 0)
-  		  {  	  		
-  			  $scope.limpiarMarcadores('1900-01-01');
-  		  }  			
-
-  		  if (dia != 0)
-  		  {
-  			  $('#diaActividad').val($scope.fechasSemana[dia-1]);
-  			  fecha = $('#diaActividad').val();
-  		  }
-  		  $scope.gridActividades = [];
-  		  $scope.gridArticulos = [];
-  		  $scope.mapa = {};
-  		  $scope.mapa.gridCoordenadas = [];
-
-  		  // se revisa si hay informacion en el arreglo general para la fecha
-  		  // seleccionada
-  		  for(indice in $scope.gridActividadesSemana)
-  		  {
-  			  if ( fecha == $scope.gridActividadesSemana[indice].fecha)
-  			  {
-  				  $scope.gridActividades.push($scope.gridActividadesSemana[indice]);
-  			  }
-  		  }
-
-  		  for(indice in $scope.gridArticulosSemana)
-  		  {
-  			  if (fecha == $scope.gridArticulosSemana[indice].fecha)
-  			  {
-  				  $scope.gridArticulos.push($scope.gridArticulosSemana[indice]);
-  			  }
-  		  }
-
-  			//pendiente
-  			//$scope.mapa = {};
-  			//$scope.mapa.gridCoordenadas = [];
-
-  			console.info("mapasemana");
-  			console.info($scope.mapaSemana);
-  			for(indice in $scope.mapaSemana)
-  			{
-  				if (fecha == $scope.mapaSemana[indice].fecha)
-  				{
-		  			if ($scope.mapaSemana[indice].gridCoordenadas.length >0)
-		  			{
-			  			var mapaTemp = {};
-			  			mapaTemp.gridCoordenadas = [];
-			  			for(rec_coord in $scope.mapaSemana[indice].gridCoordenadas)
-			  			{
-			    			var coordenadaP = {};
-			    			coordenadaP.latitud = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud;
-			    			coordenadaP.longitud = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud;
-			    			coordenadaP.direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
-
-			  				mapaTemp.gridCoordenadas.push(coordenadaP);
-			  			}
-			  			mapaTemp.metros = $scope.mapaSemana[indice].metros;
-			  			mapaTemp.fecha = $scope.mapaSemana[indice].fecha;
-
-			  			$scope.mapa.fecha = mapaTemp.fecha;
-			  			$scope.mapa.metros = mapaTemp.metros;
-			  			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;
-			  			//console.info("mapa");
-			  			//console.info($scope.mapa);
-			  			//console.info("coordenadas");
-			  			//console.info($scope.mapa.gridCoordenadas);
-			  			if (dia != 0)
-			  			{
-							setTimeout(function () { 
-								for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
-									$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
-								}
-							}, 100);
-						}
-			  		}
-  				}
-  			}
-
-  			//se revisa si hay observaciones capturadas
-  			$('#observaciones').val("");
-  			for (var i=0; i<$scope.diasAgenda.length; i++)
-  			{
-  				if (fecha == $scope.diasAgenda[i].fecha)
-  				{
-  					$('#observaciones').val($scope.diasAgenda[i].observaciones);
-  				}
-  			}
-			*/
-  			reseteaColorBotones();
-  			cambiaColorBoton($scope.gridArticulos);
-  			cambiaColorBoton($scope.gridActividades);
-  			cambiaColorBoton($scope.mapa);
-
+  		  reseteaColorBotones();
+  		  cambiaColorBoton($scope.gridArticulos);
+  		  cambiaColorBoton($scope.gridActividades);
+  		  cambiaColorBoton($scope.mapa);
   	  };
   		
     //***Se procesa la consulta
@@ -2989,7 +2896,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	
         var map;
         var medida;
-
+        
+        //***Inicializa el mapa
         $scope.initMap = function() {
             medida = {
                 mvcLine: new google.maps.MVCArray(),
@@ -3007,9 +2915,90 @@ app.directive('fileModel', ['$parse', function ($parse) {
             google.maps.event.addListener(map, 'click', function(event) {
                 	//$scope.setMarcador(event.latLng);
             });
-          };
+        };
     	
-          //para incializar los mapas
-          //$scope.initMap();
+        //***Consulta de la agenda
+        $scope.consultarAgendaDia = function()
+        {
+      		$scope.gridActividades = [];
+      		$scope.gridArticulos = [];
+      		$scope.mapa = {};
+      		$scope.mapa.gridCoordenadas = [];
+        	
+        	$http({
+        		method: 'GET',
+        		url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaDia',
+        		params: {
+                	'idCuadrilla'	: $scope.usuario.idCuadrilla,
+                	'fecha' : $('#fecha').val()
+              	},
+              	data: { }
+        	}).then(function successfn(response) {
+        		console.info("***consulta dia");
+        		console.info(response);
+        		//alert(response.data.header.mensajeFuncional);        		
+        		procesarConsulta(response.data);        	
+        		$('#msload').modal('hide');
+        	
+        		// console.log(result);
+        	}, function errorfn(response) {
+        		//console.info("***error");
+        		//console.info(response);
+        		idAgenda = 0;
+        		alert(response.data.header.mensajeFuncional);
+        		$('#msload').modal('hide');
+        	});        	
+        };
+        
+        //***Se prepara la informacion para mostrarla en pantalla
+        procesarConsulta = function(objAgenda)
+        {
+        	if ($('#fecha').val() == "")
+        	{
+        		alert("Debe seleccionar una fecha");
+        		return;
+        	}
+        
+    		//se llena el objeto de actividades
+    		for(var liActividades=0; liActividades < objConsulta.agenda.diasAgenda[0].actividades.length; liActividades++)
+    		{
+    			var actividad = {};
+    			actividad.fecha = fechaObj;
+    			actividad.codigo = objConsulta.agenda.diasAgenda[0].actividades[liActividades].codigoActividad;
+    			actividad.descripcion = objConsulta.agenda.diasAgenda[0].actividades[liActividades].descripcionActividad;
+    			$scope.gridActividades.push(actividad);
+	  		}
+	  		
+	  		//se llena el objeto de articulos
+    		for(var liArticulos=0; liArticulos < objConsulta.agenda.diasAgenda[0].materiales.length; liArticulos++)
+    		{
+    			var articulo = {};
+    			articulo.fecha = fechaObj;
+    			articulo.codigo = objConsulta.agenda.diasAgenda[0].materiales[liArticulos].codigoMaterial;
+    			articulo.descripcion = objConsulta.agenda.diasAgenda[0].materiales[liArticulos].descripcionMaterial;
+    			$scope.gridArticulos.push(articulo);
+	  		}
+    		
+	  		//se llena el objeto de mapa
+	  		var mapaTemp = {};
+	  		mapaTemp.gridCoordenadas = [];
+	  		//console.info("coordenadas consulta");
+	  		//console.info(objConsulta.agenda[0].diasAgenda[i].coordenadas);
+	  		for(var liCoordenadas=0; liCoordenadas < objConsulta.agenda.diasAgenda[0].coordenadas.length; liCoordenadas++)
+	  		{
+	  			var coordenadaP = {};
+	    		coordenadaP.latitud 	= objConsulta.agenda.diasAgenda[0].coordenadas[liCoordenadas].latitud;
+	    		coordenadaP.longitud 	= objConsulta.agenda.diasAgenda[0].coordenadas[liCoordenadas].longitud;
+	    		coordenadaP.direccion 	= objConsulta.agenda.diasAgenda[0].coordenadas[liCoordenadas].direccion;
+
+	  			mapaTemp.gridCoordenadas.push(coordenadaP);
+	  		}
+	  		mapaTemp.metros	= objConsulta.agenda.diasAgenda[0].avanceEsperado;
+	  		mapaTemp.fecha 	= objConsulta.agenda.diasAgenda[0].fecha;
+	  		
+			$scope.mapa.fecha = mapaTemp.fecha;
+			$scope.mapa.metros = mapaTemp.metros;
+			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;        	
+        }
     });
     //FIN CONSULTA DE AGENDA

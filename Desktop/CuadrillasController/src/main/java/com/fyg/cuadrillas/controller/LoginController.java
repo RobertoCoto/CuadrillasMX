@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -41,7 +44,7 @@ public class LoginController extends javax.swing.JPanel {
 	 */
 	public static void interfazLogin() {
 		//se crea la ventana
-        JFrame frame = new JFrame("Iniciar Sesión - Bienvenido TATEI");
+        final JFrame frame = new JFrame("Iniciar Sesión - Bienvenido TATEI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       //se llama al metodo donde esta nuestra imagen.
@@ -79,8 +82,21 @@ public class LoginController extends javax.swing.JPanel {
         //Se agrega boton personalizado
         JButton login = new JButton("Iniciar Sesión");
         login.setBounds(35, 445, 150, 35);
+        //Accion de boton login
+      	 ActionListener verificaSesion = new ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+            	   MenuPrincipal menu = new MenuPrincipal();
+            	   menu.setVisible(true);
+            	  /* if (campoUsuario.getText().equals("mimejorada")) {
+            		   JOptionPane.showMessageDialog(null, "SI QUEDO TU BOTON WE");
+            	   } else {
+            		   JOptionPane.showMessageDialog(null, "que pex",
+            				   "Campo Vacio", JOptionPane.ERROR_MESSAGE);
+            	   }*/
+             }
+           };
+        login.addActionListener(verificaSesion);
         frame.add(login);
-
         frame.setLayout(null);
         frame.pack();
         frame.setVisible(true);
@@ -99,9 +115,6 @@ public class LoginController extends javax.swing.JPanel {
 		setOpaque(false);
 		super.paintComponent(g);
 		}
-
-	//Accion de boton login
-
 		//metodo principal
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
