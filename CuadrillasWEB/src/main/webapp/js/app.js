@@ -2951,7 +2951,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };
         
         //***Se prepara la informacion para mostrarla en pantalla
-        procesarConsulta = function(objAgenda)
+        procesarConsulta = function(objConsulta)
         {
         	if ($('#fecha').val() == "")
         	{
@@ -2960,6 +2960,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         	}
         
     		//se llena el objeto de actividades
+        	var fechaObj = objConsulta.agenda.diasAgenda[0].fecha;
     		for(var liActividades=0; liActividades < objConsulta.agenda.diasAgenda[0].actividades.length; liActividades++)
     		{
     			var actividad = {};
