@@ -29,16 +29,22 @@
     				<div class="panel panel-default">
 	  			        <div class="panel-body">
 	  			          	<div class="row">
-	  			            	<div class="col-xs-4">
+	  			            	<div class="col-md-8">
+	  			            	<div class="col-md-6">
 	  			              		<div class="form-group">
-	                            <label for="fecha" class="control-label">Fecha</label>
-	                            <div class="input-group">
-	                              <div class="input-group-addon">
-	                                <i class="fa fa-calendar" ></i>
-	                              </div>
-	                              <input class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" type="text" value=""/>
-	                            </div>
+	                            		<label for="fecha" class="control-label">Fecha</label>
+	                            		<div class="input-group">
+	                              			<div class="input-group-addon">
+	                                			<i class="fa fa-calendar" ></i>
+	                              			</div>
+	                              			<input class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" type="text" value=""/>
+	                              		
+	                            		</div>	                            		
 	  			               		</div>
+	  			               		</div>
+	  			               		<div class="col-md-2" style="margin-top:20px">
+	  			               			<button type="button" class="btn btn-success btn-block" id="btnConsultar" name="btnConsultar" ng-click="consultarAgendaDia()">Consultar</button>
+	  			               		</div>           						               	
 	  			            	</div>
 	  			          	</div>
 	                    	<div class="row">
@@ -50,17 +56,13 @@
 												<div id="actividades" class="collapse">
 		                                        	<div>                                                                
 		                                          		<table class="table " width="100%">
-			                                            <thead>
-			                                            </thead>
+			                                            <!--  <thead>
+			                                            	<tr><td>Actividad</td></tr>
+			                                            </thead>-->
 			                                            <tbody>
-			                                              <!--<tr ng-repeat="actividad in gridActividades">
-			                                                <td width="100%">{{actividad.descripcion}}</td>
-			                                              </tr>-->
-			                                              <tr><td>CONSTRUCCION DE CAJETES PZA</td></tr>
-			                                              <tr><td>DESHIERBE M2</td></tr>
-			                                              <tr><td>DESCOMPACTACION DE TERRENO M2</td></tr>
-			                                              <tr><td>DERRIBO Y TROCEADO DE SUJETOS FORESTALES PZA</td></tr>
-			                                              <tr><td>INCIDENCIA</td></tr>
+			                                            	<tr ng-repeat="actividad in gridActividades">
+			                                                	<td width="100%">{{actividad.descripcion}}</td>
+			                                            	</tr>
 			                                            </tbody>
 			                                          </table>
 		                                        	</div>
@@ -74,17 +76,13 @@
 												<div id="materiales" class="collapse">
 		                                        	<div>                                                                
 		                                          		<table class="table" width="100%">
-			                                            <thead>
-			                                            </thead>
+			                                            <!--  <thead>
+			                                            	<tr><td>Material</td></tr>
+			                                            </thead>-->
 			                                            <tbody>
-	                                                      <!--<tr ng-repeat="actividad in gridActividades">
-	                                                        <td width="100%">{{actividad.descripcion}}</td>
-	                                                      </tr>-->
-	                                                      <tr><td>BARSINAS</td></tr>
-	                                                      <tr><td>BOTIQUIN</td></tr>
-	                                                      <tr><td>COSTALES</td></tr>
-	                                                      <tr><td>ESCALERA</td></tr>
-	                                                      <tr><td>DESMALEZADORA</td></tr>
+	                                                    	<tr ng-repeat="articulo in gridArticulos">
+	                                                        	<td width="100%">{{articulo.descripcion}}</td>
+	                                                      	</tr>
 			                                            </tbody>
 			                                          </table>
 		                                        	</div>
@@ -94,7 +92,7 @@
 										</br>
 										<div class="row">
 		                                	<div class="col-xs-12">
-												<button data-toggle="collapse" data-target="#mapa" style="width:100%; background:#abcf37; color: #80298f; text-align:left">Mapa</button>
+												<button data-toggle="collapse" data-target="#mapa" style="width:100%; background:#abcf37; color: #80298f; text-align:left"  ng-click="initMap()">Mapa</button>
 												<div id="mapa" class="collapse" class="col-xs-12">
 		                                        	<div>                                                                
 	                                                    <table class="table " width="100%">
@@ -131,6 +129,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/locales/bootstrap-datepicker.es.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc"></script>
   </body>
   </html>
