@@ -136,8 +136,8 @@ var data;
             })
             .state('41', {
             	url: '/41',
-                templateUrl : 'templates/buzonResidente.html',
-                controller  : 'buzonResidente'
+                templateUrl : 'buzonresidente pendiente',
+                controller  : 'pendiente'
             })
             .state('50', {
             	url: '/50',
@@ -2929,8 +2929,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
         		method: 'GET',
         		url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaDia',
         		params: {
-                	'idCuadrilla'	: $scope.usuario.idCuadrilla,
-                	'fecha' : $('#fecha').val()
+                	'idCuadrilla'	: 1,//$scope.usuario.idCuadrilla,
+                	'fecha' 		: $('#fecha').val()
               	},
               	data: { }
         	}).then(function successfn(response) {
