@@ -83,19 +83,13 @@ public class LoginController extends javax.swing.JPanel {
         JButton login = new JButton("Iniciar Sesión");
         login.setBounds(35, 445, 150, 35);
         //Accion de boton login
-      	 ActionListener verificaSesion = new ActionListener() {
-               public void actionPerformed(ActionEvent e) {
-            	   MenuPrincipal menu = new MenuPrincipal();
-            	   menu.setVisible(true);
-            	  /* if (campoUsuario.getText().equals("mimejorada")) {
-            		   JOptionPane.showMessageDialog(null, "SI QUEDO TU BOTON WE");
-            	   } else {
-            		   JOptionPane.showMessageDialog(null, "que pex",
-            				   "Campo Vacio", JOptionPane.ERROR_MESSAGE);
-            	   }*/
-             }
-           };
-        login.addActionListener(verificaSesion);
+        login.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e){
+        		Menu menuPrincipal = new Menu();
+        		menuPrincipal.setVisible(true);
+        		frame.setVisible(false);
+        	}
+        });
         frame.add(login);
         frame.setLayout(null);
         frame.pack();
