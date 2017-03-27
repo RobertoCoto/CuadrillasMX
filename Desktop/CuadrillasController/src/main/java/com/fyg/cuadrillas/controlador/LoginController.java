@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,14 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
-import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Pantalla Inicio Session
@@ -103,7 +96,8 @@ public class LoginController extends javax.swing.JPanel {
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
         		//url para consumir WS
-        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="+usuario+"&password="+pass;
+        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="
+        		+ usuario + "&password=" + pass;
         		String output  = getUrlContents(url);
         		//
         	    try {
@@ -153,8 +147,8 @@ public class LoginController extends javax.swing.JPanel {
 		}
 	/**
 	 * Consume WS con los parametros enviados
-	 * @param theUrl
-	 * @return
+	 * @param theUrl obtiene la url
+	 * @return regresa los datos
 	 */
 	  private static String getUrlContents(String theUrl)
 	  {
@@ -182,7 +176,7 @@ public class LoginController extends javax.swing.JPanel {
 	      }
 	      bufferedReader.close();
 	    }
-	    catch(Exception e)
+	    catch (Exception e)
 	    {
 	      e.printStackTrace();
 	    }
