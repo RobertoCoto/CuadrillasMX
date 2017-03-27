@@ -14,7 +14,9 @@
 	</properties>
 	
 	<modules>
-		<module>CuadrillasController</module>		
+		<module>CuadrillasControllerComun</module>
+		<module>CuadrillasControllerDTO</module>
+		<module>CuadrillasController</module>
 	</modules>
 
 	

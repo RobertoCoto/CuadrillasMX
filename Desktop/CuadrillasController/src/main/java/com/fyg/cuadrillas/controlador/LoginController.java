@@ -6,12 +6,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -85,6 +88,14 @@ public class LoginController extends javax.swing.JPanel {
         //Accion de boton login
         login.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e){
+        		//se ponen los parametros
+        		String usuario = campoUsuario.getText();
+        		String pass = campoContrasena.getText();
+        		//url para consumir WS
+        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="+usuario+"&password="+pass;
+        		System.out.println(url);
+        		String output  = getUrlContents(url);
+        	    System.out.println("aqui: "+output);
         		Menu menuPrincipal = new Menu();
         		menuPrincipal.setVisible(true);
         		frame.setVisible(false);
@@ -109,6 +120,43 @@ public class LoginController extends javax.swing.JPanel {
 		setOpaque(false);
 		super.paintComponent(g);
 		}
+	/**
+	 * Consume WS con los parametros enviados
+	 * @param theUrl
+	 * @return
+	 */
+	  private static String getUrlContents(String theUrl)
+	  {
+	    StringBuilder content = new StringBuilder();
+
+	    // many of these calls can throw exceptions, so i've just
+	    // wrapped them all in one try/catch statement.
+	    try
+	    {
+	      // create a url object
+	      URL url = new URL(theUrl);
+
+	      // create a urlconnection object
+	      URLConnection urlConnection = url.openConnection();
+
+	      // wrap the urlconnection in a bufferedreader
+	      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+	      String line;
+
+	      // read from the urlconnection via the bufferedreader
+	      while ((line = bufferedReader.readLine()) != null)
+	      {
+	        content.append(line + "\n");
+	      }
+	      bufferedReader.close();
+	    }
+	    catch(Exception e)
+	    {
+	      e.printStackTrace();
+	    }
+	    return content.toString();
+	  }
 		/**
 		 * Metodo main
 		 * @param args recibira argumentos
