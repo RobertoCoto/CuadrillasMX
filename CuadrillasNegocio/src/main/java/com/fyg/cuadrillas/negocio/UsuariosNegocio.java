@@ -351,4 +351,65 @@ public class UsuariosNegocio {
 		    LogHandler.debug(uid, this.getClass(), "consultaListaUsuario - Datos Salida: " + respuesta);
 			return respuesta;
 		}
+		/**
+		 * Metodo para realizar login de usuario WS
+		 * @param usuario recibe valores del usuario
+		 * @return retorna los datos del usuario
+		 */
+			public UsuarioRespuesta loginUsuarioWS(UsuarioDTO usuario) {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(usuario);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "loginUsuarioWS - Datos Entrada: " + usuario);
+				//Variable de resultado
+				UsuarioRespuesta respuesta = new UsuarioRespuesta();
+				respuesta.setEstatus(true);
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				UsuarioDTO loginUsuario = null;
+			    try {
+			    	//validaciones de los campos
+			    	if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
+			    		throw new ExcepcionesCuadrillas("Es necesario el usuario.");
+			    	}
+			    	if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
+			    		throw new ExcepcionesCuadrillas("Es necesaria la contraseña.");
+			    	}
+			    	String encriptaPass = Encriptacion.obtenerEncriptacionSHA256(usuario.getContrasena());
+			    	//se le asigna para iniciar sesion
+			    	usuario.setContrasena(encriptaPass);
+			    	loginUsuario = new UsuarioDAO().loginUsuarioWS(uid, usuario);
+
+			    	if (!loginUsuario.getEstatus().equals("A")) {
+			    		throw new ExcepcionesCuadrillas("El usuario esta inactivo.");
+			    	}
+			    	ParametroNegocio datoParametro = new ParametroNegocio();
+			    	String idPerfilResidente = datoParametro.consultaParametro(uid, "perfil.residente");
+
+			    	if (!idPerfilResidente.trim().equals(loginUsuario.getIdPerfil())) {
+			    		loginUsuario.setIdCuadrilla(0);
+			    		LogHandler.debug(uid, this.getClass(), "Usuario No Residente");
+
+			    	} else {
+			    		LogHandler.debug(uid, this.getClass(), "Usuario  Residente idCuadrilla=" + loginUsuario.getIdCuadrilla());
+			    	}
+
+			    	loginUsuario.setNombrePerfil(loginUsuario.getNombrePerfil().toUpperCase());
+			    	respuesta.setUsuario(loginUsuario);
+			    } catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "loginUsuario - Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
+			    return respuesta;
+			}
 }

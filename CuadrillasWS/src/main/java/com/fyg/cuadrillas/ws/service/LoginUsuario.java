@@ -31,7 +31,7 @@ public class LoginUsuario {
 			usuario.setUsuario(user);
 			usuario.setContrasena(pass);
 			UsuariosNegocio negocio = new UsuariosNegocio();
-			respuesta = negocio.loginUsuario(usuario);
+			respuesta = negocio.loginUsuarioWS(usuario);
 		} catch (Exception e) {
 			String result = sg.toJson(respuesta);
 			return Response.serverError().entity(result).build();

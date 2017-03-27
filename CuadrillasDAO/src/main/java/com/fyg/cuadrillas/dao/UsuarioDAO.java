@@ -269,4 +269,37 @@ public class UsuarioDAO {
 		}
 		return listaUsuario;
 	}
+	/**
+	 * Metodo para Hacer Login usuario WS
+	 * @param uid unico de registro
+	 * @param usuario recibe valores de usuario
+	 * @return regresa lista usuario
+	 */
+	public UsuarioDTO loginUsuarioWS(String uid, UsuarioDTO usuario) throws Exception {
+			SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			UsuarioDTO loginUsuario = null;
+			try {
+				//Abrimos conexion Transaccional
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				//Se hace una consulta a la tabla contacto
+				LogHandler.debug(uid, this.getClass(), "Consultando");
+				loginUsuario = (UsuarioDTO) sessionNTx.selectOne("UsuarioDAO.loginUsuarioWS", usuario);
+				if (loginUsuario == null) {
+					throw new ExcepcionesCuadrillas("Usuario y/o contraseña incorrecta.");
+				}
+			}
+			catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				throw new Exception(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return loginUsuario;
+		}
 }
