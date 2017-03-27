@@ -280,7 +280,7 @@ public class UsuarioDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("Consulta correcta.");
+			respuesta.setMensajeFuncional("Inicio de sesión Exitoso.");
 			UsuarioDTO loginUsuario = null;
 			try {
 				//Abrimos conexion Transaccional
