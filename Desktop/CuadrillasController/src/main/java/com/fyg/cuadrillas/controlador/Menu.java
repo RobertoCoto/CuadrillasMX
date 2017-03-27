@@ -35,6 +35,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelEmpleados;
 	private JTable tablaEmpleados;
+	JLabel nombreUser;
 
 	/**
 	 * Launch the application.
@@ -124,5 +125,10 @@ public class Menu extends JFrame {
 		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(179);
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
+		
+		nombreUser = new JLabel("");
+		sl_contentPane.putConstraint(SpringLayout.WEST, nombreUser, 15, SpringLayout.EAST, lblNombre);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, nombreUser, 0, SpringLayout.SOUTH, lblNombre);
+		contentPane.add(nombreUser);
 	}
 }

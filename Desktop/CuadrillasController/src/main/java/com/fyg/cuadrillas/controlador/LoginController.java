@@ -98,7 +98,7 @@ public class LoginController extends javax.swing.JPanel {
         login.setBounds(35, 445, 150, 35);
         //Accion de boton login
         login.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
+        	public void actionPerformed(ActionEvent e) {
         		//se ponen los parametros
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
@@ -113,14 +113,18 @@ public class LoginController extends javax.swing.JPanel {
         			System.out.println(jsonObject);
         			//Desglosando json
         			JSONObject arrayUsuario = (JSONObject) jsonObject.get("header");
+        			JSONObject datosUsuario = (JSONObject) jsonObject.get("usuario");
     				Boolean estatus = (Boolean) arrayUsuario.get("estatus");
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
+    				String nombreUser = (String) datosUsuario.get("nombre")
+    						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
     				if (estatus.equals(false)) {
         				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
         			} else {
         				//
                 		Menu menuPrincipal = new Menu();
                 		menuPrincipal.setVisible(true);
+                		menuPrincipal.nombreUser.setText(nombreUser);
                 		frame.setVisible(false);
         			}
         	    } catch (Exception ex) {
