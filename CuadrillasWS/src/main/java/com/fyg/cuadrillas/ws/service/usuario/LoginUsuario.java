@@ -1,4 +1,4 @@
-package com.fyg.cuadrillas.ws.service;
+package com.fyg.cuadrillas.ws.service.usuario;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
