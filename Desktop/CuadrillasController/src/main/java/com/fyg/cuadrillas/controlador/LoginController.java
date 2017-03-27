@@ -10,13 +10,24 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Pantalla Inicio Session
@@ -93,12 +104,28 @@ public class LoginController extends javax.swing.JPanel {
         		String pass = campoContrasena.getText();
         		//url para consumir WS
         		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="+usuario+"&password="+pass;
-        		System.out.println(url);
         		String output  = getUrlContents(url);
-        	    System.out.println("aqui: "+output);
-        		Menu menuPrincipal = new Menu();
-        		menuPrincipal.setVisible(true);
-        		frame.setVisible(false);
+        		//
+        	    try {
+        	    	JSONParser parser = new JSONParser();
+        			Object obj = parser.parse(output);
+        			JSONObject jsonObject = (JSONObject) obj;
+        			System.out.println(jsonObject);
+        			//Desglosando json
+        			JSONObject arrayUsuario = (JSONObject) jsonObject.get("header");
+    				Boolean estatus = (Boolean) arrayUsuario.get("estatus");
+    				String msg = (String) arrayUsuario.get("mensajeFuncional");
+    				if (estatus.equals(false)) {
+        				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
+        			} else {
+        				//
+                		Menu menuPrincipal = new Menu();
+                		menuPrincipal.setVisible(true);
+                		frame.setVisible(false);
+        			}
+        	    } catch (Exception ex) {
+        	    ex.printStackTrace();
+        	    }
         	}
         });
         frame.add(login);
