@@ -112,14 +112,17 @@ public class LoginController extends javax.swing.JPanel {
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
     				String nombreUser = (String) datosUsuario.get("nombre")
     						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
+    				String perfil = (String) datosUsuario.get("nombrePerfil");
     				if (estatus.equals(false)) {
         				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
         			} else {
-        				//
+        				//Se manda datos a la nueva pantalla
                 		Menu menuPrincipal = new Menu();
                 		menuPrincipal.setVisible(true);
                 		menuPrincipal.nombreUser.setText(nombreUser);
+                		menuPrincipal.perfilUsuario.setText(perfil);
                 		frame.setVisible(false);
+                		JOptionPane.showMessageDialog(null, msg);
         			}
         	    } catch (Exception ex) {
         	    ex.printStackTrace();

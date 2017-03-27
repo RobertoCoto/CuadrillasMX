@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.SpringLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
@@ -24,7 +23,6 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.UIManager;
 
 public class Menu extends JFrame {
 
@@ -32,13 +30,30 @@ public class Menu extends JFrame {
 	 * serial uid
 	 */
 	private static final long serialVersionUID = -3010529671062853579L;
+	/**
+	 * panel principal
+	 */
 	private JPanel contentPane;
+	/**
+	 * panel de la tabla empleados
+	 */
 	private JPanel panelEmpleados;
+	/**
+	 * tabla empleados
+	 */
 	private JTable tablaEmpleados;
+	/**
+	 * label del nombre usuario
+	 */
 	JLabel nombreUser;
+	/**
+	 * label del perfil
+	 */
+	JLabel perfilUsuario;
 
 	/**
 	 * Launch the application.
+	 * @param args recibe valores
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -130,5 +145,10 @@ public class Menu extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, nombreUser, 15, SpringLayout.EAST, lblNombre);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, nombreUser, 0, SpringLayout.SOUTH, lblNombre);
 		contentPane.add(nombreUser);
+		
+		perfilUsuario = new JLabel("");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, perfilUsuario, 0, SpringLayout.NORTH, lblNombre);
+		sl_contentPane.putConstraint(SpringLayout.WEST, perfilUsuario, 6, SpringLayout.EAST, lblPerfil);
+		contentPane.add(perfilUsuario);
 	}
 }
