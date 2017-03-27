@@ -495,4 +495,37 @@ public class EmpleadoNegocio {
 				LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
 				return respuesta;
 	}
+	/**
+	 * Devuelve lista general de empleados sin consultar ID WS
+	 * @return regresa lista de empleado
+	 * @throws Exception si se crea un error
+	 */
+	public EmpleadoRespuesta consultaGeneralWS() throws Exception {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaGeneral - Daton Entrada: ");
+				EmpleadoRespuesta respuesta = new EmpleadoRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				List<EmpleadoDTO> listaEmpleado = null;
+						try {
+							listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleadoWS(uid);
+							respuesta.setEmpleado(listaEmpleado);
+						} catch  (ExcepcionesCuadrillas ex) {
+							LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+							respuesta.getHeader().setEstatus(false);
+							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+						} catch (Exception ex) {
+					    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+					    	respuesta.getHeader().setEstatus(false);
+							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+					    }
+					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
+						return respuesta;
+	}
 }

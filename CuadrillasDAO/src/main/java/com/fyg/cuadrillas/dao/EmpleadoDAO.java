@@ -419,4 +419,37 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 			}
 			return respuesta;
 	   }
+	   /**
+	    * consulta todos los empleados existentes WS
+	    * @param uid recibe solo uid
+	    * @return regresa toda la lista de empleados
+	    * @throws Exception crea una excepcion
+	    */
+	   @SuppressWarnings("unchecked")
+	public List<EmpleadoDTO> consultaGeneralEmpleadoWS(String uid)throws Exception {
+		    SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<EmpleadoDTO> listaEmpleado = null;
+			try {
+				//Abrimos conexion Transaccional
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				LogHandler.debug(uid, this.getClass(), "Consultando");
+				//Se hace una consulta a la tabla contacto
+				listaEmpleado = sessionNTx.selectList("empleadoDAO.consultaEmpleadoWS");
+				if ( listaEmpleado.size() == 0) {
+					throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
+				}
+			} catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				throw new Exception(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return listaEmpleado;
+	   }
 }
