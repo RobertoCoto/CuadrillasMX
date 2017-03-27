@@ -1,4 +1,4 @@
-package com.fyg.cuadrillas.controller;
+package com.fyg.cuadrillas.controlador;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -109,7 +109,10 @@ public class LoginController extends javax.swing.JPanel {
 		setOpaque(false);
 		super.paintComponent(g);
 		}
-		//metodo principal
+		/**
+		 * Metodo main
+		 * @param args recibira argumentos
+		 */
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

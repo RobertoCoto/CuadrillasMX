@@ -1,4 +1,4 @@
-package com.fyg.cuadrillas.controller;
+package com.fyg.cuadrillas.controlador;
 
 import java.awt.EventQueue;
 
