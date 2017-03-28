@@ -109,15 +109,15 @@ public class LoginController extends javax.swing.JPanel {
         			//Desglosando json
         			JSONObject arrayUsuario = (JSONObject) jsonObject.get("header");
         			JSONObject datosUsuario = (JSONObject) jsonObject.get("usuario");
-    				Boolean estatus = (Boolean) arrayUsuario.get("estatus");
+    				Boolean estatus = (boolean) arrayUsuario.get("estatus");
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
-    				String nombreUser = (String) datosUsuario.get("nombre")
-    						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
-    				String perfil = (String) datosUsuario.get("nombrePerfil");
     				if (estatus.equals(false)) {
         				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
-        			} else {
+        			} else if(estatus.equals(true)) {
         				//Se manda datos a la nueva pantalla
+        				String nombreUser = (String) datosUsuario.get("nombre")
+        						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
+        				String perfil = (String) datosUsuario.get("nombrePerfil");
                 		Menu menuPrincipal = new Menu();
                 		menuPrincipal.setVisible(true);
                 		menuPrincipal.nombreUser.setText(nombreUser);

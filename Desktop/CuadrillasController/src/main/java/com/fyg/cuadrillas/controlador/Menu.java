@@ -29,6 +29,8 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
@@ -76,7 +78,10 @@ public class Menu extends JFrame {
 	 * Boton registra huella
 	 */
 	JButton btnRegistrarHuella;
-	
+	/**
+	 * Panel huella
+	 */
+	JPanel panelHuella;
 	/**
 	 * Launch the application.
 	 * @param args recibe valores
@@ -208,6 +213,26 @@ public class Menu extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.NORTH, perfilUsuario, 0, SpringLayout.NORTH, lblNombre);
 		sl_contentPane.putConstraint(SpringLayout.WEST, perfilUsuario, 6, SpringLayout.EAST, lblPerfil);
 		contentPane.add(perfilUsuario);
+		
+		panelHuella = new JPanel();
+		panelHuella.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		sl_contentPane.putConstraint(SpringLayout.NORTH, panelHuella, 19, SpringLayout.SOUTH, lblPerfil);
+		sl_contentPane.putConstraint(SpringLayout.WEST, panelHuella, 6, SpringLayout.EAST, panel);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelHuella, 393, SpringLayout.SOUTH, lblPerfil);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panelHuella, 0, SpringLayout.EAST, panelEmpleados);
+		panelHuella.setVisible(false);
+		contentPane.add(panelHuella);
+		
+		//Acciones de las filas
+		
+		tablaEmpleados.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+	            panelHuella.setVisible(true);
+	        }
+	    });
 	}
 	/**
 	 * Consume WS con los parametros enviados
