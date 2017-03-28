@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -17,6 +18,7 @@ import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
 
 public class EmpleadoNegocio {
@@ -533,20 +535,20 @@ public class EmpleadoNegocio {
 	 * @param empleado recibira valores de empleado y huella
 	 * @return regresara respuesta
 	 */
-	public EncabezadoRespuesta registrarHuella(EmpleadoDTO empleado) {
+	public EncabezadoRespuesta registrarHuella(EmpleadoHuellaDTO empleadoHuella) {
 				//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(empleado);
+				String uid = GUIDGenerator.generateGUID(empleadoHuella);
 				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleado);
+				LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleadoHuella);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
-					if (empleado.getIdEmpleado() == null) {
+					if (empleadoHuella.getIdEmpleado() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
 					}
 					EmpleadoDAO dao = new EmpleadoDAO();
 					//Consultamos si ya existe
-					respuesta = dao.registrarHuella(uid, empleado);
+					respuesta = dao.registrarHuella(uid, empleadoHuella);
 				} catch  (ExcepcionesCuadrillas ex) {
 					LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
 					respuesta.setUid(uid);

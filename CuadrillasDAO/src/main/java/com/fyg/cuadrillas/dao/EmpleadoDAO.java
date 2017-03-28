@@ -9,6 +9,7 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO;
 
 public class EmpleadoDAO {
 
@@ -455,10 +456,10 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	   /**
 	    * Metodo para registrar la huella del empleado
 	    * @param uid unico de registro
-	    * @param empleado recibe valores de empleado
+	    * @param empleadoHuella recibe valores de empleado
 	    * @return
 	    */
-	   public EncabezadoRespuesta registrarHuella(String uid, EmpleadoDTO empleado) {
+	   public EncabezadoRespuesta registrarHuella(String uid, EmpleadoHuellaDTO empleadoHuella) {
 		   	SqlSession sessionTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
@@ -468,16 +469,9 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 				//Validamos si ya existe el noEmpleado
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.insert("EmpleadoDAO.registrarHuella", empleado);
+		        int registros = sessionTx.insert("EmpleadoDAO.registrarHuella", empleadoHuella);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar la huella.");
-				}
-
-				if (empleado.getDocumentos().size() > 0) {
-					for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
-						documento.setIdEmpleado(empleado.getIdEmpleado());
-					}
-					registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
 				}
 				//Realizamos commit
 				LogHandler.debug(uid, this.getClass(), "Commit!!!");
