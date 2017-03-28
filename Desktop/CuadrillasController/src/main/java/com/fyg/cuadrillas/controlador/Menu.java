@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
 
@@ -101,10 +102,13 @@ public class Menu extends JFrame {
 		setResizable(false);
 		setTitle("Menu Principal - TATEI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 513);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		setBounds(100, 100, 1024, 668);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(null);
+		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		SpringLayout sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
@@ -147,13 +151,17 @@ public class Menu extends JFrame {
 		        				 JSONObject empleado = (JSONObject) arrayEmpleado.get(i);
 		        				 System.out.println(empleado);
 		        				 Long idEmpleado = (Long) empleado.get("idEmpleado");
+		        				 String numEmpleado = (String) empleado.get("noEmpleado");
 		        				 String nombre= (String) empleado.get("nombre");
 		        				 String apellidoPaterno = (String) empleado.get("apellidoPat");
 		        				 String apellidoMaterno = (String) empleado.get("apellidoMat");
+		        				 String puesto = (String) empleado.get("descripcionPuesto");
 		        				 filas[0] = idEmpleado;
-		        				 filas[1] = nombre;
-		        				 filas[2] = apellidoPaterno;
-		        				 filas[3] = apellidoMaterno;
+		        				 filas[1] = numEmpleado;
+		        				 filas[2] = nombre;
+		        				 filas[3] = apellidoPaterno;
+		        				 filas[4] = apellidoMaterno;
+		        				 filas[5] = puesto;
 		        				 modelo.addRow(filas);
 		        			}
 		        			btnRegistrarHuella.setEnabled(false);	
@@ -178,26 +186,17 @@ public class Menu extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Nombre", "Apellido Paterno", "Apellido Materno"
+				"ID", "Numero Empleado", "Nombre", "Apellido Paterno", "Apellido Materno", "Puesto"
 			}
-		) {
-			/**
-			 * Serial UID
-			 */
-			private static final long serialVersionUID = -8774572818859084230L;
-			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Object.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(141);
-		tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(167);
-		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(142);
+		));
+		tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(106);
+		tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(141);
+		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(167);
+		tablaEmpleados.getColumnModel().getColumn(4).setPreferredWidth(142);
+		tablaEmpleados.getColumnModel().getColumn(5).setPreferredWidth(123);
 		JTableHeader header = tablaEmpleados.getTableHeader();
 		tablaEmpleados.setBorder(new LineBorder(new Color(0, 0, 0)));
-		new JScrollPane(tablaEmpleados, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//new JScrollPane(tablaEmpleados, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tablaEmpleados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
