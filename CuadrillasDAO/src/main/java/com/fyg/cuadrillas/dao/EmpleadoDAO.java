@@ -452,4 +452,55 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 			}
 			return listaEmpleado;
 	   }
+	   /**
+	    * Metodo para registrar la huella del empleado
+	    * @param uid unico de registro
+	    * @param empleado recibe valores de empleado
+	    * @return
+	    */
+	   public EncabezadoRespuesta registrarHuella(String uid, EmpleadoDTO empleado) {
+		   	SqlSession sessionTx = null;
+		 	SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("La huella ha sido registrada correctamente.");
+			try {
+				//Validamos si ya existe el noEmpleado
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				int existeNoEmpleado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeHuellaEmpleado", empleado);
+				if (existeNoEmpleado > 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
+				}
+				//Abrimos conexion Transaccional
+				sessionTx = FabricaConexiones.obtenerSesionTx();
+		        int registros = sessionTx.insert("EmpleadoDAO.registrarHuella", empleado);
+				if ( registros == 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar la huella.");
+				}
+
+				if (empleado.getDocumentos().size() > 0) {
+					for (EmpleadoDocumentoDTO documento : empleado.getDocumentos()) {
+						documento.setIdEmpleado(empleado.getIdEmpleado());
+					}
+					registraDocumentos(uid, empleado.getDocumentos(), sessionTx);
+				}
+				//Realizamos commit
+				LogHandler.debug(uid, this.getClass(), "Commit!!!");
+				sessionTx.commit();
+			}
+			catch (Exception ex) {
+				//Realizamos rollBack
+				LogHandler.debug(uid, this.getClass(), "RollBack!!");
+				FabricaConexiones.rollBack(sessionTx);
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionTx);
+				FabricaConexiones.close(sessionNTx);
+			}
+			return respuesta;
+	   }
 }
