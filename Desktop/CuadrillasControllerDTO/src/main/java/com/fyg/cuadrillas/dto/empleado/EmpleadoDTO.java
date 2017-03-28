@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.dto.empleado;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -178,6 +179,7 @@ public class EmpleadoDTO extends ObjetoValor {
 	 * descripcion de la empresa
 	 */
 	private String descripcionEmpresa;
+	private List<EmpleadoDTO> listaEmpleado = new ArrayList<EmpleadoDTO>();
 	/**
 	 * @return the idEmpleado
 	 */
@@ -705,5 +707,17 @@ public class EmpleadoDTO extends ObjetoValor {
 	 */
 	public void setDescripcionEmpresa(String descripcionEmpresa) {
 		this.descripcionEmpresa = descripcionEmpresa;
+	}
+	/**
+	 * @return the listaEmpleado
+	 */
+	public List<EmpleadoDTO> getListaEmpleado() {
+		return listaEmpleado;
+	}
+	/**
+	 * @param listaEmpleado the listaEmpleado to set
+	 */
+	public void setListaEmpleado(List<EmpleadoDTO> listaEmpleado) {
+		this.listaEmpleado = listaEmpleado;
 	}
 }

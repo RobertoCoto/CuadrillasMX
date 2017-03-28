@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
@@ -18,11 +19,31 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
+
+import javax.swing.JScrollBar;
 
 public class Menu extends JFrame {
 
@@ -50,7 +71,7 @@ public class Menu extends JFrame {
 	 * label del perfil
 	 */
 	JLabel perfilUsuario;
-
+	
 	/**
 	 * Launch the application.
 	 * @param args recibe valores
@@ -104,11 +125,37 @@ public class Menu extends JFrame {
 		panel.setBackground(new Color(138, 43, 226));
 		panel.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panel);
-		
 		JButton btnRegistrarHuella = new JButton("Registrar Huella");
 		btnRegistrarHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null,"Habilitando tabla empleados");
+				String url = "http://localhost:8080/CuadrillasWS/service/consultaEmpleado/";
+		        		String output  = getUrlContents(url);
+		        		try {
+		        			JSONParser parser = new JSONParser();
+		        			Object obj = parser.parse(output);
+		        			JSONObject jsonObject = (JSONObject) obj;
+		        			JSONArray arrayEmpleado = (JSONArray) jsonObject.get("empleado");
+		        			DefaultTableModel modelo = (DefaultTableModel)tablaEmpleados.getModel();
+		        			Object[] filas = new Object[modelo.getColumnCount()];
+		        			for (int i = 0; i < arrayEmpleado.size(); i++) {
+
+		        				 JSONObject empleado = (JSONObject) arrayEmpleado.get(i);
+		        				 System.out.println(empleado);
+		        				 Long idEmpleado = (Long) empleado.get("idEmpleado");
+		        				 String nombre= (String) empleado.get("nombre");
+		        				 String apellidoPaterno = (String) empleado.get("apellidoPat");
+		        				 String apellidoMaterno = (String) empleado.get("apellidoMat");
+		        				 filas[0] = idEmpleado;
+		        				 filas[1] = nombre;
+		        				 filas[2] = apellidoPaterno;
+		        				 filas[3] = apellidoMaterno;
+		        				 modelo.addRow(filas);
+		        			}
+
+		        		} catch (Exception ex) {
+		        			ex.printStackTrace();
+		        		}
 				panelEmpleados.setVisible(true);
 			}
 		});
@@ -122,33 +169,78 @@ public class Menu extends JFrame {
 		panelEmpleados.setBorder(new TitledBorder(null, "Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelEmpleados.setVisible(false);
 		contentPane.add(panelEmpleados);
-
 		tablaEmpleados = new JTable();
-		JTableHeader header = tablaEmpleados.getTableHeader();
-		tablaEmpleados.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tablaEmpleados.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"1", "ee", "ee", null},
-				{null, null, null, null},
 			},
 			new String[] {
-				"ID ", "Nombre", "Apellido Paterno", "Apellido Materno"
+				"ID", "Nombre", "Apellido Paterno", "Apellido Materno"
 			}
-		));
+		) {
+			/**
+			 * Serial UID
+			 */
+			private static final long serialVersionUID = -8774572818859084230L;
+			Class[] columnTypes = new Class[] {
+				Integer.class, Object.class, Object.class, Object.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(141);
-		tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(178);
-		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(179);
+		tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(167);
+		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(142);
+		JTableHeader header = tablaEmpleados.getTableHeader();
+		tablaEmpleados.setBorder(new LineBorder(new Color(0, 0, 0)));
+		new JScrollPane(tablaEmpleados, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tablaEmpleados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
-		
 		nombreUser = new JLabel("");
 		sl_contentPane.putConstraint(SpringLayout.WEST, nombreUser, 15, SpringLayout.EAST, lblNombre);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, nombreUser, 0, SpringLayout.SOUTH, lblNombre);
 		contentPane.add(nombreUser);
-		
 		perfilUsuario = new JLabel("");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, perfilUsuario, 0, SpringLayout.NORTH, lblNombre);
 		sl_contentPane.putConstraint(SpringLayout.WEST, perfilUsuario, 6, SpringLayout.EAST, lblPerfil);
 		contentPane.add(perfilUsuario);
 	}
+	/**
+	 * Consume WS con los parametros enviados
+	 * @param theUrl obtiene la url
+	 * @return regresa los datos
+	 */
+	  private static String getUrlContents(String theUrl)
+	  {
+	    StringBuilder content = new StringBuilder();
+
+	    // many of these calls can throw exceptions, so i've just
+	    // wrapped them all in one try/catch statement.
+	    try
+	    {
+	      // create a url object
+	      URL url = new URL(theUrl);
+
+	      // create a urlconnection object
+	      URLConnection urlConnection = url.openConnection();
+
+	      // wrap the urlconnection in a bufferedreader
+	      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+	      String line;
+
+	      // read from the urlconnection via the bufferedreader
+	      while ((line = bufferedReader.readLine()) != null)
+	      {
+	        content.append(line + "\n");
+	      }
+	      bufferedReader.close();
+	    }
+	    catch (Exception e)
+	    {
+	      e.printStackTrace();
+	    }
+	    return content.toString();
+	  }
 }
