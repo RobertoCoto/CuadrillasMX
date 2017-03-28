@@ -90,10 +90,8 @@
  WHERE id_empleado = #{idEmpleado}
 </update>
 
-<insert id="registrarHuella" parameterType="empleado">
-INSERT INTO empleado
-	(huella,usuario_ult_mod,fecha_ult_mod)
-	VALUES(#{huella},#{usuarioAlta},now())
-WHERE id_empleado = #{idEmpleado}
+<insert id="registrarHuella" parameterType="empleadoHuella">
+INSERT INTO empleado_huella(id_empleado,huella,codigo_mano,codigo_dedo,estatus)
+VALUES (#{idEmpleado},#{huella},#{codigoMano},#{codigoDedo},'A')
 </insert>
 </mapper>

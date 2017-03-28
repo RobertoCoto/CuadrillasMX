@@ -460,18 +460,12 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	    */
 	   public EncabezadoRespuesta registrarHuella(String uid, EmpleadoDTO empleado) {
 		   	SqlSession sessionTx = null;
-		 	SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("La huella ha sido registrada correctamente.");
 			try {
 				//Validamos si ya existe el noEmpleado
-				sessionNTx = FabricaConexiones.obtenerSesionNTx();
-				int existeNoEmpleado = (Integer) sessionNTx.selectOne("EmpleadoDAO.existeHuellaEmpleado", empleado);
-				if (existeNoEmpleado > 0) {
-					throw new ExcepcionesCuadrillas("Error al registrar, ya existe el numero del empleado.");
-				}
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 		        int registros = sessionTx.insert("EmpleadoDAO.registrarHuella", empleado);
@@ -499,7 +493,6 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 			}
 			finally {
 				FabricaConexiones.close(sessionTx);
-				FabricaConexiones.close(sessionNTx);
 			}
 			return respuesta;
 	   }

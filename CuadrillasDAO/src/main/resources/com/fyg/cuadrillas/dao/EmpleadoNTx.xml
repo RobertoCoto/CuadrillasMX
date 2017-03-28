@@ -154,9 +154,4 @@ AND id_empleado = #{idEmpleado}
 	LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
 	LEFT JOIN catalogo ca ON ca.codigo = e.codigo_empresa
 </select>
-<select id="existeHuellaEmpleado" parameterType="Empleado" resultType="int">
-SELECT count(huella)
-FROM empleado
-WHERE id_empleado = #{idEmpleado}
-</select>
 </mapper>

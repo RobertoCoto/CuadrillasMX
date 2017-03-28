@@ -15,6 +15,7 @@
 	<typeAlias alias="Empleado" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDTO"/>
 	<typeAlias alias="Menu" type="com.fyg.cuadrillas.dto.menu.MenuDTO"/>
 	<typeAlias alias="EmpleadoDocumento" type="com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO"/>
+	<typeAlias alias="EmpleadoHuella" type="com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO"/>
 	<typeAlias alias="Vialidad" type="com.fyg.cuadrillas.dto.vialidad.VialidadDTO"/>
 	<typeAlias alias="Asistencia" type="com.fyg.cuadrillas.dto.asistencia.AsistenciaDTO"/>
 	<typeAlias alias="Contrato" type="com.fyg.cuadrillas.dto.contrato.ContratoDTO"/>
