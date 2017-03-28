@@ -89,4 +89,11 @@
  		fecha_aut_imss = now()
  WHERE id_empleado = #{idEmpleado}
 </update>
+
+<insert id="registrarHuella" parameterType="empleado">
+INSERT INTO empleado
+	(huella,usuario_ult_mod,fecha_ult_mod)
+	VALUES(#{huella},#{usuarioAlta},now())
+WHERE id_empleado = #{idEmpleado}
+</insert>
 </mapper>

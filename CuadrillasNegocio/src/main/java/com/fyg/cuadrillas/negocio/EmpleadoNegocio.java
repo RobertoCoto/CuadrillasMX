@@ -528,4 +528,40 @@ public class EmpleadoNegocio {
 					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
 						return respuesta;
 	}
+	/**
+	 * Metodo para registrar las huellas
+	 * @param empleado recibira valores de empleado y huella
+	 * @return regresara respuesta
+	 */
+	public EncabezadoRespuesta registrarHuella(EmpleadoDTO empleado) {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(empleado);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleado);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (empleado.getIdEmpleado() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el id del empleado.");
+					}
+					EmpleadoDAO dao = new EmpleadoDAO();
+					//Consultamos si ya existe
+					respuesta = dao.registrarHuella(uid, empleado);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
+				return respuesta;
+	}
 }
