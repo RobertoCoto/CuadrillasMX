@@ -71,6 +71,10 @@ public class Menu extends JFrame {
 	 * label del perfil
 	 */
 	JLabel perfilUsuario;
+	/**
+	 * Boton registra huella
+	 */
+	JButton btnRegistrarHuella;
 	
 	/**
 	 * Launch the application.
@@ -125,7 +129,7 @@ public class Menu extends JFrame {
 		panel.setBackground(new Color(138, 43, 226));
 		panel.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panel);
-		JButton btnRegistrarHuella = new JButton("Registrar Huella");
+		btnRegistrarHuella = new JButton("Registrar Huella");
 		btnRegistrarHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null,"Habilitando tabla empleados");
@@ -152,7 +156,7 @@ public class Menu extends JFrame {
 		        				 filas[3] = apellidoMaterno;
 		        				 modelo.addRow(filas);
 		        			}
-
+		        			btnRegistrarHuella.setEnabled(false);	
 		        		} catch (Exception ex) {
 		        			ex.printStackTrace();
 		        		}
