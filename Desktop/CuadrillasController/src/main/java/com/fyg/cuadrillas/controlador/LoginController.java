@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -53,7 +54,7 @@ public class LoginController extends javax.swing.JPanel {
 		//se crea la ventana
         final JFrame frame = new JFrame("Iniciar Sesión - Bienvenido TATEI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+       
       //se llama al metodo donde esta nuestra imagen.
         LoginController p = new LoginController();
         frame.setContentPane(p);
