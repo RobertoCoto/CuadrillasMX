@@ -4,6 +4,7 @@ USE tatei;
 DROP TABLE IF EXISTS parametros;
 DROP TABLE IF EXISTS permiso_laboral;
 DROP TABLE IF EXISTS asistencia;
+DROP TABLE IF EXISTS empleado_huella;
 DROP TABLE IF EXISTS empleado_documentos;
 DROP TABLE IF EXISTS empleado;
 DROP TABLE IF EXISTS perfil_menu;
@@ -153,7 +154,6 @@ DROP TABLE IF EXISTS perfil;
         nss VARCHAR(20) NULL,
         no_credito_infonavit VARCHAR(20) NULL,        
         telefono VARCHAR(10) NOT NULL,
-        huella  VARCHAR(200) NULL,
         alta_imss CHAR(1) NULL,
         observaciones VARCHAR(100) NULL,
         codigo_empresa  VARCHAR(10) NOT NULL,
@@ -185,6 +185,15 @@ DROP TABLE IF EXISTS perfil;
 		fecha_alta DATETIME NOT NULL,	 
 		estatus CHAR(2) NOT NULL CHECK(estatus IN('SI','NO','NA'))
     );
+
+	CREATE TABLE empleado_huella (
+		id_huella INT NOT NULL,
+		id_empleado INT NOT NULL,
+		huella BLOB NOT NULL,
+		codigo_mano VARCHAR(10) NOT NULL,
+		codigo_dedo VARCHAR(10) NOT NULL,
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
+	);
 	
 	CREATE TABLE permiso_laboral (
 		id_permiso INTEGER NOT NULL AUTO_INCREMENT,
