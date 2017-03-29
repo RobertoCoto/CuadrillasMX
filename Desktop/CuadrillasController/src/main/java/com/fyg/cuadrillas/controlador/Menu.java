@@ -47,6 +47,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 
 import javax.swing.JScrollBar;
+import javax.swing.JComboBox;
 
 public class Menu extends JFrame {
 
@@ -82,6 +83,8 @@ public class Menu extends JFrame {
 	 * Panel huella
 	 */
 	JPanel panelHuella;
+	JPanel panelBotones;
+	JComboBox cataMano;
 	/**
 	 * Launch the application.
 	 * @param args recibe valores
@@ -109,7 +112,7 @@ public class Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		setBounds(100, 100, 1024, 668);
+		setBounds(100, 100, 1124, 668);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(null);
@@ -179,10 +182,10 @@ public class Menu extends JFrame {
 		panel.add(btnRegistrarHuella);
 
 		panelEmpleados = new JPanel();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, panelEmpleados, -205, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, panelEmpleados, -201, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, panelEmpleados, 6, SpringLayout.EAST, panel);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelEmpleados, -29, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, panelEmpleados, -10, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelEmpleados, -25, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panelEmpleados, -15, SpringLayout.EAST, lblPerfil);
 		panelEmpleados.setBorder(new TitledBorder(null, "Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelEmpleados.setVisible(false);
 		contentPane.add(panelEmpleados);
@@ -215,13 +218,52 @@ public class Menu extends JFrame {
 		contentPane.add(perfilUsuario);
 		
 		panelHuella = new JPanel();
+		sl_contentPane.putConstraint(SpringLayout.WEST, panelHuella, 6, SpringLayout.EAST, panel);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panelHuella, -10, SpringLayout.EAST, contentPane);
 		panelHuella.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		sl_contentPane.putConstraint(SpringLayout.NORTH, panelHuella, 19, SpringLayout.SOUTH, lblPerfil);
-		sl_contentPane.putConstraint(SpringLayout.WEST, panelHuella, 6, SpringLayout.EAST, panel);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelHuella, 393, SpringLayout.SOUTH, lblPerfil);
-		sl_contentPane.putConstraint(SpringLayout.EAST, panelHuella, 0, SpringLayout.EAST, panelEmpleados);
 		panelHuella.setVisible(false);
 		contentPane.add(panelHuella);
+		
+		
+		
+		cataMano = new JComboBox();
+		panelHuella.add(cataMano);
+		
+		panelBotones = new JPanel();
+		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		sl_contentPane.putConstraint(SpringLayout.NORTH, panelBotones, 0, SpringLayout.NORTH, panelEmpleados);
+		sl_contentPane.putConstraint(SpringLayout.WEST, panelBotones, 6, SpringLayout.EAST, panelEmpleados);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelBotones, 0, SpringLayout.SOUTH, panelEmpleados);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panelBotones, 157, SpringLayout.EAST, panelEmpleados);
+		panelBotones.setVisible(false);
+		contentPane.add(panelBotones);
+		
+		JButton btnAltaHuella = new JButton("Alta Huella");
+		btnAltaHuella.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelHuella.setVisible(true);
+				try {
+		        	  //Llenando combo
+			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+			    		String salida  = getUrlContents(direccion);
+			    		JSONParser parser = new JSONParser();
+		    			Object obj = parser.parse(salida);
+		    			JSONObject jsonCatalogoMano = (JSONObject) obj;
+		    			JSONArray arrayCatalogoMano = (JSONArray) jsonCatalogoMano.get("catalogo");
+		    			
+		    			for (int j=0; j < arrayCatalogoMano.size(); j++) {
+		    				JSONObject mano = (JSONObject) arrayCatalogoMano.get(j);
+		    				String descripcion = (String) mano.get("descripcion");
+		    				cataMano.addItem(descripcion);
+		    			}
+		          } catch (Exception ex) {
+		        	  ex.printStackTrace();
+		          }
+			}
+		});
+		panelBotones.add(btnAltaHuella);
 		
 		//Acciones de las filas
 		
@@ -230,7 +272,9 @@ public class Menu extends JFrame {
 	            // do some actions here, for example
 	            // print first column value from selected row
 	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
-	            panelHuella.setVisible(true);
+	            panelBotones.setVisible(true);
+	            panelHuella.setVisible(false);
+	            cataMano.removeAllItems();
 	        }
 	    });
 	}
