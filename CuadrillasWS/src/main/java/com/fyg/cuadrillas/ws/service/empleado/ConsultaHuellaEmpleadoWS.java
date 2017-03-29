@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 @Path("/consultaHuella")
 public class ConsultaHuellaEmpleadoWS {
 	@GET
-	@Path("/")
+	@Path("/empleado")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response consultaHuella(@QueryParam("idEmpleado")Integer idEmpleado) {
 		EmpleadoHuellaRespuesta respuesta = new EmpleadoHuellaRespuesta();

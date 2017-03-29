@@ -20,7 +20,7 @@ public class ConsultaCatalogoWS {
 	 * @return regresara respuesta
 	 */
 	@GET
-	@Path("/")
+	@Path("/catalogo")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response consultarCatalogo(@QueryParam("tipoCatalogo") String tipoCatalogo) {
 		CatalogoRespuesta respuesta = new CatalogoRespuesta();
