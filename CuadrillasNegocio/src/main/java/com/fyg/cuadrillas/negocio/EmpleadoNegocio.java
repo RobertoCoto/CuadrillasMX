@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
@@ -19,6 +20,7 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO;
+import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaRespuesta;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
 
 public class EmpleadoNegocio {
@@ -565,5 +567,45 @@ public class EmpleadoNegocio {
 				}
 				LogHandler.debug(uid, this.getClass(), "registraEmpleado- Datos Salida: " + respuesta);
 				return respuesta;
+	}
+/**
+ * Metodo para consultar las huellas del empleado
+ * @param empleadoHuella recibira valores de huella
+ * @return regresara respuesta
+ */
+	public EmpleadoHuellaRespuesta consultaHuella(EmpleadoHuellaDTO empleadoHuella) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(empleadoHuella);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaHuella - Datos Entrada: " + empleadoHuella);
+		//Variable de resultado
+		EmpleadoHuellaRespuesta respuesta = new EmpleadoHuellaRespuesta();
+		respuesta.setHeader( new EncabezadoRespuesta());
+		respuesta.getHeader().setUid(uid);
+		respuesta.getHeader().setEstatus(true);
+		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+
+		List<EmpleadoHuellaDTO> listaHuella = null;
+
+	    try {
+	    	if (empleadoHuella.getIdEmpleado() == null)
+	    	{
+	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
+	    	}
+	    	listaHuella = new EmpleadoDAO().consultaHuella(uid, empleadoHuella);
+	    	respuesta.setEmpleadoHuella(listaHuella);
+	    } catch  (ExcepcionesCuadrillas ex) {
+			LogHandler.error(uid, this.getClass(), "consultaHuella - Error: " + ex.getMessage(), ex);
+			respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+	    	LogHandler.error(uid, this.getClass(), "consultaHuella - Error: " + ex.getMessage(), ex);
+	    	respuesta.getHeader().setEstatus(false);
+			respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+			respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+	    }
+	    LogHandler.debug(uid, this.getClass(), "consultaHuella - Datos Salida: " + respuesta);
+	    return respuesta;
 	}
 }

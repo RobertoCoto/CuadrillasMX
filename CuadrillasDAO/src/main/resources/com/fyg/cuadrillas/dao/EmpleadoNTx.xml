@@ -40,6 +40,16 @@
 	<result column="descripcion_empresa" property="descripcionEmpresa"/>
 </resultMap>
 
+<resultMap type="EmpleadoHuella" id="empleadoHuella">
+<result column="id_huella" property="idHuella"/>
+<result column="id_empleado" property="idEmpleado"/>
+<result column="huella" property="huella"/>
+<result column="codigo_mano" property="codigoMano"/>
+<result column="codigo_dedo" property="codigoDedo"/>
+<result column="descripcion_mano" property="descripcionMano"/>
+<result column="descripcion_dedo" property="descripcionDedo"/>
+</resultMap>
+
 <select id="consultaEmpleado" parameterType="Empleado" resultMap="empleado">
 	SELECT
 		e.id_empleado, e.no_empleado, e.nombre, e.apellido_pat, e.apellido_mat, e.sexo, e.rfc, e.rfc_calculado, e.fecha_nacimiento, e.fecha_ingreso,
@@ -153,5 +163,20 @@ AND id_empleado = #{idEmpleado}
 	LEFT JOIN perfil p ON p.id_perfil = u.id_perfil
 	LEFT JOIN catalogo c ON c.codigo = e.codigo_puesto
 	LEFT JOIN catalogo ca ON ca.codigo = e.codigo_empresa
+</select>
+
+<select id="consultaHuellaEmpleado" parameterType="EmpleadoHuella" resultMap="empleadoHuella">
+SELECT 
+	h.id_huella,
+	h.id_empleado,
+	h.huella,
+	h.codigo_mano,
+	h.codigo_dedo,
+	ca.descripcion AS descripcion_mano,
+	cat.descripcion AS descripcion_dedo
+FROM empleado_huela h
+LEFT JOIN catalogo ca ON ca.codigo = h.codigo_mano
+LEFT JOIN catalogo cat ON cat.codigo = h.codigo_dedo
+WHERE h.id_empleado = #{idEmpleado}
 </select>
 </mapper>

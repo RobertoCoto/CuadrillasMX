@@ -442,7 +442,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 				//Se hace una consulta a la tabla contacto
 				listaEmpleado = sessionNTx.selectList("empleadoDAO.consultaEmpleadoWS");
 				if ( listaEmpleado.size() == 0) {
-					throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
+					throw new ExcepcionesCuadrillas("No existen empleados en la BD.");
 				}
 			} catch (Exception ex) {
 				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
@@ -489,5 +489,39 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 				FabricaConexiones.close(sessionTx);
 			}
 			return respuesta;
+	   }
+	   /**
+	    * Metodo para consultar huellas del empleado
+	    * @param uid unico de registro
+	    * @param empleadoHuella recibe valores de huella
+	    * @return regresa respuesta
+	    * @throws si retorna error
+	    */
+	   @SuppressWarnings("unchecked")
+	public List<EmpleadoHuellaDTO> consultaHuella(String uid, EmpleadoHuellaDTO empleadoHuella) throws Exception{
+		   SqlSession sessionNTx = null;
+			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+			respuesta.setUid(uid);
+			respuesta.setEstatus(true);
+			respuesta.setMensajeFuncional("Consulta correcta.");
+			List<EmpleadoHuellaDTO> listaHuellaEmpleado = null;
+			try {
+				//Abrimos conexion Transaccional
+				LogHandler.debug(uid, this.getClass(), "Abriendo");
+				sessionNTx = FabricaConexiones.obtenerSesionNTx();
+				LogHandler.debug(uid, this.getClass(), "Consultando");
+				//Se hace una consulta a la tabla contacto
+				listaHuellaEmpleado = sessionNTx.selectList("empleadoDAO.consultaEmpleadoWS");
+				if ( listaHuellaEmpleado.size() == 0) {
+					throw new ExcepcionesCuadrillas("No existen huellas para el empleado.");
+				}
+			} catch (Exception ex) {
+				LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+				throw new Exception(ex.getMessage());
+			}
+			finally {
+				FabricaConexiones.close(sessionNTx);
+			}
+			return listaHuellaEmpleado;
 	   }
 }

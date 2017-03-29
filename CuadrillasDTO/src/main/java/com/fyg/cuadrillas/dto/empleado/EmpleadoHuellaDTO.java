@@ -35,6 +35,14 @@ public class EmpleadoHuellaDTO extends ObjetoValor {
 	 */
 	private String estatus;
 	/**
+	 * descripcion de la mano
+	 */
+	private String descripcionMano;
+	/**
+	 * descripcion del dedo
+	 */
+	private String descripcionDedo;
+	/**
 	 * @return the idHuella
 	 */
 	public Integer getIdHuella() {
@@ -105,5 +113,29 @@ public class EmpleadoHuellaDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the descripcionMano
+	 */
+	public String getDescripcionMano() {
+		return descripcionMano;
+	}
+	/**
+	 * @param descripcionMano the descripcionMano to set
+	 */
+	public void setDescripcionMano(String descripcionMano) {
+		this.descripcionMano = descripcionMano;
+	}
+	/**
+	 * @return the descripcionDedo
+	 */
+	public String getDescripcionDedo() {
+		return descripcionDedo;
+	}
+	/**
+	 * @param descripcionDedo the descripcionDedo to set
+	 */
+	public void setDescripcionDedo(String descripcionDedo) {
+		this.descripcionDedo = descripcionDedo;
 	}
 }
