@@ -48,6 +48,8 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
+import javax.swing.JTabbedPane;
+import java.awt.FlowLayout;
 
 public class Menu extends JFrame {
 
@@ -79,12 +81,11 @@ public class Menu extends JFrame {
 	 * Boton registra huella
 	 */
 	JButton btnRegistrarHuella;
-	/**
-	 * Panel huella
-	 */
 	JPanel panelHuella;
 	JPanel panelBotones;
 	JComboBox cataMano;
+	JTabbedPane huellaImage;
+	private JComboBox cataDedos;
 	/**
 	 * Launch the application.
 	 * @param args recibe valores
@@ -141,7 +142,7 @@ public class Menu extends JFrame {
 		panel.setBackground(new Color(138, 43, 226));
 		panel.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panel);
-		btnRegistrarHuella = new JButton("Registrar Huella");
+		btnRegistrarHuella = new JButton("Huella");
 		btnRegistrarHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null,"Habilitando tabla empleados");
@@ -217,20 +218,6 @@ public class Menu extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, perfilUsuario, 6, SpringLayout.EAST, lblPerfil);
 		contentPane.add(perfilUsuario);
 		
-		panelHuella = new JPanel();
-		sl_contentPane.putConstraint(SpringLayout.WEST, panelHuella, 6, SpringLayout.EAST, panel);
-		sl_contentPane.putConstraint(SpringLayout.EAST, panelHuella, -10, SpringLayout.EAST, contentPane);
-		panelHuella.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		sl_contentPane.putConstraint(SpringLayout.NORTH, panelHuella, 19, SpringLayout.SOUTH, lblPerfil);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelHuella, 393, SpringLayout.SOUTH, lblPerfil);
-		panelHuella.setVisible(false);
-		contentPane.add(panelHuella);
-		
-		
-		
-		cataMano = new JComboBox();
-		panelHuella.add(cataMano);
-		
 		panelBotones = new JPanel();
 		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		sl_contentPane.putConstraint(SpringLayout.NORTH, panelBotones, 0, SpringLayout.NORTH, panelEmpleados);
@@ -242,8 +229,10 @@ public class Menu extends JFrame {
 		
 		JButton btnAltaHuella = new JButton("Alta Huella");
 		btnAltaHuella.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
+				huellaImage.setVisible(true);
 				try {
 		        	  //Llenando combo
 			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
@@ -258,12 +247,56 @@ public class Menu extends JFrame {
 		    				String descripcion = (String) mano.get("descripcion");
 		    				cataMano.addItem(descripcion);
 		    			}
+		    			String direccionConsulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+			    		String salidaCatalogo  = getUrlContents(direccionConsulta);
+			    		JSONParser parseo = new JSONParser();
+		    			Object objCatalogo = parseo.parse(salidaCatalogo);
+		    			JSONObject jsonCatalogoDedo = (JSONObject) objCatalogo;
+		    			JSONArray arrayCatalogoDedo = (JSONArray) jsonCatalogoDedo.get("catalogo");
+		    			
+		    			for	(int k=0; k < arrayCatalogoDedo.size(); k++) {
+		    				JSONObject dedo = (JSONObject) arrayCatalogoDedo.get(k);
+		    				String descripcionDedo = (String) dedo.get("descripcion");
+		    				cataDedos.addItem(descripcionDedo);
+		    			}
 		          } catch (Exception ex) {
 		        	  ex.printStackTrace();
 		          }
 			}
 		});
 		panelBotones.add(btnAltaHuella);
+		
+		huellaImage = new JTabbedPane(JTabbedPane.TOP);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, huellaImage, 7, SpringLayout.SOUTH, lblNombre);
+		sl_contentPane.putConstraint(SpringLayout.WEST, huellaImage, 6, SpringLayout.EAST, panel);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, huellaImage, -104, SpringLayout.NORTH, panelEmpleados);
+		sl_contentPane.putConstraint(SpringLayout.EAST, huellaImage, 240, SpringLayout.EAST, panel);
+		huellaImage.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		huellaImage.setVisible(false);
+		contentPane.add(huellaImage);
+		
+		panelHuella = new JPanel();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, panelHuella, 31, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, panelHuella, 44, SpringLayout.EAST, huellaImage);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, panelHuella, 130, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panelHuella, 310, SpringLayout.EAST, huellaImage);
+		FlowLayout flowLayout = (FlowLayout) panelHuella.getLayout();
+		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelHuella.setVisible(false);
+		contentPane.add(panelHuella);
+		
+		cataMano = new JComboBox();
+		panelHuella.add(cataMano);
+		
+		cataDedos = new JComboBox();
+		panelHuella.add(cataDedos);
+		
+		JButton altaHuella = new JButton("Guardar Huella");
+		altaHuella.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panelHuella.add(altaHuella);
 		
 		//Acciones de las filas
 		
@@ -274,7 +307,9 @@ public class Menu extends JFrame {
 	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 	            panelBotones.setVisible(true);
 	            panelHuella.setVisible(false);
+	            huellaImage.setVisible(false);
 	            cataMano.removeAllItems();
+	            cataDedos.removeAllItems();
 	        }
 	    });
 	}
