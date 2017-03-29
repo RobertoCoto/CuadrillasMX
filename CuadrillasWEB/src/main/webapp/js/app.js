@@ -674,7 +674,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$scope.formContrato.$setPristine();
                   }
                   
-                  $scope.limpiarContrato = function() {
+                  $scope.limpiarContratopo = function() {
                 	  $('#mainPanel').hide();
                 	  $('#panelContratos').show();
                       $('#nuevoContrato').show();
@@ -2897,39 +2897,36 @@ app.directive('fileModel', ['$parse', function ($parse) {
         var map;
         var medida;
         
-        //***Inicializa el mapa
-        $scope.initMap = function() {
-            medida = {
-                mvcLine: new google.maps.MVCArray(),
-                mvcPolygon: new google.maps.MVCArray(),
-                mvcMarkers: new google.maps.MVCArray(),
-                line: null,
-                polygon: null
-            };
-            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-            map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
-              center: mx1
-            });
-
-            google.maps.event.addListener(map, 'click', function(event) {
-                	//$scope.setMarcador(event.latLng);
-            });
-        };
-    	
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+	    $('#fecha').datepicker({
+	    	format: 'yyyy-mm-dd',
+	        container: container,
+	        todayHighlight: true,
+	        autoclose: true,
+	        language: "es"
+	    });
+                    	
         //***Consulta de la agenda
         $scope.consultarAgendaDia = function()
         {
+        	$('#msload').modal('show'); 
+        	
       		$scope.gridActividades = [];
       		$scope.gridArticulos = [];
       		$scope.mapa = {};
       		$scope.mapa.gridCoordenadas = [];
-        	
+
+      		if ($scope.mapa.gridCoordenadas.length > 0)
+      		{
+      			$scope.limpiarMarcadores();
+      		}}
+      			
+      		        	
         	$http({
         		method: 'GET',
         		url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaDia',
         		params: {
-                	'idCuadrilla'	: 1,//$scope.usuario.idCuadrilla,
+                	'idCuadrilla'	: $scope.usuario.idCuadrilla,
                 	'fecha' 		: $('#fecha').val()
               	},
               	data: { }
@@ -2949,6 +2946,117 @@ app.directive('fileModel', ['$parse', function ($parse) {
         		$('#msload').modal('hide');
         	});        	
         };
+        
+        $scope.mLineaRectaEdita = function() {
+          if (medida.mvcLine.getLength() > 1) {
+              if (!medida.line) {
+                  medida.line = new google.maps.Polyline({
+                      map: map,
+                      clickable: false,
+                      strokeColor: "#ad04ef",
+                      strokeOpacity: 1,
+                      strokeWeight: 3,
+                      path: medida.mvcLine
+                  });
+              }
+
+              if (medida.mvcPolygon.getLength() > 2) {
+
+                  if (medida.polygon != null)
+                  {
+                      medida.polygon.setMap(null);
+                  }
+
+
+                  medida.polygon = new google.maps.Polygon({
+                      clickable: false,
+                      map: map,
+                      fillOpacity: 0.0,
+                      strokeOpacity: 0,
+                      paths: medida.mvcPolygon
+                  });
+
+              }
+          }
+        };        
+        
+        var metros_div = 1;
+		$scope.setMarcadorEdicion = function(latLng, direccion) {
+			// $('#msload').modal('show');
+            var geocoder = new google.maps.Geocoder;
+            var img_mark = 'altaContrato/mark.png';
+            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+            medida.mvcLine.push(latLng);
+            medida.mvcPolygon.push(latLng);
+            medida.mvcMarkers.push(marcador);
+            var latLngIndex = medida.mvcLine.getLength() - 1;
+            var latlng = {lat: latLng.lat, lng: latLng.lng};
+            //var direccion = 'SN';
+            // console.log(results);
+			// $('#msload').modal('hide');
+	        $scope.mLineaRectaEdita();
+	        
+	        var km = $scope.mapa.metros / metros_div;
+	        var unidad_de_medida = " metros";
+	        $( "#km" ).text(km.toFixed(2) + ' mts');
+	        $( "#txtkm" ).text('Distancia:  ');
+
+        };        
+        
+        $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+        	var latlng = {lat: lat, lng: lng};
+        	var geocoder = new google.maps.Geocoder();
+        	setTimeout(function () {
+        		geocoder.geocode({'location': latlng}, function(results, status) {
+        			if (status == google.maps.GeocoderStatus.OK) {
+        				map.setCenter(results[0].geometry.location);
+        				$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+        			}
+        		});
+        	}, 100);
+        };        
+      
+        $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+        	var latlng = {lat: lat, lng: lng};
+        	var geocoder = new google.maps.Geocoder();
+        	setTimeout(function () {
+        		geocoder.geocode({'location': latlng}, function(results, status) {
+        			if (status == google.maps.GeocoderStatus.OK) {
+        				map.setCenter(results[0].geometry.location);
+        				$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+        			}
+        		});
+        	}, 100);
+        };      
+        
+        //***Inicializa el mapa
+        $scope.initMap = function() {        	
+            medida = {
+                mvcLine: new google.maps.MVCArray(),
+                mvcPolygon: new google.maps.MVCArray(),
+                mvcMarkers: new google.maps.MVCArray(),
+                line: null,
+                polygon: null
+            };
+            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 7,
+              center: mx1
+            });
+
+            google.maps.event.addListener(map, 'click', function(event) {
+                	//$scope.setMarcador(event.latLng);
+            });
+            
+            //en caso de haber información en el arreglo de mapas se muestran los marcadores
+        	setTimeout(function () { 
+			for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
+				//console.info($scope.mapa.gridCoordenadas[i].direccion);
+				$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
+			}
+			}, 100);
+        };
+
         
         //***Se prepara la informacion para mostrarla en pantalla
         procesarConsulta = function(objConsulta)
@@ -2999,7 +3107,32 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		
 			$scope.mapa.fecha = mapaTemp.fecha;
 			$scope.mapa.metros = mapaTemp.metros;
-			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;        	
-        }
+			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;					
+        };
+        
+        
+        $scope.limpiarMarcadores = function() {
+
+          if (medida.polygon) {
+              medida.polygon.setMap(null);
+              medida.polygon = null;
+          }
+          if (medida.line) {
+              medida.line.setMap(null);
+              medida.line = null
+          }
+          medida.mvcLine.clear();
+          medida.mvcPolygon.clear();
+          medida.mvcMarkers.forEach(function(elem, index) {
+              elem.setMap(null);
+          });
+          $scope.mapa = {};
+          $scope.mapa.gridCoordenadas = [];
+          medida.mvcMarkers.clear();
+          $( "#tramos" ).empty();
+          $( "#km" ).text('');
+		  $( "#txtkm" ).text('');
+        };        
     });
+    
     //FIN CONSULTA DE AGENDA
