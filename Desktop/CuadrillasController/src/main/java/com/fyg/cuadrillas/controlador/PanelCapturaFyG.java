@@ -133,7 +133,7 @@ public class PanelCapturaFyG extends JApplet
 		panelEmpleados = new JPanel();
 		panelEmpleados.setBorder(new TitledBorder(null, "Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelEmpleados.setVisible(false);
-		panelEmpleados.setPreferredSize(new java.awt.Dimension(130, 170));
+		panelEmpleados.setPreferredSize(new java.awt.Dimension(70, 170));
 		getContentPane().add(panelEmpleados, BorderLayout.SOUTH);
 		tablaEmpleados = new JTable();
 		tablaEmpleados.setModel(new DefaultTableModel(
@@ -211,7 +211,7 @@ public class PanelCapturaFyG extends JApplet
 		huellaImage = new JTabbedPane(JTabbedPane.TOP);
 		huellaImage.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		huellaImage.setVisible(false);
-		contentPane.add(huellaImage);
+		getContentPane().add(huellaImage);
 		
 		panelHuella = new JPanel();
 		
@@ -220,7 +220,7 @@ public class PanelCapturaFyG extends JApplet
 		FlowLayout flowLayout = (FlowLayout) panelHuella.getLayout();
 		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelHuella.setVisible(false);
-		contentPane.add(panelHuella);
+		getContentPane().add(panelHuella);
 		
 		cataMano = new JComboBox();
 		panelHuella.add(cataMano);
@@ -237,7 +237,7 @@ public class PanelCapturaFyG extends JApplet
 		
 		JPanel panelMSG = new JPanel();
 		FlowLayout fl_panelMSG = (FlowLayout) panelMSG.getLayout();
-		contentPane.add(panelMSG);
+		getContentPane().add(panelMSG);
 		
 		txtArea = new JTextArea();
 		txtArea.setTabSize(10);
