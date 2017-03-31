@@ -37,9 +37,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class PanelCapturaFyG extends JApplet
+public class PanelCaptura extends JApplet
 {
-	public PanelCapturaFyG() {
+	public PanelCaptura() {
 	}
     /**
 	 * Serial UID
@@ -227,7 +227,7 @@ public class PanelCapturaFyG extends JApplet
 		getContentPane().add(panelHuella,BorderLayout.CENTER);
 		
 		imagenHuella = new JLabel();
-		imagenHuella.setPreferredSize(new java.awt.Dimension(150, 150));
+		imagenHuella.setPreferredSize(new java.awt.Dimension(250, 250));
 		panelHuella.add(imagenHuella);
 		//Acciones de las filas
 		
@@ -349,7 +349,7 @@ public class PanelCapturaFyG extends JApplet
                 		psswd.setVisible(false);
                 		
                 		//se muestra menuHuella applet
-                		final JApplet applet = new PanelCapturaFyG();
+                		final JApplet applet = new PanelCaptura();
                 		 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 		 frame.setResizable(true);
                 		applet.init();
@@ -367,13 +367,13 @@ public class PanelCapturaFyG extends JApplet
         frame.getContentPane().add(login);
         
         menuBar = new JLabel();
-        ImageIcon bar = new ImageIcon(PanelCapturaFyG.class.getResource("/resources/banner_tatei.png"));
+        ImageIcon bar = new ImageIcon(PanelCaptura.class.getResource("/resources/banner_tatei.png"));
         menuBar.setBounds(0,0,250,550);//posicion (x,y,ancho,largo)
         menuBar.setIcon(bar);
         frame.getContentPane().add(menuBar);
         
         imagen = new JLabel();
-        ImageIcon img = new ImageIcon(PanelCapturaFyG.class.getResource("/resources/back_Home_login.jpg"));
+        ImageIcon img = new ImageIcon(PanelCaptura.class.getResource("/resources/back_Home_login.jpg"));
         imagen.setBounds(0,0,700,550);//posicion (x,y,ancho,largo)
         imagen.setIcon(img);
         frame.getContentPane().add(imagen);
