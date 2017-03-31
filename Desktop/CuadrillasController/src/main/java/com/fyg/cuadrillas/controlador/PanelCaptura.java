@@ -342,7 +342,7 @@ public class PanelCaptura extends JApplet
         				String nombreUser = (String) datosUsuario.get("nombre")
         						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
         				String perfil = (String) datosUsuario.get("nombrePerfil");
-        				System.out.println(nombreUser);
+        				//System.out.println(nombreUser);
         				lblNombre.setText(lblNombre.getText()+ nombreUser + " Perfil: " + perfil);
         				//JOptionPane.showMessageDialog(null, msg);
                 		lblNombre.setVisible(true);
@@ -356,13 +356,16 @@ public class PanelCaptura extends JApplet
                 		
                 		
                 		//se muestra menuHuella applet
-                		frame.setSize(1164, 698);
-               		    frame.setResizable(true);
-               		    frame.revalidate();
-               		    frame.repaint();
+                		
+               		 frame.pack();
+                     
                 		final JApplet applet = new PanelCaptura();
-                		 frame.getContentPane().add( applet );
+                		 
                 		 applet.init();
+                		 frame.getContentPane().add( applet );
+                		 frame.setSize(1164, 698);
+                		    frame.setResizable(false);
+                		    frame.repaint();
                 		 applet.start();	
         			}
     				
