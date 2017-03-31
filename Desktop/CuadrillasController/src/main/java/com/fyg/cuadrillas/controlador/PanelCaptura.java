@@ -153,11 +153,7 @@ public class PanelCaptura extends JApplet
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
 		
-		lblNombre = new JLabel("Nombre:");
 		
-		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
-		getContentPane().add(lblNombre);
 		
 		nombreUser = new JLabel("A");
 		nombreUser.setPreferredSize(new java.awt.Dimension(130, 270));
@@ -309,6 +305,12 @@ public class PanelCaptura extends JApplet
         campoContrasena.setBounds(10, 395, 200, 35);
         frame.getContentPane().add(campoContrasena);
         
+        lblNombre = new JLabel("Nombre: ");
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblNombre.setBounds(160, 15, 450, 30);
+		lblNombre.setVisible(false);
+		frame.add(lblNombre);
+		
         //Se agrega boton personalizado
        login = new JButton("Iniciar Sesión");
        login.setBounds(35, 445, 150, 35);
@@ -340,6 +342,10 @@ public class PanelCaptura extends JApplet
         				String nombreUser = (String) datosUsuario.get("nombre")
         						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
         				String perfil = (String) datosUsuario.get("nombrePerfil");
+        				System.out.println(nombreUser);
+        				lblNombre.setText(lblNombre.getText()+ nombreUser + " Perfil: " + perfil);
+        				//JOptionPane.showMessageDialog(null, msg);
+                		lblNombre.setVisible(true);
                 		imagen.setVisible(false);
                 		menuBar.setVisible(false);
                 		campoUsuario.setVisible(false);
@@ -348,14 +354,16 @@ public class PanelCaptura extends JApplet
                 		label.setVisible(false);
                 		psswd.setVisible(false);
                 		
+                		
                 		//se muestra menuHuella applet
+                		frame.setSize(1164, 698);
+               		    frame.setResizable(true);
+               		    frame.revalidate();
+               		    frame.repaint();
                 		final JApplet applet = new PanelCaptura();
-                		 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                		 frame.setResizable(true);
-                		applet.init();
-        				frame.getContentPane().add( applet );
-                		JOptionPane.showMessageDialog(null, msg);
-                		applet.start();
+                		 frame.getContentPane().add( applet );
+                		 applet.init();
+                		 applet.start();	
         			}
     				
         	    } catch (Exception ex) {
