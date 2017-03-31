@@ -59,7 +59,6 @@ public class PanelCapturaFyG extends JApplet
 	 JLabel nombreUser;
 	 JPanel panelBotones;
 	 JPanel panelHuella;
-	 JLabel lblImagenHuella;
 	 JComboBox cataMano;
 	 JComboBox cataDedos;
 	 JButton altaHuella;
@@ -76,7 +75,6 @@ public class PanelCapturaFyG extends JApplet
 		 * tabla empleados
 		 */
 		private JTable tablaEmpleados;
-		JTabbedPane huellaImage;
 	/**
      * Create the GUI. For thread safety, this method should
      * be invoked from the event-dispatching thread.
@@ -168,14 +166,13 @@ public class PanelCapturaFyG extends JApplet
 		panelBotones = new JPanel();
 		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelBotones.setVisible(false);
-		getContentPane().add(panelBotones);
+		getContentPane().add(panelBotones,BorderLayout.EAST);
 		
 		JButton btnAltaHuella = new JButton("Alta Huella");
 		btnAltaHuella.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				/*panelHuella.setVisible(true);
-				huellaImage.setVisible(true);*/
+				panelHuella.setVisible(true);
 				try {
 		        	  //Llenando combo
 			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
@@ -208,19 +205,12 @@ public class PanelCapturaFyG extends JApplet
 			}
 		});
 		panelBotones.add(btnAltaHuella);
-		huellaImage = new JTabbedPane(JTabbedPane.TOP);
-		huellaImage.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		huellaImage.setVisible(false);
-		getContentPane().add(huellaImage);
 		
 		panelHuella = new JPanel();
-		
-		lblImagenHuella = new JLabel("");
-		huellaImage.addTab("Huella Empleado", null, lblImagenHuella, null);
 		FlowLayout flowLayout = (FlowLayout) panelHuella.getLayout();
 		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelHuella.setVisible(false);
-		getContentPane().add(panelHuella);
+		
 		
 		cataMano = new JComboBox();
 		panelHuella.add(cataMano);
@@ -234,18 +224,11 @@ public class PanelCapturaFyG extends JApplet
 			}
 		});
 		panelHuella.add(altaHuella);
+		getContentPane().add(panelHuella,BorderLayout.CENTER);
 		
-		JPanel panelMSG = new JPanel();
-		FlowLayout fl_panelMSG = (FlowLayout) panelMSG.getLayout();
-		getContentPane().add(panelMSG);
-		
-		txtArea = new JTextArea();
-		txtArea.setTabSize(10);
-		txtArea.setColumns(40);
-	    txtArea.setFont(new java.awt.Font("Lucida Sans", 1, 10)); // NOI18N
-	    txtArea.setRows(10);
-		panelMSG.add(txtArea);
-		
+		imagenHuella = new JLabel();
+		imagenHuella.setPreferredSize(new java.awt.Dimension(150, 150));
+		panelHuella.add(imagenHuella);
 		//Acciones de las filas
 		
 		tablaEmpleados.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -255,7 +238,6 @@ public class PanelCapturaFyG extends JApplet
 	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 	            panelBotones.setVisible(true);
 	            panelHuella.setVisible(false);
-	            huellaImage.setVisible(false);
 	            cataMano.removeAllItems();
 	            cataDedos.removeAllItems();
 	        }
@@ -565,8 +547,8 @@ public class PanelCapturaFyG extends JApplet
 	}
 
 	 public void DibujarHuella(Image image) {
-	       /*lblImagenHuella.setIcon(new ImageIcon(
-	       image.getScaledInstance(lblImagenHuella.getWidth(), lblImagenHuella.getHeight(), Image.SCALE_DEFAULT)));*/
+		 imagenHuella.setIcon(new ImageIcon(
+	       image.getScaledInstance(imagenHuella.getWidth(), imagenHuella.getHeight(), Image.SCALE_DEFAULT)));
 	       repaint();
 	}
 
@@ -598,4 +580,5 @@ public class PanelCapturaFyG extends JApplet
 		firePropertyChange(TEMPLATE_PROPERTY, old, template);
 	   }
 	byte datosHuella1[] = null;
+	private JLabel imagenHuella;
 }
