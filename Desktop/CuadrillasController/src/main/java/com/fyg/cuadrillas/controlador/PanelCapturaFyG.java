@@ -57,6 +57,13 @@ public class PanelCapturaFyG extends JApplet
 	 static JLabel lblNombre;
 	 JLabel lblPerfil;
 	 JLabel nombreUser;
+	 JPanel panelBotones;
+	 JPanel panelHuella;
+	 JLabel lblImagenHuella;
+	 JComboBox cataMano;
+	 JComboBox cataDedos;
+	 JButton altaHuella;
+	 JTextArea txtArea;
 	 /**
 		 * panel principal
 		 */
@@ -69,6 +76,7 @@ public class PanelCapturaFyG extends JApplet
 		 * tabla empleados
 		 */
 		private JTable tablaEmpleados;
+		JTabbedPane huellaImage;
 	/**
      * Create the GUI. For thread safety, this method should
      * be invoked from the event-dispatching thread.
@@ -150,14 +158,108 @@ public class PanelCapturaFyG extends JApplet
 		lblNombre = new JLabel("Nombre:");
 		
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNombre.setLocation(400, 20);
+		lblNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
 		getContentPane().add(lblNombre);
 		
 		nombreUser = new JLabel("A");
 		nombreUser.setPreferredSize(new java.awt.Dimension(130, 270));
 		//getContentPane().add(nombreUser,BorderLayout.NORTH);
 		
+		panelBotones = new JPanel();
+		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBotones.setVisible(false);
+		getContentPane().add(panelBotones);
 		
+		JButton btnAltaHuella = new JButton("Alta Huella");
+		btnAltaHuella.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
+			public void actionPerformed(ActionEvent arg0) {
+				/*panelHuella.setVisible(true);
+				huellaImage.setVisible(true);*/
+				try {
+		        	  //Llenando combo
+			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+			    		String salida  = getUrlContents(direccion);
+			    		JSONParser parser = new JSONParser();
+		    			Object obj = parser.parse(salida);
+		    			JSONObject jsonCatalogoMano = (JSONObject) obj;
+		    			JSONArray arrayCatalogoMano = (JSONArray) jsonCatalogoMano.get("catalogo");
+		    			
+		    			for (int j=0; j < arrayCatalogoMano.size(); j++) {
+		    				JSONObject mano = (JSONObject) arrayCatalogoMano.get(j);
+		    				String descripcion = (String) mano.get("descripcion");
+		    				cataMano.addItem(descripcion);
+		    			}
+		    			String direccionConsulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+			    		String salidaCatalogo  = getUrlContents(direccionConsulta);
+			    		JSONParser parseo = new JSONParser();
+		    			Object objCatalogo = parseo.parse(salidaCatalogo);
+		    			JSONObject jsonCatalogoDedo = (JSONObject) objCatalogo;
+		    			JSONArray arrayCatalogoDedo = (JSONArray) jsonCatalogoDedo.get("catalogo");
+		    			
+		    			for	(int k=0; k < arrayCatalogoDedo.size(); k++) {
+		    				JSONObject dedo = (JSONObject) arrayCatalogoDedo.get(k);
+		    				String descripcionDedo = (String) dedo.get("descripcion");
+		    				cataDedos.addItem(descripcionDedo);
+		    			}
+		          } catch (Exception ex) {
+		        	  ex.printStackTrace();
+		          }
+			}
+		});
+		panelBotones.add(btnAltaHuella);
+		huellaImage = new JTabbedPane(JTabbedPane.TOP);
+		huellaImage.setBorder(new TitledBorder(null, "Capturando Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		huellaImage.setVisible(false);
+		contentPane.add(huellaImage);
+		
+		panelHuella = new JPanel();
+		
+		lblImagenHuella = new JLabel("");
+		huellaImage.addTab("Huella Empleado", null, lblImagenHuella, null);
+		FlowLayout flowLayout = (FlowLayout) panelHuella.getLayout();
+		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelHuella.setVisible(false);
+		contentPane.add(panelHuella);
+		
+		cataMano = new JComboBox();
+		panelHuella.add(cataMano);
+		
+		cataDedos = new JComboBox();
+		panelHuella.add(cataDedos);
+		
+		altaHuella = new JButton("Guardar Huella");
+		altaHuella.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panelHuella.add(altaHuella);
+		
+		JPanel panelMSG = new JPanel();
+		FlowLayout fl_panelMSG = (FlowLayout) panelMSG.getLayout();
+		contentPane.add(panelMSG);
+		
+		txtArea = new JTextArea();
+		txtArea.setTabSize(10);
+		txtArea.setColumns(40);
+	    txtArea.setFont(new java.awt.Font("Lucida Sans", 1, 10)); // NOI18N
+	    txtArea.setRows(10);
+		panelMSG.add(txtArea);
+		
+		//Acciones de las filas
+		
+		tablaEmpleados.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+	            panelBotones.setVisible(true);
+	            panelHuella.setVisible(false);
+	            huellaImage.setVisible(false);
+	            cataMano.removeAllItems();
+	            cataDedos.removeAllItems();
+	        }
+	    });
     }
 
     @Override
