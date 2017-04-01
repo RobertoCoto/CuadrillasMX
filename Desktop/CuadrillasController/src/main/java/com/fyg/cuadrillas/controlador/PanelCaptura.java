@@ -261,6 +261,7 @@ public class PanelCaptura extends JApplet
 	    			if (imagenHuella.getIcon() == null) {
 	    				JOptionPane.showMessageDialog(null, "Es necesario capturar la huella", "Error Captura", JOptionPane.ERROR_MESSAGE);
 	    			}
+	    			//localhost:8080/CuadrillasWS/service/registraHuella/huella?
 	    			System.out.println(imagenHuella.getIcon());
     			} catch (Exception x) {
     				x.printStackTrace();
