@@ -1,6 +1,7 @@
 package com.fyg.cuadrillas.controlador;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
@@ -169,6 +170,7 @@ public class PanelCaptura extends JApplet
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
+				
 				try {
 		        	  //Llenando combo
 			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
@@ -195,6 +197,7 @@ public class PanelCaptura extends JApplet
 		    				String descripcionDedo = (String) dedo.get("descripcion");
 		    				cataDedos.addItem(descripcionDedo);
 		    			}
+		    			JOptionPane.showMessageDialog(null,"Numero de Muestras para Capturar Huella: 4");
 		          } catch (Exception ex) {
 		        	  ex.printStackTrace();
 		          }
@@ -215,14 +218,66 @@ public class PanelCaptura extends JApplet
 		panelHuella.add(cataDedos);
 		
 		altaHuella = new JButton("Guardar Huella");
+		altaHuella.setEnabled(false);
 		altaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String consulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+	    		String result  = getUrlContents(consulta);
+	    		
+    			
+    			try {
+    				JSONParser parser = new JSONParser();
+        			Object obj = parser.parse(result);
+        			JSONObject jsonCatalogoManoWS = (JSONObject) obj;
+        			JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS.get("catalogo");
+    				for (int j=0; j < arrayCatalogoManoWS.size(); j++) {
+        				JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
+        				String descripcionWS = (String) manoWS.get("descripcion");
+        				if (descripcionWS.equals(cataMano.getSelectedItem())) {
+        					String codigoMano = (String) manoWS.get("codigo");
+        					System.out.println("Seleccion Mano Codigo: "+ codigoMano);
+        				}
+        				
+        				
+        			}
+    				
+    				String direccionConsultaWS = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+		    		String salidaCatalogoWS  = getUrlContents(direccionConsultaWS);
+		    		JSONParser parseoWS = new JSONParser();
+	    			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
+	    			JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
+	    			JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS.get("catalogo");
+	    			
+	    			for	(int k=0; k < arrayCatalogoDedoWS.size(); k++) {
+	    				JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
+	    				String descripcionDedoWS = (String) dedoWS.get("descripcion");
+	    				
+	    				if (descripcionDedoWS.equals(cataDedos.getSelectedItem())) {
+	    					String codigoDedo = (String) dedoWS.get("codigo");
+	    					System.out.println("Seleccion Dedo: "+ codigoDedo);
+	    				}
+	    			}
+	    			
+	    			if (imagenHuella.getIcon() == null) {
+	    				JOptionPane.showMessageDialog(null, "Es necesario capturar la huella", "Error Captura", JOptionPane.ERROR_MESSAGE);
+	    			}
+	    			System.out.println(imagenHuella.getIcon());
+    			} catch (Exception x) {
+    				x.printStackTrace();
+    			}
+    			
+				
+				
+				
+				System.out.println("ID DEL EMPLEADO: "+ tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 			}
 		});
 		panelHuella.add(altaHuella);
 		getContentPane().add(panelHuella,BorderLayout.CENTER);
 		
 		imagenHuella = new JLabel();
+		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+		imagenHuella.setBorder(border);
 		imagenHuella.setPreferredSize(new java.awt.Dimension(250, 250));
 		panelHuella.add(imagenHuella);
 		//Acciones de las filas
@@ -231,7 +286,7 @@ public class PanelCaptura extends JApplet
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example
 	            // print first column value from selected row
-	            System.out.println(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+	            
 	            panelBotones.setVisible(true);
 	            panelHuella.setVisible(false);
 	            cataMano.removeAllItems();
@@ -466,7 +521,8 @@ public class PanelCaptura extends JApplet
 	   }});}
 	   @Override public void readerDisconnected(final DPFPReaderStatusEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
-		   System.out.println("El Sensor de Huella Digital esta Desactivado o no Conectado");
+		   JOptionPane.showMessageDialog(null,"El Sensor de Huella Digital esta Desactivado o no Conectado",
+				   "Advertencia", JOptionPane.WARNING_MESSAGE);
 	   }});}
 	  });
 
@@ -510,7 +566,7 @@ public class PanelCaptura extends JApplet
 	    Image image=CrearImagenHuella(sample);
 	    DibujarHuella(image);
 	    
-	    //btnVerificar.setEnabled(true);
+	    
 	    //btnIdentificar.setEnabled(true);
 
 	    }catch (DPFPImageQualityException ex) {
@@ -525,11 +581,12 @@ public class PanelCaptura extends JApplet
 	           case TEMPLATE_STATUS_READY:	// informe de éxito y detiene  la captura de huellas
 		    stop();
 	           setTemplate(Reclutador.getTemplate());
-		    EnviarTexto("La Plantilla de la Huella ha Sido Creada, ya puede Verificarla o Identificarla");
+	           JOptionPane.showMessageDialog(null,"La operación ha sido completada.");
 		    //btnIdentificar.setEnabled(false);
 	           //btnVerificar.setEnabled(false);
 	           /*btnGuardar.setEnabled(true);
 	           btnGuardar.grabFocus();*/
+		    altaHuella.setEnabled(true);
 	           break;
 
 		    case TEMPLATE_STATUS_FAILED: // informe de fallas y reiniciar la captura de huellas
@@ -537,7 +594,8 @@ public class PanelCaptura extends JApplet
 	           stop();
 		    EstadoHuellas();
 		    setTemplate(null);
-		    System.out.println("La Plantilla de la Huella no pudo ser creada, Repita el Proceso");
+		    JOptionPane.showMessageDialog(null,"El dedo no Coincide o a cambiado el dedo/ no se creo la huella, Repita el Proceso",
+					   "Advertencia", JOptionPane.WARNING_MESSAGE);
 		    //start();
 		    break;
 		}
@@ -564,7 +622,7 @@ public class PanelCaptura extends JApplet
 	}
 
 	public  void EstadoHuellas(){
-		System.out.println("Muestra de Huellas Necesarias para Guardar Template "+ Reclutador.getFeaturesNeeded());
+		System.out.println("Numero de Muestras para capturar: "+ Reclutador.getFeaturesNeeded());
 	}
 
 	public void EnviarTexto(String string) {
