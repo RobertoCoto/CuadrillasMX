@@ -511,7 +511,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla contacto
-				listaHuellaEmpleado = sessionNTx.selectList("empleadoDAO.consultaHuellaEmpleado");
+				listaHuellaEmpleado = sessionNTx.selectList("empleadoDAO.consultaHuellaEmpleado", empleadoHuella);
 				if ( listaHuellaEmpleado.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existen huellas para el empleado.");
 				}
