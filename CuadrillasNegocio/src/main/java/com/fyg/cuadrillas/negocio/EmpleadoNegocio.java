@@ -554,8 +554,8 @@ public class EmpleadoNegocio {
 					if (empleadoHuella.getCodigoDedo() == null || empleadoHuella.getCodigoDedo().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el codigo de la mano.");
 					}
-					if (empleadoHuella.getHuella() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario la huella.");
+					if (empleadoHuella.getHuella() == null || empleadoHuella.getHuella().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la ruta de la huella.");
 					}
 					EmpleadoDAO dao = new EmpleadoDAO();
 					//Consultamos si ya existe

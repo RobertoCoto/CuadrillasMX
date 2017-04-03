@@ -18,7 +18,9 @@ public class RegistraHuellaEmpleadoWS {
 	@GET
 	@Path("/huella")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response regHuella(@QueryParam("idEmpleado")Integer idEmpleado,@QueryParam("codigoMano")String mano,@QueryParam("codigoDedo")String dedo) {
+	public Response regHuella(@QueryParam("idEmpleado")Integer idEmpleado,
+			@QueryParam("codigoMano")String mano,@QueryParam("codigoDedo")String dedo
+			,@QueryParam("ruta") String ruta) {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		try {
@@ -27,7 +29,7 @@ public class RegistraHuellaEmpleadoWS {
 			huella.setIdEmpleado(idEmpleado);
 			huella.setCodigoMano(mano);
 			huella.setCodigoDedo(dedo);
-			//huella.setHuella(huellaData);
+			huella.setHuella(ruta);
 			respuesta = negocio.registrarHuella(huella);
 			
 		} catch (Exception x) {

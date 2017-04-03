@@ -187,12 +187,13 @@ DROP TABLE IF EXISTS perfil;
     );
 
 	CREATE TABLE empleado_huella (
-		id_huella INT NOT NULL,
+		id_huella INT NOT NULL AUTO_INCREMENT,
 		id_empleado INT NOT NULL,
-		huella BLOB NOT NULL,
+		huella VARCHAR(200) NOT NULL,
 		codigo_mano VARCHAR(10) NOT NULL,
 		codigo_dedo VARCHAR(10) NOT NULL,
-		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I'))
+		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
+		PRIMARY KEY(id_huella)
 	);
 	
 	CREATE TABLE permiso_laboral (

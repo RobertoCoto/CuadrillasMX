@@ -21,7 +21,7 @@ public class EmpleadoHuellaDTO extends ObjetoValor {
 	/**
 	 * imagen huella
 	 */
-	private Blob huella;
+	private String huella;
 	/**
 	 * codigo mano
 	 */
@@ -69,13 +69,13 @@ public class EmpleadoHuellaDTO extends ObjetoValor {
 	/**
 	 * @return the huella
 	 */
-	public Blob getHuella() {
+	public String getHuella() {
 		return huella;
 	}
 	/**
 	 * @param huella the huella to set
 	 */
-	public void setHuella(Blob huella) {
+	public void setHuella(String huella) {
 		this.huella = huella;
 	}
 	/**

@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.controlador;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -33,10 +34,18 @@ import com.digitalpersona.onetouch.verification.DPFPVerification;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class PanelCaptura extends JApplet
 {
@@ -230,11 +239,12 @@ public class PanelCaptura extends JApplet
         			Object obj = parser.parse(result);
         			JSONObject jsonCatalogoManoWS = (JSONObject) obj;
         			JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS.get("catalogo");
+        			String codigoMano = null;
     				for (int j=0; j < arrayCatalogoManoWS.size(); j++) {
         				JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
         				String descripcionWS = (String) manoWS.get("descripcion");
         				if (descripcionWS.equals(cataMano.getSelectedItem())) {
-        					String codigoMano = (String) manoWS.get("codigo");
+        					codigoMano = (String) manoWS.get("codigo");
         					System.out.println("Seleccion Mano Codigo: "+ codigoMano);
         				}
         				
@@ -247,13 +257,13 @@ public class PanelCaptura extends JApplet
 	    			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
 	    			JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
 	    			JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS.get("catalogo");
-	    			
+	    			String codigoDedo = null;
 	    			for	(int k=0; k < arrayCatalogoDedoWS.size(); k++) {
 	    				JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
 	    				String descripcionDedoWS = (String) dedoWS.get("descripcion");
 	    				
 	    				if (descripcionDedoWS.equals(cataDedos.getSelectedItem())) {
-	    					String codigoDedo = (String) dedoWS.get("codigo");
+	    					codigoDedo = (String) dedoWS.get("codigo");
 	    					System.out.println("Seleccion Dedo: "+ codigoDedo);
 	    				}
 	    			}
@@ -261,16 +271,41 @@ public class PanelCaptura extends JApplet
 	    			if (imagenHuella.getIcon() == null) {
 	    				JOptionPane.showMessageDialog(null, "Es necesario capturar la huella", "Error Captura", JOptionPane.ERROR_MESSAGE);
 	    			}
-	    			//localhost:8080/CuadrillasWS/service/registraHuella/huella?
-	    			System.out.println(imagenHuella.getIcon());
+	    			
+	    			Date fecha = new Date();
+	    			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    			String fechaImagen = dateFormat.format(fecha);
+	    			ImageIcon imagenH = (ImageIcon) imagenHuella.getIcon() ;
+	    			BufferedImage image = new BufferedImage(imagenH.getIconWidth(),
+	    					imagenH.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+	    			Graphics2D g2 = image.createGraphics();
+	    			g2.drawImage(imagenH.getImage(), 0, 0, imagenH.getImageObserver());
+	    			g2.dispose();
+	    			Integer idEmp = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString()); 
+	    			File imagenRuta = new File("C:\\Huella\\" + fechaImagen +"_id_"+ idEmp + codigoDedo +".jpg");
+	    			ImageIO.write(image, "jpg", imagenRuta);
+	    			String ruta = fechaImagen +"_id_"+ idEmp + codigoDedo +".jpg";
+	    			String registraHuella = "http://localhost:8080/CuadrillasWS/service/registraHuella/huella?idEmpleado="+idEmp
+	    					+"&codigoMano="+codigoMano+"&codigoDedo="+codigoDedo+"&ruta="+ruta;
+		    		String resultHuella  = getUrlContents(registraHuella);
+		    		System.out.println(resultHuella);
+		    		JSONParser p = new JSONParser();
+	    			Object phuella = p.parse(resultHuella);
+	    			JSONObject jsonResult = (JSONObject) phuella;
+	    			Boolean estatus = (Boolean) jsonResult.get("estatus");
+	    			String mensajeFuncional = (String) jsonResult.get("mensaje funcional");
+	    			if (estatus.equals(false)) {
+	    				JOptionPane.showMessageDialog(null, mensajeFuncional, "Error registro huella", JOptionPane.ERROR_MESSAGE);
+	    			} else {
+	    				JOptionPane.showMessageDialog(null, "La huella ha sido registrada correctamente.");
+	    				Reclutador.clear();
+	    			       imagenHuella.setIcon(null);
+	    			       altaHuella.setEnabled(false);
+	    			       start();
+	    			}
     			} catch (Exception x) {
     				x.printStackTrace();
     			}
-    			
-				
-				
-				
-				System.out.println("ID DEL EMPLEADO: "+ tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 			}
 		});
 		panelHuella.add(altaHuella);
