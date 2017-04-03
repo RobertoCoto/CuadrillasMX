@@ -73,6 +73,7 @@ public class PanelCaptura extends JApplet
 	 JComboBox cataDedos;
 	 JButton altaHuella;
 	 JTextArea txtArea;
+	 JPanel consulta;
 	 /**
 		 * panel principal
 		 */
@@ -98,7 +99,7 @@ public class PanelCaptura extends JApplet
 		panel.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setPreferredSize(new java.awt.Dimension(130, 270));
         getContentPane().add(panel, BorderLayout.WEST);
-        
+
         btnRegistrarHuella = new JButton("Huella");
 		btnRegistrarHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -162,16 +163,11 @@ public class PanelCaptura extends JApplet
 		tablaEmpleados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
-		
-		
-		
-		nombreUser = new JLabel("A");
-		nombreUser.setPreferredSize(new java.awt.Dimension(130, 270));
-		//getContentPane().add(nombreUser,BorderLayout.NORTH);
-		
+
 		panelBotones = new JPanel();
 		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelBotones.setVisible(false);
+		panelBotones.setPreferredSize(new java.awt.Dimension(140, 270));
 		getContentPane().add(panelBotones,BorderLayout.EAST);
 		
 		JButton btnAltaHuella = new JButton("Alta Huella");
@@ -179,7 +175,11 @@ public class PanelCaptura extends JApplet
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
-				
+				if (consulta == null) {
+					System.out.println("no esta activo");
+				} else if (consulta.isVisible()) {
+					consulta.setVisible(false);
+				}
 				try {
 		        	  //Llenando combo
 			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
@@ -214,8 +214,19 @@ public class PanelCaptura extends JApplet
 		});
 		panelBotones.add(btnAltaHuella);
 		
+		consultaHuella = new JButton("Consultar Huella");
+		consultaHuella.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consulta = new JPanel();
+				consulta.setBorder(new TitledBorder(null, "Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				consulta.setVisible(true);
+				getContentPane().add(consulta,BorderLayout.CENTER);
+				panelHuella.setVisible(false);
+			}
+		});
+		panelBotones.add(consultaHuella);
+
 		panelHuella = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panelHuella.getLayout();
 		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelHuella.setVisible(false);
 		
@@ -298,7 +309,7 @@ public class PanelCaptura extends JApplet
 	    				JOptionPane.showMessageDialog(null, mensajeFuncional, "Error registro huella", JOptionPane.ERROR_MESSAGE);
 	    			} else {
 	    				JOptionPane.showMessageDialog(null, "La huella ha sido registrada correctamente.");
-	    				Reclutador.clear();
+	    				   Reclutador.clear();
 	    			       imagenHuella.setIcon(null);
 	    			       altaHuella.setEnabled(false);
 	    			       start();
@@ -329,6 +340,8 @@ public class PanelCaptura extends JApplet
 	            cataDedos.removeAllItems();
 	        }
 	    });
+		
+
     }
 
     @Override
@@ -400,7 +413,7 @@ public class PanelCaptura extends JApplet
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblNombre.setBounds(160, 15, 450, 30);
 		lblNombre.setVisible(false);
-		frame.add(lblNombre);
+		frame.getContentPane().add(lblNombre);
 		
         //Se agrega boton personalizado
        login = new JButton("Iniciar Sesión");
@@ -686,4 +699,5 @@ public class PanelCaptura extends JApplet
 	   }
 	byte datosHuella1[] = null;
 	private JLabel imagenHuella;
+	private JButton consultaHuella;
 }
