@@ -222,6 +222,12 @@ public class PanelCaptura extends JApplet
 				consulta.setVisible(true);
 				getContentPane().add(consulta,BorderLayout.CENTER);
 				panelHuella.setVisible(false);
+				//para consultar la huella
+				Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+				System.out.println("el id empleado es: "+ idEmpleado);
+				String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado="+idEmpleado;
+        		String salidaHuella  = getUrlContents(consultaHuella);
+				System.out.println(salidaHuella);
 			}
 		});
 		panelBotones.add(consultaHuella);
