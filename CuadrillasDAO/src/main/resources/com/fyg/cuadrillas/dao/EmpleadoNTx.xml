@@ -174,7 +174,7 @@ SELECT
 	h.codigo_dedo,
 	ca.descripcion AS descripcion_mano,
 	cat.descripcion AS descripcion_dedo
-FROM empleado_huela h
+FROM empleado_huella h
 LEFT JOIN catalogo ca ON ca.codigo = h.codigo_mano
 LEFT JOIN catalogo cat ON cat.codigo = h.codigo_dedo
 WHERE h.id_empleado = #{idEmpleado}
