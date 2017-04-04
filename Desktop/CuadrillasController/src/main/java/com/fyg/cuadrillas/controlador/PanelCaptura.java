@@ -58,38 +58,52 @@ public class PanelCaptura extends JApplet
 	 * Serial UID
 	 */
 	private static final long serialVersionUID = 6586588784320650074L;
+	/**campo usuario*/
 	static JTextField campoUsuario;
+	/**campo Contrasena*/
 	static JPasswordField campoContrasena;
-	 static JButton login;
-	 static JFrame frame;
-	 static JLabel imagen;
-	 static JLabel label;
-	 static JLabel psswd;
-	 JButton btnRegistrarHuella;
-	 static JLabel menuBar;
-	 static JLabel lblNombre;
-	 JLabel lblPerfil;
-	 JLabel nombreUser;
-	 JPanel panelBotones;
-	 JPanel panelHuella;
-	 JComboBox cataMano;
-	 JComboBox cataDedos;
-	 JButton altaHuella;
-	 JTextArea txtArea;
-	 JPanel consulta;
-	 JLabel imagenHuellaD;
-	 /**
-		 * panel principal
-		 */
-		private JPanel contentPane;
-		/**
-		 * panel de la tabla empleados
-		 */
-		private JPanel panelEmpleados;
-		/**
-		 * tabla empleados
-		 */
-		private JTable tablaEmpleados;
+	/**Boton login*/
+	static JButton login;
+	/**Ventana Princioal*/
+	static JFrame frame;
+	/**Imagen*/
+	static JLabel imagen;
+	/**Label principal*/
+	static JLabel label;
+	/** label contrasena*/
+	static JLabel psswd;
+	/**Boton registrar Huella*/
+	JButton btnRegistrarHuella;
+	/**label menu*/
+	static JLabel menuBar;
+	/**Label nombre user*/
+	static JLabel lblNombre;
+	/**Label Perfil*/
+	JLabel lblPerfil;
+	/**Label nombre user*/
+	JLabel nombreUser;
+	/**panel de los botones*/
+	JPanel panelBotones;
+	/**panel de la huella*/
+	JPanel panelHuella;
+	/**combo catalogo manos*/
+	JComboBox cataMano;
+	/**combo catalogo dedos*/
+	JComboBox cataDedos;
+	/** boton alta huella*/
+	JButton altaHuella;
+	/** panel consulta*/
+	JPanel consulta;
+	/** label imagen huella*/
+	JLabel imagenHuellaD;
+	/**
+	 * panel de la tabla empleados
+	 */
+	private JPanel panelEmpleados;
+	/**
+	 * tabla empleados
+	 */
+	private JTable tablaEmpleados;
 	/**
      * Create the GUI. For thread safety, this method should
      * be invoked from the event-dispatching thread.
