@@ -31,13 +31,16 @@ import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
+import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -74,6 +77,7 @@ public class PanelCaptura extends JApplet
 	 JButton altaHuella;
 	 JTextArea txtArea;
 	 JPanel consulta;
+	 JLabel imagenHuellaD;
 	 /**
 		 * panel principal
 		 */
@@ -175,9 +179,9 @@ public class PanelCaptura extends JApplet
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
-				if (consulta == null) {
-					System.out.println("no esta activo");
-				} else if (consulta.isVisible()) {
+				if(consulta == null) {
+					
+				}else if (consulta.isVisible()) {
 					consulta.setVisible(false);
 				}
 				try {
@@ -217,17 +221,33 @@ public class PanelCaptura extends JApplet
 		consultaHuella = new JButton("Consultar Huella");
 		consultaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				consulta = new JPanel();
 				consulta.setBorder(new TitledBorder(null, "Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				consulta.setVisible(true);
+				imagenHuellaD = new JLabel();
+				Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+				imagenHuellaD.setBorder(border);
+				imagenHuellaD.setPreferredSize(new java.awt.Dimension(250, 250));
+				JButton verificar = new JButton("Verifica Huella");
+				verificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							identificarHuella();
+							Reclutador.clear();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					    
+					}
+				});
+				consulta.add(imagenHuellaD);
+				consulta.add(verificar);
 				getContentPane().add(consulta,BorderLayout.CENTER);
 				panelHuella.setVisible(false);
-				//para consultar la huella
-				Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
-				System.out.println("el id empleado es: "+ idEmpleado);
-				String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado="+idEmpleado;
-        		String salidaHuella  = getUrlContents(consultaHuella);
-				System.out.println(salidaHuella);
+			    imagenHuellaD.setIcon(null);
+			       //start();
 			}
 		});
 		panelBotones.add(consultaHuella);
@@ -673,6 +693,9 @@ public class PanelCaptura extends JApplet
 	 public void DibujarHuella(Image image) {
 		 imagenHuella.setIcon(new ImageIcon(
 	       image.getScaledInstance(imagenHuella.getWidth(), imagenHuella.getHeight(), Image.SCALE_DEFAULT)));
+		 
+		 imagenHuellaD.setIcon(new ImageIcon(
+			       image.getScaledInstance(imagenHuellaD.getWidth(), imagenHuellaD.getHeight(), Image.SCALE_DEFAULT)));
 	       repaint();
 	}
 
@@ -702,6 +725,53 @@ public class PanelCaptura extends JApplet
 	       DPFPTemplate old = this.template;
 		this.template = template;
 		firePropertyChange(TEMPLATE_PROPERTY, old, template);
+	   }
+	   public void identificarHuella() throws IOException{
+		 //para consultar la huella
+			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+			System.out.println("el id empleado es: "+ idEmpleado);
+			String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado="+idEmpleado;
+   		String salidaHuella  = getUrlContents(consultaHuella);
+			System.out.println(salidaHuella);
+			
+			try {
+				BufferedImage imgHuella=null;
+				JSONParser parseoHuella = new JSONParser();
+				Object objHuella = parseoHuella.parse(salidaHuella);
+				JSONObject jsonHuella = (JSONObject) objHuella;
+				JSONArray arrayHuella = (JSONArray) jsonHuella.get("empleadoHuella");
+   			
+   			for(int j=0; j < arrayHuella.size(); j++) {
+   				JSONObject huellaEmpleado = (JSONObject) arrayHuella.get(j);
+   				String rutImagen = (String) huellaEmpleado.get("huella");
+   				File imagenRuta = new File("C:\\Huella\\" + rutImagen);
+   				imgHuella = ImageIO.read(imagenRuta);
+   				
+   				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+   				ImageIO.write( imgHuella, "jpg", baos );
+   				baos.flush();
+   				byte templateBuffer[] = baos.toByteArray();
+   			//Crea una nueva plantilla a partir de la guardada en la base de datos
+   		       DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
+   		       //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
+   		       setTemplate(referenceTemplate);
+
+   		       // Compara las caracteriticas de la huella recientemente capturda con la
+   		       // alguna plantilla guardada en la base de datos que coincide con ese tipo
+   		       DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
+   				 if (result.isVerified()){
+   				      //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
+   				      JOptionPane.showMessageDialog(null, "Las huella capturada es de ","Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+   				      return;
+   				                              }
+   				      }
+   				      //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
+   				      JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella", "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
+   				      setTemplate(null);
+   			}
+		 catch(Exception ex) {
+				
+			}
 	   }
 	byte datosHuella1[] = null;
 	private JLabel imagenHuella;
