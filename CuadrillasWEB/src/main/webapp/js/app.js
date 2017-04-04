@@ -2919,9 +2919,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
       		if ($scope.mapa.gridCoordenadas.length > 0)
       		{
       			$scope.limpiarMarcadores();
-      		}}
-      			
-      		        	
+      		}
+      			      		        	
         	$http({
         		method: 'GET',
         		url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaDia',
