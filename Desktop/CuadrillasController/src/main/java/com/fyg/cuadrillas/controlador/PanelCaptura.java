@@ -1,13 +1,46 @@
 package com.fyg.cuadrillas.controlador;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.BorderLayout;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,25 +66,11 @@ import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 public class PanelCaptura extends JApplet
 {
+	/**
+	 * Metodo publico
+	 */
 	public PanelCaptura() {
 	}
     /**
@@ -111,17 +130,19 @@ public class PanelCaptura extends JApplet
     private void createGUI()
     {
         setSize(1124, 668);
-        
+
+        //se crea panel inicial
         JPanel panel = new JPanel();
 		panel.setBackground(new Color(138, 43, 226));
 		panel.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setPreferredSize(new java.awt.Dimension(130, 270));
         getContentPane().add(panel, BorderLayout.WEST);
 
+        //boton de las huellas
         btnRegistrarHuella = new JButton("Huella");
 		btnRegistrarHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Habilitando tabla empleados");
+				JOptionPane.showMessageDialog(null, "Habilitando tabla empleados");
 				String url = "http://localhost:8080/CuadrillasWS/service/consultaEmpleado/";
 		        		String output  = getUrlContents(url);
 		        		try {
@@ -129,15 +150,14 @@ public class PanelCaptura extends JApplet
 		        			Object obj = parser.parse(output);
 		        			JSONObject jsonObject = (JSONObject) obj;
 		        			JSONArray arrayEmpleado = (JSONArray) jsonObject.get("empleado");
-		        			DefaultTableModel modelo = (DefaultTableModel)tablaEmpleados.getModel();
+		        			DefaultTableModel modelo = (DefaultTableModel) tablaEmpleados.getModel();
 		        			Object[] filas = new Object[modelo.getColumnCount()];
 		        			for (int i = 0; i < arrayEmpleado.size(); i++) {
 
 		        				 JSONObject empleado = (JSONObject) arrayEmpleado.get(i);
-		        				 //System.out.println(empleado);
 		        				 Long idEmpleado = (Long) empleado.get("idEmpleado");
 		        				 String numEmpleado = (String) empleado.get("noEmpleado");
-		        				 String nombre= (String) empleado.get("nombre");
+		        				 String nombre = (String) empleado.get("nombre");
 		        				 String apellidoPaterno = (String) empleado.get("apellidoPat");
 		        				 String apellidoMaterno = (String) empleado.get("apellidoMat");
 		        				 String puesto = (String) empleado.get("descripcionPuesto");
@@ -149,7 +169,7 @@ public class PanelCaptura extends JApplet
 		        				 filas[5] = puesto;
 		        				 modelo.addRow(filas);
 		        			}
-		        			btnRegistrarHuella.setEnabled(false);	
+		        			btnRegistrarHuella.setEnabled(false);
 		        		} catch (Exception ex) {
 		        			ex.printStackTrace();
 		        		}
@@ -157,11 +177,15 @@ public class PanelCaptura extends JApplet
 			}
 		});
 		panel.add(btnRegistrarHuella);
+
+		//panel de las huellas
 		panelEmpleados = new JPanel();
 		panelEmpleados.setBorder(new TitledBorder(null, "Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelEmpleados.setVisible(false);
 		panelEmpleados.setPreferredSize(new java.awt.Dimension(70, 170));
 		getContentPane().add(panelEmpleados, BorderLayout.SOUTH);
+
+		//tabla de los empleados
 		tablaEmpleados = new JTable();
 		tablaEmpleados.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -177,66 +201,71 @@ public class PanelCaptura extends JApplet
 		tablaEmpleados.getColumnModel().getColumn(5).setPreferredWidth(123);
 		JTableHeader header = tablaEmpleados.getTableHeader();
 		tablaEmpleados.setBorder(new LineBorder(new Color(0, 0, 0)));
-		//new JScrollPane(tablaEmpleados, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tablaEmpleados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		panelEmpleados.add(header, BorderLayout.NORTH);
 		panelEmpleados.add(tablaEmpleados);
 
+		//panel de los botones
 		panelBotones = new JPanel();
 		panelBotones.setBorder(new TitledBorder(null, "Operaciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelBotones.setVisible(false);
 		panelBotones.setPreferredSize(new java.awt.Dimension(140, 270));
-		getContentPane().add(panelBotones,BorderLayout.EAST);
-		
+		getContentPane().add(panelBotones, BorderLayout.EAST);
+
 		JButton btnAltaHuella = new JButton("Alta Huella");
 		btnAltaHuella.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
-				if(consulta == null) {
-				}else if (consulta.isVisible()) {
+				if (consulta == null) {
+					System.out.println("no esta activo");
+				} else if (consulta.isVisible()) {
 					consulta.setVisible(false);
 				}
 				try {
 		        	  //Llenando combo
-			    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+			    		String direccion =
+			    				"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
 			    		String salida  = getUrlContents(direccion);
 			    		JSONParser parser = new JSONParser();
 		    			Object obj = parser.parse(salida);
 		    			JSONObject jsonCatalogoMano = (JSONObject) obj;
 		    			JSONArray arrayCatalogoMano = (JSONArray) jsonCatalogoMano.get("catalogo");
-		    			
-		    			for (int j=0; j < arrayCatalogoMano.size(); j++) {
+
+		    			for (int j = 0; j < arrayCatalogoMano.size(); j++) {
 		    				JSONObject mano = (JSONObject) arrayCatalogoMano.get(j);
 		    				String descripcion = (String) mano.get("descripcion");
 		    				cataMano.addItem(descripcion);
 		    			}
-		    			String direccionConsulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+		    			String direccionConsulta =
+		    					"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
 			    		String salidaCatalogo  = getUrlContents(direccionConsulta);
 			    		JSONParser parseo = new JSONParser();
 		    			Object objCatalogo = parseo.parse(salidaCatalogo);
 		    			JSONObject jsonCatalogoDedo = (JSONObject) objCatalogo;
 		    			JSONArray arrayCatalogoDedo = (JSONArray) jsonCatalogoDedo.get("catalogo");
-		    			
-		    			for	(int k=0; k < arrayCatalogoDedo.size(); k++) {
+
+		    			for	(int k = 0; k < arrayCatalogoDedo.size(); k++) {
 		    				JSONObject dedo = (JSONObject) arrayCatalogoDedo.get(k);
 		    				String descripcionDedo = (String) dedo.get("descripcion");
 		    				cataDedos.addItem(descripcionDedo);
 		    			}
-		    			JOptionPane.showMessageDialog(null,"Numero de Muestras para Capturar Huella: 4");
+		    			JOptionPane.showMessageDialog(null, "Numero de Muestras para Capturar Huella: 4");
 		          } catch (Exception ex) {
 		        	  ex.printStackTrace();
 		          }
 			}
 		});
 		panelBotones.add(btnAltaHuella);
-		
+
+		//boton de consultar huella
 		consultaHuella = new JButton("Consultar Huella");
 		consultaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				//panel de la consulta
 				consulta = new JPanel();
-				consulta.setBorder(new TitledBorder(null, "Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				consulta.setBorder(new TitledBorder(null,
+						"Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				consulta.setVisible(true);
 				imagenHuellaD = new JLabel();
 				Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
@@ -252,12 +281,11 @@ public class PanelCaptura extends JApplet
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					    
 					}
 				});
 				consulta.add(imagenHuellaD);
 				consulta.add(verificar);
-				getContentPane().add(consulta,BorderLayout.CENTER);
+				getContentPane().add(consulta, BorderLayout.CENTER);
 				panelHuella.setVisible(false);
 			    imagenHuellaD.setIcon(null);
 			       //start();
@@ -265,67 +293,66 @@ public class PanelCaptura extends JApplet
 		});
 		panelBotones.add(consultaHuella);
 
+		//panel de la huella
 		panelHuella = new JPanel();
 		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelHuella.setVisible(false);
-		
-		
+
+		//combo de la mano
 		cataMano = new JComboBox();
 		panelHuella.add(cataMano);
-		
+
+		//combo de los dedos
 		cataDedos = new JComboBox();
 		panelHuella.add(cataDedos);
-		
+
+		//boton para dar de alta la huella
 		altaHuella = new JButton("Guardar Huella");
 		altaHuella.setEnabled(false);
 		altaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String consulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
 	    		String result  = getUrlContents(consulta);
-	    		
-    			
     			try {
     				JSONParser parser = new JSONParser();
         			Object obj = parser.parse(result);
         			JSONObject jsonCatalogoManoWS = (JSONObject) obj;
         			JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS.get("catalogo");
         			String codigoMano = null;
-    				for (int j=0; j < arrayCatalogoManoWS.size(); j++) {
+    				for (int j = 0; j < arrayCatalogoManoWS.size(); j++) {
         				JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
         				String descripcionWS = (String) manoWS.get("descripcion");
         				if (descripcionWS.equals(cataMano.getSelectedItem())) {
         					codigoMano = (String) manoWS.get("codigo");
-        					System.out.println("Seleccion Mano Codigo: "+ codigoMano);
+        					System.out.println("Seleccion Mano Codigo: " + codigoMano);
         				}
-        				
-        				
         			}
-    				
-    				String direccionConsultaWS = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+    				String direccionConsultaWS =
+    						"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
 		    		String salidaCatalogoWS  = getUrlContents(direccionConsultaWS);
 		    		JSONParser parseoWS = new JSONParser();
 	    			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
 	    			JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
 	    			JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS.get("catalogo");
 	    			String codigoDedo = null;
-	    			for	(int k=0; k < arrayCatalogoDedoWS.size(); k++) {
+	    			for	(int k = 0; k < arrayCatalogoDedoWS.size(); k++) {
 	    				JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
 	    				String descripcionDedoWS = (String) dedoWS.get("descripcion");
-	    				
+
 	    				if (descripcionDedoWS.equals(cataDedos.getSelectedItem())) {
 	    					codigoDedo = (String) dedoWS.get("codigo");
-	    					System.out.println("Seleccion Dedo: "+ codigoDedo);
+	    					System.out.println("Seleccion Dedo: " + codigoDedo);
 	    				}
 	    			}
-	    			
+
 	    			if (imagenHuella.getIcon() == null) {
-	    				JOptionPane.showMessageDialog(null, "Es necesario capturar la huella", "Error Captura", JOptionPane.ERROR_MESSAGE);
+	    				JOptionPane.showMessageDialog(null,
+	    						"Es necesario capturar la huella", "Error Captura", JOptionPane.ERROR_MESSAGE);
 	    			}
-	    			
 	    			Date fecha = new Date();
 	    			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	    			String fechaImagen = dateFormat.format(fecha);
-	    			ImageIcon imagenH = (ImageIcon) imagenHuella.getIcon() ;
+	    			ImageIcon imagenH = (ImageIcon) imagenHuella.getIcon();
 	    			BufferedImage image = new BufferedImage(imagenH.getIconWidth(),
 	    					imagenH.getIconHeight(), BufferedImage.TYPE_INT_RGB);
 	    			Graphics2D g2 = image.createGraphics();
