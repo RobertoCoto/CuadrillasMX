@@ -1,8 +1,11 @@
 package com.fyg.cuadrillas.negocio;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+
 
 
 
@@ -16,6 +19,7 @@ import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
+import com.fyg.cuadrillas.dao.ParametroDAO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
@@ -120,6 +124,24 @@ public class EmpleadoNegocio {
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
+		     //validacion fecha 
+		     Calendar fechaNac = Calendar.getInstance();
+		     Calendar fechaActual = Calendar.getInstance();
+		     fechaNac.setTime(fechaDate);
+		     // se resta para sacar Edad
+		     int año = fechaActual.get(Calendar.YEAR)- fechaNac.get(Calendar.YEAR);
+		     int mes =fechaActual.get(Calendar.MONTH)- fechaNac.get(Calendar.MONTH);
+		     int dia = fechaActual.get(Calendar.DATE)- fechaNac.get(Calendar.DATE);
+		     if(mes<0 || (mes==0 && dia<0)){
+		           año--;
+		     }
+		     //se llama el parametro
+		     String parametroEdad = "usuario.edad.ano.minimo";
+			 String valor = new ParametroDAO().consultaParametro(uid, parametroEdad);
+			 Integer edadMinima = Integer.parseInt(valor);
+			 if (año < edadMinima) {
+				 throw new ExcepcionesCuadrillas("El empleado debe tener 18 años o mas.");
+			 }
 			//RFC Calculado
 			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
 						empleado.getApellidoPat(),
@@ -286,6 +308,24 @@ public class EmpleadoNegocio {
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
+		     //validacion fecha 
+		     Calendar fechaNac = Calendar.getInstance();
+		     Calendar fechaActual = Calendar.getInstance();
+		     fechaNac.setTime(fechaDate);
+		     // se resta para sacar Edad
+		     int año = fechaActual.get(Calendar.YEAR)- fechaNac.get(Calendar.YEAR);
+		     int mes =fechaActual.get(Calendar.MONTH)- fechaNac.get(Calendar.MONTH);
+		     int dia = fechaActual.get(Calendar.DATE)- fechaNac.get(Calendar.DATE);
+		     if(mes<0 || (mes==0 && dia<0)){
+		           año--;
+		     }
+		     //se llama el parametro
+		     String parametroEdad = "usuario.edad.ano.minimo";
+			 String valor = new ParametroDAO().consultaParametro(uid, parametroEdad);
+			 Integer edadMinima = Integer.parseInt(valor);
+			 if (año < edadMinima) {
+				 throw new ExcepcionesCuadrillas("El empleado debe tener 18 años o mas.");
+			 }
 			//RFC Calculado
 			String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(empleado.getNombre(),
 						empleado.getApellidoPat(),
