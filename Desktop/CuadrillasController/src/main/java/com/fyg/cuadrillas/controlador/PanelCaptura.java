@@ -180,7 +180,6 @@ public class PanelCaptura extends JApplet
 			public void actionPerformed(ActionEvent arg0) {
 				panelHuella.setVisible(true);
 				if(consulta == null) {
-					
 				}else if (consulta.isVisible()) {
 					consulta.setVisible(false);
 				}
