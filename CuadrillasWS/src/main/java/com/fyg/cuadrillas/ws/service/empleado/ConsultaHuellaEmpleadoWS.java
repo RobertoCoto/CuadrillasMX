@@ -14,6 +14,11 @@ import com.google.gson.Gson;
 
 @Path("/consultaHuella")
 public class ConsultaHuellaEmpleadoWS {
+	/**
+	 * Metodo para consultar huella
+	 * @param idEmpleado recibe id
+	 * @return regresa respuesta
+	 */
 	@GET
 	@Path("/empleado")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -25,7 +30,6 @@ public class ConsultaHuellaEmpleadoWS {
 			EmpleadoHuellaDTO empleadoHuella = new EmpleadoHuellaDTO();
 			empleadoHuella.setIdEmpleado(idEmpleado);
 			respuesta = negocio.consultaHuella(empleadoHuella);
-			
 		} catch (Exception ex) {
 			String result = sg.toJson(respuesta);
 			return Response.serverError().entity(result).build();

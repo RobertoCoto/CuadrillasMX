@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.catalogo.CatalogoRespuesta;
 import com.fyg.cuadrillas.dto.contrato.ContratoRespuesta;
 import com.fyg.cuadrillas.negocio.ContratoNegocio;
 import com.google.gson.Gson;
