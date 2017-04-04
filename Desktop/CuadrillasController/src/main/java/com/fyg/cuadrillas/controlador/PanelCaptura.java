@@ -115,6 +115,12 @@ public class PanelCaptura extends JApplet
 	JPanel consulta;
 	/** label imagen huella*/
 	JLabel imagenHuellaD;
+	/** datos de la huella*/
+	byte[] datosHuella1 = null;
+	/** label imagen huella*/
+	private JLabel imagenHuella;
+	/** label consulta huella*/
+	private JButton consultaHuella;
 	/**
 	 * panel de la tabla empleados
 	 */
@@ -276,7 +282,7 @@ public class PanelCaptura extends JApplet
 					public void actionPerformed(ActionEvent arg0) {
 						try {
 							identificarHuella();
-							Reclutador.clear();
+							reclutador.clear();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -358,12 +364,12 @@ public class PanelCaptura extends JApplet
 	    			Graphics2D g2 = image.createGraphics();
 	    			g2.drawImage(imagenH.getImage(), 0, 0, imagenH.getImageObserver());
 	    			g2.dispose();
-	    			Integer idEmp = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString()); 
-	    			File imagenRuta = new File("C:\\Huella\\" + fechaImagen +"_id_"+ idEmp + codigoDedo +".jpg");
+	    			Integer idEmp = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+	    			File imagenRuta = new File("C:\\Huella\\" + fechaImagen + "_id_" + idEmp + codigoDedo + ".jpg");
 	    			ImageIO.write(image, "jpg", imagenRuta);
-	    			String ruta = fechaImagen +"_id_"+ idEmp + codigoDedo +".jpg";
-	    			String registraHuella = "http://localhost:8080/CuadrillasWS/service/registraHuella/huella?idEmpleado="+idEmp
-	    					+"&codigoMano="+codigoMano+"&codigoDedo="+codigoDedo+"&ruta="+ruta;
+	    			String ruta = fechaImagen + "_id_" + idEmp + codigoDedo + ".jpg";
+	    			String registraHuella = "http://localhost:8080/CuadrillasWS/service/registraHuella/huella?idEmpleado=" + idEmp
+	    					+ "&codigoMano=" + codigoMano + "&codigoDedo=" + codigoDedo + "&ruta=" + ruta;
 		    		String resultHuella  = getUrlContents(registraHuella);
 		    		System.out.println(resultHuella);
 		    		JSONParser p = new JSONParser();
@@ -375,7 +381,7 @@ public class PanelCaptura extends JApplet
 	    				JOptionPane.showMessageDialog(null, mensajeFuncional, "Error registro huella", JOptionPane.ERROR_MESSAGE);
 	    			} else {
 	    				JOptionPane.showMessageDialog(null, "La huella ha sido registrada correctamente.");
-	    				   Reclutador.clear();
+	    				   reclutador.clear();
 	    			       imagenHuella.setIcon(null);
 	    			       altaHuella.setEnabled(false);
 	    			       start();
@@ -386,28 +392,24 @@ public class PanelCaptura extends JApplet
 			}
 		});
 		panelHuella.add(altaHuella);
-		getContentPane().add(panelHuella,BorderLayout.CENTER);
-		
+		getContentPane().add(panelHuella, BorderLayout.CENTER);
+
+		//huella
 		imagenHuella = new JLabel();
 		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
 		imagenHuella.setBorder(border);
 		imagenHuella.setPreferredSize(new java.awt.Dimension(250, 250));
 		panelHuella.add(imagenHuella);
+
 		//Acciones de las filas
-		
-		tablaEmpleados.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+		tablaEmpleados.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 	        public void valueChanged(ListSelectionEvent event) {
-	            // do some actions here, for example
-	            // print first column value from selected row
-	            
 	            panelBotones.setVisible(true);
 	            panelHuella.setVisible(false);
 	            cataMano.removeAllItems();
 	            cataDedos.removeAllItems();
 	        }
 	    });
-		
-
     }
 
     @Override
@@ -420,9 +422,9 @@ public class PanelCaptura extends JApplet
                 public void run()
                 {
                     createGUI();
-                    Iniciar();
+                    iniciar();
                     //start();
-                    EstadoHuellas();
+                    estadoHuellas();
                 }
             });
         }
@@ -431,21 +433,22 @@ public class PanelCaptura extends JApplet
             System.err.println("createGUI didn't successfully complete: " + e);
         }
     }
-
+    /**
+     * Metodo main
+     * @param args recibe valores
+     */
     public static void main(String[] args)
     {
-        
- 
+    	//Carga del frame
         frame = new JFrame("TATEI - Reclutamiento y Enrolamiento");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
 		frame.setBounds(100, 100, 1124, 668);
 		 frame.setLocationRelativeTo( null );
 	        frame.getContentPane().setLayout(null);
         frame.setResizable(false);
-        
-        
+
       //se agrega un label
         label = new JLabel("Usuario");
         label.setFont(new Font("Courier New", Font.BOLD, 18));
@@ -454,7 +457,7 @@ public class PanelCaptura extends JApplet
         label.setLocation(10, 280);
         frame.getContentPane().add(label);
         frame.setPreferredSize(new Dimension(700, 550));
-        
+
       //se agrega el primer input
         campoUsuario = new JTextField(10);
         campoUsuario.setBounds(10, 305, 200, 35);
@@ -467,23 +470,23 @@ public class PanelCaptura extends JApplet
         psswd.setSize(300, 30);
         psswd.setLocation(10, 370);
         frame.getContentPane().add(psswd);
-        
-        
 
         //se agrega el segundo input
         campoContrasena = new JPasswordField(15);
         campoContrasena.setBounds(10, 395, 200, 35);
         frame.getContentPane().add(campoContrasena);
-        
+
+        //label del nombre
         lblNombre = new JLabel("Nombre: ");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblNombre.setBounds(160, 15, 450, 30);
 		lblNombre.setVisible(false);
 		frame.getContentPane().add(lblNombre);
-		
+
         //Se agrega boton personalizado
        login = new JButton("Iniciar Sesión");
        login.setBounds(35, 445, 150, 35);
+
         //Accion de boton login
         login.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
@@ -507,13 +510,13 @@ public class PanelCaptura extends JApplet
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
     				if (estatus.equals(false)) {
         				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
-        			} else if(estatus.equals(true)) {
+        			} else if (estatus.equals(true)) {
         				//Se manda datos a la nueva pantalla
         				String nombreUser = (String) datosUsuario.get("nombre")
         						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
         				String perfil = (String) datosUsuario.get("nombrePerfil");
         				//System.out.println(nombreUser);
-        				lblNombre.setText(lblNombre.getText()+ nombreUser + " Perfil: " + perfil);
+        				lblNombre.setText(lblNombre.getText() + nombreUser + " Perfil: " + perfil);
         				//JOptionPane.showMessageDialog(null, msg);
                 		lblNombre.setVisible(true);
                 		imagen.setVisible(false);
@@ -523,22 +526,17 @@ public class PanelCaptura extends JApplet
                 		login.setVisible(false);
                 		label.setVisible(false);
                 		psswd.setVisible(false);
-                		
-                		
+
                 		//se muestra menuHuella applet
-                		
-               		 frame.pack();
-                     
+               		 	frame.pack();
                 		final JApplet applet = new PanelCaptura();
-                		 
                 		 applet.init();
                 		 frame.getContentPane().add( applet );
                 		 frame.setSize(1164, 698);
                 		    frame.setResizable(false);
                 		    frame.repaint();
-                		 applet.start();	
+                		 applet.start();
         			}
-    				
         	    } catch (Exception ex) {
         	    ex.printStackTrace();
         	    }
@@ -546,24 +544,22 @@ public class PanelCaptura extends JApplet
         });
         //login.setPreferredSize(new Dimension(5, 5));
         frame.getContentPane().add(login);
-        
+
+        //barra de menu
         menuBar = new JLabel();
         ImageIcon bar = new ImageIcon(PanelCaptura.class.getResource("/resources/banner_tatei.png"));
-        menuBar.setBounds(0,0,250,550);//posicion (x,y,ancho,largo)
+        menuBar.setBounds(0, 0, 250, 550);
         menuBar.setIcon(bar);
         frame.getContentPane().add(menuBar);
-        
+
+        //imagen de fondo
         imagen = new JLabel();
         ImageIcon img = new ImageIcon(PanelCaptura.class.getResource("/resources/back_Home_login.jpg"));
-        imagen.setBounds(0,0,700,550);//posicion (x,y,ancho,largo)
+        imagen.setBounds(0, 0, 700, 550);
         imagen.setIcon(img);
         frame.getContentPane().add(imagen);
-        
-        
         frame.pack();
         frame.setVisible( true );
-  
-        
     }
 
 	/**
@@ -603,67 +599,84 @@ public class PanelCaptura extends JApplet
 	    }
 	    return content.toString();
 	  }
-	//Varible que permite iniciar el dispositivo de lector de huella conectado
-	//con sus distintos metodos.
-	private DPFPCapture Lector = DPFPGlobal.getCaptureFactory().createCapture();
+	/**
+	 * Metodo para inicializar el lector de huellas
+	 */
+	private DPFPCapture lector = DPFPGlobal.getCaptureFactory().createCapture();
 
-	//Varible que permite establecer las capturas de la huellas, para determina sus caracteristicas
-	//y poder estimar la creacion de un template de la huella para luego poder guardarla
-	private DPFPEnrollment Reclutador = DPFPGlobal.getEnrollmentFactory().createEnrollment();
+	/**
+	 * metodo para reclutador
+	 */
+	private DPFPEnrollment reclutador = DPFPGlobal.getEnrollmentFactory().createEnrollment();
 
-	//Esta variable tambien captura una huella del lector y crea sus caracteristcas para auntetificarla
-	//o verificarla con alguna guardada en la BD
-	private DPFPVerification Verificador = DPFPGlobal.getVerificationFactory().createVerification();
+	/**
+	 * verifica la huella
+	 */
+	private DPFPVerification verificador = DPFPGlobal.getVerificationFactory().createVerification();
 
-	//Variable que para crear el template de la huella luego de que se hallan creado las caracteriticas
-	//necesarias de la huella si no ha ocurrido ningun problema
+	/**
+	 * metodo para crear un nuevo template
+	 */
 	private DPFPTemplate template;
+	/**
+	 * metodo para crear una propiedad del template
+	 */
 	public static String TEMPLATE_PROPERTY = "template";
-
-	protected void Iniciar(){
-	  Lector.addDataListener(new DPFPDataAdapter() {
+	/**
+	 * inicializa el dispositivo
+	 */
+	protected void iniciar() {
+	  lector.addDataListener(new DPFPDataAdapter() {
 	   @Override public void dataAcquired(final DPFPDataEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
 	   System.out.println("La Huella Digital ha sido Capturada");
-	   ProcesarCaptura(e.getSample());
-	   }});}
+	   procesarCaptura(e.getSample());
+	   } } ); }
 	  });
 
-	  Lector.addReaderStatusListener(new DPFPReaderStatusAdapter() {
+	  lector.addReaderStatusListener(new DPFPReaderStatusAdapter() {
 	   @Override public void readerConnected(final DPFPReaderStatusEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
 		   System.out.println("El Sensor de Huella Digital esta Activado o Conectado");
-	   }});}
+	   } } ); }
 	   @Override public void readerDisconnected(final DPFPReaderStatusEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
-		   JOptionPane.showMessageDialog(null,"El Sensor de Huella Digital esta Desactivado o no Conectado",
+		   JOptionPane.showMessageDialog(null, "El Sensor de Huella Digital esta Desactivado o no Conectado",
 				   "Advertencia", JOptionPane.WARNING_MESSAGE);
-	   }});}
+	   } } ); }
 	  });
 
-	  Lector.addSensorListener(new DPFPSensorAdapter() {
+	  lector.addSensorListener(new DPFPSensorAdapter() {
 	   @Override public void fingerTouched(final DPFPSensorEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
 		   System.out.println("El dedo ha sido colocado sobre el Lector de Huella");
-	   }});}
+	   } } ); }
 	   @Override public void fingerGone(final DPFPSensorEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {	public void run() {
 		   System.out.println("El dedo ha sido quitado del Lector de Huella");
-	   }});}
+	   } } ); }
 	  });
 
-	  Lector.addErrorListener(new DPFPErrorAdapter(){
-	   public void errorReader(final DPFPErrorEvent e){
+	  lector.addErrorListener(new DPFPErrorAdapter() {
+	   public void errorReader(final DPFPErrorEvent e) {
 	   SwingUtilities.invokeLater(new Runnable() {  public void run() {
-		   System.out.println("Error: "+e.getError());
-	   }});}
+		   System.out.println("Error: " + e.getError());
+	   } } ); }
 	  });
 	}
-
+	/**
+	 * metodo
+	 */
 	public DPFPFeatureSet featuresinscripcion;
+	/**
+	 * libs
+	 */
 	public DPFPFeatureSet featuresverificacion;
-
-	public  void ProcesarCaptura(DPFPSample sample)
+	/**
+	 * metodo para procesar captura
+	 * @param sample recibira el valor de la huella
+	 */
+	public  void procesarCaptura(DPFPSample sample)
 	{
 	// Procesar la muestra de la huella y crear un conjunto de características con el propósito de inscripción.
 	featuresinscripcion = extraerCaracteristicas(sample, DPFPDataPurpose.DATA_PURPOSE_ENROLLMENT);
@@ -672,31 +685,28 @@ public class PanelCaptura extends JApplet
 	featuresverificacion = extraerCaracteristicas(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
 
 	// Comprobar la calidad de la muestra de la huella y lo añade a su reclutador si es bueno
-	if (featuresinscripcion != null)
-	    try{
-	    System.out.println("Las Caracteristicas de la Huella han sido creada");
-	    Reclutador.addFeatures(featuresinscripcion);// Agregar las caracteristicas de la huella a la plantilla a crear
+	if (featuresinscripcion != null) {
+		 try {
+			    System.out.println("Las Caracteristicas de la Huella han sido creada");
+			    reclutador.addFeatures(featuresinscripcion);
 
-	    // Dibuja la huella dactilar capturada.
-	    Image image=CrearImagenHuella(sample);
-	    DibujarHuella(image);
-	    
-	    
-	    //btnIdentificar.setEnabled(true);
+			    // Dibuja la huella dactilar capturada.
+			    Image image = crearImagenHuella(sample);
+			    dibujarHuella(image);
+			    } catch (DPFPImageQualityException ex) {
+			    System.err.println("Error: " + ex.getMessage());
+			    }
 
-	    }catch (DPFPImageQualityException ex) {
-	    System.err.println("Error: "+ex.getMessage());
-	    }
-
-	    finally {
-	    EstadoHuellas();
+			    finally {
+			    estadoHuellas();
+	}
 	    // Comprueba si la plantilla se ha creado.
-		switch(Reclutador.getTemplateStatus())
+		switch(reclutador.getTemplateStatus())
 	       {
 	           case TEMPLATE_STATUS_READY:	// informe de éxito y detiene  la captura de huellas
 		    stop();
-	           setTemplate(Reclutador.getTemplate());
-	           JOptionPane.showMessageDialog(null,"La operación ha sido completada.");
+	           setTemplate(reclutador.getTemplate());
+	           JOptionPane.showMessageDialog(null, "La operación ha sido completada.");
 		    //btnIdentificar.setEnabled(false);
 	           //btnVerificar.setEnabled(false);
 	           /*btnGuardar.setEnabled(true);
@@ -705,19 +715,25 @@ public class PanelCaptura extends JApplet
 	           break;
 
 		    case TEMPLATE_STATUS_FAILED: // informe de fallas y reiniciar la captura de huellas
-		    Reclutador.clear();
+		    reclutador.clear();
 	           stop();
-		    EstadoHuellas();
+		    estadoHuellas();
 		    setTemplate(null);
-		    JOptionPane.showMessageDialog(null,"El dedo no Coincide o a cambiado el dedo/ no se creo la huella, Repita el Proceso",
+		    JOptionPane.showMessageDialog(null,
+		    		"El dedo no Coincide o a cambiado el dedo/ no se creo la huella, Repita el Proceso",
 					   "Advertencia", JOptionPane.WARNING_MESSAGE);
 		    //start();
 		    break;
 		}
 		     }
 	}
-
-	public  DPFPFeatureSet extraerCaracteristicas(DPFPSample sample, DPFPDataPurpose purpose){
+/***
+ * Extrae las caracteristicas de la huella
+ * @param sample valor
+ * @param purpose valor
+ * @return regresa datos
+ */
+	public  DPFPFeatureSet extraerCaracteristicas(DPFPSample sample, DPFPDataPurpose purpose) {
 	    DPFPFeatureExtraction extractor = DPFPGlobal.getFeatureExtractionFactory().createFeatureExtraction();
 	    try {
 	     return extractor.createFeatureSet(sample, purpose);
@@ -725,72 +741,90 @@ public class PanelCaptura extends JApplet
 	     return null;
 	    }
 	}
-
-	 public  Image CrearImagenHuella(DPFPSample sample) {
+	/**
+	 * metodo para crear la huella
+	 * @param sample recibe valor
+	 * @return respuesta
+	 */
+	 public  Image crearImagenHuella(DPFPSample sample) {
 		return DPFPGlobal.getSampleConversionFactory().createImage(sample);
 	}
-
-	 public void DibujarHuella(Image image) {
+	 /**
+	  * dibuja la huella en el label
+	  * @param image recibe la imagen
+	  */
+	 public void dibujarHuella(Image image) {
 		 imagenHuella.setIcon(new ImageIcon(
 	       image.getScaledInstance(imagenHuella.getWidth(), imagenHuella.getHeight(), Image.SCALE_DEFAULT)));
-		 
 		 imagenHuellaD.setIcon(new ImageIcon(
 			       image.getScaledInstance(imagenHuellaD.getWidth(), imagenHuellaD.getHeight(), Image.SCALE_DEFAULT)));
 	       repaint();
 	}
-
-	public  void EstadoHuellas(){
-		System.out.println("Numero de Muestras para capturar: "+ Reclutador.getFeaturesNeeded());
+	 /**
+	  * comprueba el estado de las huellas
+	  */
+	public  void estadoHuellas() {
+		System.out.println("Numero de Muestras para capturar: " + reclutador.getFeaturesNeeded());
 	}
-
-	public void EnviarTexto(String string) {
-	       //txtArea.append(string + "\n");
-	}
-
-	public  void start(){
-		Lector.startCapture();
+	/**
+	 * inicia el servicio de captura
+	 */
+	public  void start() {
+		lector.startCapture();
 		System.out.println("Utilizando el Lector de Huella Dactilar ");
 	}
-
-	public  void stop(){
-	       Lector.stopCapture();
+	/**
+	 * detiene el servicio
+	 */
+	public  void stop() {
+	       lector.stopCapture();
 	       System.out.println("No se está usando el Lector de Huella Dactilar ");
 	}
-
+		/**
+		 * obtiene el template
+		 * @return regresa el template
+		 */
 	   public DPFPTemplate getTemplate() {
 	       return template;
 	   }
-
+	   /**
+	    * crea un nuevo template
+	    * @param template recibe el template
+	    */
 	   public void setTemplate(DPFPTemplate template) {
 	       DPFPTemplate old = this.template;
 		this.template = template;
 		firePropertyChange(TEMPLATE_PROPERTY, old, template);
 	   }
-	   public void identificarHuella() throws IOException{
+	   /**
+	    * metodo para identificar la huella
+	    * @throws IOException
+	    */
+	   public void identificarHuella() throws IOException {
 		 //para consultar la huella
 			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
-			System.out.println("el id empleado es: "+ idEmpleado);
-			String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado="+idEmpleado;
+			System.out.println("el id empleado es: " + idEmpleado);
+			String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado=" + idEmpleado;
    		String salidaHuella  = getUrlContents(consultaHuella);
 			System.out.println(salidaHuella);
-			
+
 			try {
-				BufferedImage imgHuella=null;
+				BufferedImage imgHuella = null;
 				JSONParser parseoHuella = new JSONParser();
 				Object objHuella = parseoHuella.parse(salidaHuella);
 				JSONObject jsonHuella = (JSONObject) objHuella;
 				JSONArray arrayHuella = (JSONArray) jsonHuella.get("empleadoHuella");
-   			
-   			for(int j=0; j < arrayHuella.size(); j++) {
+
+   			for (int j = 0; j < arrayHuella.size(); j++) {
    				JSONObject huellaEmpleado = (JSONObject) arrayHuella.get(j);
    				String rutImagen = (String) huellaEmpleado.get("huella");
    				File imagenRuta = new File("C:\\Huella\\" + rutImagen);
    				imgHuella = ImageIO.read(imagenRuta);
-   				
+
    				ByteArrayOutputStream baos = new ByteArrayOutputStream();
    				ImageIO.write( imgHuella, "jpg", baos );
    				baos.flush();
-   				byte templateBuffer[] = baos.toByteArray();
+   				byte[] templateBuffer = baos.toByteArray();
    			//Crea una nueva plantilla a partir de la guardada en la base de datos
    		       DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
    		       //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
@@ -798,22 +832,22 @@ public class PanelCaptura extends JApplet
 
    		       // Compara las caracteriticas de la huella recientemente capturda con la
    		       // alguna plantilla guardada en la base de datos que coincide con ese tipo
-   		       DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
-   				 if (result.isVerified()){
+   		       DPFPVerificationResult result = verificador.verify(featuresverificacion, getTemplate());
+   				 if (result.isVerified() ) {
    				      //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-   				      JOptionPane.showMessageDialog(null, "Las huella capturada es de ","Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+   				      JOptionPane.showMessageDialog(null,
+   				    		  "Las huella capturada es de ", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
    				      return;
    				                              }
    				      }
    				      //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
-   				      JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella", "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
+   				      JOptionPane.showMessageDialog(null,
+   				    		  "No existe ningún registro que coincida con la huella",
+   				    		  "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
    				      setTemplate(null);
    			}
-		 catch(Exception ex) {
-				
+		 catch (Exception ex) {
+				ex.printStackTrace();
 			}
 	   }
-	byte datosHuella1[] = null;
-	private JLabel imagenHuella;
-	private JButton consultaHuella;
 }
