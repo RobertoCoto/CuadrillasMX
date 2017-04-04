@@ -124,22 +124,22 @@ public class EmpleadoNegocio {
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
-		     //validacion fecha 
+		     //validacion fecha
 		     Calendar fechaNac = Calendar.getInstance();
 		     Calendar fechaActual = Calendar.getInstance();
 		     fechaNac.setTime(fechaDate);
 		     // se resta para sacar Edad
-		     int año = fechaActual.get(Calendar.YEAR)- fechaNac.get(Calendar.YEAR);
-		     int mes =fechaActual.get(Calendar.MONTH)- fechaNac.get(Calendar.MONTH);
-		     int dia = fechaActual.get(Calendar.DATE)- fechaNac.get(Calendar.DATE);
-		     if(mes<0 || (mes==0 && dia<0)){
-		           año--;
+		     int year = fechaActual.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
+		     int mes = fechaActual.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
+		     int dia = fechaActual.get(Calendar.DATE) - fechaNac.get(Calendar.DATE);
+		     if (mes < 0 || (mes == 0 && dia < 0)) {
+		           year--;
 		     }
 		     //se llama el parametro
 		     String parametroEdad = "usuario.edad.ano.minimo";
 			 String valor = new ParametroDAO().consultaParametro(uid, parametroEdad);
 			 Integer edadMinima = Integer.parseInt(valor);
-			 if (año < edadMinima) {
+			 if (year < edadMinima) {
 				 throw new ExcepcionesCuadrillas("El empleado debe tener 18 años o mas.");
 			 }
 			//RFC Calculado
@@ -308,22 +308,22 @@ public class EmpleadoNegocio {
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
-		     //validacion fecha 
+		     //validacion fecha
 		     Calendar fechaNac = Calendar.getInstance();
 		     Calendar fechaActual = Calendar.getInstance();
 		     fechaNac.setTime(fechaDate);
 		     // se resta para sacar Edad
-		     int año = fechaActual.get(Calendar.YEAR)- fechaNac.get(Calendar.YEAR);
-		     int mes =fechaActual.get(Calendar.MONTH)- fechaNac.get(Calendar.MONTH);
-		     int dia = fechaActual.get(Calendar.DATE)- fechaNac.get(Calendar.DATE);
-		     if(mes<0 || (mes==0 && dia<0)){
-		           año--;
+		     int year = fechaActual.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
+		     int mes = fechaActual.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
+		     int dia = fechaActual.get(Calendar.DATE) - fechaNac.get(Calendar.DATE);
+		     if (mes < 0 || (mes == 0 && dia < 0)) {
+		           year--;
 		     }
 		     //se llama el parametro
 		     String parametroEdad = "usuario.edad.ano.minimo";
 			 String valor = new ParametroDAO().consultaParametro(uid, parametroEdad);
 			 Integer edadMinima = Integer.parseInt(valor);
-			 if (año < edadMinima) {
+			 if (year < edadMinima) {
 				 throw new ExcepcionesCuadrillas("El empleado debe tener 18 años o mas.");
 			 }
 			//RFC Calculado
@@ -574,7 +574,7 @@ public class EmpleadoNegocio {
 	}
 	/**
 	 * Metodo para registrar las huellas
-	 * @param empleado recibira valores de empleado y huella
+	 * @param empleadoHuella recibira valores de empleado y huella
 	 * @return regresara respuesta
 	 */
 	public EncabezadoRespuesta registrarHuella(EmpleadoHuellaDTO empleadoHuella) {
