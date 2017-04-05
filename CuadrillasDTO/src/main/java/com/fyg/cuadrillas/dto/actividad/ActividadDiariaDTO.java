@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dto.actividad;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
 public class ActividadDiariaDTO  extends ObjetoValor {
@@ -30,6 +32,8 @@ public class ActividadDiariaDTO  extends ObjetoValor {
 	private String comentarioAutorizacion;
 	/** Usuario alta */
 	private String usuarioAlta;
+	/** lista de actividades diaria detalle*/
+	private List<ActividadDiariaDetalleDTO> actividadDiariaDetalle;
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -161,5 +165,18 @@ public class ActividadDiariaDTO  extends ObjetoValor {
 	 */
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
+	}
+	/**
+	 * @return the actividadDiariaDetalle
+	 */
+	public List<ActividadDiariaDetalleDTO> getActividadDiariaDetalle() {
+		return actividadDiariaDetalle;
+	}
+	/**
+	 * @param actividadDiariaDetalle the actividadDiariaDetalle to set
+	 */
+	public void setActividadDiariaDetalle(
+			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle) {
+		this.actividadDiariaDetalle = actividadDiariaDetalle;
 	}
 }
