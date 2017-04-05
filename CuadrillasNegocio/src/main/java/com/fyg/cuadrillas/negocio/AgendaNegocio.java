@@ -9,6 +9,8 @@ import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.AgendaDAO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
@@ -257,6 +259,42 @@ public class AgendaNegocio {
 				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 		    }
 		    LogHandler.debug(uid, this.getClass(), "consultaAgendaSemanal - Datos Salida: " + respuesta);
+			return respuesta;
+		}
+	/**
+	 * Metodo para consulta las actividades diarias
+	 * @param actividadDiaria recibe actividad diaria
+	 * @return regresa respuesta
+	 */
+	public ActividadDiariaCampoRespuesta consultaActividadDiaria(ActividadDiariaCampoDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(actividadDiaria);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaActividadDiaria - Datos Entrada: " + actividadDiaria);
+		ActividadDiariaCampoRespuesta respuesta = new ActividadDiariaCampoRespuesta();
+		 respuesta.setHeader( new EncabezadoRespuesta());
+		 respuesta.getHeader().setUid(uid);
+		 respuesta.getHeader().setEstatus(true);
+		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		 ActividadDiariaCampoDTO actividadDiariaRespuesta = null;
+		 try {
+			 if (actividadDiaria.getIdAgenda() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la agenda para la busqueda.");
+			 }
+			 actividadDiariaRespuesta = new AgendaDAO().consultaActividadDiaria(uid, actividadDiaria);
+			 respuesta.setActividadDiaria(actividadDiariaRespuesta);
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaActividadDiaria - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaActividadDiaria - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaActividadDiaria - Datos Salida: " + respuesta);
 			return respuesta;
 		}
 	}
