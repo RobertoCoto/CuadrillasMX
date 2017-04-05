@@ -10,7 +10,11 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCoordenadasDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaActividadDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
@@ -687,5 +691,56 @@ public class AgendaDAO {
 		}
 
 		return consultaAgenda;
+	}
+	/**
+	 * Metodo para consultar todas las actividades diarias
+	 * @param uid unico de registro
+	 * @param actividadDiaria recibe el valor de actividad
+	 * @return regresa las actividadesDiarias
+	 * @throws Exception para excepciones
+	 */
+	@SuppressWarnings("unchecked")
+	public ActividadDiariaCampoDTO consultaActividadDiaria(String uid, ActividadDiariaCampoDTO actividadDiaria) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		ActividadDiariaCampoDTO consultaActividadesDiaria = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			consultaActividadesDiaria = (ActividadDiariaCampoDTO)
+					sessionNTx.selectOne("AgendaDAO.consultaActividadesDia", actividadDiaria);
+
+			if ( consultaActividadesDiaria == null) {
+				throw new ExcepcionesCuadrillas("No existen actividades registradas.");
+			}
+			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
+					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
+
+			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
+				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
+				List<ActividadDiariaDocumentosDTO> documentos =
+					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentos", parametros);
+				actividadDiariasDetalle.setDocumentos(documentos);
+			}
+			consultaActividadesDiaria.setActividadDiariaDetalle(actividadDiariaDetalle);
+
+			List<ActividadDiariaCoordenadasDTO> coordenadas =
+					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadas", consultaActividadesDiaria);
+			consultaActividadesDiaria.setCoordenadas(coordenadas);
+
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return consultaActividadesDiaria;
 	}
 }
