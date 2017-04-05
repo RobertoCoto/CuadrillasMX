@@ -50,8 +50,6 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor{
 	private String fechaUltMod;
 	/** estatus*/
 	private String estatus;
-	/** lista coordenadas*/
-	private List<ActividadDiariaCoordenadasDTO> coordenadas;
 	/** lista documentos*/
 	private List<ActividadDiariaDocumentosDTO> documentos;
 	/**
@@ -293,18 +291,6 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor{
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
-	}
-	/**
-	 * @return the coordenadas
-	 */
-	public List<ActividadDiariaCoordenadasDTO> getCoordenadas() {
-		return coordenadas;
-	}
-	/**
-	 * @param coordenadas the coordenadas to set
-	 */
-	public void setCoordenadas(List<ActividadDiariaCoordenadasDTO> coordenadas) {
-		this.coordenadas = coordenadas;
 	}
 	/**
 	 * @return the documentos
