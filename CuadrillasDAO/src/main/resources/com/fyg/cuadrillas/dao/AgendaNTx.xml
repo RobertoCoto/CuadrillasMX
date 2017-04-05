@@ -60,6 +60,56 @@
 	<result column="usuario_alta" property="usuarioAlta"/>
 </resultMap>
 
+<resultMap type="ActividadDiariaDetalle" id="actividadDiariaDetalle">
+	<result column="id_actividad" property="idActividad"/>
+	<result column="codigo_actividad" property="codigoActividad"/>
+	<result column="codigo_prioridad" property="codigoPrioridad"/>
+	<result column="codigo_estado" property="codigoEstado"/>
+	<result column="codigo_listo_vencido" property="codigoListoVencido"/>
+	<result column="tiempo_destinado" property="tiempoDestinado"/>
+	<result column="numero_personas" property="numeroPersonas"/>
+	<result column="numero_unidades" property="numeroUnidades"/>
+	<result column="porcentaje" property="porcentaje"/>
+	<result column="observaciones" property="observaciones"/>
+	<result column="planeada" property="planeada"/>
+	<result column="estatus" property="estatus"/>
+	<result column="descripcion_actividad" property="descripcionActividad"/>
+	<result column="descripcion_prioridad" property="descripcionPrioridad"/>
+	<result column="descripcion_estado" property="descripcionEstado"/>
+	<result column="descripcion_listo_vencido" property="descripcionListoVencido"/>
+</resultMap>
+
+<resultMap type="ActividadDiariaCampo" id="actividadDiariaCampo">
+	<result column="id_actividad_diaria" property="idActividadDiaria"/>
+	<result column="id_agenda" property="idAgenda"/>
+	<result column="id_agenda_detalle" property="idAgendaDetalle"/>
+	<result column="metros_planificado" property="metrosPlanificados"/>
+	<result column="no_trabajadores" property="noTrabajadores"/>
+	<result column="no_horas" property="noHoras"/>
+	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/> 
+	<result column="porcentaje" property="porcentaje"/>
+	<result column="observaciones" property="observaciones"/>
+	<result column="autorizacion" property="autorizacion"/>
+	<result column="estatus" property="estatus"/>
+</resultMap>
+
+<resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
+	<result column="id_actividad_diaria" property="idActividadDiaria"/>
+	<result column="codigo_actividad" property="codigoActividad"/>
+	<result column="consecutivo" property="consecutivo"/>
+	<result column="url" property="url"/>
+	<result column="estatus" property="estatus"/>
+	<result column="descripcion_actividad" property="descripcionActividad"/> 
+</resultMap>
+
+<resultMap type="ActividadDiariaCoordenadas" id="actividadDiariaCoordenadas">
+		<result column="id_actividad_diaria" property="idActividadDiaria"/>
+		<result column="orden" property="orden"/>
+		<result column="direccion" property="direccion"/>
+		<result column="latitud" property="latitud"/>
+		<result column="longitud" property="longitud"/>
+		<result column="estatus" property="estatus"/>
+</resultMap>
 <select id="existeAgenda" parameterType="Agenda" resultType="int">
 	SELECT count(id_contrato)
 	FROM agenda
@@ -226,4 +276,61 @@ AND estatus = 'A'
 	AND estatus = 'A'
 </select>
 
+<select id="consultaActividadesDia" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
+SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado
+	no_trabajadores,no_horas,no_horas_trabajadas,porcentaje,observaciones,autorizacion
+	estatus
+FROM actividad_diaria 
+WHERE id_agenda = #{idAgenda}
+</select>
+
+<select id="consultaActividadDetalle" parameterType="ActividadDiariaDetalle" resultMap="actividadDiariaDetalle">
+SELECT d.id_actividad,
+	   d.codigo_actividad,
+	   d.codigo_prioridad,
+	   d.codigo_estado,
+	   d.codigo_listo_vencido,
+	   d.tiempo_destinado,
+	   d.numero_personas,
+	   d.numero_unidades,
+	   d.porcentaje,
+	   d.observaciones,
+	   d.planeada,
+	   d.estatus,
+	   c.descripcion AS descripcion_actividad,
+	   ca.descripcion AS descripcion_prioridad,
+	   ct.descripcion AS descripcion_estado,
+	   cat.descripcion AS descripcion_listo_vencido
+FROM actividad_diaria_detalle d
+LEFT JOIN catalogo c ON c.codigo = d.codigo_actividad
+LEFT JOIN catalogo ca ON ca.codigo = d.codigo_prioridad
+LEFT JOIN catalogo ct ON ct.codigo = d.codigo_estado
+LEFT JOIN catalogo cat ON cat.codigo = d.codigo_listo_vencido
+WHERE d.id_actividad_diaria = #{idActividadDiaria}
+AND d.estatus = 'A'
+</select>
+
+<select id="consultaActividadDocumentos" parameterType="java.util.HashMap" resultMap="actividadDiariaDocumentos">
+SELECT doc.id_actividad_diaria,
+	   doc.codigo_actividad,
+	   doc.consecutivo,
+	   doc.url,
+	   doc.estatus,
+	   c.descripcion AS descripcion_actividad
+FROM actividad_diaria_documentos doc
+LEFT JOIN catalogo c ON c.codigo = doc.codigo_actividad
+WHERE doc.id_actividad_diaria = #{id_actividad_diaria}
+AND doc.estatus = 'A'
+</select>
+
+<select id="consultaActividadCoordenadas" parameterType="ActividadDiariaCoordenadas" resultMap="actividadDiariaCoordenadas">
+SELECT id_actividad_diaria,
+		orden,
+		direccion,
+		latitud,
+		longitud,
+		estatus
+WHERE id_actividad_diaria = #{idActividadDiaria}
+AND estatus = 'A'
+</select>
 </mapper>

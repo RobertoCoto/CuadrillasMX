@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class ActividadDiariaDetalleDTO extends ObjetoValor{
+public class ActividadDiariaDetalleDTO extends ObjetoValor {
 
 	/**
 	 * Serial UID
@@ -16,6 +16,8 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor{
 	private String codigoActividad;
 	/** codigo estado*/
 	private String codigoEstado;
+	/** codigo prioridad*/
+	private String codigoPrioridad;
 	/** codigo listo vencido*/
 	private String codigoListoVencido;
 	/** codigo listo vencido*/
@@ -52,6 +54,8 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor{
 	private String estatus;
 	/** lista documentos*/
 	private List<ActividadDiariaDocumentosDTO> documentos;
+	/** descripcion prioridad*/
+	private String descripcionPrioridad;
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -303,5 +307,29 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor{
 	 */
 	public void setDocumentos(List<ActividadDiariaDocumentosDTO> documentos) {
 		this.documentos = documentos;
+	}
+	/**
+	 * @return the codigoPrioridad
+	 */
+	public String getCodigoPrioridad() {
+		return codigoPrioridad;
+	}
+	/**
+	 * @param codigoPrioridad the codigoPrioridad to set
+	 */
+	public void setCodigoPrioridad(String codigoPrioridad) {
+		this.codigoPrioridad = codigoPrioridad;
+	}
+	/**
+	 * @return the descripcionPrioridad
+	 */
+	public String getDescripcionPrioridad() {
+		return descripcionPrioridad;
+	}
+	/**
+	 * @param descripcionPrioridad the descripcionPrioridad to set
+	 */
+	public void setDescripcionPrioridad(String descripcionPrioridad) {
+		this.descripcionPrioridad = descripcionPrioridad;
 	}
 }

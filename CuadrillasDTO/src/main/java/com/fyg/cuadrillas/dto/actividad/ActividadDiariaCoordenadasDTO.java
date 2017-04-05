@@ -2,7 +2,7 @@ package com.fyg.cuadrillas.dto.actividad;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
-public class ActividadDiariaCoordenadasDTO extends ObjetoValor{
+public class ActividadDiariaCoordenadasDTO extends ObjetoValor {
 
 	/**
 	 * Serial UID

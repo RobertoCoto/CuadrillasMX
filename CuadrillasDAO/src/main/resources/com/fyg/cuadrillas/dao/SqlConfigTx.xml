@@ -28,6 +28,10 @@
 	<typeAlias alias="AgendaActividad" type="com.fyg.cuadrillas.dto.agenda.AgendaActividadDTO"/>
 	<typeAlias alias="AgendaMaterial" type="com.fyg.cuadrillas.dto.agenda.AgendaMaterialDTO"/>
 	<typeAlias alias="ActividadDiaria" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaDTO"/>
+	<typeAlias alias="ActividadDiariaCampo" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO"/>
+	<typeAlias alias="ActividadDiariaDetalle" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO"/>
+	<typeAlias alias="ActividadDiariaDocumentos" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosDTO"/>
+	<typeAlias alias="ActividadDiariaCoordenadas" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaCoordenadasDTO"/>
 </typeAliases>
 
 
