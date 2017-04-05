@@ -32,10 +32,30 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	private String comentarioAutorizacion;
 	/** Usuario alta */
 	private String usuarioAlta;
+	/**Envio autorizacion*/
+	private String envioAutorizacion;
+	/** usuario autorizacion*/
+	private String envioUsuarioAutorizacion;
+	/** autorizacion*/
+	private String autorizacion;
+	/** fecha de la autorizacion*/
+	private String fechaAutorizacion;
+	/** usuario aut*/
+	private String usuarioAutorizacion;
 	/** lista de actividades diaria detalle*/
 	private List<ActividadDiariaDetalleDTO> actividadDiariaDetalle;
 	/** lista coordenadas*/
 	private List<ActividadDiariaCoordenadasDTO> coordenadas;
+	/** fecha de alta*/
+	private String fechaAlta;
+	/**usuario baja*/
+	private String usuarioBaja;
+	/** usuario ult mod*/
+	private String usuarioUltMod;
+	/** fecha ult mod*/
+	private String fechaUltMod;
+	/** estatus*/
+	private String estatus;
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -192,5 +212,125 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setCoordenadas(List<ActividadDiariaCoordenadasDTO> coordenadas) {
 		this.coordenadas = coordenadas;
+	}
+	/**
+	 * @return the envioAutorizacion
+	 */
+	public String getEnvioAutorizacion() {
+		return envioAutorizacion;
+	}
+	/**
+	 * @param envioAutorizacion the envioAutorizacion to set
+	 */
+	public void setEnvioAutorizacion(String envioAutorizacion) {
+		this.envioAutorizacion = envioAutorizacion;
+	}
+	/**
+	 * @return the envioUsuarioAutorizacion
+	 */
+	public String getEnvioUsuarioAutorizacion() {
+		return envioUsuarioAutorizacion;
+	}
+	/**
+	 * @param envioUsuarioAutorizacion the envioUsuarioAutorizacion to set
+	 */
+	public void setEnvioUsuarioAutorizacion(String envioUsuarioAutorizacion) {
+		this.envioUsuarioAutorizacion = envioUsuarioAutorizacion;
+	}
+	/**
+	 * @return the autorizacion
+	 */
+	public String getAutorizacion() {
+		return autorizacion;
+	}
+	/**
+	 * @param autorizacion the autorizacion to set
+	 */
+	public void setAutorizacion(String autorizacion) {
+		this.autorizacion = autorizacion;
+	}
+	/**
+	 * @return the fechaAutorizacion
+	 */
+	public String getFechaAutorizacion() {
+		return fechaAutorizacion;
+	}
+	/**
+	 * @param fechaAutorizacion the fechaAutorizacion to set
+	 */
+	public void setFechaAutorizacion(String fechaAutorizacion) {
+		this.fechaAutorizacion = fechaAutorizacion;
+	}
+	/**
+	 * @return the usuarioAutorizacion
+	 */
+	public String getUsuarioAutorizacion() {
+		return usuarioAutorizacion;
+	}
+	/**
+	 * @param usuarioAutorizacion the usuarioAutorizacion to set
+	 */
+	public void setUsuarioAutorizacion(String usuarioAutorizacion) {
+		this.usuarioAutorizacion = usuarioAutorizacion;
+	}
+	/**
+	 * @return the fechaAlta
+	 */
+	public String getFechaAlta() {
+		return fechaAlta;
+	}
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(String fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	/**
+	 * @return the usuarioBaja
+	 */
+	public String getUsuarioBaja() {
+		return usuarioBaja;
+	}
+	/**
+	 * @param usuarioBaja the usuarioBaja to set
+	 */
+	public void setUsuarioBaja(String usuarioBaja) {
+		this.usuarioBaja = usuarioBaja;
+	}
+	/**
+	 * @return the usuarioUltMod
+	 */
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
+	}
+	/**
+	 * @param usuarioUltMod the usuarioUltMod to set
+	 */
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
+	}
+	/**
+	 * @return the fechaUltMod
+	 */
+	public String getFechaUltMod() {
+		return fechaUltMod;
+	}
+	/**
+	 * @param fechaUltMod the fechaUltMod to set
+	 */
+	public void setFechaUltMod(String fechaUltMod) {
+		this.fechaUltMod = fechaUltMod;
+	}
+	/**
+	 * @return the estatus
+	 */
+	public String getEstatus() {
+		return estatus;
+	}
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
 	}
 }
