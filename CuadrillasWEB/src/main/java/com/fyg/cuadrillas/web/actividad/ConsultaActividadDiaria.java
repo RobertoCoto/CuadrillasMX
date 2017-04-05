@@ -52,8 +52,8 @@ public class ConsultaActividadDiaria extends HttpServlet {
 			PrintWriter out = response.getWriter();
 
 		try {
-			Integer idAgenda= Integer.parseInt(request.getParameter("idAgenda"));
-			
+			Integer idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
