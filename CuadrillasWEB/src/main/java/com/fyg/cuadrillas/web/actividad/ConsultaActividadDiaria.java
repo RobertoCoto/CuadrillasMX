@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.actividad.ActividadDTO;
-import com.fyg.cuadrillas.dto.actividad.ActividadRespuesta;
-import com.fyg.cuadrillas.negocio.ActividadNegocio;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
+import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 /**
@@ -46,15 +46,14 @@ public class ConsultaActividadDiaria extends HttpServlet {
 	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			ActividadRespuesta respuesta = new ActividadRespuesta();
+			ActividadDiariaCampoRespuesta respuesta = new ActividadDiariaCampoRespuesta();
 			Gson sg = new Gson();
 			response.setContentType("application/json;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 
 		try {
-			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-			String fecha = request.getParameter("fecha");
-
+			Integer idAgenda= Integer.parseInt(request.getParameter("idAgenda"));
+			
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -62,13 +61,12 @@ public class ConsultaActividadDiaria extends HttpServlet {
 	        System.setProperty("https.proxyPort", "8080"); */
 
 			//crea objeto de negocio
-			final ActividadNegocio negocio = new ActividadNegocio();
+			final AgendaNegocio negocio = new AgendaNegocio();
 
 			//valores
-			ActividadDTO actividad = new ActividadDTO();
-			actividad.setIdEmpleado(idEmpleado);
-			actividad.setFechaDiaria(fecha);
-			respuesta = negocio.consultaActividadDiaria(actividad);
+			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
+			actividadDiaria.setIdAgenda(idAgenda);
+			respuesta = negocio.consultaActividadDiaria(actividadDiaria);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {
