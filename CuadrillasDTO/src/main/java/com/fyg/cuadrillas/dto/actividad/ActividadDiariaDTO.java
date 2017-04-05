@@ -1,11 +1,9 @@
 package com.fyg.cuadrillas.dto.actividad;
 
-import java.util.List;
-
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
 /**
- * @author Shanukk
+ * @author rcoto
  *
  */
 public class ActividadDiariaDTO  extends ObjetoValor {
@@ -36,10 +34,6 @@ public class ActividadDiariaDTO  extends ObjetoValor {
 	private String comentarioAutorizacion;
 	/** Usuario alta */
 	private String usuarioAlta;
-	/** lista de actividades diaria detalle*/
-	private List<ActividadDiariaDetalleDTO> actividadDiariaDetalle;
-	/** lista coordenadas*/
-	private List<ActividadDiariaCoordenadasDTO> coordenadas;
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -171,30 +165,5 @@ public class ActividadDiariaDTO  extends ObjetoValor {
 	 */
 	public void setUsuarioAlta(String usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
-	}
-	/**
-	 * @return the actividadDiariaDetalle
-	 */
-	public List<ActividadDiariaDetalleDTO> getActividadDiariaDetalle() {
-		return actividadDiariaDetalle;
-	}
-	/**
-	 * @param actividadDiariaDetalle the actividadDiariaDetalle to set
-	 */
-	public void setActividadDiariaDetalle(
-			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle) {
-		this.actividadDiariaDetalle = actividadDiariaDetalle;
-	}
-	/**
-	 * @return the coordenadas
-	 */
-	public List<ActividadDiariaCoordenadasDTO> getCoordenadas() {
-		return coordenadas;
-	}
-	/**
-	 * @param coordenadas the coordenadas to set
-	 */
-	public void setCoordenadas(List<ActividadDiariaCoordenadasDTO> coordenadas) {
-		this.coordenadas = coordenadas;
 	}
 }
