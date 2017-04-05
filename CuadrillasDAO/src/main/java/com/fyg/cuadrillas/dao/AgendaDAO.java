@@ -716,7 +716,7 @@ public class AgendaDAO {
 					sessionNTx.selectOne("AgendaDAO.consultaActividadesDia", actividadDiaria);
 
 			if ( consultaActividadesDiaria == null) {
-				throw new ExcepcionesCuadrillas("No existen actividades registradas.");
+				throw new ExcepcionesCuadrillas("No existen actividades diarias registradas.");
 			}
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
 					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
