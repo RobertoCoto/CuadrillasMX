@@ -95,11 +95,9 @@
 
 <resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
 	<result column="id_actividad_diaria" property="idActividadDiaria"/>
-	<result column="codigo_actividad" property="codigoActividad"/>
 	<result column="consecutivo" property="consecutivo"/>
 	<result column="url" property="url"/>
 	<result column="estatus" property="estatus"/>
-	<result column="descripcion_actividad" property="descripcionActividad"/> 
 </resultMap>
 
 <resultMap type="ActividadDiariaCoordenadas" id="actividadDiariaCoordenadas">

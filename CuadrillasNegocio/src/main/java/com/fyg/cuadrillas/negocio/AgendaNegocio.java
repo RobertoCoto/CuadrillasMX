@@ -11,6 +11,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.AgendaDAO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
@@ -297,4 +298,52 @@ public class AgendaNegocio {
 		    LogHandler.debug(uid, this.getClass(), "consultaActividadDiaria - Datos Salida: " + respuesta);
 			return respuesta;
 		}
+	/**
+	 * Metodo para registrar las actividades diarias.
+	 * @param actividadDiaria recibe valores de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta registraActividadDiaria(ActividadDiariaDetalleDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(actividadDiaria);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "registraActividadDiaria - Datos Entrada: " + actividadDiaria);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.equals(0)) {
+						throw new ExcepcionesCuadrillas("Es necesario el id de la actividad diaria.");
+					}
+					if (actividadDiaria.getCodigoActividad() == null || actividadDiaria.getCodigoActividad().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad.");
+					}
+					if (actividadDiaria.getCodigoListoVencido() == null
+							|| actividadDiaria.getCodigoListoVencido().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el codigo listo vencido.");
+					}
+					if (actividadDiaria.getNumeroPersonas() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el numero de personas.");
+					}
+					if (actividadDiaria.getNumeroUnidades() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el numero de unidades.");
+					}
+					if (actividadDiaria.getPorcentaje() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el porcentaje avanzado.");
+					}
+					if (actividadDiaria.getObservaciones() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario una observacion.");
+					}
+					AgendaDAO dao = new AgendaDAO();
+					respuesta = dao.registraActividadDiaria(uid, actividadDiaria);
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "registraActividadDiaria - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "registraActividadDiaria - Datos Salida: " + respuesta);
+				return respuesta;
+	}
 	}
