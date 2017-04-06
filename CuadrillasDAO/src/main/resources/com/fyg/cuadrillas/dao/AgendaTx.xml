@@ -139,4 +139,34 @@ AND estatus = 'A'
 DELETE FROM actividad_diaria
 WHERE id_agenda_detalle = #{id_agenda_detalle}
 </delete>
+
+<insert id="altaActividadDiariaDetalle" parameterType="ActividadDiariaDetalle">
+INSERT INTO actividad_diaria_detalle
+	(
+	id_actividad_diaria, codigo_actividad, codigo_prioridad, codigo_estado,codigo_listo_vencido,tiempo_destinado,
+	numero_personas,numero_unidades,porcentaje,observaciones, planeada,fecha_alta, usuario_alta, estatus
+	)
+	VALUES
+	(
+	#{idActividadDairia},#{codigoActividad},#{codigoPrioridad},{codigoEstado},#{codigoListoVencido},#{tiempoDestinado},
+	#{numeroPersonas},#{numeroUnidades},#{porcentaje},#{observaciones,#{planeada},now(),#{usuarioAlta},'A'
+	)
+</insert>
+
+<update id="actualizaActividadDiariaDetalle" parameterType="ActividadDiariaDetalle">
+UPDATE actividad_diaria_detalle SET
+		codigo_prioridad = #{codigoPrioridad},
+		codigo_estado = #{codigoEstado},
+		codigo_listo_vencido = #{codigoListoVencido},
+		tiempo_destinado = #{tiempoDestinado},
+		numero_personas = #{numeroPersonas},
+		numero_unidades = #{numeroUnidades},
+		porcentaje = #{porcentaje},
+		observaciones = #{observaciones}
+		fecha_ult_mod = now(),
+		usuario_ult_mod = {usuarioUltMod}
+WHERE id_actividad_diaria = #{idActividadDiaria}
+AND codigo_actividad = #{codigoActividad}
+AND estatus = 'A'		
+</update>
 </mapper>

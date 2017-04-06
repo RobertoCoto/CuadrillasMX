@@ -743,4 +743,57 @@ public class AgendaDAO {
 		}
 		return consultaActividadesDiaria;
 	}
+	/**
+	 * Metodo para dar de alta las actividades diarias
+	 * @param uid unico de registro
+	 * @param actividadDiaria
+	 * @return
+	 */
+	public EncabezadoRespuesta registraActividadDiaria(String uid, ActividadDiariaDetalleDTO actividadDiaria) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La agenda se ha registrado correctamente.");
+		try {
+			//Validamos si ya existe el codigo de la actividad
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeCodigoActividad = (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividad", actividadDiaria);
+			if (existeCodigoActividad > 0) {
+				sessionTx = FabricaConexiones.obtenerSesionTx();
+				int registros = sessionTx.update("AgendaDAO.actualizaActividadDiariaDetalle", actividadDiaria);
+				if ( registros == 0) {
+					throw new ExcepcionesCuadrillas("Error al actualizar la actividad.");
+				}
+			}
+			if(existeCodigoActividad == 0) {
+				actividadDiaria.setCodigoEstado("NOIN");
+				actividadDiaria.setCodigoPrioridad("NORM");
+				actividadDiaria.setPlaneada("S");
+				//Abrimos conexion Transaccional
+				sessionTx = FabricaConexiones.obtenerSesionTx();
+				int registros = sessionTx.insert("AgendaDAO.altaActividadDiariaDetalle", actividadDiaria);
+				if ( registros == 0) {
+					throw new ExcepcionesCuadrillas("Error al registrar la actividad.");
+				}
+			}
+
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
 }
