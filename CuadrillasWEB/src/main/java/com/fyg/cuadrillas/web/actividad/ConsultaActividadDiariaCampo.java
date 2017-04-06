@@ -9,31 +9,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fyg.cuadrillas.comun.LogHandler;
-import com.fyg.cuadrillas.dto.actividad.ActividadDTO;
-import com.fyg.cuadrillas.dto.actividad.ActividadRespuesta;
-import com.fyg.cuadrillas.negocio.ActividadNegocio;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
+import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class ConsultaActividad
+ * Servlet implementation class ConsultaActividadDiariaCampo
  */
-public class ConsultaActividadDiaria extends HttpServlet {
+public class ConsultaActividadDiariaCampo extends HttpServlet {
 	/**
-	 * serial uid
+	 * SerialUID
 	 */
 	private static final long serialVersionUID = 1L;
-
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaActividadDiaria() {
+    public ConsultaActividadDiariaCampo() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * @param request para realizar la peticion
+	  * @param request para realizar la peticion
 	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,17 +41,17 @@ public class ConsultaActividadDiaria extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 * @param request para realizar la peticion
+	  * @param request para realizar la peticion
 	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ActividadRespuesta respuesta = new ActividadRespuesta();
+		ActividadDiariaCampoRespuesta respuesta = new ActividadDiariaCampoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
 	try {
-		Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
+		Integer idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
 
 		/* descomentar para proxy FISA
 		System.setProperty("http.proxyHost", "169.169.4.85");
@@ -61,12 +60,12 @@ public class ConsultaActividadDiaria extends HttpServlet {
         System.setProperty("https.proxyPort", "8080"); */
 
 		//crea objeto de negocio
-		final ActividadNegocio negocio = new ActividadNegocio();
+		final AgendaNegocio negocio = new AgendaNegocio();
 
 		//valores
-		ActividadDTO actividad = new ActividadDTO();
-		actividad.setIdCuadrilla(idCuadrilla);
-		respuesta = negocio.consultaActividadDiaria(actividad);
+		ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
+		actividadDiaria.setIdAgenda(idAgenda);
+		respuesta = negocio.consultaActividadDiaria(actividadDiaria);
 		if (respuesta.isEstatus()) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {

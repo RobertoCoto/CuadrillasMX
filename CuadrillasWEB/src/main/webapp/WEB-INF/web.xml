@@ -393,6 +393,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.agenda.ConsultaAgendaFecha</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaActividadDiariaCampo</servlet-name>
+  	<display-name>ConsultaActividadDiariaCampo</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividadDiariaCampo</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -652,5 +658,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaAgendaFecha</servlet-name>
 		<url-pattern>/ConsultaAgendaFecha</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaActividadDiariaCampo</servlet-name>
+		<url-pattern>/ConsultaActividadDiariaCampo</url-pattern>
 	</servlet-mapping>
 </web-app>
