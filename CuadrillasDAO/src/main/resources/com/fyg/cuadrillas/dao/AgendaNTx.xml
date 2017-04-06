@@ -312,13 +312,10 @@ AND d.estatus = 'A'
 
 <select id="consultaActividadDocumentos" parameterType="java.util.HashMap" resultMap="actividadDiariaDocumentos">
 SELECT doc.id_actividad_diaria,
-	   doc.codigo_actividad,
 	   doc.consecutivo,
 	   doc.url,
-	   doc.estatus,
-	   c.descripcion AS descripcion_actividad
+	   doc.estatus
 FROM actividad_diaria_documentos doc
-LEFT JOIN catalogo c ON c.codigo = doc.codigo_actividad
 WHERE doc.id_actividad_diaria = #{id_actividad_diaria}
 AND doc.estatus = 'A'
 </select>
