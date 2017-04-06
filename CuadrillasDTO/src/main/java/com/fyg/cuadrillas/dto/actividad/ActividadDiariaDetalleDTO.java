@@ -47,7 +47,7 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor {
 	/** usuario baja*/
 	private String usuarioBaja;
 	/** usuario ulti mod*/
-	private String usuarioUltmod;
+	private String usuarioUltMod;
 	/** fecha ult mod*/
 	private String fechaUltMod;
 	/** estatus*/
@@ -261,16 +261,16 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor {
 		this.usuarioBaja = usuarioBaja;
 	}
 	/**
-	 * @return the usuarioUltmod
+	 * @return the usuarioUltMod
 	 */
-	public String getUsuarioUltmod() {
-		return usuarioUltmod;
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
 	}
 	/**
-	 * @param usuarioUltmod the usuarioUltmod to set
+	 * @param usuarioUltMod the usuarioUltMod to set
 	 */
-	public void setUsuarioUltmod(String usuarioUltmod) {
-		this.usuarioUltmod = usuarioUltmod;
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
 	}
 	/**
 	 * @return the fechaUltMod

@@ -162,11 +162,20 @@ UPDATE actividad_diaria_detalle SET
 		numero_personas = #{numeroPersonas},
 		numero_unidades = #{numeroUnidades},
 		porcentaje = #{porcentaje},
-		observaciones = #{observaciones}
+		observaciones = #{observaciones},
 		fecha_ult_mod = now(),
-		usuario_ult_mod = {usuarioUltMod}
+		usuario_ult_mod = #{usuarioUltMod}
 WHERE id_actividad_diaria = #{idActividadDiaria}
 AND codigo_actividad = #{codigoActividad}
 AND estatus = 'A'		
 </update>
+<insert id="altaActividadDiariaDocumentos">
+INSERT INTO actividad_diaria_documentos
+(
+ id_actividad_diaria,codigo_actividad,consecutivo,url,usuario_alta,fecha_alta,estatus
+)
+VALUES(
+#{idActividadDiaria},#{codigoActividad},#{consecutivo},#{url},#{usuarioAlta},now(),'A'
+)
+</insert>
 </mapper>

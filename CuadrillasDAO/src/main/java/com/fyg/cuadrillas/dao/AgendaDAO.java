@@ -761,6 +761,7 @@ public class AgendaDAO {
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			int existeCodigoActividad = (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividad", actividadDiaria);
 			if (existeCodigoActividad > 0) {
+				actividadDiaria.setUsuarioUltMod(actividadDiaria.getUsuarioAlta());
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 				int registros = sessionTx.update("AgendaDAO.actualizaActividadDiariaDetalle", actividadDiaria);
 				if ( registros == 0) {
@@ -768,8 +769,6 @@ public class AgendaDAO {
 				}
 			}
 			if(existeCodigoActividad == 0) {
-				actividadDiaria.setCodigoEstado("NOIN");
-				actividadDiaria.setCodigoPrioridad("NORM");
 				actividadDiaria.setPlaneada("S");
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
