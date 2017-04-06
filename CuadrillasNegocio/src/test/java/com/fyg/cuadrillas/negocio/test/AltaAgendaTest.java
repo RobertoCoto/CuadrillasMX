@@ -104,10 +104,10 @@ public class AltaAgendaTest {
 	public void testAltaAgenda() throws Exception {
 		String guid = "123456789";
 
-		System.setProperty("http.proxyHost", "169.169.4.85");
+		/*System.setProperty("http.proxyHost", "169.169.4.85");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost", "169.169.4.85");
-        System.setProperty("https.proxyPort", "8080");
+        System.setProperty("https.proxyPort", "8080");*/
 		Gson sg = new Gson();
         System.out.println(sg.toJson(agenda));
 		AgendaNegocio negocio = new AgendaNegocio();

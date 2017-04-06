@@ -11,6 +11,7 @@ public class ActividadDiariaDocumentosDTO extends ObjetoValor {
 	/**id actividad diaria*/
 	private Integer idActividadDiaria;
 	/** codigo de la actividad*/
+	private String codigoActividad;
 	/** descripcion de la actividad*/
 	private String descripcionActividad;
 	/** consecutivo*/
@@ -106,5 +107,17 @@ public class ActividadDiariaDocumentosDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the codigoActividad
+	 */
+	public String getCodigoActividad() {
+		return codigoActividad;
+	}
+	/**
+	 * @param codigoActividad the codigoActividad to set
+	 */
+	public void setCodigoActividad(String codigoActividad) {
+		this.codigoActividad = codigoActividad;
 	}
 }

@@ -61,7 +61,7 @@
 </resultMap>
 
 <resultMap type="ActividadDiariaDetalle" id="actividadDiariaDetalle">
-	<result column="id_actividad" property="idActividad"/>
+	<result column="id_actividad_diaria" property="idActividadDiaria"/>
 	<result column="codigo_actividad" property="codigoActividad"/>
 	<result column="codigo_prioridad" property="codigoPrioridad"/>
 	<result column="codigo_estado" property="codigoEstado"/>
@@ -285,7 +285,7 @@ WHERE id_agenda = #{idAgenda}
 </select>
 
 <select id="consultaActividadDetalle" parameterType="ActividadDiariaDetalle" resultMap="actividadDiariaDetalle">
-SELECT d.id_actividad,
+SELECT d.id_actividad_diaria,
 	   d.codigo_actividad,
 	   d.codigo_prioridad,
 	   d.codigo_estado,
@@ -330,6 +330,7 @@ SELECT id_actividad_diaria,
 		latitud,
 		longitud,
 		estatus
+FROM actividad_diaria_coordenadas
 WHERE id_actividad_diaria = #{idActividadDiaria}
 AND estatus = 'A'
 </select>
