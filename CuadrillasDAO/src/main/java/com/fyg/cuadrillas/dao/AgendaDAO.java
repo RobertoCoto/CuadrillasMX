@@ -875,6 +875,7 @@ public class AgendaDAO {
 
 			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
 				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+				parametros.put("codigo_actividad", actividadDiariasDetalle.getCodigoActividad());
 				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
 				List<ActividadDiariaDocumentosDTO> documentos =
 					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentosBuzon", parametros);

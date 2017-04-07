@@ -394,7 +394,8 @@ SELECT doc.id_actividad_diaria,
 	   doc.url,
 	   doc.estatus
 FROM actividad_diaria_documentos doc
-WHERE doc.id_actividad_diaria = #{id_actividad_diaria}
+WHERE doc.codigo_actividad = #{codigo_actividad}
+AND doc.id_actividad_diaria = #{id_actividad_diaria}
 AND doc.estatus = 'A'
 </select>
 
