@@ -767,6 +767,13 @@ public class AgendaDAO {
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al actualizar la actividad.");
 				}
+
+				for (ActividadDiariaDocumentosDTO documentos : actividadDiaria.getDocumentos()) {
+					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
+					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
+					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
+					registraActividadDiariaDocumentos(uid,documentos,sessionTx);
+				}
 			}
 			if(existeCodigoActividad == 0) {
 				actividadDiaria.setPlaneada("S");
@@ -776,8 +783,14 @@ public class AgendaDAO {
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar la actividad.");
 				}
-			}
 
+				for (ActividadDiariaDocumentosDTO documentos : actividadDiaria.getDocumentos()) {
+					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
+					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
+					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
+					registraActividadDiariaDocumentos(uid,documentos,sessionTx);
+				}
+			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -794,5 +807,41 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
+	}
+	/**
+	 * metodo para registrar los documentos
+	 * @param uid unico de registro
+	 * @param documentos recibe docymentos
+	 * @param session abre session bd
+	 * @throws Exception si crea excepciones
+	 */
+	public void registraActividadDiariaDocumentos(String uid, ActividadDiariaDocumentosDTO documentos, SqlSession session) throws Exception {
+		SqlSession sessionTx = null;
+		//Logica para saber si es atomica la transaccion
+		if ( session == null ) {
+			 sessionTx = FabricaConexiones.obtenerSesionTx();
+		} else {
+			sessionTx = session;
+		}
+
+		int registros = sessionTx.insert("AgendaDAO.altaActividadDiariaDocumentos", documentos);
+		if ( registros == 0) {
+			if ( session == null ) {
+				FabricaConexiones.rollBack(sessionTx);
+				FabricaConexiones.close(sessionTx);
+			}
+				throw new ExcepcionesCuadrillas("No se pudo registrar.");
+		}
+
+		//La conexion no es atomica realizamos commit
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Commit conexion.");
+			sessionTx.commit();
+		}
+		//La conexion no es atomica cerramos
+		if ( session == null ) {
+			LogHandler.debug(uid, this.getClass(), "Cerramos conexion.");
+			FabricaConexiones.close(sessionTx);
+		}
 	}
 }

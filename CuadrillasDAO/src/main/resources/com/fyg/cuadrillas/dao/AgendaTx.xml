@@ -169,7 +169,7 @@ WHERE id_actividad_diaria = #{idActividadDiaria}
 AND codigo_actividad = #{codigoActividad}
 AND estatus = 'A'		
 </update>
-<insert id="altaActividadDiariaDocumentos">
+<insert id="altaActividadDiariaDocumentos" parameterType="ActividadDiariaDocumentos">
 INSERT INTO actividad_diaria_documentos
 (
  id_actividad_diaria,codigo_actividad,consecutivo,url,usuario_alta,fecha_alta,estatus
