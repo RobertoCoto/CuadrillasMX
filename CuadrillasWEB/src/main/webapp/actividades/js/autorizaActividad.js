@@ -56,7 +56,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
         data: { }
 	    }).then(function (result) {
 	    	$scope.resultadoActividades = result.data.actividadDiaria;
-          console.log($scope.resultado);
+          console.log($scope.resultadoActividades);
 	    }, function myError(response) {
 	        console.error(response);
 	        alert(response.data.header.mensajeFuncional);
