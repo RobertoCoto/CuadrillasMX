@@ -75,5 +75,4 @@ public class ConsultaActividadDiariaBuzon extends HttpServlet {
 		out.flush();
 	}
 	}
-
 }

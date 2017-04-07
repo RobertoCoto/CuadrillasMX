@@ -1,26 +1,5 @@
 var app = angular.module('tatei', []);
 app.controller('autorizaActividad', function ($scope, $http, $window) {
-	$('#msload').modal('show');
-	$http({
-      method: 'GET',
-      url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaBuzon',
-      params : {
- 		"idActividadDiaria": "1"
- },
-      data: { }
-    }).then(function mySucces(result) {
-    	$('#msload').modal('hide');
-		$('#alert').hide();
-		$('#success').hide();
-    	$scope.resultado = result.data.actividadDiaria;
-          console.log($scope.resultado);
-    }, function myError(response) {
-    	$('#msload').modal('hide');
-        console.error(response);
-        $('#alert').show();
-		$('#msgerror').text(response.data.header.mensajeFuncional)
-    });
-	
 		var map;
 		var map2;
         var medida;
@@ -67,4 +46,19 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
       
       $scope.cargarMapa();
       $scope.cargarMapa2();
+      
+     $http({
+        method: 'GET',
+        url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaBuzon',
+        params: {
+	 		"idActividadDiaria" : "1"
+	         },
+        data: { }
+	    }).then(function (result) {
+	    	$scope.resultadoActividades = result.data.actividadDiaria;
+          console.log($scope.resultado);
+	    }, function myError(response) {
+	        console.error(response);
+	        alert(response.data.header.mensajeFuncional);
+	    });
 	});

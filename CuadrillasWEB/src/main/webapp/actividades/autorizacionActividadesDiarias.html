@@ -11,8 +11,9 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&libraries=geometry"></script> <!-- &callback=initMap -->
 <script type="text/javascript" src="js/autorizaActividad.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&libraries=geometry"></script> <!-- &callback=initMap -->
+
 <style>
 .set-width {
   width: 220px;
@@ -25,17 +26,17 @@
 		<div class="container">
 		<h2>Autorización de Actividades Diarias</h2>
 		
-		<div class="row">
+		<div class="row" ng-repeat="actividad in resultadoActividades">
 		<div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="Vialidad" class="control-label">Vialidad</label>
-                            <input type="text" name="vialidad" id="vialidad" class="form-control" disabled>
+                            <input type="text" name="vialidad" id="vialidad" class="form-control" disabled >
                         </div>
                     </div>
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="residente" class="control-label">Residente</label>
-                            <input type="text" name="residente" id="residente" class="form-control" disabled/>
+                            <input type="text" name="residente" id="residente" class="form-control" disabled value={{actividad.nombreResidente}}>
                         </div>
                     </div>
 		</div>
