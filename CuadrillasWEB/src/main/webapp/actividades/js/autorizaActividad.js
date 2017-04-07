@@ -1,5 +1,25 @@
 var app = angular.module('tatei', []);
 app.controller('autorizaActividad', function ($scope, $http, $window) {
+	$('#msload').modal('show');
+	$http({
+      method: 'GET',
+      url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaBuzon',
+      params : {
+ 		"idActividadDiaria": "1"
+ },
+      data: { }
+    }).then(function mySucces(result) {
+    	$('#msload').modal('hide');
+		$('#alert').hide();
+		$('#success').hide();
+    	$scope.resultado = result.data.actividadDiaria;
+          console.log($scope.resultado);
+    }, function myError(response) {
+    	$('#msload').modal('hide');
+        console.error(response);
+        $('#alert').show();
+		$('#msgerror').text(response.data.header.mensajeFuncional)
+    });
 	
 		var map;
 		var map2;
@@ -47,25 +67,4 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
       
       $scope.cargarMapa();
       $scope.cargarMapa2();
-      
-      $('#msload').modal('show');
-			$http({
-              method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaCampo',
-              params : {
-		 		"idAgenda": 1
-		 },
-              data: { }
-		    }).then(function mySucces(result) {
-		    	$('#msload').modal('hide');
-				$('#alert').hide();
-				$('#success').hide();
-		    	$scope.resultado = result.data.actividadDiaria;
-	              console.log(result);
-		    }, function myError(response) {
-		    	$('#msload').modal('hide');
-		        console.error(response);
-		        $('#alert').show();
-				$('#msgerror').text(response.data.header.mensajeFuncional)
-		    });
 	});
