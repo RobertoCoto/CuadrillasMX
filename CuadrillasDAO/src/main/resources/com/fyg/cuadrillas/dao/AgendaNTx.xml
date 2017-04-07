@@ -275,8 +275,8 @@ AND estatus = 'A'
 </select>
 
 <select id="consultaActividadesDia" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
-SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado
-	no_trabajadores,no_horas,no_horas_trabajadas,porcentaje,observaciones,autorizacion
+SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado,
+	no_trabajadores,no_horas,no_horas_trabajadas,porcentaje,observaciones,autorizacion,
 	estatus
 FROM actividad_diaria 
 WHERE id_agenda = #{idAgenda}
