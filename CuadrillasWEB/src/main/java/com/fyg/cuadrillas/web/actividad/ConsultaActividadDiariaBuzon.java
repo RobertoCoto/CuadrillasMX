@@ -59,7 +59,7 @@ public class ConsultaActividadDiariaBuzon extends HttpServlet {
 		//valores
 		ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
 		actividadDiaria.setIdActividadDiaria(idActividadDiaria);
-		respuesta = negocio.consultaActividadDiaria(actividadDiaria);
+		respuesta = negocio.consultaActividadDiariaBuzon(actividadDiaria);
 		if (respuesta.isEstatus()) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
