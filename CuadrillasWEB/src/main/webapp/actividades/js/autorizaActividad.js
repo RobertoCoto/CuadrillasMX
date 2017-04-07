@@ -51,16 +51,16 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
       $('#msload').modal('show');
 			$http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaCampo',
               params : {
-		 		"tipoCatalogo": 'PERFIL_EMP'
+		 		"idAgenda": 1
 		 },
               data: { }
 		    }).then(function mySucces(result) {
 		    	$('#msload').modal('hide');
 				$('#alert').hide();
 				$('#success').hide();
-		    	$scope.resultado = result.data.catalogo;
+		    	$scope.resultado = result.data.actividadDiaria;
 	              console.log(result);
 		    }, function myError(response) {
 		    	$('#msload').modal('hide');

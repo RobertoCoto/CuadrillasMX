@@ -405,6 +405,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.RegistraActividadDiariaCampo</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultaActividadDiariaBuzon</servlet-name>
+  	<display-name>ConsultaActividadDiariaBuzon</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividadDiariaBuzon</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -672,5 +678,9 @@
 	<servlet-mapping>
 		<servlet-name>RegistraActividadDiariaCampo</servlet-name>
 		<url-pattern>/RegistraActividadDiariaCampo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultaActividadDiariaBuzon</servlet-name>
+		<url-pattern>/ConsultaActividadDiariaBuzon</url-pattern>
 	</servlet-mapping>
 </web-app>

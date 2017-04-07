@@ -844,4 +844,55 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionTx);
 		}
 	}
+	/**
+	 * Metodo para consultar actividades x buzon
+	 * @param uid unico de registro
+	 * @param actividadDiaria recibe el id dela actividad.
+	 * @return regresa la actividad
+	 * @throws Exception crea excepcion
+	 */
+	@SuppressWarnings("unchecked")
+	public ActividadDiariaCampoDTO consultaActividadDiariaBuzon(String uid, ActividadDiariaCampoDTO actividadDiaria) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		ActividadDiariaCampoDTO consultaActividadesDiaria = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			consultaActividadesDiaria = (ActividadDiariaCampoDTO)
+					sessionNTx.selectOne("AgendaDAO.consultaActividadDiariaBuzon", actividadDiaria);
+
+			if ( consultaActividadesDiaria == null) {
+				throw new ExcepcionesCuadrillas("No existen actividades diarias registradas.");
+			}
+			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
+					sessionNTx.selectList("AgendaDAO.consultaActividadDiariaDetalleBuzon", consultaActividadesDiaria);
+
+			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
+				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
+				List<ActividadDiariaDocumentosDTO> documentos =
+					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentosBuzon", parametros);
+				actividadDiariasDetalle.setDocumentos(documentos);
+			}
+			consultaActividadesDiaria.setActividadDiariaDetalle(actividadDiariaDetalle);
+
+			List<ActividadDiariaCoordenadasDTO> coordenadas =
+					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadasBuzon", consultaActividadesDiaria);
+			consultaActividadesDiaria.setCoordenadas(coordenadas);
+
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return consultaActividadesDiaria;
+	}
 }

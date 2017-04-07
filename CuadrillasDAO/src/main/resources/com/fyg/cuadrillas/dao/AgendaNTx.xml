@@ -91,6 +91,8 @@
 	<result column="observaciones" property="observaciones"/>
 	<result column="autorizacion" property="autorizacion"/>
 	<result column="estatus" property="estatus"/>
+	<result column="descripcion_vialidad" property="descripcionVialidad"/>
+	<result column="nombre_residente" property="nombreResidente"/>
 </resultMap>
 
 <resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
@@ -335,5 +337,76 @@ SELECT count(codigo_actividad)
 FROM actividad_diaria_detalle 
 WHERE id_actividad_diaria = #{idActividadDiaria} 
 AND codigo_actividad = #{codigoActividad}
+</select>
+
+<select id="consultaActividadDiariaBuzon" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
+SELECT 
+	ac.id_actividad_diaria,
+    ac.id_agenda,
+    ac.id_agenda_detalle,
+    ac.metros_planificado,
+	ac.no_trabajadores,
+    ac.no_horas,
+    ac.no_horas_trabajadas,
+    ac.porcentaje,
+    ac.observaciones,
+    ac.autorizacion,
+	ac.estatus,
+    cat.descripcion AS descripcion_vialidad,
+    CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombre_residente
+FROM actividad_diaria ac
+LEFT JOIN agenda ag ON ag.id_agenda = ac.id_agenda
+LEFT JOIN cuadrilla cu ON cu.id_cuadrilla = ag.id_cuadrilla
+LEFT JOIN catalogo cat ON cat.codigo = cu.codigo_vialidad
+LEFT JOIN empleado er ON er.id_cuadrilla = cu.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
+WHERE ac.id_actividad_diaria = #{idActividadDiaria}
+</select>
+
+<select id="consultaActividadDiariaDetalleBuzon" parameterType="ActividadDiariaDetalle" resultMap="actividadDiariaDetalle">
+SELECT d.id_actividad_diaria,
+	   d.codigo_actividad,
+	   d.codigo_prioridad,
+	   d.codigo_estado,
+	   d.codigo_listo_vencido,
+	   d.tiempo_destinado,
+	   d.numero_personas,
+	   d.numero_unidades,
+	   d.porcentaje,
+	   d.observaciones,
+	   d.planeada,
+	   d.estatus,
+	   c.descripcion AS descripcion_actividad,
+	   ca.descripcion AS descripcion_prioridad,
+	   ct.descripcion AS descripcion_estado,
+	   cat.descripcion AS descripcion_listo_vencido
+FROM actividad_diaria_detalle d
+LEFT JOIN catalogo c ON c.codigo = d.codigo_actividad
+LEFT JOIN catalogo ca ON ca.codigo = d.codigo_prioridad
+LEFT JOIN catalogo ct ON ct.codigo = d.codigo_estado
+LEFT JOIN catalogo cat ON cat.codigo = d.codigo_listo_vencido
+WHERE d.id_actividad_diaria = #{idActividadDiaria}
+AND d.estatus = 'A'
+</select>
+
+<select id="consultaActividadDocumentosBuzon" parameterType="java.util.HashMap" resultMap="actividadDiariaDocumentos">
+SELECT doc.id_actividad_diaria,
+	   doc.consecutivo,
+	   doc.url,
+	   doc.estatus
+FROM actividad_diaria_documentos doc
+WHERE doc.id_actividad_diaria = #{id_actividad_diaria}
+AND doc.estatus = 'A'
+</select>
+
+<select id="consultaActividadCoordenadasBuzon" parameterType="ActividadDiariaCoordenadas" resultMap="actividadDiariaCoordenadas">
+SELECT id_actividad_diaria,
+		orden,
+		direccion,
+		latitud,
+		longitud,
+		estatus
+FROM actividad_diaria_coordenadas
+WHERE id_actividad_diaria = #{idActividadDiaria}
+AND estatus = 'A'
 </select>
 </mapper>

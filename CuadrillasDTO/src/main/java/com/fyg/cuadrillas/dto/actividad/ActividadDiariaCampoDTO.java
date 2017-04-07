@@ -57,6 +57,14 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	/** estatus*/
 	private String estatus;
 	/**
+	 * descripcion vialidad
+	 */
+	private String descripcionVialidad;
+	/**
+	 * nombre del residente
+	 */
+	private String nombreResidente;
+	/**
 	 * @return the idActividadDiaria
 	 */
 	public Integer getIdActividadDiaria() {
@@ -332,5 +340,29 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the descripcionVialidad
+	 */
+	public String getDescripcionVialidad() {
+		return descripcionVialidad;
+	}
+	/**
+	 * @param descripcionVialidad the descripcionVialidad to set
+	 */
+	public void setDescripcionVialidad(String descripcionVialidad) {
+		this.descripcionVialidad = descripcionVialidad;
+	}
+	/**
+	 * @return the nombreResidente
+	 */
+	public String getNombreResidente() {
+		return nombreResidente;
+	}
+	/**
+	 * @param nombreResidente the nombreResidente to set
+	 */
+	public void setNombreResidente(String nombreResidente) {
+		this.nombreResidente = nombreResidente;
 	}
 }

@@ -346,4 +346,40 @@ public class AgendaNegocio {
 				LogHandler.debug(uid, this.getClass(), "registraActividadDiaria - Datos Salida: " + respuesta);
 				return respuesta;
 	}
+	/**
+	 * Metodo para consulta las actividades diarias
+	 * @param actividadDiaria recibe actividad diaria
+	 * @return regresa respuesta
+	 */
+	public ActividadDiariaCampoRespuesta consultaActividadDiariaBuzon(ActividadDiariaCampoDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(actividadDiaria);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaActividadDiariaBuzon - Datos Entrada: " + actividadDiaria);
+		ActividadDiariaCampoRespuesta respuesta = new ActividadDiariaCampoRespuesta();
+		 respuesta.setHeader( new EncabezadoRespuesta());
+		 respuesta.getHeader().setUid(uid);
+		 respuesta.getHeader().setEstatus(true);
+		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		 ActividadDiariaCampoDTO actividadDiariaRespuesta = null;
+		 try {
+			 if (actividadDiaria.getIdActividadDiaria() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la actividad para la busqueda.");
+			 }
+			 actividadDiariaRespuesta = new AgendaDAO().consultaActividadDiariaBuzon(uid, actividadDiaria);
+			 respuesta.setActividadDiaria(actividadDiariaRespuesta);
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaActividadDiariaBuzon - Datos Salida: " + respuesta);
+			return respuesta;
+		}
 	}
