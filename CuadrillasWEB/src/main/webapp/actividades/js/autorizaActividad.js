@@ -47,4 +47,25 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
       
       $scope.cargarMapa();
       $scope.cargarMapa2();
+      
+      $('#msload').modal('show');
+			$http({
+              method: 'GET',
+              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              params : {
+		 		"tipoCatalogo": 'PERFIL_EMP'
+		 },
+              data: { }
+		    }).then(function mySucces(result) {
+		    	$('#msload').modal('hide');
+				$('#alert').hide();
+				$('#success').hide();
+		    	$scope.resultado = result.data.catalogo;
+	              console.log(result);
+		    }, function myError(response) {
+		    	$('#msload').modal('hide');
+		        console.error(response);
+		        $('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
+		    });
 	});
