@@ -201,7 +201,7 @@
 		
 		<div class="col-sm-4">
         <label>Total Hrs Trabajadas:</label>
-		<input type="text" disabled size="5"> <input type="text" disabled size="5">
+		<input type="text" disabled size="5" value={{actividad.noHorasTrabajadas}}> <input type="text" disabled size="5" value={{actividad.porcentaje}}>
         </div>
         
 		<div class="col-sm-4">
@@ -249,7 +249,7 @@
 		<div class="row">
 				<div class="col-sm-12">
 				<label>Observaciones</label>
-			     <textarea class="form-control" disabled></textarea>
+			     <textarea class="form-control" disabled>{{actividad.observaciones}}</textarea>
 				</div>
 		</div>
 		<br>
