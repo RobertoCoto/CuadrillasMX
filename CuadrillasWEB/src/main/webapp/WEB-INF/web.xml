@@ -417,6 +417,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.ConsultaActividadDocumentos</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AutorizaActividadBuzon</servlet-name>
+  	<display-name>AutorizaActividadBuzon</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.AutorizaActividadBuzon</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -692,5 +698,9 @@
 	<servlet-mapping>
 		<servlet-name>ConsultaActividadDocumentos</servlet-name>
 		<url-pattern>/ConsultaActividadDocumentos</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AutorizaActividadBuzon</servlet-name>
+		<url-pattern>/AutorizaActividadBuzon</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -36,7 +36,7 @@ console.log ($scope.fecha);
 			};
 			$scope.consultaActividad();
 			
-			
+			//metodo para mostrar la tabla de documentos
 			$scope.muestraDocumento = function(actividades) {
 				$('#tablaDocumentos').show();
 				console.log(actividades.codigoActividad);
@@ -64,6 +64,11 @@ console.log ($scope.fecha);
 							$('#msgerror').text(response.data.header.mensajeFuncional)
 						});
 				};
+				
+				$scope.autorizarActividad = function(actividad) {
+						
+					};
+				
 			
 //		var map;
 //		var map2;
