@@ -24,8 +24,38 @@
 </head>
 <body ng-app="tatei" ng-controller="autorizaActividad">
 		<div class="container">
+		<!-- Modal -->
+      <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+          role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">
+                          <span class="glyphicon glyphicon-time">
+                          </span>Espera un momento..
+                       </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-info
+                          progress-bar-striped active"
+                          style="width: 100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal fin -->
 		<h2>Autorización de Actividades Diarias</h2>
-		
+		<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCI&Oacute;N!</strong> <span id="msgerror"></span>
+                  </div>
 		<div class="row">
 		<div class="col-sm-6">
                         <div class="form-group form-group-sm">
@@ -190,7 +220,7 @@
             <td>{{actividades.porcentaje}}</td>
             <td>{{actividades.descripcionListoVencido}}</td>
             <td>{{actividades.observaciones}}</td>
-            <td><button class="btn btn-warning">Ver Fotos</button></td>
+            <td><button class="btn btn-warning" ng-click="muestraDocumento(actividades)">Ver Fotos</button></td>
             </tr>
             </table>
            </div>
@@ -209,7 +239,7 @@
 		<input type="text" disabled size="5">
 		</div>
 		<br>
-		<div class="row">
+		<div class="row" id="tablaDocumentos">
 		 <div class="col-sm-12">
 		 <h3>Fotos Evidencia</h3>
           <div class="table-responsive">

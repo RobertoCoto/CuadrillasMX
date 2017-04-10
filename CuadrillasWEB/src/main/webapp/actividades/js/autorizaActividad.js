@@ -3,7 +3,13 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	$scope.id = $window.idActividadDiaria;
 	$scope.usuario = $window.user;
 	$scope.fecha = $window.fechaTarea;
-	console.log($scope.fecha);
+
+	// msload 
+	$('#success').hide();
+    $('#alert').hide();
+    $('#msload').modal('show');
+    $('#tablaDocumentos').hide();
+    //obtiene el id y consulta las actividades
 	    $scope.consultaActividad = function() {
 			$('#msload').modal('show');
 			$http({
@@ -29,6 +35,12 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					});
 			};
 			$scope.consultaActividad();
+			
+			
+			$scope.muestraDocumento = function(actividades) {
+				$('#tablaDocumentos').show();
+				};
+			
 //		var map;
 //		var map2;
 //        var medida;
