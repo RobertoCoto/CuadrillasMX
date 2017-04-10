@@ -410,17 +410,17 @@ public class AgendaNegocio {
 					 documentosRespuesta = new AgendaDAO().consultaDocumentosActividad(uid, documentos);
 					 respuesta.setDocumentos(documentosRespuesta);
 				 } catch  (ExcepcionesCuadrillas ex) {
-						LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+						LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
 						respuesta.getHeader().setEstatus(false);
 						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 					} catch (Exception ex) {
-				    	LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+				    	LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
 				    	respuesta.getHeader().setEstatus(false);
 						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
 						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
 				    }
-				    LogHandler.debug(uid, this.getClass(), "consultaActividadDiariaBuzon - Datos Salida: " + respuesta);
+				    LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
 					return respuesta;
 			}
 	}
