@@ -423,4 +423,39 @@ public class AgendaNegocio {
 				    LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
 					return respuesta;
 			}
+	/**
+	 * Metodo para autorizar las actividades.
+	 * @param actividadDiaria recibe parametros de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta autorizaActividadDiaria(ActividadDiariaCampoDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(actividadDiaria);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Entrada: " + actividadDiaria);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (actividadDiaria.getAutorizacion() == null || actividadDiaria.getAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la autorizacion.");
+					}
+					if (actividadDiaria.getIdActividadDiaria() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el id de la actividad diaria.");
+					}
+					if (actividadDiaria.getComentarioAutorizacion() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario un comentario para la autorizacion.");
+					}
+					AgendaDAO dao = new AgendaDAO();
+					respuesta = dao.autorizaActividadBuzon(uid, actividadDiaria);
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "autorizaActividadDiaria - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Salida: " + respuesta);
+				return respuesta;
+	}
 	}
