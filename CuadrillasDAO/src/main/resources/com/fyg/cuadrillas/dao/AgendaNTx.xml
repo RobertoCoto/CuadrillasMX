@@ -98,6 +98,7 @@
 <resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
 	<result column="id_actividad_diaria" property="idActividadDiaria"/>
 	<result column="codigo_actividad" property="codigoActividad"/>
+	<result column="descripcion_actividad" property="descripcionActividad"/>
 	<result column="consecutivo" property="consecutivo"/>
 	<result column="url" property="url"/>
 	<result column="estatus" property="estatus"/>
@@ -394,8 +395,10 @@ SELECT doc.id_actividad_diaria,
 	   doc.consecutivo,
 	   doc.codigo_actividad,
 	   doc.url,
-	   doc.estatus
+	   doc.estatus,
+	   cat.descripcion AS descripcion_actividad
 FROM actividad_diaria_documentos doc
+LEFT JOIN catalogo cat ON cat.codigo = doc.codigo_actividad
 WHERE doc.codigo_actividad = #{codigoActividad}
 AND doc.id_actividad_diaria = #{idActividadDiaria}
 AND doc.estatus = 'A'

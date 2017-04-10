@@ -40,6 +40,29 @@ console.log ($scope.fecha);
 			$scope.muestraDocumento = function(actividades) {
 				$('#tablaDocumentos').show();
 				console.log(actividades.codigoActividad);
+				$scope.codigoActividad = actividades.codigoActividad;
+				$('#msload').modal('show');
+				$http({
+						method: 'GET',
+						url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDocumentos',
+						params: {
+								"idActividadDiaria" : $scope.id,
+								"codigoActividad" : $scope.codigoActividad
+						     },
+						data: { }
+						}).then(function (result) {
+							$('#msload').modal('hide');
+							$('#alert').hide();
+							$('#success').hide();
+							$scope.documentos = result.data.documentos;
+						    console.log(result);
+						
+						}, function myError(response) {
+							$('#msload').modal('hide');
+					        console.error(response);
+					        $('#alert').show();
+							$('#msgerror').text(response.data.header.mensajeFuncional)
+						});
 				};
 			
 //		var map;
