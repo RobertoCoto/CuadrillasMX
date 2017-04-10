@@ -181,6 +181,9 @@ VALUES(
 
 <update id="autorizaActividadDiariaBuzon" parameterType="ActividadDiariaCampo">
 UPDATE actividad_diaria SET
+	envio_autorizacion = #{envioAutorizacion},
+	envio_fecha_autorizacion = now(),
+	envio_usuario_autorizacion = #{envioUsuarioAutorizacion},
 	autorizacion = #{autorizacion},
 	fecha_autorizacion = now(),
 	usuario_autorizacion = #{usuarioAutorizacion},

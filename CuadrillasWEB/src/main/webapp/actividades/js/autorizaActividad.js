@@ -66,10 +66,78 @@ console.log ($scope.fecha);
 				};
 				
 				$scope.autorizarActividad = function(actividad) {
-						
+					$scope.comentario  = $('#comentarioActividad').val();
+					var confirmar = confirm("¿Esta seguro de autorizar la actividad?"); 
+						if (!confirmar) 
+						{
+							 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.');
+								return false;
+						}else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+						} 
+						$http({
+				              method: 'GET',
+				              url: 'http://localhost:8080/CuadrillasWEB/AutorizaActividadBuzon',
+				    	 params: {
+					 		"idActividadDiaria" : $scope.id,
+					 		"envioAutorizacion" : "S",
+					 		"autorizacion" : "S",
+					 		"comentario": $scope.comentario,
+					 		"usuario": $scope.usuario
+					         }
+						    }).then(function mySucces(response) {
+						    	$('#msload').modal('hide');
+								$('#success').show();
+								$('#msgaviso').text(response.data.mensajeFuncional);
+						    	 console.info(response);
+						    	 //opener.top.location.reload();
+						    }, function myError(response) {
+						    	$('#msload').modal('hide');
+						    	$('#success').hide();
+								$('#alert').show();
+								$('#msgerror').text(response.data.mensajeFuncional);
+						        console.error(response);
+						    });
 					};
-				
-			
+					
+					//para rechazar el permiso
+					$scope.rechazarActividad = function(actividad) {
+						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
+						if (!confirmar) 
+						{
+							 $('#alert').show();
+							 $('#msgerror').text('Se ha cancelado la operacion.');
+								return false;
+						}else  {
+							 $('#msload').modal('show');
+							 $('#alert').hide();
+						}
+						$http({
+				              method: 'GET',
+				              url: 'http://localhost:8080/CuadrillasWEB/AutorizaActividadBuzon',
+				    	 params: {
+					 		"idActividadDiaria" : $scope.id,
+					 		"envioAutorizacion" : "N",
+					 		"autorizacion" : "N",
+					 		"comentario": $scope.comentario,
+					 		"usuario": $scope.usuario
+					         }
+						    }).then(function mySucces(response) {
+						    	$('#msload').modal('hide');
+								$('#success').show();
+								$('#msgaviso').text(response.data.mensajeFuncional);
+						    	 console.info(response);
+						    	 //opener.top.location.reload();
+						    }, function myError(response) {
+						    	$('#msload').modal('hide');
+						    	$('#success').hide();
+								$('#alert').show();
+								$('#msgerror').text(response.data.mensajeFuncional);
+						        console.error(response);
+						    });
+						};
 //		var map;
 //		var map2;
 //        var medida;

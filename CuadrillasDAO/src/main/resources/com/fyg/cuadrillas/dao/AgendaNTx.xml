@@ -422,4 +422,11 @@ FROM actividad_diaria
 WHERE autorizacion = 'S'
 AND  id_actividad_diaria = #{idActividadDiaria}
 </select>
+
+<select id="existeRechazoActividadBuzon" parameterType="ActividadDiariaCampo" resultType="int">
+SELECT count(autorizacion)
+FROM actividad_diaria
+WHERE autorizacion = 'N'
+AND  id_actividad_diaria = #{idActividadDiaria}
+</select>
 </mapper>

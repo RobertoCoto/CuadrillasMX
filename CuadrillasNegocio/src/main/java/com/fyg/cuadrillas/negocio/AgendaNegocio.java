@@ -445,6 +445,10 @@ public class AgendaNegocio {
 					if (actividadDiaria.getComentarioAutorizacion() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario un comentario para la autorizacion.");
 					}
+					if (actividadDiaria.getEnvioAutorizacion() == null
+							|| actividadDiaria.getEnvioAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el envio para la autorizacion.");
+					}
 					AgendaDAO dao = new AgendaDAO();
 					respuesta = dao.autorizaActividadBuzon(uid, actividadDiaria);
 				}

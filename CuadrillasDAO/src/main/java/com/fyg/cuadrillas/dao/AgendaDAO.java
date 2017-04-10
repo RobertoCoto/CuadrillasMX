@@ -940,6 +940,10 @@ public class AgendaDAO {
 			if (existeAutorizacionActividadDiaria > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se encuentra autorizada.");
 			}
+			int existeRechazoActividadDiaria = (Integer) sessionNTx.selectOne("AgendaDAO.existeRechazoActividadBuzon", actividadDiaria);
+			if (existeRechazoActividadDiaria > 0) {
+				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se encuentra rechazada.");
+			}
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.insert("AgendaDAO.autorizaActividadDiariaBuzon", actividadDiaria);

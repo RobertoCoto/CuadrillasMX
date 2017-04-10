@@ -50,6 +50,7 @@ public class AutorizaActividadBuzon extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idActividadDiaria = Integer.parseInt(request.getParameter("idActividadDiaria"));
+			String envioAutorizacion = request.getParameter("envioAutorizacion");
 			String autorizacion = request.getParameter("autorizacion");
 			String usuario = request.getParameter("usuario");
 			String comentario = request.getParameter("comentario");
@@ -65,8 +66,10 @@ public class AutorizaActividadBuzon extends HttpServlet {
 
 			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
 			actividadDiaria.setIdActividadDiaria(idActividadDiaria);
+			actividadDiaria.setEnvioAutorizacion(envioAutorizacion);
 			actividadDiaria.setAutorizacion(autorizacion);
 			actividadDiaria.setUsuarioAutorizacion(usuario);
+			actividadDiaria.setEnvioUsuarioAutorizacion(usuario);
 			actividadDiaria.setComentarioAutorizacion(comentario);
 			respuesta = negocio.autorizaActividadDiaria(actividadDiaria);
 			if (respuesta.isEstatus()) {
