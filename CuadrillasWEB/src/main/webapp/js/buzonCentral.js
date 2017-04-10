@@ -46,6 +46,7 @@ app.controller('buzon', function ($scope, $http, $window) {
     	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/actividades/autorizacionActividadesDiarias.html', '_blank','heigth=600,width=600');
     	  $popup.idActividadDiaria = tareas.id;
     	  $popup.user = data.data.usuario.usuario;
+    	  $popup.fechaTarea = tareas.fechaTarea;
     	  };
 	 
     	  $scope.hideAlerts = function() {

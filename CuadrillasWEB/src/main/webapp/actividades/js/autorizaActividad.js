@@ -2,6 +2,8 @@ var app = angular.module('tatei', []);
 app.controller('autorizaActividad', function ($scope, $http, $window) {
 	$scope.id = $window.idActividadDiaria;
 	$scope.usuario = $window.user;
+	$scope.fecha = $window.fechaTarea;
+	console.log($scope.fecha);
 	    $scope.consultaActividad = function() {
 			$('#msload').modal('show');
 			$http({
@@ -16,6 +18,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						$('#alert').hide();
 						$('#success').hide();
 						$scope.actividad = result.data.actividadDiaria;
+						$scope.actividad.fechaActividad = $scope.fecha;
 					    console.log($scope.actividad);
 					
 					}, function myError(response) {
