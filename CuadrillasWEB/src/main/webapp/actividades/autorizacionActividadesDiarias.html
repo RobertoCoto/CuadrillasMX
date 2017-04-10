@@ -26,7 +26,7 @@
 		<div class="container">
 		<h2>Autorización de Actividades Diarias</h2>
 		
-		<div class="row" ng-repeat="actividad in resultadoActividades">
+		<div class="row">
 		<div class="col-sm-6">
                         <div class="form-group form-group-sm">
                             <label for="Vialidad" class="control-label">Vialidad</label>
@@ -55,14 +55,14 @@
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="noPersonas" class="control-label">Num. Personas</label>
-                            <input type="text" name="personas" id="personas" class="form-control" disabled/>
+                            <input type="text" name="personas" id="personas" class="form-control" value={{actividad.noTrabajadores}} disabled/>
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
                             <label for="horasHombre" class="control-label">Total Hrs. Hombre</label>
-                            <input type="text" name="horasHombre" id="horasHombre" class="form-control" disabled/>
+                            <input type="text" name="horasHombre" id="horasHombre" class="form-control" value={{actividad.noHoras}} disabled/>
                         </div>
                     </div>
 		</div>
@@ -180,16 +180,16 @@
                 </tr>
             </thead>
             
-            <tr>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <tr ng-repeat="actividades in actividad.actividadDiariaDetalle">
+            <td>{{actividades.descripcionActividad}}</td>
+            <td>{{actividades.descripcionPrioridad}}</td>
+            <td>{{actividades.descripcionEstado}}</td>
+            <td>{{actividades.tiempoDestinado}}</td>
+            <td>{{actividades.numeroPersonas}}</td>
+            <td>{{actividades.numeroUnidades}}</td>
+            <td>{{actividades.porcentaje}}</td>
+            <td>{{actividades.descripcionListoVencido}}</td>
+            <td>{{actividades.observaciones}}</td>
             <td><button class="btn btn-warning">Ver Fotos</button></td>
             </tr>
             </table>
@@ -266,6 +266,7 @@
 		<div class="btn-group" role="group" align="center">
 			
 				<button class="btn btn-info">Autorizar</button>&nbsp;<button class="btn btn-danger">Rechazar</button>
+		</div>
 		</div>
 		</div>
 </body>

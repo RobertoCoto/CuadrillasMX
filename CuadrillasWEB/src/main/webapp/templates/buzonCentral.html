@@ -28,6 +28,7 @@
                 			    <td>{{tareas.descripcion}}</td>
                 			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="notificar(tareas)"/></td>
                 			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="autorizar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'ACDI'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="autorizarActividad(tareas)"/></td>
                 				</tr>
                 			</table>
                 		</div>
