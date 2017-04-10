@@ -872,15 +872,6 @@ public class AgendaDAO {
 			}
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
 					sessionNTx.selectList("AgendaDAO.consultaActividadDiariaDetalleBuzon", consultaActividadesDiaria);
-
-			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
-				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-				parametros.put("codigo_actividad", actividadDiariasDetalle.getCodigoActividad());
-				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
-				List<ActividadDiariaDocumentosDTO> documentos =
-					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentosBuzon", parametros);
-				actividadDiariasDetalle.setDocumentos(documentos);
-			}
 			consultaActividadesDiaria.setActividadDiariaDetalle(actividadDiariaDetalle);
 
 			List<ActividadDiariaCoordenadasDTO> coordenadas =
@@ -895,5 +886,38 @@ public class AgendaDAO {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return consultaActividadesDiaria;
+	}
+	/**
+	 * Metodo para consultar los documentos del buzon
+	 * @param uid unico de registro
+	 * @param documentos recibe los documentos
+	 * @return regresa una repsuesta
+	 * @throws Exception crea unas exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ActividadDiariaDocumentosDTO> consultaDocumentosActividad(String uid, ActividadDiariaDocumentosDTO documentos) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		List<ActividadDiariaDocumentosDTO> consultaDocumentos = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla
+			consultaDocumentos = sessionNTx.selectList("AgendaDAO.consultaActividadDocumentosBuzon", documentos);
+			if ( consultaDocumentos == null) {
+				throw new ExcepcionesCuadrillas("No existe agendas actualmente.");
+			}
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return consultaDocumentos;
 	}
 }

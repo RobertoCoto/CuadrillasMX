@@ -97,6 +97,7 @@
 
 <resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
 	<result column="id_actividad_diaria" property="idActividadDiaria"/>
+	<result column="codigo_actividad" property="codigoActividad"/>
 	<result column="consecutivo" property="consecutivo"/>
 	<result column="url" property="url"/>
 	<result column="estatus" property="estatus"/>
@@ -388,14 +389,15 @@ WHERE d.id_actividad_diaria = #{idActividadDiaria}
 AND d.estatus = 'A'
 </select>
 
-<select id="consultaActividadDocumentosBuzon" parameterType="java.util.HashMap" resultMap="actividadDiariaDocumentos">
+<select id="consultaActividadDocumentosBuzon" parameterType="ActividadDiariaDocumentos" resultMap="actividadDiariaDocumentos">
 SELECT doc.id_actividad_diaria,
 	   doc.consecutivo,
+	   doc.codigo_actividad,
 	   doc.url,
 	   doc.estatus
 FROM actividad_diaria_documentos doc
-WHERE doc.codigo_actividad = #{codigo_actividad}
-AND doc.id_actividad_diaria = #{id_actividad_diaria}
+WHERE doc.codigo_actividad = #{codigoActividad}
+AND doc.id_actividad_diaria = #{idActividadDiaria}
 AND doc.estatus = 'A'
 </select>
 

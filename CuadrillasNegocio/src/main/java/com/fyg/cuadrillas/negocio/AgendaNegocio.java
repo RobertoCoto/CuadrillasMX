@@ -12,6 +12,8 @@ import com.fyg.cuadrillas.dao.AgendaDAO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosDTO;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosRespuesta;
 import com.fyg.cuadrillas.dto.agenda.AgendaDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaDetalleDTO;
 import com.fyg.cuadrillas.dto.agenda.AgendaRespuesta;
@@ -382,4 +384,43 @@ public class AgendaNegocio {
 		    LogHandler.debug(uid, this.getClass(), "consultaActividadDiariaBuzon - Datos Salida: " + respuesta);
 			return respuesta;
 		}
+	/**
+	 * Metodo para consultar los documentos
+	 * @param documentos recibe el id del documento
+	 * @return regresa la lista de documentos
+	 */
+	public ActividadDiariaDocumentosRespuesta consultaActividadDocumentos(ActividadDiariaDocumentosDTO documentos) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(documentos);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Entrada: " + documentos);
+				ActividadDiariaDocumentosRespuesta respuesta = new ActividadDiariaDocumentosRespuesta();
+				 respuesta.setHeader( new EncabezadoRespuesta());
+				 respuesta.getHeader().setUid(uid);
+				 respuesta.getHeader().setEstatus(true);
+				 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				 List<ActividadDiariaDocumentosDTO> documentosRespuesta = null;
+				 try {
+					 if (documentos.getIdActividadDiaria() == null) {
+						 throw new ExcepcionesCuadrillas("Es necesario el ID de la actividad para la busqueda.");
+					 }
+					 if (documentos.getCodigoActividad() == null || documentos.getCodigoActividad().trim().isEmpty()) {
+						 throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad para la busqueda.");
+					 }
+					 documentosRespuesta = new AgendaDAO().consultaDocumentosActividad(uid, documentos);
+					 respuesta.setDocumentos(documentosRespuesta);
+				 } catch  (ExcepcionesCuadrillas ex) {
+						LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+						respuesta.getHeader().setEstatus(false);
+						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+					} catch (Exception ex) {
+				    	LogHandler.error(uid, this.getClass(), "consultaActividadDiariaBuzon - Error: " + ex.getMessage(), ex);
+				    	respuesta.getHeader().setEstatus(false);
+						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				    }
+				    LogHandler.debug(uid, this.getClass(), "consultaActividadDiariaBuzon - Datos Salida: " + respuesta);
+					return respuesta;
+			}
 	}

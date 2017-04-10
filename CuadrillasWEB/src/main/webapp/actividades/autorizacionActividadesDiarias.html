@@ -251,10 +251,12 @@
                 <td>Operaciones</td>
                 </tr>
             </thead>
-            <tr>
-            <td>--</td>
-            <td>--</td>
+            <tr ng-repeat="documentos in actividad.actividadDiariaDetalle.documentos" ng-if="documentos.codigoActividad == actividades.codigoActividad">
+            <td>{{documentos.codigoActividad}}</td>
+            <td>{{documentos.url}}</td>
             <td align="center"><button>Ver Documento</button></td>
+
+            
             </tr>
             </table>
            </div>
