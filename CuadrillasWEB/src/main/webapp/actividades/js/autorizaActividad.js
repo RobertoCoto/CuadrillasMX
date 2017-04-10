@@ -25,7 +25,6 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						$('#msgerror').text(response.data.header.mensajeFuncional)
 					});
 			};
-			
 			$scope.consultaActividad();
 //		var map;
 //		var map2;
