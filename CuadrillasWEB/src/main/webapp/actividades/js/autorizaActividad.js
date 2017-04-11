@@ -144,6 +144,14 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						$('#alert').hide();
 						$('#success').hide();
 						};
+						
+					$scope.visualizaFoto = function(documento) {
+						$scope.url = documento.url;
+						var $popup = $window.open('http://localhost:8080/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
+						 console.log("fotoncini: " + $scope.url);
+						 
+						};
+					
 		var map;
 		var map2;
         var medida;
