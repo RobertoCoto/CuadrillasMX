@@ -746,8 +746,8 @@ public class AgendaDAO {
 	/**
 	 * Metodo para dar de alta las actividades diarias
 	 * @param uid unico de registro
-	 * @param actividadDiaria
-	 * @return
+	 * @param actividadDiaria recibe valores
+	 * @return regresa repsuesta
 	 */
 	public EncabezadoRespuesta registraActividadDiaria(String uid, ActividadDiariaDetalleDTO actividadDiaria) {
 		SqlSession sessionTx = null;
@@ -772,10 +772,10 @@ public class AgendaDAO {
 					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
 					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
 					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
-					registraActividadDiariaDocumentos(uid,documentos,sessionTx);
+					registraActividadDiariaDocumentos(uid, documentos, sessionTx);
 				}
 			}
-			if(existeCodigoActividad == 0) {
+			if (existeCodigoActividad == 0) {
 				actividadDiaria.setPlaneada("S");
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
@@ -788,7 +788,7 @@ public class AgendaDAO {
 					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
 					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
 					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
-					registraActividadDiariaDocumentos(uid,documentos,sessionTx);
+					registraActividadDiariaDocumentos(uid, documentos, sessionTx);
 				}
 			}
 			//Realizamos commit
@@ -815,7 +815,8 @@ public class AgendaDAO {
 	 * @param session abre session bd
 	 * @throws Exception si crea excepciones
 	 */
-	public void registraActividadDiariaDocumentos(String uid, ActividadDiariaDocumentosDTO documentos, SqlSession session) throws Exception {
+	public void registraActividadDiariaDocumentos(String uid, ActividadDiariaDocumentosDTO documentos,
+			SqlSession session) throws Exception {
 		SqlSession sessionTx = null;
 		//Logica para saber si es atomica la transaccion
 		if ( session == null ) {
@@ -852,7 +853,8 @@ public class AgendaDAO {
 	 * @throws Exception crea excepcion
 	 */
 	@SuppressWarnings("unchecked")
-	public ActividadDiariaCampoDTO consultaActividadDiariaBuzon(String uid, ActividadDiariaCampoDTO actividadDiaria) throws Exception {
+	public ActividadDiariaCampoDTO consultaActividadDiariaBuzon(String uid,
+			ActividadDiariaCampoDTO actividadDiaria) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -895,7 +897,8 @@ public class AgendaDAO {
 	 * @throws Exception crea unas exception
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ActividadDiariaDocumentosDTO> consultaDocumentosActividad(String uid, ActividadDiariaDocumentosDTO documentos) throws Exception {
+	public List<ActividadDiariaDocumentosDTO> consultaDocumentosActividad(String uid,
+			ActividadDiariaDocumentosDTO documentos) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -936,11 +939,13 @@ public class AgendaDAO {
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeAutorizacionActividadDiaria = (Integer) sessionNTx.selectOne("AgendaDAO.existeAutorizacionActividadBuzon", actividadDiaria);
+			int existeAutorizacionActividadDiaria =
+					(Integer) sessionNTx.selectOne("AgendaDAO.existeAutorizacionActividadBuzon", actividadDiaria);
 			if (existeAutorizacionActividadDiaria > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se encuentra autorizada.");
 			}
-			int existeRechazoActividadDiaria = (Integer) sessionNTx.selectOne("AgendaDAO.existeRechazoActividadBuzon", actividadDiaria);
+			int existeRechazoActividadDiaria =
+					(Integer) sessionNTx.selectOne("AgendaDAO.existeRechazoActividadBuzon", actividadDiaria);
 			if (existeRechazoActividadDiaria > 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se encuentra rechazada.");
 			}
