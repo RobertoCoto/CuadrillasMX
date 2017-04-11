@@ -54,7 +54,7 @@ public class AutorizaActividadBuzon extends HttpServlet {
 			String autorizacion = request.getParameter("autorizacion");
 			String usuario = request.getParameter("usuario");
 			String comentario = request.getParameter("comentario");
-			
+
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -88,7 +88,6 @@ public class AutorizaActividadBuzon extends HttpServlet {
 			out.println(sg.toJson(respuesta));
 			out.flush();
 		}
-		
 	}
 
 }

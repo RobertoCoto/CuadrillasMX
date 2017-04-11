@@ -167,7 +167,7 @@ UPDATE actividad_diaria_detalle SET
 		usuario_ult_mod = #{usuarioUltMod}
 WHERE id_actividad_diaria = #{idActividadDiaria}
 AND codigo_actividad = #{codigoActividad}
-AND estatus = 'A'		
+AND estatus = 'A'
 </update>
 <insert id="altaActividadDiariaDocumentos" parameterType="ActividadDiariaDocumentos">
 INSERT INTO actividad_diaria_documentos

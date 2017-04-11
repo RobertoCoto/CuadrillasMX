@@ -86,7 +86,7 @@
 	<result column="metros_planificado" property="metrosPlanificados"/>
 	<result column="no_trabajadores" property="noTrabajadores"/>
 	<result column="no_horas" property="noHoras"/>
-	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/> 
+	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/>
 	<result column="porcentaje" property="porcentaje"/>
 	<result column="observaciones" property="observaciones"/>
 	<result column="autorizacion" property="autorizacion"/>
@@ -282,7 +282,7 @@ AND estatus = 'A'
 SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado,
 	no_trabajadores,no_horas,no_horas_trabajadas,porcentaje,observaciones,autorizacion,
 	estatus
-FROM actividad_diaria 
+FROM actividad_diaria
 WHERE id_agenda = #{idAgenda}
 </select>
 
@@ -336,13 +336,13 @@ AND estatus = 'A'
 
 <select id="existeCodigoActividad" parameterType="ActividadDiariaDetalle" resultType="int">
 SELECT count(codigo_actividad)
-FROM actividad_diaria_detalle 
-WHERE id_actividad_diaria = #{idActividadDiaria} 
+FROM actividad_diaria_detalle
+WHERE id_actividad_diaria = #{idActividadDiaria}
 AND codigo_actividad = #{codigoActividad}
 </select>
 
 <select id="consultaActividadDiariaBuzon" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
-SELECT 
+SELECT
 	ac.id_actividad_diaria,
     ac.id_agenda,
     ac.id_agenda_detalle,
