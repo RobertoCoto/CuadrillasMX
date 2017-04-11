@@ -9,7 +9,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
     $('#alert').hide();
     $('#msload').modal('show');
     $('#tablaDocumentos').hide();
-    
+    $scope.nContrato = true;
     //obtiene el id y consulta las actividades
 	    $scope.consultaActividad = function() {
 			$('#msload').modal('show');
@@ -34,6 +34,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 				        $('#alert').show();
 						$('#msgerror').text(response.data.header.mensajeFuncional)
 					});
+					  
 			};
 			$scope.consultaActividad();
 			
@@ -65,7 +66,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 							$('#msgerror').text(response.data.header.mensajeFuncional)
 						});
 				};
-				
+				//autoriza la actividad
 				$scope.autorizarActividad = function(actividad) {
 					$scope.comentario  = $('#comentarioActividad').val();
 					var confirmar = confirm("¿Esta seguro de autorizar la actividad?"); 
@@ -103,7 +104,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						    });
 					};
 					
-					//para rechazar el permiso
+					//para rechazar actividad
 					$scope.rechazarActividad = function(actividad) {
 						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
 						if (!confirmar) 
@@ -139,17 +140,18 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						        console.error(response);
 						    });
 						};
+						
 						// oculta las alertas
 						$scope.hideAlerts = function() {
 						$('#alert').hide();
 						$('#success').hide();
 						};
 						
+						//para visualizar las fotos obtenidas 
 					$scope.visualizaFoto = function(documento) {
 						$scope.url = documento.url;
 						var $popup = $window.open('http://localhost:8080/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
 						 console.log("fotoncini: " + $scope.url);
-						 
 						};
 					
 		var map;
@@ -157,25 +159,44 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
         var medida;
         var medida2;
        $scope.cargarMapa =  function initMap() {
-            medida = {
-                mvcLine: new google.maps.MVCArray(),
-                mvcPolygon: new google.maps.MVCArray(),
-                mvcMarkers: new google.maps.MVCArray(),
-                line: null,
-                polygon: null
-            };
-            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
-            map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
-              center: mx1
-            });
-            google.maps.event.addListener(map, 'click', function(event) {
-              //console.log(event);
-                setMarcador(event.latLng);
-            });
+    	   medida = {
+               mvcLine: new google.maps.MVCArray(),
+               mvcPolygon: new google.maps.MVCArray(),
+               mvcMarkers: new google.maps.MVCArray(),
+               line: null,
+               polygon: null
+           };
+           var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+           map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 7,
+             center: mx1
+           });
+           /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+           var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
+
+           var marker = new google.maps.Marker({
+             position: mx1,
+             map: map
+           });
+           var marker = new google.maps.Marker({
+             position: mx2,
+             map: map
+           }); */
+           google.maps.event.addListener(map, 'click', function(event) {
+               //console.log(event);
+										if($scope.nContrato) {
+               	$scope.setMarcador(event.latLng);
+										} else {
+											if($scope.edicionMap){
+												$scope.setMarcador(event.latLng);
+											} else {
+												$scope.setMarcadorEdicion(event.latLng);
+											}
+										}
+           });
           };
           
-          $scope.cargarMapa2 =  function initMap2() {
+          $scope.cargarMapa2 =  function initMap() {
             medida2 = {
                 mvcLine: new google.maps.MVCArray(),
                 mvcPolygon: new google.maps.MVCArray(),
@@ -189,15 +210,272 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
               center: mx1
             });
             google.maps.event.addListener(map2, 'click', function(event) {
-              //console.log(event);
-                setMarcador(event.latLng);
+                //console.log(event);
+ 										if($scope.nContrato) {
+                	$scope.setMarcador2(event.latLng);
+ 										} else {
+ 											if($scope.edicionMap){
+ 												$scope.setMarcador2(event.latLng);
+ 											} else {
+ 												$scope.setMarcadorEdicion2(event.latLng);
+ 											}
+ 										}
             });
           };
-
+         
+	     // $scope.cargarMapa2();
             var markers = [];
-      
-      $scope.cargarMapa();
-      $scope.cargarMapa2();
-      
-     
+            $scope.metros = null;
+          $scope.showMap = function(actividad) {
+        	  $scope.cargarMapa();
+        	  for (var i = 0; i < actividad.coordenadas.length; i++) {
+              	$scope.setDireccionEnReversaEditar(actividad.coordenadas[i].latitud, actividad.coordenadas[i].longitud, actividad.coordenadas[i].direccion);
+          };
+									$scope.edicionMap = true;								
+									$("#tramos").empty();
+        	  };
+        	  
+        	  $scope.mostrarReal = function(actividad) {
+        		  $scope.cargarMapa2();
+            	  for (var i = 0; i < actividad.coordenadas.length; i++) {
+                  	$scope.setDireccionEnReversaEditar2(actividad.coordenadas[i].latitud, actividad.coordenadas[i].longitud, actividad.coordenadas[i].direccion);
+              };
+    									$scope.edicionMap = true;								
+    									$("#tramos2").empty();
+        		  };
+        	  
+        	  $scope.setMarcadorEdicion = function(latLng, direccion) {
+						var geocoder = new google.maps.Geocoder;
+						var img_mark = 'mark.png';
+						var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+						medida.mvcLine.push(latLng);
+						medida.mvcPolygon.push(latLng);
+						medida.mvcMarkers.push(marcador);
+						var latLngIndex = medida.mvcLine.getLength() - 1;
+						var latlng = {lat: latLng.lat, lng: latLng.lng};
+											if(!direccion){
+												direccion = 'SN';
+											}
+						//console.log(results);
+						$( "#tramos" ).append( $("<td class=\"td\" >"+ direccion +" </td>"
+						 ));
+											//$('#msload').modal('hide');
+						$scope.mLineaRecta();
+        	  		};
+        	  		
+        	  		$scope.setMarcadorEdicion2 = function(latLng, direccion) {
+						var geocoder = new google.maps.Geocoder;
+						var img_mark = 'mark.png';
+						var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
+						medida.mvcLine.push(latLng);
+						medida.mvcPolygon.push(latLng);
+						medida.mvcMarkers.push(marcador);
+						var latLngIndex = medida.mvcLine.getLength() - 1;
+						var latlng = {lat: latLng.lat, lng: latLng.lng};
+											if(!direccion){
+												direccion = 'SN';
+											}
+						//console.log(results);
+						$( "#tramos2" ).append( $("<td class=\"td\" >"+ direccion +" </td>"
+						 ));
+											//$('#msload').modal('hide');
+						$scope.mLineaRecta2();
+        	  		};
+        	  		
+        	  		$scope.calculaDistancia = function() {
+                        var length = 0;
+                        if (medida.mvcPolygon.getLength() > 1) {
+                            length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                        }
+                        var area = 0;
+                        if (medida.mvcPolygon.getLength() > 2) {
+                            area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                        }
+                    //    lM = document.forms["mb"].elements["mode"][0].checked;
+                        var km = length / 1000;
+                        var unidad_de_medida = " metros";
+                        $scope.metros = length;
+                        console.log($scope.metros);
+                        $( "#km" ).text(length.toFixed(2) + unidad_de_medida);
+  											$( "#txtkm" ).text('Distancia');
+                        //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                    };
+                    
+                    $scope.calculaDistancia2 = function() {
+                        var length = 0;
+                        if (medida.mvcPolygon.getLength() > 1) {
+                            length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                        }
+                        var area = 0;
+                        if (medida.mvcPolygon.getLength() > 2) {
+                            area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                        }
+                    //    lM = document.forms["mb"].elements["mode"][0].checked;
+                        var km = length / 1000;
+                        var unidad_de_medida = " metros";
+                        $scope.metros = length;
+                        console.log($scope.metros);
+                        $( "#km2" ).text(length.toFixed(2) + unidad_de_medida);
+  											$( "#txtkm2" ).text('Distancia');
+                        //console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));
+                    };
+                    
+                    
+
+                    $scope.mLineaRecta = function() {
+                        if (medida.mvcLine.getLength() > 1) {
+                            if (!medida.line) {
+                                medida.line = new google.maps.Polyline({
+                                    map: map,
+                                    clickable: false,
+                                    strokeColor: "#ad04ef",
+                                    strokeOpacity: 1,
+                                    strokeWeight: 3,
+                                    path: medida.mvcLine
+                                });
+                            }
+
+                            if (medida.mvcPolygon.getLength() > 2) {
+
+                                if (medida.polygon != null)
+                                {
+                                    medida.polygon.setMap(null);
+                                }
+
+
+                                medida.polygon = new google.maps.Polygon({
+                                    clickable: false,
+                                    map: map,
+                                    fillOpacity: 0.0,
+                                    strokeOpacity: 0,
+                                    paths: medida.mvcPolygon
+                                });
+
+                            }
+                        }
+                        if (medida.mvcLine.getLength() > 1) {
+                            $scope.calculaDistancia();
+                        }
+                    };
+                    
+                    $scope.mLineaRecta2 = function() {
+                        if (medida.mvcLine.getLength() > 1) {
+                            if (!medida.line) {
+                                medida.line = new google.maps.Polyline({
+                                    map: map,
+                                    clickable: false,
+                                    strokeColor: "#ad04ef",
+                                    strokeOpacity: 1,
+                                    strokeWeight: 3,
+                                    path: medida.mvcLine
+                                });
+                            }
+
+                            if (medida.mvcPolygon.getLength() > 2) {
+
+                                if (medida.polygon != null)
+                                {
+                                    medida.polygon.setMap(null);
+                                }
+
+
+                                medida.polygon = new google.maps.Polygon({
+                                    clickable: false,
+                                    map: map,
+                                    fillOpacity: 0.0,
+                                    strokeOpacity: 0,
+                                    paths: medida.mvcPolygon
+                                });
+
+                            }
+                        }
+                        if (medida.mvcLine.getLength() > 1) {
+                            $scope.calculaDistancia2();
+                        }
+                    }
+
+                    $scope.setDireccionEnReversa = function(lat, lng) {
+                        var latlng = {lat: lat, lng: lng};
+                        var geocoder = new google.maps.Geocoder();
+                        //var address = document.getElementById('direccion').value;
+                        //geocoder.geocode({'address': address}, function(results, status) {
+                        geocoder.geocode({'location': latlng}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                $scope.setMarcador(results[0].geometry.location);
+                            } else {
+                                alert('No se encontro la direccion , debido: ' + status);
+                            }
+                        });
+                    }
+  									$scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+                        var latlng = {lat: lat, lng: lng};
+  											var geocoder = new google.maps.Geocoder();
+  											setTimeout(function () {
+  													geocoder.geocode({'location': latlng}, function(results, status) {
+  		                          if (status == google.maps.GeocoderStatus.OK) {
+  		                              map.setCenter(results[0].geometry.location);
+  																	$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+  		                          }
+  		                      });
+  											}, 100);
+  											
+  											
+
+
+                    }
+  									
+                    $scope.setDireccionEnReversa2 = function(lat, lng) {
+                        var latlng = {lat: lat, lng: lng};
+                        var geocoder = new google.maps.Geocoder();
+                        //var address = document.getElementById('direccion').value;
+                        //geocoder.geocode({'address': address}, function(results, status) {
+                        geocoder.geocode({'location': latlng}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map2.setCenter(results[0].geometry.location);
+                                $scope.setMarcador(results[0].geometry.location);
+                            } else {
+                                alert('No se encontro la direccion , debido: ' + status);
+                            }
+                        });
+                    }
+  									$scope.setDireccionEnReversaEditar2 = function(lat, lng, direccion) {
+                        var latlng = {lat: lat, lng: lng};
+  											var geocoder = new google.maps.Geocoder();
+  											setTimeout(function () {
+  													geocoder.geocode({'location': latlng}, function(results, status) {
+  		                          if (status == google.maps.GeocoderStatus.OK) {
+  		                              map2.setCenter(results[0].geometry.location);
+  																	$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+  		                          }
+  		                      });
+  											}, 100);
+  											
+  											
+
+
+                    }
+
+                    $scope.limpiarMarcadores = function() {
+                        if (medida.polygon) {
+                            medida.polygon.setMap(null);
+                            medida.polygon = null;
+                        }
+                        if (medida.line) {
+                            medida.line.setMap(null);
+                            medida.line = null
+                        }
+                        medida.mvcLine.clear();
+                        medida.mvcPolygon.clear();
+                        medida.mvcMarkers.forEach(function(elem, index) {
+                            elem.setMap(null);
+                        });
+                        $scope.contratoFocus.coordenadas = [];
+                        medida.mvcMarkers.clear();
+                        $( "#tramos" ).empty();
+                        $( "#km" ).text('');
+  					  $( "#txtkm" ).text('');
+                        //document.getElementById('lineLength').innerHTML = '';
+                        //document.getElementById('polyArea').innerHTML = '';
+                    }
 	});
