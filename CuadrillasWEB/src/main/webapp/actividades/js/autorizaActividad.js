@@ -196,7 +196,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
            });
           };
           
-          $scope.cargarMapa2 =  function initMap() {
+          $scope.cargarMapa2 =  function initMap2() {
             medida2 = {
                 mvcLine: new google.maps.MVCArray(),
                 mvcPolygon: new google.maps.MVCArray(),
@@ -266,11 +266,11 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
         	  		$scope.setMarcadorEdicion2 = function(latLng, direccion) {
 						var geocoder = new google.maps.Geocoder;
 						var img_mark = 'mark.png';
-						var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
-						medida.mvcLine.push(latLng);
-						medida.mvcPolygon.push(latLng);
-						medida.mvcMarkers.push(marcador);
-						var latLngIndex = medida.mvcLine.getLength() - 1;
+						var marcador = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
+						medida2.mvcLine.push(latLng);
+						medida2.mvcPolygon.push(latLng);
+						medida2.mvcMarkers.push(marcador);
+						var latLngIndex = medida2.mvcLine.getLength() - 1;
 						var latlng = {lat: latLng.lat, lng: latLng.lng};
 											if(!direccion){
 												direccion = 'SN';
@@ -303,12 +303,12 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
                     
                     $scope.calculaDistancia2 = function() {
                         var length = 0;
-                        if (medida.mvcPolygon.getLength() > 1) {
-                            length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+                        if (medida2.mvcPolygon.getLength() > 1) {
+                            length = google.maps.geometry.spherical.computeLength(medida2.line.getPath());
                         }
                         var area = 0;
-                        if (medida.mvcPolygon.getLength() > 2) {
-                            area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+                        if (medida2.mvcPolygon.getLength() > 2) {
+                            area = google.maps.geometry.spherical.computeArea(medida2.polygon.getPath());
                         }
                     //    lM = document.forms["mb"].elements["mode"][0].checked;
                         var km = length / 1000;
@@ -359,37 +359,37 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
                     };
                     
                     $scope.mLineaRecta2 = function() {
-                        if (medida.mvcLine.getLength() > 1) {
-                            if (!medida.line) {
-                                medida.line = new google.maps.Polyline({
-                                    map: map,
+                        if (medida2.mvcLine.getLength() > 1) {
+                            if (!medida2.line) {
+                                medida2.line = new google.maps.Polyline({
+                                    map: map2,
                                     clickable: false,
                                     strokeColor: "#ad04ef",
                                     strokeOpacity: 1,
                                     strokeWeight: 3,
-                                    path: medida.mvcLine
+                                    path: medida2.mvcLine
                                 });
                             }
 
-                            if (medida.mvcPolygon.getLength() > 2) {
+                            if (medida2.mvcPolygon.getLength() > 2) {
 
-                                if (medida.polygon != null)
+                                if (medida2.polygon != null)
                                 {
-                                    medida.polygon.setMap(null);
+                                    medida2.polygon.setMap(null);
                                 }
 
 
-                                medida.polygon = new google.maps.Polygon({
+                                medida2.polygon = new google.maps.Polygon({
                                     clickable: false,
-                                    map: map,
+                                    map: map2,
                                     fillOpacity: 0.0,
                                     strokeOpacity: 0,
-                                    paths: medida.mvcPolygon
+                                    paths: medida2.mvcPolygon
                                 });
 
                             }
                         }
-                        if (medida.mvcLine.getLength() > 1) {
+                        if (medida2.mvcLine.getLength() > 1) {
                             $scope.calculaDistancia2();
                         }
                     }
@@ -446,7 +446,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
   													geocoder.geocode({'location': latlng}, function(results, status) {
   		                          if (status == google.maps.GeocoderStatus.OK) {
   		                              map2.setCenter(results[0].geometry.location);
-  																	$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+  																	$scope.setMarcadorEdicion2(results[0].geometry.location, direccion);
   		                          }
   		                      });
   											}, 100);
