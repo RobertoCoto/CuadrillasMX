@@ -8,9 +8,9 @@ public class GeneradorUsuario {
  * @return retorna usuario
  */
 	public String generaUsuario(String nombre, String apellidoPaterno) {
-		String usuario= "";
+		String usuario = "";
 		char pr = nombre.charAt(0);
-		usuario = pr+""+apellidoPaterno;
+		usuario = pr + "" + apellidoPaterno;
 		return usuario.toLowerCase();
 	}
 }
