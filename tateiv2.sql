@@ -41,6 +41,7 @@ DROP TABLE IF EXISTS perfil;
 	    id_perfil INT NOT NULL,
 	    nombre VARCHAR(100) NOT NULL,
 	    descripcion VARCHAR(100) NOT NULL,
+		codigo_puesto  VARCHAR(10) NULL,
 	    estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 	    PRIMARY KEY(id_perfil)
     );

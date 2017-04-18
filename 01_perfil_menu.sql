@@ -6,17 +6,17 @@ DELETE FROM usuario;
 DELETE FROM perfil;
 
 
-INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
-VALUES (1,'Residente','Residente','A');
+INSERT INTO perfil (id_perfil,nombre,descripcion,codigo_puesto,estatus) 
+VALUES (1,'Residente','Residente','RESI','A');
 
-INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
-VALUES (2,'Oficina Central','Oficina Central','A');
+INSERT INTO perfil (id_perfil,nombre,descripcion,codigo_puesto,estatus) 
+VALUES (2,'Oficina Central','Oficina Central','OFCE','A');
 
-INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
-VALUES (3,'Recursos Humanos','Recursos Humanos','A');
+INSERT INTO perfil (id_perfil,nombre,descripcion,codigo_puesto,estatus) 
+VALUES (3,'Recursos Humanos','Recursos Humanos',NULL,'A');
 
-INSERT INTO perfil (id_perfil,nombre,descripcion,estatus) 
-VALUES (10,'Sistemas','Sistemas','A');
+INSERT INTO perfil (id_perfil,nombre,descripcion,codigo_puesto,estatus) 
+VALUES (10,'Sistemas','Sistemas',NULL,'A');
 
 
 INSERT INTO usuario (usuario, id_empleado,id_perfil, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
