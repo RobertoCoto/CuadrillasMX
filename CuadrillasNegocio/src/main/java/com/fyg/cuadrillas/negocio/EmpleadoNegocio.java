@@ -14,7 +14,9 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dao.ParametroDAO;
+import com.fyg.cuadrillas.dao.PerfilDAO;
 import com.fyg.cuadrillas.dao.UsuarioDAO;
+import com.fyg.cuadrillas.dto.PerfilDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
@@ -30,12 +32,6 @@ public class EmpleadoNegocio {
 	/** The LONGITUD_TELEFONO. */
 	private static final  int LONGITUD_TELEFONO = 10;
 	/**
-	 * perfil residente
-	 */
-	private static final int PERF_RESI = 1;
-	/** PERFIL CENTRAL */
-	private static final int PERF_OFCE = 2;
-	/**
 	 * Metodo para dar de alta un empleado
 	 * @param empleado recibe valores de empleado
 	 * @return regresa respuesta de baja
@@ -47,6 +43,7 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		List<PerfilDTO> listaPerfil = null;
 		try {
 			if (empleado.getNoEmpleado() == null || empleado.getNoEmpleado().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El numero de empleado es necesario en el alta del empleado.");
@@ -166,11 +163,15 @@ public class EmpleadoNegocio {
 					 GeneradorUsuario user = new GeneradorUsuario();
 					 String nombreUsuario = user.generaUsuario(empleado.getNombre(), empleado.getApellidoPat());
 					 usuario.setUsuario(nombreUsuario);
-					 Integer idPerfil;
-					 if (temp[i].equals("RESI")) {
-						idPerfil = PERF_RESI;
-					 } else {
-						idPerfil = PERF_OFCE;
+					 PerfilDTO perfilUsuario = new PerfilDTO();
+					 perfilUsuario.setCodigoPuesto(empleado.getCodigoPuesto());
+					 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
+					 Integer idPerfil = null;
+					 for (int k = 0; k < listaPerfil.size(); k++) {
+						idPerfil = listaPerfil.get(k).getIdPerfil();
+						 if (idPerfil <= 0) {
+							 throw new ExcepcionesCuadrillas("no existe el perfil");
+						 }
 					 }
 					 usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
 					 if (usuarioExistente == null) {

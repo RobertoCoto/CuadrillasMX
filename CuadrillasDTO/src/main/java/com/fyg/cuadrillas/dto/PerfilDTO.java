@@ -24,6 +24,10 @@ private String descripcion;
  */
 private char estatus;
 /**
+ * codigo puesto
+ */
+private String codigoPuesto;
+/**
  * @return obtiene el id del perfil
  */
 public Integer getIdPerfil() {
@@ -70,5 +74,17 @@ public char getEstatus() {
  */
 public void setEstatus(char estatus) {
 	this.estatus = estatus;
+}
+/**
+ * @return the codigoPuesto
+ */
+public String getCodigoPuesto() {
+	return codigoPuesto;
+}
+/**
+ * @param codigoPuesto the codigoPuesto to set
+ */
+public void setCodigoPuesto(String codigoPuesto) {
+	this.codigoPuesto = codigoPuesto;
 }
 }
