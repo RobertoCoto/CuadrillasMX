@@ -152,6 +152,8 @@ public class EmpleadoNegocio {
 			EmpleadoDAO dao = new EmpleadoDAO();
 			//Consultamos si ya existe
 			respuesta = dao.registraEmpleado(uid, empleado);
+			
+			//Aqui generamos usuario si el perfil existe en perfil.crea.usuario
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
