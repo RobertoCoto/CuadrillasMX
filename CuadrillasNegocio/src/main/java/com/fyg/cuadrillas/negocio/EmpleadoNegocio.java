@@ -188,7 +188,7 @@ public class EmpleadoNegocio {
 							usuario.setFechaNacimiento(empleado.getFechaNacimiento());
 							//se le envian los datos al DAO
 							UsuarioDAO daoUsuario = new UsuarioDAO();
-							respuesta = daoUsuario.altaUsuario(uid, usuario);
+							daoUsuario.altaUsuario(uid, usuario);
 					 } else {
 						 UsuarioDTO usuarioCaracter = new UsuarioDTO();
 						 GeneradorUsuario usuarioNuevo = new GeneradorUsuario();
@@ -211,7 +211,7 @@ public class EmpleadoNegocio {
 						usuarioCaracter.setFechaNacimiento(empleado.getFechaNacimiento());
 						//se le envian los datos al DAO
 						UsuarioDAO daoUsuario = new UsuarioDAO();
-						respuesta = daoUsuario.altaUsuario(uid, usuarioCaracter);
+						daoUsuario.altaUsuario(uid, usuarioCaracter);
 					 }
 				}
 			}
