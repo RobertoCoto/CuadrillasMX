@@ -106,4 +106,10 @@ AND estatus = 'A'
 	WHERE u.usuario = #{usuario}
 	AND u.contrasena =  #{contrasena}
 </select>
+
+<select id="consultaUsuarioExistente" parameterType="Usuario" resultMap="usuario">
+SELECT usuario FROM usuario 
+WHERE usuario = #{usuario}
+AND estatus = 'A'
+</select>
 </mapper>

@@ -13,4 +13,12 @@ public class GeneradorUsuario {
 		usuario = pr + "" + apellidoPaterno;
 		return usuario.toLowerCase();
 	}
+	
+	public String generaUsuarioDobleCaracter(String nombre, String apellidoPaterno) {
+		String usuario = "";
+		char nombreP = nombre.charAt(0);
+		char nombreS = nombre.charAt(1);
+		usuario = nombreP + "" + nombreS + "" + apellidoPaterno;
+		return usuario.toLowerCase();
+	}
 }

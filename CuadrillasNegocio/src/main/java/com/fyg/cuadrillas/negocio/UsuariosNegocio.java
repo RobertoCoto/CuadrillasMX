@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -48,12 +50,15 @@ public class UsuariosNegocio {
 						 throw new ExcepcionesCuadrillas("no existe el perfil");
 					 }
 				 }
+				 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			     String strFecha = usuario.getFechaNacimiento();
+			     Date fechaDate = formato.parse(strFecha);
 
 				//RFC Calculado
 					String rfcCalculado  = RFCUtil.calcularRFCPersonaFisica(usuario.getNombre(),
 								usuario.getApellidoPat(),
 								usuario.getApellidoMat(),
-								usuario.getFechaNacimiento());
+								fechaDate);
 					//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 					usuario.setRfcCalculado(rfcCalculado);
 				//encriptacion de contraseña

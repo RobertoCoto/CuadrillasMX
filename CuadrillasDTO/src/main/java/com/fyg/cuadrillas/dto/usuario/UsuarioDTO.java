@@ -56,7 +56,7 @@ public class UsuarioDTO extends ObjetoValor {
 	/**
 	 * fecha de nacimiento
 	 */
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	/**
 	 * Contrasena del usuario
 	 */
@@ -304,13 +304,13 @@ public class UsuarioDTO extends ObjetoValor {
 	/**
 	 * @return the fechaNacimiento
 	 */
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 	/**
 	 * @param fechaNacimiento the fechaNacimiento to set
 	 */
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	/**

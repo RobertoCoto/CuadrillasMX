@@ -2,8 +2,6 @@ package com.fyg.cuadrillas.web.usuario;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -63,9 +61,6 @@ public class RegistraUsuario extends HttpServlet {
 			String fechaNac = request.getParameter("fechaNac");
 			Integer idPerfil = Integer.parseInt(request.getParameter("idPerfil"));
 
-			//Conversor de fecha
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
-			Date fechaNacimiento = formato.parse(fechaNac);
 			/* descomentar para proxy FISA
 			System.setProperty("http.proxyHost", "169.169.4.85");
 	        System.setProperty("http.proxyPort", "8080");
@@ -84,7 +79,7 @@ public class RegistraUsuario extends HttpServlet {
 	        usuario.setApellidoMat(apellidoMat);
 	        usuario.setSexo(sexo);
 	        usuario.setRfc(rfc);
-	        usuario.setFechaNacimiento(fechaNacimiento);
+	       usuario.setFechaNacimiento(fechaNac);
 	        usuario.setIdPerfil(idPerfil);
 	        usuario.setIdEmpleado(idEmpleado);
 	        respuesta = negocio.altaUsuario(usuario);

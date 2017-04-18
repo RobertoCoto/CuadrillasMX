@@ -5,27 +5,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
-
-
-
-
-
-
-
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
+import com.fyg.cuadrillas.comun.Encriptacion;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
+import com.fyg.cuadrillas.comun.GeneradorUsuario;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
 import com.fyg.cuadrillas.dao.ParametroDAO;
+import com.fyg.cuadrillas.dao.UsuarioDAO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoDocumentoRespuesta;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaRespuesta;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoRespuesta;
+import com.fyg.cuadrillas.dto.usuario.UsuarioDTO;
 
 public class EmpleadoNegocio {
 
@@ -33,7 +29,12 @@ public class EmpleadoNegocio {
 	private static final  int LONGITUD_RFC = 10;
 	/** The LONGITUD_TELEFONO. */
 	private static final  int LONGITUD_TELEFONO = 10;
-
+	/**
+	 * perfil residente
+	 */
+	private static final int PERF_RESI = 1;
+	/** PERFIL CENTRAL */
+	private static final int PERF_OFCE = 2;
 	/**
 	 * Metodo para dar de alta un empleado
 	 * @param empleado recibe valores de empleado
@@ -46,7 +47,6 @@ public class EmpleadoNegocio {
 		LogHandler.debug(uid, this.getClass(), "registraEmpleado - Datos Entrada: " + empleado);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-
 		try {
 			if (empleado.getNoEmpleado() == null || empleado.getNoEmpleado().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El numero de empleado es necesario en el alta del empleado.");
@@ -152,8 +152,69 @@ public class EmpleadoNegocio {
 			EmpleadoDAO dao = new EmpleadoDAO();
 			//Consultamos si ya existe
 			respuesta = dao.registraEmpleado(uid, empleado);
-			
+
 			//Aqui generamos usuario si el perfil existe en perfil.crea.usuario
+			UsuarioDTO usuarioExistente = new UsuarioDTO();
+			String parametroUsuario = "perfil.crea.usuario";
+			String valorResultado = new ParametroDAO().consultaParametro(uid, parametroUsuario);
+			String delimiter = ";";
+			String[] temp;
+			temp = valorResultado.split(delimiter);
+			for (int i = 0; i < temp.length; i++) {
+				if (temp[i].equals(empleado.getCodigoPuesto())) {
+					UsuarioDTO usuario = new UsuarioDTO();
+					 GeneradorUsuario user = new GeneradorUsuario();
+					 String nombreUsuario = user.generaUsuario(empleado.getNombre(), empleado.getApellidoPat());
+					 usuario.setUsuario(nombreUsuario);
+					 Integer idPerfil;
+					 if (temp[i].equals("RESI")) {
+						idPerfil = PERF_RESI;
+					 } else {
+						idPerfil = PERF_OFCE;
+					 }
+					 usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
+					 if (usuarioExistente == null) {
+						 String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(nombreUsuario);
+							//Se le asigna la contrasena encriptada
+							usuario.setContrasena(encriptaContrasena);
+							usuario.setIdEmpleado(empleado.getIdEmpleado());
+							usuario.setNombre(empleado.getNombre());
+							usuario.setApellidoPat(empleado.getApellidoPat());
+							usuario.setApellidoMat(empleado.getApellidoMat());
+							usuario.setRfc(empleado.getRfc());
+							usuario.setSexo(empleado.getSexo());
+							usuario.setRfcCalculado(rfcCalculado);
+							usuario.setIdPerfil(idPerfil);
+							usuario.setFechaNacimiento(empleado.getFechaNacimiento());
+							//se le envian los datos al DAO
+							UsuarioDAO daoUsuario = new UsuarioDAO();
+							respuesta = daoUsuario.altaUsuario(uid, usuario);
+					 } else {
+						 UsuarioDTO usuarioCaracter = new UsuarioDTO();
+						 GeneradorUsuario usuarioNuevo = new GeneradorUsuario();
+						String usuarioNombre =
+								usuarioNuevo.generaUsuarioDobleCaracter(empleado.getNombre(), empleado.getApellidoPat());
+						usuarioCaracter.setUsuario(usuarioNombre);
+						//encriptacion de contraseña
+						String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuarioNombre);
+						//Se le asigna la contrasena encriptada
+						usuarioCaracter.setContrasena(encriptaContrasena);
+						usuarioCaracter.setRfcCalculado(rfcCalculado);
+						usuarioCaracter.setIdEmpleado(empleado.getIdEmpleado());
+						usuarioCaracter.setNombre(empleado.getNombre());
+						usuarioCaracter.setApellidoPat(empleado.getApellidoPat());
+						usuarioCaracter.setApellidoMat(empleado.getApellidoMat());
+						usuarioCaracter.setRfc(empleado.getRfc());
+						usuarioCaracter.setSexo(empleado.getSexo());
+						usuarioCaracter.setRfcCalculado(rfcCalculado);
+						usuarioCaracter.setIdPerfil(idPerfil);
+						usuarioCaracter.setFechaNacimiento(empleado.getFechaNacimiento());
+						//se le envian los datos al DAO
+						UsuarioDAO daoUsuario = new UsuarioDAO();
+						respuesta = daoUsuario.altaUsuario(uid, usuarioCaracter);
+					 }
+				}
+			}
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);

@@ -4,14 +4,14 @@
 	namespace="com.fyg.cuadrillas.dao.UsuarioTx">
 <!--- INSERTA EN LA TABLA USUARIO-->
 <insert id="insertaUsuario" parameterType="Usuario">
-INSERT INTO usuarios(usuario,id_empleado,nombre,apellido_paterno,apellido_materno,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso,fecha_alta,fecha_ult_mod,estatus)
-VALUES(#{usuario},#{idEmpleado},#{nombre},#{apellidoPat},#{apellidoMat},#{sexo},#{rfc},#{rfcCalculado},#{fechaNacimiento},#{idPerfil},#{contrasena},#{cambioContrasena},now(),now(),now(),#{estatus})
+INSERT INTO usuario(usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso,fecha_alta,fecha_ult_mod,estatus)
+VALUES(#{usuario},#{idEmpleado},#{nombre},#{apellidoPat},#{apellidoMat},#{sexo},#{rfc},#{rfcCalculado},#{fechaNacimiento},#{idPerfil},#{contrasena},'N',now(),now(),now(),'A')
 </insert>
 
 <!--- BAJA EN LA TABLA USUARIO-->
 
 <update id="inactivaUsuario" parameterType="Usuario">
-UPDATE usuarios SET
+UPDATE usuario SET
 estatus = #{estatus},
 fecha_ult_mod = now()
 WHERE usuario = #{usuario}

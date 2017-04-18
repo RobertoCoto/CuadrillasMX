@@ -302,4 +302,35 @@ public class UsuarioDAO {
 			}
 			return loginUsuario;
 		}
+	/**
+	 * Metodo para consultar un usuario existente en la BD.
+	 * @param uid unico de registro
+	 * @param usuario recibe el usuario
+	 * @return regresa el usuario
+	 * @throws Exception excepcion bd.
+	 */
+	public UsuarioDTO consultaUsuarioExistente(String uid, UsuarioDTO usuario) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("consulta correcta.");
+		UsuarioDTO usuarioExistente = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			usuarioExistente = (UsuarioDTO) sessionNTx.selectOne("UsuarioDAO.consultaUsuarioExistente", usuario);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return usuarioExistente;
+	}
 }

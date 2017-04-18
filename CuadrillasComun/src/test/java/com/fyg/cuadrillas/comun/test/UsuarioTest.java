@@ -14,7 +14,7 @@ public class UsuarioTest {
 		try {
 			GeneradorUsuario user = new GeneradorUsuario();
 
-			String usuario = user.generaUsuario("ROBERTO", "COTO");
+			String usuario = user.generaUsuarioDobleCaracter("ROBERTO", "COTO");
 			System.out.println(usuario);
 
 		} catch (Exception ex) {

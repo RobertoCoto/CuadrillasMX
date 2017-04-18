@@ -67,10 +67,10 @@ public class AltaEmpleadoTest {
 		docEmpleado2.setCodigoEmpDoc("CURP");
 		docEmpleado2.setEstatus("NO");
 
-		docEmpleado3.setCodigoEmpDoc("CUVI");
+		docEmpleado3.setCodigoEmpDoc("CDOM");
 		docEmpleado3.setEstatus("NA");
 
-		docEmpleado4.setCodigoEmpDoc("RFC");
+		docEmpleado4.setCodigoEmpDoc("SOEM");
 		docEmpleado4.setEstatus("NA");
 
 		dataDocumentos.add(docEmpleado);
@@ -83,14 +83,20 @@ public class AltaEmpleadoTest {
 		/**
 		 * Valores a enviar
 		 */
-		altaEmpleado.setNoEmpleado("11111");
-		altaEmpleado.setNombre("MARIO IVAN");
+		altaEmpleado.setNoEmpleado("EMP0007");
+		altaEmpleado.setIdCuadrilla(1);
+		altaEmpleado.setNombre("JUAN ALBERTO");
 		altaEmpleado.setApellidoPat("MEJORADA");
-		altaEmpleado.setApellidoMat("HERRERA");
+		altaEmpleado.setApellidoMat("SANCHEZ");
+		altaEmpleado.setCodigoEmpresa("TATE");
 		altaEmpleado.setSexo("M");
 		altaEmpleado.setRfc("MAHJ830101");
 		altaEmpleado.setFechaNacimiento(strFecha);
-		altaEmpleado.setCodigoPuesto("AYGE");
+		altaEmpleado.setNss("22233332");
+		altaEmpleado.setNoCreditoInfonavit("22323244");
+		altaEmpleado.setAltaImss("N");
+		altaEmpleado.setCalificacion(10);
+		altaEmpleado.setCodigoPuesto("OFCE");
 		altaEmpleado.setCodigoVialidad("5MAY");
 		altaEmpleado.setCodigoArea("AYGE");
 		altaEmpleado.setCodigoTalla("CHIC");
@@ -100,8 +106,9 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setObservaciones("CORRECTO");
 		altaEmpleado.setDocumentos(dataDocumentos);
 		//altaEmpleado.setFechaIngreso(new Date(2016,10,10));
-		altaEmpleado.setUsuarioAlta("usuario");
+		altaEmpleado.setUsuarioAlta("SISTEMAS");
 		altaEmpleado.setFrecuenciaPago("S");
+		altaEmpleado.setIdPerfil(1);
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario
@@ -111,10 +118,6 @@ public class AltaEmpleadoTest {
 	@Test
 	public void testRegistraEmpleado() throws Exception {
 		String guid = uid.generateGUID(altaEmpleado);
-		System.setProperty("http.proxyHost", "169.169.4.85");
-        System.setProperty("http.proxyPort", "8080");
-        System.setProperty("https.proxyHost", "169.169.4.85");
-        System.setProperty("https.proxyPort", "8080");
 		try {
 			dataEmpleado.registraEmpleado(altaEmpleado);
 		}
