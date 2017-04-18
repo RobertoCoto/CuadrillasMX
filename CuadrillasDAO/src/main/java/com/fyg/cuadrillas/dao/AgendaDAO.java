@@ -719,21 +719,12 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("No existen actividades diarias registradas.");
 			}
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
-					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
-
-			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
-				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
-				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
-				List<ActividadDiariaDocumentosDTO> documentos =
-					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentos", parametros);
-				actividadDiariasDetalle.setDocumentos(documentos);
-			}
+					sessionNTx.selectList("AgendaDAO.consultaActividadDiariaDetalleBuzon", consultaActividadesDiaria);
 			consultaActividadesDiaria.setActividadDiariaDetalle(actividadDiariaDetalle);
 
 			List<ActividadDiariaCoordenadasDTO> coordenadas =
-					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadas", consultaActividadesDiaria);
+					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadasBuzon", consultaActividadesDiaria);
 			consultaActividadesDiaria.setCoordenadas(coordenadas);
-
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
