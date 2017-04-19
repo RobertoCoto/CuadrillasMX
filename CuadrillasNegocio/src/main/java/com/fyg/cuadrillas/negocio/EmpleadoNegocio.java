@@ -9,7 +9,6 @@ import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.Encriptacion;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
-import com.fyg.cuadrillas.comun.GeneradorUsuario;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.comun.RFCUtil;
 import com.fyg.cuadrillas.dao.EmpleadoDAO;
@@ -36,6 +35,7 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleado
 	 * @return regresa respuesta de baja
 	 */
+	@SuppressWarnings("unused")
 	public EncabezadoRespuesta registraEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -159,61 +159,47 @@ public class EmpleadoNegocio {
 			temp = valorResultado.split(delimiter);
 			for (int i = 0; i < temp.length; i++) {
 				if (temp[i].equals(empleado.getCodigoPuesto())) {
-					UsuarioDTO usuario = new UsuarioDTO();
-					 GeneradorUsuario user = new GeneradorUsuario();
-					 String nombreUsuario = user.generaUsuario(empleado.getNombre(), empleado.getApellidoPat());
-					 usuario.setUsuario(nombreUsuario);
-					 PerfilDTO perfilUsuario = new PerfilDTO();
-					 perfilUsuario.setCodigoPuesto(empleado.getCodigoPuesto());
-					 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
-					 Integer idPerfil = null;
-					 for (int k = 0; k < listaPerfil.size(); k++) {
-						idPerfil = listaPerfil.get(k).getIdPerfil();
-						 if (idPerfil <= 0) {
-							 throw new ExcepcionesCuadrillas("no existe el perfil");
+						UsuarioDTO usuario = new UsuarioDTO();
+						PerfilDTO perfilUsuario = new PerfilDTO();
+						 perfilUsuario.setCodigoPuesto(empleado.getCodigoPuesto());
+						 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
+						 Integer idPerfil = null;
+						 for (int k = 0; k < listaPerfil.size(); k++) {
+							idPerfil = listaPerfil.get(k).getIdPerfil();
+							 if (idPerfil <= 0) {
+								 throw new ExcepcionesCuadrillas("no existe el perfil");
+							 }
 						 }
-					 }
-					 usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
-					 if (usuarioExistente == null) {
-						 String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(nombreUsuario);
-							//Se le asigna la contrasena encriptada
-							usuario.setContrasena(encriptaContrasena);
-							usuario.setIdEmpleado(empleado.getIdEmpleado());
-							usuario.setNombre(empleado.getNombre());
-							usuario.setApellidoPat(empleado.getApellidoPat());
-							usuario.setApellidoMat(empleado.getApellidoMat());
-							usuario.setRfc(empleado.getRfc());
-							usuario.setSexo(empleado.getSexo());
-							usuario.setRfcCalculado(rfcCalculado);
-							usuario.setIdPerfil(idPerfil);
-							usuario.setFechaNacimiento(empleado.getFechaNacimiento());
-							//se le envian los datos al DAO
-							UsuarioDAO daoUsuario = new UsuarioDAO();
-							daoUsuario.altaUsuario(uid, usuario);
-					 } else {
-						 UsuarioDTO usuarioCaracter = new UsuarioDTO();
-						 GeneradorUsuario usuarioNuevo = new GeneradorUsuario();
-						String usuarioNombre =
-								usuarioNuevo.generaUsuarioDobleCaracter(empleado.getNombre(), empleado.getApellidoPat());
-						usuarioCaracter.setUsuario(usuarioNombre);
-						//encriptacion de contraseña
-						String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuarioNombre);
-						//Se le asigna la contrasena encriptada
-						usuarioCaracter.setContrasena(encriptaContrasena);
-						usuarioCaracter.setRfcCalculado(rfcCalculado);
-						usuarioCaracter.setIdEmpleado(empleado.getIdEmpleado());
-						usuarioCaracter.setNombre(empleado.getNombre());
-						usuarioCaracter.setApellidoPat(empleado.getApellidoPat());
-						usuarioCaracter.setApellidoMat(empleado.getApellidoMat());
-						usuarioCaracter.setRfc(empleado.getRfc());
-						usuarioCaracter.setSexo(empleado.getSexo());
-						usuarioCaracter.setRfcCalculado(rfcCalculado);
-						usuarioCaracter.setIdPerfil(idPerfil);
-						usuarioCaracter.setFechaNacimiento(empleado.getFechaNacimiento());
-						//se le envian los datos al DAO
-						UsuarioDAO daoUsuario = new UsuarioDAO();
-						daoUsuario.altaUsuario(uid, usuarioCaracter);
-					 }
+						 Integer tamanoNombre = empleado.getNombre().length();
+						 String palabra = "";
+							for (int j = 0; j < tamanoNombre; j++) {
+								char letraNombre = empleado.getNombre().charAt(j);
+								palabra += letraNombre;
+								String user = "";
+								user = palabra + "" + empleado.getApellidoPat();
+								System.out.println("usuario chingon: " + user);
+								usuario.setUsuario(user.toLowerCase());
+								usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
+								while (usuarioExistente == null) {
+									 String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
+										//Se le asigna la contrasena encriptada
+										usuario.setContrasena(encriptaContrasena);
+										usuario.setIdEmpleado(empleado.getIdEmpleado());
+										usuario.setNombre(empleado.getNombre());
+										usuario.setApellidoPat(empleado.getApellidoPat());
+										usuario.setApellidoMat(empleado.getApellidoMat());
+										usuario.setRfc(empleado.getRfc());
+										usuario.setSexo(empleado.getSexo());
+										usuario.setRfcCalculado(rfcCalculado);
+										usuario.setIdPerfil(idPerfil);
+										usuario.setFechaNacimiento(empleado.getFechaNacimiento());
+										//se le envian los datos al DAO
+										UsuarioDAO daoUsuario = new UsuarioDAO();
+										daoUsuario.altaUsuario(uid, usuario);
+										break;
+								}
+								break;
+							}
 				}
 			}
 		}

@@ -83,7 +83,7 @@ public class AltaEmpleadoTest {
 		/**
 		 * Valores a enviar
 		 */
-		altaEmpleado.setNoEmpleado("EMP0007");
+		altaEmpleado.setNoEmpleado("EMP0008");
 		altaEmpleado.setIdCuadrilla(1);
 		altaEmpleado.setNombre("JUAN ALBERTO");
 		altaEmpleado.setApellidoPat("MEJORADA");
@@ -108,7 +108,6 @@ public class AltaEmpleadoTest {
 		//altaEmpleado.setFechaIngreso(new Date(2016,10,10));
 		altaEmpleado.setUsuarioAlta("SISTEMAS");
 		altaEmpleado.setFrecuenciaPago("S");
-		altaEmpleado.setIdPerfil(1);
 	}
 	/**
 	 * Manda los valores al metodo de alta usuario
