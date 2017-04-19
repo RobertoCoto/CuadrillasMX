@@ -172,6 +172,7 @@ public class EmpleadoNegocio {
 						 Integer tamanoNombre = empleado.getNombre().length();
 						 String palabra = "";
 						 String user = "";
+						 Integer contador = 0;
 							for (int j = 0; j < tamanoNombre; j++) {
 								char letraNombre = empleado.getNombre().charAt(j);
 								palabra += letraNombre;
@@ -180,6 +181,7 @@ public class EmpleadoNegocio {
 								System.out.println("usuario generado: " + user);
 								usuario.setUsuario(user.toLowerCase());
 								usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
+								contador = contador + 1;
 								while (usuarioExistente != null) {
 									break;
 						}
@@ -200,6 +202,9 @@ public class EmpleadoNegocio {
 									UsuarioDAO daoUsuario = new UsuarioDAO();
 									daoUsuario.altaUsuario(uid, usuario);
 									break;
+								}
+								if (contador == tamanoNombre) {
+									throw new ExcepcionesCuadrillas("Favor de contactar al administrador.");
 								}
 							}
 				}

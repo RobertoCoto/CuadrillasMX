@@ -83,9 +83,9 @@ public class AltaEmpleadoTest {
 		/**
 		 * Valores a enviar
 		 */
-		altaEmpleado.setNoEmpleado("EMP0012");
+		altaEmpleado.setNoEmpleado("EMP0013");
 		altaEmpleado.setIdCuadrilla(1);
-		altaEmpleado.setNombre("JORGE LUIS");
+		altaEmpleado.setNombre("JOSE LUIS");
 		altaEmpleado.setApellidoPat("MEJORADA");
 		altaEmpleado.setApellidoMat("SANCHEZ");
 		altaEmpleado.setCodigoEmpresa("TATE");
