@@ -35,7 +35,6 @@ public class EmpleadoNegocio {
 	 * @param empleado recibe valores de empleado
 	 * @return regresa respuesta de baja
 	 */
-	@SuppressWarnings("unused")
 	public EncabezadoRespuesta registraEmpleado(EmpleadoDTO empleado) {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(empleado);
@@ -172,33 +171,36 @@ public class EmpleadoNegocio {
 						 }
 						 Integer tamanoNombre = empleado.getNombre().length();
 						 String palabra = "";
+						 String user = "";
 							for (int j = 0; j < tamanoNombre; j++) {
 								char letraNombre = empleado.getNombre().charAt(j);
 								palabra += letraNombre;
-								String user = "";
+
 								user = palabra + "" + empleado.getApellidoPat();
 								System.out.println("usuario chingon: " + user);
 								usuario.setUsuario(user.toLowerCase());
 								usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
-								while (usuarioExistente == null) {
-									 String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
-										//Se le asigna la contrasena encriptada
-										usuario.setContrasena(encriptaContrasena);
-										usuario.setIdEmpleado(empleado.getIdEmpleado());
-										usuario.setNombre(empleado.getNombre());
-										usuario.setApellidoPat(empleado.getApellidoPat());
-										usuario.setApellidoMat(empleado.getApellidoMat());
-										usuario.setRfc(empleado.getRfc());
-										usuario.setSexo(empleado.getSexo());
-										usuario.setRfcCalculado(rfcCalculado);
-										usuario.setIdPerfil(idPerfil);
-										usuario.setFechaNacimiento(empleado.getFechaNacimiento());
-										//se le envian los datos al DAO
-										UsuarioDAO daoUsuario = new UsuarioDAO();
-										daoUsuario.altaUsuario(uid, usuario);
-										break;
+								while (usuarioExistente != null) {
+									break;
+						}
+								if  ( usuarioExistente == null) {
+									String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
+									//Se le asigna la contrasena encriptada
+									usuario.setContrasena(encriptaContrasena);
+									usuario.setIdEmpleado(empleado.getIdEmpleado());
+									usuario.setNombre(empleado.getNombre());
+									usuario.setApellidoPat(empleado.getApellidoPat());
+									usuario.setApellidoMat(empleado.getApellidoMat());
+									usuario.setRfc(empleado.getRfc());
+									usuario.setSexo(empleado.getSexo());
+									usuario.setRfcCalculado(rfcCalculado);
+									usuario.setIdPerfil(idPerfil);
+									usuario.setFechaNacimiento(empleado.getFechaNacimiento());
+									//se le envian los datos al DAO
+									UsuarioDAO daoUsuario = new UsuarioDAO();
+									daoUsuario.altaUsuario(uid, usuario);
+									break;
 								}
-								break;
 							}
 				}
 			}
