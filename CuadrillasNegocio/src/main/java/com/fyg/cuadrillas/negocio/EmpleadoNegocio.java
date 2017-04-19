@@ -177,7 +177,7 @@ public class EmpleadoNegocio {
 								palabra += letraNombre;
 
 								user = palabra + "" + empleado.getApellidoPat();
-								System.out.println("usuario chingon: " + user);
+								System.out.println("usuario generado: " + user);
 								usuario.setUsuario(user.toLowerCase());
 								usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
 								while (usuarioExistente != null) {
