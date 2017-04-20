@@ -13,7 +13,7 @@ import com.fyg.cuadrillas.negocio.AgendaNegocio;
 import com.google.gson.Gson;
 
 @Path("/consultaActividadDiaria")
-public class ConsultaActividadDiaria {
+public class ConsultaActividadDiariaWS {
 	/**
 	 * Metodo para Consultar Actividades en la BD
 	 * @return regresa la lista de empleados
