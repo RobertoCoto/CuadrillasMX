@@ -719,7 +719,16 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("No existen actividades diarias registradas.");
 			}
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
-					sessionNTx.selectList("AgendaDAO.consultaActividadDiariaDetalleBuzon", consultaActividadesDiaria);
+					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
+
+			for (ActividadDiariaDetalleDTO actividadDiariasDetalle : actividadDiariaDetalle) {
+				HashMap<Object, Object> parametros = new HashMap<Object, Object>();
+				parametros.put("id_actividad_diaria", actividadDiariasDetalle.getIdActividadDiaria());
+				parametros.put("codigo_actividad", actividadDiariasDetalle.getCodigoActividad());
+				List<ActividadDiariaDocumentosDTO> documentos =
+					sessionNTx.selectList("AgendaDAO.consultaActividadDocumentos", parametros);
+				actividadDiariasDetalle.setDocumentos(documentos);
+			}
 			consultaActividadesDiaria.setActividadDiariaDetalle(actividadDiariaDetalle);
 
 			List<ActividadDiariaCoordenadasDTO> coordenadas =
