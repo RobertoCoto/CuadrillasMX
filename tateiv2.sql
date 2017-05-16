@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS catalogo;
 DROP TABLE IF EXISTS tipo_catalogo;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS perfil;
+DROP TABLE IF EXISTS herramienta;
 
 
 
@@ -97,16 +98,17 @@ DROP TABLE IF EXISTS perfil;
 	    KEY(usuario)
     );
 
-	/*
+	
     CREATE TABLE herramienta (
         id_herramienta INT NOT NULL AUTO_INCREMENT,
         nombre VARCHAR(100) NOT NULL,
-        descripcion VARCHAR(100) NOT NULL,
-        fecha_ingresa DATETIME NOT NULL,
-        codigo_tipo_combustible VARCHAR(10) NOT NULL,
+        descripcion VARCHAR(100) NOT NULL,        
+        fecha_ingresa DATETIME NOT NULL,        
         codigo_tipo_articulo VARCHAR(10) NOT NULL,
         codigo_estado VARCHAR(10) NOT NULL,
-        mantenimiento CHAR(1) NOT NULL CHECK(mantenimiento IN('S','N')),
+        marca VARCHAR(100) NOT NULL,
+        modelo VARCHAR(100) NOT NULL,
+ 		no_serie VARCHAR(100) NOT NULL,
         usuario_alta VARCHAR(20) NOT NULL,
         fecha_alta DATETIME NOT NULL,
         usuario_ult_mod VARCHAR(20) NULL,
@@ -114,7 +116,7 @@ DROP TABLE IF EXISTS perfil;
         estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
         PRIMARY KEY(id_herramienta)
     );
-	*/
+	
 
 	/* MENU */
     CREATE TABLE menu (
