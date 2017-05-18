@@ -17,7 +17,7 @@ public class HerramientasDAO {
 	 * @return regresa lista de herramientas
 	 */
 	@SuppressWarnings("unchecked")
-	public List<HerramientaDTO> consultaHerramienta(String uid, HerramientaDTO herramienta)throws Exception {
+	public List<HerramientaDTO> consultaHerramienta(String uid, HerramientaDTO herramienta) throws Exception {
 		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
@@ -28,13 +28,9 @@ public class HerramientasDAO {
 			//Abrimos conexion Transaccional
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
 			//Se hace una consulta a la tabla contacto
-			 if (herramienta.getOrden().equals("A")) {
-				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaAsc", herramienta);
-			 } else {
-				 listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramientaDesc", herramienta);
-			 }
+    		listaHerramientas = sessionNTx.selectList("HerramientasDAO.consultaHerramienta", herramienta);
 			if ( listaHerramientas.size() == 0) {
-				throw new ExcepcionesCuadrillas("No existen herramientas definidas.");
+				throw new ExcepcionesCuadrillas("No existen herramientas.");
 			}
 		}
 		catch (Exception ex) {
@@ -48,38 +44,7 @@ public class HerramientasDAO {
 		}
 		return listaHerramientas;
 	}
-	/**
-	 * Metodo general para consultar
-	 * @param uid unico de registro
-	 * @param herramienta recibe valores de herramientas
-	 * @return regresa una lista de herramientas
-	 */
-	@SuppressWarnings("unchecked")
-	public List<HerramientaDTO> consultaListaHerramienta(String uid, HerramientaDTO herramienta) {
-		SqlSession sessionNTx = null;
-		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		respuesta.setUid(uid);
-		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("Consulta correcta.");
-		List<HerramientaDTO> listaHerramientas = null;
-		try {
-			//Abrimos conexion Transaccional
-			LogHandler.debug(uid, this.getClass(), "Abriendo");
-			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			//Se hace una consulta a la tabla
-			LogHandler.debug(uid, this.getClass(), "Consultando");
-			listaHerramientas = sessionNTx.selectList("HerramientaDAO.consultaListaHerramientas", herramienta);
-		}
-		catch (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
-            respuesta.setEstatus(false);
-    		respuesta.setMensajeFuncional(ex.getMessage());
-		}
-		finally {
-			FabricaConexiones.close(sessionNTx);
-		}
-		return listaHerramientas;
-	}
+
 	/**
 	  * Metodo para registrar herramientas
 	  * @param uid unico de registro
@@ -95,7 +60,7 @@ public class HerramientasDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("HerramientasDAO.registraHerramientas", herramienta);
+		        int registros = sessionTx.update("HerramientasDAO.registraHerramienta", herramienta);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al registrar la herramienta.");
 				}
@@ -131,7 +96,7 @@ public class HerramientasDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("HerramientaDAO.inactivaHerramientas", herramienta);
+		        int registros = sessionTx.update("HerramientaDAO.inactivaHerramienta", herramienta);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("Error al inactivar la herramienta.");
 				}
@@ -167,7 +132,7 @@ public class HerramientasDAO {
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
-		        int registros = sessionTx.update("HerramientaDAO.actualizarHerramienta", herramienta);
+		        int registros = sessionTx.update("HerramientaDAO.actualizaHerramienta", herramienta);
 				if ( registros == 0) {
 					throw new ExcepcionesCuadrillas("No fue posible actualizar la herramienta.");
 				}

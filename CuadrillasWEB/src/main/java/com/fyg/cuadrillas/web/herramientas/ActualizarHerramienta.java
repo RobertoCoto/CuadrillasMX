@@ -50,30 +50,37 @@ public class ActualizarHerramienta extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
+
+			//Se obtiene los valores
+			String idHerramienta = request.getParameter("idHerramienta");
 			String nombre = request.getParameter("nombre");
 			String descripcion = request.getParameter("descripcion");
-			String codigoTipoCombustible = request.getParameter("codigoTipoCombustible");
-			String codigoTipoArticulo = request.getParameter("codigoTipoArticulo");
-			String codigoEstado = request.getParameter("codigoEstado");
-			String usuario = request.getParameter("usuario");
+			String codigoEstatus = request.getParameter("codigoEstatus");
+			String codigoTipo = request.getParameter("codigoTipo");
+			String marca = request.getParameter("marca");
+			String modelo = request.getParameter("modelo");
+			String noSerie = request.getParameter("noSerie");
+			String usuarioAlta = request.getParameter("usuarioAlta");
 
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
+			if (idHerramienta == null || idHerramienta.trim().isEmpty()) {
+				idHerramienta = "0";
+			}
 
 			//crea objeto de negocio
 			final HerramientaNegocio negocio = new HerramientaNegocio();
 
 			//Lista de direcciones
 			HerramientaDTO herramienta = new HerramientaDTO();
+			herramienta.setIdHerramienta(Integer.valueOf(idHerramienta));
 			herramienta.setNombre(nombre);
 			herramienta.setDescripcion(descripcion);
-			herramienta.setCodigoTipoCombustible(codigoTipoCombustible);
-			herramienta.setCodigoTipoArticulo(codigoTipoArticulo);
-			herramienta.setCodigoEstado(codigoEstado);
-			herramienta.setUsuarioUltMod(usuario);
+			herramienta.setCodigoEstatus(codigoEstatus);
+			herramienta.setCodigoTipo(codigoTipo);
+			herramienta.setMarca(marca);
+			herramienta.setModelo(modelo);
+			herramienta.setNoSerie(noSerie);
+			herramienta.setUsuarioAlta(usuarioAlta);
+
 			respuesta = negocio.actualizaHerramienta(herramienta);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

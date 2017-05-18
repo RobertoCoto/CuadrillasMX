@@ -3,39 +3,44 @@
 <mapper
 	namespace="com.fyg.cuadrillas.dao.HerramientaTx">
 
-<!--- ALTA EN LA TABLA HERRAMIENTA-->
-<insert id="registraHerramientas" parameterType="herramienta">
-INSERT INTO herramienta (
-	   id_herramienta,nombre,descripcion,fecha_ingresa,codigo_tipo_combustible,codigo_tipo_articulo,codigo_estado,
-	   mantenimiento,usuario_alta,fecha_alta,estatus)
-VALUES(#{idHerramienta},#{nombre},#{descripcion},now(),#{codigoTipoCombustible},#{codigoTipoArticulo},
-#{codigoEstado},#{mantenimiento},#{usuarioAlta},now(),'A')
-</insert>
+	<!--- ALTA EN LA TABLA HERRAMIENTA-->
+	<insert id="registraHerramienta" parameterType="herramienta">
+		INSERT INTO herramienta
+		(
+		   id_herramienta, nombre, descripcion, fecha_ingresa, codigo_tipo_articulo, codigo_estado,
+		   marca, modelo, no_serie, usuario_alta, fecha_alta, estatus
+		)
+		VALUES
+		(
+			#{idHerramienta}, upper(#{nombre}), upper(#{descripcion}), now(), upper(#{codigoTipo}), upper(#{codigoEstatus}),
+			upper(#{marca}), #{modelo}, #{noSerie} , #{usuarioAlta}, now(), 'A'
+		)
 
-<!--- BAJA EN LA TABLA TIPO CATALOGO-->
-<update id="inactivaHerramientas" parameterType="herramienta">
-UPDATE herramienta SET
-estatus = 'I',
-usuario_ult_mod = #{usuarioUltMod},
-fecha_ult_mod = now()
-WHERE nombre = #{nombre}
-AND codigo_tipo_combustible = #{codigoTipoCombustible}
-AND codigo_tipo_articulo = #{codigoTipoArticulo}
-AND codigo_estado = #{codigoEstado}
-AND estatus = 'A'
+	</insert>
 
-</update>
+	<!--- BAJA EN LA TABLA TIPO CATALOGO-->
+	<update id="inactivaHerramienta" parameterType="herramienta">
+	UPDATE herramienta SET
+		estatus = 'I',
+		usuario_ult_mod = #{usuarioUltMod},
+		fecha_ult_mod = now()
+	WHERE id_herramienta = #{idHerramienta}
+	AND estatus = 'A'
 
-<update id="actualizarHerramienta" parameterType="herramienta">
-UPDATE herramienta
-SET
-descripcion = upper(#{descripcion}),
-fecha_ult_mod = now(),
-usuario_ult_mod = #{usuarioUltMod}
-WHERE nombre = #{nombre}
-AND codigo_tipo_combustible = #{codigoTipoCombustible}
-AND codigo_tipo_articulo = #{codigoTipoArticulo}
-AND codigo_estado = #{codigoEstado}
-AND estatus = 'A'
-</update>
+	</update>
+
+	<update id="actualizaHerramienta" parameterType="herramienta">
+		UPDATE herramienta
+		SET
+			nombre = upper(#{nombre}),
+			descripcion = upper(#{descripcion}),
+			codigo_tipo_articulo =  upper(#{codigoTipo}),
+			codigo_estado =  upper(#{codigoEstatus}),
+			marca = upper(#{marca}),
+			modelo = #{modelo},
+			no_serie =  #{noSerie},
+			fecha_ult_mod = now(),
+			usuario_ult_mod = #{usuarioAlta}
+		WHERE id_herramienta = #{idHerramienta}
+	</update>
 </mapper>

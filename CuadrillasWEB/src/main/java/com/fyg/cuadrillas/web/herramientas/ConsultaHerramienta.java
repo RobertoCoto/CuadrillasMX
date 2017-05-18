@@ -50,23 +50,12 @@ public class ConsultaHerramienta extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			String nombreHerramienta = request.getParameter("nombreHerramienta");
-			String orden = request.getParameter("orden");
-
-			/* QUITAR PARA PROXY FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
-	        */
 
 			//crea objeto de negocio
 			final HerramientaNegocio negocio = new HerramientaNegocio();
 
 			//Lista de direcciones
 			HerramientaDTO herramienta = new HerramientaDTO();
-			herramienta.setNombre(nombreHerramienta);
-			herramienta.setOrden(orden);
 
 			respuesta = negocio.consultarHerramienta(herramienta);
 			if (respuesta.isEstatus()) {

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.fyg.cuadrillas.negocio.HerramientaNegocio;
+import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.GUIDGenerator;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.herramienta.HerramientaDTO;
@@ -30,18 +31,14 @@ public class AltaHerramientaTest {
 	public void setUp() throws Exception {
 		altaHerramientas = new HerramientaNegocio();
 		datoHerramientas = new HerramientaDTO();
-		Date fecha = new Date();
-		datoHerramientas.setNombre("ABUS");
+		datoHerramientas.setNombre("HErramienta para uso rudo");
 		datoHerramientas.setDescripcion("PRUEBA HERRAMIENTA");
-		datoHerramientas.setEstatus("A");
-		datoHerramientas.setMantenimiento("PRUEBA");
-		datoHerramientas.setCodigoTipoCombustible("DISE");
-		datoHerramientas.setCodigoTipoArticulo("NUEV");
-		datoHerramientas.setCodigoEstado("BUEN");
-		datoHerramientas.setFechaAlta(fecha);
-		datoHerramientas.setFechaIngreso(fecha);
-		datoHerramientas.setFechaUltMod(fecha);
-		datoHerramientas.setEstatus("A");
+		datoHerramientas.setCodigoTipo("NUEV");
+		datoHerramientas.setCodigoEstatus("DANA");
+		datoHerramientas.setMarca("Marca Buena");
+		datoHerramientas.setModelo("Sin Modelo");
+		datoHerramientas.setNoSerie("Xd2lidodl-2330-djkdkdk");
+		datoHerramientas.setUsuarioAlta("mario");
 	}
 	/**
 	 * manda datos a los metodos de registrar
@@ -52,7 +49,13 @@ public class AltaHerramientaTest {
 	public void test() throws Exception {
 		String guid = uid.generateGUID(altaHerramientas);
 		try {
-			altaHerramientas.registrarHerramienta(datoHerramientas);
+			EncabezadoRespuesta respuesta = altaHerramientas.registrarHerramienta(datoHerramientas);
+			LogHandler.debug(guid, this.getClass(), "Resultado " + respuesta);
+
+			datoHerramientas.setIdHerramienta(1);
+			datoHerramientas.setNombre("HErramienta para uso rudo actualizado");
+			EncabezadoRespuesta respuesta2 = altaHerramientas.actualizaHerramienta(datoHerramientas);
+			LogHandler.debug(guid, this.getClass(), "Resultado " + respuesta2);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

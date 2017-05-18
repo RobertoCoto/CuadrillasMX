@@ -51,28 +51,17 @@ public class EliminarHerramienta extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			String nombre = request.getParameter("nombre");
-			String codigoTipoCombustible = request.getParameter("codigoTipoCombustible");
-			String codigoTipoArticulo = request.getParameter("codigoTipoArticulo");
-			String codigoEstado = request.getParameter("codigoEstado");
-			String usuario = request.getParameter("usuario");
+			String idHerramienta = request.getParameter("idHerramienta");
 
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
-
+			if (idHerramienta == null || idHerramienta.trim().isEmpty()) {
+				idHerramienta = "0";
+			}
 			//crea objeto de negocio
 			final HerramientaNegocio negocio = new HerramientaNegocio();
 
 			//Lista de direcciones
 			HerramientaDTO herramienta = new HerramientaDTO();
-			herramienta.setNombre(nombre);
-			herramienta.setCodigoTipoCombustible(codigoTipoCombustible);
-			herramienta.setCodigoTipoArticulo(codigoTipoArticulo);
-			herramienta.setCodigoEstado(codigoEstado);
-			herramienta.setUsuarioUltMod(usuario);
+			herramienta.setIdHerramienta(Integer.valueOf(idHerramienta));
 			respuesta = negocio.eliminaHerramientas(herramienta);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);

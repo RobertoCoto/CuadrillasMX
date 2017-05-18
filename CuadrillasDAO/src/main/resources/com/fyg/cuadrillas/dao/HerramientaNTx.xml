@@ -3,45 +3,33 @@
 <mapper	namespace="com.fyg.cuadrillas.dao.HerramientaNTx">
 
 <resultMap type="Herramienta" id="herramienta">
-<result column="nombre" property="nombre"/>
-<result column="descripcion" property="descripcion"/>
-<result column="codigo_tipo_combustible" property="codigoTipoCombustible"/>
-<result column="codigo_tipo_articulo" property="codigoTipoArticulo"/>
-<result column="codigo_estado" property="codigoEstado"/>
-<result column="estatus" property="estatus"/>
+    <result column="id_herramienta" property="idHerramienta"/>
+	<result column="nombre" property="nombre"/>
+	<result column="descripcion" property="descripcion"/>
+	<result column="codigo_tipo_articulo" property="codigoTipo"/>
+	<result column="codigo_estado" property="codigoEstatus"/>
+	<result column="marca" property="marca"/>
+	<result column="modelo" property="modelo"/>
+	<result column="no_serie" property="noSerie"/>
+	<result column="estatus" property="estatus"/>
 </resultMap>
 
 <!-- Consulta Herramientas-->
-<select id="consultaHerramientaAsc" parameterType="Herramienta" resultMap="herramienta">
-SELECT
-     nombre,
-     descripcion,
-     codigo_tipo_combustible,
-     codigo_tipo_articulo,
-     codigo_estado,
-     estatus
-FROM herramienta
-WHERE nombre = #{nombre}
-AND estatus = 'A'
-ORDER BY descripcion ASC
+<select id="consultaHerramienta" parameterType="Herramienta" resultMap="herramienta">
+	SELECT
+		 id_herramienta,
+	     nombre,
+	     descripcion,
+	     codigo_tipo_articulo,
+	     codigo_estado,
+	     marca,
+	     modelo,
+	     no_serie,
+	     estatus
+	FROM herramienta
+	WHERE estatus = 'A'
+	ORDER BY nombre ASC
 </select>
 
-<select id="consultaHerramientaDesc" parameterType="Herramienta" resultMap="herramienta">
-SELECT
-     nombre,
-     descripcion,
-     codigo_tipo_combustible,
-     codigo_tipo_articulo,
-     codigo_estado,
-     estatus
-FROM herramienta
-WHERE nombre = #{nombre}
-AND estatus = 'A'
-ORDER BY descripcion DESC
-</select>
-
-<select id="consultaListaHerramientas" parameterType="Herramienta" resultMap="herramienta">
-SELECT estatus FROM herramienta WHERE id_herramienta = #{idHerramienta}
-</select>
 
 </mapper>

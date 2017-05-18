@@ -28,8 +28,7 @@ public class ConsultaHerramientasTest {
 	public void setUp() throws Exception {
 		consultaHerramienta = new HerramientaNegocio();
 		datoHerramientas = new HerramientaDTO();
-		datoHerramientas.setOrden("D");
-		datoHerramientas.setEstatus("A");
+
 	}
 	/**
 	 * Metodo test que le envia datos
