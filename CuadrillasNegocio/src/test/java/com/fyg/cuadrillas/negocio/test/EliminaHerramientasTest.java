@@ -29,7 +29,7 @@ public class EliminaHerramientasTest {
 	public void setUp() throws Exception {
 		eliminaHerramienta = new HerramientaNegocio();
 		datoHerramientas = new HerramientaDTO();
-		datoHerramientas.setOrden("D");
+		datoHerramientas.setIdHerramienta(1);
 		datoHerramientas.setEstatus("A");
 	}
 	/**
@@ -41,7 +41,7 @@ public class EliminaHerramientasTest {
 	public void testEliminaHerramientas() throws Exception {
 		String guid = uid.generateGUID(eliminaHerramienta);
 		try {
-			eliminaHerramienta.consultarHerramienta(datoHerramientas);
+			eliminaHerramienta.eliminaHerramientas(datoHerramientas);
 		}
 		catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");

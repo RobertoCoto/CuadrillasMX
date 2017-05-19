@@ -5,232 +5,190 @@ import java.util.Date;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
 public class HerramientaDTO extends ObjetoValor {
-/**
- * Serial UID
- */
- private static final long serialVersionUID = -7463726708107865845L;
- /**
-  * Id de herramienta
-  */
- private String idHerramienta;
- /**
-  * Nombre de la herramienta
-  */
- private String nombre;
- /**
-  * Descripcion
-  */
- private String descripcion;
- /**
-  * Fecha de ingresa
-  */
- private Date fechaIngreso;
- /**
-  * Codigo combustible
-  */
- private String codigoTipoCombustible;
- /**
-  * Cdigo Articulo
-  */
- private String codigoTipoArticulo;
- /**
-  * Estado
-  */
- private String codigoEstado;
- /**
-  * Mantenimiento
-  */
- private String mantenimiento;
- /**
-  * Usuario alta
-  */
- private String usuarioAlta;
- /**
-  * Fecha de alta
-  */
- private Date fechaAlta;
- /**
-  * usuario ultima mod
-  */
- private String usuarioUltMod;
- /**
-  * fecha ultima mod
-  */
- private Date fechaUltMod;
- /**
-  * estatus
-  */
- private String estatus;
- /**
-  * Orden
-  */
- private String orden;
- /**
-  * @return obtiene el id de la herramienta
-  */
-public String getIdHerramienta() {
-	return idHerramienta;
-}
-/**
- * @param idHerramienta ingresa el id de la herramienta
- */
-public void setIdHerramienta(String idHerramienta) {
-	this.idHerramienta = idHerramienta;
-}
-/**
- * @return obtiene el nombre
- */
-public String getNombre() {
-	return nombre;
-}
-/**
- * @param nombre ingresa el nombre
- */
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
-/**
- * @return obtiene la descripcion
- */
-public String getDescripcion() {
-	return descripcion;
-}
-/**
- * @param descripcion ingresa la descripcion
- */
-public void setDescripcion(String descripcion) {
-	this.descripcion = descripcion;
-}
-/**
- * @return obtiene la fecha de ingreso
- */
-public Date getFechaIngreso() {
-	return fechaIngreso;
-}
-/**
- * @param fechaIngreso ingresa la fecha de ingreso
- */
-public void setFechaIngreso(Date fechaIngreso) {
-	this.fechaIngreso = fechaIngreso;
-}
-/**
- * @return obtiene el codigo combustible
- */
-public String getCodigoTipoCombustible() {
-	return codigoTipoCombustible;
-}
-/**
- * @param codigoTipoCombustible ingresa el codigo del combustible
- */
-public void setCodigoTipoCombustible(String codigoTipoCombustible) {
-	this.codigoTipoCombustible = codigoTipoCombustible;
-}
-/**
- * @return obtiene el tipo de articulo
- */
-public String getCodigoTipoArticulo() {
-	return codigoTipoArticulo;
-}
-/***
- * @param codigoTipoArticulo ingresa el tipo de articulo
- */
-public void setCodigoTipoArticulo(String codigoTipoArticulo) {
-	this.codigoTipoArticulo = codigoTipoArticulo;
-}
-/**
- * @return obtiene el codigo del estado
- */
-public String getCodigoEstado() {
-	return codigoEstado;
-}
-/**
- * @param codigoEstado ingresa el codigo de estado
- */
-public void setCodigoEstado(String codigoEstado) {
-	this.codigoEstado = codigoEstado;
-}
-/**
- * @return obtiene el mantenimiento
- */
-public String getMantenimiento() {
-	return mantenimiento;
-}
-/**
- * @param mantenimiento ingresa el mantenimiento
- */
-public void setMantenimiento(String mantenimiento) {
-	this.mantenimiento = mantenimiento;
-}
-/**
- * @return regresa la fecha de alta
- */
-public Date getFechaAlta() {
-	return fechaAlta;
-}
-/**
- * @param fechaAlta ingresa la fecha de alta
- */
-public void setFechaAlta(Date fechaAlta) {
-	this.fechaAlta = fechaAlta;
-}
-/**
- * @return regresa la fecha de ult mod.
- */
-public Date getFechaUltMod() {
-	return fechaUltMod;
-}
-/**
- * @param fechaUltMod ingresa la fecha ult. mod
- */
-public void setFechaUltMod(Date fechaUltMod) {
-	this.fechaUltMod = fechaUltMod;
-}
-/**
- * @return obtiene el estatus
- */
-public String getEstatus() {
-	return estatus;
-}
-/**
- * @param estatus ingresa el estatus
- */
-public void setEstatus(String estatus) {
-	this.estatus = estatus;
-}
-/**
- * @return obtiene el orden
- */
-public String getOrden() {
-	return orden;
-}
-/**
- * @param orden ingresa un orden
- */
-public void setOrden(String orden) {
-	this.orden = orden;
-}
-/**
- * @return the usuarioAlta
- */
-public String getUsuarioAlta() {
-	return usuarioAlta;
-}
-/**
- * @param usuarioAlta the usuarioAlta to set
- */
-public void setUsuarioAlta(String usuarioAlta) {
-	this.usuarioAlta = usuarioAlta;
-}
-/**
- * @return the usuarioUltMod
- */
-public String getUsuarioUltMod() {
-	return usuarioUltMod;
-}
-/**
- * @param usuarioUltMod the usuarioUltMod to set
- */
-public void setUsuarioUltMod(String usuarioUltMod) {
-	this.usuarioUltMod = usuarioUltMod;
-}
+	/** Serial UID */
+	 private static final long serialVersionUID = -7463726708107865845L;
+	 /** Id de herramienta */
+	 private Integer idHerramienta;
+	 /** Nombre de la herramienta */
+	 private String nombre;
+	 /** Descripcion */
+	 private String descripcion;
+	 /** codigoEstatus */
+	 private String codigoEstatus;
+	 /** codigoTipo */
+	 private String codigoTipo;
+	 /** marca */
+	 private String marca;
+	 /** modelo */
+	 private String modelo;
+	 /** noSerie */
+	 private String noSerie;
+	 /** Usuario alta */
+	 private String usuarioAlta;
+	 /** Fecha de alta */
+	 private Date fechaAlta;
+	 /** usuario ultima mod */
+	 private String usuarioUltMod;
+	 /** fecha ultima mod  */
+	 private Date fechaUltMod;
+	 /** estatus */
+	 private String estatus;
+
+	/**
+	 * @return the idHerramienta
+	 */
+	public Integer getIdHerramienta() {
+		return idHerramienta;
+	}
+	/**
+	 * @param idHerramienta the idHerramienta to set
+	 */
+	public void setIdHerramienta(Integer idHerramienta) {
+		this.idHerramienta = idHerramienta;
+	}
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	/**
+	 * @return the descripcion
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
+	/**
+	 * @param descripcion the descripcion to set
+	 */
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	/**
+	 * @return the codigoEstatus
+	 */
+	public String getCodigoEstatus() {
+		return codigoEstatus;
+	}
+	/**
+	 * @param codigoEstatus the codigoEstatus to set
+	 */
+	public void setCodigoEstatus(String codigoEstatus) {
+		this.codigoEstatus = codigoEstatus;
+	}
+	/**
+	 * @return the codigoTipo
+	 */
+	public String getCodigoTipo() {
+		return codigoTipo;
+	}
+	/**
+	 * @param codigoTipo the codigoTipo to set
+	 */
+	public void setCodigoTipo(String codigoTipo) {
+		this.codigoTipo = codigoTipo;
+	}
+	/**
+	 * @return the marca
+	 */
+	public String getMarca() {
+		return marca;
+	}
+	/**
+	 * @param marca the marca to set
+	 */
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	/**
+	 * @return the modelo
+	 */
+	public String getModelo() {
+		return modelo;
+	}
+	/**
+	 * @param modelo the modelo to set
+	 */
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+	/**
+	 * @return the noSerie
+	 */
+	public String getNoSerie() {
+		return noSerie;
+	}
+	/**
+	 * @param noSerie the noSerie to set
+	 */
+	public void setNoSerie(String noSerie) {
+		this.noSerie = noSerie;
+	}
+	/**
+	 * @return the usuarioAlta
+	 */
+	public String getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	/**
+	 * @param usuarioAlta the usuarioAlta to set
+	 */
+	public void setUsuarioAlta(String usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+	/**
+	 * @return the fechaAlta
+	 */
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	/**
+	 * @return the usuarioUltMod
+	 */
+	public String getUsuarioUltMod() {
+		return usuarioUltMod;
+	}
+	/**
+	 * @param usuarioUltMod the usuarioUltMod to set
+	 */
+	public void setUsuarioUltMod(String usuarioUltMod) {
+		this.usuarioUltMod = usuarioUltMod;
+	}
+	/**
+	 * @return the fechaUltMod
+	 */
+	public Date getFechaUltMod() {
+		return fechaUltMod;
+	}
+	/**
+	 * @param fechaUltMod the fechaUltMod to set
+	 */
+	public void setFechaUltMod(Date fechaUltMod) {
+		this.fechaUltMod = fechaUltMod;
+	}
+	/**
+	 * @return the estatus
+	 */
+	public String getEstatus() {
+		return estatus;
+	}
+	/**
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
+
 }
