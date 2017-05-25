@@ -12,23 +12,29 @@
 	<result column="modelo" property="modelo"/>
 	<result column="no_serie" property="noSerie"/>
 	<result column="estatus" property="estatus"/>
+	<result column="desCodigoTipo" property="desCodigoTipo"/>
+	<result column="desCodigoEstatus" property="desCodigoEstatus"/>
 </resultMap>
 
 <!-- Consulta Herramientas-->
 <select id="consultaHerramienta" parameterType="Herramienta" resultMap="herramienta">
 	SELECT
-		 id_herramienta,
-	     nombre,
-	     descripcion,
-	     codigo_tipo_articulo,
-	     codigo_estado,
-	     marca,
-	     modelo,
-	     no_serie,
-	     estatus
-	FROM herramienta
-	WHERE estatus = 'A'
-	ORDER BY nombre ASC
+		 h.id_herramienta,
+	     h.nombre,
+	     h.descripcion,
+	     h.codigo_tipo_articulo,
+	     h.codigo_estado,
+	     h.marca,
+	     h.modelo,
+	     h.no_serie,
+	     h.estatus,
+	     cta.descripcion AS desCodigoTipo,
+	     cth.descripcion AS desCodigoEstatus
+	FROM herramienta h
+	LEFT JOIN catalogo cta ON cta.tipo_catalogo = 'TIPO_ARTIC' AND cta.codigo = h.codigo_tipo_articulo
+	LEFT JOIN catalogo cth ON cth.tipo_catalogo = 'ESTA_HERRA' AND cth.codigo = h.codigo_estado
+	WHERE h.estatus = 'A'
+	ORDER BY h.nombre ASC
 </select>
 
 

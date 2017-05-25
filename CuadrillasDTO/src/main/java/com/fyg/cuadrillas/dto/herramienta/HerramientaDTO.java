@@ -33,6 +33,10 @@ public class HerramientaDTO extends ObjetoValor {
 	 private Date fechaUltMod;
 	 /** estatus */
 	 private String estatus;
+	 /** desCodigoEstatus */
+	 private String desCodigoEstatus;
+	 /** desCodigoTipo */
+	 private String desCodigoTipo;
 
 	/**
 	 * @return the idHerramienta
@@ -189,6 +193,30 @@ public class HerramientaDTO extends ObjetoValor {
 	 */
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
+	}
+	/**
+	 * @return the desCodigoEstatus
+	 */
+	public String getDesCodigoEstatus() {
+		return desCodigoEstatus;
+	}
+	/**
+	 * @param desCodigoEstatus the desCodigoEstatus to set
+	 */
+	public void setDesCodigoEstatus(String desCodigoEstatus) {
+		this.desCodigoEstatus = desCodigoEstatus;
+	}
+	/**
+	 * @return the desCodigoTipo
+	 */
+	public String getDesCodigoTipo() {
+		return desCodigoTipo;
+	}
+	/**
+	 * @param desCodigoTipo the desCodigoTipo to set
+	 */
+	public void setDesCodigoTipo(String desCodigoTipo) {
+		this.desCodigoTipo = desCodigoTipo;
 	}
 
 }
