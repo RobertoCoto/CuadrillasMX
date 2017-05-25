@@ -151,8 +151,9 @@ var data;
             })
             .state('52', {
             	url: '/52',
-                templateUrl : 'reporte3 pendiente',
-                controller  : 'pendiente'
+                //templateUrl : 'reporte3 pendiente',
+            	templateUrl : 'templates/admin_herramientas.html',
+                controller  : 'adminherramientasctl'
             })
             .state('otherwise', {redirectTo : '/login'});
  	});
@@ -3132,6 +3133,52 @@ app.directive('fileModel', ['$parse', function ($parse) {
           $( "#km" ).text('');
 		  $( "#txtkm" ).text('');
         };        
-    });
-    
+    });    
     //FIN CONSULTA DE AGENDA
+    
+    //CATALOGO HERRMIENTAS
+    app.controller('adminherramientasctl', function ($scope, $http) {
+
+    	$('#alert').hide();
+        $('#success').hide();
+
+            
+    	// se llena catalogo de actividades
+        $('#msload').modal('show');
+    	$http({
+    		method: 'GET',
+	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+            params: {
+            	'tipoCatalogo': 'ESTA_HERRA'
+            },
+            data: { }
+        }).then(function successfn(result) {
+        	$scope.catEstatus = result.data.catalogo;
+        	//console.info(result.data.catalogo);
+        	$('#msload').modal('hide');
+        }, function errorfn(response) {
+        	console.error(response);
+        	$('#msload').modal('hide');        	
+            alert(response.data.header.mensajeFuncional);            
+        });
+
+    	// se llena catalogo de articulos
+    	$('#msload').modal('show');
+    	$http({
+    		method: 'GET',
+    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+    		params: {
+            	'tipoCatalogo': 'TIPO_ARTIC'
+            },
+            data: { }
+        }).then(function successfn(result) {
+        	$scope.catTipo = result.data.catalogo;
+        	$('#msload').modal('hide');
+        	// console.log(result);
+        }, function errorfn(response) {
+        	console.error(response);
+        	$('#msload').modal('hide');
+            alert(response.data.header.mensajeFuncional);            
+        });    	    
+    });
+    //FIN CATALOGO HERRMIENTAS

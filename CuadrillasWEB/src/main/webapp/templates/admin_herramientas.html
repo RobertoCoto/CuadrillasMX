@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+	<head>
+    	<title> Administración de herramientas </title>
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">    
+  	</head>
+  	<body ng-app="tatei">
+		<div class="container">
+		    <h2>Administración de Herramientas</h2>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form name="formHerramienta" id="formHerramienta">
+		                <div class="row">
+		                	<div id="success" class="alert alert-success alert-dismissable fade in">
+		                    	<a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+		                    	<strong>AVISO!</strong> <span id="msgaviso"></span>
+		                  	</div>
+		                  	<div id="alert" class="alert alert-danger alert-dismissable fade in">
+		                    	<a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+		                    	<strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+		                  	</div>
+		                  
+		                  	<div class="col-sm-5">
+		                  		<div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.txtNumeroHerramienta.$invalid && !formHerramienta.txtNumeroHerramienta.$pristine }">
+		                    		<label for="txtNumeroHerramienta" class="control-label">Número: </label>
+		                        	<input type="text" name="txtNumeroHerramienta" id="txtNumeroherramienta" ng-model="herramientas.idHerramienta"  class="form-control"  ng-disabled="herramienta.editar"  required ng-pattern="/^[0-9]*$/"/>
+		                        	<p ng-show="formHerramienta.txtNumeroHerramienta.$error.pattern && !formHerramienta.txtNumeroHerramienta.$pristine" class="help-block">No se permite letras o caracteres inválidos.</p>
+		                  		</div>
+		                  	</div>
+		                  	<div class="col-sm-5">
+		                    	<div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.txtArticulo.$invalid && !formHerramienta.txtArticulo.$pristine }">
+		                        	<label for="txtArticulo" class="control-label">Articulo: </label>
+		                        	<input type="text" name="txtArticulo" id="txtArticulo" ng-model="herramientas.articulo"  class="form-control"  required ng-pattern="/^[0-9]*$/"/>
+		                       		<p ng-show="formHerramienta.txtArticulo.$error.pattern && !formHerramienta.txtArticulo.$pristine" class="help-block">No se permite letras o caracteres inválidos.</p>
+		                    	</div>
+		                	</div>                    
+		                </div>
+		                <div class="row">
+		                     <div class="col-sm-10">
+		                     	<div class="form-group form-group-sm">
+		                        	<label for="txtDescripcion" class="control-label">Descripción: </label>
+		                        	<textarea name="txtDescripcion" class="form-control" rows="3" id="txtDescripcion" ng-model="herramientas.descripcion"></textarea>
+		                        </div>
+		                    </div>
+		                </div>                
+		                <div class="row">
+		                	<div class="col-sm-5">
+		                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.estatus.$invalid && !formHerramienta.estatus.$pristine }">
+		                        	<label for="cboEstatus" class="control-label">Estatus</label>
+									<select id="cboEstatus" class="form-control" placeholder="Estatus" ng-model="objEstatus" ng-options="catalogo as catalogo.descripcion for catalogo in catEstatus"></select>                        
+		                        	<p ng-show="formHerramienta.estatus.$invalid && !formHerramienta.estatus.$pristine" class="help-block">Es necesario seleccionar un estatus.</p>
+		                        </div>                        
+		                    </div>
+		                    <div class="col-sm-5">
+		                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.tipo.$invalid && !formHerramienta.tipo.$pristine }">
+		                        	<label for="cboTipo" class="control-label">Tipo</label>
+									<select id="cboTipo" class="form-control" placeholder="Tipo" ng-model="objTipo" ng-options="catalogo as catalogo.descripcion for catalogo in catTipo"></select>                        
+		                        	<p ng-show="formHerramienta.tipo.$invalid && !formHerramienta.tipo.$pristine" class="help-block">Es necesario seleccionar un tipo.</p>
+		                        </div>                    
+		                    </div>
+		                </div>
+		                <div class="row">
+		                	<div class="col-sm-5">
+		                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.marca.$invalid && !formHerramienta.marca.$pristine }">
+		                        	<label for="txtMarca" class="control-label">Marca</label>
+									<input type="text" name="txtMarca" id="txtMarca" ng-model="herramientas.marca"  class="form-control"/>
+		                        </div>                        
+		                    </div>
+		                    <div class="col-sm-5">
+		                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.modelo.$invalid && !formHerramienta.modelo.$pristine }">
+		                        	<label for="txtModelo" class="control-label">Modelo</label>
+									<input type="text" name="txtModelo" id="txtModelo" ng-model="herramientas.modelo"  class="form-control"/>
+		                        </div>                    
+		                    </div>
+		                </div>
+		                <div class="row">
+		                	<div class="col-sm-5">
+		                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formHerramienta.serie.$invalid && !formHerramienta.serie.$pristine }">
+		                        	<label for="txtSerie" class="control-label">Serie</label>
+									<input type="text" name="txtSerie" id="txtSerie" ng-model="herramientas.serie"  class="form-control"/>
+		                        </div>                        
+		                    </div>
+		                </div>
+		
+		                <div class="row">
+		                	<div class="col-sm-12">
+		                		<div class="table-responsive">
+		                			<table class="table table-bordered">
+		                				<tr class="success">
+		                				<td><b>Número</b></td>
+		                				<td><b>Articulo</b></td>
+		                				<td><b>Estatus</b></td>
+		                				<td><b>No. Serie</b></td>
+		                				<td><b>Marca</b></td>
+		                				<td><b>Modelo</b></td>
+		                				<td colspan="2"><b>Operaciones</b></td>
+		                				</tr>
+		
+		                				<tr ng-repeat="datosHerramienta in resultadoHerramienta">
+		                					<input type="hidden" id="idData" value={{datosHerramienta.idHerramienta}}>
+		                					<td>{{datosHerramienta.idHerramienta}}</td>
+		                					<td>{{datosHerramienta.articulo}}</td>
+		                					<td>{{datosHerramienta.estatus}}</td>
+		                					<td>{{datosHerramienta.serie}}</td>
+		                					<td>{{datosHerramienta.marca}}</td>
+		                					<td>{{datosHerramienta.modelo}}</td>
+		                					<!--  <td data-ng-if="datosCuadrilla.estatus === 'I'">INACTIVO</td>
+		                					<td data-ng-if="datosCuadrilla.estatus === 'A'">ACTIVO</td>-->
+		                					<td><button class="btn botonEditar" ng-click="editarHerramienta(datosHerramienta)">Editar</button></td>
+		                					<td><button class="btn botonBaja" ng-click="bajaHerramienta(datosHerramienta)" >Baja</button></td>
+		                				</tr>
+		                			</table>
+		                		</div>
+		                	</div>
+		                </div>
+		
+		               <div class="btn-group" >
+					     <input type="button" class="btn botonLimpiar" ng-click="reset(form)" value="Limpiar">
+					   </div>
+					   
+					   <div class="btn-group" >
+					   	<input class="btn botonGuardar"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(herramientas)" id="editar" ng-show="!herramienta.actualizar" ng-disabled="formHerramienta.$invalid">
+						<input class="btn botonGuardar"  type="submit" value="Guardar" data-ng-click="actualizar(herramientas)" id="guardarDato" ng-show="herramienta.actualizar">
+					   </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
