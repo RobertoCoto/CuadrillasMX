@@ -116,6 +116,7 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,31,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,32,3,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,33,4,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,34,5,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,35,6,'A');
 
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,40,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,41,2,'A');
