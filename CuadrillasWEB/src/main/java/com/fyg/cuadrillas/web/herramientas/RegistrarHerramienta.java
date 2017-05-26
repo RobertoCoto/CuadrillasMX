@@ -73,6 +73,7 @@ public class RegistrarHerramienta extends HttpServlet {
 			herramienta.setNoSerie(noSerie);
 			herramienta.setUsuarioAlta(usuarioAlta);
 			respuesta = negocio.registrarHerramienta(herramienta);
+			LogHandler.info("", this.getClass(), "" + respuesta);
 			if (respuesta.isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {

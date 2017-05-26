@@ -75,6 +75,10 @@ VALUES  (33, 3,'Consulta Agenda','Consulta Agenda','CuadrillasWEB/','A');
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (34, 3,'Toma de Asistencia','Toma de Asistencia','CuadrillasWEB/asistencia/index.html','A');
 
+INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
+VALUES  (35, 3,'ABC Herramientas','ABC Herramientas','CuadrillasWEB/herramientas/index.html','A');
+
+
 /*Buzones*/
 INSERT INTO menu (id_menu,id_padre,menu,descripcion,url,estatus)
 VALUES  (40, 4,'Buzon Oficina Central','Buzon Oficina Central','CuadrillasWEB/','A');
