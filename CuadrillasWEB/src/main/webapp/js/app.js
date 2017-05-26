@@ -61,6 +61,10 @@ var data;
                 templateUrl : 'templates/menu.html',
                 controller  : 'validaUsuario'
             })
+            .when('/35', {
+                templateUrl : 'templates/menu.html',
+                controller  : 'validaUsuario'
+            })            
             .when('/40', {
                 templateUrl : 'templates/menu.html',
                 controller  : 'validaUsuario'
@@ -129,6 +133,11 @@ var data;
                 templateUrl : 'templates/tomaAsistencia.html',
                 controller  : 'entradaAsistencia'
             })
+            .state('35', {
+            	url: '/35',
+            	templateUrl : 'templates/admin_herramientas.html',
+                controller  : 'adminherramientasctl'
+            })            
             .state('40', {
             	url: '/40',
                 templateUrl : 'templates/buzonCentral.html',
@@ -151,9 +160,7 @@ var data;
             })
             .state('52', {
             	url: '/52',
-                //templateUrl : 'reporte3 pendiente',
-            	templateUrl : 'templates/admin_herramientas.html',
-                controller  : 'adminherramientasctl'
+                templateUrl : 'reporte3 pendiente',
             })
             .state('otherwise', {redirectTo : '/login'});
  	});
@@ -3135,50 +3142,329 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };        
     });    
     //FIN CONSULTA DE AGENDA
-    
+		
     //CATALOGO HERRMIENTAS
     app.controller('adminherramientasctl', function ($scope, $http) {
+    	
+		contenido_textarea = "" 
+		num_caracteres_permitidos = 99 
+		
+		$scope.validaLongitud= function(){ 
+			num_caracteres = $('#txtDescripcion').val().length; 
+		
+		   if (num_caracteres > num_caracteres_permitidos){ 
+			   var cadena = $('#txtDescripcion').val();
+			   cadena = cadena.substring(0, num_caracteres_permitidos);
+			   $('#txtDescripcion').val(cadena);
+		   } 	 
+		}
+    
 
-    	$('#alert').hide();
-        $('#success').hide();
+        //ocultar notificaciones
+		$scope.hideAlerts = function() {
+			$('#alert').hide();
+			$('#success').hide();
+		};
+		
+		//llamado a la funcion que oculta alerts
+		$scope.hideAlerts();
+                       
+		$scope.consultaHerramientas = function() {
+	
+	    	// se llena catalogo de estatus de herramienta
+	        $('#msload').modal('show');
+	    	$http({
+	    		method: 'GET',
+		        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+	            params: {
+	            	'tipoCatalogo': 'ESTA_HERRA'
+	            },
+	            data: { }
+	        }).then(function successfn(result) {
+	        	$scope.catEstatus = result.data.catalogo;
+	        	//console.info(result.data.catalogo);
+	        	$('#msload').modal('hide');
+	        }, function errorfn(response) {
+	        	//console.error(response);
+	        	$('#msload').modal('hide');        	
+	            alert(response.data.header.mensajeFuncional);            
+	        });
 
-            
-    	// se llena catalogo de actividades
-        $('#msload').modal('show');
-    	$http({
-    		method: 'GET',
-	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
-            params: {
-            	'tipoCatalogo': 'ESTA_HERRA'
-            },
-            data: { }
-        }).then(function successfn(result) {
-        	$scope.catEstatus = result.data.catalogo;
-        	//console.info(result.data.catalogo);
-        	$('#msload').modal('hide');
-        }, function errorfn(response) {
-        	console.error(response);
-        	$('#msload').modal('hide');        	
-            alert(response.data.header.mensajeFuncional);            
-        });
+	    	// se llena catalogo de tipo de herramienta
+	    	$('#msload').modal('show');
+	    	$http({
+	    		method: 'GET',
+	    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+	    		params: {
+	            	'tipoCatalogo': 'TIPO_ARTIC'
+	            },
+	            data: { }
+	        }).then(function successfn(result) {
+	        	$scope.catTipo = result.data.catalogo;
+	        	$('#msload').modal('hide');
+	        	// console.log(result);
+	        }, function errorfn(response) {
+	        	//console.error(response);
+	        	$('#msload').modal('hide');
+	            alert(response.data.header.mensajeFuncional);            
+	        });			
 
-    	// se llena catalogo de articulos
-    	$('#msload').modal('show');
-    	$http({
-    		method: 'GET',
-    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
-    		params: {
-            	'tipoCatalogo': 'TIPO_ARTIC'
-            },
-            data: { }
-        }).then(function successfn(result) {
-        	$scope.catTipo = result.data.catalogo;
-        	$('#msload').modal('hide');
-        	// console.log(result);
-        }, function errorfn(response) {
-        	console.error(response);
-        	$('#msload').modal('hide');
-            alert(response.data.header.mensajeFuncional);            
-        });    	    
+	    	$('#msload').modal('show');
+	    	$http({
+	    		method: 'GET',
+	    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaHerramienta',
+	    		data: { }
+	    	}).then(function mySucces(result) {
+				$('#msload').modal('hide');				
+				//$scope.hideAlerts(); //ocultar notificaciones
+				$scope.resultadoHerramienta = result.data.herramienta;
+				//console.log(result);
+	    	}, function myError(response) {
+				$('#msload').modal('hide');
+				//console.error(response);
+				//$scope.resultadoHerramienta = response.data.herramienta;
+				$('#alert').show();
+				$('#msgerror').text(response.data.header.mensajeFuncional)
+	    	});
+		};
+		
+		//llamado a la función cuando se carga la pantalla
+		$scope.consultaHerramientas();
+		
+		//función para limpiar los campos
+    	$scope.reset = function(form) {
+				/*$('#txtNumeroHerramienta').val("");
+				$('#txtArticulo').val("");
+				$('#txtDescripcion').val("");
+				$('#txtMarca').val("");				
+				$('#txtModelo').val("");
+				$('#txtSerie').val("");*/
+				$scope.herramientas={};
+				$scope.formHerramienta.$setPristine();
+		};    				
+		
+		//alta de cuadrilla
+		$scope.registrar = function(herramientas) {			
+			var idHerramienta = herramientas.idHerramienta;
+			var herramienta = herramientas.nombre;
+			var descripcion = herramientas.descripcion;
+			var estatus = herramientas.codigoEstatus;
+			var tipo = herramientas.codigoTipo;
+			var marca =	herramientas.marca;			
+			var modelo = herramientas.modelo;
+			var serie = herramientas.noSerie;
+			
+			//validar información
+			//console.info("registrar");
+			
+			if ($scope.validaCampos(herramientas) == true)
+			{
+				return false;
+			}			 
+			
+			if ($('#txtNumeroHerramienta').val() == "")
+			{
+				if ($scope.formHerramienta.$valid) {
+					var confirmar = confirm("¿Esta seguro de registrar la herramienta?");
+					if (!confirmar)
+					{
+						$('#alert').show();
+						$('#msgerror').text('Se ha cancelado la operacion.');
+						$scope.formHerramienta.$setPristine();
+						return false;
+					}else  {
+					 $('#msload').modal('show');
+					 $('#alert').hide();
+					}
+			
+					$http({
+						method: 'GET',
+						url: 'http://localhost:8080/CuadrillasWEB/RegistrarHerramienta',
+						params: {
+							"nombre" 		: herramienta,
+							"descripcion" 	: descripcion,
+							"codigoEstatus"	: estatus,
+							"codigoTipo" 	: tipo,
+							"marca" 		: marca,
+							"modelo"		: modelo,
+							"noSerie" 		: serie, 
+							"usuarioAlta" 	: data.data.usuario.usuario			
+						}
+					}).then(function mySucces(response) {
+						$scope.formHerramienta.$setPristine();
+						//console.info(response);
+						$('#success').show();
+						$('#msgaviso').text(response.data.mensajeFuncional);
+						$scope.consultaHerramientas();
+						$('#msload').modal('hide');
+					}, function myError(response) {
+						$('#msload').modal('hide');
+						console.error(response);
+						$('#alert').show();
+						$('#msgerror').text(response.data.mensajeFuncional);
+						$scope.formHerramienta.$setPristine();
+					});
+				} //if de pantalla valida
+			} //if de registrar
+			else
+			{
+				//Actualiza la cuadrilla				
+				var confirmar = confirm("¿Esta seguro de actualizar la herramienta?");
+		    	 if (!confirmar)
+		    	 {
+		    		 $('#alert').show();
+		    		 $('#msgerror').text('Se ha cancelado la operacion.');
+		    		 $scope.formHerramienta.$setPristine();
+		    		 return false;
+		    	 } 
+		    	 else 
+		    	 {
+		    		 $('#msload').modal('show');
+		    		 $('#alert').hide();
+		    	 }
+		    	 
+		    	 $http({
+		              method: 'GET',
+		              url: 'http://localhost:8080/CuadrillasWEB/ActualizarHerramienta',
+		              params: 
+		              {
+		            	"idHerramienta"	: idHerramienta,
+		    		 	"nombre" 		: herramienta,
+						"descripcion" 	: descripcion,
+						"codigoEstatus"	: estatus,
+						"codigoTipo" 	: tipo,
+						"marca" 		: marca,
+						"modelo"		: modelo,
+						"noSerie" 		: serie, 
+						"usuarioAlta" 	: data.data.usuario.usuario		            	  
+		              }
+		    	 }).then(function mySucces(response) 
+		    	 {
+		    		 //$scope.consultaCuadrilla();
+				    console.log(response);
+				    $scope.consultaHerramientas();
+					$('#msload').modal('hide');
+					$scope.formHerramienta.$setPristine();
+					$scope.reset();
+					$('#success').show();
+				    $('#msgaviso').text(response.data.mensajeFuncional);
+				 }, function myError(response) 
+				 {
+					 $('#msload').modal('hide');
+					 $('#alert').show();
+					 $('#msgerror').text(response.data.mensajeFuncional);
+					 $scope.formHerramienta.$setPristine();
+					 console.error(response);
+				 });				
+			} //if de actualizar
+    	};
+    				
+		//baja
+		$scope.bajaHerramienta = function(datosHerramienta) {
+			var confirmar = confirm("¿Esta seguro de dar de baja la herramienta? ");
+
+    		if (!confirmar)
+    		{
+    			//alert('se ha cancelado la operacion.');
+				$('#alert').show();
+				$('#msgerror').text('Se ha cancelado la operacion.');
+				return false;
+    		}else  {
+    			$('#msload').modal('show');
+				$('#alert').hide();
+			}
+
+    		
+    		$http({
+    			method: 'GET',
+    			url: 'http://localhost:8080/CuadrillasWEB/EliminarHerramienta',
+    			params: {
+    			"idHerramienta" : datosHerramienta.idHerramienta,
+    			"usuario" : data.data.usuario.usuario
+    			}
+		    }).then(function mySucces(response) {
+				$('#success').show();
+				$('#msgaviso').text(response.data.mensajeFuncional);
+				$scope.consultaHerramientas();
+				$('#msload').modal('hide');
+		    	 console.info(response);
+		    }, function myError(response) {
+		    	$('#msload').modal('hide');
+		    	 console.error(response);
+				$('#alert').show();
+				$('#msgerror').text(response.data.mensajeFuncional);
+		    });
+    	};			
+
+		//Edita la herramienta
+    	$scope.editarHerramienta = function(datosHerramienta) {
+    		//console.log(datosHerramienta);
+    		$scope.herramientas={};
+			$scope.herramientas = datosHerramienta;
+			
+			$('#txtNumeroHerramienta').val(datosHerramienta.idHerramienta);
+			//$('#nombre').val(datosCuadrilla.nombreCuadrilla);
+			//$('#calificacion').val(datosCuadrilla.calificacion);
+	    };
+	    
+	    //funcion para validar que se hayan llenado todos los campos
+	    $scope.validaCampos= function(herramientas)
+	    {
+	    	var error = false;
+	    	var cadena = "Favor de verificar: ";
+	    	
+			if (herramientas.nombre == "")
+			{
+				cadena = "El nombre.";
+				error=true;
+			}
+			
+			if (herramientas.descripcion == "" || herramientas.descripcion == undefined ||herramientas.descripcion == 'undefined')
+			{
+				cadena = "La descripción.";
+				error=true;
+			}			
+			
+			if ($('#txtDescripcion').val().length < 50)
+			{
+				cadena = "La descripción debe contener al menos 50 caracteres." ;
+				error=true;
+			}			
+			
+			if (herramientas.codigoEstatus == "" || herramientas.codigoEstatus == undefined ||herramientas.codigoEstatus == 'undefined')
+			{
+				cadena = "El estatus." ;
+				error=true;
+			}			
+			
+			if (herramientas.codigoTipo == "" || herramientas.codigoTipo == undefined ||herramientas.codigoTipo == 'undefined')
+			{
+				cadena = "El tipo.";
+				error=true;
+			}
+			
+			if (herramientas.marca == "" || herramientas.marca == undefined ||herramientas.marca == 'undefined')
+			{
+				cadena = "La marca.";
+				error=true;
+			}
+			
+			if (herramientas.modelo == "" || herramientas.modelo == undefined ||herramientas.modelo == 'undefined')
+			{
+				cadena = "El modelo.";
+				error=true;
+			}
+			
+			if (herramientas.noSerie == "" || herramientas.noSerie == undefined ||herramientas.noSerie == 'undefined')
+			{
+				cadena = "El número de serie." ;
+				error=true;
+			}	
+								
+			$('#alert').show();
+			$('#msgerror').text(cadena);
+			return error;
+	    }
+	    
     });
     //FIN CATALOGO HERRMIENTAS
