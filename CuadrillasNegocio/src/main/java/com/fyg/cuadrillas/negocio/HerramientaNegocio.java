@@ -17,7 +17,7 @@ public class HerramientaNegocio {
 	private static final int LONGITUD_CODIGO_TIPO_ARTICULO = 4;
 	/** LA LONGITUD DEL CODIGO ESTADO*/
 	/** The LONGITUD_DESCRIPCION_HERRAMIENTA. */
-	private static final  int LONGITUD_DESCRIPCION_HERRAMIENTA = 50;
+	private static final  int LONGITUD_DESCRIPCION_HERRAMIENTA = 100;
 
 	/**
 	 * Metodo para consultar herramientas
@@ -94,16 +94,16 @@ public class HerramientaNegocio {
 					throw new ExcepcionesCuadrillas("El usuario es necesario para la peticion.");
 				}
 		        if (herramienta.getDescripcion().length() > LONGITUD_DESCRIPCION_HERRAMIENTA) {
-		        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser maximo de "
+		        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser mayor de "
 							+ LONGITUD_DESCRIPCION_HERRAMIENTA + " caracteres.");
 		        }
-		        if (herramienta.getCodigoEstatus().length() > LONGITUD_CODIGO_ESTATUS)  {
+		        if (herramienta.getCodigoEstatus().length() < LONGITUD_CODIGO_ESTATUS)  {
 		        	throw new ExcepcionesCuadrillas("El codigo del estatus es incorrecto.");
 		        }
 		        if (herramienta.getCodigoEstatus().contains(" ")) {
 		        	throw new ExcepcionesCuadrillas("El codigo del estatus NO puede tener espacios.");
 		        }
-		        if (herramienta.getCodigoTipo().length() > LONGITUD_CODIGO_TIPO_ARTICULO) {
+		        if (herramienta.getCodigoTipo().length() < LONGITUD_CODIGO_TIPO_ARTICULO) {
 		        	throw new ExcepcionesCuadrillas("El codigo del tipo articulo es incorrecto.");
 		        }
 		        if (herramienta.getCodigoTipo().contains(" ")) {
@@ -212,16 +212,16 @@ public class HerramientaNegocio {
 					throw new ExcepcionesCuadrillas("El usuario es necesario para la peticion.");
 				}
 		        if (herramienta.getDescripcion().length() > LONGITUD_DESCRIPCION_HERRAMIENTA) {
-		        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser maximo de "
+		        	throw new ExcepcionesCuadrillas("La descripcion de la herramienta NO puede ser mayor de "
 							+ LONGITUD_DESCRIPCION_HERRAMIENTA + " caracteres.");
 		        }
-		        if (herramienta.getCodigoEstatus().length() > LONGITUD_CODIGO_ESTATUS)  {
+		        if (herramienta.getCodigoEstatus().length() < LONGITUD_CODIGO_ESTATUS)  {
 		        	throw new ExcepcionesCuadrillas("El codigo del estatus es incorrecto.");
 		        }
 		        if (herramienta.getCodigoEstatus().contains(" ")) {
 		        	throw new ExcepcionesCuadrillas("El codigo del estatus NO puede tener espacios.");
 		        }
-		        if (herramienta.getCodigoTipo().length() > LONGITUD_CODIGO_TIPO_ARTICULO) {
+		        if (herramienta.getCodigoTipo().length() < LONGITUD_CODIGO_TIPO_ARTICULO) {
 		        	throw new ExcepcionesCuadrillas("El codigo del tipo articulo es incorrecto.");
 		        }
 		        if (herramienta.getCodigoTipo().contains(" ")) {
