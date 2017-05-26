@@ -46,10 +46,10 @@
   	<servlet-class>com.fyg.cuadrillas.web.catalogos.ActualizarCatalogo</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>RegistrarHerramientas</servlet-name>
-  	<display-name>RegistrarHerramientas</display-name>
+  	<servlet-name>RegistrarHerramienta</servlet-name>
+  	<display-name>RegistrarHerramienta</display-name>
   	<description></description>
-  	<servlet-class>com.fyg.cuadrillas.web.herramientas.RegistrarHerramientas</servlet-class>
+  	<servlet-class>com.fyg.cuadrillas.web.herramientas.RegistrarHerramienta</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>EliminarHerramienta</servlet-name>
@@ -458,8 +458,8 @@
 		<url-pattern>/ActualizarCatalogo</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>RegistrarHerramientas</servlet-name>
-		<url-pattern>/RegistrarHerramientas</url-pattern>
+		<servlet-name>RegistrarHerramienta</servlet-name>
+		<url-pattern>/RegistrarHerramienta</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>EliminarHerramienta</servlet-name>
