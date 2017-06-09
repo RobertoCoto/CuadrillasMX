@@ -7,7 +7,7 @@ app.controller('adminCuad', function ($scope, $http) {
 					$('#msload').modal('show');
 					$http({
 			              method: 'GET',
-			              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+			              url: '/CuadrillasWEB/ConsultaCatalogo',
 			              params : {
 					 		"tipoCatalogo": 'VIALIDAD'
 					 },
@@ -27,7 +27,7 @@ app.controller('adminCuad', function ($scope, $http) {
 					
 			    $http({
 	              method: 'GET',
-	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+	              url: '/CuadrillasWEB/ConsultaCuadrilla',
 	              data: { }
 			    }).then(function mySucces(result) {
 						$('#msload').modal('hide');
@@ -69,7 +69,7 @@ app.controller('adminCuad', function ($scope, $http) {
 					$scope.vialidad = $('#idVialidad').val();
 					$http({
 					     method: 'GET',
-					     url: 'http://localhost:8080/CuadrillasWEB/AltaCuadrilla',
+					     url: '/CuadrillasWEB/AltaCuadrilla',
 					     params: {
 						 "idCuadrilla" : cuadrillas.idCuadrilla,
 						 "nombreCuadrilla" : cuadrillas.nombreCuadrilla,
@@ -105,7 +105,7 @@ app.controller('adminCuad', function ($scope, $http) {
 					$('#colab').show();
 		    	 $http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaColaborador',
+		              url: '/CuadrillasWEB/ConsultaColaborador',
 		              params : {
 				 		"idCuadrilla": datosCuadrilla.idCuadrilla
 				 },
@@ -140,7 +140,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    	$scope.vialidad = $('#idVialidad').val();
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ModificaCuadrilla',
+		              url: '/CuadrillasWEB/ModificaCuadrilla',
 		              params: {
 		    		 "idCuadrilla" : $('#numeroCuadrilla').val(),
 		    		 "nombreCuadrilla" : $('#nombre').val(),
@@ -197,7 +197,7 @@ app.controller('adminCuad', function ($scope, $http) {
 		    		$scope.CuadrillaData = datosCuadrilla.idCuadrilla;
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/BajaCuadrilla',
+		              url: '/CuadrillasWEB/BajaCuadrilla',
 		              params: {
 		    		 "idCuadrilla" : $scope.CuadrillaData,
 		              "usuario" : data.data.usuario.usuario

@@ -6,7 +6,7 @@ app.controller('altaImss', function ($scope, $http, $window) {
     //Consulta el empleado solicitado por id
  $http({
         method: 'GET',
-        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+        url: '/CuadrillasWEB/ConsultaEmpleado',
         params: {
 	 		"idEmpleado" : $scope.imss
 	         },
@@ -30,7 +30,7 @@ app.controller('altaImss', function ($scope, $http, $window) {
  				} 	
  		$http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWEB/NotificaImss',
+            url: '/CuadrillasWEB/NotificaImss',
             params: {
 		 		"idEmpleado" : $scope.imss,
 		 		"usuario": $scope.usuario

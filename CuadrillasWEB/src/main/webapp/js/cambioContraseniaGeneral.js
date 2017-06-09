@@ -8,7 +8,7 @@ app.controller('adminDatos', function ($scope, $http) {
 				$('#msload').modal('show');
 				$http({		
 				method: 'GET',
-				url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralUsuario',
+				url: '/CuadrillasWEB/ConsultaGeneralUsuario',
 				data: { }
 				}).then(function (result) {
 					$('#msload').modal('hide');
@@ -43,7 +43,7 @@ app.controller('adminDatos', function ($scope, $http) {
 	    				}
 		    		$http({
 			              method: 'GET',
-			              url: 'http://localhost:8080/CuadrillasWEB/RecuperaContrasena',
+			              url: '/CuadrillasWEB/RecuperaContrasena',
 			              params: {
 					 		"contrasenaNueva": user.contraNueva,
 					 		"repiteContrasena": user.repetirContranueva,

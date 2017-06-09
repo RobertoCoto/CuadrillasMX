@@ -11,7 +11,7 @@ $scope.usuario = $window.user;
 		$('#msload').modal('show');
 		$http({
 				method: 'GET',
-				url: 'http://localhost:8080/CuadrillasWEB/ConsultaPermisoTemporal',
+				url: '/CuadrillasWEB/ConsultaPermisoTemporal',
 				params: {
 						"idPermiso" : $scope.id
 				     },
@@ -57,7 +57,7 @@ $scope.usuario = $window.user;
 
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
+		              url: '/CuadrillasWEB/AutorizacionPermiso',
 		              params: {
 				 		"idPermiso" : $scope.id,
 				 		"goceSueldo" : $scope.goce,
@@ -95,7 +95,7 @@ $scope.usuario = $window.user;
 	    				} 		
 				    	$http({
 				              method: 'GET',
-				              url: 'http://localhost:8080/CuadrillasWEB/AutorizacionPermiso',
+				              url: '/CuadrillasWEB/AutorizacionPermiso',
 				    	 params: {
 					 		"idPermiso" : $scope.id,
 					 		"goceSueldo" : "N",

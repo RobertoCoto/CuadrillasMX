@@ -15,7 +15,7 @@ app.controller('bajaEmpleado', function ($scope, $http, $window) {
 		$('#msload').modal('show');
 		$http({
 	        method: 'post',
-	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+	        url: '/CuadrillasWEB/ConsultaEmpleado',
 	        params: {
 		 		"idEmpleado" : $scope.id
 		         },
@@ -36,7 +36,7 @@ app.controller('bajaEmpleado', function ($scope, $http, $window) {
 		    //consulta la causa de la salida
 		    $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'TIPO_SALID'
 		 },
@@ -57,7 +57,7 @@ app.controller('bajaEmpleado', function ($scope, $http, $window) {
 	       //consulta tipo renuncia
 		    $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'CAUSA_RENU'
 		 },
@@ -96,7 +96,7 @@ app.controller('bajaEmpleado', function ($scope, $http, $window) {
 			
 			    	$http({
 			              method: 'GET',
-			              url: 'http://localhost:8080/CuadrillasWEB/BajaEmpleado',
+			              url: '/CuadrillasWEB/BajaEmpleado',
 			              params : {
 					 		"usuario": $scope.usuario,
 					 		"comentario": empleado.comentario,

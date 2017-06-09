@@ -16,7 +16,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter, $window) {
 		$('#msload').modal('show');
 		$http({
 	        method: 'GET',
-	        url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+	        url: '/CuadrillasWEB/ConsultaEmpleado',
 	        params: {
 		 		"idEmpleado" : $scope.id
 		         },
@@ -36,7 +36,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter, $window) {
 		
 		    $http({
 	              method: 'GET',
-	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+	              url: '/CuadrillasWEB/ConsultaCatalogo',
 	              params : {
 			 		"tipoCatalogo": 'PERMI_LABO'
 			 },
@@ -81,7 +81,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter, $window) {
 		    				}
 						$http({
 						      method: 'GET',
-						      url: 'http://localhost:8080/CuadrillasWEB/RegistraPermiso',
+						      url: '/CuadrillasWEB/RegistraPermiso',
 						      params: {
 						 		"idEmpleado" : $scope.id,
 						 		"comentario" : permiso.comentario,

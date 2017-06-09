@@ -9,7 +9,7 @@ app.controller('buzonResidente', function ($scope, $http) {
 		$('#msload').modal('show');
 	    $http({		
 		method: 'GET',
-		url: 'http://localhost:8080/CuadrillasWEB/ConsultaBuzonResidente',
+		url: '/CuadrillasWEB/ConsultaBuzonResidente',
 		data: { }
 		}).then(function (result) {
 			$('#msload').modal('hide');
@@ -30,13 +30,13 @@ app.controller('buzonResidente', function ($scope, $http) {
 		 //abre una ventana para notificar imss   
       $scope.notificar = function(tareas) {
     	    $scope.idImss = tareas.id;
-    	     window.open('http://localhost:8080/CuadrillasWEB/altaImss/alta_imss.html?idEmpleado='+ $scope.idImss, '_blank','heigth=300,width=500');
+    	     window.open('/CuadrillasWEB/altaImss/alta_imss.html?idEmpleado='+ $scope.idImss, '_blank','heigth=300,width=500');
     	  };
     	  
     	  //abre una ventana para autorizacion laboral
       $scope.autorizar = function(tareas) {
     	  $scope.idPermiso = tareas.id;
-    	  window.open('http://localhost:8080/CuadrillasWEB/permiso/autorizacion.html?idPermiso='+ $scope.idPermiso, '_blank','heigth=600,width=600');
+    	  window.open('/CuadrillasWEB/permiso/autorizacion.html?idPermiso='+ $scope.idPermiso, '_blank','heigth=600,width=600');
     	  };
 	 
     	  $scope.hideAlerts = function() {

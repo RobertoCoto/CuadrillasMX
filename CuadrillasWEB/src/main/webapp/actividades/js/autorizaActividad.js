@@ -15,7 +15,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 			$('#msload').modal('show');
 			$http({
 					method: 'GET',
-					url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDiariaBuzon',
+					url: '/CuadrillasWEB/ConsultaActividadDiariaBuzon',
 					params: {
 							"idActividadDiaria" : $scope.id
 					     },
@@ -46,7 +46,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 				$('#msload').modal('show');
 				$http({
 						method: 'GET',
-						url: 'http://localhost:8080/CuadrillasWEB/ConsultaActividadDocumentos',
+						url: '/CuadrillasWEB/ConsultaActividadDocumentos',
 						params: {
 								"idActividadDiaria" : $scope.id,
 								"codigoActividad" : $scope.codigoActividad
@@ -81,7 +81,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						} 
 						$http({
 				              method: 'GET',
-				              url: 'http://localhost:8080/CuadrillasWEB/AutorizaActividadBuzon',
+				              url: '/CuadrillasWEB/AutorizaActividadBuzon',
 				    	 params: {
 					 		"idActividadDiaria" : $scope.id,
 					 		"envioAutorizacion" : "S",
@@ -118,7 +118,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						}
 						$http({
 				              method: 'GET',
-				              url: 'http://localhost:8080/CuadrillasWEB/AutorizaActividadBuzon',
+				              url: '/CuadrillasWEB/AutorizaActividadBuzon',
 				    	 params: {
 					 		"idActividadDiaria" : $scope.id,
 					 		"envioAutorizacion" : "N",
@@ -150,7 +150,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 						//para visualizar las fotos obtenidas 
 					$scope.visualizaFoto = function(documento) {
 						$scope.url = documento.url;
-						var $popup = $window.open('http://localhost:8080/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
+						var $popup = $window.open('/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
 						 console.log("fotoncini: " + $scope.url);
 						};
 					

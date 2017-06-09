@@ -59,7 +59,7 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 			  $('#msload').modal('show');
 			  $http({
 	              method: 'GET',
-	              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAsistencia',
+	              url: '/CuadrillasWEB/ConsultaAsistencia',
 	              params: {
 	            	  "idCuadrilla" : "1"
 	              },
@@ -109,7 +109,7 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 						$scope.idEmpleado = asistencia.idEmpleado;						
 						$http({
 						    method: 'GET',
-						    url: 'http://localhost:8080/CuadrillasWEB/EntradaAsistencia',
+						    url: '/CuadrillasWEB/EntradaAsistencia',
 						    params: {
 								"idEmpleado" : $scope.idEmpleado,
 								"comentarios" : asistencia.observacion,
@@ -147,7 +147,7 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
               
         		$http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWEB/SalidaAsistencia',
+                    url: '/CuadrillasWEB/SalidaAsistencia',
                     params: {
       		 		"idEmpleado" : $scope.idEmpleado,
       		 		"usuario" : 'SISTEMAS'

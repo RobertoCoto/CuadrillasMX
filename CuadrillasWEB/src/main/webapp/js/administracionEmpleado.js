@@ -11,7 +11,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
     	$('#msload').modal('show');
 			$http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'PERFIL_EMP'
 		 },
@@ -32,7 +32,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    //consulta la talla
 			 $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'ROPA_TALLA'
 		 },
@@ -53,7 +53,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    //consulta la vialidad
 			 	 $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'VIALIDAD'
 		 },
@@ -74,7 +74,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    //consulta la empresa
 			 	 $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'EMPRESAS'
 		 },
@@ -95,7 +95,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    //consulta el area
 			 	  $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'AREA_INC'
 		 },
@@ -116,7 +116,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    //consulta los documentos
 			 	  $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params : {
 		 		"tipoCatalogo": 'DOCU_EMPLE'
 		 },
@@ -137,7 +137,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    
 			$http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+              url: '/CuadrillasWEB/ConsultaCuadrilla',
               data: { }
 		    }).then(function mySucces(result) {
 		    	$('#msload').modal('hide');
@@ -242,7 +242,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	    		     
 		    	     $http({
 	              method: 'GET',
-	              url: 'http://localhost:8080/CuadrillasWEB/RegistraEmpleado',
+	              url: '/CuadrillasWEB/RegistraEmpleado',
 	              params: {
 			 		"noEmpleado" : general.noEmpleado,
 			 		"nombre" : general.nombre,
@@ -290,7 +290,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
             	$('#msload').modal('show');
 		      $http({
                method: 'GET',
-               url: 'http://localhost:8080/CuadrillasWEB/ConsultaGeneralEmpleado',
+               url: '/CuadrillasWEB/ConsultaGeneralEmpleado',
                
            }).success(function (result) {
         	    $('#msload').modal('hide');
@@ -309,13 +309,13 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		
 			//baja empleado		
 		 $scope.bajaEmpleado = function(general) {
-    	    var $popup = $window.open('http://localhost:8080/CuadrillasWEB/empleado/baja_empleado.html', '_blank','heigth=600,width=600');
+    	    var $popup = $window.open('/CuadrillasWEB/empleado/baja_empleado.html', '_blank','heigth=600,width=600');
     	    $popup.idEmple = general.idEmpleado;
     	    $popup.user = data.data.usuario.usuario;
     	  };
     	  //permisoEmpleado
       $scope.permisoEmpleado = function(general) {
-    	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/permiso/permisoLaboral.html', '_blank','heigth=600,width=600');
+    	  var $popup = $window.open('/CuadrillasWEB/permiso/permisoLaboral.html', '_blank','heigth=600,width=600');
     	  $popup.idEmple = general.idEmpleado;
     	  $popup.user = data.data.usuario.usuario;
     	  };
@@ -327,7 +327,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 					 
 					 $http({
 						    method: 'GET',
-						    url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentos',
+						    url: '/CuadrillasWEB/ConsultaDocumentos',
 						    params : {
 								"idEmpleado": $scope.idEmmpleado
 						}
@@ -414,7 +414,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		    	     }
 		 		$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ActualizaEmpleado',
+		              url: '/CuadrillasWEB/ActualizaEmpleado',
 		              params: {
 				        "idEmpleado": $scope.idEmpleado,
 		                "noEmpleado" : general.noEmpleado,

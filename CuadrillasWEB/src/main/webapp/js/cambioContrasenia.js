@@ -25,7 +25,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 				  $http({
 					  
 			method: 'GET',
-			url: 'http://localhost:8080/CuadrillasWEB/ConsultaEmpleado',
+			url: '/CuadrillasWEB/ConsultaEmpleado',
 			params: {
 					"idEmpleado": "1", //aqui va ir variable que nos llegara del general
 			     }
@@ -62,7 +62,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
     				}
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/CambioContrasena',
+		              url: '/CuadrillasWEB/CambioContrasena',
 		              params: {
 		    			"contrasena" : user.conAnterior,
 				 		"contrasenaAnterior": user.conAnterior,

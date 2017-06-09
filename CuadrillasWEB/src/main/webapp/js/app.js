@@ -170,7 +170,7 @@ var data;
 		    $scope.validar = function() {
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaUsuarioLogin',
+		              url: '/CuadrillasWEB/ConsultaUsuarioLogin',
 		              params: {
 		    			"user" : document.getElementById("usuario").value,
 				 		"password": document.getElementById("clave").value
@@ -313,7 +313,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
           $('#success').hide();
           $http({
                   method: 'GET',
-                  url: 'http://localhost:8080/CuadrillasWEB/ConsultaTipoCatalogos',
+                  url: '/CuadrillasWEB/ConsultaTipoCatalogos',
                   data: { }
             }).then(function successfn(result) {
               $scope.resultado = result.data.catalogo;
@@ -336,7 +336,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             $('#success').hide();
             $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWEB/RegistrarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
+                    url: '/CuadrillasWEB/RegistrarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS',
                     params: {
                       "tipoCatalogo": tipoCataloPadre,
                       "codigo": document.getElementById("codigof").value.toUpperCase(),
@@ -375,7 +375,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             $('#success').hide();
             $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                    url: '/CuadrillasWEB/ConsultaCatalogo',
                     params: { "tipoCatalogo": aaa }
                 }).success(function (result) {
                     $scope.resultado2 = result.catalogo;
@@ -403,7 +403,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                         $('#success').hide();
                         $http({
                                method: 'GET',
-                               url: 'http://localhost:8080/CuadrillasWEB/ActualizarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
+                               url: '/CuadrillasWEB/ActualizarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANL&descripcion=SAN%20LORENZO&usuario=SISTEMAS
                                params: {
                                  "tipoCatalogo": tipoCataloPadre,
                                  "descripcion": catalogo.descripcion,
@@ -434,7 +434,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                        $('#success').hide();
                        $http({
                                method: 'GET',
-                               url: 'http://localhost:8080/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
+                               url: '/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
                                params: {
                                  "tipoCatalogo": tipoCataloPadre,
                                  "codigo": catalogo.codigo,
@@ -543,7 +543,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               $scope.nContrato = true;
               $http({
                       method: 'GET',
-                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                      url: '/CuadrillasWEB/ConsultaCatalogo',
                       params: {
                         'tipoCatalogo': 'CONTR_TIPO'
                       },
@@ -561,7 +561,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
               $http({
                       method: 'GET',
-                      url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                      url: '/CuadrillasWEB/ConsultaCatalogo',
                       params: {
                         'tipoCatalogo': 'DOCUMENTO'
                       },
@@ -578,7 +578,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               
                 $http({
                           method: 'GET',
-                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                          url: '/CuadrillasWEB/ConsultaCatalogo',
                           params : {
             		 		"tipoCatalogo": 'CONT_DOCU'
             		 },
@@ -595,7 +595,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                 $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                        url: '/CuadrillasWEB/ConsultaCatalogo',
                         params: {
                           'tipoCatalogo': 'EMPRESAS'
                         },
@@ -612,7 +612,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
                 $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+                        url: '/CuadrillasWEB/ConsultaCatalogo',
                         params: {
                           'tipoCatalogo': 'VIALIDAD'
                         },
@@ -629,7 +629,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 									$http({
 	                        method: 'GET',
-	                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCuadrilla',
+	                        url: '/CuadrillasWEB/ConsultaCuadrilla',
 	                        params: { },
 	                        data: { }
 	                  }).then(function successfn(result) {
@@ -703,7 +703,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										var json = JSON.stringify($scope.contratoFocus);
 										console.log('Archivo a subir: ' );
 										console.dir(contrato);
-										var uploadUrl = "http://localhost:8080/CuadrillasWEB/AltaContrato";
+										var uploadUrl = "/CuadrillasWEB/AltaContrato";
 										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
                   };
 
@@ -716,7 +716,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     console.log($scope.contratoFocus);
 										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
 										var json = JSON.stringify($scope.contratoFocus);
-										var uploadUrl = "http://localhost:8080/CuadrillasWEB/ActualizaContrato";
+										var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
 										fileUpload.uploadFileToUrl(null, json, uploadUrl);
 										/*var dataObj = {
 											JSONModificaContrato: json
@@ -744,7 +744,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     //setTimeout(function () {
                       $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWEB/ConsultaContrato',
+                        url: '/CuadrillasWEB/ConsultaContrato',
                         params: {
                         },
                         data: {}
@@ -780,7 +780,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 										$('#showDocument').show();
 										$('#agregarDocumento').show();
 										$('#addDocument').show();
-										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
+										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
 										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
                     $('#mainPanel').show();
                     $('#nuevoContrato').hide();
@@ -798,7 +798,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   
                   $scope.muestraDocumento = function(docs) {
                 	  $scope.idDocument = docs.idDocumento;
-                	  var $popup = $window.open('http://localhost:8080/CuadrillasWEB/BusquedaDocumentoContrato?idDocumento='+ $scope.idDocument, '_blank','heigth=600,width=600');
+                	  var $popup = $window.open('/CuadrillasWEB/BusquedaDocumentoContrato?idDocumento='+ $scope.idDocument, '_blank','heigth=600,width=600');
                 	 
                 	  };
                    
@@ -806,7 +806,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 	  $scope.idCon = $('#contratoHidden').val(); 
                 	  $http({
                           method: 'GET',
-                          url: 'http://localhost:8080/CuadrillasWEB/ConsultaDocumentosContrato',
+                          url: '/CuadrillasWEB/ConsultaDocumentosContrato',
                           params : {
             		 		"idContrato":  $scope.idCon
             		 },
@@ -829,7 +829,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 						var json = JSON.stringify($scope.contratoD);
 						console.log('Archivo a subir: ' );
 						console.dir(contratoDocumento);
-						var uploadUrl = "http://localhost:8080/CuadrillasWEB/RegistraDocumentoContrato";
+						var uploadUrl = "/CuadrillasWEB/RegistraDocumentoContrato";
 						fileUpload.uploadFileToUrl(contratoDocumento, json, uploadUrl);
 					 $scope.contratoD = {};
 					 $scope.consultaDocs();
@@ -1241,7 +1241,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  // se llena catalogo de actividades
       $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params: {
                 'tipoCatalogo': 'ACTIVIDADE'
               },
@@ -1259,7 +1259,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
       // se llena catalogo de articulos
       $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+              url: '/CuadrillasWEB/ConsultaCatalogo',
               params: {
                 'tipoCatalogo': 'ARTICULO'
               },
@@ -1276,7 +1276,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         // Se consultan los contratos activos
       	$http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaContratoActivo',
+              url: '/CuadrillasWEB/ConsultaContratoActivo',
               params: { },
               data: { }
         }).then(function successfn(result) {
@@ -2634,7 +2634,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	      
 	      $http({
               method: 'POST',
-              url: 'http://localhost:8080/CuadrillasWEB/AltaAgenda',
+              url: '/CuadrillasWEB/AltaAgenda',
               params: {
                 'JSONAltaAgenda': jsonAgenda
               },
@@ -2685,7 +2685,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  
 	      $http({
               method: 'GET',
-              url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaSemanal',
+              url: '/CuadrillasWEB/ConsultaAgendaSemanal',
               params: {
                 'idContrato'	: objContratos.idContrato,
                 'noSemana' 		: $('#semana').val(),
@@ -2931,7 +2931,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
       			      		        	
         	$http({
         		method: 'GET',
-        		url: 'http://localhost:8080/CuadrillasWEB/ConsultaAgendaDia',
+        		url: '/CuadrillasWEB/ConsultaAgendaDia',
         		params: {
                 	'idCuadrilla'	: $scope.usuario.idCuadrilla,
                 	'fecha' 		: $('#fecha').val()
@@ -3175,7 +3175,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	        $('#msload').modal('show');
 	    	$http({
 	    		method: 'GET',
-		        url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+		        url: '/CuadrillasWEB/ConsultaCatalogo',
 	            params: {
 	            	'tipoCatalogo': 'ESTA_HERRA'
 	            },
@@ -3194,7 +3194,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	    	$('#msload').modal('show');
 	    	$http({
 	    		method: 'GET',
-	    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaCatalogo',
+	    		url: '/CuadrillasWEB/ConsultaCatalogo',
 	    		params: {
 	            	'tipoCatalogo': 'TIPO_ARTIC'
 	            },
@@ -3212,7 +3212,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	    	$('#msload').modal('show');
 	    	$http({
 	    		method: 'GET',
-	    		url: 'http://localhost:8080/CuadrillasWEB/ConsultaHerramienta',
+	    		url: '/CuadrillasWEB/ConsultaHerramienta',
 	    		data: { }
 	    	}).then(function mySucces(result) {
 				$('#msload').modal('hide');				
@@ -3279,7 +3279,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			
 					$http({
 						method: 'GET',
-						url: 'http://localhost:8080/CuadrillasWEB/RegistrarHerramienta',
+						url: '/CuadrillasWEB/RegistrarHerramienta',
 						params: {
 							"nombre" 		: herramienta,
 							"descripcion" 	: descripcion,
@@ -3325,7 +3325,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		    	 
 		    	 $http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ActualizarHerramienta',
+		              url: '/CuadrillasWEB/ActualizarHerramienta',
 		              params: 
 		              {
 		            	"idHerramienta"	: idHerramienta,
@@ -3377,7 +3377,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		
     		$http({
     			method: 'GET',
-    			url: 'http://localhost:8080/CuadrillasWEB/EliminarHerramienta',
+    			url: '/CuadrillasWEB/EliminarHerramienta',
     			params: {
     			"idHerramienta" : datosHerramienta.idHerramienta,
     			"usuario" : data.data.usuario.usuario
