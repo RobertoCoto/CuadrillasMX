@@ -6,7 +6,7 @@ app.controller('validaUsuario',["$scope","$http", function ($scope,$http) {
 		    $scope.validar = function() {
 		    	$http({
 		              method: 'GET',
-		              url: 'http://localhost:8080/CuadrillasWEB/ConsultaUsuarioLogin',
+		              url: '/CuadrillasWEB/ConsultaUsuarioLogin',
 		              params: {
 		    			"user" : document.getElementById("usuario").value,
 				 		"password": document.getElementById("clave").value
