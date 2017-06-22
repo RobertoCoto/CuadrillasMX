@@ -35,7 +35,7 @@
                         <tr>
                           <td><input class="form-control" id="codigof" type="text" /></td>
                           <td><input class="form-control" id="descripcionf" type="text" /></td>
-                          <td><button class="btn botonGuardar" ng-click="saveOptions()" style="background-color:#18FF08;color:white;">Agregar</button></td>
+                          <td><button class="btn botonGuardar" ng-click="saveOptions()" >Agregar</button></td>
                         <tr>
                          <tr ng-repeat="catalogo in resultado2">
                              <td>
@@ -49,7 +49,7 @@
                              <td>
                                  <button class="btn botonEditar" ng-hide="editingData[catalogo.codigo]" ng-click="modify(catalogo)">Editar</button>
 
-                                 <button class="btn botonGuardar" ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)" style="background-color:#18FF08;color:white;">Actualizar</button>
+                                 <button class="btn botonGuardar" ng-show="editingData[catalogo.codigo]" ng-click="update(catalogo)">Actualizar</button>
                                  <button class="btn botonBaja" ng-hide="editingData[catalogo.codigo]" ng-click="remove(catalogo)">Eliminar</button>
                                  <button class="btn botonBaja" ng-show="editingData[catalogo.codigo]"  ng-click="cancelar(catalogo)">Cancelar</button>
                              </td>
