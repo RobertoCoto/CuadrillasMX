@@ -53,7 +53,7 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor {
 	/** estatus*/
 	private String estatus;
 	/** lista documentos*/
-	private List<ActividadDiariaDocumentosDTO> documentos;
+	private List<ActividadDiariaDocumentosDTO> fotos;
 	/** descripcion prioridad*/
 	private String descripcionPrioridad;
 	/**
@@ -300,13 +300,13 @@ public class ActividadDiariaDetalleDTO extends ObjetoValor {
 	 * @return the documentos
 	 */
 	public List<ActividadDiariaDocumentosDTO> getDocumentos() {
-		return documentos;
+		return fotos;
 	}
 	/**
-	 * @param documentos the documentos to set
+	 * @param fotos the documentos to set
 	 */
-	public void setDocumentos(List<ActividadDiariaDocumentosDTO> documentos) {
-		this.documentos = documentos;
+	public void setDocumentos(List<ActividadDiariaDocumentosDTO> fotos) {
+		this.fotos = fotos;
 	}
 	/**
 	 * @return the codigoPrioridad

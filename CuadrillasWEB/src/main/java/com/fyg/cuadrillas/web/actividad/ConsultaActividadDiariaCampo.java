@@ -51,14 +51,14 @@ public class ConsultaActividadDiariaCampo extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 	try {
-		Integer idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
+		Integer idAgendaDetalle = Integer.parseInt(request.getParameter("idAgendaDetalle"));
 
 		//crea objeto de negocio
 		final AgendaNegocio negocio = new AgendaNegocio();
 
 		//valores
 		ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
-		actividadDiaria.setIdAgenda(idAgenda);
+		actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
 		respuesta = negocio.consultaActividadDiaria(actividadDiaria);
 		if (respuesta.isEstatus()) {
 			response.setStatus(HttpServletResponse.SC_OK);

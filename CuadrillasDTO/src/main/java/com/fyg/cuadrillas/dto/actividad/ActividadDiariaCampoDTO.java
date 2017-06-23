@@ -3,6 +3,7 @@ package com.fyg.cuadrillas.dto.actividad;
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.ObjetoValor;
+import com.fyg.cuadrillas.dto.CoordenadaDTO;
 
 public class ActividadDiariaCampoDTO extends ObjetoValor {
 
@@ -45,7 +46,9 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	/** lista de actividades diaria detalle*/
 	private List<ActividadDiariaDetalleDTO> actividadDiariaDetalle;
 	/** lista coordenadas*/
-	private List<ActividadDiariaCoordenadasDTO> coordenadas;
+	private List<ActividadDiariaCoordenadasDTO> coordenadasReal;
+	/** lista coordenadas*/
+	private List<CoordenadaDTO> coordenadasEsperado;
 	/** fecha de alta*/
 	private String fechaAlta;
 	/**usuario baja*/
@@ -56,14 +59,11 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	private String fechaUltMod;
 	/** estatus*/
 	private String estatus;
-	/**
-	 * descripcion vialidad
-	 */
+	/** descripcion vialidad */
 	private String descripcionVialidad;
-	/**
-	 * nombre del residente
-	 */
+	/** nombre del residente */
 	private String nombreResidente;
+
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -197,31 +197,6 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 		this.usuarioAlta = usuarioAlta;
 	}
 	/**
-	 * @return the actividadDiariaDetalle
-	 */
-	public List<ActividadDiariaDetalleDTO> getActividadDiariaDetalle() {
-		return actividadDiariaDetalle;
-	}
-	/**
-	 * @param actividadDiariaDetalle the actividadDiariaDetalle to set
-	 */
-	public void setActividadDiariaDetalle(
-			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle) {
-		this.actividadDiariaDetalle = actividadDiariaDetalle;
-	}
-	/**
-	 * @return the coordenadas
-	 */
-	public List<ActividadDiariaCoordenadasDTO> getCoordenadas() {
-		return coordenadas;
-	}
-	/**
-	 * @param coordenadas the coordenadas to set
-	 */
-	public void setCoordenadas(List<ActividadDiariaCoordenadasDTO> coordenadas) {
-		this.coordenadas = coordenadas;
-	}
-	/**
 	 * @return the envioAutorizacion
 	 */
 	public String getEnvioAutorizacion() {
@@ -280,6 +255,45 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setUsuarioAutorizacion(String usuarioAutorizacion) {
 		this.usuarioAutorizacion = usuarioAutorizacion;
+	}
+	/**
+	 * @return the actividadDiariaDetalle
+	 */
+	public List<ActividadDiariaDetalleDTO> getActividadDiariaDetalle() {
+		return actividadDiariaDetalle;
+	}
+	/**
+	 * @param actividadDiariaDetalle the actividadDiariaDetalle to set
+	 */
+	public void setActividadDiariaDetalle(
+			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle) {
+		this.actividadDiariaDetalle = actividadDiariaDetalle;
+	}
+	/**
+	 * @return the coordenadasReal
+	 */
+	public List<ActividadDiariaCoordenadasDTO> getCoordenadasReal() {
+		return coordenadasReal;
+	}
+	/**
+	 * @param coordenadasReal the coordenadasReal to set
+	 */
+	public void setCoordenadasReal(
+			List<ActividadDiariaCoordenadasDTO> coordenadasReal) {
+		this.coordenadasReal = coordenadasReal;
+	}
+	/**
+	 * @return the coordenadasEsperado
+	 */
+	public List<CoordenadaDTO> getCoordenadasEsperado() {
+		return coordenadasEsperado;
+	}
+	/**
+	 * @param coordenadasEsperado the coordenadasEsperado to set
+	 */
+	public void setCoordenadasEsperado(
+			List<CoordenadaDTO> coordenadasEsperado) {
+		this.coordenadasEsperado = coordenadasEsperado;
 	}
 	/**
 	 * @return the fechaAlta
@@ -365,4 +379,5 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	public void setNombreResidente(String nombreResidente) {
 		this.nombreResidente = nombreResidente;
 	}
+
 }

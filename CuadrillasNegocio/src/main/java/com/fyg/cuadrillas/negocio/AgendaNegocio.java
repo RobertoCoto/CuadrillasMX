@@ -281,7 +281,7 @@ public class AgendaNegocio {
 		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 		 ActividadDiariaCampoDTO actividadDiariaRespuesta = null;
 		 try {
-			 if (actividadDiaria.getIdAgenda() == null) {
+			 if (actividadDiaria.getIdAgendaDetalle() == null || actividadDiaria.getIdAgendaDetalle() == 0) {
 				 throw new ExcepcionesCuadrillas("Es necesario el ID de la agenda para la busqueda.");
 			 }
 			 actividadDiariaRespuesta = new AgendaDAO().consultaActividadDiaria(uid, actividadDiaria);
@@ -313,7 +313,7 @@ public class AgendaNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
-					if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.equals(0)) {
+					if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
 						throw new ExcepcionesCuadrillas("Es necesario el id de la actividad diaria.");
 					}
 					if (actividadDiaria.getCodigoActividad() == null || actividadDiaria.getCodigoActividad().trim().isEmpty()) {
@@ -323,17 +323,20 @@ public class AgendaNegocio {
 							|| actividadDiaria.getCodigoListoVencido().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el codigo listo vencido.");
 					}
-					if (actividadDiaria.getNumeroPersonas() == null) {
+					if (actividadDiaria.getNumeroPersonas() == null || actividadDiaria.getNumeroPersonas() == 0) {
 						throw new ExcepcionesCuadrillas("Es necesario el numero de personas.");
 					}
-					if (actividadDiaria.getNumeroUnidades() == null) {
+					if (actividadDiaria.getNumeroUnidades() == null || actividadDiaria.getNumeroUnidades() == 0) {
 						throw new ExcepcionesCuadrillas("Es necesario el numero de unidades.");
 					}
-					if (actividadDiaria.getPorcentaje() == null) {
+					if (actividadDiaria.getPorcentaje() == null || actividadDiaria.getPorcentaje() == 0) {
 						throw new ExcepcionesCuadrillas("Es necesario el porcentaje avanzado.");
 					}
-					if (actividadDiaria.getObservaciones() == null) {
+					if (actividadDiaria.getObservaciones() == null || actividadDiaria.getObservaciones().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario una observacion.");
+					}
+					if (actividadDiaria.getUsuarioAlta() == null || actividadDiaria.getUsuarioAlta().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario de la trasaccion.");
 					}
 					AgendaDAO dao = new AgendaDAO();
 					respuesta = dao.registraActividadDiaria(uid, actividadDiaria);

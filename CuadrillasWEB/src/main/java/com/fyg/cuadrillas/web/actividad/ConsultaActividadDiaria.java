@@ -49,37 +49,32 @@ public class ConsultaActividadDiaria extends HttpServlet {
 		ActividadRespuesta respuesta = new ActividadRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
-PrintWriter out = response.getWriter();
-	try {
-		Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-String fecha  = request.getParameter("fecha");
-		/* descomentar para proxy FISA
-		System.setProperty("http.proxyHost", "169.169.4.85");
-        System.setProperty("http.proxyPort", "8080");
-        System.setProperty("https.proxyHost", "169.169.4.85");
-System.setProperty("https.proxyPort", "8080"); */
-		//crea objeto de negocio
-	final ActividadNegocio negocio = new ActividadNegocio();
-		//valores
-		ActividadDTO actividad = new ActividadDTO();
-		actividad.setIdEmpleado(idEmpleado);
-		actividad.setFechaActividad(fecha);
-		respuesta = negocio.consultaActividadDiaria(actividad);
-		if (respuesta.isEstatus()) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		} else {
+		PrintWriter out = response.getWriter();
+		try {
+			Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+			String fecha  = request.getParameter("fecha");
+
+			final ActividadNegocio negocio = new ActividadNegocio();
+			//valores
+			ActividadDTO actividad = new ActividadDTO();
+			actividad.setIdEmpleado(idEmpleado);
+			actividad.setFechaActividad(fecha);
+			respuesta = negocio.consultaActividadDiaria(actividad);
+			if (respuesta.isEstatus()) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
+			//convierte  a formato Json
+			out.println(sg.toJson(respuesta));
+			out.flush();
+		} catch (Exception e) {
+			LogHandler.error("", this.getClass(), "Error servlet", e);
+			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
+			respuesta.getHeader().setEstatus(false);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			out.println(sg.toJson(respuesta));
+			out.flush();
 		}
-		//convierte  a formato Json
-		out.println(sg.toJson(respuesta));
-		out.flush();
-	} catch (Exception e) {
-		LogHandler.error("", this.getClass(), "Error servlet", e);
-		respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
-		respuesta.getHeader().setEstatus(false);
-		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		out.println(sg.toJson(respuesta));
-		out.flush();
-	}
 	}
 }

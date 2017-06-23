@@ -31,7 +31,6 @@ public class RegistraActividadDiariaWS {
 			//crea objeto de negocio
 			final AgendaNegocio negocio = new AgendaNegocio();
 			respuesta = negocio.registraActividadDiaria(actividadDiaria);
-			
 		} catch (Exception ex) {
 			String result = sg.toJson(respuesta);
 			return Response.serverError().entity(result).build();

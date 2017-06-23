@@ -21,7 +21,7 @@ public class ConsultaActividadDiariaWS {
 	@GET
 	@Path("/actividad")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response consultarActividad(@QueryParam("idAgenda") Integer idAgenda) {
+	public Response consultarActividad(@QueryParam("idAgendaDetalle") Integer idAgendaDetalle) {
 		ActividadDiariaCampoRespuesta respuesta = new ActividadDiariaCampoRespuesta();
 		Gson sg = new Gson();
 		try {
@@ -30,7 +30,7 @@ public class ConsultaActividadDiariaWS {
 
 			//valores
 			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
-			actividadDiaria.setIdAgenda(idAgenda);
+			actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
 			respuesta = negocio.consultaActividadDiaria(actividadDiaria);
 		} catch (Exception ex) {
 			String result = sg.toJson(respuesta);

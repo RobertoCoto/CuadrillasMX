@@ -733,7 +733,14 @@ public class AgendaDAO {
 
 			List<ActividadDiariaCoordenadasDTO> coordenadas =
 					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadasBuzon", consultaActividadesDiaria);
-			consultaActividadesDiaria.setCoordenadas(coordenadas);
+			consultaActividadesDiaria.setCoordenadasReal(coordenadas);
+
+			AgendaDTO agendaEsperada = new AgendaDTO();
+			agendaEsperada.setIdAgendaDetalle(actividadDiaria.getIdAgendaDetalle());
+			List<CoordenadaDTO> coordenadasEsp =
+					sessionNTx.selectList("AgendaDAO.consultaAgendaCoordenadas", agendaEsperada);
+			consultaActividadesDiaria.setCoordenadasEsperado(coordenadasEsp);
+
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
@@ -776,7 +783,7 @@ public class AgendaDAO {
 				}
 			}
 			if (existeCodigoActividad == 0) {
-				actividadDiaria.setPlaneada("S");
+				actividadDiaria.setPlaneada("N");
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();
 				int registros = sessionTx.insert("AgendaDAO.altaActividadDiariaDetalle", actividadDiaria);
@@ -878,7 +885,7 @@ public class AgendaDAO {
 
 			List<ActividadDiariaCoordenadasDTO> coordenadas =
 					sessionNTx.selectList("AgendaDAO.consultaActividadCoordenadasBuzon", consultaActividadesDiaria);
-			consultaActividadesDiaria.setCoordenadas(coordenadas);
+			consultaActividadesDiaria.setCoordenadasReal(coordenadas);
 
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
