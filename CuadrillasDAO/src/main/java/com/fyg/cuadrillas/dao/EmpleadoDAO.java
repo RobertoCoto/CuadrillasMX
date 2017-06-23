@@ -247,7 +247,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 			//Se hace una consulta a la tabla contacto
 			listaEmpleado = sessionNTx.selectList("empleadoDAO.consultaEmpleado");
 			if ( listaEmpleado.size() == 0) {
-				throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
+				throw new ExcepcionesCuadrillas("No existen empleados actualmente.");
 			}
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);

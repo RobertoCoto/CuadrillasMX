@@ -287,7 +287,6 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
             
             	//consultar Empleados
             $scope.consultar = function(empleado) {
-            	$('#msload').modal('show');
 		      $http({
                method: 'GET',
                url: '/CuadrillasWEB/ConsultaGeneralEmpleado',
