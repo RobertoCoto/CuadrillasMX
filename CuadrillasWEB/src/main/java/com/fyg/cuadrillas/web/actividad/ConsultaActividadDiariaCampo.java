@@ -53,12 +53,6 @@ public class ConsultaActividadDiariaCampo extends HttpServlet {
 	try {
 		Integer idAgenda = Integer.parseInt(request.getParameter("idAgenda"));
 
-		/* descomentar para proxy FISA
-		System.setProperty("http.proxyHost", "169.169.4.85");
-        System.setProperty("http.proxyPort", "8080");
-        System.setProperty("https.proxyHost", "169.169.4.85");
-        System.setProperty("https.proxyPort", "8080"); */
-
 		//crea objeto de negocio
 		final AgendaNegocio negocio = new AgendaNegocio();
 

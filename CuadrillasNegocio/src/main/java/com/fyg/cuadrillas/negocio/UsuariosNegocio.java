@@ -176,7 +176,7 @@ public class UsuariosNegocio {
 		    	ParametroNegocio datoParametro = new ParametroNegocio();
 		    	String idPerfilResidente = datoParametro.consultaParametro(uid, "perfil.residente");
 
-		    	if (!idPerfilResidente.trim().equals(loginUsuario.getIdPerfil())) {
+		    	if (!idPerfilResidente.trim().equals(loginUsuario.getIdPerfil().toString())) {
 		    		loginUsuario.setIdCuadrilla(0);
 		    		LogHandler.debug(uid, this.getClass(), "Usuario No Residente");
 

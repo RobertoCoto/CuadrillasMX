@@ -48,10 +48,6 @@ public class ConsultaCuadrilla extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-//          System.setProperty("http.proxyHost", "169.169.4.85");
-//	        System.setProperty("http.proxyPort", "8080");
-//	        System.setProperty("https.proxyHost", "169.169.4.85");
-//	        System.setProperty("https.proxyPort", "8080");
 
 			//crea objeto de negocio
 			final CuadrillaNegocio negocio = new CuadrillaNegocio();

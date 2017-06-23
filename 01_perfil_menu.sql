@@ -124,6 +124,3 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,41,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,50,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,51,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,52,3,'A');
-
-
-
