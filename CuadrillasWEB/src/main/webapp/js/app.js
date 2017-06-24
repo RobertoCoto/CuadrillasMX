@@ -2919,6 +2919,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         //***Consulta de la agenda
         $scope.consultarAgendaDia = function()
         {
+        	//bot�n de mapa ng-click="muestraMap()"
         	$('#msload').modal('show'); 
         	
       		$scope.gridActividades = [];
@@ -2926,16 +2927,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
       		$scope.mapa = {};
       		$scope.mapa.gridCoordenadas = [];
 
-      		if ($scope.mapa.gridCoordenadas.length > 0)
-      		{
-      			$scope.limpiarMarcadores();
-      		}
+      		$scope.limpiarMarcadores();
       			      		        	
         	$http({
         		method: 'GET',
         		url: '/CuadrillasWEB/ConsultaAgendaDia',
         		params: {
-                	'idCuadrilla'	: $scope.usuario.idCuadrilla,
+                	'idCuadrilla'	: 1, //$scope.usuario.idCuadrilla,
                 	'fecha' 		: $('#fecha').val()
               	},
               	data: { }
@@ -3055,17 +3053,24 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
             google.maps.event.addListener(map, 'click', function(event) {
                 	//$scope.setMarcador(event.latLng);
-            });
-            
-            //en caso de haber información en el arreglo de mapas se muestran los marcadores
-        	setTimeout(function () { 
-			for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
-				//console.info($scope.mapa.gridCoordenadas[i].direccion);
-				$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
-			}
-			}, 100);
+            });            
         };
 
+        
+        $scope.muestraMap = function() {                
+        	
+            //en caso de haber información en el arreglo de mapas se muestran los marcadores
+        	setTimeout(function () { 
+        		
+        		
+        		for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
+				//console.info($scope.mapa.gridCoordenadas[i].direccion);
+					$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
+				}
+			}, 500);
+        	
+			$scope.initMap();
+        };
         
         //***Se prepara la informacion para mostrarla en pantalla
         procesarConsulta = function(objConsulta)
@@ -3114,9 +3119,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		mapaTemp.metros	= objConsulta.agenda.diasAgenda[0].avanceEsperado;
 	  		mapaTemp.fecha 	= objConsulta.agenda.diasAgenda[0].fecha;
 	  		
+			$scope.mapa = {};
+			$scope.mapa.gridCoordenadas = [];
 			$scope.mapa.fecha = mapaTemp.fecha;
 			$scope.mapa.metros = mapaTemp.metros;
-			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;					
+			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;			
+			
+			console.info("consulta agenda");
+			console.info($scope.mapa);
+
+            //en caso de haber información en el arreglo de mapas se muestran los marcadores
+        	setTimeout(function () { 
+			for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
+				console.info($scope.mapa.gridCoordenadas[i].direccion);
+				$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
+			}
+			}, 100);			
         };
         
         
@@ -3141,7 +3159,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
           $( "#tramos" ).empty();
           $( "#km" ).text('');
 		  $( "#txtkm" ).text('');
-        };        
+        };
+        
+        $scope.initMap();        
     });    
     //FIN CONSULTA DE AGENDA
 		
