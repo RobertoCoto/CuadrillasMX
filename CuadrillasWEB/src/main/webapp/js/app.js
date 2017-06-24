@@ -2512,8 +2512,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 									//for (var rec_coord = $scope.mapaSemana[indice].gridCoordenadas.length-1; rec_coord >=0 ; rec_coord--) {
 									  for (var rec_coord = 0; rec_coord < $scope.mapaSemana[indice].gridCoordenadas.length ; rec_coord++) {								
 										var direccion = $scope.mapaSemana[indice].gridCoordenadas[rec_coord].direccion;
-										//console.info("colocarMarcadoresSeleccionados");
-										//console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
+										console.info("colocarMarcadoresSeleccionados");
+										console.info( $scope.mapaSemana[indice].fecha + " " + direccion);
 										$scope.setDireccionEnReversaLectura($scope.mapaSemana[indice].gridCoordenadas[rec_coord].latitud, $scope.mapaSemana[indice].gridCoordenadas[rec_coord].longitud, direccion);
 										}
 									//}, 500);
@@ -2889,7 +2889,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		}
 
   		$scope.obtenerFechaSeleccionada(numeroBoton);
-		$scope.colocarMarcadoresSeleccionados();		 
+  		
+  		setTimeout(function () {
+  			$scope.colocarMarcadoresSeleccionados()}, 5000);		 
     };
   		
   		
