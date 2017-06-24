@@ -148,8 +148,8 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 	)
 	VALUES
 	(
-	#{idActividadDairia},#{codigoActividad},#{codigoPrioridad},{codigoEstado},#{codigoListoVencido},#{tiempoDestinado},
-	#{numeroPersonas},#{numeroUnidades},#{porcentaje},#{observaciones,#{planeada},now(),#{usuarioAlta},'A'
+	#{idActividadDiaria}, #{codigoActividad}, #{codigoPrioridad}, #{codigoEstado}, #{codigoListoVencido}, #{tiempoDestinado},
+	#{numeroPersonas}, #{numeroUnidades}, #{porcentaje}, #{observaciones}, #{planeada}, now(), #{usuarioAlta},'A'
 	)
 </insert>
 

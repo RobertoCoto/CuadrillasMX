@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
+import com.fyg.cuadrillas.comun.Funciones;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.CoordenadaDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
@@ -718,6 +719,21 @@ public class AgendaDAO {
 			if ( consultaActividadesDiaria == null) {
 				throw new ExcepcionesCuadrillas("No existen actividades diarias registradas.");
 			}
+
+			consultaActividadesDiaria.setNoHorasRestantes(consultaActividadesDiaria.getNoHoras()
+					- consultaActividadesDiaria.getNoHorasTrabajadas());
+
+			if ( consultaActividadesDiaria.getNoHorasRestantes() < 0 ) {
+				consultaActividadesDiaria.setNoHorasRestantes(0);
+			}
+			consultaActividadesDiaria.setPorcentajeCompletas( (consultaActividadesDiaria.getNoActividadesTerminadas()
+					/ (float) consultaActividadesDiaria.getNoActividades()) * 100.00f );
+
+			consultaActividadesDiaria.setPorcentajeCompletas(
+					Funciones.redondearNumero(consultaActividadesDiaria.getPorcentajeCompletas(), 2));
+			consultaActividadesDiaria.setPorcentajeDia(
+					Funciones.redondearNumero(consultaActividadesDiaria.getPorcentajeDia(), 2));
+
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
 					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
 

@@ -25,8 +25,12 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	private int noHoras;
 	/** noHorasTrabajadas */
 	private int noHorasTrabajadas;
+	/** noHorasTrabajadas */
+	private int noHorasRestantes;
+	/** porcentajeCompletas */
+	private float porcentajeCompletas;
 	/** porcentaje */
-	private float porcentaje;
+	private float porcentajeDia;
 	/** observaciones */
 	private String observaciones;
 	/** observaciones */
@@ -63,7 +67,10 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	private String descripcionVialidad;
 	/** nombre del residente */
 	private String nombreResidente;
-
+	/** noActividades */
+	private int noActividades;
+	/** noActividadesTerminadas */
+	private int noActividadesTerminadas;
 	/**
 	 * @return the idActividadDiaria
 	 */
@@ -147,18 +154,6 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setNoHorasTrabajadas(int noHorasTrabajadas) {
 		this.noHorasTrabajadas = noHorasTrabajadas;
-	}
-	/**
-	 * @return the porcentaje
-	 */
-	public float getPorcentaje() {
-		return porcentaje;
-	}
-	/**
-	 * @param porcentaje the porcentaje to set
-	 */
-	public void setPorcentaje(float porcentaje) {
-		this.porcentaje = porcentaje;
 	}
 	/**
 	 * @return the observaciones
@@ -378,6 +373,66 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setNombreResidente(String nombreResidente) {
 		this.nombreResidente = nombreResidente;
+	}
+	/**
+	 * @return the noHorasRestantes
+	 */
+	public int getNoHorasRestantes() {
+		return noHorasRestantes;
+	}
+	/**
+	 * @param noHorasRestantes the noHorasRestantes to set
+	 */
+	public void setNoHorasRestantes(int noHorasRestantes) {
+		this.noHorasRestantes = noHorasRestantes;
+	}
+	/**
+	 * @return the porcentajeCompletas
+	 */
+	public float getPorcentajeCompletas() {
+		return porcentajeCompletas;
+	}
+	/**
+	 * @param porcentajeCompletas the porcentajeCompletas to set
+	 */
+	public void setPorcentajeCompletas(float porcentajeCompletas) {
+		this.porcentajeCompletas = porcentajeCompletas;
+	}
+	/**
+	 * @return the porcentajeDia
+	 */
+	public float getPorcentajeDia() {
+		return porcentajeDia;
+	}
+	/**
+	 * @param porcentajeDia the porcentajeDia to set
+	 */
+	public void setPorcentajeDia(float porcentajeDia) {
+		this.porcentajeDia = porcentajeDia;
+	}
+	/**
+	 * @return the noActividades
+	 */
+	public int getNoActividades() {
+		return noActividades;
+	}
+	/**
+	 * @param noActividades the noActividades to set
+	 */
+	public void setNoActividades(int noActividades) {
+		this.noActividades = noActividades;
+	}
+	/**
+	 * @return the noActividadesTerminadas
+	 */
+	public int getNoActividadesTerminadas() {
+		return noActividadesTerminadas;
+	}
+	/**
+	 * @param noActividadesTerminadas the noActividadesTerminadas to set
+	 */
+	public void setNoActividadesTerminadas(int noActividadesTerminadas) {
+		this.noActividadesTerminadas = noActividadesTerminadas;
 	}
 
 }

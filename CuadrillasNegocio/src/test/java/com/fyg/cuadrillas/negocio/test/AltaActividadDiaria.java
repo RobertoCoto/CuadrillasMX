@@ -35,7 +35,7 @@ public class AltaActividadDiaria {
 	@Before
 	public void setUp() throws Exception {
 		actividadDiaria = new ActividadDiariaDetalleDTO();
-		actividadDiaria.setIdActividadDiaria(1);
+		actividadDiaria.setIdActividadDiaria(5);
 		actividadDiaria.setCodigoActividad("AMUL");
 		actividadDiaria.setCodigoPrioridad("ALTA");
 		actividadDiaria.setCodigoEstado("PROG");
@@ -66,9 +66,15 @@ public class AltaActividadDiaria {
 	@Test
 	public void testAltaAgenda() throws Exception {
 		String guid = "123456789";
+		
+		int a = 3;
+		int t = 1;
+		float p = t / (float) a ;
+		System.out.println(p);
+			
 		AgendaNegocio negocio = new AgendaNegocio();
 		try {
-			negocio.registraActividadDiaria(actividadDiaria);
+			//negocio.registraActividadDiaria(actividadDiaria);
 		} catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}

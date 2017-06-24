@@ -87,12 +87,15 @@
 	<result column="no_trabajadores" property="noTrabajadores"/>
 	<result column="no_horas" property="noHoras"/>
 	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/>
-	<result column="porcentaje" property="porcentaje"/>
+	<result column="porcentaje_completas" property="porcentajeCompletas"/>
+	<result column="porcentaje_dia" property="porcentajeDia"/>
 	<result column="observaciones" property="observaciones"/>
 	<result column="autorizacion" property="autorizacion"/>
 	<result column="estatus" property="estatus"/>
 	<result column="descripcion_vialidad" property="descripcionVialidad"/>
 	<result column="nombre_residente" property="nombreResidente"/>
+	<result column="no_actividades" property="noActividades"/>
+	<result column="no_actividades_terminadas" property="noActividadesTerminadas"/>
 </resultMap>
 
 <resultMap type="ActividadDiariaDocumentos" id="actividadDiariaDocumentos">
@@ -279,9 +282,33 @@ AND estatus = 'A'
 </select>
 
 <select id="consultaActividadesDia" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
+
 	SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado,
-		no_trabajadores,no_horas,no_horas_trabajadas,porcentaje,observaciones,autorizacion,
-		estatus
+		no_trabajadores,no_horas,porcentaje,observaciones,autorizacion,estatus,
+		(
+		  SELECT sum(tiempo_destinado)
+		  FROM actividad_diaria_detalle
+		  WHERE id_actividad_diaria =  (SELECT id_actividad_diaria FROM  actividad_diaria WHERE id_agenda_detalle = #{idAgendaDetalle})
+		  AND estatus = 'A'
+		) AS no_horas_trabajadas,
+		(
+		  SELECT avg(ifnull(porcentaje,0))
+		  FROM actividad_diaria_detalle
+		  WHERE id_actividad_diaria = (SELECT id_actividad_diaria FROM  actividad_diaria WHERE id_agenda_detalle = #{idAgendaDetalle})
+		  AND estatus = 'A'
+		) AS  porcentaje_dia,
+		(
+		  SELECT count(1) FROM actividad_diaria_detalle
+		  WHERE 1 = 1
+		  AND id_actividad_diaria = (SELECT id_actividad_diaria FROM  actividad_diaria WHERE id_agenda_detalle = #{idAgendaDetalle})
+		  AND estatus = 'A'
+		) AS no_actividades,
+		(
+		  SELECT count(1) FROM actividad_diaria_detalle
+		  WHERE porcentaje = 100
+		  AND id_actividad_diaria = (SELECT id_actividad_diaria FROM  actividad_diaria WHERE id_agenda_detalle = #{idAgendaDetalle})
+		  AND estatus = 'A'
+		) AS no_actividades_terminadas
 	FROM actividad_diaria
 	WHERE id_agenda_detalle = #{idAgendaDetalle}
 	AND estatus = 'A'
