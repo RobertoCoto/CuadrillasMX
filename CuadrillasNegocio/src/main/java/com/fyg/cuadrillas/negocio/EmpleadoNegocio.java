@@ -53,8 +53,8 @@ public class EmpleadoNegocio {
 			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del empleado.");
 			}
-			if (empleado.getApellidoMat() == null || empleado.getApellidoMat().trim().isEmpty()) {
-				throw new ExcepcionesCuadrillas("El apellido materno es necesario en el alta del empleado.");
+			if (empleado.getApellidoMat() == null) {
+				empleado.setApellidoMat("");				
 			}
 			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del empleado.");
@@ -311,6 +311,9 @@ public class EmpleadoNegocio {
 			}
 			if (empleado.getApellidoPat() == null || empleado.getApellidoPat().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en la actualizacion del empleado.");
+			}
+			if (empleado.getApellidoMat() == null) {
+				empleado.setApellidoMat("");				
 			}
 			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en la actualizacion del empleado.");

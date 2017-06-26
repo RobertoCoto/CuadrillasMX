@@ -487,7 +487,7 @@ VALUES('LIST_VENC','PESP',upper('Puede Esperar'),'SISTEMAS', 'SISTEMAS',now(),no
 /*CATALOGO MANOS*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
-VALUES('LADO_MAN','LADO MANOS', 'S', now(),now(),'A');
+VALUES('LADO_MAN','LADO MANOS', 'N', now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('LADO_MAN','MIZQ',upper('Mano Izquierda'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
@@ -498,7 +498,7 @@ VALUES('LADO_MAN','MDER',upper('Mano Derecha'),'SISTEMAS', 'SISTEMAS',now(),now(
 /*Catalogo DEDOS*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
-VALUES('TIPO_DEDO','Tipo Dedos', 'S', now(),now(),'A');
+VALUES('TIPO_DEDO','TIPO DEDOS', 'N', now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('TIPO_DEDO','MENI',upper('Menique'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
