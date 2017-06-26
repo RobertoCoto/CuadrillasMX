@@ -13,22 +13,40 @@
 </resultMap>
 
 <select id="existeMismaCuadrilla" parameterType="Cuadrilla" resultType="int">
-SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
-FROM cuadrilla
-WHERE nombre_cuadrilla = #{nombreCuadrilla}
+	SELECT count(nombre_cuadrilla) AS nombre_cuadrilla
+	FROM cuadrilla
+	WHERE nombre_cuadrilla = #{nombreCuadrilla}
+	AND estatus = 'A'
+	<if test="idCuadrilla != null">
+    	AND id_cuadrilla != #{idCuadrilla}
+  	</if>
 </select>
 
 <select id="existeMismaIdCuadrilla" parameterType="Cuadrilla" resultType="int">
-SELECT count(id_cuadrilla) AS id_cuadrilla
-FROM cuadrilla
-WHERE id_cuadrilla = #{idCuadrilla}
+	SELECT count(id_cuadrilla) AS id_cuadrilla
+	FROM cuadrilla
+	WHERE id_cuadrilla = #{idCuadrilla}
+	AND estatus = 'A'
+	<if test="idCuadrilla != null">
+    	AND id_cuadrilla != #{idCuadrilla}
+  	</if>
+</select>
+
+<select id="existeMismaVialidad" parameterType="Cuadrilla" resultType="int">
+	SELECT count(id_cuadrilla) AS id_cuadrilla
+	FROM cuadrilla
+	WHERE codigo_vialidad = #{codigoVialidad}
+	AND estatus = 'A'
+	<if test="idCuadrilla != null">
+    	AND id_cuadrilla != #{idCuadrilla}
+  	</if>
 </select>
 
 <select  id="existeBajaCuadrilla" parameterType="Cuadrilla" resultType="int">
-SELECT count(estatus) AS estatus
-FROM cuadrilla
-WHERE id_cuadrilla = #{idCuadrilla}
-AND estatus = 'I'
+	SELECT count(estatus) AS estatus
+	FROM cuadrilla
+	WHERE id_cuadrilla = #{idCuadrilla}
+	AND estatus = 'I'
 </select>
 
 <select id="consultaCuadrilla" parameterType="Cuadrilla" resultMap="cuadrilla">

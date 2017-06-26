@@ -99,5 +99,6 @@ co.longitud AS longitud
 FROM agenda_coordenadas co
 WHERE co.id_agenda_detalle = #{idAgendaDetalle}
 AND co.estatus = 'A'
+ORDER BY co.orden
 </select>
 </mapper>

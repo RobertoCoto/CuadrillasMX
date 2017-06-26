@@ -28,10 +28,14 @@ public class CuadrillaNegocio {
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
 			}
+			if (cuadrilla.getCodigoVialidad() == null || cuadrilla.getCodigoVialidad().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la vialidad de la cuadrilla.");
+			}
 			if (cuadrilla.getCalificacion() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario la calificación.");
 			}
 			CuadrillaDAO dao = new CuadrillaDAO();
+			cuadrilla.setIdCuadrilla(null);
 			respuesta = dao.altaCuadrilla(uid, cuadrilla);
 
 		} catch  (ExcepcionesCuadrillas ex) {
@@ -136,8 +140,14 @@ public class CuadrillaNegocio {
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
+			if (cuadrilla.getIdCuadrilla() == null) {
+				throw new ExcepcionesCuadrillas("Es necesario el ID de la cuadrilla.");
+			}
 			if (cuadrilla.getNombreCuadrilla() == null || cuadrilla.getNombreCuadrilla().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("Es necesario el nombre de la cuadrilla.");
+			}
+			if (cuadrilla.getCodigoVialidad() == null || cuadrilla.getCodigoVialidad().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario la vialidad de la cuadrilla.");
 			}
 			if (cuadrilla.getCalificacion() == null) {
 				throw new ExcepcionesCuadrillas("Es necesario la calificación.");

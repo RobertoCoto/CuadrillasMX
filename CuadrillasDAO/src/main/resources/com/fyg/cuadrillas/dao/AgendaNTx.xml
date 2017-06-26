@@ -170,6 +170,7 @@ WHERE estatus = 'A'
 <if test="idAgendaDetalle !=null">
 	 	AND id_agenda_detalle = #{idAgendaDetalle}
 </if>
+ORDER BY orden
 
 </select>
 <select id="consultaAgendaContrato" parameterType="Agenda" resultMap="agenda">
@@ -251,6 +252,7 @@ SELECT
 	FROM agenda_coordenadas
 WHERE id_agenda_detalle = #{id_agenda_detalle}
 AND estatus = 'A'
+ORDER BY orden
 </select>
 
 <select id="consultaAgendaDia" parameterType="Agenda" resultMap="agenda">

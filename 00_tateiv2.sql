@@ -35,9 +35,6 @@ DROP TABLE IF EXISTS herramienta;
 
 
 
-
-
-
 	CREATE TABLE perfil (
 	    id_perfil INT NOT NULL,
 	    nombre VARCHAR(100) NOT NULL,
@@ -483,7 +480,8 @@ ALTER TABLE perfil_menu ADD CONSTRAINT FK_perfil_menu FOREIGN KEY (id_menu) REFE
 ALTER TABLE perfil_menu ADD CONSTRAINT FK_Perfil_menu_id_perfil FOREIGN KEY(id_perfil) REFERENCES perfil(id_perfil);
 
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_puesto FOREIGN KEY(codigo_puesto) REFERENCES catalogo(codigo);
-ALTER TABLE empleado ADD CONSTRAINT FK_codigo_vialidad FOREIGN KEY(codigo_vialidad) REFERENCES catalogo(codigo);
+/*ALTER TABLE empleado ADD CONSTRAINT FK_codigo_vialidad FOREIGN KEY(codigo_vialidad) REFERENCES catalogo(codigo);*/
+
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_area FOREIGN KEY(codigo_area) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_talla FOREIGN KEY(codigo_talla) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_tipo_salida FOREIGN KEY(codigo_tipo_salida) REFERENCES catalogo(codigo);
@@ -528,8 +526,3 @@ ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_actividad  FOREI
 ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_prioridad  FOREIGN KEY (codigo_prioridad) REFERENCES catalogo(codigo);
 ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_estado  FOREIGN KEY (codigo_estado) REFERENCES catalogo(codigo);
 ALTER TABLE actividad_diaria_detalle ADD CONSTRAINT FK_adcodigo_listo_vencido  FOREIGN KEY (codigo_listo_vencido) REFERENCES catalogo(codigo);
-
-
-
-
-

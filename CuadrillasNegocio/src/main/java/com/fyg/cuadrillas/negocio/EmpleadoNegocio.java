@@ -135,6 +135,7 @@ public class EmpleadoNegocio {
 		     String parametroEdad = "usuario.edad.ano.minimo";
 			 String valor = new ParametroDAO().consultaParametro(uid, parametroEdad);
 			 Integer edadMinima = Integer.parseInt(valor);
+			 System.out.println(edadMinima + " - " + year);
 			 if (year < edadMinima) {
 				 throw new ExcepcionesCuadrillas("El empleado debe tener 18 años o mas.");
 			 }
@@ -149,6 +150,10 @@ public class EmpleadoNegocio {
 			empleado.setCodigoVialidad("");
 			//Consultamos si ya existe
 			respuesta = dao.registraEmpleado(uid, empleado);
+
+			if (!respuesta.isEstatus()) {
+				throw new Exception(respuesta.getMensajeFuncional());
+			}
 
 			//Aqui generamos usuario si el perfil existe en perfil.crea.usuario
 			UsuarioDTO usuarioExistente = new UsuarioDTO();

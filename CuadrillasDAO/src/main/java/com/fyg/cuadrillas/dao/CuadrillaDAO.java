@@ -29,7 +29,11 @@ public class CuadrillaDAO {
 
 			int existeMismaCuadrilla = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaCuadrilla", cuadrilla);
 			if (existeMismaCuadrilla > 0) {
-				throw new ExcepcionesCuadrillas("Error al registrar, ya existe la cuadrilla.");
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe una cuadrilla con el mismo nombre.");
+			}
+			int existeMismaVialidad = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaVialidad", cuadrilla);
+			if (existeMismaVialidad > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe una cuadrilla asignad a la vialidad.");
 			}
 			int existeMismaIdCuadrilla = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaIdCuadrilla", cuadrilla);
 			if (existeMismaIdCuadrilla > 0) {
@@ -144,6 +148,7 @@ public class CuadrillaDAO {
 	 */
 	public EncabezadoRespuesta modificaCuadrilla(String uid, CuadrillaDTO cuadrilla) {
 		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
@@ -151,6 +156,16 @@ public class CuadrillaDAO {
 		try {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeMismaCuadrilla = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaCuadrilla", cuadrilla);
+			if (existeMismaCuadrilla > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe una cuadrilla con el mismo nombre.");
+			}
+			int existeMismaVialidad = (Integer) sessionNTx.selectOne("CuadrillaDAO.existeMismaVialidad", cuadrilla);
+			if (existeMismaVialidad > 0) {
+				throw new ExcepcionesCuadrillas("Error al registrar, ya existe una cuadrilla asignad a la vialidad.");
+			}
+
 	        int registros = sessionTx.update("CuadrillaDAO.modificaCuadrilla", cuadrilla);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al modificar una cuadrilla.");
@@ -168,6 +183,7 @@ public class CuadrillaDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 	}

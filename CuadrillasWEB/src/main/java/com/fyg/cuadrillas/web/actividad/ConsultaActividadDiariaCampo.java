@@ -60,7 +60,7 @@ public class ConsultaActividadDiariaCampo extends HttpServlet {
 		ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
 		actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
 		respuesta = negocio.consultaActividadDiaria(actividadDiaria);
-		if (respuesta.isEstatus()) {
+		if (respuesta.getHeader().isEstatus()) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
