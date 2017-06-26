@@ -2919,7 +2919,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         //***Consulta de la agenda
         $scope.consultarAgendaDia = function()
         {
-        	//botón de mapa ng-click="muestraMap()"
+        	//botï¿½n de mapa ng-click="muestraMap()"
         	$('#msload').modal('show'); 
         	
       		$scope.gridActividades = [];
@@ -2933,7 +2933,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         		method: 'GET',
         		url: '/CuadrillasWEB/ConsultaAgendaDia',
         		params: {
-                	'idCuadrilla'	: 1, //$scope.usuario.idCuadrilla,
+                	'idCuadrilla'	: $scope.usuario.idCuadrilla,
                 	'fecha' 		: $('#fecha').val()
               	},
               	data: { }
