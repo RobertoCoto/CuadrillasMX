@@ -54,7 +54,7 @@ public class EmpleadoNegocio {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en el alta del empleado.");
 			}
 			if (empleado.getApellidoMat() == null) {
-				empleado.setApellidoMat("");				
+				empleado.setApellidoMat("");
 			}
 			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en el alta del empleado.");
@@ -146,6 +146,7 @@ public class EmpleadoNegocio {
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
+			empleado.setCodigoVialidad("");
 			//Consultamos si ya existe
 			respuesta = dao.registraEmpleado(uid, empleado);
 
@@ -313,7 +314,7 @@ public class EmpleadoNegocio {
 				throw new ExcepcionesCuadrillas("El apellido paterno es necesario en la actualizacion del empleado.");
 			}
 			if (empleado.getApellidoMat() == null) {
-				empleado.setApellidoMat("");				
+				empleado.setApellidoMat("");
 			}
 			if (empleado.getSexo() == null || empleado.getSexo().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El sexo es necesario en la actualizacion del empleado.");
@@ -394,7 +395,7 @@ public class EmpleadoNegocio {
 			//Se le asigna el rfc calculado al campo rfc_calculado de usuarios
 			empleado.setRfcCalculado(rfcCalculado);
 			EmpleadoDAO dao = new EmpleadoDAO();
-
+			empleado.setCodigoVialidad("");
 			//Modificacion
  		    respuesta = dao.modificaEmpleado(uid, empleado);
 		}
