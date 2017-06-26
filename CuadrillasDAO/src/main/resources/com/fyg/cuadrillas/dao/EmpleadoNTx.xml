@@ -166,7 +166,7 @@ AND id_empleado = #{idEmpleado}
 </select>
 
 <select id="consultaHuellaEmpleado" parameterType="EmpleadoHuella" resultMap="empleadoHuella">
-SELECT 
+SELECT
 	h.id_huella,
 	h.id_empleado,
 	h.huella,
