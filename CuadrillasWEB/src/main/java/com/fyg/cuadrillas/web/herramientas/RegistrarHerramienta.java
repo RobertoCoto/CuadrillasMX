@@ -64,13 +64,13 @@ public class RegistrarHerramienta extends HttpServlet {
 
 			//Lista de direcciones
 			HerramientaDTO herramienta = new HerramientaDTO();
-			herramienta.setNombre(nombre);
-			herramienta.setDescripcion(descripcion);
+			herramienta.setNombre(nombre.toUpperCase());
+			herramienta.setDescripcion(descripcion.toUpperCase());
 			herramienta.setCodigoEstatus(codigoEstatus);
 			herramienta.setCodigoTipo(codigoTipo);
-			herramienta.setMarca(marca);
-			herramienta.setModelo(modelo);
-			herramienta.setNoSerie(noSerie);
+			herramienta.setMarca(marca.toUpperCase());
+			herramienta.setModelo(modelo.toUpperCase());
+			herramienta.setNoSerie(noSerie.toUpperCase());
 			herramienta.setUsuarioAlta(usuarioAlta);
 			respuesta = negocio.registrarHerramienta(herramienta);
 			LogHandler.info("", this.getClass(), "" + respuesta);
