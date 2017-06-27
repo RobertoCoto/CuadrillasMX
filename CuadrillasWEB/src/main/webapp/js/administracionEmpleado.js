@@ -1,11 +1,12 @@
 app.controller('registraEmpleado', function ($scope, $http, $window) {
+	$scope.re = /^[a-zA-Z¡…Õ”⁄·ÈÌÛ˙—Ò\s]*$/;	
 	   var date = new Date();
 	   $scope.FromDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 	  // msload 
 		$('#success').hide();
 	    $('#alert').hide();
 	    $('#msload').modal('show');
-						
+	    			
 		// consulta el perfil del empleado
     $scope.consultaTodo = function () {
     	$('#msload').modal('show');
@@ -239,6 +240,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	    			$scope.nss = $("#nss").val();
 	    			$scope.infonavit = $("#noCreditoInfonavit").val();
 	    			$scope.telefono = $("#telefono").val();
+	    			$scope.cuadri = $("#idCuadrilla").val();
 	    		 if($("#seguro").is(':checked')) {
 		    	       $scope.imss = "S";	 
 		    	        }else {
@@ -259,7 +261,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	              "codigoPuesto": general.codigoPuesto,
 	              "codigoArea": general.codigoArea,
 	              "codigoTalla": general.codigoTalla,
-	              "idCuadrilla": general.idCuadrilla,
+	              "idCuadrilla": $scope.cuadri,
 	              "calificacion": general.calificacion,
 	              "telefono": $scope.telefono,
 	              "rfc" : general.rfc,
