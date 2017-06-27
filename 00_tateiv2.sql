@@ -386,8 +386,6 @@ DROP TABLE IF EXISTS herramienta;
 	);
 	
 	
-	--ACTIVIDADES CAMPO
-	
 	CREATE TABLE actividad_diaria (
 		id_actividad_diaria		 	INTEGER NOT NULL AUTO_INCREMENT,				
 		id_agenda 					INTEGER NOT NULL,

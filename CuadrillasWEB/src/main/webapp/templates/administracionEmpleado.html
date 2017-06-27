@@ -46,7 +46,7 @@
                             <label for="numeroEmpleado" class="control-label">N&uacute;mero de Empleado</label>
                             <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control" ng-minlength="1"  required  ng-pattern="/^[A-Z0-9]*$/" / maxlength="15" >
                            <p ng-if="formEmpleado.numeroEmpleado.$error.pattern == true" ng-show="formEmpleado.numeroEmpleado.$error.pattern" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
-                           <p ng-if="formEmpleado.numeroEmpleado.$error.required == false" ng-show="formEmpleado.numeroEmpleado.$error.required" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
+                           <p ng-if="formEmpleado.codigoEmpresa.$invalid && !formEmpleado.codigoEmpresa.$pristine == true" ng-show="formEmpleado.numeroEmpleado.$error.required" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
                         </div>
                     </div>
 			     </div>
@@ -54,22 +54,24 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nombre.$invalid && !formEmpleado.nombre.$pristine }">
                             <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
-                            <input type="text" ng-model="general.nombre" name="nombre" id="nombre" class="form-control" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40">
-                            <p ng-show="formEmpleado.nombre.$error.pattern && !formEmpleado.nombre.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
+                            <input type="text" ng-model="general.nombre" name="nombre" id="nombre" class="form-control" ng-minlength="1" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40">
+                            <p ng-if="formEmpleado.nombre.$error.pattern == true" ng-show="formEmpleado.nombre.$error.pattern && !formEmpleado.nombre.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
+                            <p ng-if="formEmpleado.nombre.$error.minlength == true" ng-show="formEmpleado.nombre.$error.required" class="help-block">Es necesario ingresar el nombre del empleado.</p>
                         </div>
                     </div>
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoPat.$invalid && !formEmpleado.apellidoPat.$pristine }">
                             <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
-                            <input type="text" name="apellidoPat" id="apellidoPaterno" class="form-control" ng-model="general.apellidoPat" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
+                            <input type="text" name="apellidoPat" id="apellidoPaterno" class="form-control" ng-model="general.apellidoPat" ng-minlength="1" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
                             <p ng-show="formEmpleado.apellidoPat.$error.pattern && !formEmpleado.apellidoPat.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
+                            <p ng-if="formEmpleado.apellidoPat.$error.required == true" ng-show="formEmpleado.apellidoPat.$error.required" class="help-block">Es necesario ingresar el apellido paterno del empleado.</p>
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoMat.$error.pattern}">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
-                            <input type="text" name="apellidoMat" id="apellidoMaterno" class="form-control"  ng-model="general.apellidoMat" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
+                            <input type="text" name="apellidoMat" id="apellidoMaterno" class="form-control"  ng-model="general.apellidoMat" ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
                             <p ng-show="formEmpleado.apellidoMat.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -112,7 +114,7 @@
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nss.$error.pattern}">
                             <label for="nss" class="control-label">NSS</label>
-                            <input type="text" name="nss" id="nss" class="form-control" ng-model="general.nss" required ng-pattern="/^[0-9]*$/" maxlength="20">
+                            <input type="text" name="nss" id="nss" class="form-control" ng-model="general.nss" ng-pattern="/^[0-9]*$/" maxlength="20">
                             <p ng-show="formEmpleado.nss.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -120,7 +122,7 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.creditoInfonavit.$error.pattern}">
                             <label for="noCreinfonavit" class="control-label">Credito Infonavit</label>
-                            <input type="text" name="creditoInfonavit" id="noCreditoInfonavit"  class="form-control" ng-model="general.noCreditoInfonavit" required ng-pattern="/^[0-9]*$/" maxlength="20">
+                            <input type="text" name="creditoInfonavit" id="noCreditoInfonavit"  class="form-control" ng-model="general.noCreditoInfonavit"  ng-pattern="/^[0-9]*$/" maxlength="20">
                             <p ng-show="formEmpleado.creditoInfonavit.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -132,6 +134,7 @@
                             <label for="rfc" class="control-label">RFC</label>
                             <input type="text" name="rfc" id="rfc"  class="form-control" ng-model="general.rfc" required ng-pattern="/^[A-Z0-9]*$/" maxlength="13">
                             <p ng-show="formEmpleado.rfc.$error.pattern && !formEmpleado.rfc.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
+                           <p ng-if="formEmpleado.rfc.$error.required == true" ng-show="formEmpleado.rfc.$error.required" class="help-block">Es necesario ingresar el RFC del empleado.</p>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -151,6 +154,7 @@
                             <label for="sueldo" class="control-label">Sueldo</label>
                             <input type="text" name="sueldo" placeholder="$00.00" id="sueldo" class="form-control"  ng-model="general.sueldo" required ng-pattern="/^[0-9.]*$/" maxlength="10">
                            <p ng-show="formEmpleado.sueldo.$error.pattern && !formEmpleado.sueldo.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
+                           <p ng-if="formEmpleado.sueldo.$error.required == true" ng-show="formEmpleado.sueldo.$error.required" class="help-block">Es necesario ingresar el sueldo del empleado.</p>
                         </div>
                     </div>
                     
@@ -186,7 +190,7 @@
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.telefono.$error.pattern }">
                             <label for="telefono" class="control-label">Telefono</label>
-                            <input type="tel" name="telefono" id="telefono" class="form-control" data-form="tel" ng-model="general.telefono" required ng-pattern="/^[0-9]*$/" maxlength="10"/>
+                            <input type="tel" name="telefono" id="telefono" class="form-control" data-form="tel" ng-model="general.telefono"  ng-pattern="/^[0-9]*$/" maxlength="10"/>
                             <p ng-show="formEmpleado.telefono.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -256,7 +260,7 @@
                         <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
                             <br/>
-                           <textarea  id="observaciones" name="comentario" required class="form-comtrol responsive-input" style="height: 67px; " ng-model="general.coment" maxlength="50"></textarea>
+                           <textarea  id="observaciones" name="comentario" class="form-comtrol responsive-input" style="height: 67px; " ng-model="general.coment" maxlength="50"></textarea>
                         </div>
                     </div>
 			     </div>

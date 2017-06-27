@@ -235,6 +235,10 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 							 $('#alert').hide();
 	    				}
 	    			$scope.fechaNacimiento = $("#fechaNacimiento").val();
+	    			$scope.apeMaterno = $("#apellidoMaterno").val();
+	    			$scope.nss = $("#nss").val();
+	    			$scope.infonavit = $("#noCreditoInfonavit").val();
+	    			$scope.telefono = $("#telefono").val();
 	    		 if($("#seguro").is(':checked')) {
 		    	       $scope.imss = "S";	 
 		    	        }else {
@@ -248,7 +252,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 		"noEmpleado" : general.noEmpleado,
 			 		"nombre" : general.nombre,
 			 		"apellidoPaterno": general.apellidoPat,
-			 		"apellidoMaterno" : general.apellidoMat,
+			 		"apellidoMaterno" : $scope.apeMaterno,
 			 		"sexo": general.sexo,
 	              "fechaNacimiento": $scope.fechaNacimiento,
 	              "codigoEmpresa": general.codigoEmpresa,
@@ -257,13 +261,13 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	              "codigoTalla": general.codigoTalla,
 	              "idCuadrilla": general.idCuadrilla,
 	              "calificacion": general.calificacion,
-	              "telefono": general.telefono,
+	              "telefono": $scope.telefono,
 	              "rfc" : general.rfc,
 	              "sueldo": general.sueldo,
 	              "frecuenciaPago": $scope.pagoValor,
-	              "nss": general.nss,
+	              "nss": $scope.nss,
 	              "altaIMSS": $scope.imss,
-	              "noCreditoInfonavit": general.noCreditoInfonavit,
+	              "noCreditoInfonavit": $scope.infonavit,
 	              "observaciones": general.coment,
 	              "usuario": data.data.usuario.usuario,
 	              "documentoEmpleado" : $scope.JSONDocumentation
