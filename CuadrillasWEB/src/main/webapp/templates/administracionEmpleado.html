@@ -46,7 +46,7 @@
                             <label for="numeroEmpleado" class="control-label">N&uacute;mero de Empleado</label>
                             <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control" ng-minlength="1"  required  ng-pattern="/^[A-Z0-9]*$/" / maxlength="15" >
                            <p ng-if="formEmpleado.numeroEmpleado.$error.pattern == true" ng-show="formEmpleado.numeroEmpleado.$error.pattern" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
-                           <p ng-if="formEmpleado.numeroEmpleado.$error.minlength == true" ng-show="formEmpleado.numeroEmpleado.$error.minlength" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
+                           <p ng-if="formEmpleado.numeroEmpleado.$error.required == false" ng-show="formEmpleado.numeroEmpleado.$error.required" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
                         </div>
                     </div>
 			     </div>
