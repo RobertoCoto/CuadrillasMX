@@ -4,7 +4,10 @@
 
 <insert id="altaAgenda" parameterType="Agenda" useGeneratedKeys="true" keyProperty="id_agenda"  keyColumn="id_agenda">
 INSERT INTO agenda(id_contrato,id_cuadrilla,fecha_inicio,fecha_fin,no_trabajadores,no_horas,no_semana,fecha_alta,usuario_alta,estatus)
-VALUES(#{idContrato},(SELECT id_cuadrilla FROM cuadrilla WHERE id_contrato = #{idContrato}),#{fechaInicio},#{fechaFin},#{noTrabajadores},#{noHoras},#{noSemana},now(),#{usuario},'A')
+VALUES(
+	#{idContrato},
+	( SELECT id_cuadrilla FROM cuadrilla WHERE codigo_vialidad = (SELECT codigo_vialidad FROM contrato WHERE id_contrato =#{idContrato}) AND estatus = 'A'),
+	#{fechaInicio},#{fechaFin},#{noTrabajadores},#{noHoras},#{noSemana},now(),#{usuario},'A')
 
     <selectKey keyProperty="idAgenda" resultType="Integer" order="AFTER">
 		SELECT LAST_INSERT_ID();

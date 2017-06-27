@@ -144,7 +144,7 @@ public class UsuariosNegocio {
 			//Mandamos a log el objeto de entrada
 			LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Entrada: " + usuario);
 			//Variable de resultado
-			UsuarioRespuesta respuesta = new UsuarioRespuesta();			
+			UsuarioRespuesta respuesta = new UsuarioRespuesta();
 			respuesta.setHeader( new EncabezadoRespuesta());
 			respuesta.getHeader().setUid(uid);
 			respuesta.getHeader().setEstatus(true);

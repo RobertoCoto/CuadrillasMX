@@ -457,7 +457,7 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	    * Metodo para registrar la huella del empleado
 	    * @param uid unico de registro
 	    * @param empleadoHuella recibe valores de empleado
-	    * @return
+	    * @return respuesta del registro de Huella
 	    */
 	   public EncabezadoRespuesta registrarHuella(String uid, EmpleadoHuellaDTO empleadoHuella) {
 		   	SqlSession sessionTx = null;
@@ -495,10 +495,9 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	    * @param uid unico de registro
 	    * @param empleadoHuella recibe valores de huella
 	    * @return regresa respuesta
-	    * @throws si retorna error
 	    */
 	   @SuppressWarnings("unchecked")
-	public List<EmpleadoHuellaDTO> consultaHuella(String uid, EmpleadoHuellaDTO empleadoHuella) throws Exception{
+	public List<EmpleadoHuellaDTO> consultaHuella(String uid, EmpleadoHuellaDTO empleadoHuella) throws Exception {
 		   SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
