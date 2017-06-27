@@ -28,23 +28,7 @@ public class UsuarioRespuesta extends ObjetoValor {
 	 * Lista DTO usuario
 	 */
     private List<MenuDTO> menu;
-    /**
-	 * Estatus
-	 */
-	private boolean estatus;
-	/**
-	 * @return the estatus
-	 */
-	public boolean isEstatus() {
-		return estatus;
-	}
 
-	/**
-	 * @param estatus the estatus to set
-	 */
-	public void setEstatus(boolean estatus) {
-		this.estatus = estatus;
-	}
 	/**
 	 * @return the header
 	 */

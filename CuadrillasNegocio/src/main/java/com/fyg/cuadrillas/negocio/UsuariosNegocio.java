@@ -144,8 +144,7 @@ public class UsuariosNegocio {
 			//Mandamos a log el objeto de entrada
 			LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Entrada: " + usuario);
 			//Variable de resultado
-			UsuarioRespuesta respuesta = new UsuarioRespuesta();
-			respuesta.setEstatus(true);
+			UsuarioRespuesta respuesta = new UsuarioRespuesta();			
 			respuesta.setHeader( new EncabezadoRespuesta());
 			respuesta.getHeader().setUid(uid);
 			respuesta.getHeader().setEstatus(true);
@@ -368,7 +367,6 @@ public class UsuariosNegocio {
 				LogHandler.debug(uid, this.getClass(), "loginUsuarioWS - Datos Entrada: " + usuario);
 				//Variable de resultado
 				UsuarioRespuesta respuesta = new UsuarioRespuesta();
-				respuesta.setEstatus(true);
 				respuesta.setHeader( new EncabezadoRespuesta());
 				respuesta.getHeader().setUid(uid);
 				respuesta.getHeader().setEstatus(true);

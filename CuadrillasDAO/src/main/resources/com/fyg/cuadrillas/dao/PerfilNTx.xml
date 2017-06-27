@@ -9,7 +9,7 @@
 
 	<!-- Consulta Perfil-->
 <select id="consultaPerfil" parameterType="Perfil" resultMap="perfil">
-SELECT id_perfil,codigo_puesto FROM perfil 
+SELECT id_perfil,codigo_puesto FROM perfil
 <where>
 	 <if test="idPerfil !=null">
 	 	id_perfil = #{idPerfil}

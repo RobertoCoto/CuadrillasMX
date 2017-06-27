@@ -157,64 +157,64 @@ public class EmpleadoNegocio {
 
 			//Aqui generamos usuario si el perfil existe en perfil.crea.usuario
 			UsuarioDTO usuarioExistente = new UsuarioDTO();
+			UsuarioDTO usuario = new UsuarioDTO();
 			String parametroUsuario = "perfil.crea.usuario";
 			String valorResultado = new ParametroDAO().consultaParametro(uid, parametroUsuario);
 			String delimiter = ";";
 			String[] temp;
 			temp = valorResultado.split(delimiter);
+			boolean crearUsuario = false;
 			for (int i = 0; i < temp.length; i++) {
 				if (temp[i].equals(empleado.getCodigoPuesto())) {
-						UsuarioDTO usuario = new UsuarioDTO();
-						PerfilDTO perfilUsuario = new PerfilDTO();
-						 perfilUsuario.setCodigoPuesto(empleado.getCodigoPuesto());
-						 listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
-						 Integer idPerfil = null;
-						 for (int k = 0; k < listaPerfil.size(); k++) {
-							idPerfil = listaPerfil.get(k).getIdPerfil();
-							 if (idPerfil <= 0) {
-								 throw new ExcepcionesCuadrillas("no existe el perfil");
-							 }
-						 }
-						 Integer tamanoNombre = empleado.getNombre().length();
-						 String palabra = "";
-						 String user = "";
-						 Integer contador = 0;
-							for (int j = 0; j < tamanoNombre; j++) {
-								char letraNombre = empleado.getNombre().charAt(j);
-								palabra += letraNombre;
-
-								user = palabra + "" + empleado.getApellidoPat();
-								System.out.println("usuario generado: " + user);
-								usuario.setUsuario(user.toLowerCase());
-								usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
-								contador = contador + 1;
-								while (usuarioExistente != null) {
-									break;
-						}
-								if  ( usuarioExistente == null) {
-									String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
-									//Se le asigna la contrasena encriptada
-									usuario.setContrasena(encriptaContrasena);
-									usuario.setIdEmpleado(empleado.getIdEmpleado());
-									usuario.setNombre(empleado.getNombre());
-									usuario.setApellidoPat(empleado.getApellidoPat());
-									usuario.setApellidoMat(empleado.getApellidoMat());
-									usuario.setRfc(empleado.getRfc());
-									usuario.setSexo(empleado.getSexo());
-									usuario.setRfcCalculado(rfcCalculado);
-									usuario.setIdPerfil(idPerfil);
-									usuario.setFechaNacimiento(empleado.getFechaNacimiento());
-									//se le envian los datos al DAO
-									UsuarioDAO daoUsuario = new UsuarioDAO();
-									daoUsuario.altaUsuario(uid, usuario);
-									break;
-								}
-								if (contador == tamanoNombre) {
-									throw new ExcepcionesCuadrillas("Favor de contactar al administrador.");
-								}
-							}
+					crearUsuario = true;
 				}
 			}
+			//Creamos usuario en BD para el sistema
+			if (crearUsuario) {
+				//Validamos que existe perfil
+				PerfilDTO perfilUsuario = new PerfilDTO();
+				perfilUsuario.setCodigoPuesto(empleado.getCodigoPuesto());
+				listaPerfil = new PerfilDAO().consultaPerfil(uid, perfilUsuario);
+				if (listaPerfil.size() == 0) {
+					 throw new ExcepcionesCuadrillas("No Existe Perfil Configurado en el Sistema.");
+				}
+				//Buscamos usuario disponible
+				String nombreEmpleado = empleado.getNombre().trim();
+				boolean generaUsuario = false;
+				for (int j = 0; j < nombreEmpleado.length(); j++) {
+					String sUsuario = "";
+					char letraNombre = empleado.getNombre().charAt(j);
+					sUsuario += letraNombre + empleado.getApellidoPat();
+					sUsuario = sUsuario.toLowerCase();
+					usuario.setUsuario(sUsuario);
+					usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
+					if (usuarioExistente == null) {
+						generaUsuario = true;								
+						break;
+					}					
+				}
+				if (!generaUsuario) {
+					 throw new ExcepcionesCuadrillas(
+							 "No es posible generar el usuario contacte al Administrador del Sistema.");
+				}
+				//Damos de alta el usuario
+				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
+				//Se le asigna la contrasena encriptada
+				usuario.setContrasena(encriptaContrasena);
+				usuario.setIdEmpleado(empleado.getIdEmpleado());
+				usuario.setNombre(empleado.getNombre());
+				usuario.setApellidoPat(empleado.getApellidoPat());
+				usuario.setApellidoMat(empleado.getApellidoMat());
+				usuario.setRfc(empleado.getRfc());
+				usuario.setSexo(empleado.getSexo());
+				usuario.setRfcCalculado(rfcCalculado);
+				usuario.setIdPerfil(listaPerfil.get(0).getIdPerfil());
+				usuario.setFechaNacimiento(empleado.getFechaNacimiento());
+				//se le envian los datos al DAO
+				UsuarioDAO daoUsuario = new UsuarioDAO();
+				daoUsuario.altaUsuario(uid, usuario);
+			}										
+			respuesta.setMensajeFuncional(respuesta.getMensajeFuncional() + " Usuario Generado: " + usuario.getUsuario());
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);

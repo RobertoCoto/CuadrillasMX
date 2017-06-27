@@ -78,16 +78,16 @@ public class AltaEmpleadoTest {
 		dataDocumentos.add(docEmpleado3);
 		dataDocumentos.add(docEmpleado4);
 
-		String strFecha = "1985-03-06";
+		String strFecha = "1985-03-10";
 
 		/**
 		 * Valores a enviar
 		 */
-		altaEmpleado.setNoEmpleado("EMP0013");
+		altaEmpleado.setNoEmpleado("EMP0020");
 		altaEmpleado.setIdCuadrilla(1);
-		altaEmpleado.setNombre("JOSE LUIS");
+		altaEmpleado.setNombre("ROBC");
 		altaEmpleado.setApellidoPat("MEJORADA");
-		altaEmpleado.setApellidoMat("SANCHEZ");
+		altaEmpleado.setApellidoMat("SANDHEZ");
 		altaEmpleado.setCodigoEmpresa("TATE");
 		altaEmpleado.setSexo("M");
 		altaEmpleado.setRfc("MAHJ830101");
@@ -96,7 +96,7 @@ public class AltaEmpleadoTest {
 		altaEmpleado.setNoCreditoInfonavit("22323244");
 		altaEmpleado.setAltaImss("N");
 		altaEmpleado.setCalificacion(10);
-		altaEmpleado.setCodigoPuesto("OFCE");
+		altaEmpleado.setCodigoPuesto("RESI");
 		altaEmpleado.setCodigoVialidad("5MAY");
 		altaEmpleado.setCodigoArea("AYGE");
 		altaEmpleado.setCodigoTalla("CHIC");

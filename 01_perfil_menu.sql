@@ -105,12 +105,15 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,3,30,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,4,40,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,5,50,'A');
 
+/*Administracion*/
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,10,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,12,3,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,13,4,'A');
 
+/*Empleados*/
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,20,1,'A');
 
+/*Operacion */
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,30,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,31,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,32,3,'A');
@@ -118,9 +121,69 @@ INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,33,4,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,34,5,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,35,6,'A');
 
+/*Buzon*/
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,40,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,41,2,'A');
 
+/*Reportes*/
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,50,1,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,51,2,'A');
 INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (10,52,3,'A');
+
+
+/*OFICINA CENTRAL*/
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,1,20,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,2,10,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,3,30,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,4,40,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,5,50,'A');
+
+/*Administracion*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,10,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,12,3,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,13,4,'A');
+
+/*Empleados*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,20,1,'A');
+
+/*Operacion */
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,30,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,31,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,32,3,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,35,6,'A');
+
+/*Buzon*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,40,1,'A');
+
+/*Reportes*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,50,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,51,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (2,52,3,'A');
+
+
+
+/*RESIDENTE*/
+
+
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,1,20,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,3,30,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,4,40,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,5,50,'A');
+
+/*Administracion*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,12,3,'A');
+
+
+/*Operacion */
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,33,4,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,34,5,'A');
+
+/*Buzon*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,41,2,'A');
+
+/*Reportes*/
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,50,1,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,51,2,'A');
+INSERT INTO perfil_menu (id_perfil,id_menu,orden,estatus) VALUES (1,52,3,'A');
+
