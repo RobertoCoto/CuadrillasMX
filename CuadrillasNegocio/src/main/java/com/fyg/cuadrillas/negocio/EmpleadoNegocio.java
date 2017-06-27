@@ -116,6 +116,15 @@ public class EmpleadoNegocio {
 			if (empleado.getFechaNacimiento() == null || empleado.getFechaNacimiento().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("La fecha de nacimiento es necesaria en el alta del empleado.");
 			}
+			if (empleado.getNss() == null) {
+				empleado.setNss("");
+			}
+			if (empleado.getNoCreditoInfonavit() == null) {
+				empleado.setNoCreditoInfonavit("");
+			}
+			if (empleado.getObservaciones() == null) {
+				empleado.setObservaciones("");
+			}
 
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
@@ -189,9 +198,9 @@ public class EmpleadoNegocio {
 					usuario.setUsuario(sUsuario);
 					usuarioExistente = new UsuarioDAO().consultaUsuarioExistente(uid, usuario);
 					if (usuarioExistente == null) {
-						generaUsuario = true;								
+						generaUsuario = true;
 						break;
-					}					
+					}
 				}
 				if (!generaUsuario) {
 					 throw new ExcepcionesCuadrillas(
@@ -213,7 +222,7 @@ public class EmpleadoNegocio {
 				//se le envian los datos al DAO
 				UsuarioDAO daoUsuario = new UsuarioDAO();
 				daoUsuario.altaUsuario(uid, usuario);
-			}										
+			}
 			respuesta.setMensajeFuncional(respuesta.getMensajeFuncional() + " Usuario Generado: " + usuario.getUsuario());
 		}
 		catch  (ExcepcionesCuadrillas ex) {
@@ -371,6 +380,16 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
 			}
+			if (empleado.getNss() == null) {
+				empleado.setNss("");
+			}
+			if (empleado.getNoCreditoInfonavit() == null) {
+				empleado.setNoCreditoInfonavit("");
+			}
+			if (empleado.getObservaciones() == null) {
+				empleado.setObservaciones("");
+			}
+
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
