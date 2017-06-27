@@ -71,7 +71,10 @@ public class RegistraEmpleado extends HttpServlet {
 			String codigoVialidad = request.getParameter("codigoVialidad");
 			String codigoArea = request.getParameter("codigoArea");
 			String codigoTalla = request.getParameter("codigoTalla");
-			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
+			Integer idCuadrilla = 0;
+			if (request.getParameter("idCuadrilla") != null) {
+				idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
+			}
 			Integer calificacion = Integer.parseInt(request.getParameter("calificacion"));
 			String sueldo = request.getParameter("sueldo");
 			String frecuenciaPago = request.getParameter("frecuenciaPago");
