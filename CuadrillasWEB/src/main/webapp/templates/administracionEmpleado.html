@@ -27,6 +27,12 @@
   resize: none;
 }
 </style>
+<style>
+.asterisco {
+   color: #F70505;
+   font-size: 120%
+}
+</style>
 <div class="container">
 	<h2>Administraci&oacute;n de Empleados</h2>
 	<div id="success" class="alert alert-success alert-dismissable fade in">
@@ -43,7 +49,7 @@
 			     <div class="row">
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.numeroEmpleado.$invalid && !formEmpleado.numeroEmpleado.$pristine }">
-                            <label for="numeroEmpleado" class="control-label">N&uacute;mero de Empleado</label>
+                            <label for="numeroEmpleado" class="control-label"><span class="asterisco">*</span>N&uacute;mero de Empleado</label>
                             <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control" ng-minlength="1"  required  ng-pattern="/^[A-Z0-9]*$/" / maxlength="15" >
                            <p ng-if="formEmpleado.numeroEmpleado.$error.pattern == true" ng-show="formEmpleado.numeroEmpleado.$error.pattern" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                            <p ng-if="formEmpleado.codigoEmpresa.$invalid && !formEmpleado.codigoEmpresa.$pristine == true" ng-show="formEmpleado.numeroEmpleado.$error.required" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
@@ -53,7 +59,7 @@
 			     <div class="row">
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nombre.$invalid && !formEmpleado.nombre.$pristine }">
-                            <label for="numeroEmpleado" class="control-label">Nombre(S)</label>
+                            <label for="numeroEmpleado" class="control-label"><span class="asterisco">*</span>Nombre(S)</label>
                             <input type="text" ng-model="general.nombre" name="nombre" id="nombre" class="form-control" ng-minlength="1" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40">
                             <p ng-if="formEmpleado.nombre.$error.pattern == true" ng-show="formEmpleado.nombre.$error.pattern && !formEmpleado.nombre.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                             <p ng-if="formEmpleado.nombre.$error.minlength == true" ng-show="formEmpleado.nombre.$error.required" class="help-block">Es necesario ingresar el nombre del empleado.</p>
@@ -61,7 +67,7 @@
                     </div>
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoPat.$invalid && !formEmpleado.apellidoPat.$pristine }">
-                            <label for="apellidoPaterno" class="control-label">Apellido Paterno</label>
+                            <label for="apellidoPaterno" class="control-label"><span class="asterisco">*</span>Apellido Paterno</label>
                             <input type="text" name="apellidoPat" id="apellidoPaterno" class="form-control" ng-model="general.apellidoPat" ng-minlength="1" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
                             <p ng-show="formEmpleado.apellidoPat.$error.pattern && !formEmpleado.apellidoPat.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                             <p ng-if="formEmpleado.apellidoPat.$error.required == true" ng-show="formEmpleado.apellidoPat.$error.required" class="help-block">Es necesario ingresar el apellido paterno del empleado.</p>
@@ -80,7 +86,7 @@
 			      <div class="row">
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoPuesto.$invalid && !formEmpleado.codigoPuesto.$pristine }">
-                            <label for="puesto" class="control-label">Puesto</label>
+                            <label for="puesto" class="control-label"><span class="asterisco">*</span>Puesto</label>
                              <select class="form-control"  name="codigoPuesto" ng-model="general.codigoPuesto" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultado" ng-change="getOptions2(general.codigoPuesto)" required>
                             <option value="">--Seleccione Puesto--</option>
                             </select>
@@ -90,7 +96,7 @@
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.fechaNac.$invalid && !formEmpleado.fechaNac.$pristine }">
-                            <label for="fechaNaciomiento" class="control-label">Fecha de Nacimiento</label>
+                            <label for="fechaNaciomiento" class="control-label"><span class="asterisco">*</span>Fecha de Nacimiento</label>
                             <div class="input-group">
                   			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                   			<input class="form-control" type="date" name="fechaNac" id="fechaNacimiento" ng-model="general.fechaNacimiento"/>
@@ -131,7 +137,7 @@
 			     <div class="row">
 			     <div class="col-sm-6">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.rfc.$invalid && !formEmpleado.rfc.$pristine }">
-                            <label for="rfc" class="control-label">RFC</label>
+                            <label for="rfc" class="control-label"><span class="asterisco">*</span>RFC</label>
                             <input type="text" name="rfc" id="rfc"  class="form-control" ng-model="general.rfc" required ng-pattern="/^[A-Z0-9]*$/" maxlength="13">
                             <p ng-show="formEmpleado.rfc.$error.pattern && !formEmpleado.rfc.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                            <p ng-if="formEmpleado.rfc.$error.required == true" ng-show="formEmpleado.rfc.$error.required" class="help-block">Es necesario ingresar el RFC del empleado.</p>
@@ -139,7 +145,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoEmpresa.$invalid && !formEmpleado.codigoEmpresa.$pristine }">
-                            <label for="empresa" class="control-label">Empresa</label>
+                            <label for="empresa" class="control-label"><span class="asterisco">*</span>Empresa</label>
                             <select class="form-control"  name="codigoEmpresa" ng-model="general.codigoEmpresa" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoEmpresa" ng-change="getOptions2(general.codigoEmpresa)" required>
                             <option value="">--Seleccione Empresa--</option>
                             </select>
@@ -151,7 +157,7 @@
 			     <div class="row">
 			      <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.sueldo.$invalid && !formEmpleado.sueldo.$pristine }">
-                            <label for="sueldo" class="control-label">Sueldo</label>
+                            <label for="sueldo" class="control-label"><span class="asterisco">*</span>Sueldo</label>
                             <input type="text" name="sueldo" placeholder="$00.00" id="sueldo" class="form-control"  ng-model="general.sueldo" required ng-pattern="/^[0-9.]*$/" maxlength="10">
                            <p ng-show="formEmpleado.sueldo.$error.pattern && !formEmpleado.sueldo.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                            <p ng-if="formEmpleado.sueldo.$error.required == true" ng-show="formEmpleado.sueldo.$error.required" class="help-block">Es necesario ingresar el sueldo del empleado.</p>
@@ -160,7 +166,7 @@
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.calificacion.$invalid && !formEmpleado.calificacion.$pristine }">
-                            <label for="calificacion" class="control-label">Calificacion</label>
+                            <label for="calificacion" class="control-label"><span class="asterisco">*</span>Calificacion</label>
                            <select id="calificacion" class="form-control" ng-model="general.calificacion" name="calificacion" required>
                            <option value="">--Selecione una Calificacion--</option>
                            <option value="1">1</option>
@@ -197,7 +203,7 @@
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoTalla.$invalid && !formEmpleado.codigoTalla.$pristine }">
-                            <label for="talla" class="control-label">Talla</label>
+                            <label for="talla" class="control-label"><span class="asterisco">*</span>Talla</label>
                            <select  class="form-control" name="codigoTalla" required ng-model="general.codigoTalla" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoRopa" ng-change="getOptions2(general.codigoTalla)">
 							<option value="">--Seleccione Talla--</option>
 							</select>
@@ -207,7 +213,7 @@
                     
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.sexo.$invalid && !formEmpleado.sexo.$pristine }">
-                            <label for="sexo" class="control-label">Sexo</label>
+                            <label for="sexo" class="control-label"><span class="asterisco">*</span>Sexo</label>
                            <select name="sexo"  class="form-control" ng-model="general.sexo" required>
 								<option value="">-----Selecione sexo-----</option>
 								<option value="M">HOMBRE</option>
@@ -221,7 +227,7 @@
 			     <div class="row">
 			     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
-                            <label for="cuadrilla" class="control-label" ng-class="{ 'has-error' : formEmpleado.idCuadrilla.$invalid && !formEmpleado.idCuadrilla.$pristine }">Cuadrilla</label>
+                            <label for="cuadrilla" class="control-label" ng-class="{ 'has-error' : formEmpleado.idCuadrilla.$invalid && !formEmpleado.idCuadrilla.$pristine }"><span class="asterisco">*</span>Cuadrilla</label>
                            <select class="form-control" name="idCuadrilla" ng-model="general.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in resultadoCuadrilla" ng-change="getOptions2(general.idCuadrilla)" required>
 						  <option value="">--Seleccione Cuadrilla--</option>
 						  </select>
@@ -231,7 +237,7 @@
 
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoArea.$invalid && !formEmpleado.codigoArea.$pristine }">
-                            <label for="area" class="control-label">Area</label>
+                            <label for="area" class="control-label"><span class="asterisco">*</span>Area</label>
                             <select class="form-control" name="codigoArea" ng-model="general.codigoArea" required ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoArea" ng-change="getOptions2(general.codigoArea)">
                             <option value="">--Seleccione Area--</option>
                             </select>
