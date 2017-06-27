@@ -123,6 +123,7 @@
 	<if test="idContrato !=null">
 	 	AND id_contrato = #{idContrato}
 	</if>
+	order by orden
 </select>
 
 <select id="contratoActivo" parameterType="Contrato" resultMap="contrato">

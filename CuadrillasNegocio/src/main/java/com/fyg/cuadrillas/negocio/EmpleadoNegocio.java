@@ -125,7 +125,9 @@ public class EmpleadoNegocio {
 			if (empleado.getObservaciones() == null) {
 				empleado.setObservaciones("");
 			}
-
+			if (empleado.getCodigoPuesto().trim().equals("OFCE")) {
+				empleado.setIdCuadrilla(0);
+			}
 			 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);
@@ -389,7 +391,9 @@ public class EmpleadoNegocio {
 			if (empleado.getObservaciones() == null) {
 				empleado.setObservaciones("");
 			}
-
+			if (empleado.getCodigoPuesto().trim().equals("OFCE")) {
+				empleado.setIdCuadrilla(0);
+			}
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		     String strFecha = empleado.getFechaNacimiento();
 		     Date fechaDate = formato.parse(strFecha);

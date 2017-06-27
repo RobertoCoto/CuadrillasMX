@@ -31,6 +31,8 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	private float porcentajeCompletas;
 	/** porcentaje */
 	private float porcentajeDia;
+	/** porcentaje */
+	private float porcentajeHoras;
 	/** observaciones */
 	private String observaciones;
 	/** observaciones */
@@ -433,6 +435,18 @@ public class ActividadDiariaCampoDTO extends ObjetoValor {
 	 */
 	public void setNoActividadesTerminadas(int noActividadesTerminadas) {
 		this.noActividadesTerminadas = noActividadesTerminadas;
+	}
+	/**
+	 * @return the porcentajeHoras
+	 */
+	public float getPorcentajeHoras() {
+		return porcentajeHoras;
+	}
+	/**
+	 * @param porcentajeHoras the porcentajeHoras to set
+	 */
+	public void setPorcentajeHoras(float porcentajeHoras) {
+		this.porcentajeHoras = porcentajeHoras;
 	}
 
 }

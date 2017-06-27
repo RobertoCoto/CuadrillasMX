@@ -36,6 +36,7 @@ public class CuadrillaNegocio {
 			}
 			CuadrillaDAO dao = new CuadrillaDAO();
 			cuadrilla.setIdCuadrilla(null);
+			cuadrilla.setNombreCuadrilla(cuadrilla.getNombreCuadrilla().toUpperCase());
 			respuesta = dao.altaCuadrilla(uid, cuadrilla);
 
 		} catch  (ExcepcionesCuadrillas ex) {
@@ -153,6 +154,7 @@ public class CuadrillaNegocio {
 				throw new ExcepcionesCuadrillas("Es necesario la calificación.");
 			}
 			CuadrillaDAO dao = new CuadrillaDAO();
+			cuadrilla.setNombreCuadrilla(cuadrilla.getNombreCuadrilla().toUpperCase());
 			respuesta = dao.modificaCuadrilla(uid, cuadrilla);
 
 		} catch  (ExcepcionesCuadrillas ex) {

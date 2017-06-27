@@ -61,13 +61,13 @@ public class AgendaNegocio {
 
 			Date fechaInicio = formateador.parse(agenda.getFechaInicio());
 			Date fechaFin = formateador.parse(agenda.getFechaFin());
-			if ( fechaInicio.before(fechaFin) ) {
+			if ( fechaInicio.after(fechaFin) ) {
 				throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
 			}
 
 			for ( AgendaDetalleDTO detalleAgenda : agenda.getDiasAgenda() ) {
 				Date fechaAgenda = formateador.parse(detalleAgenda.getFecha());
-				if (fechaAgenda.after(fechaInicio) && fechaAgenda.before(fechaFin)) {
+				if (fechaAgenda.after(fechaFin) && fechaAgenda.before(fechaInicio)) {
 					throw new ExcepcionesCuadrillas("La fecha de la Agenda no esta en el rango de fechas indicado.");
 				}
 				if (detalleAgenda.getAvanceEsperado() <= 0) {

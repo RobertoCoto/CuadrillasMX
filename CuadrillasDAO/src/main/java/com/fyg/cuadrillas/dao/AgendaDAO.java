@@ -728,11 +728,15 @@ public class AgendaDAO {
 			}
 			consultaActividadesDiaria.setPorcentajeCompletas( (consultaActividadesDiaria.getNoActividadesTerminadas()
 					/ (float) consultaActividadesDiaria.getNoActividades()) * 100.00f );
+			consultaActividadesDiaria.setPorcentajeHoras( (consultaActividadesDiaria.getNoHorasTrabajadas()
+					/ (float) consultaActividadesDiaria.getNoHoras()) * 100.00f );
 
 			consultaActividadesDiaria.setPorcentajeCompletas(
 					Funciones.redondearNumero(consultaActividadesDiaria.getPorcentajeCompletas(), 2));
 			consultaActividadesDiaria.setPorcentajeDia(
 					Funciones.redondearNumero(consultaActividadesDiaria.getPorcentajeDia(), 2));
+			consultaActividadesDiaria.setPorcentajeHoras(
+					Funciones.redondearNumero(consultaActividadesDiaria.getPorcentajeHoras(), 2));
 
 			List<ActividadDiariaDetalleDTO> actividadDiariaDetalle =
 					sessionNTx.selectList("AgendaDAO.consultaActividadDetalle", consultaActividadesDiaria);
