@@ -60,7 +60,7 @@
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.numeroEmpleado.$invalid && !formEmpleado.numeroEmpleado.$pristine }">
                             <label for="numeroEmpleado" class="control-label"><span class="asterisco">*</span>N&uacute;mero de Empleado</label>
                             <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control" ng-minlength="1"  required  ng-pattern="/^[A-Z0-9]*$/" / maxlength="15" >
-                            <p ng-show="!formEmpleado.$pristine && formEmpleado.numeroEmpleado.$error.required" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
+                           
                            <p ng-show="formEmpleado.numeroEmpleado.$error.pattern" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                            
                         </div>
@@ -71,7 +71,7 @@
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nombre.$invalid && !formEmpleado.nombre.$pristine }">
                             <label for="numeroEmpleado" class="control-label"><span class="asterisco">*</span>Nombre(S)</label>
                             <input type="text" ng-model="general.nombre" name="nombre" id="nombre" class="form-control" required ng-pattern="/^[a-zA-ZáÁÉéíÍÓóúÚñÑ\s]*$/" / maxlength="40">
-                          <p ng-if="!formEmpleado.$pristine && formEmpleado.nombre.$error.required == true" ng-show="!formEmpleado.$pristine && formEmpleado.nombre.$error.required" class="help-block">Es necesario ingresar el nombre del empleado.</p>
+                         
                             <p  ng-show="formEmpleado.nombre.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                             
                         </div>
@@ -80,14 +80,14 @@
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoPat.$invalid && !formEmpleado.apellidoPat.$pristine }">
                             <label for="apellidoPaterno" class="control-label"><span class="asterisco">*</span>Apellido Paterno</label>
                             <input type="text" name="apellidoPat" id="apellidoPaterno" class="form-control" ng-model="general.apellidoPat" ng-minlength="1" required ng-pattern="/^[a-zA-ZáÁÉéíÍÓóúÚñÑ\s]*$/" / maxlength="40"/>
-                            <p ng-if="!formEmpleado.$pristine && formEmpleado.apellidoPat.$error.required == true" ng-show="!formEmpleado.$pristine && formEmpleado.apellidoPat.$error.required" class="help-block">Es necesario ingresar el apellido paterno del empleado.</p>
+              
                             <p ng-show="formEmpleado.apellidoPat.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                             
                         </div>
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : !formEmpleado.apellidoMat.$error.pattern}">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoMat.$error.pattern}">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
                             <input type="text" name="apellidoMat" id="apellidoMaterno" class="form-control"  ng-model="general.apellidoMat" ng-pattern="/^[a-zA-ZáÁÉéíÍÓóúÚñÑ\s]*$/" / maxlength="40"/>
                             <p ng-show="formEmpleado.apellidoMat.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
@@ -151,7 +151,7 @@
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.rfc.$invalid && !formEmpleado.rfc.$pristine }">
                             <label for="rfc" class="control-label"><span class="asterisco">*</span>RFC</label>
                             <input type="text" name="rfc" id="rfc"  class="form-control" ng-model="general.rfc" ng-minlength="10" required ng-pattern="/^[A-Z0-9]*$/" maxlength="13">
-                            <p ng-show="!formEmpleado.$pristine && formEmpleado.rfc.$error.required" class="help-block">Es necesario ingresar el RFC de empleado.</p>
+                            
                             <p ng-if="formEmpleado.rfc.$error.minlength == true" ng-show="formEmpleado.rfc.$error.minlength" class="help-block">El RFC del empleado debe ser minimo 10 caracteres.</p>
                             <p ng-show="formEmpleado.rfc.$error.pattern && !formEmpleado.rfc.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                            
@@ -173,7 +173,7 @@
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.sueldo.$invalid && !formEmpleado.sueldo.$pristine }">
                             <label for="sueldo" class="control-label"><span class="asterisco">*</span>Sueldo</label>
                             <input type="text" name="sueldo" placeholder="$00.00" id="sueldo" class="form-control"  ng-model="general.sueldo" required ng-pattern="/^[0-9.]*$/" maxlength="10">
-                           <p ng-show="formEmpleado.sueldo.$error.pattern && !formEmpleado.sueldo.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
+                       
                            <p ng-if="!formEmpleado.$pristine && formEmpleado.sueldo.$error.required == true" ng-show="!formEmpleado.$pristine && formEmpleado.sueldo.$error.required" class="help-block">Es necesario ingresar el sueldo del empleado.</p>
                         </div>
                     </div>

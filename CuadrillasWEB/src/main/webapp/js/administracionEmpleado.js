@@ -221,14 +221,14 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 //Registra Empleado
             $scope.registrar = function(general) {
             	console.log(general.noEmpleado);
-            	if ($scope.formEmpleado.$valid) {
+            	
             		$scope.general = {};
             		var confirmar = confirm("¿Esta seguro de registrar el empleado?"); 
 	    			if (!confirmar) 
 	    				{
 	    					 $('#alert').show();
 							 $('#msgerror').text('Se ha cancelado la operacion.');
-							 $scope.formEmpleado.$setPristine();
+							 //$scope.formEmpleado.$setPristine();
 	    					return false;
 	    				} else  {
 							 $('#msload').modal('show');
@@ -285,8 +285,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
 			    });
-			   
-                 }
+			
             	
             	};
             
