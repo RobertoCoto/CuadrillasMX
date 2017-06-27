@@ -50,27 +50,6 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
 			
-		    //consulta la vialidad
-			 	 $http({
-              method: 'GET',
-              url: '/CuadrillasWEB/ConsultaCatalogo',
-              params : {
-		 		"tipoCatalogo": 'VIALIDAD'
-		 },
-              data: { }
-		    }).then(function mySucces(result) {
-		    	$('#msload').modal('hide');
-				$('#alert').hide();
-				$('#success').hide();
-		    	$scope.resultadoVialidad = result.data.catalogo;
-	              console.log(result);
-		    }, function myError(response) {
-		    	$('#msload').modal('hide');
-		        console.error(response);
-		        $('#alert').show();
-				$('#msgerror').text(response.data.header.mensajeFuncional)
-		    });
-			 	 
 		    //consulta la empresa
 			 	 $http({
               method: 'GET',
@@ -151,8 +130,30 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		        $('#alert').show();
 				$('#msgerror').text(response.data.header.mensajeFuncional)
 		    });
+			 $scope.datoUsuario = data.data.usuario.usuario; 
                 };   
 		$scope.consultaTodo();
+		
+			//consultar Empleados
+            $scope.consultar = function(empleado) {
+            	$http({
+                    method: 'GET',
+            	url: '/CuadrillasWEB/ConsultaGeneralEmpleado',
+                    data: { }
+      		    }).then(function mySucces(result) {
+      		    	$('#msload').modal('hide');
+      				$('#alert').hide();
+      				$('#success').hide();
+      				$scope.resultadoDatos = result.empleado;
+                    console.log($scope.resultadoDatos);
+                    $('#empl').show();
+      		    }, function myError(response) {
+      		    	$('#msload').modal('hide');
+      		        console.error(response);
+      		        $('#alert').show();
+      				$('#msgerror').text(response.data.header.mensajeFuncional);
+      		    });	     
+		};
 		
 		//para ocultar las alertas
 		$scope.hideAlerts = function() {
@@ -252,7 +253,6 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	              "fechaNacimiento": $scope.fechaNacimiento,
 	              "codigoEmpresa": general.codigoEmpresa,
 	              "codigoPuesto": general.codigoPuesto,
-	              "codigoVialidad": general.codigoVialidad,
 	              "codigoArea": general.codigoArea,
 	              "codigoTalla": general.codigoTalla,
 	              "idCuadrilla": general.idCuadrilla,
@@ -285,26 +285,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
             	
             	};
             
-            	//consultar Empleados
-            $scope.consultar = function(empleado) {
-		      $http({
-               method: 'GET',
-               url: '/CuadrillasWEB/ConsultaGeneralEmpleado',
-               
-           }).success(function (result) {
-        	    $('#msload').modal('hide');
-				$('#alert').hide();
-				$('#success').hide();
-               $scope.resultadoDatos = result.empleado;
-               console.log($scope.resultadoDatos);
-           }, function myError(response) {
-   		    	$('#msload').modal('hide');
-   		        console.error(response);
-   		        $('#alert').show();
-   				$('#msgerror').text(response.data.header.mensajeFuncional)
-   		    });
-                $('#empl').show();
-		};
+            
 		
 			//baja empleado		
 		 $scope.bajaEmpleado = function(general) {
@@ -424,7 +405,6 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 		              "fechaNacimiento": $scope.fechaNacimiento,
 		              "codigoEmpresa": general.codigoEmpresa,
 		              "codigoPuesto": general.codigoPuesto,
-		              "codigoVialidad": general.codigoVialidad,
 		              "codigoArea": general.codigoArea,
 		              "codigoTalla": general.codigoTalla,
 		              "idCuadrilla": general.idCuadrilla,

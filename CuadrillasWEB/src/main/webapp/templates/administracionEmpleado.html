@@ -44,8 +44,9 @@
 			       <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.numeroEmpleado.$invalid && !formEmpleado.numeroEmpleado.$pristine }">
                             <label for="numeroEmpleado" class="control-label">N&uacute;mero de Empleado</label>
-                            <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control"   required ng-pattern="/^[A-Z0-9]*$/" / maxlength="15">
-                           <p ng-show="formEmpleado.numeroEmpleado.$error.pattern && !formEmpleado.numeroEmpleado.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
+                            <input type="text" ng-model="general.noEmpleado" name="numeroEmpleado" id="noEmpleado"  class="form-control" ng-minlength="1"  required  ng-pattern="/^[A-Z0-9]*$/" / maxlength="15" >
+                           <p ng-if="formEmpleado.numeroEmpleado.$error.pattern == true" ng-show="formEmpleado.numeroEmpleado.$error.pattern" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
+                           <p ng-if="formEmpleado.numeroEmpleado.$error.minlength == true" ng-show="formEmpleado.numeroEmpleado.$error.minlength" class="help-block">Es necesario ingresar el n&uacute;mero de empleado.</p>
                         </div>
                     </div>
 			     </div>
@@ -66,10 +67,10 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoMat.$invalid && !formEmpleado.apellidoMat.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.apellidoMat.$error.pattern}">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
                             <input type="text" name="apellidoMat" id="apellidoMaterno" class="form-control"  ng-model="general.apellidoMat" required ng-pattern="/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$/" maxlength="40"/>
-                            <p ng-show="formEmpleado.apellidoMat.$error.pattern && !formEmpleado.apellidoMat.$pristine" class="help-block">No se permiten numeros o caracteres invalidos.</p>
+                            <p ng-show="formEmpleado.apellidoMat.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
                         </div>
                     </div>
 			     </div>
@@ -109,18 +110,18 @@
 			     
 			     <div class="row">   
 			     <div class="col-sm-6">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nss.$invalid && !formEmpleado.nss.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.nss.$error.pattern}">
                             <label for="nss" class="control-label">NSS</label>
                             <input type="text" name="nss" id="nss" class="form-control" ng-model="general.nss" required ng-pattern="/^[0-9]*$/" maxlength="20">
-                            <p ng-show="formEmpleado.nss.$error.pattern && !formEmpleado.nss.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
+                            <p ng-show="formEmpleado.nss.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
                     
                     <div class="col-sm-6">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.creditoInfonavit.$invalid && !formEmpleado.creditoInfonavit.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.creditoInfonavit.$error.pattern}">
                             <label for="noCreinfonavit" class="control-label">Credito Infonavit</label>
                             <input type="text" name="creditoInfonavit" id="noCreditoInfonavit"  class="form-control" ng-model="general.noCreditoInfonavit" required ng-pattern="/^[0-9]*$/" maxlength="20">
-                            <p ng-show="formEmpleado.creditoInfonavit.$error.pattern && !formEmpleado.creditoInfonavit.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
+                            <p ng-show="formEmpleado.creditoInfonavit.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
 			     </div>
@@ -183,10 +184,10 @@
 			     
 			     <div class="row">
 			     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.telefono.$invalid && !formEmpleado.telefono.$pristine }">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.telefono.$error.pattern }">
                             <label for="telefono" class="control-label">Telefono</label>
                             <input type="tel" name="telefono" id="telefono" class="form-control" data-form="tel" ng-model="general.telefono" required ng-pattern="/^[0-9]*$/" maxlength="10"/>
-                            <p ng-show="formEmpleado.telefono.$error.pattern && !formEmpleado.telefono.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
+                            <p ng-show="formEmpleado.telefono.$error.pattern " class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
                     
@@ -223,17 +224,7 @@
 						 <p ng-show="formEmpleado.idCuadrilla.$invalid && !formEmpleado.idCuadrilla.$pristine" class="help-block">Es necesario seleccionar una cuadrilla.</p>
                         </div>
                     </div>
-                    
-                    <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
-                            <label for="vialidad" class="control-label" ng-class="{ 'has-error' : formEmpleado.codigoVialidad.$invalid && !formEmpleado.codigoVialidad.$pristine }">Vialidad</label>
-                            <select  class="form-control" name="codigoVialidad" ng-model="general.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in resultadoVialidad" ng-change="getOptions2(general.codigoVialidad)" required>
-                            <option value="">--Seleccione Vialidad--</option>
-                            </select>
-                           <p ng-show="formEmpleado.codigoVialidad.$invalid && !formEmpleado.codigoVialidad.$pristine" class="help-block">Es necesario seleccionar una vialidad.</p>
-                        </div>
-                    </div>
-                    
+
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.codigoArea.$invalid && !formEmpleado.codigoArea.$pristine }">
                             <label for="area" class="control-label">Area</label>
@@ -241,6 +232,12 @@
                             <option value="">--Seleccione Area--</option>
                             </select>
                         <p ng-show="formEmpleado.codigoArea.$invalid && !formEmpleado.codigoArea.$pristine" class="help-block">Es necesario seleccionar un area.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group form-group-sm">
+                            <label for="area" class="control-label">Usuario Sistema: {{usuario.usuario}}</label>
                         </div>
                     </div>
 			     </div>
@@ -256,11 +253,10 @@
 			     </div>
 			     <div class="row">
 			     <div class="col-sm-12">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : formEmpleado.comentario.$invalid && !formEmpleado.comentario.$pristine }">
+                        <div class="form-group form-group-sm">
                             <label for="comentarios" class="control-label">Comentarios</label>
                             <br/>
                            <textarea  id="observaciones" name="comentario" required class="form-comtrol responsive-input" style="height: 67px; " ng-model="general.coment" maxlength="50"></textarea>
-                           <p ng-show="formEmpleado.comentario.$invalid && !formEmpleado.comentario.$pristine" class="help-block">Es necesario un comentario.</p>
                         </div>
                     </div>
 			     </div>
@@ -361,7 +357,7 @@
 			     <input class="btn botonLimpiar" type="submit" value="Limpiar" ng-click="limpiarCampos(formEmpleado)">
 			    </div>
 			    <div class="btn-group">
-			     <input class="btn botonGuardar"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(general)" id="editar" ng-disabled="formEmpleado.$invalid" >
+			     <input class="btn botonGuardar"  type="submit" name="guardar" value="Guardar" data-ng-click="registrar(general)" id="editar" ng-disabled="formEmpleado.$invalid">
 				 <input class="btn botonGuardar"  type="submit" value="Guardar" data-ng-click="actualizarDato(general)" id="guardarDato" style="display:none;">
 			    </div>
 			    <div class="btn-group">
