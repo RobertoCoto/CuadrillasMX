@@ -87,7 +87,7 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : !formEmpleado.apellidoMat.$pristine}">
+                        <div class="form-group form-group-sm" ng-class="{ 'has-error' : !formEmpleado.apellidoMat.$error.pattern}">
                             <label for="apellidoMaterno" class="control-label">Apellido Materno</label>
                             <input type="text" name="apellidoMat" id="apellidoMaterno" class="form-control"  ng-model="general.apellidoMat" ng-pattern="/^[a-zA-ZáÁÉéíÍÓóúÚñÑ\s]*$/" / maxlength="40"/>
                             <p ng-show="formEmpleado.apellidoMat.$error.pattern" class="help-block">No se permiten numeros o caracteres invalidos.</p>
