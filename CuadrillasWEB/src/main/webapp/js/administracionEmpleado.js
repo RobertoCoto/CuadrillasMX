@@ -221,8 +221,9 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 //Registra Empleado
             $scope.registrar = function(general) {
             	console.log(general.noEmpleado);
-            	
+            	    
             		$scope.general = {};
+            		var datosEmpleado = angular.copy(general);
             		var confirmar = confirm("¿Esta seguro de registrar el empleado?"); 
 	    			if (!confirmar) 
 	    				{
@@ -284,8 +285,8 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			    	 console.error(response);
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
-					$scope.formEmpleado.$setPristine(false);
-					$scope.formEmpleado.$setDirty();
+					scope.formEmpleado.push(datosEmpleado);
+					$scope.formEmpleado.$setPristine();
 			    });
 			
             	
