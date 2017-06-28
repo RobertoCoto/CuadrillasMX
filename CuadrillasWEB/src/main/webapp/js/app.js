@@ -3303,6 +3303,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					$http({
 						method: 'GET',
 						url: '/CuadrillasWEB/RegistrarHerramienta',
+						contentType: "application/json; charset=utf-8",
 						params: {
 							"nombre" 		: herramienta,
 							"descripcion" 	: descripcion,

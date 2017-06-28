@@ -144,7 +144,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
       		    	$('#msload').modal('hide');
       				$('#alert').hide();
       				$('#success').hide();
-      				$scope.resultadoDatos = result.empleado;
+      				$scope.resultadoDatos = result.data.empleado;
                     console.log($scope.resultadoDatos);
                     $('#empl').show();
       		    }, function myError(response) {
@@ -221,14 +221,15 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			 //Registra Empleado
             $scope.registrar = function(general) {
             	console.log(general.noEmpleado);
-            	
+            	    
             		$scope.general = {};
+            		var datosEmpleado = angular.copy(general);
             		var confirmar = confirm("¿Esta seguro de registrar el empleado?"); 
 	    			if (!confirmar) 
 	    				{
 	    					 $('#alert').show();
 							 $('#msgerror').text('Se ha cancelado la operacion.');
-							 //$scope.formEmpleado.$setPristine();
+							 $scope.formEmpleado.$setPristine();
 	    					return false;
 	    				} else  {
 							 $('#msload').modal('show');
@@ -284,6 +285,8 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			    	 console.error(response);
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
+					scope.formEmpleado.push(datosEmpleado);
+					$scope.formEmpleado.$setPristine();
 			    });
 			
             	
