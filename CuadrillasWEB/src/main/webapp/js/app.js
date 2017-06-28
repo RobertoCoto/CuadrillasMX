@@ -3266,7 +3266,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				$scope.formHerramienta.$setPristine();
 		};    				
 		
-		//alta de cuadrilla
+		//alta de herramienta
 		$scope.registrar = function(herramientas) {			
 			var idHerramienta = herramientas.idHerramienta;
 			var herramienta = herramientas.nombre;
