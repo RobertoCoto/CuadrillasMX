@@ -3482,7 +3482,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			
 			if (herramientas.noSerie == "" || herramientas.noSerie == undefined ||herramientas.noSerie == 'undefined')
 			{
-				cadena = "Debe capturar: El número de serie." ;
+				cadena = "Favor de verificar: El número de serie." ;
 				error=true;
 			}	
 								
@@ -3495,7 +3495,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
     //FIN CATALOGO HERRMIENTAS
     
     // AUTORIZA ACTIVIDAD
-app.controller('autorizaActividad', function ($scope, $http, $window) {
+ app.controller('autorizaActividad', function ($scope, $http, $window) {
+	 var map;
+	 var medida;
+	 var map2;
+	 var medida2;
+	
+
 	$scope.id = '1'; //$window.idActividadDiaria;
 	$scope.usuario = $window.user;
 	$scope.fecha = '2017-06-26'; //$window.fechaTarea;	
@@ -3523,7 +3529,11 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					$('#success').hide();
 					console.info("consulta diaria");
 					console.info(result)
+					console.info("consulta coordenadas");
 					$scope.actividad = result.data.actividadDiaria;
+					console.info(result.data.actividadDiaria.coordenadasReal);
+					$scope.coordenadasEsperadas = result.data.actividadDiaria.coordenadasReal;
+					$scope.coordenadasReales = result.data.actividadDiaria.coordenadasReal;					
 					$scope.actividad.fechaActividad = $scope.fecha;
 				    console.log($scope.actividad);
 				
@@ -3540,7 +3550,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 		$scope.consultaActividad();
 		
   		//***marcadores edicion map1
-		/*$scope.setMarcadorEdicion = function(latLng, direccion) {
+		$scope.setMarcadorEdicion = function(latLng, direccion) {
 			// $('#msload').modal('show');
             var geocoder = new google.maps.Geocoder;
             var img_mark = 'altaContrato/mark.png';
@@ -3559,14 +3569,21 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 			// $('#msload').modal('hide');
 	        $scope.mLineaRectaEdita();
 
-	        var km = $scope.mapa.metros / metros_div;
+	        //se suman los tramos de todos los dias de las coordenadas REALES
+	        var metrosTotales = 0;
+	        /*for (var i=0; i<$scope.coordenadasReales.length; i++)
+	        {
+	        	//console.info("metros totales");
+	        	//console.info($scope.diasAgenda[i].metros);	        	
+	        	metrosTotales = metrosTotales + parseFloat($scope.coordenadasReales[i].metros.replace(" mtrs", ""));
+	        }*/	        
+	        var km = metrosTotales / metros_div;
 	        var unidad_de_medida = " metros";
-	        $scope.mapa.fecha= $('#diaActividad').val();
-	        $( "#km" ).text(km.toFixed(2) + ' mts');
-	        $( "#txtkm" ).text('Distancia');
+	        //$( "#km" ).text(km.toFixed(2) + ' mts');
+	        //$( "#txtkm" ).text('Distancia');
 
         };
-        */
+        
         
         $scope.setMarcadorLectura = function(latLng, direccion) {        	        	             	
 			// $('#msload').modal('show');
@@ -3587,81 +3604,19 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 			// $('#msload').modal('hide');
 	        $scope.mLineaRectaLectura();
 
-	        //se suman los tramos de todos los dias
-	        var metrosTotales = 0; 
-	        /*for (var i=0; i<$scope.diasAgenda.length; i++) PENDIENTE
+	        //se suman los tramos de todos los dias de las coordenadas ESPERADAS
+	        var metrosTotales = 0;
+	        /*for (var i=0; i<$scope.coordenadasEsperadas.length; i++)
 	        {
 	        	//console.info("metros totales");
 	        	//console.info($scope.diasAgenda[i].metros);	        	
-	        	metrosTotales = metrosTotales + parseFloat($scope.diasAgenda[i].metros.replace(" mtrs", ""));
+	        	metrosTotales = metrosTotales + parseFloat($scope.coordenadasEsperadas[i].metros.replace(" mtrs", ""));
 	        }*/	        
 	        var km = metrosTotales / metros_div;
 	        var unidad_de_medida = " metros";
-	        $( "#km2" ).text(km.toFixed(2) + ' mts');
-	        $( "#txtkm2" ).text('Distancia');
-
+	        //$( "#km2" ).text(km.toFixed(2) + ' mts');
+	        //$( "#txtkm2" ).text('Distancia');
         };
-
-
-        $scope.setMarcador = function(latLng) {
-        	alert("1");
-        	$('#msload').modal('show');
-            var geocoder = new google.maps.Geocoder;
-            var img_mark = 'altaContrato/mark.png';
-            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
-            medida.mvcLine.push(latLng);
-            medida.mvcPolygon.push(latLng);
-            medida.mvcMarkers.push(marcador);
-            var latLngIndex = medida.mvcLine.getLength() - 1;
-            alert("2");
-            google.maps.event.addListener(marcador, "drag", function(evt) {
-            	medida.mvcLine.setAt(latLngIndex, evt.latLng);
-                medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
-            });
-
-            google.maps.event.addListener(marcador, "dragend", function() {
-            	alert(medida.mvcLine.getLength());
-                if (medida.mvcLine.getLength() > 1) {
-                    $scope.calculaDistancia();
-                }
-            });
-
-            var latlng = {lat: latLng.lat(), lng: latLng.lng()};
-            var direccion = 'SN';
-            geocoder.geocode({'location': latlng}, function(results, status) {
-            	// console.log(results);
-            alert("3");
-            	if (status === google.maps.GeocoderStatus.OK) {
-            		if (results[1]) {
-            			direccion =  results[0].formatted_address;
-            			var coordenadaP = {};
-            			var coordenadasTemp = [];
-            			coordenadaP.latitud = latLng.lat();
-            			coordenadaP.longitud = latLng.lng();
-            			coordenadaP.direccion = direccion;
-
-            			$( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
-            					+ "<td class=\"td\" width=\"30px\"> </td>"
-            					+ "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
-            					+ "</tr>") );
-
-                    } else {
-                    	$('#alert').show();
-                    	$('#msgerror').text('No se encontro una direcci�n disponible.')
-                          // alert('No se encontraron resultados');
-                    }
-            		$('#msload').modal('hide');
-            	} else {
-            		$('#alert').show();
-                    $('#msgerror').text('Problemas en la geolocalizaci�n debido ' + status + '')
-                    // alert('Geocoder fallo debido al estatus: ' + status);
-					$('#msload').modal('hide');
-            	}
-            });
-
-            $scope.mLineaRecta();
-      };
-
 					
 		$scope.initMap = function() {
 			medida = {
@@ -3678,7 +3633,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
           center: mx1
         });
         google.maps.event.addListener(map, 'click', function(event) {
-            	$scope.setMarcador(event.latLng);
+            	//$scope.setMarcador(event.latLng);
 
         });
       };
@@ -3698,7 +3653,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
         });
 
         google.maps.event.addListener(map2, 'click', function(event) {
-            	$scope.setMarcadorLectura(event.latLng);
+            	//$scope.setMarcadorLectura(event.latLng);
         });
       };			
 
@@ -3720,45 +3675,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 			// km.toFixed(3));
       };
 
-
-      $scope.mLineaRecta = function() {
-          if (medida.mvcLine.getLength() > 1) {
-              if (!medida.line) {
-                  medida.line = new google.maps.Polyline({
-                      map: map,
-                      clickable: false,
-                      strokeColor: "#ad04ef",
-                      strokeOpacity: 1,
-                      strokeWeight: 3,
-                      path: medida.mvcLine
-                  });
-              }
-
-              if (medida.mvcPolygon.getLength() > 2) {
-
-                  if (medida.polygon != null)
-                  {
-                      medida.polygon.setMap(null);
-                  }
-
-
-                  medida.polygon = new google.maps.Polygon({
-                      clickable: false,
-                      map: map,
-                      fillOpacity: 0.0,
-                      strokeOpacity: 0,
-                      paths: medida.mvcPolygon
-                  });
-
-              }
-          }
-
-          if (medida.mvcLine.getLength() > 1) {
-              $scope.calculaDistancia();
-          }
-      };
-
-      /*
+      
       $scope.mLineaRectaEdita = function() {
           if (medida.mvcLine.getLength() > 1) {
               if (!medida.line) {
@@ -3791,7 +3708,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
               }
           }
       };
-*/
+
       $scope.mLineaRectaLectura = function() {
           if (medida2.mvcLine.getLength() > 1) {
               if (!medida2.line) {
@@ -3823,25 +3740,8 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 
               }
           }
-      };
-        
-      $scope.setDireccionEnReversa = function(lat, lng) {
-          var latlng = {lat: lat, lng: lng};
-          var geocoder = new google.maps.Geocoder();
-          // var address = document.getElementById('direccion').value;
-          // geocoder.geocode({'address': address}, function(results, status)
-			// {
-          geocoder.geocode({'location': latlng}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                  map.setCenter(results[0].geometry.location);
-                  $scope.setMarcador(results[0].geometry.location);
-              } else {
-                  alert('No se encontro la direccion , debido: ' + status);
-              }
-          });
-      };
-
-/*
+      };      
+      
       $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
           var latlng = {lat: lat, lng: lng};
           var geocoder = new google.maps.Geocoder();
@@ -3854,7 +3754,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 		      });
           }, 100);
       };
-*/
+
       $scope.setDireccionEnReversaLectura = function(lat, lng, direccion) {
           var latlng = {lat: lat, lng: lng};
           var geocoder = new google.maps.Geocoder();
@@ -3914,27 +3814,52 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
           // document.getElementById('polyArea').innerHTML = '';
       };
       
-          $scope.showMap = function(actividad) {
-        	  setTimeout(function() {        	 
-        		  $scope.initMap()},500);
-        	  /*for (var i = 0; i < actividad.coordenadas.length; i++) {
-              	$scope.setDireccionEnReversa(actividad.coordenadas[i].latitud, actividad.coordenadas[i].longitud, actividad.coordenadas[i].direccion);
-          };
-									$scope.edicionMap = true;								
-									$("#tramos").empty();*/
-        	  };
-        	  
-        	  $scope.mostrarReal = function(actividad) {
-            	  setTimeout(function() {        	 
-        		  $scope.initMap2()},500);
-            	  /*for (var i = 0; i < actividad.coordenadas.length; i++) {
-                  	$scope.setDireccionEnReversaLectura(actividad.coordenadas[i].latitud, actividad.coordenadas[i].longitud, actividad.coordenadas[i].direccion);
-              };
-    									$scope.edicionMap = true;								
-    									$("#tramos2").empty();*/
-        		  };
+      $scope.showMap = function(actividad) {
+    	  setTimeout(function() {        	 
+    		  $scope.initMap();
+    		  $scope.colocarMarcadores($scope.coordenadasEsperadas,1);
+    	  },1000);    	  
+      	    		  
+      };
+    	  
+	  $scope.mostrarReal = function(actividad) {
+    	  setTimeout(function() {        	 
+    		  $scope.initMap2();
+    		  $scope.colocarMarcadores($scope.coordenadasReales,2);
+    	  },1000);    	  
+	  };
         	        
-      
+      //***coloca los marcadores agendados
+      $scope.colocarMarcadores = function(coordenadas, numMapa)
+      {
+    	  //se limpian los marcadores existentes
+    	  if (numMapa == 1)
+    	  {
+    		  $scope.limpiarMarcadores();
+    	  }
+    	  else
+    	  {
+    		  $scope.limpiarMarcadoresLectura();
+    	  }
+    		  
+
+    	  //console.info("colocarMarcadoresSeleccionados");
+    	  //console.info($scope.diasAgenda);
+    	  //console.info(coordenadas.length);
+    	  for(var i=0; i < coordenadas.length; i++)    	  
+    	  {
+        	  if (numMapa == 1)
+        	  {
+        		  //console.info(coordenadas[i].direccion);
+        		  $scope.setDireccionEnReversaEditar(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+        	  }
+        	  else
+        	  {
+        		  $scope.setDireccionEnReversaLectura(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+        	  }
+    	  }
+      };
+
       //se muestran los mapas
       $scope.initMap();
       $scope.initMap2();
