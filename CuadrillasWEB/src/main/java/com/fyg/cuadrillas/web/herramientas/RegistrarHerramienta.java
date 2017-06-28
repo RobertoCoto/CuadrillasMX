@@ -35,6 +35,8 @@ public class RegistrarHerramienta extends HttpServlet {
 	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		this.doPost(request, response);
 	}
 
@@ -47,6 +49,7 @@ public class RegistrarHerramienta extends HttpServlet {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		Gson sg = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
 			//Se obtiene los valores
