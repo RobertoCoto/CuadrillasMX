@@ -228,7 +228,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	    				{
 	    					 $('#alert').show();
 							 $('#msgerror').text('Se ha cancelado la operacion.');
-							 //$scope.formEmpleado.$setPristine();
+							 $scope.formEmpleado.$setPristine();
 	    					return false;
 	    				} else  {
 							 $('#msload').modal('show');
@@ -284,6 +284,8 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			    	 console.error(response);
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
+					$scope.formEmpleado.$setPristine(false);
+					$scope.formEmpleado.$setDirty();
 			    });
 			
             	
