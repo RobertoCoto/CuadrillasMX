@@ -144,7 +144,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
       		    	$('#msload').modal('hide');
       				$('#alert').hide();
       				$('#success').hide();
-      				$scope.resultadoDatos = result.empleado;
+      				$scope.resultadoDatos = result.data.empleado;
                     console.log($scope.resultadoDatos);
                     $('#empl').show();
       		    }, function myError(response) {
