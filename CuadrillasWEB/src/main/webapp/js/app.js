@@ -3865,6 +3865,152 @@ app.directive('fileModel', ['$parse', function ($parse) {
       $scope.initMap();
       $scope.initMap2();
 	});
-
+ 
+    //funcion para validar que se hayan llenado todos los campos
+    $scope.validaCampos= function()
+    {
+    	var error = false;
+		if ($('#comentarioActividad').val().length < 50)
+		{
+			cadena = "Favor de verificar: El comentario debe contener al menos 50 caracteres." ;
+			error=true;
+		}			
+									
+		$('#alert').show();
+		$('#msgerror').text(cadena);
+		return error;
+	}
+	       
+ 
+	//autoriza la actividad
+	$scope.autorizarActividad = function() {
+		var comentario  = $('#comentarioActividad').val();
+		
+		if ($scope.validaCampos() == true)
+		{
+			return false;
+		}			 
+		
+		var confirmar = confirm("¿Esta seguro de autorizar la actividad?");
+				
+		if (!confirmar) 
+		{
+			 $('#alert').show();
+			 $('#msgerror').text('Se ha cancelado la operacion.');
+				return false;
+		}else  {
+			 $('#msload').modal('show');
+			 $('#alert').hide();
+		} 
+		$http({
+              method: 'GET',
+              url: '/CuadrillasWEB/AutorizaActividadBuzon',
+    	 params: {
+	 		"idActividadDiaria" : $scope.id,
+	 		"envioAutorizacion" : "S",
+	 		"autorizacion" : "S",
+	 		"comentario": comentario,
+	 		"usuario": $scope.usuario
+	         }
+		    }).then(function mySucces(response) {
+		    	$('#msload').modal('hide');
+				$('#success').show();
+				$('#msgaviso').text(response.data.mensajeFuncional);
+		    	 console.info(response);
+		    	 //opener.top.location.reload();
+		    }, function myError(response) {
+		    	$('#msload').modal('hide');
+		    	$('#success').hide();
+				$('#alert').show();
+				$('#msgerror').text(response.data.mensajeFuncional);
+		        console.error(response);
+		    });
+		};
+	
+		//para rechazar actividad
+		$scope.rechazarActividad = function() {
+			var comentario  = $('#comentarioActividad').val();	
+			
+			if ($scope.validaCampos() == true)
+			{
+				return false;
+			}			 
+			
+			var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
+			if (!confirmar) 
+			{
+				 $('#alert').show();
+				 $('#msgerror').text('Se ha cancelado la operacion.');
+					return false;
+			}else  {
+				 $('#msload').modal('show');
+				 $('#alert').hide();
+			}
+			$http({
+	              method: 'GET',
+	              url: '/CuadrillasWEB/AutorizaActividadBuzon',
+	    	 params: {
+		 		"idActividadDiaria" : $scope.id,
+		 		"envioAutorizacion" : "N",
+		 		"autorizacion" : "N",
+		 		"comentario": $scope.comentario,
+		 		"usuario": $scope.usuario
+		         }
+			    }).then(function mySucces(response) {
+			    	$('#msload').modal('hide');
+					$('#success').show();
+					$('#msgaviso').text(response.data.mensajeFuncional);
+			    	 console.info(response);
+			    	 //opener.top.location.reload();
+			    }, function myError(response) {
+			    	$('#msload').modal('hide');
+			    	$('#success').hide();
+					$('#alert').show();
+					$('#msgerror').text(response.data.mensajeFuncional);
+			        console.error(response);
+			    });
+			};
+						
+			// oculta las alertas
+			$scope.hideAlerts = function() {
+			$('#alert').hide();
+			$('#success').hide();
+			};
+						
+			//para visualizar las fotos obtenidas 
+			$scope.visualizaFoto = function(documento) {
+				$scope.url = documento.url;
+				var $popup = $window.open('/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
+				 console.log("fotoncini: " + $scope.url);
+			};
+			
+			//metodo para mostrar la tabla de documentos
+			$scope.muestraDocumento = function(actividades) {
+				$('#tablaDocumentos').show();
+				console.log(actividades.codigoActividad);
+				$scope.codigoActividad = actividades.codigoActividad;
+				$('#msload').modal('show');
+				$http({
+						method: 'GET',
+						url: '/CuadrillasWEB/ConsultaActividadDocumentos',
+						params: {
+								"idActividadDiaria" : $scope.id,
+								"codigoActividad" : $scope.codigoActividad
+						     },
+						data: { }
+						}).then(function (result) {
+							$('#msload').modal('hide');
+							$('#alert').hide();
+							$('#success').hide();
+							$scope.documentos = result.data.documentos;
+						    console.log(result);
+						
+						}, function myError(response) {
+							$('#msload').modal('hide');
+					        console.error(response);
+					        $('#alert').show();
+							$('#msgerror').text(response.data.header.mensajeFuncional)
+						});
+			};			
     // FIN AUTORIZA ACTIVIDAD
 
