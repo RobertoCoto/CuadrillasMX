@@ -73,17 +73,7 @@
 	 <if test="rfcCalculado !=null">
 	 	AND e.rfc_calculado like #{rfcCalculado}
 	 </if>
-	 <!--
-	 <if test="nombre != null">
-	 AND nombre like #{nombre}
-	  </if>
-	 <if test="apellidoPat !=null">
-	 AND apellido_pat like #{apellidoPat}
-	 </if>
-	 <if test="apellidoMat !=null">
-	 AND apellido_mat like #{apellidoMat}
-	 </if>
-	  -->
+	 ORDER BY estatus, fecha_ingreso desc
 	</where>
 </select>
 

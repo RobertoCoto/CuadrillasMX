@@ -319,10 +319,12 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 								"idEmpleado": $scope.idEmmpleado
 						}
 						  }).then(function mySucces(result) {
+							  
 							    $('#msload').modal('hide');
 								$('#alert').hide();
 								$('#success').hide();
 						  	$scope.resultadoDocumentoEmp = result.data.empleadoDocumento;
+						  	
 
 						  }, function myError(response) {
 							    $('#msload').modal('hide');

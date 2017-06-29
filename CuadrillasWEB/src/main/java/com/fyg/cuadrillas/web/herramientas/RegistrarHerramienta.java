@@ -62,6 +62,7 @@ public class RegistrarHerramienta extends HttpServlet {
 			String noSerie = request.getParameter("noSerie");
 			String usuarioAlta = request.getParameter("usuarioAlta");
 
+			System.out.println("################" + nombre);
 			//crea objeto de negocio
 			final HerramientaNegocio negocio = new HerramientaNegocio();
 
