@@ -453,13 +453,13 @@ AND estatus = 'A'
 	SELECT count(autorizacion)
 	FROM actividad_diaria
 	WHERE autorizacion = 'S'
-	AND  id_actividad_diaria = #{idActividadDiaria}
+	AND  id_agenda_detalle = #{idAgendaDetalle}
 </select>
 
 <select id="existeRechazoActividadBuzon" parameterType="ActividadDiariaCampo" resultType="int">
 	SELECT count(autorizacion)
 	FROM actividad_diaria
 	WHERE autorizacion = 'N'
-	AND  id_actividad_diaria = #{idActividadDiaria}
+	AND  id_agenda_detalle = #{idAgendaDetalle}
 </select>
 </mapper>

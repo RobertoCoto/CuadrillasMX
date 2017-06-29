@@ -185,13 +185,10 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 
 <update id="autorizaActividadDiariaBuzon" parameterType="ActividadDiariaCampo">
 	UPDATE actividad_diaria SET
-		envio_autorizacion = #{envioAutorizacion},
-		envio_fecha_autorizacion = now(),
-		envio_usuario_autorizacion = #{envioUsuarioAutorizacion},
 		autorizacion = #{autorizacion},
 		fecha_autorizacion = now(),
 		usuario_autorizacion = #{usuarioAutorizacion},
 		comentario_autorizacion = #{comentarioAutorizacion}
-	WHERE id_actividad_diaria = #{idActividadDiaria}
+	WHERE id_actividad_diaria = #{idAgendaDetalle}
 </update>
 </mapper>
