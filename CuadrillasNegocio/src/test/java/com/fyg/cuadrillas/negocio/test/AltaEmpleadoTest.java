@@ -85,7 +85,7 @@ public class AltaEmpleadoTest {
 		 */
 		altaEmpleado.setNoEmpleado("EMP0020");
 		altaEmpleado.setIdCuadrilla(1);
-		altaEmpleado.setNombre("ROBC");
+		altaEmpleado.setNombre("JOSE");
 		altaEmpleado.setApellidoPat("MEJORADA");
 		altaEmpleado.setApellidoMat("SANDHEZ");
 		altaEmpleado.setCodigoEmpresa("TATE");

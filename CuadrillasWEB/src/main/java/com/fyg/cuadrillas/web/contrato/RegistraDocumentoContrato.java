@@ -35,7 +35,7 @@ public class RegistraDocumentoContrato extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contrato_documentos";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contratos";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.

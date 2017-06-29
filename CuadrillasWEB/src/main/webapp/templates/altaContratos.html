@@ -15,7 +15,7 @@
         </div>
         <div id="alert" class="alert alert-danger alert-dismissable fade in">
           <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
-          <strong>ATENCIÃ“N!</strong> <span id="msgerror"></span>
+          <strong>ATENCION!</strong> <span id="msgerror"></span>
         </div>
       <div id="panelContratos" class="row">
         <div class="col-sm-12">
@@ -81,7 +81,7 @@
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
                               <label for="numDocumento" class="control-label">N&uacute;mero de Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required>
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required maxlength="20">
                               <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
                           <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
@@ -101,7 +101,7 @@
                         <label for="monto" class="control-label">Monto</label>
                         <div class="input-group" ng-class="{ 'has-error' : formContrato.monto.$invalid && !formContrato.monto.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00" required ng-pattern="/^[0-9.]*$/" name="monto">
+                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00" required ng-pattern="/^[0-9.]*$/" name="monto" min="1" max="99999999">
                        <p ng-show="formContrato.monto.$error.pattern && !formContrato.monto.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         <label for="subtotal" class="control-label">Subtotal</label>
                         <div class="input-group" ng-class="{ 'has-error' : formContrato.subtotal.$invalid && !formContrato.subtotal.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00" required ng-pattern="/^[0-9.]*$/" name="subtotal">
+                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00" required ng-pattern="/^[0-9.]*$/" name="subtotal" min="1" max="99999999">
                             <p ng-show="formContrato.subtotal.$error.pattern && !formContrato.subtotal.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                   <div class="row">
                     <div class="col-sm-12 ">
 
-                      <h4>DirecciÃ³n</h4>
+                      <h4>Direcci&oacute;n</h4>
                       <div class="row">
                         <div class="col-sm-3">
                           <span id="txtkm"></span>
@@ -256,11 +256,11 @@
                 <div class="col-sm-offset-2 col-sm-8 col-sm-offset-2">
                   <div class="form-group">
                     <label for="comentarios">Comentarios</label>
-                    <textarea id="comentarios" ng-model="contratoFocus.observaciones" class="form-control" rows="3"></textarea>
+                    <textarea id="comentarios" ng-model="contratoFocus.observaciones" class="form-control" rows="3" maxlength="150"></textarea>
                   </div>
                 </div>
               </div>
-              <!-- table ini fin -->
+              <!-- table ini fin --> 
     			
     			<!-- tabledocumento -->
     			<div id="agregarDocumento">
@@ -271,7 +271,7 @@
     			 <div class="col-sm-4">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Nombre del Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento">
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento" maxlength="30">
                               <input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
                           </div>
                       </div>

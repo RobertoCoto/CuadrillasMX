@@ -8,7 +8,7 @@
       </div>
       <div id="alert" class="alert alert-danger alert-dismissable fade in">
         <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
-        <strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+        <strong>ATENCION!</strong> <span id="msgerror"></span>
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
@@ -33,8 +33,8 @@
                      </thead>
                      <tbody>
                         <tr>
-                          <td><input class="form-control" id="codigof" type="text" /></td>
-                          <td><input class="form-control" id="descripcionf" type="text" /></td>
+                          <td><input class="form-control" id="codigof" type="text" maxlength="4"/></td>
+                          <td><input class="form-control" id="descripcionf" type="text" maxlength="100"/></td>
                           <td><button class="btn botonGuardar" ng-click="saveOptions()" >Agregar</button></td>
                         <tr>
                          <tr ng-repeat="catalogo in resultado2">

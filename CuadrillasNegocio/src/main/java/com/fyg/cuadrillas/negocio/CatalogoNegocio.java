@@ -215,7 +215,7 @@ public class CatalogoNegocio {
 		//Primero generamos el identificador unico de la transaccion
 		String uid = GUIDGenerator.generateGUID(catalogoOV);
 		//Mandamos a log el objeto de entrada
-		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Entrada: " + catalogoOV);
+		LogHandler.debug(uid, this.getClass(), "actualizarCatalogo - Datos Entrada: " + catalogoOV);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		try {
@@ -242,20 +242,20 @@ public class CatalogoNegocio {
 
 		}
 		catch  (ExcepcionesCuadrillas ex) {
-			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "actualizarCatalogo - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		catch  (Exception ex) {
-			LogHandler.error(uid, this.getClass(), "eliminaCatalogo - Error: " + ex.getMessage(), ex);
+			LogHandler.error(uid, this.getClass(), "actualizarCatalogo - Error: " + ex.getMessage(), ex);
 			respuesta.setUid(uid);
 			respuesta.setEstatus(false);
 			respuesta.setMensajeFuncional(ex.getMessage());
 			respuesta.setMensajeTecnico(ex.getMessage());
 		}
-		LogHandler.debug(uid, this.getClass(), "eliminaCatalogo - Datos Salida: " + respuesta);
+		LogHandler.debug(uid, this.getClass(), "actualizarCatalogo - Datos Salida: " + respuesta);
 		return respuesta;
 	}
 

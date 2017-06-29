@@ -14,7 +14,7 @@ INSERT INTO `cuadrilla` (`id_cuadrilla`, `nombre_cuadrilla`, `codigo_vialidad`, 
 
 
 INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
-VALUES('mimejorada', 1,'MARIO IVAN','MEJORADA','HERRERA','H','XXXX','XXXX','1977-09-21',10,'821610101001110220100012301263064791216bc07a5b6c8206cf634lg104sgs', 'N', now(), now(), now(), 'A');
+VALUES('mimejorada', 10000,'MARIO IVAN','MEJORADA','HERRERA','H','XXXX','XXXX','1977-09-21',10,'821610101001110220100012301263064791216bc07a5b6c8206cf634lg104sgs', 'N', now(), now(), now(), 'A');
 
 
 

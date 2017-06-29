@@ -73,8 +73,8 @@
 	 <if test="rfcCalculado !=null">
 	 	AND e.rfc_calculado like #{rfcCalculado}
 	 </if>
-	 ORDER BY estatus, fecha_ingreso desc
 	</where>
+	ORDER BY estatus, fecha_ingreso desc
 </select>
 
 <select id="empleadoActivo" parameterType="asistencia" resultType="int">
