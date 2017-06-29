@@ -224,8 +224,8 @@ public class EmpleadoNegocio {
 				//se le envian los datos al DAO
 				UsuarioDAO daoUsuario = new UsuarioDAO();
 				daoUsuario.altaUsuario(uid, usuario);
+				respuesta.setMensajeFuncional(respuesta.getMensajeFuncional() + " Usuario Generado: " + usuario.getUsuario());
 			}
-			respuesta.setMensajeFuncional(respuesta.getMensajeFuncional() + " Usuario Generado: " + usuario.getUsuario());
 		}
 		catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "registraEmpleado - Error: " + ex.getMessage(), ex);
@@ -493,22 +493,22 @@ public class EmpleadoNegocio {
 				respuesta.getHeader().setEstatus(true);
 				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 				List<EmpleadoDTO> listaEmpleado = null;
-						try {
-							listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleado(uid);
-							respuesta.setEmpleado(listaEmpleado);
-						} catch  (ExcepcionesCuadrillas ex) {
-							LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
-							respuesta.getHeader().setEstatus(false);
-							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-						} catch (Exception ex) {
-					    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
-					    	respuesta.getHeader().setEstatus(false);
-							respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-							respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-					    }
-					    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
-						return respuesta;
+				try {
+					listaEmpleado = new EmpleadoDAO().consultaGeneralEmpleado(uid);
+					respuesta.setEmpleado(listaEmpleado);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "consultaGeneral - Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "consultaGeneral - Datos Salida: " + respuesta);
+				return respuesta;
 	}
 	/**
 	 * Metodo para consultar los documentos
