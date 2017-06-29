@@ -791,7 +791,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.initMap();
 					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
                     for (var i = 0; i < coordenadasArray.length; i++) {
-						 setTimeout(function(){ $scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion); }, 400);
+						 setTimeout(function(){ $scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion); }, 400);
                 	}
 					$scope.edicionMap = true;
 					$("#tramos").empty();
