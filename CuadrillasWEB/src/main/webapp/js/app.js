@@ -790,8 +790,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.nContrato = false;
                     $scope.initMap();
 					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
+					console.log(coordenadasArray);
                     for (var i = 0; i < coordenadasArray.length; i++) {
-						 setTimeout(function(){ $scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion); }, 400);
+						 $scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
                 	}
 					$scope.edicionMap = true;
 					$("#tramos").empty();
