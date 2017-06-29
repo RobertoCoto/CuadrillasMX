@@ -789,13 +789,27 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $("#estatus").prop('disabled', false);
                     $scope.nContrato = false;
                     $scope.initMap();
-                    for (var i = 0; i < contrato.coordenadas.length; i++) {
-                    	$scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion);
-                }
-										$scope.edicionMap = true;
-										$("#tramos").empty();
+					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
+                    for (var i = 0; i < coordenadasArray.length; i++) {
+						 setTimeout(function(){ $scope.setDireccionEnReversaEditar(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud, contrato.coordenadas[i].direccion); }, 400);
+                	}
+					$scope.edicionMap = true;
+					$("#tramos").empty();
 														
                   };
+
+				  $scope.ordenCoordenadas = function(coordenadaArr){
+					var size = coordenadaArr.length;
+					for( var pass = 1; pass < size; pass++ ) {
+						for( var izq = 0; izq < (size - pass); izq++) {
+							var der = izq + 1;
+							if( coordenadaArr[izq].orden > coordenadaArr[der].orden ) {
+								swap(coordenadaArr, izq, der);
+							}
+						}
+					}
+					return coordenadaArr;
+				 }
                   
                   $scope.muestraDocumento = function(docs) {
                 	  $scope.idDocument = docs.idDocumento;
