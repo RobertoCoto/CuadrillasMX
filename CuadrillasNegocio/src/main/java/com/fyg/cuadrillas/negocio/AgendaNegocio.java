@@ -451,7 +451,7 @@ public class AgendaNegocio {
 					}
 					if (actividadDiaria.getUsuarioAutorizacion() == null
 							|| actividadDiaria.getUsuarioAutorizacion().trim().isEmpty()) {
-						throw new ExcepcionesCuadrillas("Es necesario el envio para la autorizacion.");
+						throw new ExcepcionesCuadrillas("Es necesario el usuario en el envio para la autorizacion.");
 					}
 					if (!(actividadDiaria.getAutorizacion().trim().equals("S")
 							|| actividadDiaria.getAutorizacion().trim().equals("N"))) {

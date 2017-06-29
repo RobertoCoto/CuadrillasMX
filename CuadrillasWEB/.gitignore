@@ -4,3 +4,5 @@
 .project
 *.class
 .DS_Store
+target/
+.settings/
