@@ -14,7 +14,7 @@ INSERT INTO usuario (usuario, id_perfil, id_empleado, nombre, apellido_pat, apel
 VALUES ('jmejorada', 1, 1, 'JOSE', 'MEJORADA', 'SANDHEZ', 'M', 'MAHJ830101', 'MESJ850310SA5', '1985-03-10', '99851000101020020311021012520000215616a96c7a29929c0443543c2mf8a9c8', 'N', '2017-06-28 20:22:19', '2017-06-28 20:22:19', '2017-06-28 20:22:19', 'A');
 
 
-/*CONTRATO*/
+/*CONTRATO*/ 
 INSERT INTO contrato (id_contrato, codigo_vialidad, codigo_contrato, codigo_documento, codigo_empresa, numero_documento, monto, subtotal, fecha_inicio, fecha_fin, dias_duracion, pct_avance, fecha_registro, id_cuadrilla, observaciones, url, metros, usuario_alta, fecha_alta, usuario_baja, fecha_baja, usuario_ult_mod, fecha_ult_mod, estatus)
 VALUES (1, '5MAY', 'ARVE', 'CONT', 'TATE', '1', 100, 10, '2017-06-01', '2017-06-30', 29, 0, '2017-06-28', 1, 'prueba contrato', '', 2907.75, 'mimejorada', '2017-06-28 20:00:02', NULL, NULL, NULL, NULL, 'A');
 
