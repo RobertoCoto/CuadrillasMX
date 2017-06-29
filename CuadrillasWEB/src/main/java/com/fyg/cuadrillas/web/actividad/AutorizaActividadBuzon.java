@@ -59,6 +59,9 @@ public class AutorizaActividadBuzon extends HttpServlet {
 
 			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
 			actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
+			if(autorizacion == null) {
+				autorizacion = "";
+			}
 			actividadDiaria.setAutorizacion(autorizacion.toUpperCase());
 			actividadDiaria.setUsuarioAutorizacion(usuario);
 			actividadDiaria.setComentarioAutorizacion(comentario);

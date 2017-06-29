@@ -966,6 +966,11 @@ public class AgendaDAO {
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeEnvioAutorizacionActividadDiaria =
+					(Integer) sessionNTx.selectOne("AgendaDAO.existeEnvioAutorizacionActividadBuzon", actividadDiaria);
+			if (existeEnvioAutorizacionActividadDiaria == 0) {
+				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad no se encuentra enviada por autorizar.");
+			}
 			int existeAutorizacionActividadDiaria =
 					(Integer) sessionNTx.selectOne("AgendaDAO.existeAutorizacionActividadBuzon", actividadDiaria);
 			if (existeAutorizacionActividadDiaria > 0) {

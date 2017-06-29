@@ -450,14 +450,21 @@ AND estatus = 'A'
 </select>
 
 <select id="existeAutorizacionActividadBuzon" parameterType="ActividadDiariaCampo" resultType="int">
-	SELECT count(autorizacion)
+	SELECT count(*)
 	FROM actividad_diaria
 	WHERE autorizacion = 'S'
 	AND  id_agenda_detalle = #{idAgendaDetalle}
 </select>
 
+<select id="existeEnvioAutorizacionActividadBuzon" parameterType="ActividadDiariaCampo" resultType="int">
+	SELECT count(*)
+	FROM actividad_diaria
+	WHERE envio_autorizacion = 'S'
+	AND  id_agenda_detalle = #{idAgendaDetalle}
+</select>
+
 <select id="existeRechazoActividadBuzon" parameterType="ActividadDiariaCampo" resultType="int">
-	SELECT count(autorizacion)
+	SELECT count(*)
 	FROM actividad_diaria
 	WHERE autorizacion = 'N'
 	AND  id_agenda_detalle = #{idAgendaDetalle}
