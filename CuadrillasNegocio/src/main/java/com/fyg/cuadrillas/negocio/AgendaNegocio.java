@@ -439,18 +439,23 @@ public class AgendaNegocio {
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
+					if (actividadDiaria.getIdAgendaDetalle() == null || actividadDiaria.getIdAgendaDetalle() == 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el id Agenda detalle.");
+					}
 					if (actividadDiaria.getAutorizacion() == null || actividadDiaria.getAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario la autorizacion.");
-					}
-					if (actividadDiaria.getIdActividadDiaria() == null) {
-						throw new ExcepcionesCuadrillas("Es necesario el id de la actividad diaria.");
-					}
-					if (actividadDiaria.getComentarioAutorizacion() == null) {
+					}					
+					if (actividadDiaria.getComentarioAutorizacion() == null
+							|| actividadDiaria.getComentarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario un comentario para la autorizacion.");
 					}
-					if (actividadDiaria.getEnvioAutorizacion() == null
-							|| actividadDiaria.getEnvioAutorizacion().trim().isEmpty()) {
+					if (actividadDiaria.getUsuarioAutorizacion() == null
+							|| actividadDiaria.getUsuarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el envio para la autorizacion.");
+					}
+					if (!(actividadDiaria.getAutorizacion().trim().equals("S")
+							|| actividadDiaria.getAutorizacion().trim().equals("N"))) {
+						throw new ExcepcionesCuadrillas("La autorizacion debe ser S o N.");
 					}
 					AgendaDAO dao = new AgendaDAO();
 					respuesta = dao.autorizaActividadBuzon(uid, actividadDiaria);

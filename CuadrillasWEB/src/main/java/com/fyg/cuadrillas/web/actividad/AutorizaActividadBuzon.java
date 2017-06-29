@@ -49,27 +49,18 @@ public class AutorizaActividadBuzon extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			Integer idActividadDiaria = Integer.parseInt(request.getParameter("idActividadDiaria"));
-			String envioAutorizacion = request.getParameter("envioAutorizacion");
+			Integer idAgendaDetalle = Integer.parseInt(request.getParameter("idAgendaDetalle"));
 			String autorizacion = request.getParameter("autorizacion");
 			String usuario = request.getParameter("usuario");
 			String comentario = request.getParameter("comentario");
-
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
 
 			//crea objeto de negocio
 			final AgendaNegocio negocio = new AgendaNegocio();
 
 			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
-			actividadDiaria.setIdActividadDiaria(idActividadDiaria);
-			actividadDiaria.setEnvioAutorizacion(envioAutorizacion);
-			actividadDiaria.setAutorizacion(autorizacion);
+			actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
+			actividadDiaria.setAutorizacion(autorizacion.toUpperCase());
 			actividadDiaria.setUsuarioAutorizacion(usuario);
-			actividadDiaria.setEnvioUsuarioAutorizacion(usuario);
 			actividadDiaria.setComentarioAutorizacion(comentario);
 			respuesta = negocio.autorizaActividadDiaria(actividadDiaria);
 			if (respuesta.isEstatus()) {
