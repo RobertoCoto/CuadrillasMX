@@ -575,9 +575,23 @@
                 $('#panelContratos').hide();
                 $scope.nContrato = false;
                 $scope.initMap();
-                for (var i = 0; i < contrato.coordenadas.length; i++) {
-                  $scope.setDireccionEnReversa(contrato.coordenadas[i].latitud, contrato.coordenadas[i].longitud);
+                var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
+                for (var i = 0; i < coordenadasArray.length; i++) {
+                  setTimeout(function(){ $scope.setDireccionEnReversa(coordenadasArray[i].latitud, coordenadasArray[i].longitud); }, 500);
                 }
+              }
+
+              $scope.ordenCoordenadas = function(coordenadaArr){
+                var size = coordenadaArr.length;
+                for( var pass = 1; pass < size; pass++ ) {
+                  for( var izq = 0; izq < (size - pass); izq++) {
+                    var der = izq + 1;
+                    if( coordenadaArr[izq].orden > coordenadaArr[der].orden ) {
+                      swap(coordenadaArr, izq, der);
+                    }
+                  }
+                }
+                return coordenadaArr;
               }
 
               //Ejecución inicial
@@ -655,8 +669,15 @@
                       coordenadaP.longitud = latLng.lng();
                       coordenadaP.direccion = direccion;
                       if($scope.contratoFocus.coordenadas) {
+                        var ordenLast = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length - 1];
+                        if(ordenLast && ordenLast.orden) {
+                          coordenadaP.orden = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length - 1].orden + 1;
+                        } else {
+                          coordenadaP.orden = 1;
+                        }
                         $scope.contratoFocus.coordenadas.push(coordenadaP);
                       } else {
+                        coordenadaP.orden = 1;
                         coordenadasTemp.push(coordenadaP);
                         $scope.contratoFocus.coordenadas = coordenadasTemp;
                       }
@@ -1044,6 +1065,6 @@
         }
 
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&libraries=geometry"></script> <!-- &callback=initMap -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabJe-6SF_dgIWW5eKjHynpbcvzoJmY4E&libraries=geometry"></script> <!-- &callback=initMap -->
   </body>
 </html>
