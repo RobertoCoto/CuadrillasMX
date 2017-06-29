@@ -81,7 +81,7 @@
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
                               <label for="numDocumento" class="control-label">N&uacute;mero de Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required>
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required maxlength="20">
                               <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
                           <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
                           </div>
@@ -101,7 +101,7 @@
                         <label for="monto" class="control-label">Monto</label>
                         <div class="input-group" ng-class="{ 'has-error' : formContrato.monto.$invalid && !formContrato.monto.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00" required ng-pattern="/^[0-9.]*$/" name="monto">
+                            <input type="number" class="form-control" ng-model="contratoFocus.monto" id="monto" placeholder=" 0.00" required ng-pattern="/^[0-9.]*$/" name="monto" min="1" max="99999999">
                        <p ng-show="formContrato.monto.$error.pattern && !formContrato.monto.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
