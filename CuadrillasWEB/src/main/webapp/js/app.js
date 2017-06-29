@@ -3860,14 +3860,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
         	  }
     	  }
       };
-
-      //se muestran los mapas
-      $scope.initMap();
-      $scope.initMap2();
-	});
- 
+      
     //funcion para validar que se hayan llenado todos los campos
-    $scope.validaCampos= function()
+    $scope.validaCampos = function()
     {
     	var error = false;
 		if ($('#comentarioActividad').val().length < 50)
@@ -3879,7 +3874,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		$('#alert').show();
 		$('#msgerror').text(cadena);
 		return error;
-	}
+	};
 	       
  
 	//autoriza la actividad
@@ -3971,46 +3966,52 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			    });
 			};
 						
-			// oculta las alertas
-			$scope.hideAlerts = function() {
+		// oculta las alertas
+		$scope.hideAlerts = function() {
 			$('#alert').hide();
 			$('#success').hide();
-			};
+		};
 						
-			//para visualizar las fotos obtenidas 
-			$scope.visualizaFoto = function(documento) {
-				$scope.url = documento.url;
-				var $popup = $window.open('/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
-				 console.log("fotoncini: " + $scope.url);
-			};
+		//para visualizar las fotos obtenidas 
+		$scope.visualizaFoto = function(documento) {
+			$scope.url = documento.url;
+			var $popup = $window.open('/CuadrillasWEB/RevisaActividadDocumentos?url='+ $scope.url, '_blank','heigth=600,width=600');
+			 console.log("fotoncini: " + $scope.url);
+		};
 			
-			//metodo para mostrar la tabla de documentos
-			$scope.muestraDocumento = function(actividades) {
-				$('#tablaDocumentos').show();
-				console.log(actividades.codigoActividad);
-				$scope.codigoActividad = actividades.codigoActividad;
-				$('#msload').modal('show');
-				$http({
-						method: 'GET',
-						url: '/CuadrillasWEB/ConsultaActividadDocumentos',
-						params: {
-								"idActividadDiaria" : $scope.id,
-								"codigoActividad" : $scope.codigoActividad
-						     },
-						data: { }
-						}).then(function (result) {
-							$('#msload').modal('hide');
-							$('#alert').hide();
-							$('#success').hide();
-							$scope.documentos = result.data.documentos;
-						    console.log(result);
-						
-						}, function myError(response) {
-							$('#msload').modal('hide');
-					        console.error(response);
-					        $('#alert').show();
-							$('#msgerror').text(response.data.header.mensajeFuncional)
-						});
-			};			
-    // FIN AUTORIZA ACTIVIDAD
+		//metodo para mostrar la tabla de documentos
+		$scope.muestraDocumento = function(actividades) {
+			$('#tablaDocumentos').show();
+			console.log(actividades.codigoActividad);
+			$scope.codigoActividad = actividades.codigoActividad;
+			$('#msload').modal('show');
+			$http({
+					method: 'GET',
+					url: '/CuadrillasWEB/ConsultaActividadDocumentos',
+					params: {
+							"idActividadDiaria" : $scope.id,
+							"codigoActividad" : $scope.codigoActividad
+					     },
+					data: { }
+					}).then(function (result) {
+						$('#msload').modal('hide');
+						$('#alert').hide();
+						$('#success').hide();
+						$scope.documentos = result.data.documentos;
+					    console.log(result);
+					
+					}, function myError(response) {
+						$('#msload').modal('hide');
+				        console.error(response);
+				        $('#alert').show();
+						$('#msgerror').text(response.data.header.mensajeFuncional)
+					});
+		};      
+
+      //se muestran los mapas
+      $scope.initMap();
+      $scope.initMap2();
+	});
+ 
+			    // FIN AUTORIZA ACTIVIDAD
 
