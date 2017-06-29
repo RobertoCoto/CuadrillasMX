@@ -70,15 +70,16 @@ public class ContratoNegocio {
 					if (contrato.getUsuarioAlta() == null || contrato.getUsuarioAlta().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario para la operacion.");
 					}
+					if (contrato.getUrl() == null || contrato.getUrl().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la URL del archivo del contrato.");
+					}
 					if (contrato.getIdCuadrilla() == null) {
 						contrato.setIdCuadrilla(0);
 					}
 					if (contrato.getObservaciones() == null) {
 						contrato.setObservaciones("");
 					}
-					if (contrato.getUrl() == null) {
-						contrato.setUrl("");
-					}
+					
 					if (contrato.getSubtotal() > contrato.getMonto()) {
 						throw new ExcepcionesCuadrillas("El subtotal no puede ser mayor al total.");
 					}
