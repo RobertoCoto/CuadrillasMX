@@ -27,7 +27,7 @@ public class ConsultaContratoDocumento extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contrato/";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contratos/";
     /**
      * @see HttpServlet#HttpServlet()
      */

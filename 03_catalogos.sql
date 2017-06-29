@@ -237,6 +237,8 @@ VALUES('CONT_DOCU','POLI',upper('Poliza'),'SISTEMAS', 'SISTEMAS',now(),now(),'A'
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('CONT_DOCU','FACT',upper('Factura'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
+INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
+VALUES('CONT_DOCU','ACCO',upper('Act. Contrato'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');
 
 /*CATALOGO EMPRESAS*/
 

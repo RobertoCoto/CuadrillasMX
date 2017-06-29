@@ -26,7 +26,7 @@ public class BusquedaDocumentoContrato extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contrato_documentos/";
+	private static final String DESTINATION_DIR_PATH = "/documentos/contratos/";
     /**
      * @see HttpServlet#HttpServlet()
      */

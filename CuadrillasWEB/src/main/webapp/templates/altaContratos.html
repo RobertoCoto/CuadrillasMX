@@ -109,7 +109,7 @@
                         <label for="subtotal" class="control-label">Subtotal</label>
                         <div class="input-group" ng-class="{ 'has-error' : formContrato.subtotal.$invalid && !formContrato.subtotal.$pristine }">
                             <span class="input-group-addon">$</span>
-                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00" required ng-pattern="/^[0-9.]*$/" name="subtotal">
+                            <input type="number" class="form-control" ng-model="contratoFocus.subtotal" id="subtotal" placeholder="0.00" required ng-pattern="/^[0-9.]*$/" name="subtotal" min="1" max="99999999">
                             <p ng-show="formContrato.subtotal.$error.pattern && !formContrato.subtotal.$pristine" class="help-block">No se permite letras o caracteres invalidos.</p>
                         </div>
                     </div>
@@ -256,11 +256,11 @@
                 <div class="col-sm-offset-2 col-sm-8 col-sm-offset-2">
                   <div class="form-group">
                     <label for="comentarios">Comentarios</label>
-                    <textarea id="comentarios" ng-model="contratoFocus.observaciones" class="form-control" rows="3"></textarea>
+                    <textarea id="comentarios" ng-model="contratoFocus.observaciones" class="form-control" rows="3" maxlength="150"></textarea>
                   </div>
                 </div>
               </div>
-              <!-- table ini fin -->
+              <!-- table ini fin --> 
     			
     			<!-- tabledocumento -->
     			<div id="agregarDocumento">
@@ -271,7 +271,7 @@
     			 <div class="col-sm-4">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Nombre del Documento</label>
-                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento">
+                              <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento" maxlength="30">
                               <input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
                           </div>
                       </div>
