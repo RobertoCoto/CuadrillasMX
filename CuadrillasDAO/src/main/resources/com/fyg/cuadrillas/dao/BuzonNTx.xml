@@ -39,12 +39,12 @@ FROM (
 		'ACDI' AS tipo_tarea,
 		 agd.fecha AS fecha_tarea,
 		 CONCAT('Aut. Actividades Diarias: ', c.nombre_cuadrilla) AS descripcion,
-		 id_actividad_diaria AS id
+		 ad.id_agenda_detalle AS id
 	FROM actividad_diaria ad
 	INNER JOIN agenda a ON a.id_agenda = ad.id_agenda
 	INNER JOIN cuadrilla c ON c.id_cuadrilla = a.id_cuadrilla
 	INNER JOIN agenda_detalle agd ON agd.id_agenda_detalle = ad.id_agenda_detalle
-	WHERE ad.envio_autorizacion = 'N'
+	WHERE ad.envio_autorizacion = 'S'
 	AND ad.autorizacion IS NULL
 ) universo
 ORDER BY fecha_tarea
