@@ -232,6 +232,11 @@ var data;
 						$('#msload').modal('hide');
 						$('#success').show();
 						$('#msgaviso').text(aa.mensajeFuncional);
+						if(aa.estatus) {
+							$('#mainPanel').show();
+							$('#panelContratos').hide();
+							$('#nuevoContrato').hide();
+						}
 	        })
 	        .error(function(aa){
 						console.log(aa);
@@ -4037,3 +4042,87 @@ app.directive('fileModel', ['$parse', function ($parse) {
  
 			    // FIN AUTORIZA ACTIVIDAD
 
+
+
+
+		function mLineaRecta() {
+			return new Promise(resolve => {
+				if (medida.mvcLine.getLength() > 1) {
+					if (!medida.line) {
+						medida.line = new google.maps.Polyline({
+							map: map,
+							clickable: false,
+							strokeColor: "#ad04ef",
+							strokeOpacity: 1,
+							strokeWeight: 3,
+							path: medida.mvcLine
+						});
+					}
+
+					if (medida.mvcPolygon.getLength() > 2) {
+
+						if (medida.polygon != null)
+						{
+							medida.polygon.setMap(null);
+						}
+
+
+						medida.polygon = new google.maps.Polygon({
+							clickable: false,
+							map: map,
+							fillOpacity: 0.0,
+							strokeOpacity: 0,
+							paths: medida.mvcPolygon
+						});
+
+					}
+				}
+				if (medida.mvcLine.getLength() > 1) {
+					await calculaDistancia();
+				}
+				resolve(true);
+			});
+        }
+
+        function calculaDistancia() {
+			return new Promise(resolve => {
+				var length = 0;
+				if (medida.mvcPolygon.getLength() > 1) {
+					length = google.maps.geometry.spherical.computeLength(medida.line.getPath());
+				}
+				var area = 0;
+				if (medida.mvcPolygon.getLength() > 2) {
+					area = google.maps.geometry.spherical.computeArea(medida.polygon.getPath());
+				}
+			//    lM = document.forms["mb"].elements["mode"][0].checked;
+				var km = length / 1000;
+				var unidad_de_medida = " metros";
+				$scope.contratoFocus.metros = length;
+				$( "#km" ).text(km.toFixed(2) + ' km');
+				//console.log('Distancia total:' + length.toFixed(0) + ' metros ' +  km.toFixed(3));				
+				resolve(true);
+			});
+
+        }
+
+        function setDireccionEnReversa(lat, lng) {
+			return new Promise(resolve => {
+				var latlng = {lat: lat, lng: lng};
+				var geocoder = new google.maps.Geocoder();
+				//var address = document.getElementById('direccion').value;
+				//geocoder.geocode({'address': address}, function(results, status) {
+				geocoder.geocode({'location': latlng}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						map.setCenter(results[0].geometry.location);
+						setMarcador(results[0].geometry.location);
+					} else {
+						alert('No se encontro la direccion , debido: ' + status);
+					}
+				});
+				resolve(true);
+			});
+        }
+
+		function setMarcador(latLng) {
+            await mLineaRecta();
+        }
