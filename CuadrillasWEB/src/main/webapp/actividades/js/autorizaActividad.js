@@ -9,17 +9,31 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 
 	$scope.id = $window.idActividadDiaria;
 	$scope.usuario = $window.user;
-	$scope.fecha = '2017-06-26'; //$window.fechaTarea;	
+	$scope.fecha = $window.fechaTarea;	
 	var metros_div = 1;
+	
+	var asyncLoop = function(o){
+		var i=-1, length = o.length;
+		
+		var loop = function(){
+			i++;
+			if( i == length) {
+				o.callback(); return;
+			}
+			o.forHSA(loop, i);
+		} 
+		loop();
+	};	
 
 	// msload 
 	$('#success').hide();
-   $('#alert').hide();
-   $('#msload').modal('show');
-   $('#tablaDocumentos').hide();
-   $scope.nContrato = true;
-   //obtiene el id y consulta las actividades
-   $scope.consultaActividad = function() {
+	$('#alert').hide();
+	$('#msload').modal('show');
+	$('#tablaDocumentos').hide();
+	$scope.nContrato = true;
+	
+	//obtiene el id y consulta las actividades
+	$scope.consultaActividad = function() {
 		$('#msload').modal('show');
 		$http({
 				method: 'GET',
@@ -132,9 +146,11 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					polygon: null
        };
 			
-       var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+       
+			
+       var mx1 = {lat: 19.433478, lng: -99.133771};
        map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 7,
+         zoom: 14,
          center: mx1
        });
        google.maps.event.addListener(map, 'click', function(event) {
@@ -151,9 +167,9 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
            line: null,
            polygon: null
        };
-       var mx12 = {lat: 19.34751544463381, lng: -98.98272888210454};
+       var mx12 = {lat: 19.433478, lng: -99.133771};
        map2 = new google.maps.Map(document.getElementById('map2'), {
-         zoom: 7,
+         zoom: 14,
          center: mx12
        });
 
@@ -351,18 +367,39 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
    	  //console.info("colocarMarcadoresSeleccionados");
    	  //console.info($scope.diasAgenda);
    	  //console.info(coordenadas.length);
-   	  for(var i=0; i < coordenadas.length; i++)    	  
-   	  {
-       	  if (numMapa == 1)
-       	  {
-       		  //console.info(coordenadas[i].direccion);
-       		  $scope.setDireccionEnReversaEditar(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
-       	  }
-       	  else
-       	  {
-       		  $scope.setDireccionEnReversaLectura(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
-       	  }
-   	  }
+	   	  if (numMapa == 1)
+	   	  {
+	   		  //console.info(coordenadas[i].direccion);
+	   		  //$scope.setDireccionEnReversaEditar(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+	      	asyncLoop({
+	    		length : coordenadas.length,
+				forHSA : function(loop, i){
+					setTimeout(function(){
+						$scope.setDireccionEnReversaEditar(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+						loop();
+					},1500);
+				},
+				callback : function(){
+					$('#msload').modal('hide');
+				}    
+			});       		  
+	   	  }
+	   	  else
+	   	  {
+	   		  //$scope.setDireccionEnReversaLectura(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+	      	asyncLoop({
+	    		length : coordenadas.length,
+				forHSA : function(loop, i){
+					setTimeout(function(){
+						$scope.setDireccionEnReversaLectura(coordenadas[i].latitud, coordenadas[i].longitud, coordenadas[i].direccion);
+						loop();
+					},1500);
+				},
+				callback : function(){
+					$('#msload').modal('hide');
+				}    
+			});       	  
+	   	  }   	  
      };
      
    //funcion para validar que se hayan llenado todos los campos
