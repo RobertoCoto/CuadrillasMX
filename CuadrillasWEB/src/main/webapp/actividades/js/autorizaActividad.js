@@ -58,7 +58,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 		$scope.setMarcadorEdicion = function(latLng, direccion) {
 			// $('#msload').modal('show');
            var geocoder = new google.maps.Geocoder;
-           var img_mark = 'altaContrato/mark.png';
+           var img_mark = 'mark.png';
            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
            medida.mvcLine.push(latLng);
            medida.mvcPolygon.push(latLng);
@@ -93,7 +93,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
        $scope.setMarcadorLectura = function(latLng, direccion) {        	        	             	
 			// $('#msload').modal('show');
            var geocoder = new google.maps.Geocoder;
-           var img_mark = 'altaContrato/mark.png';
+           var img_mark = 'mark.png';
            var marcador2 = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
            medida2.mvcLine.push(latLng);
            medida2.mvcPolygon.push(latLng);

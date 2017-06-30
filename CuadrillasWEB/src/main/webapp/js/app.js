@@ -3922,15 +3922,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			 $('#alert').hide();
 		} 
 		$http({
-              method: 'GET',
-              url: '/CuadrillasWEB/AutorizaActividadBuzon',
-    	 params: {
-	 		"idActividadDiaria" : $scope.id,
-	 		"envioAutorizacion" : "S",
-	 		"autorizacion" : "S",
-	 		"comentario": comentario,
-	 		"usuario": $scope.usuario
-	         }
+            method: 'GET',
+            url: '/CuadrillasWEB/AutorizaActividadBuzon',
+            params: {
+	 			"idAgendaDetalle" 	: $scope.id,
+	 			"autorizacion" 		: "S",
+	 			"comentario"		: comentario,
+	 			"usuario"			: $scope.usuario
+	       	}
 		    }).then(function mySucces(response) {
 		    	$('#msload').modal('hide');
 				$('#success').show();
@@ -3969,26 +3968,25 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	              method: 'GET',
 	              url: '/CuadrillasWEB/AutorizaActividadBuzon',
 	    	 params: {
-		 		"idActividadDiaria" : $scope.id,
-		 		"envioAutorizacion" : "N",
-		 		"autorizacion" : "N",
-		 		"comentario": $scope.comentario,
-		 		"usuario": $scope.usuario
-		         }
-			    }).then(function mySucces(response) {
+	 				"idAgendaDetalle" 	: $scope.id,
+	 				"autorizacion" 		: "N",
+	 				"comentario"		: comentario,
+	 				"usuario"			: $scope.usuario
+		     		}
+			 }).then(function mySucces(response) {
 			    	$('#msload').modal('hide');
 					$('#success').show();
 					$('#msgaviso').text(response.data.mensajeFuncional);
 			    	 console.info(response);
 			    	 //opener.top.location.reload();
-			    }, function myError(response) {
+			 }, function myError(response) {
 			    	$('#msload').modal('hide');
 			    	$('#success').hide();
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
 			        console.error(response);
-			    });
-			};
+			 });
+		};
 						
 		// oculta las alertas
 		$scope.hideAlerts = function() {
