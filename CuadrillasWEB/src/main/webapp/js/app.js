@@ -792,12 +792,25 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
 					console.log(coordenadasArray);
                     for (var i = 0; i < coordenadasArray.length; i++) {
-						 $scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
+						$scope.setDirecciones(coordenadasArray[i]).then(function(results) {
+							console.log(results);
+						});
+						//$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
                 	}
+					
+					
+					
 					$scope.edicionMap = true;
 					$("#tramos").empty();
 														
                   };
+
+				  $scope.setDirecciones = function (coord) {
+						return new Promise(function (fulfill, reject){
+							$scope.setDireccionEnReversaEditar(coord.latitud, coord.longitud, coord.direccion);
+							fulfill(true);
+						});
+					}
 
 				  $scope.ordenCoordenadas = function(coordenadaArr){
 					var size = coordenadaArr.length;
@@ -1124,21 +1137,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
                           }
                       });
                   }
-									$scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+				 $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
                       var latlng = {lat: lat, lng: lng};
-											var geocoder = new google.maps.Geocoder();
-											setTimeout(function () {
-													geocoder.geocode({'location': latlng}, function(results, status) {
-		                          if (status == google.maps.GeocoderStatus.OK) {
-		                              map.setCenter(results[0].geometry.location);
-																	$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
-		                          }
-		                      });
-											}, 100);
-											
-											
-
-
+					  var geocoder = new google.maps.Geocoder();
+											//setTimeout(function () {
+				       geocoder.geocode({'location': latlng}, function(results, status) {
+							if (status == google.maps.GeocoderStatus.OK) {
+								map.setCenter(results[0].geometry.location);
+								$scope.setMarcadorEdicion(results[0].geometry.location, direccion);
+							}
+						});
+											//}, 100);
                   }
 
 
@@ -3037,9 +3046,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
         			}
         		});
         	}, 100);
-        };        
+        };
       
-        $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+        /*$scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
         	var latlng = {lat: lat, lng: lng};
         	var geocoder = new google.maps.Geocoder();
         	setTimeout(function () {
@@ -3050,7 +3059,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         			}
         		});
         	}, 100);
-        };      
+		};      */
         
         //***Inicializa el mapa
         $scope.initMap = function() {        	
@@ -3758,7 +3767,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
           }
       };      
       
-      $scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
+      /*$scope.setDireccionEnReversaEditar = function(lat, lng, direccion) {
           var latlng = {lat: lat, lng: lng};
           var geocoder = new google.maps.Geocoder();
           setTimeout(function () {
@@ -3769,7 +3778,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		          }
 		      });
           }, 100);
-      };
+	  }; */
 
       $scope.setDireccionEnReversaLectura = function(lat, lng, direccion) {
           var latlng = {lat: lat, lng: lng};
