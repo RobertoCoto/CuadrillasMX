@@ -1,6 +1,5 @@
 var app = angular.module('tatei', ['ui.bootstrap', 'ui.router']);
 var data;
-
 	function removeByAttr(arr, attr, value) {
 	  var i = arr.length;
 	  while(i--){
@@ -12,6 +11,18 @@ var data;
 	     }
 	  }
 	  return arr;
+	}
+	var asyncLoop = function(o){
+		var i=-1, length = o.length;
+		
+		var loop = function(){
+			i++;
+			if( i == length) {
+				o.callback(); return;
+			}
+			o.forHSA(loop, i);
+		} 
+		loop();
 	}
 
  	app.config(function($routeProvider, $stateProvider) {
@@ -233,9 +244,9 @@ var data;
 						$('#success').show();
 						$('#msgaviso').text(aa.mensajeFuncional);
 						if(aa.estatus) {
-							$('#mainPanel').show();
-							$('#panelContratos').hide();
-							$('#nuevoContrato').hide();
+							$('#mainPanel').hide();
+							$('#panelContratos').show();
+							$('#nuevoContrato').show();
 						}
 	        })
 	        .error(function(aa){
@@ -481,9 +492,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 line: null,
                 polygon: null
             };
-            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+            var mx1 = {lat: 19.433478, lng: -99.133771};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
+              zoom: 14,
               center: mx1
             });
             google.maps.event.addListener(map, 'click', function(event) {
@@ -796,10 +807,26 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.initMap();
 					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
 					console.log(coordenadasArray);
-                    for (var i = 0; i < coordenadasArray.length; i++) {
-						$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
+					$('#msload').modal('show');
+					asyncLoop({
+						length : coordenadasArray.length,
+						forHSA : function(loop, i){
+							setTimeout(function(){
+								$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
+								loop();
+							},1500);
+						},
+						callback : function(){
+							$('#msload').modal('hide');
+						}    
+					});
+					/*
+                    for (let i = 0; i < coordenadasArray.length; i++) {
+						asycronouseProcess(function() {
+							$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
+						});
 						//$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
-                	}
+					} */
 					
 					$scope.edicionMap = true;
 					$("#tramos").empty();
@@ -1033,12 +1060,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
                         line: null,
                         polygon: null
                     };
-                    var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                    var mx1 = {lat: 19.433478, lng: -99.133771};
                     map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 7,
+                      zoom: 14,
                       center: mx1
                     });
-                    /*var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+                    /*var mx1 = {lat: 19.433478, lng: -99.133771};
                     var mx2 = {lat: 19.38962144393955, lng: -99.04332534816899};
 
                     var marker = new google.maps.Marker({
@@ -1976,9 +2003,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
             line: null,
             polygon: null
         };
-        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        var mx1 = {lat: 19.433478, lng: -99.133771};
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
+          zoom: 14,
           center: mx1
         });
 
@@ -2000,9 +2027,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
             line: null,
             polygon: null
         };
-        var mx12 = {lat: 19.34751544463381, lng: -98.98272888210454};
+		var mx12 = {lat: 19.433478, lng: -99.133771};
         map2 = new google.maps.Map(document.getElementById('map2'), {
-          zoom: 7,
+          zoom: 14,
           center: mx12
         });
 
@@ -3063,9 +3090,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 line: null,
                 polygon: null
             };
-            var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+            var mx1 = {lat: 19.433478, lng: -99.133771};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
+              zoom: 14,
               center: mx1
             });
 
@@ -3642,9 +3669,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
 					polygon: null
         };
 			
-        var mx1 = {lat: 19.34751544463381, lng: -98.98272888210454};
+        var mx1 = {lat: 19.433478, lng: -99.133771};
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
+          zoom: 14,
           center: mx1
         });
         google.maps.event.addListener(map, 'click', function(event) {
@@ -3663,7 +3690,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };
         var mx12 = {lat: 19.34751544463381, lng: -98.98272888210454};
         map2 = new google.maps.Map(document.getElementById('map2'), {
-          zoom: 7,
+          zoom: 14,
           center: mx12
         });
 
