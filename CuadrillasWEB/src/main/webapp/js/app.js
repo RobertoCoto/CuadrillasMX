@@ -2937,8 +2937,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     	
         //***Consulta de la agenda
         $scope.consultarAgendaDia = function()
-        {
-        	//bot�n de mapa ng-click="muestraMap()"
+        {        	
         	$('#msload').modal('show'); 
         	
       		$scope.gridActividades = [];
@@ -3079,16 +3078,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
         $scope.muestraMap = function() {                
         	
             //en caso de haber información en el arreglo de mapas se muestran los marcadores
-        	setTimeout(function () { 
-        		
-        		
+        	setTimeout(function () {         		
+        		$scope.initMap();        		
         		for (var i = 0; i < $scope.mapa.gridCoordenadas.length; i++) {
 				//console.info($scope.mapa.gridCoordenadas[i].direccion);
 					$scope.setDireccionEnReversaEditar($scope.mapa.gridCoordenadas[i].latitud, $scope.mapa.gridCoordenadas[i].longitud, $scope.mapa.gridCoordenadas[i].direccion);
 				}
-			}, 500);
-        	
-			$scope.initMap();
+			}, 500);        	
         };
         
         //***Se prepara la informacion para mostrarla en pantalla
@@ -3144,7 +3140,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			$scope.mapa.metros = mapaTemp.metros;
 			$scope.mapa.gridCoordenadas = mapaTemp.gridCoordenadas;			
 			
-			console.info("consulta agenda");
+			//console.info("consulta agenda");
 			console.info($scope.mapa);
 
             //en caso de haber información en el arreglo de mapas se muestran los marcadores
