@@ -10,8 +10,20 @@ VALUES (1, '5 DE MAYO', '5MAY', NULL, 6, '2017-06-28 19:58:21', 'mimejorada', NU
 INSERT INTO empleado (id_empleado, no_empleado, id_cuadrilla, nombre, apellido_pat, apellido_mat, fecha_nacimiento, sexo, rfc, rfc_calculado, fecha_ingreso, sueldo, calificacion, frecuencia_pago, nss, no_credito_infonavit, telefono, alta_imss, observaciones, codigo_empresa, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, usuario_alta, fecha_alta, usuario_baja, fecha_baja, codigo_tipo_salida, codigo_causa_salida, usuario_aut_imss, fecha_aut_imss, usuario_ult_mod, fecha_ult_mod, estatus)
 VALUES (1, 'EMP0020', 1, 'JOSE', 'MEJORADA', 'SANDHEZ', '1985-03-10', 'M', 'MAHJ830101', 'MESJ850310SA5', '2017-06-28', 1200, 10, 'S', '22233332', '22323244', '5555555555', 'N', 'CORRECTO', 'TATE', 'RESI', '', 'VERD', 'CHIC', 'SISTEMAS', '2017-06-28 20:07:42', NULL, NULL, NULL, NULL, NULL, NULL, 'SISTEMAS', '2017-06-28 20:07:42', 'A');
 
+INSERT INTO empleado (id_empleado, no_empleado, id_cuadrilla, nombre, apellido_pat, apellido_mat, fecha_nacimiento, sexo, rfc, rfc_calculado, fecha_ingreso, sueldo, calificacion, frecuencia_pago, nss, no_credito_infonavit, telefono, alta_imss, observaciones, codigo_empresa, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, usuario_alta, fecha_alta, usuario_baja, fecha_baja, codigo_tipo_salida, codigo_causa_salida, usuario_aut_imss, fecha_aut_imss, usuario_ult_mod, fecha_ult_mod, estatus)
+VALUES (2, 'EMP0021', 1, 'OTRO', 'OTRO', 'OTRO', '1985-03-10', 'M', 'MAHJ830101', 'MESJ850310SA5', '2017-06-28', 1200, 10, 'S', '22233332', '22323244', '5555555555', 'N', 'CORRECTO', 'TATE', 'CABO', '', 'VERD', 'CHIC', 'SISTEMAS', '2017-06-28 20:07:42', NULL, NULL, NULL, NULL, NULL, NULL, 'SISTEMAS', '2017-06-28 20:07:42', 'A');
+
+
+INSERT INTO empleado (id_empleado, no_empleado, id_cuadrilla, nombre, apellido_pat, apellido_mat, fecha_nacimiento, sexo, rfc, rfc_calculado, fecha_ingreso, sueldo, calificacion, frecuencia_pago, nss, no_credito_infonavit, telefono, alta_imss, observaciones, codigo_empresa, codigo_puesto, codigo_vialidad, codigo_area, codigo_talla, usuario_alta, fecha_alta, usuario_baja, fecha_baja, codigo_tipo_salida, codigo_causa_salida, usuario_aut_imss, fecha_aut_imss, usuario_ult_mod, fecha_ult_mod, estatus)
+VALUES (3, 'EMP0021', 1, 'OTRO', 'OTRO', 'OTRO', '1985-03-10', 'M', 'MAHJ830101', 'MESJ850310SA5', '2017-06-28', 1200, 10, 'S', '22233332', '22323244', '5555555555', 'N', 'CORRECTO', 'TATE', 'PODA', '', 'VERD', 'CHIC', 'SISTEMAS', '2017-06-28 20:07:42', NULL, NULL, NULL, NULL, NULL, NULL, 'SISTEMAS', '2017-06-28 20:07:42', 'A');
+
+
 INSERT INTO usuario (usuario, id_perfil, id_empleado, nombre, apellido_pat, apellido_mat, sexo, rfc, rfc_calculado, fecha_nacimiento, contrasena, cambio_contrasena, fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
 VALUES ('jmejorada', 1, 1, 'JOSE', 'MEJORADA', 'SANDHEZ', 'M', 'MAHJ830101', 'MESJ850310SA5', '1985-03-10', '99851000101020020311021012520000215616a96c7a29929c0443543c2mf8a9c8', 'N', '2017-06-28 20:22:19', '2017-06-28 20:22:19', '2017-06-28 20:22:19', 'A');
+
+
+INSERT INTO usuario (usuario,id_empleado,nombre,apellido_pat,apellido_mat,sexo,rfc,rfc_calculado,fecha_nacimiento,id_perfil,contrasena,cambio_contrasena,fecha_ult_acceso, fecha_alta, fecha_ult_mod, estatus)
+VALUES('mimejorada', 10000,'MARIO IVAN','MEJORADA','HERRERA','H','XXXX','XXXX','1977-09-21',10,'821610101001110220100012301263064791216bc07a5b6c8206cf634lg104sgs', 'N', now(), now(), now(), 'A');
 
 
 /*CONTRATO*/ 

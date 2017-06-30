@@ -55,12 +55,6 @@ public class EntradaAsistencia extends HttpServlet {
 			String comentarios = request.getParameter("comentarios");
 			String usuario = request.getParameter("usuario");
 
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
-
 			//crea objeto de negocio
 			final AsistenciaNegocio  negocio = new AsistenciaNegocio();
 

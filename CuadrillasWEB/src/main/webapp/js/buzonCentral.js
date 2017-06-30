@@ -43,7 +43,7 @@ app.controller('buzon', function ($scope, $http, $window) {
     	  
     	  //abre una ventana para autorizacion de la actividad
       $scope.autorizarActividad = function(tareas) {
-    	  var $popup = $window.open('/CuadrillasWEB/actividades/autorizacionActividadesDiarias.html', '_blank','heigth=600,width=600');
+    	  var $popup = $window.open('/CuadrillasWEB/actividades/autorizaActividadesDiarias.html', '_blank','heigth=600,width=600');
     	  $popup.idActividadDiaria = tareas.id;
     	  $popup.user = data.data.usuario.usuario;
     	  $popup.fechaTarea = tareas.fechaTarea;

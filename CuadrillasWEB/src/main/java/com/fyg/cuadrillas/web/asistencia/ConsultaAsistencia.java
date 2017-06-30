@@ -53,10 +53,6 @@ public class ConsultaAsistencia extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idCuadrilla = Integer.parseInt(request.getParameter("idCuadrilla"));
-			//			System.setProperty("http.proxyHost", "169.169.4.85");
-//	        System.setProperty("http.proxyPort", "8080");
-//	        System.setProperty("https.proxyHost", "169.169.4.85");
-//	        System.setProperty("https.proxyPort", "8080");
 
 			 Date fechaActual = new Date();
 			 SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
