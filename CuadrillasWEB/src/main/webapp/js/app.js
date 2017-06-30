@@ -494,7 +494,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             };
             var mx1 = {lat: 19.433478, lng: -99.133771};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 5,
+              zoom: 14,
               center: mx1
             });
             google.maps.event.addListener(map, 'click', function(event) {
@@ -1062,7 +1062,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     };
                     var mx1 = {lat: 19.433478, lng: -99.133771};
                     map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 5,
+                      zoom: 14,
                       center: mx1
                     });
                     /*var mx1 = {lat: 19.433478, lng: -99.133771};
@@ -2005,7 +2005,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };
         var mx1 = {lat: 19.433478, lng: -99.133771};
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
+          zoom: 14,
           center: mx1
         });
 
@@ -2029,7 +2029,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };
 		var mx12 = {lat: 19.433478, lng: -99.133771};
         map2 = new google.maps.Map(document.getElementById('map2'), {
-          zoom: 5,
+          zoom: 14,
           center: mx12
         });
 
@@ -3093,7 +3093,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             };
             var mx1 = {lat: 19.433478, lng: -99.133771};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 5,
+              zoom: 14,
               center: mx1
             });
 
@@ -3675,7 +3675,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			
         var mx1 = {lat: 19.433478, lng: -99.133771};
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
+          zoom: 14,
           center: mx1
         });
         google.maps.event.addListener(map, 'click', function(event) {
@@ -3694,7 +3694,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         };
         var mx12 = {lat: 19.34751544463381, lng: -98.98272888210454};
         map2 = new google.maps.Map(document.getElementById('map2'), {
-          zoom: 5,
+          zoom: 14,
           center: mx12
         });
 
