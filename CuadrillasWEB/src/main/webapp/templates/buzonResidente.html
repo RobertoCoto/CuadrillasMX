@@ -1,5 +1,30 @@
-<div class="container">
-<h2>Buz&oacute;n Residente</h2>
+<!DOCTYPE html>
+<html lang="es-mx">
+	<head>
+    	<title> Toma de Asistencia</title>
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<style>
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    border: none;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+</style>   	    	   
+  	</head>
+  	<body ng-app="tatei">
+	<div class="container">
+	<h2>Buz&oacute;n Residente</h2>
 		<div class="panel panel-default">
 		<div id="success" class="alert alert-success alert-dismissable fade in">
                     <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
@@ -16,11 +41,11 @@
 			         <div align="center"><input class="btn btn-info btn-primary" type="submit" value="Actualizar" ng-click="actualizaTareas()"></div>
 			         <br>
 			         <br>
-                		<div class="table-responsive">
-                			<table class="table table-bordered">
+                		<div style="overflow-x:auto;">
+                			<table >
                 				<tr class="success">
-                				<td><b>Fecha Actividad</b></td>
-                				<td><b>Descripci&oacute;n</b></td>
+                				<td><b>Fecha</b></td>
+                				<td><b>Tarea</b></td>
                 				<td><b>Ejecutar</b></td>
                 				</tr>
                 				<tr ng-repeat="tareas in resultado">
@@ -39,3 +64,6 @@
 			</div>
 		</div>
 </div>
+
+</body>
+</html>

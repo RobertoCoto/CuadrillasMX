@@ -547,14 +547,14 @@ public class PanelCaptura extends JApplet
 
         //barra de menu
         menuBar = new JLabel();
-        ImageIcon bar = new ImageIcon(PanelCaptura.class.getResource("/resources/banner_tatei.png"));
+        ImageIcon bar = new ImageIcon(PanelCaptura.class.getResource("banner_tatei.png"));
         menuBar.setBounds(0, 0, 250, 550);
         menuBar.setIcon(bar);
         frame.getContentPane().add(menuBar);
 
         //imagen de fondo
         imagen = new JLabel();
-        ImageIcon img = new ImageIcon(PanelCaptura.class.getResource("/resources/back_Home_login.jpg"));
+        ImageIcon img = new ImageIcon(PanelCaptura.class.getResource("back_Home_login.jpg"));
         imagen.setBounds(0, 0, 700, 550);
         imagen.setIcon(img);
         frame.getContentPane().add(imagen);
