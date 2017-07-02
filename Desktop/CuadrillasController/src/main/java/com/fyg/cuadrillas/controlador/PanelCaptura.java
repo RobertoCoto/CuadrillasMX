@@ -19,8 +19,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -199,7 +201,17 @@ public class PanelCaptura extends JApplet
 			new String[] {
 				"ID", "Numero Empleado", "Nombre", "Apellido Paterno", "Apellido Materno", "Puesto"
 			}
-		));
+			
+			
+		) {/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		public boolean isCellEditable(int row, int column){
+		      return false;}});
+		
+		
 		tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(106);
 		tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(141);
 		tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(167);
