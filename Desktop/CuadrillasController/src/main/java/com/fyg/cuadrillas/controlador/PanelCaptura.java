@@ -241,6 +241,9 @@ public class PanelCaptura extends JApplet
 					consulta.setVisible(false);
 				}
 				try {
+					  //si este ya tiene datos
+					  cataMano.removeAllItems();
+					  cataDedos.removeAllItems();
 		        	  //Llenando combo
 			    		String direccion =
 			    				"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
