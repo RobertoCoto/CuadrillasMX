@@ -493,11 +493,13 @@ public class PanelCaptura extends JApplet
         		//se ponen los parametros
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
+        		
+        		
         		//url para consumir WS
         		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="
         		+ usuario + "&password=" + pass;
         		String output  = getUrlContents(url);
-        		//
+        		
         	    try {
         	    	JSONParser parser = new JSONParser();
         			Object obj = parser.parse(output);
@@ -508,7 +510,9 @@ public class PanelCaptura extends JApplet
         			JSONObject datosUsuario = (JSONObject) jsonObject.get("usuario");
     				Boolean estatus = (boolean) arrayUsuario.get("estatus");
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
-    				if (estatus.equals(false)) {
+    				if (usuario.equals("") && pass.equals("")) {
+            			JOptionPane.showMessageDialog(null, "Usuario y /o Contraseña Obligatorios", "Error Sesión", JOptionPane.ERROR_MESSAGE);
+            		} else if (estatus.equals(false)) {
         				JOptionPane.showMessageDialog(null, msg, "Error Sesión", JOptionPane.ERROR_MESSAGE);
         			} else if (estatus.equals(true)) {
         				//Se manda datos a la nueva pantalla
