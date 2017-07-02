@@ -505,7 +505,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
             var markers = [];
 
-            				//********************** contratos**********************************
+            //********************** contratos**********************************
             app.controller('altacontratoctrl', function ($scope, $http, fileUpload, $window) {
 
 							$(window).on("load resize ", function() {
@@ -644,7 +644,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       //$('#msgerror').val(response.data.header.mensajeFuncional);
                   });
 
-									$http({
+					$http({
 	                        method: 'GET',
 	                        url: '/CuadrillasWEB/ConsultaCuadrilla',
 	                        params: { },
@@ -671,15 +671,16 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#tablaDocumentos').hide();
                     $('#addDocument').hide();
                     $("#estatus").prop('disabled', true);
-										$('#contratoFile').show();
-										$('#linkContrato').hide();
-										$('#linkContrato').empty();
-										$('form')[0].reset();
+					$('#contratoFile').show();
+					$('#linkContrato').hide();
+					$('#linkContrato').empty();
+					$('form')[0].reset();
                     $scope.nContrato = true;
                     $scope.contratoFocus = {};
-										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
-										$scope.contratoFocus.estatus = 'A';
-										$scope.contratoFocus.fechaRegistroContrato = new JsSimpleDateFormat("yyyy-MM-dd").format(new Date());
+                    $scope.contratoFocus.codigoVialidad = "";
+					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+					$scope.contratoFocus.estatus = 'A';
+					$scope.contratoFocus.fechaRegistroContrato = new JsSimpleDateFormat("yyyy-MM-dd").format(new Date());
                     $scope.initMap();
                     $scope.limpiarMarcadores();
                     $scope.formContrato.$setPristine();
@@ -691,12 +692,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.consultaContratos();
                     $('#panelContratos').show();
                     $('#tablaDocumentos').hide();
-										$('#linkContrato').empty();
+					$('#linkContrato').empty();
                     $scope.contratoFocus = {};
-										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
                     $scope.limpiarMarcadores();
-										$('form')[0].reset();
-										$scope.formContrato.$setPristine();
+					$('form')[0].reset();
+					$scope.formContrato.$setPristine();
                   }
                   
                   $scope.limpiarContratopo = function() {
@@ -708,33 +709,35 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       $scope.contratoFocus = {}; //para el final
                       $scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
                       $scope.limpiarMarcadores();
-										$('form')[0].reset();
-										$scope.formContrato.$setPristine();
+                      $('form')[0].reset();
+                      $scope.formContrato.$setPristine();
                       $scope.consultaContratos();
                 	  };
                   
                   $scope.altaContrato = function() {
                     console.log($scope.contratoFocus);
-										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
-										var contrato = $scope.contratoAdjunto;
-										var json = JSON.stringify($scope.contratoFocus);
-										console.log('Archivo a subir: ' );
-										console.dir(contrato);
-										var uploadUrl = "/CuadrillasWEB/AltaContrato";
-										fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
+                    $scope.contratoFocus.codigoVialidad = "";
+					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+					var contrato = $scope.contratoAdjunto;
+					var json = JSON.stringify($scope.contratoFocus);
+					console.log('Archivo a subir: ' );
+					console.dir(contrato);
+					var uploadUrl = "/CuadrillasWEB/AltaContrato";
+					fileUpload.uploadFileToUrl(contrato, json, uploadUrl);
                   };
 
-									$scope.guardaContrato = function() {
+                  $scope.guardaContrato = function() {
                     $('#mainPanel').hide();
                     $('#panelContratos').show();
                     $('#nuevoContrato').show();
                     
-										$('#linkContrato').empty();
+					$('#linkContrato').empty();
                     console.log($scope.contratoFocus);
-										$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
-										var json = JSON.stringify($scope.contratoFocus);
-										var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
-										fileUpload.uploadFileToUrl(null, json, uploadUrl);
+                    $scope.contratoFocus.codigoVialidad = "";
+					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+					var json = JSON.stringify($scope.contratoFocus);
+					var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
+					fileUpload.uploadFileToUrl(null, json, uploadUrl);
 										/*var dataObj = {
 											JSONModificaContrato: json
 										}
@@ -751,7 +754,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				                console.info(data);
 				            });*/
                     $scope.contratoFocus = {}; //para el final
-										$scope.consultaContratos();
+					$scope.consultaContratos();
 
                   }
 
@@ -781,11 +784,11 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     //}, 2000);
                   }
 
-									$scope.hideAlerts = function() {
-										$('#alert').hide();
-										$('#success').hide();
-										//$scope.consultaContratos();
-									}
+				$scope.hideAlerts = function() {
+					$('#alert').hide();
+					$('#success').hide();
+					//$scope.consultaContratos();
+				}
 
                   $scope.editarContrato = function(contrato) {
                 	  
@@ -872,7 +875,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             		    });
                 	  };
                 	  
-                	  $scope.registraDocumento = function() {
+                	 $scope.registraDocumento = function() {                		
                 	  $scope.contratoD.usuarioAlta = data.data.usuario.usuario;
                 	  $scope.contratoD.idContrato = $('#contratoHidden').val();
 						var contratoDocumento = $scope.contratoAdjuntoDocumento;

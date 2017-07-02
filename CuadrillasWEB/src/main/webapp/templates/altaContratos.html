@@ -80,7 +80,7 @@
                       </div>
                       <div class="col-sm-4">
                           <div class="form-group" ng-class="{ 'has-error' : formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine }">
-                              <label for="numDocumento" class="control-label">N&uacute;mero de Documento</label>
+                              <label for="numDocumento" class="control-label">Número de Documento</label>
                               <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoFocus.numeroDocumento" placeholder="# CONTRATO" ng-pattern="/^[A-Z0-9\-]*$/" required maxlength="20">
                               <p ng-if="formContrato.numDocumento.$invalid == true" ng-show="formContrato.numDocumento.$invalid && !formContrato.numDocumento.$pristine" class="help-block">Es necesario el numero del documento.</p>
                           <p  ng-if="formContrato.numDocumento.$error.pattern == true" ng-show="formContrato.numDocumento.$error.pattern && !formContrato.numDocumento.$pristine" class="help-block">No se permite letras minusculas o caracteres invalidos.</p>
@@ -153,13 +153,22 @@
                     <input class="form-control" id="fechaRegistro" name="fechaRegistro" ng-model="contratoFocus.fechaRegistroContrato" placeholder="DD/MM/YYYY" type="text" disabled="true" />
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group" ng-class="{ 'has-error' : formContrato.vialidad.$invalid && !formContrato.vialidad.$pristine }">
-                    <label for="vialidad" class="control-label">Vialidad</label>
-                    <select id="vialidad" required name="vialidad" class="form-control" ng-model="contratoFocus.codigoVialidad" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in vialidades">
-                    <option value="">---Seleccione una vialidad---</option>
-                    </select>
-                    <p ng-show="formContrato.vialidad.$invalid && !formContrato.vialidad.$pristine" class="help-block">Es necesario seleccionar una vialidad.</p>
+                <div class="col-sm-3">
+                  <label for="estatus" class="control-label">Estatus</label>
+                  <select id="estatus" disabled class="form-control" ng-model="contratoFocus.estatus"><option value="A" selected="selected">Activo</option><option value="I">Inactivo</option></select>
+                </div>
+                <div class="col-sm-3" >
+                  <label for="cuadrillac" class="control-label">Cuadrilla</label>
+                  <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas">
+                  <option value="">---Seleccione una cuadrilla---</option>
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <label for="noPer" class="control-label">#Per</label>
+                  <div ng-repeat="persona in cuadrillas">
+                   <span  ng-if="persona.idCuadrilla == contratoFocus.idCuadrilla">
+                   {{persona.numeroPersonas}}
+                  </span>
                   </div>
                 </div>
                 <div class="col-sm-2">
@@ -173,7 +182,7 @@
                   <div class="row">
                     <div class="col-sm-12 ">
 
-                      <h4>Direcci&oacute;n</h4>
+                      <h4>Dirección</h4>
                       <div class="row">
                         <div class="col-sm-3">
                           <span id="txtkm"></span>
@@ -213,25 +222,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-2">
-                  <label for="estatus" class="control-label">Estatus</label>
-                  <select id="estatus" disabled class="form-control" ng-model="contratoFocus.estatus"><option value="A" selected="selected">Activo</option><option value="I">Inactivo</option></select>
-                </div>
-                <div class="col-sm-3" >
-                  <label for="cuadrillac" class="control-label">Cuadrilla</label>
-                  <select id="cuadrillac" class="form-control" ng-model="contratoFocus.idCuadrilla" ng-options="cuadrilla.idCuadrilla as cuadrilla.nombreCuadrilla for cuadrilla in cuadrillas">
-                  <option value="">---Seleccione una cuadrilla---</option>
-                  </select>
-                </div>
-                <div class="col-sm-2">
-                  <label for="noPer" class="control-label">#Per</label>
-                  <div ng-repeat="persona in cuadrillas">
-                   <span  ng-if="persona.idCuadrilla == contratoFocus.idCuadrilla">
-                   {{persona.numeroPersonas}}
-                  </span>
-                  </div>
-                </div>
-                <div class="col-sm-5">
+                <div class="col-sm-5 col-md-offset-3">
                   <div id="contratoFile">
                     <!-- Form Estandar -->
                     <h4>Adjuntar Contrato</h4>
