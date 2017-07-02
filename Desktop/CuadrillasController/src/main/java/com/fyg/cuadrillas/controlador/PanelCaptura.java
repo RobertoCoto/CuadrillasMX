@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -35,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -185,6 +187,14 @@ public class PanelCaptura extends JApplet
 			}
 		});
 		panel.add(btnRegistrarHuella);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		panel.add(btnSalir);
 
 		//panel de las huellas
 		panelEmpleados = new JPanel();
@@ -230,7 +240,8 @@ public class PanelCaptura extends JApplet
 		panelBotones.setPreferredSize(new java.awt.Dimension(140, 270));
 		getContentPane().add(panelBotones, BorderLayout.EAST);
 
-		JButton btnAltaHuella = new JButton("Alta Huella");
+		JButton btnAltaHuella = new JButton("   Alta   ");
+		
 		btnAltaHuella.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
@@ -280,7 +291,8 @@ public class PanelCaptura extends JApplet
 		panelBotones.add(btnAltaHuella);
 
 		//boton de consultar huella
-		consultaHuella = new JButton("Consultar Huella");
+		consultaHuella = new JButton("Consulta");
+		
 		consultaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//panel de la consulta
@@ -288,10 +300,13 @@ public class PanelCaptura extends JApplet
 				consulta.setBorder(new TitledBorder(null,
 						"Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				consulta.setVisible(true);
+				//consulta.setLayout(new SpringLayout()); 
 				imagenHuellaD = new JLabel();
 				Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
 				imagenHuellaD.setBorder(border);
-				imagenHuellaD.setPreferredSize(new java.awt.Dimension(250, 250));
+				imagenHuellaD.setPreferredSize(new java.awt.Dimension(270, 270));
+				imagenHuellaD.setLocation(700, 60);
+				
 				JButton verificar = new JButton("Verifica Huella");
 				verificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -304,8 +319,9 @@ public class PanelCaptura extends JApplet
 						}
 					}
 				});
-				consulta.add(imagenHuellaD);
+				
 				consulta.add(verificar);
+				consulta.add(imagenHuellaD);
 				getContentPane().add(consulta, BorderLayout.CENTER);
 				panelHuella.setVisible(false);
 			    imagenHuellaD.setIcon(null);
@@ -318,7 +334,8 @@ public class PanelCaptura extends JApplet
 		panelHuella = new JPanel();
 		panelHuella.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelHuella.setVisible(false);
-
+		//panelHuella.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 		//combo de la mano
 		cataMano = new JComboBox();
 		panelHuella.add(cataMano);
@@ -459,7 +476,7 @@ public class PanelCaptura extends JApplet
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
-		frame.setBounds(100, 100, 1124, 668);
+		frame.setBounds(100, 100, 1224, 768);
 		 frame.setLocationRelativeTo( null );
 	        frame.getContentPane().setLayout(null);
         frame.setResizable(false);
@@ -494,7 +511,8 @@ public class PanelCaptura extends JApplet
         //label del nombre
         lblNombre = new JLabel("Nombre: ");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblNombre.setBounds(160, 15, 450, 30);
+		lblNombre.setBounds(530, 3, 420, 10);
+		lblNombre.setBackground(null);
 		lblNombre.setVisible(false);
 		frame.getContentPane().add(lblNombre);
 
@@ -532,8 +550,9 @@ public class PanelCaptura extends JApplet
         						+ " " + datosUsuario.get("apellidoPat") + " " + datosUsuario.get("apellidoMat");
         				String perfil = (String) datosUsuario.get("nombrePerfil");
         				//System.out.println(nombreUser);
-        				lblNombre.setText(lblNombre.getText() + nombreUser + " Perfil: " + perfil);
+        				lblNombre.setText(lblNombre.getText() + nombreUser + "                    Perfil: " + perfil);
         				//JOptionPane.showMessageDialog(null, msg);
+        				lblNombre.setBackground(null);
                 		lblNombre.setVisible(true);
                 		imagen.setVisible(false);
                 		menuBar.setVisible(false);
@@ -688,6 +707,7 @@ public class PanelCaptura extends JApplet
 	 * libs
 	 */
 	public DPFPFeatureSet featuresverificacion;
+	private JButton btnSalir;
 	/**
 	 * metodo para procesar captura
 	 * @param sample recibira el valor de la huella
