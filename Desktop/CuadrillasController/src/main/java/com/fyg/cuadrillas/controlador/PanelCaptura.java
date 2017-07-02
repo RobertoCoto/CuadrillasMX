@@ -493,13 +493,10 @@ public class PanelCaptura extends JApplet
         		//se ponen los parametros
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
-        		
-        		
         		//url para consumir WS
         		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="
         		+ usuario + "&password=" + pass;
         		String output  = getUrlContents(url);
-        		
         	    try {
         	    	JSONParser parser = new JSONParser();
         			Object obj = parser.parse(output);
