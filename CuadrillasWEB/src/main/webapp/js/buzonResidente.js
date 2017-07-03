@@ -1,4 +1,4 @@
-app.controller('buzonResidente', function ($scope, $http) {
+app.controller('buzonResidente', function ($scope, $http, $window) {
 	  // msload 
 		$('#success').hide();
 	    $('#alert').hide();
@@ -30,7 +30,7 @@ app.controller('buzonResidente', function ($scope, $http) {
 	$scope.buzonTarea();	
 		
 	 
-		 //abre una ventana para notificar imss   
+	  //abre una ventana para capturar las actividades
       $scope.capturarActividades = function(tareas) {
     	  var $popup = $window.open('/CuadrillasWEB/actividad/index.html', '_blank','heigth=600,width=600');
     	  $popup.idAgendaDetalle = tareas.id;

@@ -20,7 +20,11 @@ var asyncLoop = function(o){
 }
 angular.module('tatei', ['ui.materialize'])
 
-    .controller('AppCtrl', function($scope, $http) {
+    .controller('AppCtrl', function($scope, $http, $window) {
+    	
+	    $scope.id = $window.idAgendaDetalle;
+		$scope.usuario = $window.user;
+
         $('#msload').show();
         $scope.toast = function (message, duration) {
             Materialize.toast(message, duration);
@@ -60,7 +64,7 @@ angular.module('tatei', ['ui.materialize'])
             });
         }
 
-        $scope.consultaAgenda(1);
+        $scope.consultaAgenda($scope.id);
 
         var actividads = this;
         actividads.allsQ = [];
