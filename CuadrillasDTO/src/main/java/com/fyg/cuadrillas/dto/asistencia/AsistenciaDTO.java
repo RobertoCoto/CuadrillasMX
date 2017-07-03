@@ -89,6 +89,14 @@ public class AsistenciaDTO extends ObjetoValor {
 	/**
 	 * @return the idAsistencia
 	 */
+	   /**
+     * Hora de entrada
+     */
+	private String sHoraEntrada;
+ 	/**
+ 	 * Hora de Salida
+ 	 */
+	private String sHoraSalida;
 	public Integer getIdAsistencia() {
 		return idAsistencia;
 	}
@@ -314,4 +322,29 @@ public class AsistenciaDTO extends ObjetoValor {
 	public void setPerfilEmpleado(String perfilEmpleado) {
 		this.perfilEmpleado = perfilEmpleado;
 	}
+	/**
+	 * @return the sHoraEntrada
+	 */
+	public String getsHoraEntrada() {
+		return sHoraEntrada;
+	}
+	/**
+	 * @param sHoraEntrada the sHoraEntrada to set
+	 */
+	public void setsHoraEntrada(String sHoraEntrada) {
+		this.sHoraEntrada = sHoraEntrada;
+	}
+	/**
+	 * @return the sHoraSalida
+	 */
+	public String getsHoraSalida() {
+		return sHoraSalida;
+	}
+	/**
+	 * @param sHoraSalida the sHoraSalida to set
+	 */
+	public void setsHoraSalida(String sHoraSalida) {
+		this.sHoraSalida = sHoraSalida;
+	}
+
 }

@@ -43,9 +43,11 @@ public class ContratoNegocio {
 					if (contrato.getCodigoContrato() == null || contrato.getCodigoContrato().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el tipo de Contrato.");
 					}
+					/*
 					if (contrato.getCodigoVialidad() == null || contrato.getCodigoVialidad().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesaria la Vialidad para el Documento.");
 					}
+					*/
 					if (contrato.getCodigoEmpresa() == null || contrato.getCodigoEmpresa().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesaria la Empresa para el Documento.");
 					}
@@ -73,13 +75,13 @@ public class ContratoNegocio {
 					if (contrato.getUrl() == null || contrato.getUrl().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario la URL del archivo del contrato.");
 					}
-					if (contrato.getIdCuadrilla() == null) {
-						contrato.setIdCuadrilla(0);
+					if (contrato.getIdCuadrilla() == null || contrato.getIdCuadrilla() <= 0) {
+						throw new ExcepcionesCuadrillas("Es necesaria la Cuadrilla asignada al contrato.");
 					}
 					if (contrato.getObservaciones() == null) {
 						contrato.setObservaciones("");
 					}
-					
+
 					if (contrato.getSubtotal() > contrato.getMonto()) {
 						throw new ExcepcionesCuadrillas("El subtotal no puede ser mayor al total.");
 					}

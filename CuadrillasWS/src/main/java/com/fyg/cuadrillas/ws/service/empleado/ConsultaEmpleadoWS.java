@@ -30,7 +30,10 @@ public class ConsultaEmpleadoWS {
 			return Response.serverError().entity(result).build();
 		}
 		String result = sg.toJson(respuesta);
-		return Response.ok().entity(result).build();
+		return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*")
+	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+	            .header("Access-Control-Allow-Credentials", "true").build();
+		
 	}
 
 }

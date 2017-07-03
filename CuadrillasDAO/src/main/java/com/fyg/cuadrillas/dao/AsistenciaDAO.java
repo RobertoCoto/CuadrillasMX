@@ -179,6 +179,21 @@ public class AsistenciaDAO {
 			if ( listaAsistencia.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen registros de asistencia.");
 			}
+			for ( AsistenciaDTO a : listaAsistencia) {
+				if ( a.getHoraEntrada() == null) {
+					a.setsHoraEntrada(" ");
+				} else {
+					a.setsHoraEntrada(a.getHoraEntrada().toString());
+				}
+				if ( a.getHoraSalida() == null) {
+					a.setsHoraSalida(" ");
+				} else {
+					a.setsHoraSalida(a.getHoraSalida().toString());
+				}
+				if ( a.getComentarios() == null) {
+					a.setComentarios(" ");
+				}
+			}
 		}
 		catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);

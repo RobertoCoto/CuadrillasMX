@@ -17,7 +17,7 @@ public class LoginUsuario {
 	/**
 	 * Metodo para iniciar sesion
 	 * @param user recibe usuario
-	 * @param pass recibe contraseña
+	 * @param pass recibe contraseï¿½a
 	 * @return regresa respuesta del login
 	 */
 	@GET
@@ -37,7 +37,9 @@ public class LoginUsuario {
 			return Response.serverError().entity(result).build();
 		}
 		 String result = sg.toJson(respuesta);
-		return Response.ok().entity(result).build();
+		 return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*")
+		            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+		            .header("Access-Control-Allow-Credentials", "true").build();		
 	}
 
 }

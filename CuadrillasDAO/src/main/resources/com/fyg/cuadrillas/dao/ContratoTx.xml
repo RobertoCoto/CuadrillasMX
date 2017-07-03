@@ -12,7 +12,8 @@
 	)
 VALUES
 	(
-		#{codigoVialidad}, #{codigoContrato},	#{codigoDocumento}, #{codigoEmpresa},
+		(SELECT codigo_vialidad FROM cuadrilla WHERE id_cuadrilla = #{idCuadrilla}),
+		#{codigoContrato},	#{codigoDocumento}, #{codigoEmpresa},
 		#{numeroDocumento}, #{monto}, #{subtotal}, #{fechaInicio}, #{fechaFin},	#{diasDuracion},
 		#{pctAvance},	#{fechaRegistro},	#{idCuadrilla}, #{observaciones}, #{url}, #{metros},
 		#{usuarioAlta}, now(), #{estatus}

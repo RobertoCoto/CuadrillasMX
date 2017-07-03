@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="hsamano">
+        
+        <!-- Compiled and minified CSS -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <style>
+            .container {
+                width: 95%;
+            }
+            .lmask {
+                position: absolute;
+                height: 100%;
+                width: 100%; 
+                background-color: #fff;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 0;
+                z-index: 9999;;
+                opacity: 0.9;
+            }
+
+        </style>
+    </head>
+
+    <body ng-app="tatei" ng-controller="AppCtrl">
+        <div id="msload" class="lmask bottom-sheet" style="width: 100%; height: 100%;">
+            <div class="modal-content">
+                <h5 class="green-text text-darken-4" style="text-align: center;">Espera un momento...</h5>
+                <div class="progress  light-green">
+                    <div class="indeterminate  lime lighten-1"></div>
+                </div>
+            </div>
+        </div>
+        <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12" ng-controller="ModalController">
+                    <ul class="collapsible popout" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">trending_up</i>Avances (Planificado)</div>
+                            <div class="collapsible-body" style="padding: 10px;">
+                                <div class="row">
+                                    <div class="col s12">
+                                            <div class="input-field col s6">
+                                                <input placeholder="xxxxx" id="tramoInicial" type="text" class="validate" ng-model="tramoInicialP" disabled>
+                                                <label for="tramoInicial">Tramo Inicial</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate" ng-model="tramoFinalP" disabled>
+                                                <label for="tramoFinal">Tramo Final</label>
+                                            </div>
+                                            <!--div class="input-field col s4">
+                                                <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate">
+                                                <label for="tramoFinal">Tramo Final</label>
+                                            </div-->
+                                            <div class="input-field col s12">
+                                                <div id="map" style="width:100%; height:300px"></div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">multiline_chart</i>Avanves (Real)</div>
+                            <div class="collapsible-body" style="padding: 10px;">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                                <input placeholder="xxxxx" id="tramoInicial" type="text" class="validate">
+                                                <label for="tramoInicial">Tramo Inicial</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate">
+                                                <label for="tramoFinal">Tramo Final</label>
+                                            </div>
+                                            <!--div class="input-field col s4">
+                                                <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate">
+                                                <label for="tramoFinal">Tramo Final</label>
+                                            </div-->
+                                            <div class="input-field col s12">
+                                                <div id="map2" style="width:100%; height:300px"></div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">event_note</i>Actividades</div>
+                            <div class="collapsible-body" style="padding: 10px;">
+                                <div class="row" ng-repeat="actividad in listaActividades">
+                                    <div class="col s12">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <span class="card-title">{{actividad.descripcionActividad}}</span>
+                                                <span style="font-size: 12px;">Estado: <span  style="font-weight: 300;">{{actividad.descripcionEstado}}</span></span><br/>
+                                                <span style="font-size: 12px;">Prioridad: <span  style="font-weight: 300;">{{actividad.descripcionPrioridad}}</span></span>
+                                                <div class="progress">
+                                                    <div class="determinate" style="width: {{actividad.porcentaje}}%"></div>
+                                                </div>
+                                                <span>{{actividad.porcentaje}} %</span>
+                                            </div>
+                                            <div class="card-action">
+                                                <a class="waves-effect waves-light btn" data-target="edicionActividades" ng-click="abrir(actividad)" modal complete="completeCallback()" >editar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Edicion Actividades -->
+                            <div id="edicionActividades" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <h5>Datos de la Actividad</h5>
+                                    <div class="row">
+                                        <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <select ng-model="actividad.codigoActividad" material-select watch>
+                                                    <option value="{{value.codigo}}" ng-repeat="value in actividadesCat">{{value.descripcion}}</option>
+                                                </select>
+                                                <label>Actividad</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <select ng-model="actividad.codigoPrioridad" material-select watch>
+                                                    <option value="{{value.codigo}}" ng-repeat="value in prioridadCat">{{value.descripcion}}</option>
+                                                </select>
+                                                <label>Prioridad</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <select ng-model="actividad.codigoEstado" material-select watch>
+                                                    <option value="{{value.codigo}}" ng-repeat="value in estadoCat">{{value.descripcion}}</option>
+                                                </select>
+                                                <label>Estado</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="tiempoDestinado" ng-model="actividad.tiempoDestinado" type="text">
+                                                    <label for="tiempoDestinado" class="active">Tiempo destinado</label>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="numPersonas"  ng-model="actividad.numeroPersonas" type="text" class="validate">
+                                                <label for="numPersonas" class="active"># Personas</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="numUnidades" ng-model="actividad.numeroUnidades" type="text" class="validate">
+                                                <label for="numUnidades" class="active"># Unidades</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="pctCompletado" ng-model="actividad.porcentaje" type="text" class="validate">
+                                                <label for="pctCompletado" class="active">% completado</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <select  type="text" ng-model="actividad.codigoListoVencido" class="validate" material-select watch>
+                                                    <option value="{{value.codigo}}" ng-repeat="value in listoVencidoCat">{{value.descripcion}}</option>
+                                                </select>
+                                                <label>Listo/Vencido</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">comment</i>
+                                                <textarea id="icon_prefix2" ng-model="actividad.observaciones" class="materialize-textarea"></textarea>
+                                                <label for="icon_prefix2" class="active">Observaciones de la Actividad</label>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                                    <a ng-click="guardarActividadDetalle(actividad)" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </main>
+        </div>
+
+        
+
+
+
+        <!-- CONTROLADOR INTERNO  -->
+        <!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
+        <!-- Your app -->
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript">    
+            var map;
+            var map2;
+            var medida;
+            var medida2;
+
+            function initMap() {
+                medida = {
+                    mvcLine: new google.maps.MVCArray(),
+                    mvcPolygon: new google.maps.MVCArray(),
+                    mvcMarkers: new google.maps.MVCArray(),
+                    line: null,
+                    polygon: null
+                };
+                medida2 = {
+                    mvcLine: new google.maps.MVCArray(),
+                    mvcPolygon: new google.maps.MVCArray(),
+                    mvcMarkers: new google.maps.MVCArray(),
+                    line: null,
+                    polygon: null
+                };
+                var mx1 = {lat: 19.433478, lng: -99.133771};
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 14,
+                    center: mx1
+                });
+                map2 = new google.maps.Map(document.getElementById('map2'), {
+                    zoom: 14,
+                    center: mx1
+                });
+                /*google.maps.event.addListener(map, 'click', function(event) {
+                    //console.log(event);
+                    setMarcador(event.latLng);
+                }); */
+                /*google.maps.event.addListener(map2, 'click', function(event) {
+                    //console.log(event);
+                    setMarcador(event.latLng);
+                }); */
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabJe-6SF_dgIWW5eKjHynpbcvzoJmY4E&libraries=geometry&callback=initMap"></script> <!-- &callback=initMap -->
+       
+    </body>
+</html>
