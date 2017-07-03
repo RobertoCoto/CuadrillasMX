@@ -86,10 +86,7 @@ public class AsistenciaDTO extends ObjetoValor {
 	 * estatus
 	 */
 	private String estatus;
-	/**
-	 * @return the idAsistencia
-	 */
-	   /**
+	 /**
      * Hora de entrada
      */
 	private String sHoraEntrada;
@@ -97,6 +94,10 @@ public class AsistenciaDTO extends ObjetoValor {
  	 * Hora de Salida
  	 */
 	private String sHoraSalida;
+
+	/**
+	 * @return the idAsistencia
+	 */
 	public Integer getIdAsistencia() {
 		return idAsistencia;
 	}

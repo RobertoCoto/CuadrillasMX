@@ -31,7 +31,7 @@ app.controller('buzon', function ($scope, $http, $window) {
       $scope.notificar = function(tareas) {
     	  var $popup = $window.open('/CuadrillasWEB/altaImss/alta_imss.html', '_blank','heigth=300,width=500');
  	     $popup.idImss = tareas.id;
- 	    $popup.user = data.data.usuario.usuario;
+ 	     $popup.user = data.data.usuario.usuario;
     	  };
     	  
     	  //abre una ventana para autorizacion laboral

@@ -41,7 +41,7 @@ SELECT c.descripcion AS perfil_empleado,
 	   e.apellido_pat AS apellido_paterno,
 	   e.apellido_mat AS apellido_materno,
 	   ae.comentarios AS comentarios,
-	   ae.fecha AS fecha,
+	   #{fecha} AS fecha,
 	   ae.hora_entrada AS hora_entrada,
 	   ae.hora_salida AS hora_salida,
 	   e.id_empleado AS id_empleado

@@ -69,7 +69,7 @@ FROM (
 	INNER JOIN agenda_detalle agd ON agd.id_agenda_detalle = ad.id_agenda_detalle
 	WHERE ad.envio_autorizacion = 'N'
 	AND ad.autorizacion IS NULL
-	AND a.id_cuadrilla = {idCuadrilla}
+	AND a.id_cuadrilla = #{idCuadrilla}
 ) universo
 ORDER BY fecha_tarea
 </select>

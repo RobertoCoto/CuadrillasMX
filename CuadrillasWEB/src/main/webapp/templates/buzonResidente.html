@@ -51,8 +51,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 				<tr ng-repeat="tareas in resultado">
                 				<td>{{tareas.fechaTarea}}</td>
                 			    <td>{{tareas.descripcion}}</td>
-                			    <td ng-if="tareas.tipoTarea === 'IMSS'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="notificar(tareas)"/></td>
-                			    <td ng-if="tareas.tipoTarea === 'PELA'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="autorizar(tareas)"/></td>
+                			    <td ng-if="tareas.tipoTarea === 'RADI'" align="center"><input type="image" src="images/Go.png" style="width: 26px; height: 24px; "  ng-click="capturarActividades(tareas)"/></td>                			    
                 				</tr>
                 			</table>
                 		</div>
