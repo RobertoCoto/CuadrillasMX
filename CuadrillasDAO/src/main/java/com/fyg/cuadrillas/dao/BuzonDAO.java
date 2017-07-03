@@ -65,7 +65,7 @@ public class BuzonDAO {
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla contacto
-				listaBuzonResidente = sessionNTx.selectList("BuzonDAO.consultaTareas", buzon);
+				listaBuzonResidente = sessionNTx.selectList("BuzonDAO.consultaTareasResidente", buzon);
 				if ( listaBuzonResidente.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existen tareas pendientes.");
 				}

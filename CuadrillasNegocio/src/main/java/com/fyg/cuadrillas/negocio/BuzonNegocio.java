@@ -54,7 +54,7 @@ public class BuzonNegocio {
 	 * Metodo para consultar las tareas disponibles
 	 * @return regresa lista de tareas
 	 */
-	public BuzonRespuesta consultaBuzonResidente() {
+	public BuzonRespuesta consultaBuzonResidente(Integer idCuadrilla) {
 		//
 		BuzonDTO buzon = new BuzonDTO();
 		//Primero generamos el identificador unico de la transaccion
@@ -69,9 +69,10 @@ public class BuzonNegocio {
 		List<BuzonDTO> listaBuzonResidente = null;
 		try {
 			//hace consulta de nuetro parametro
-			String parametroImss = "empleado.notifica.imss";
-			String valor = new ParametroDAO().consultaParametro(uid, parametroImss);
-			buzon.setNotificaImss(Integer.parseInt(valor));
+			if ( idCuadrilla == null || idCuadrilla <= 0 ) {
+				throw new ExcepcionesCuadrillas("Es necesario el id de la cuadrilla");
+			}
+			buzon.setIdCuadrilla(idCuadrilla);
 			listaBuzonResidente = new BuzonDAO().consultaBuzonResidente(uid, buzon);
 			respuesta.setBuzon(listaBuzonResidente);
 		} catch  (ExcepcionesCuadrillas ex) {

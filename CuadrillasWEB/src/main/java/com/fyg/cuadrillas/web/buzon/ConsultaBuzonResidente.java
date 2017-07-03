@@ -36,6 +36,7 @@ public class ConsultaBuzonResidente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		this.doPost(request, response);
 	}
 
 	/**
@@ -50,9 +51,10 @@ public class ConsultaBuzonResidente extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 
+			Integer idCuadrilla =  Integer.parseInt(request.getParameter("idCuadrilla"));
 			//crea objeto de negocio
 			final BuzonNegocio negocio = new BuzonNegocio();
-			respuesta = negocio.consultaBuzonResidente();
+			respuesta = negocio.consultaBuzonResidente(idCuadrilla);
 			if (respuesta.getHeader().isEstatus()) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else {

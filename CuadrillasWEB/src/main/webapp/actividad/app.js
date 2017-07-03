@@ -30,7 +30,7 @@ angular.module('tatei', ['ui.materialize'])
 
             $http({
             method: 'GET',
-            url: 'http://127.0.0.1:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idAgenda
+            url: 'http://localhost:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idAgenda
             }).then(function successCallback(response) {
                 //console.log(response);
                 //$('#msload').hide();
@@ -282,9 +282,8 @@ angular.module('tatei', ['ui.materialize'])
                 $http({
                 method: 'GET',
                 url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
-                }).then(function successCallback(response) {
-                    console.log(response);
-                    //$scope.estadoCat = response.data.catalogo;
+                }).then(function successCallback(response) {                    
+                    $scope.estadoCat = response.data.catalogo;
 
                     //Catalogo Prioridad
                     $http({

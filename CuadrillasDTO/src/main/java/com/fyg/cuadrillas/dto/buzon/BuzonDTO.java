@@ -37,6 +37,10 @@ public class BuzonDTO extends ObjetoValor {
 	 */
 	private Integer notificaImss;
 	/**
+	 * se almacenara id de la cuadrilla
+	 */
+	private Integer idCuadrilla;
+	/**
 	 * @return the tipoTarea
 	 */
 	public String getTipoTarea() {
@@ -120,4 +124,17 @@ public class BuzonDTO extends ObjetoValor {
 	public void setNotificaImss(Integer notificaImss) {
 		this.notificaImss = notificaImss;
 	}
+	/**
+	 * @return the idCuadrilla
+	 */
+	public Integer getIdCuadrilla() {
+		return idCuadrilla;
+	}
+	/**
+	 * @param idCuadrilla the idCuadrilla to set
+	 */
+	public void setIdCuadrilla(Integer idCuadrilla) {
+		this.idCuadrilla = idCuadrilla;
+	}
+
 }
