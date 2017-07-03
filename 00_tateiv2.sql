@@ -486,7 +486,7 @@ ALTER TABLE empleado ADD CONSTRAINT FK_codigo_tipo_salida FOREIGN KEY(codigo_tip
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_causa_salida FOREIGN KEY(codigo_causa_salida) REFERENCES catalogo(codigo);
 ALTER TABLE empleado ADD CONSTRAINT FK_codigo_empresa FOREIGN KEY(codigo_empresa) REFERENCES catalogo(codigo);
 		
-ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_vialidad  FOREIGN KEY (codigo_vialidad) REFERENCES catalogo(codigo);
+/*ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_vialidad  FOREIGN KEY (codigo_vialidad) REFERENCES catalogo(codigo);*/
 ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_contrato  FOREIGN KEY (codigo_contrato) REFERENCES catalogo(codigo);
 ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_documento  FOREIGN KEY (codigo_documento) REFERENCES catalogo(codigo);
 ALTER TABLE contrato ADD CONSTRAINT FK_con_codigo_empresa  FOREIGN KEY (codigo_empresa) REFERENCES catalogo(codigo);
