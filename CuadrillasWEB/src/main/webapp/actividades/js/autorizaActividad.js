@@ -51,7 +51,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					console.info("consulta coordenadas");
 					$scope.actividad = result.data.actividadDiaria;
 					console.info(result.data.actividadDiaria.coordenadasReal);
-					$scope.coordenadasEsperadas = result.data.actividadDiaria.coordenadasReal;
+					$scope.coordenadasEsperadas = result.data.actividadDiaria.coordenadasEsperado;
 					$scope.coordenadasReales = result.data.actividadDiaria.coordenadasReal;					
 					$scope.actividad.fechaActividad = $scope.fecha;
 				    console.log($scope.actividad);
