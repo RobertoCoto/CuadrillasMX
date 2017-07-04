@@ -4,6 +4,19 @@ $(document).ready(function(){
         dismissible: false
     });
     $('select').material_select();
+    $('#pctCompletado').click(function () {
+        $(this).select();
+    });//.keyup(function (e) { if(e.target.value > 100) {e.target.value = 100} });
+    $('#numPersonas').click(function () {
+        $(this).select();
+    });
+    $('#numUnidades').click(function () {
+        $(this).select();
+    });
+    $('#tiempoDestinado').click(function () {
+        $(this).select();
+    });
+    
 });
 var dataBckp;
 var asyncLoop = function(o){
@@ -18,17 +31,57 @@ var asyncLoop = function(o){
     } 
     loop();
 }
+var usuarioRegistra;
 angular.module('tatei', ['ui.materialize'])
 
     .controller('AppCtrl', function($scope, $http, $window) {
-    	
+    	var map;
+        var map2;
+        var medida;
+        var medida2;
 	    $scope.id = $window.idAgendaDetalle;
 		$scope.usuario = $window.user;
-
+        usuarioRegistra = $scope.usuario;
+        
         $('#msload').show();
         $scope.toast = function (message, duration) {
             Materialize.toast(message, duration);
         }
+
+        $scope.initMap = function() {
+                medida = {
+                    mvcLine: new google.maps.MVCArray(),
+                    mvcPolygon: new google.maps.MVCArray(),
+                    mvcMarkers: new google.maps.MVCArray(),
+                    line: null,
+                    polygon: null
+                };
+                medida2 = {
+                    mvcLine: new google.maps.MVCArray(),
+                    mvcPolygon: new google.maps.MVCArray(),
+                    mvcMarkers: new google.maps.MVCArray(),
+                    line: null,
+                    polygon: null
+                };
+                var mx1 = {lat: 19.433478, lng: -99.133771};
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 14,
+                    center: mx1
+                });
+                map2 = new google.maps.Map(document.getElementById('map2'), {
+                    zoom: 14,
+                    center: mx1
+                });
+                /*google.maps.event.addListener(map, 'click', function(event) {
+                    //console.log(event);
+                    setMarcador(event.latLng);
+                }); */
+                google.maps.event.addListener(map2, 'click', function(event) {
+                    //console.log(event);
+                    $scope.setMarcador(event.latLng);
+                });
+        };
+        $scope.initMap();
 
         $scope.consultaAgenda = function(idAgenda) {
 
@@ -153,87 +206,129 @@ angular.module('tatei', ['ui.materialize'])
               }
           }
         };
+        $scope.mLineaRecta2 = function() {
+          if (medida2.mvcLine.getLength() > 1) {
+              if (!medida2.line) {
+                  medida2.line = new google.maps.Polyline({
+                      map: map2,
+                      clickable: false,
+                      strokeColor: "#ad04ef",
+                      strokeOpacity: 1,
+                      strokeWeight: 3,
+                      path: medida2.mvcLine
+                  });
+              }
+
+              if (medida2.mvcPolygon.getLength() > 2) {
+
+                  if (medida2.polygon != null)
+                  {
+                      medida2.polygon.setMap(null);
+                  }
+
+
+                  medida2.polygon = new google.maps.Polygon({
+                      clickable: false,
+                      map: map2,
+                      fillOpacity: 0.0,
+                      strokeOpacity: 0,
+                      paths: medida2.mvcPolygon
+                  });
+
+              }
+          }
+        };
         $scope.setMarcador = function(latLng) {
-  			var validaDiaSel = $scope.validaSeleccion();
-  			if (validaDiaSel == false)
-  			{
-  				return;
-  			}
+					$('#msload').show();
+                    var geocoder = new google.maps.Geocoder;
+                    var img_mark = 'mark.png';
+                    var marcador = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
+                    medida2.mvcLine.push(latLng);
+                    medida2.mvcPolygon.push(latLng);
+                    medida2.mvcMarkers.push(marcador);
+                    var latLngIndex = medida2.mvcLine.getLength() - 1;
+                    google.maps.event.addListener(marcador, "drag", function(evt) {
+                        medida2.mvcLine.setAt(latLngIndex, evt.latLng);
+                        medida2.mvcPolygon.setAt(latLngIndex, evt.latLng);
+                    });
+                    var latlng = {lat: latLng.lat(), lng: latLng.lng()};
+                    var direccion = 'SN';
+                    geocoder.geocode({'location': latlng}, function(results, status) {
+                      //console.log(results);
+                      if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                          direccion =  results[0].formatted_address;
+                          /*var coordenadaP = {};
+                          var coordenadasTemp = [];
+                          coordenadaP.latitud = latLng.lat();
+                          coordenadaP.longitud = latLng.lng();
+                          coordenadaP.direccion = direccion;
+                          if($scope.contratoFocus.coordenadas && $scope.contratoFocus.coordenadas.length > 0) {
+														coordenadaP.orden = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].orden + 1;
+														if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
+															coordenadaP.idContrato = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato;
+														}
+														if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda){
+															coordenadaP.idAgenda = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda;
+														}
+                            $scope.contratoFocus.coordenadas.push(coordenadaP);
+                          } else {
+														coordenadaP.orden = 1;
+														if($scope.contratoFocus.idContrato) {
+															coordenadaP.idContrato = $scope.contratoFocus.idContrato;
+														}
+                            coordenadasTemp.push(coordenadaP);
+                            $scope.contratoFocus.coordenadas = coordenadasTemp;
+                          } */
+                          $scope.mLineaRecta2();
 
-  			//si ya esta agregado a la agenda se debe eliminar para poder editar
-  			var fecha = $('#diaActividad').val(); 
-  			var agendado = $scope.validaAgendaAgregada(fecha);
-  			if (agendado)
-  			{
-  				alert("Para poder modificar el dia primero hay que quitarlo de la agenda");
-  				return;
-  			}
+                        } else {
 
-        	$('#msload').show();
-            var geocoder = new google.maps.Geocoder;
-            var img_mark = 'altaContrato/mark.png';
-            var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
-            medida.mvcLine.push(latLng);
-            medida.mvcPolygon.push(latLng);
-            medida.mvcMarkers.push(marcador);
-            var latLngIndex = medida.mvcLine.getLength() - 1;
-            google.maps.event.addListener(marcador, "drag", function(evt) {
-            	medida.mvcLine.setAt(latLngIndex, evt.latLng);
-                medida.mvcPolygon.setAt(latLngIndex, evt.latLng);
-            });
-
-            google.maps.event.addListener(marcador, "dragend", function() {
-            	alert(medida.mvcLine.getLength());
+                          alert('No se encontro una direccion disponible.')
+                          //alert('No se encontraron resultados');
+                        }
+						$('#msload').hide();
+                      } else {
+                        alert('Problemas en la geolocalizacion debido ' + status + '')
+                        //alert('Geocoder fallo debido al estatus: ' + status);
+					    $('#msload').hide();
+                      }
+                    });
+                $scope.mLineaRecta();
+            };
+            $scope.mLineaRecta = function() {
                 if (medida.mvcLine.getLength() > 1) {
-                    $scope.calculaDistancia();
-                }
-            });
-
-            var latlng = {lat: latLng.lat(), lng: latLng.lng()};
-            var direccion = 'SN';
-            geocoder.geocode({'location': latlng}, function(results, status) {
-            	// console.log(results);
-            	if (status === google.maps.GeocoderStatus.OK) {
-            		if (results[1]) {
-            			direccion =  results[0].formatted_address;
-            			var coordenadaP = {};
-            			var coordenadasTemp = [];
-            			coordenadaP.latitud = latLng.lat();
-            			coordenadaP.longitud = latLng.lng();
-            			coordenadaP.direccion = direccion;
-            			// if($scope.contratoFocus.coordenadas) {
-            			$scope.mapa.gridCoordenadas.push(coordenadaP);
-            				// console.info($scope.mapa);
-            			// } else {
-            			// coordenadasTemp.push(coordenadaP);
-                        // $scope.contratoFocus.coordenadas = coordenadasTemp;
-            			// }
-
-            			$( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
-            					+ "<td class=\"td\" width=\"30px\"> </td>"
-            					+ "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
-            					+ "</tr>") );
-
-                    } else {
-                    	$('#alert').show();
-                    	$('#msgerror').text('No se encontro una direcci�n disponible.')
-                          // alert('No se encontraron resultados');
+                    if (!medida.line) {
+                        medida.line = new google.maps.Polyline({
+                            map: map2,
+                            clickable: false,
+                            strokeColor: "#ad04ef",
+                            strokeOpacity: 1,
+                            strokeWeight: 3,
+                            path: medida.mvcLine
+                        });
                     }
-            		$('#msload').hide();
-            	} else {
-            		$('#alert').show();
-                    $('#msgerror').text('Problemas en la geolocalizaci�n debido ' + status + '')
-                    // alert('Geocoder fallo debido al estatus: ' + status);
-					$('#msload').hide();
-            	}
-            });
+
+                    if (medida.mvcPolygon.getLength() > 2) {
+
+                        if (medida.polygon != null)
+                        {
+                            medida.polygon.setMap(null);
+                        }
 
 
-            $scope.mLineaRecta();
-    		reseteaColorBotones();
-			cambiaColorBoton($scope.mapa);
-      };
+                        medida.polygon = new google.maps.Polygon({
+                            clickable: false,
+                            map: map,
+                            fillOpacity: 0.0,
+                            strokeOpacity: 0,
+                            paths: medida.mvcPolygon
+                        });
 
+                    }
+                }
+
+            };
     })
     
     .controller("ModalController", function ($scope, $http) {
@@ -246,7 +341,11 @@ angular.module('tatei', ['ui.materialize'])
         }
         $scope.guardarActividadDetalle = function(data) {
             console.info(data);
-            data.usuarioAlta = 'test';
+            data.usuarioAlta = usuarioRegistra;
+            if(data.porcentaje > 100) {
+                data.porcentaje = 100;
+            }
+           
             var jsonData = JSON.stringify(data);
             $http({
                 method: "GET",
@@ -255,7 +354,7 @@ angular.module('tatei', ['ui.materialize'])
 
             }).then(function mySuccess(response) {
                 console.info(response);
-                if(response.data.estatus) {
+                if(response.data.estatus === true) {
                     $('#edicionActividades').modal('close');
                     Materialize.toast(response.data.mensajeFuncional, 7000);
                     dataBckp = data;
@@ -272,6 +371,12 @@ angular.module('tatei', ['ui.materialize'])
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
+
+            if(actividad.planeada === 'S') {
+                $('#actividadSelect').prop('disabled', 'disabled');
+            } else {
+                $('#actividadSelect').prop('disabled', false);
+            }
 
             $scope.actividad = actividad;
             //Catalogo Atividad
