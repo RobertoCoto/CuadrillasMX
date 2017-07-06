@@ -285,7 +285,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			    	 console.error(response);
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
-					scope.formEmpleado.push(datosEmpleado);
+					$scope.formEmpleado.push(datosEmpleado);
 					//$scope.formEmpleado.$setPristine();
 			    });
 			
