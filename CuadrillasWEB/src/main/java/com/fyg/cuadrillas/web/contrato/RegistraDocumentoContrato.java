@@ -35,7 +35,7 @@ public class RegistraDocumentoContrato extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/contratos";
+	private static final String DESTINATION_DIR_PATH = "C:/Sistema_TATEI/contratos/";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
@@ -49,7 +49,8 @@ public class RegistraDocumentoContrato extends HttpServlet {
 
 	    super.init(config);
 	    String realPath = DESTINATION_DIR_PATH;
-	    String rutaDestino = System.getProperty("user.dir").replace("\\", "/") + realPath;
+	    //String rutaDestino = System.getProperty("user.dir").replace("\\", "/") + realPath;
+	    String rutaDestino = realPath;
 	    uploadDirectory = rutaDestino;
 	    System.out.println("INIT uploadDirectory..." + uploadDirectory);
 
@@ -117,10 +118,10 @@ public class RegistraDocumentoContrato extends HttpServlet {
 					            name = new File(item.getName()).getName();
 					            System.out.println("name: " + name.toString());
 					            item.write( new File(uploadDirectory
-					            		+ File.separator + new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name));
+					            		+ File.separator + new SimpleDateFormat("dd-MM-yyyy_HHmmss_").format(new Date()) + name));
 					            rutaArchivo = uploadDirectory + File.separator + name;
 					            System.out.println("Ruta Archivo compuesta: " + rutaArchivo);
-					            rutaImagen = new SimpleDateFormat("dd-MM-yyyy_hhMMss_").format(new Date()) + name;
+					            rutaImagen = new SimpleDateFormat("dd-MM-yyyy_HHmmss_").format(new Date()) + name;
 					            System.out.println("Archivo Guardado en la siguiente ruta: " + rutaImagen);
 					      }
 					   }
