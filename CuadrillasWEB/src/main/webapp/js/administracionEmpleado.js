@@ -222,7 +222,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
             $scope.registrar = function(general) {
             	console.log(general.noEmpleado);
             	    
-            		$scope.general = {};
+            		//$scope.general = {};
             		var datosEmpleado = angular.copy(general);
             		var confirmar = confirm("�Esta seguro de registrar el empleado?"); 
 	    			if (!confirmar) 
@@ -275,6 +275,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 	              "documentoEmpleado" : $scope.JSONDocumentation
 			         }
 			    }).then(function mySucces(response) {
+			    	$scope.general = {};
 			    	$('#msload').modal('hide');
 					$('#success').show();
 					$('#msgaviso').text(response.data.mensajeFuncional);
@@ -285,7 +286,7 @@ app.controller('registraEmpleado', function ($scope, $http, $window) {
 			    	 console.error(response);
 					$('#alert').show();
 					$('#msgerror').text(response.data.mensajeFuncional);
-					$scope.formEmpleado.push(datosEmpleado);
+					//$scope.formEmpleado.push(datosEmpleado);
 					//$scope.formEmpleado.$setPristine();
 			    });
 			
