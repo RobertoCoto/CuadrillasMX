@@ -51,11 +51,6 @@ public class ConsultaDocumentosContrato extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Integer idContrato =  Integer.parseInt(request.getParameter("idContrato"));
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
 
 			//crea objeto de negocio
 			final ContratoNegocio negocio = new ContratoNegocio();
