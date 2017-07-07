@@ -365,11 +365,21 @@ WHERE id_actividad_diaria = #{idActividadDiaria}
 AND estatus = 'A'
 </select>
 
-<select id="existeCodigoActividad" parameterType="ActividadDiariaDetalle" resultType="int">
+<select id="existeCodigoActividadPlaneada" parameterType="ActividadDiariaDetalle" resultType="int">
 	SELECT count(codigo_actividad)
 	FROM actividad_diaria_detalle
 	WHERE id_actividad_diaria = #{idActividadDiaria}
 	AND codigo_actividad = #{codigoActividad}
+	AND planeada = 'S'
+	AND estatus = 'A'
+</select>
+
+<select id="existeCodigoActividadNoPlaneada" parameterType="ActividadDiariaDetalle" resultType="int">
+	SELECT count(codigo_actividad)
+	FROM actividad_diaria_detalle
+	WHERE id_actividad_diaria = #{idActividadDiaria}
+	AND codigo_actividad = #{codigoActividad}
+	AND planeada = 'N'
 	AND estatus = 'A'
 </select>
 

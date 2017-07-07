@@ -782,42 +782,43 @@ public class AgendaDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("La agenda se ha registrado correctamente.");
+		respuesta.setMensajeFuncional("La actividad de la agenda se ha registrado correctamente.");
 		try {
 			//Validamos si ya existe el codigo de la actividad
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
-			int existeCodigoActividad = (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividad", actividadDiaria);
-			if (existeCodigoActividad > 0) {
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+
+			if (actividadDiaria.getPlaneada().equals("S")) {
 				actividadDiaria.setUsuarioUltMod(actividadDiaria.getUsuarioAlta());
-				sessionTx = FabricaConexiones.obtenerSesionTx();
 				int registros = sessionTx.update("AgendaDAO.actualizaActividadDiariaDetalle", actividadDiaria);
 				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al actualizar la actividad.");
+					throw new ExcepcionesCuadrillas("Error al actualizar la actividad, no existe la actividad como planeada.");
 				}
-
-				for (ActividadDiariaDocumentosDTO documentos : actividadDiaria.getDocumentos()) {
-					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
-					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
-					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
-					registraActividadDiariaDocumentos(uid, documentos, sessionTx);
+			} else {
+				//NO PLANEADA
+				int existeCodigoActividadPlaneada
+					= (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividadPlaneada", actividadDiaria);
+				if (existeCodigoActividadPlaneada > 0) {
+					throw new ExcepcionesCuadrillas(
+							"No es posible dar de alta la Actividad, ya existe la actividad en la Agenda.");
+				}
+				int existeCodigoActividadNoPlaneada
+				= (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividadNoPlaneada", actividadDiaria);
+				if (existeCodigoActividadNoPlaneada == 0) {
+					//Abrimos conexion Transaccional
+					int registros = sessionTx.insert("AgendaDAO.altaActividadDiariaDetalle", actividadDiaria);
+					if ( registros == 0) {
+						throw new ExcepcionesCuadrillas("Error al registrar la actividad.");
+					}
+				} else {
+					actividadDiaria.setUsuarioUltMod(actividadDiaria.getUsuarioAlta());
+					int registros = sessionTx.update("AgendaDAO.actualizaActividadDiariaDetalle", actividadDiaria);
+					if ( registros == 0) {
+						throw new ExcepcionesCuadrillas("Error al actualizar la actividad.");
+					}
 				}
 			}
-			if (existeCodigoActividad == 0) {
-				actividadDiaria.setPlaneada("N");
-				//Abrimos conexion Transaccional
-				sessionTx = FabricaConexiones.obtenerSesionTx();
-				int registros = sessionTx.insert("AgendaDAO.altaActividadDiariaDetalle", actividadDiaria);
-				if ( registros == 0) {
-					throw new ExcepcionesCuadrillas("Error al registrar la actividad.");
-				}
 
-				for (ActividadDiariaDocumentosDTO documentos : actividadDiaria.getDocumentos()) {
-					documentos.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
-					documentos.setCodigoActividad(actividadDiaria.getCodigoActividad());
-					documentos.setUsuarioAlta(actividadDiaria.getUsuarioAlta());
-					registraActividadDiariaDocumentos(uid, documentos, sessionTx);
-				}
-			}
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
@@ -991,6 +992,54 @@ public class AgendaDAO {
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();
 
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
+	
+	/**
+	 * Metodo para eliminar las actividades diarias no planeadas
+	 * @param uid unico de registro
+	 * @param actividadDiaria recibe valores
+	 * @return regresa repsuesta
+	 */
+	public EncabezadoRespuesta eliminaActividadDiaria(String uid, ActividadDiariaDetalleDTO actividadDiaria) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La actividad se ha eliminado.");
+		try {
+			//Validamos si ya existe el codigo de la actividad
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+
+			int existeCodigoActividadPlaneada
+				= (Integer) sessionNTx.selectOne("AgendaDAO.existeCodigoActividadPlaneada", actividadDiaria);
+			if (existeCodigoActividadPlaneada > 0) {
+				throw new ExcepcionesCuadrillas(
+						"No es posible dar de baja la Actividad, ya que es una actividad Planeada.");
+			}
+			int bajaActividad
+			= (Integer) sessionTx.update("AgendaDAO.bajaActividadDiariaDetalle", actividadDiaria);
+			if (bajaActividad == 0) {
+				throw new ExcepcionesCuadrillas(
+						"No fue posible dar de baja la Actividad, actividad no encontrada.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
 		} catch (Exception ex) {
 			//Realizamos rollBack
 			LogHandler.debug(uid, this.getClass(), "RollBack!!");

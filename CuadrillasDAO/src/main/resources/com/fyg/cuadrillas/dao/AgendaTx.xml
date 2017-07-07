@@ -191,4 +191,14 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 		comentario_autorizacion = #{comentarioAutorizacion}
 	WHERE id_actividad_diaria = #{idAgendaDetalle}
 </update>
+
+<update id="bajaActividadDiariaDetalle" parameterType="ActividadDiariaDetalle">
+	UPDATE actividad_diaria_detalle SET
+			estatus = 'I',
+			usuario_baja = #{usuarioUltMod},
+			fecha_baja = now()
+	WHERE id_actividad_diaria = #{idActividadDiaria}
+	AND codigo_actividad = #{codigoActividad}
+	AND estatus = 'A'
+</update>
 </mapper>

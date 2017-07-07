@@ -40,4 +40,30 @@ public class RegistraActividadDiariaWS {
 	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 	            .header("Access-Control-Allow-Credentials", "true").build();
 	}
+
+	/**
+	 * Metodo para registrar Actividades en la BD
+	 * @return regresa la lista de empleados
+	 */
+	@GET
+	@Path("/baja")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response eliminarActividad(@QueryParam("jsonEliminarActividad") String jsonEntrada) {
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		Gson sg = new Gson();
+		try {
+			Gson gson = new GsonBuilder().create();
+			ActividadDiariaDetalleDTO actividadDiaria = gson.fromJson(jsonEntrada, ActividadDiariaDetalleDTO.class);
+			//crea objeto de negocio
+			final AgendaNegocio negocio = new AgendaNegocio();
+			respuesta = negocio.eliminaActividadDiaria(actividadDiaria);
+		} catch (Exception ex) {
+			String result = sg.toJson(respuesta);
+			return Response.serverError().entity(result).build();
+		}
+		String result = sg.toJson(respuesta);
+		return Response.ok().entity(result).header("Access-Control-Allow-Origin", "*")
+	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+	            .header("Access-Control-Allow-Credentials", "true").build();
+	}
 }

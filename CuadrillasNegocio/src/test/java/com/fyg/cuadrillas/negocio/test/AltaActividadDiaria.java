@@ -35,8 +35,8 @@ public class AltaActividadDiaria {
 	@Before
 	public void setUp() throws Exception {
 		actividadDiaria = new ActividadDiariaDetalleDTO();
-		actividadDiaria.setIdActividadDiaria(5);
-		actividadDiaria.setCodigoActividad("AMUL");
+		actividadDiaria.setIdActividadDiaria(1);
+		actividadDiaria.setCodigoActividad("OTRA");
 		actividadDiaria.setCodigoPrioridad("ALTA");
 		actividadDiaria.setCodigoEstado("PROG");
 		actividadDiaria.setCodigoListoVencido("PRIO");
@@ -46,6 +46,8 @@ public class AltaActividadDiaria {
 		actividadDiaria.setPorcentaje(40f);
 		actividadDiaria.setObservaciones("PRUEBA TEST OBS");
 		actividadDiaria.setUsuarioAlta("mimejorada");
+		actividadDiaria.setUsuarioUltMod("mimejorada");
+		actividadDiaria.setPlaneada("N");
 
 		documentos = new ActividadDiariaDocumentosDTO();
 		documentos.setConsecutivo(1);
@@ -67,14 +69,10 @@ public class AltaActividadDiaria {
 	public void testAltaAgenda() throws Exception {
 		String guid = "123456789";
 		
-		int a = 3;
-		int t = 1;
-		float p = t / (float) a ;
-		System.out.println(p);
-			
 		AgendaNegocio negocio = new AgendaNegocio();
 		try {
 			//negocio.registraActividadDiaria(actividadDiaria);
+			negocio.eliminaActividadDiaria(actividadDiaria);
 		} catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}

@@ -314,7 +314,7 @@ public class AgendaNegocio {
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
 					if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
-						throw new ExcepcionesCuadrillas("Es necesario el id de la actividad diaria.");
+						throw new ExcepcionesCuadrillas("Es necesario el id Actividad Diaria de la actividad.");
 					}
 					if (actividadDiaria.getCodigoActividad() == null || actividadDiaria.getCodigoActividad().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad.");
@@ -337,6 +337,10 @@ public class AgendaNegocio {
 					}
 					if (actividadDiaria.getUsuarioAlta() == null || actividadDiaria.getUsuarioAlta().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el usuario de la trasaccion.");
+					}
+					if (!(actividadDiaria.getPlaneada().trim().equals("S")
+							|| actividadDiaria.getPlaneada().trim().equals("N"))) {
+						throw new ExcepcionesCuadrillas("El valor de la actividad planeada debe ser S o N.");
 					}
 					AgendaDAO dao = new AgendaDAO();
 					respuesta = dao.registraActividadDiaria(uid, actividadDiaria);
@@ -444,7 +448,7 @@ public class AgendaNegocio {
 					}
 					if (actividadDiaria.getAutorizacion() == null || actividadDiaria.getAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario la autorizacion.");
-					}					
+					}
 					if (actividadDiaria.getComentarioAutorizacion() == null
 							|| actividadDiaria.getComentarioAutorizacion().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario un comentario para la autorizacion.");
@@ -470,4 +474,39 @@ public class AgendaNegocio {
 				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Salida: " + respuesta);
 				return respuesta;
 	}
+
+	/**
+	 * Metodo para eliminar las actividades no planeadas.
+	 * @param actividadDiaria recibe parametros de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta eliminaActividadDiaria(ActividadDiariaDetalleDTO actividadDiaria) {
+		String uid = GUIDGenerator.generateGUID(actividadDiaria);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "eliminaActividadDiaria - Datos Entrada: " + actividadDiaria);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
+				throw new ExcepcionesCuadrillas("Es necesario el id Actividad Diaria de la actividad.");
+			}
+			if (actividadDiaria.getCodigoActividad() == null || actividadDiaria.getCodigoActividad().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad.");
+			}
+			if (actividadDiaria.getUsuarioUltMod() == null || actividadDiaria.getUsuarioUltMod().trim().isEmpty()) {
+				throw new ExcepcionesCuadrillas("Es necesario el usuario de la trasaccion.");
+			}
+			AgendaDAO dao = new AgendaDAO();
+			respuesta = dao.eliminaActividadDiaria(uid, actividadDiaria);
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "eliminaActividadDiaria - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "eliminaActividadDiaria - Datos Salida: " + respuesta);
+		return respuesta;
 	}
+}

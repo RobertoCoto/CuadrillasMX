@@ -95,4 +95,5 @@ public class EncabezadoRespuesta extends ObjetoValor {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
 }
