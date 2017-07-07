@@ -509,4 +509,84 @@ public class AgendaNegocio {
 		LogHandler.debug(uid, this.getClass(), "eliminaActividadDiaria - Datos Salida: " + respuesta);
 		return respuesta;
 	}
+
+	/**
+	 * Metodo para guardar las coordenadas registradas por las actividades.
+	 * @param actividadDiaria recibe parametros de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta guardarCoordenadasActividadDiaria(ActividadDiariaCampoDTO actividadDiaria) {
+		String uid = GUIDGenerator.generateGUID(actividadDiaria);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "guardarCoordenadasActividadDiaria - Datos Entrada: " + actividadDiaria);
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {		
+			if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la Actividad Dirari para el registro de las coordenadas.");
+			}
+			if (actividadDiaria.getCoordenadasReal() == null || actividadDiaria.getCoordenadasReal().size() < 2)  {
+					throw new ExcepcionesCuadrillas("Es necesario al menos dos coordenadas GPS.");
+			}
+			if (actividadDiaria.getUsuarioAlta() == null || actividadDiaria.getUsuarioAlta().trim().isEmpty()) {
+					throw new ExcepcionesCuadrillas("Es necesario el usuario de la trasaccion.");
+			}
+			AgendaDAO dao = new AgendaDAO();
+			respuesta = dao.guardarCoordenadasActividadDiaria(uid, actividadDiaria);
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "guardarCoordenadasActividadDiaria - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "guardarCoordenadasActividadDiaria - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+
+	/**
+	 * Metodo para enviar a autorizar las actividades.
+	 * @param actividadDiaria recibe parametros de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta envioAutorizacionActividadDiaria(ActividadDiariaCampoDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(actividadDiaria);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Entrada: " + actividadDiaria);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (actividadDiaria.getIdAgendaDetalle() == null || actividadDiaria.getIdAgendaDetalle() == 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el id Agenda detalle.");
+					}
+					if (actividadDiaria.getAutorizacion() == null || actividadDiaria.getAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario la autorizacion.");
+					}
+					if (actividadDiaria.getComentarioAutorizacion() == null
+							|| actividadDiaria.getComentarioAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario un comentario para la autorizacion.");
+					}
+					if (actividadDiaria.getUsuarioAutorizacion() == null
+							|| actividadDiaria.getUsuarioAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario en el envio para la autorizacion.");
+					}
+					if (!(actividadDiaria.getAutorizacion().trim().equals("S")
+							|| actividadDiaria.getAutorizacion().trim().equals("N"))) {
+						throw new ExcepcionesCuadrillas("La autorizacion debe ser S o N.");
+					}
+					AgendaDAO dao = new AgendaDAO();
+					respuesta = dao.autorizaActividadBuzon(uid, actividadDiaria);
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "autorizaActividadDiaria - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Salida: " + respuesta);
+				return respuesta;
+	}
 }

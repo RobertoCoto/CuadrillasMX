@@ -201,4 +201,11 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 	AND codigo_actividad = #{codigoActividad}
 	AND estatus = 'A'
 </update>
+
+
+<delete id="eliminaActividadDiariaCoordenadas" parameterType="ActividadDiariaCampo">
+	DELETE FROM actividad_diaria_coordenadas
+	WHERE id_actividad_diaria = #{idActividadDiaria}
+</delete>
+
 </mapper>

@@ -1006,7 +1006,7 @@ public class AgendaDAO {
 		}
 		return respuesta;
 	}
-	
+
 	/**
 	 * Metodo para eliminar las actividades diarias no planeadas
 	 * @param uid unico de registro
@@ -1051,6 +1051,42 @@ public class AgendaDAO {
 		finally {
 			FabricaConexiones.close(sessionTx);
 			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
+
+	/***
+	 * Metodo para autorizar las actividades
+	 * @param uid unico de registro
+	 * @param actividadDiaria recibe la actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta guardarCoordenadasActividadDiaria(String uid, ActividadDiariaCampoDTO actividadDiaria) {
+		SqlSession sessionTx = null;
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La actividad ha sido autorizada correctamente.");
+		try {
+
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.delete("AgendaDAO.eliminaActividadDiariaCoordenadas", actividadDiaria);
+			
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
 		}
 		return respuesta;
 	}
