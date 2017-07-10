@@ -24,7 +24,7 @@ public class RevisaActividadDocumentos extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/documentos/actividad/";
+	private static final String DESTINATION_DIR_PATH =  "C:/Sistema_TATEI/actividades/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -53,7 +53,7 @@ public class RevisaActividadDocumentos extends HttpServlet {
 			// ruta sistema
 			String rutaSistema = System.getProperty("user.dir").replace("\\", "/");
 			//Obtengo el path absoluto de la imagen
-			String carpetaArchivos = rutaSistema + DESTINATION_DIR_PATH + nombreArchivo;
+			String carpetaArchivos =  DESTINATION_DIR_PATH + nombreArchivo;
 			LogHandler.debug(null, this.getClass(), "carpetaArchivos = " + carpetaArchivos);
 			//Obtener el mimeType dinamicamente
 			String mime = null;
@@ -68,6 +68,21 @@ public class RevisaActividadDocumentos extends HttpServlet {
 			}
 
 			if (array[1].equals("jpg")) {
+				mime = "image/jpg";
+			}
+			else if (array[1].equals("png")) {
+				mime = "image/png";
+			}
+			if (array[1].equals("doc")) {
+				mime = "application/msword";
+			}
+			else if (array[1].equals("docx")) {
+				mime = "application/msword";
+			}
+			else if (array[1].equals("pdf")) {
+				mime = "application/pdf";
+			}
+			else if (array[1].equals("jpg")) {
 				mime = "image/jpg";
 			}
 			else if (array[1].equals("png")) {

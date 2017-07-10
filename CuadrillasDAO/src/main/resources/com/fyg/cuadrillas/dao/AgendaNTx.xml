@@ -285,8 +285,18 @@ ORDER BY orden
 
 <select id="consultaActividadesDia" parameterType="ActividadDiariaCampo" resultMap="actividadDiariaCampo">
 
-	SELECT id_actividad_diaria,id_agenda,id_agenda_detalle,metros_planificado,
-		no_trabajadores,no_horas,porcentaje,observaciones,autorizacion,estatus,
+	SELECT ad.id_actividad_diaria,
+   		ad.id_agenda,
+        ad.id_agenda_detalle,
+        ad.metros_planificado,
+		ad.no_trabajadores,
+        ad.no_horas,
+        ad.porcentaje,
+        ad.observaciones,
+        ad.autorizacion,
+        ad.estatus,
+        cat.descripcion AS descripcionVialidad,
+	    CONCAT(er.nombre, ' ', er.apellido_pat, ' ', er.apellido_mat )  AS nombreResidente,
 		(
 		  SELECT sum(tiempo_destinado)
 		  FROM actividad_diaria_detalle
@@ -311,9 +321,14 @@ ORDER BY orden
 		  AND id_actividad_diaria = (SELECT id_actividad_diaria FROM  actividad_diaria WHERE id_agenda_detalle = #{idAgendaDetalle})
 		  AND estatus = 'A'
 		) AS no_actividades_terminadas
-	FROM actividad_diaria
-	WHERE id_agenda_detalle = #{idAgendaDetalle}
-	AND estatus = 'A'
+	FROM actividad_diaria ad
+    LEFT join agenda ag on ag.id_agenda = ad.id_agenda
+    LEFT JOIN cuadrilla cu ON cu.id_cuadrilla = ag.id_cuadrilla
+	LEFT JOIN catalogo cat ON cat.codigo = cu.codigo_vialidad
+	LEFT JOIN empleado er ON er.id_cuadrilla = cu.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
+	WHERE ad.id_agenda_detalle = #{idAgendaDetalle}
+	AND ad.estatus = 'A'
+	
 </select>
 
 <select id="consultaActividadDetalle" parameterType="ActividadDiariaDetalle" resultMap="actividadDiariaDetalle">
