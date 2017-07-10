@@ -72,29 +72,29 @@
 		</div>
 		
 		<div class="row">
-		 			<div class="col-sm-4">
-                        <div class="form-group form-group-sm">
-                            <label for="fecha" class="control-label">Fecha</label>
-                            <div class="input-group">
-                  			<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                  			<input class="form-control" type="date" name="fecha" id="fecha" value={{actividad.fechaActividad}} disabled/>
-               				 </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
-                            <label for="noPersonas" class="control-label">Num. Personas</label>
-                            <input type="text" name="personas" id="personas" class="form-control" value={{actividad.noTrabajadores}} disabled/>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-4">
-                        <div class="form-group form-group-sm">
-                            <label for="horasHombre" class="control-label">Total Hrs. Hombre</label>
-                            <input type="text" name="horasHombre" id="horasHombre" class="form-control" value={{actividad.noHoras}} disabled/>
-                        </div>
-                    </div>
+ 			<div class="col-sm-4">
+                <div class="form-group form-group-sm">
+                    <label for="fecha" class="control-label">Fecha</label>
+                    <div class="input-group">
+          				<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+          				<input class="form-control" type="date" name="fecha" id="fecha" value={{actividad.fechaActividad}} disabled/>
+       				</div>
+                </div>
+            </div>
+                  
+             <div class="col-sm-4">
+                 <div class="form-group form-group-sm">
+                     <label for="noPersonas" class="control-label">Num. Personas</label>
+                     <input type="text" name="personas" id="personas" class="form-control" value={{actividad.noTrabajadores}} disabled/>
+                 </div>
+             </div>
+                  
+             <div class="col-sm-4">
+                 <div class="form-group form-group-sm">
+                     <label for="horasHombre" class="control-label">Total Hrs. Hombre</label>
+                     <input type="text" name="horasHombre" id="horasHombre" class="form-control" value={{actividad.noHoras}} disabled/>
+                 </div>
+             </div>
 		</div>
 		<br>
         <div class="row">
@@ -187,16 +187,16 @@
             <table class="table table-bordered">
             <thead>
                 <tr class="success">
-                <td>Actividad</td>
-                <td>Prioridad</td>
-                <td>Estado</td>
-                <td>Tiempo destinado a la actividad</td>
-                <td>Numero de Personas destinadas a la actividad</td>
-                <td>Numero de unidades de medida según actividad (m2 pieza)</td>
-                <td>% Completado</td>
-                <td>Listo / Vencido</td>
-                <td>Observaciones</td>
-                <td>Operaciones</td>
+                <td><strong>Actividad</strong></td>
+                <td><strong>Prioridad</strong></td>
+                <td><strong>Estado</strong></td>
+                <td><strong>Tiempo destinado a la actividad</strong></td>
+                <td><strong>Numero de Personas destinadas a la actividad</strong></td>
+                <td><strong>Numero de unidades de medida según actividad (m2 pieza)</strong></td>
+                <td><strong>% Completado</strong></td>
+                <td><strong>Listo / Vencido</strong></td>
+                <td><strong>Observaciones</strong></td>
+                <td><strong>Operaciones</strong></td>
                 </tr>
             </thead>
             
@@ -228,15 +228,15 @@
 	        </div>
 	       	<div class="col-sm-3 col-md-3">
 				<label>% Actividades completadas:</label>
-				<input type="text" disabled size="5" value={{actividad.porcentajeCompletas}} style="width: 50%;">
+				<input type="text" disabled size="5" value={{actividad.porcentajeCompletas}} style="width: 100%;">
 			</div>	
 			<div class="col-sm-2 col-md-2">
 				<label>Horas Restantes:</label>
-				<input type="text" size="5" disabled value={{actividad.noHorasRestantes}}>
+				<input type="text" size="5" disabled value={{actividad.noHorasRestantes}} style="width: 100%;">
 			</div>				
 			<div class="col-sm-2 col-md-2">
 				<label>% Actividades del dia: </label>
-				<input type="text" size="5" disabled value={{actividad.porcentajeDia}}>
+				<input type="text" size="5" disabled value={{actividad.porcentajeDia}} style="width: 100%;">
 			</div>
 		</div>
 		<br>
@@ -247,9 +247,9 @@
             		<table class="table table-bordered">
             			<thead>
                 			<tr class="success">
-                				<td>Actividad</td>
-                				<td>Documento</td>
-                				<td>Operaciones</td>
+                				<td><strong>Actividad</strong></td>
+                				<td><strong>Documento</strong></td>
+                				<td><strong>Operaciones</strong></td>
                 			</tr>
             			</thead>
             			<tr ng-repeat="documento in documentos">
@@ -279,7 +279,7 @@
 		</div>
 		<br>
 		<div class="btn-group" role="group" align="center">			
-			<button class="btn botonGuardar" ng-click="autorizarActividad()">Autorizar</button>&nbsp;&nbsp;<button class="btn btn-danger" ng-click="rechazarActividad()">Rechazar</button>
+			<button class="btn botonGuardar" ng-click="autorizarActividad()">Autorizar</button><button class="btn btn-danger" ng-click="rechazarActividad()">Rechazar</button>
 		</div>						
 	</div>
 </body>
