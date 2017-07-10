@@ -17,15 +17,20 @@
 </resultMap>
 
 <select id="consultaHoraAsistencia" parameterType="Asistencia" resultType="int">
-SELECT count(hora_entrada) AS hora_entrada
+SELECT count(id_asistencia) 
 FROM asistencia
 WHERE id_empleado = #{idEmpleado}
+AND fecha = DATE(NOW())
+AND estatus = 'A'
 </select>
 
 <select id="existeSalidaAsistencia" parameterType="Asistencia" resultType="int">
-SELECT count(hora_salida) AS hora_salida
+SELECT count(id_asistencia) 
 FROM asistencia
 WHERE id_empleado = #{idEmpleado}
+AND hora_salida IS NOT NULL
+AND fecha = DATE(NOW())
+AND estatus = 'A'
 </select>
 
 <select id="existeBajaAsistencia" parameterType="Asistencia" resultType="int">

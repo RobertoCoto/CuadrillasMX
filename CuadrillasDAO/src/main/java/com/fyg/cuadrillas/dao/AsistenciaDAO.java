@@ -30,7 +30,7 @@ public class AsistenciaDAO {
 			if (activoEmpleado > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El usuario no esta activo y no tiene permitido el registro.");
 			}
-			int existeEntradaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia");
+			int existeEntradaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.consultaHoraAsistencia", asistencia);
 			if (existeEntradaAsistencia > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El empleado no puede registrar su entrada 2 veces.");
 			}
@@ -78,7 +78,7 @@ public class AsistenciaDAO {
 			if (existeHoraEntrada <= 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar la hora salida, no se ha encontrado la hora entrada.");
 			}
-			int existeSalidaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeSalidaAsistencia");
+			int existeSalidaAsistencia = (Integer) sessionNTx.selectOne("AsistenciaDAO.existeSalidaAsistencia", asistencia);
 			if (existeSalidaAsistencia > 0) {
 				throw new ExcepcionesCuadrillas("Error al registrar,El Empleado no puede registrar su salida 2 veces.");
 			}

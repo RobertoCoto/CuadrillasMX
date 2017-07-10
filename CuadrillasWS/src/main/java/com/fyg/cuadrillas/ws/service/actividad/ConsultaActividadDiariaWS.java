@@ -88,7 +88,7 @@ public class ConsultaActividadDiariaWS {
 	@Path("/entradaAsistencia")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response entradaAsistencia(@QueryParam("idEmpleado") Integer idEmpleado,
-			@QueryParam("comentarios") String comentarios,
+			@QueryParam("comentario") String comentarios,
 			@QueryParam("usuario")     String usuario
 			) {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();

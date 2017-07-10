@@ -259,14 +259,14 @@
  				<form>
     			<div class="row" id="addDocument">
     			<input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
-    			 <div class="col-sm-4">
+    			 	  <div class="col-sm-4">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Nombre del Documento</label>
                               <input type="text" class="form-control" id="numDocumento" name="numDocumento" ng-model="contratoD.nombre" placeholder="Nombre del Documento" maxlength="30">
                               <input type="hidden" id="contratoHidden" ng-model="contratoD.idContrato" value={{contratoFocus.idContrato}}>
                           </div>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-sm-3">
                           <div class="form-group">
                               <label for="numDocumento" class="control-label">Tipo de Documento</label>
                               <select  class="form-control" ng-model="contratoD.codigoDocumento" ng-options="catalogo.codigo as catalogo.descripcion for catalogo in tipoDocumento">
@@ -274,13 +274,14 @@
                               </select>
                           </div>
                       </div>
-                      
-                       <h4>Adjuntar Documento</h4>
-                      <div class="form-inline">
-                        <div class="form-group">
-                          <input type="file" file-model="contratoAdjuntoDocumento" id="adjuntarContratoDocumento">
-                          <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
-                        </div>
+                      <div class="col-sm-5">
+                      <h4>Adjuntar Documento</h4>
+	                      <div class="form-inline">
+	                        <div class="form-group">
+	                          <input type="file" file-model="contratoAdjuntoDocumento" id="adjuntarContratoDocumento">
+	                          <p class="help-block">Los formatos admitidos son PDF, PNG, JPG.</p>
+	                        </div>
+	                      </div>
                       </div>
     			</div>
     			<div align="center"><button class="btn botonGuardar" ng-click="registraDocumento()">Cargar Documento</button> <button class="btn botonEditar" id="showDocument" ng-click="listaDocumentos()">Consultar Documentos</button></div>

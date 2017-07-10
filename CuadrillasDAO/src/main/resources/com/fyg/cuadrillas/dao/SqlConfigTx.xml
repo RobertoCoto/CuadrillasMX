@@ -61,7 +61,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/ContratoTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/CuadrillaTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/PermisoTx.xml" />
-	<mapper resource="com/fyg/cuadrillas/dao/ActividadTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/AgendaTx.xml" />
 	</mappers>
 
