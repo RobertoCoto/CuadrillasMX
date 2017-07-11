@@ -552,4 +552,4 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
      $scope.initMap2();
 	});
 
-			    // FIN AUTORIZA ACTIVIDAD
+    // FIN AUTORIZA ACTIVIDAD
