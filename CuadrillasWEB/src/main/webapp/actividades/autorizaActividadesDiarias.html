@@ -77,15 +77,13 @@
           				<input class="form-control" type="date" name="fecha" id="fecha" value={{actividad.fechaActividad}} disabled/>
        				</div>
                 </div>
-            </div>
-                  
-             <div class="col-sm-2">
+            </div>                  
+            <div class="col-sm-2">
                  <div class="form-group form-group-sm">
                      <label for="noPersonas" class="control-label">Num. Personas</label>
                      <input type="text" name="personas" id="personas" class="form-control" value={{actividad.noTrabajadores}} disabled/>
                  </div>
-             </div>
-                  
+             </div>                  
              <div class="col-sm-2">
                  <div class="form-group form-group-sm">
                      <label for="horasHombre" class="control-label">Total Hrs. Hombre</label>
@@ -218,30 +216,7 @@
            </div>
          </div>
 		</div>
-		<br>		
-		<div class="row">		
-			<div class="col-sm-2 col-md-2">
-    			<label>Total Hrs Trabajadas:</label>
-				<input type="text" disabled size="5" value={{actividad.noHorasTrabajadas}} style="width: 100%;">				
-	        </div>
-	        <div class="col-sm-2 col-md-2">
-	        	<label>%</label>
-				<input type="text" disabled size="5" value={{actividad.porcentajeHoras}} style="width: 100%;">	        	
-	        </div>
-	       	<div class="col-sm-3 col-md-3">
-				<label>% Actividades completadas</label>
-				<input type="text" disabled size="5" value={{actividad.porcentajeCompletas}} style="width: 100%;">
-			</div>	
-			<div class="col-sm-2 col-md-2">
-				<label>Horas Restantes</label>
-				<input type="text" size="5" disabled value={{actividad.noHorasRestantes}} style="width: 100%;">
-			</div>				
-			<div class="col-sm-2 col-md-2">
-				<label>% Actividades del dia </label>
-				<input type="text" size="5" disabled value={{actividad.porcentajeDia}} style="width: 100%;">
-			</div>
-		</div>
-		<br>
+		<br>				
 		<div class="row" id="tablaDocumentos">
 		 	<div class="col-sm-12">
 		 		<h3>Fotos Evidencia</h3>
@@ -271,16 +246,38 @@
 			</div>
 		</div>
 		<br>
+		<div class="row">		
+			<div class="col-sm-2 col-md-2">
+    			<label>Total Hrs Trabajadas:</label>
+				<input type="text" disabled size="5" value={{actividad.noHorasTrabajadas}} style="width: 100%;" id="noHorasTrabajadas">				
+	        </div>
+	        <div class="col-sm-2 col-md-2">
+	        	<label>%</label>
+				<input type="text" disabled size="5" value={{actividad.porcentajeHoras}} style="width: 100%;" id="porcentajeHoras" >	        	
+	        </div>
+	       	<div class="col-sm-3 col-md-3">
+				<label>% Actividades completadas</label>
+				<input type="text" disabled size="5" value={{actividad.porcentajeCompletas}} style="width: 100%;">
+			</div>	
+			<div class="col-sm-2 col-md-2">
+				<label>Horas Restantes</label>
+				<input type="text" size="5" disabled value={{actividad.noHorasRestantes}} style="width: 100%;">
+			</div>				
+			<div class="col-sm-2 col-md-2">
+				<label>% Actividades del dia </label>
+				<input type="text" size="5" disabled value={{actividad.porcentajeDia}} style="width: 100%;">
+			</div>
+		</div>				
 		<hr class="separador">
-		<div class="row">
-			<h3>Resultado Revisión</h3>
+		<div class="row">			
 			<div class="col-sm-12">
+			<h3>Resultado Revisión</h3>
 				<label>Observaciones</label>
 		     	<textarea class="form-control" id="comentarioActividad" maxlength="300"></textarea>
 			</div>			
 		</div>
 		<br>
-		<div align="left">			
+		<div align="center">			
 			<button class="btn botonGuardar" ng-click="autorizarActividad()">Autorizar</button>&nbsp;&nbsp;<button class="btn btn-danger" ng-click="rechazarActividad()">Rechazar</button>
 		</div>						
 	</div>
