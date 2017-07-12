@@ -209,7 +209,7 @@
             <td>{{actividades.numeroUnidades}}</td>
             <td>
 				<div class="progress">
-  					<div ng-class="cambiaColorBarra(actividades.porcentaje)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height:50; width:{{actividades.porcentaje}}%">
+  					<div ng-class="cambiaColorBarra(actividades.porcentaje)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="color:black;height:50; width:{{actividades.porcentaje}}%">
     					{{actividades.porcentaje}}% 
   					</div>
 				</div>            
@@ -261,8 +261,8 @@
 	        	<label>%</label>
 				<!-- <input type="text" disabled size="5" value={{actividad.porcentajeHoras}} style="width: 100%;" id="porcentajeHoras" >-->
 				<div class="progress">
-  					<div ng-class="cambiaColorBarra(actividad.porcentajeHoras);" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height:100px; width:{{actividad.porcentajeHoras}}%">
-    					{{actividad.porcentajeHoras}}% 
+  					<div ng-class="cambiaColorBarra(actividad.porcentajeHoras);" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="color:black; height:100px; width:{{actividad.porcentajeHoras}}%">  						
+    					{{actividad.porcentajeHoras}}%    					
   					</div>
 				</div>
 	        </div>
@@ -270,7 +270,7 @@
 				<label>% Actividades completadas</label>
 				<!-- <input type="text" disabled size="5" value={{actividad.porcentajeCompletas}} style="width: 100%;"> -->
 				<div class="progress">
-  					<div ng-class="cambiaColorBarra(actividad.porcentajeCompletas)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height:50; width:{{actividad.porcentajeCompletas}}%">
+  					<div ng-class="cambiaColorBarra(actividad.porcentajeCompletas)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="color:black; height:50; width:{{actividad.porcentajeCompletas}}%">
     					{{actividad.porcentajeCompletas}}% 
   					</div>
 				</div>				
@@ -283,7 +283,7 @@
 				<label>% Actividades del dia </label>
 				<!-- <input type="text" size="5" disabled value={{actividad.porcentajeDia}} style="width: 100%;"> -->
 				<div class="progress">
-  					<div ng-class="cambiaColorBarra(actividad.porcentajeDia)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height:50; width:{{actividad.porcentajeDia}}%">
+  					<div ng-class="cambiaColorBarra(actividad.porcentajeDia)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="color:black; height:50; width:{{actividad.porcentajeDia}}%">  					
     					{{actividad.porcentajeDia}}% 
   					</div>
 				</div>				
