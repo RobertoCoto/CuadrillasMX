@@ -421,6 +421,8 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	//autoriza la actividad
 	$scope.autorizarActividad = function() {
 		var comentario  = $('#comentarioActividad').val();
+		var horasTabajadas = $('#noHorasTrabajadas').val();
+		var porcentajeHoras = $('#porcentajeHoras').val();		
 		
 		if ($scope.validaCampos() == true)
 		{
@@ -445,7 +447,9 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	 			"idAgendaDetalle" 	: $scope.id,
 	 			"autorizacion" 		: "S",
 	 			"comentario"		: comentario,
-	 			"usuario"			: $scope.usuario
+	 			"usuario"			: $scope.usuario,
+	 			"noHorasTabajadas"	: horasTabajadas,
+	 			"porcentaje"		: porcentajeHoras
 	       	}
 		    }).then(function mySucces(response) {
 		    	$('#msload').modal('hide');
@@ -464,7 +468,9 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	
 		//para rechazar actividad
 		$scope.rechazarActividad = function() {
-			var comentario  = $('#comentarioActividad').val();	
+			var comentario  = $('#comentarioActividad').val();
+			var horasTabajadas = $('#noHorasTrabajadas').val();
+			var porcentajeHoras = $('#porcentajeHoras').val();			
 			
 			if ($scope.validaCampos() == true)
 			{
@@ -488,7 +494,9 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	 				"idAgendaDetalle" 	: $scope.id,
 	 				"autorizacion" 		: "N",
 	 				"comentario"		: comentario,
-	 				"usuario"			: $scope.usuario
+	 				"usuario"			: $scope.usuario,
+		 			"noHorasTabajadas"	: horasTabajadas,
+		 			"porcentaje"		: porcentajeHoras
 		     		}
 			 }).then(function mySucces(response) {
 			    	$('#msload').modal('hide');
