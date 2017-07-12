@@ -83,7 +83,7 @@ angular.module('tatei', ['ui.materialize'])
                 });
         };
         $scope.initMap();
-
+        $scope.listaActividades = [];
         $scope.consultaAgenda = function(idAgenda) {
 
             $http({
@@ -361,7 +361,9 @@ angular.module('tatei', ['ui.materialize'])
                 if(response.data.estatus === true) {
                     $('#edicionActividades').modal('close');
                     Materialize.toast(response.data.mensajeFuncional, 7000);
-                    prestine
+                    if(data.n) {
+                    	$scope.listaActividades.push(data);
+                    }
                     dataBckp = data;
                 } else {
                     data = dataBckp;
@@ -371,6 +373,42 @@ angular.module('tatei', ['ui.materialize'])
             }, function myError(response) {
                 console.log(response);
             });
+        }
+        $scope.eliminarActividadDetalle = function(data) {
+            console.info(data);
+            if(data.planeada == 'N') {
+
+	            data.usuarioUltMod = usuarioRegistra;
+	            
+	           
+	            var jsonData = JSON.stringify(data);
+	            $http({
+	                method: "GET",
+	                url: "http://localhost:8080/CuadrillasWS/service/registraActividadDiaria/baja",
+	                params: {jsonEliminarActividad: jsonData}
+	
+	            }).then(function mySuccess(response) {
+	                console.info(response);
+	                if(response.data.estatus === true) {
+	                    $('#edicionActividades').modal('close');
+	                    Materialize.toast(response.data.mensajeFuncional, 7000);
+	                    $.each($scope.listaActividades, function(i){
+	                        if($scope.listaActividades[i].codigoActividad === data.codigoActividad 
+	                        		&& $scope.listaActividades[i].observaciones === data.observaciones) {
+	                        	$scope.listaActividades.splice(i,1);
+	                            return false;
+	                        }
+	                    });
+	                } else {
+	                    Materialize.toast(response.data.mensajeFuncional, 7000);
+	                }
+	
+	            }, function myError(response) {
+	                console.log(response);
+	            });
+            } else if( data.planeada == 'S') {
+            	Materialize.toast("No es posible eliminar una actividad planeada.", 7000);
+            }
         }
         $scope.abrir = function(actividad) {
             dataBckp = actividad;
@@ -440,6 +478,7 @@ angular.module('tatei', ['ui.materialize'])
             $('#actividadSelect').prop('disabled', false);
 
             $scope.actividad = {};
+            $scope.actividad.n = true;
             $scope.actividad.idActividadDiaria = idActDiaria;
             $scope.actividad.usuarioAlta = usuarioRegistra;
             //Catalogo Atividad

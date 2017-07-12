@@ -74,12 +74,12 @@
                                 <div class="row">
                                     <div class="col s12">
                                         <div class="input-field col s6">
-                                                <input placeholder="xxxxx" id="tramoInicial" type="text" class="validate">
-                                                <label for="tramoInicial">Tramo Inicial</label>
+                                                <!-- input placeholder="xxxxx" id="tramoInicial2" type="text" class="validate">
+                                                <label for="tramoInicial">Tramo Inicial</label-->
                                             </div>
                                             <div class="input-field col s6">
-                                                <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate">
-                                                <label for="tramoFinal">Tramo Final</label>
+                                                <!-- input placeholder="xxxxx" id="tramoFinal2" type="text" class="validate">
+                                                <label for="tramoFinal">Tramo Final</label-->
                                             </div>
                                             <!--div class="input-field col s4">
                                                 <input placeholder="xxxxx" id="tramoFinal" type="text" class="validate">
@@ -117,7 +117,7 @@
                                             </div>
                                             <div class="card-action">
                                                 <a class="waves-effect waves-light btn purple" data-target="edicionActividades" ng-click="abrir(actividad)" modal complete="completeCallback()" ><i class="material-icons left">edit</i>editar</a>
-                                                <a class="waves-effect waves-light btn red" ng-disabled="actividad.planeada == 'S'"><i class="material-icons left">delete</i>Eliminar</a>
+                                                <a class="waves-effect waves-light btn red" ng-disabled="actividad.planeada == 'S'" ng-click="eliminarActividadDetalle(actividad)"><i class="material-icons left">delete</i>Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
