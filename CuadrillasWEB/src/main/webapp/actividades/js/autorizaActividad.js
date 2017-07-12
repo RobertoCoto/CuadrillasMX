@@ -7,7 +7,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	 var medida2;
 	
 
-	$scope.id = $window.idActividadDiaria;
+	$scope.id = 1;//$window.idActividadDiaria;
 	$scope.usuario = $window.user;
 	$scope.fecha = $window.fechaTarea;	
 	var metros_div = 1;
@@ -555,6 +555,15 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					});
 		};      
 
+		$scope.cambiaColorBarra= function(porcentaje){
+			if(porcentaje>=75)
+				return "progress-bar progress-bar-success";
+			else if(porcentaje>=50 && porcentaje<75)
+				return "progress-bar progress-bar-warning";
+			else
+				return "progress-bar progress-bar-danger";
+		};
+ 
      //se muestran los mapas
      $scope.initMap();
      $scope.initMap2();
