@@ -31,7 +31,7 @@ var asyncLoop = function(o){
     } 
     loop();
 }
-var usuarioRegistra;
+var usuarioRegistra, idActDiaria, datos;
 angular.module('tatei', ['ui.materialize'])
 
     .controller('AppCtrl', function($scope, $http, $window) {
@@ -42,6 +42,7 @@ angular.module('tatei', ['ui.materialize'])
 	    $scope.id = $window.idAgendaDetalle;
 		$scope.usuario = $window.user;
         usuarioRegistra = $scope.usuario;
+        idActDiaria =  $scope.id;
         
         $('#msload').show();
         $scope.toast = function (message, duration) {
@@ -87,11 +88,11 @@ angular.module('tatei', ['ui.materialize'])
 
             $http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idAgenda
+            url: 'http://localhost:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idActDiaria,
             }).then(function successCallback(response) {
                 //console.log(response);
                 //$('#msload').hide();
-                var datos = response.data.actividadDiaria;
+                datos = response.data.actividadDiaria;
                 $scope.listaActividades = datos.actividadDiariaDetalle;
                 $scope.tramoInicialP = datos.coordenadasEsperado[0].direccion;
                 $scope.tramoFinalP = datos.coordenadasEsperado[datos.coordenadasEsperado.length-1].direccion;
@@ -341,6 +342,9 @@ angular.module('tatei', ['ui.materialize'])
         }
         $scope.guardarActividadDetalle = function(data) {
             console.info(data);
+            if(data.planeada == undefined) {
+            	data.planeada = 'N';
+            }
             data.usuarioAlta = usuarioRegistra;
             if(data.porcentaje > 100) {
                 data.porcentaje = 100;
@@ -357,6 +361,7 @@ angular.module('tatei', ['ui.materialize'])
                 if(response.data.estatus === true) {
                     $('#edicionActividades').modal('close');
                     Materialize.toast(response.data.mensajeFuncional, 7000);
+                    prestine
                     dataBckp = data;
                 } else {
                     data = dataBckp;
@@ -367,18 +372,76 @@ angular.module('tatei', ['ui.materialize'])
                 console.log(response);
             });
         }
-        $scope.abrir = function(actividad){
+        $scope.abrir = function(actividad) {
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
 
-            if(actividad.planeada === 'S') {
+            if(actividad.planeada == 'S') {
                 $('#actividadSelect').prop('disabled', 'disabled');
             } else {
                 $('#actividadSelect').prop('disabled', false);
             }
 
             $scope.actividad = actividad;
+            //Catalogo Atividad
+            $http({
+            method: 'GET',
+            url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ACTIVIDADE'
+            }).then(function successCallback(response) {
+                //console.log(response);
+                $scope.actividadesCat = response.data.catalogo;
+
+                //Catalogo Estado
+                $http({
+                method: 'GET',
+                url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
+                }).then(function successCallback(response) {                    
+                    $scope.estadoCat = response.data.catalogo;
+
+                    //Catalogo Prioridad
+                    $http({
+                    method: 'GET',
+                    url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=PRIO_ACT'
+                    }).then(function successCallback(response) {
+                        //console.log(response);
+                        $scope.prioridadCat = response.data.catalogo;
+
+                        //Catalogo Listo Vencido
+                        $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LIST_VENC'
+                        }).then(function successCallback(response) {
+                            //console.log(response);
+                            $scope.listoVencidoCat = response.data.catalogo;
+                            $('#msload').hide();
+                            Materialize.updateTextFields();
+                        }, function errorCallback(response) {
+                            console.error(response);
+                        });
+                        
+                    }, function errorCallback(response) {
+                        console.error(response);
+                    });
+
+                }, function errorCallback(response) {
+                    console.error(response);
+                });
+
+            }, function errorCallback(response) {
+                console.error(response);
+            });
+
+        }
+        $scope.nuevaActividad = function() {
+            //console.info(actividad);
+            $('#msload').show();
+
+            $('#actividadSelect').prop('disabled', false);
+
+            $scope.actividad = {};
+            $scope.actividad.idActividadDiaria = idActDiaria;
+            $scope.actividad.usuarioAlta = usuarioRegistra;
             //Catalogo Atividad
             $http({
             method: 'GET',

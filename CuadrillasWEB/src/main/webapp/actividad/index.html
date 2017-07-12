@@ -96,10 +96,11 @@
                             <div class="collapsible-header active"><i class="material-icons">event_note</i>Actividades</div>
                             <div class="collapsible-body" style="padding: 10px;">
                                 <div class="row">
-                                    <div class="col s8">
+                                    <div class="col s10">
                                     </div>
-                                    <div class="col s4">
-                                        <a class="waves-effect waves-light btn">Agregar</a>
+                                    <div class="col s2">
+                                    	<a class="btn-floating btn-large waves-effect waves-light green" data-target="edicionActividades" ng-click="nuevaActividad()"><i class="material-icons">add</i></a>
+                                        <!--a class="waves-effect waves-light btn"data-target="edicionActividades" ng-click="nuevaActividad()">Agregar</a-->
                                     </div>
                                 </div>
                                 <div class="row" ng-repeat="actividad in listaActividades">
@@ -115,8 +116,8 @@
                                                 <span>{{actividad.porcentaje}} %</span>
                                             </div>
                                             <div class="card-action">
-                                                <a class="waves-effect waves-light btn" data-target="edicionActividades" ng-click="abrir(actividad)" modal complete="completeCallback()" >editar</a>
-                                                <a class="waves-effect waves-light btn" ng-disabled="{{actividad.planeada}} == 'S' ? false : true">Eliminar</a>
+                                                <a class="waves-effect waves-light btn purple" data-target="edicionActividades" ng-click="abrir(actividad)" modal complete="completeCallback()" ><i class="material-icons left">edit</i>editar</a>
+                                                <a class="waves-effect waves-light btn red" ng-disabled="actividad.planeada == 'S'"><i class="material-icons left">delete</i>Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +204,7 @@
                                                 <label for="observacionesGenerales" class="active">Comentarios / Observaciones</label>
                                             </div>
                                             <div class="input-field col s2">
-                                                <a ng-click="" class="modal-action waves-effect waves-green btn-flat ">Enviar</a>
+                                                <a ng-click="" class="modal-action waves-effect waves-green  "><i class="material-icons left">done_all</i>Enviar</a>
                                             </div>
                 
                                     </div>
