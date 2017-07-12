@@ -7,7 +7,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	 var medida2;
 	
 
-	$scope.id = 1;//$window.idActividadDiaria;
+	$scope.id = $window.idActividadDiaria;
 	$scope.usuario = $window.user;
 	$scope.fecha = $window.fechaTarea;	
 	var metros_div = 1;

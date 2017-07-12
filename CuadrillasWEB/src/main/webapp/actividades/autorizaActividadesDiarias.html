@@ -207,7 +207,13 @@
             <td>{{actividades.tiempoDestinado}}</td>
             <td>{{actividades.numeroPersonas}}</td>
             <td>{{actividades.numeroUnidades}}</td>
-            <td>{{actividades.porcentaje}}</td>
+            <td>
+				<div class="progress">
+  					<div ng-class="cambiaColorBarra(actividades.porcentaje)" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height:50; width:{{actividades.porcentaje}}%">
+    					{{actividades.porcentaje}}% 
+  					</div>
+				</div>            
+            </td>
             <td>{{actividades.descripcionListoVencido}}</td>
             <td>{{actividades.observaciones}}</td>
             <td><button class="btn btn-warning" ng-click="muestraDocumento(actividades)">Ver Fotos</button></td>
