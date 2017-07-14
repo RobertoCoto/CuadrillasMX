@@ -87,6 +87,7 @@
 	<result column="no_trabajadores" property="noTrabajadores"/>
 	<result column="no_horas" property="noHoras"/>
 	<result column="no_horas_trabajadas" property="noHorasTrabajadas"/>
+	<result column="porcentaje" property="porcentajeHoras"/>
 	<result column="porcentaje_completas" property="porcentajeCompletas"/>
 	<result column="porcentaje_dia" property="porcentajeDia"/>
 	<result column="observaciones" property="observaciones"/>
@@ -328,7 +329,7 @@ ORDER BY orden
 	LEFT JOIN empleado er ON er.id_cuadrilla = cu.id_cuadrilla AND er.estatus = 'A' AND er.codigo_puesto = 'RESI'
 	WHERE ad.id_agenda_detalle = #{idAgendaDetalle}
 	AND ad.estatus = 'A'
-	
+
 </select>
 
 <select id="consultaActividadDetalle" parameterType="ActividadDiariaDetalle" resultMap="actividadDiariaDetalle">

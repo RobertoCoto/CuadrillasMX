@@ -53,14 +53,26 @@ public class AutorizaActividadBuzon extends HttpServlet {
 			String autorizacion = request.getParameter("autorizacion");
 			String usuario = request.getParameter("usuario");
 			String comentario = request.getParameter("comentario");
+			String noHorasTrabajadas = request.getParameter("noHorasTrabajadas");
+			String porcentaje = request.getParameter("porcentaje");
 
 			//crea objeto de negocio
 			final AgendaNegocio negocio = new AgendaNegocio();
 
 			ActividadDiariaCampoDTO actividadDiaria = new ActividadDiariaCampoDTO();
 			actividadDiaria.setIdAgendaDetalle(idAgendaDetalle);
-			if(autorizacion == null) {
+			if (autorizacion == null) {
 				autorizacion = "";
+			}
+			if (noHorasTrabajadas == null || noHorasTrabajadas.trim().isEmpty() ) {
+				actividadDiaria.setNoHorasTrabajadas(0);
+			} else {
+				actividadDiaria.setNoHorasTrabajadas(Integer.parseInt(noHorasTrabajadas));
+			}
+			if (porcentaje == null || porcentaje.trim().isEmpty() ) {
+				actividadDiaria.setPorcentajeHoras(0);
+			} else {
+				actividadDiaria.setPorcentajeHoras(Float.parseFloat(porcentaje));
 			}
 			actividadDiaria.setAutorizacion(autorizacion.toUpperCase());
 			actividadDiaria.setUsuarioAutorizacion(usuario);

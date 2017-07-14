@@ -1072,7 +1072,7 @@ public class AgendaDAO {
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
 	        int registros = sessionTx.delete("AgendaDAO.eliminaActividadDiariaCoordenadas", actividadDiaria);
-			
+
 			//Realizamos commit
 			LogHandler.debug(uid, this.getClass(), "Commit!!!");
 			sessionTx.commit();

@@ -188,7 +188,9 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 		autorizacion = #{autorizacion},
 		fecha_autorizacion = now(),
 		usuario_autorizacion = #{usuarioAutorizacion},
-		comentario_autorizacion = #{comentarioAutorizacion}
+		comentario_autorizacion = #{comentarioAutorizacion},
+		no_horas_trabajadas =  #{noHorasTrabajadas},
+		porcentaje  = #{porcentajeHoras}
 	WHERE id_actividad_diaria = #{idAgendaDetalle}
 </update>
 
