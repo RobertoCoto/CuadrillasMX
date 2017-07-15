@@ -68,11 +68,17 @@ public class AltaActividadDiaria {
 	@Test
 	public void testAltaAgenda() throws Exception {
 		String guid = "123456789";
-		
 		AgendaNegocio negocio = new AgendaNegocio();
 		try {
 			//negocio.registraActividadDiaria(actividadDiaria);
-			negocio.eliminaActividadDiaria(actividadDiaria);
+			//negocio.eliminaActividadDiaria(actividadDiaria);
+
+			ActividadDiariaDocumentosDTO doc = new ActividadDiariaDocumentosDTO();
+			doc.setIdActividadDiaria(1);
+			doc.setCodigoActividad("INCI");
+			doc.setUrl("URL");
+			doc.setUsuarioAlta("usuario");
+			negocio.registraActividadDiariaDocumentos(doc);
 		} catch (Exception ex) {
 			LogHandler.debug(guid, this.getClass(), "Error");
 		}

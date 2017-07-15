@@ -51,12 +51,6 @@ public class ConsultaActividadDocumentos extends HttpServlet {
 			Integer idActividadDiaria = Integer.parseInt(request.getParameter("idActividadDiaria"));
 			String codigoActividad = request.getParameter("codigoActividad");
 
-			/* descomentar para proxy FISA
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080"); */
-
 			//crea objeto de negocio
 			final AgendaNegocio negocio = new AgendaNegocio();
 

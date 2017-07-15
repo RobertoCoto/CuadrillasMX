@@ -175,11 +175,15 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 <insert id="altaActividadDiariaDocumentos" parameterType="ActividadDiariaDocumentos">
 	INSERT INTO actividad_diaria_documentos
 	(
-	 	id_actividad_diaria,codigo_actividad,consecutivo,url,usuario_alta,fecha_alta,estatus
+	 	id_actividad_diaria,codigo_actividad,
+	 	consecutivo
+	 	,url,usuario_alta,fecha_alta,estatus
 	)
 	VALUES
 	(
-		#{idActividadDiaria},#{codigoActividad},#{consecutivo},#{url},#{usuarioAlta},now(),'A'
+		#{idActividadDiaria},#{codigoActividad}, 
+		(SELECT ifnull(max(a.consecutivo),0) + 1 FROM actividad_diaria_documentos a WHERE a.id_actividad_diaria = #{idActividadDiaria} AND a.codigo_actividad = #{codigoActividad})
+		,#{url},#{usuarioAlta},now(),'A'
 	)
 </insert>
 
@@ -195,10 +199,7 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 </update>
 
 <update id="bajaActividadDiariaDetalle" parameterType="ActividadDiariaDetalle">
-	UPDATE actividad_diaria_detalle SET
-			estatus = 'I',
-			usuario_baja = #{usuarioUltMod},
-			fecha_baja = now()
+	DELETE actividad_diaria_detalle
 	WHERE id_actividad_diaria = #{idActividadDiaria}
 	AND codigo_actividad = #{codigoActividad}
 	AND estatus = 'A'
@@ -209,5 +210,14 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 	DELETE FROM actividad_diaria_coordenadas
 	WHERE id_actividad_diaria = #{idActividadDiaria}
 </delete>
+
+<update id="terminaCapturaActividadCampo" parameterType="ActividadDiariaCampo">
+	UPDATE actividad_diaria SET
+		envio_autorizacion = 'S',
+		envio_fecha_autorizacion = now(),
+		envio_usuario_autorizacion = #{envioUsuarioAutorizacion},
+		observaciones	= #{observaciones}
+	WHERE id_actividad_diaria = #{idActividadDiaria}
+</update>
 
 </mapper>

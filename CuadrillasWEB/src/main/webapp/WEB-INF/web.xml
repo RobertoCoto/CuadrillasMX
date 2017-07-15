@@ -429,6 +429,18 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.RevisaActividadDocumentos</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>TerminaActividadDiariaCampo</servlet-name>
+  	<display-name>TerminaActividadDiariaCampo</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.TerminaActividadDiariaCampo</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RegistraFotoActividad</servlet-name>
+  	<display-name>RegistraFotoActividad</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.actividad.RegistraFotoActividad</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -712,5 +724,13 @@
 	<servlet-mapping>
 		<servlet-name>RevisaActividadDocumentos</servlet-name>
 		<url-pattern>/RevisaActividadDocumentos</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TerminaActividadDiariaCampo</servlet-name>
+		<url-pattern>/TerminaActividadDiariaCampo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistraFotoActividad</servlet-name>
+		<url-pattern>/RegistraFotoActividad</url-pattern>
 	</servlet-mapping>
 </web-app>

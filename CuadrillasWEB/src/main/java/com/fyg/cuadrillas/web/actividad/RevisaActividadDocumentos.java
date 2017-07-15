@@ -70,6 +70,9 @@ public class RevisaActividadDocumentos extends HttpServlet {
 			if (array[1].equals("jpg")) {
 				mime = "image/jpg";
 			}
+			if (array[1].equals("jpeg")) {
+				mime = "image/jpeg";
+			}
 			else if (array[1].equals("png")) {
 				mime = "image/png";
 			}

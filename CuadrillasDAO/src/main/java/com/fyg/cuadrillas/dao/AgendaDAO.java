@@ -1032,7 +1032,7 @@ public class AgendaDAO {
 						"No es posible dar de baja la Actividad, ya que es una actividad Planeada.");
 			}
 			int bajaActividad
-			= (Integer) sessionTx.update("AgendaDAO.bajaActividadDiariaDetalle", actividadDiaria);
+			= (Integer) sessionTx.delete("AgendaDAO.bajaActividadDiariaDetalle", actividadDiaria);
 			if (bajaActividad == 0) {
 				throw new ExcepcionesCuadrillas(
 						"No fue posible dar de baja la Actividad, actividad no encontrada.");
@@ -1087,6 +1087,53 @@ public class AgendaDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+		}
+		return respuesta;
+	}
+
+	/***
+	 * Metodo para autorizar las actividades
+	 * @param uid unico de registro
+	 * @param actividadDiaria recibe la actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta terminaActividadDiaria(String uid, ActividadDiariaCampoDTO actividadDiaria) {
+		SqlSession sessionTx = null;
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("La actividad ha sido autorizada correctamente.");
+		try {
+			//Validamos si ya existe un contrato
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			int existeEnvioAutorizacionActividadDiaria =
+					(Integer) sessionNTx.selectOne("AgendaDAO.existeTerminoActividadCampo", actividadDiaria);
+			if (existeEnvioAutorizacionActividadDiaria == 1) {
+				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se envio a autorizar.");
+			}
+
+			//Abrimos conexion Transaccional
+			sessionTx = FabricaConexiones.obtenerSesionTx();
+	        int registros = sessionTx.update("AgendaDAO.terminaCapturaActividadCampo", actividadDiaria);
+			if ( registros == 0) {
+				throw new ExcepcionesCuadrillas("Error al autorizar la actividad.");
+			}
+			//Realizamos commit
+			LogHandler.debug(uid, this.getClass(), "Commit!!!");
+			sessionTx.commit();
+
+		} catch (Exception ex) {
+			//Realizamos rollBack
+			LogHandler.debug(uid, this.getClass(), "RollBack!!");
+			FabricaConexiones.rollBack(sessionTx);
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;
 	}

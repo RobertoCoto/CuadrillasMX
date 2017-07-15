@@ -11,6 +11,7 @@ import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dao.AgendaDAO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCampoRespuesta;
+import com.fyg.cuadrillas.dto.actividad.ActividadDiariaCoordenadasDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosDTO;
 import com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosRespuesta;
@@ -398,38 +399,38 @@ public class AgendaNegocio {
 	 */
 	public ActividadDiariaDocumentosRespuesta consultaActividadDocumentos(ActividadDiariaDocumentosDTO documentos) {
 		//Primero generamos el identificador unico de la transaccion
-				String uid = GUIDGenerator.generateGUID(documentos);
-				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Entrada: " + documentos);
-				ActividadDiariaDocumentosRespuesta respuesta = new ActividadDiariaDocumentosRespuesta();
-				 respuesta.setHeader( new EncabezadoRespuesta());
-				 respuesta.getHeader().setUid(uid);
-				 respuesta.getHeader().setEstatus(true);
-				 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
-				 List<ActividadDiariaDocumentosDTO> documentosRespuesta = null;
-				 try {
-					 if (documentos.getIdActividadDiaria() == null) {
-						 throw new ExcepcionesCuadrillas("Es necesario el ID de la actividad para la busqueda.");
-					 }
-					 if (documentos.getCodigoActividad() == null || documentos.getCodigoActividad().trim().isEmpty()) {
-						 throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad para la busqueda.");
-					 }
-					 documentosRespuesta = new AgendaDAO().consultaDocumentosActividad(uid, documentos);
-					 respuesta.setDocumentos(documentosRespuesta);
-				 } catch  (ExcepcionesCuadrillas ex) {
-						LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
-						respuesta.getHeader().setEstatus(false);
-						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-					} catch (Exception ex) {
-				    	LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
-				    	respuesta.getHeader().setEstatus(false);
-						respuesta.getHeader().setMensajeFuncional(ex.getMessage());
-						respuesta.getHeader().setMensajeTecnico(ex.getMessage());
-				    }
-				    LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
-					return respuesta;
-			}
+		String uid = GUIDGenerator.generateGUID(documentos);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Entrada: " + documentos);
+		ActividadDiariaDocumentosRespuesta respuesta = new ActividadDiariaDocumentosRespuesta();
+		 respuesta.setHeader( new EncabezadoRespuesta());
+		 respuesta.getHeader().setUid(uid);
+		 respuesta.getHeader().setEstatus(true);
+		 respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+		 List<ActividadDiariaDocumentosDTO> documentosRespuesta = null;
+		 try {
+			 if (documentos.getIdActividadDiaria() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la actividad para la busqueda.");
+			 }
+			 if (documentos.getCodigoActividad() == null || documentos.getCodigoActividad().trim().isEmpty()) {
+				 throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad para la busqueda.");
+			 }
+			 documentosRespuesta = new AgendaDAO().consultaDocumentosActividad(uid, documentos);
+			 respuesta.setDocumentos(documentosRespuesta);
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
+				respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
+		    	respuesta.getHeader().setEstatus(false);
+				respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+				respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+		    }
+		    LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
+			return respuesta;
+	}
 	/**
 	 * Metodo para autorizar las actividades.
 	 * @param actividadDiaria recibe parametros de actividad
@@ -521,9 +522,10 @@ public class AgendaNegocio {
 		LogHandler.debug(uid, this.getClass(), "guardarCoordenadasActividadDiaria - Datos Entrada: " + actividadDiaria);
 		//Variable de resultado
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
-		try {		
+		try {
 			if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
-				 throw new ExcepcionesCuadrillas("Es necesario el ID de la Actividad Dirari para el registro de las coordenadas.");
+				 throw new ExcepcionesCuadrillas(
+						 "Es necesario el ID de la Actividad Diaria para el registro de las coordenadas.");
 			}
 			if (actividadDiaria.getCoordenadasReal() == null || actividadDiaria.getCoordenadasReal().size() < 2)  {
 					throw new ExcepcionesCuadrillas("Es necesario al menos dos coordenadas GPS.");
@@ -588,5 +590,112 @@ public class AgendaNegocio {
 				}
 				LogHandler.debug(uid, this.getClass(), "autorizaActividadDiaria - Datos Salida: " + respuesta);
 				return respuesta;
+	}
+
+	/**
+	 * Metodo para terminar la captura de las actividades diarias.
+	 * @param actividadDiaria recibe valores de actividad
+	 * @return regresa respuesta
+	 */
+	public EncabezadoRespuesta terminaActividadDiaria(ActividadDiariaCampoDTO actividadDiaria) {
+		//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(actividadDiaria);
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "registraActividadDiaria - Datos Entrada: " + actividadDiaria);
+				//Variable de resultado
+				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+				try {
+					if (actividadDiaria.getIdActividadDiaria() == null || actividadDiaria.getIdActividadDiaria() == 0) {
+						throw new ExcepcionesCuadrillas("Es necesario el id Actividad Diaria de la actividad.");
+					}
+					if (actividadDiaria.getObservaciones() == null || actividadDiaria.getObservaciones().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario una observacion.");
+					}
+					if (actividadDiaria.getEnvioUsuarioAutorizacion() == null
+							|| actividadDiaria.getEnvioUsuarioAutorizacion().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el usuario de la trasaccion.");
+					}
+					if (actividadDiaria.getCoordenadasReal() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario al menos dos coordenadas GPS.");
+					}
+					if (actividadDiaria.getCoordenadasReal().size() < 2) {
+						throw new ExcepcionesCuadrillas("Es necesario al menos dos coordenadas GPS.");
+					}
+
+					for ( ActividadDiariaCoordenadasDTO coordenada : actividadDiaria.getCoordenadasReal()) {
+
+						if (coordenada.getOrden() == 0) {
+							throw new ExcepcionesCuadrillas("El orden en la coordenada es incorrecto.");
+						}
+						if (coordenada.getLatitud() == null) {
+							throw new ExcepcionesCuadrillas("El atributo de latitud en la coordenada es incorrecto.");
+						}
+						if (coordenada.getLongitud() == null) {
+							throw new ExcepcionesCuadrillas("El atributo de latitud en la coordenada es incorrecto.");
+						}
+						if (coordenada.getDireccion() == null) {
+							coordenada.setDireccion("");
+						}
+					}
+
+					AgendaDAO dao = new AgendaDAO();
+					respuesta = dao.terminaActividadDiaria(uid, actividadDiaria);
+				}
+				catch  (Exception ex) {
+					LogHandler.error(uid, this.getClass(), "registraActividadDiaria - Error: " + ex.getMessage(), ex);
+					respuesta.setUid(uid);
+					respuesta.setEstatus(false);
+					respuesta.setMensajeFuncional(ex.getMessage());
+					respuesta.setMensajeTecnico(ex.getMessage());
+				}
+				LogHandler.debug(uid, this.getClass(), "registraActividadDiaria - Datos Salida: " + respuesta);
+				return respuesta;
+	}
+
+	/**
+	 * Metodo para consultar los documentos
+	 * @param documento recibe el id del documento
+	 * @return regresa la lista de documentos
+	 */
+	public EncabezadoRespuesta registraActividadDiariaDocumentos(ActividadDiariaDocumentosDTO documento) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(documento);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Entrada: " + documento);
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		 respuesta.setUid(uid);
+		 respuesta.setEstatus(true);
+		 respuesta.setMensajeFuncional("Consulta correcta.");
+		 	 try {
+			 if (documento.getIdActividadDiaria() == null) {
+				 throw new ExcepcionesCuadrillas("Es necesario el ID de la actividad para subir la imagen.");
+			 }
+			 if (documento.getCodigoActividad() == null || documento.getCodigoActividad().trim().isEmpty()) {
+				 throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad para subir la imagen.");
+			 }
+			 if (documento.getUrl() == null || documento.getUrl().trim().isEmpty()) {
+				 throw new ExcepcionesCuadrillas("Es necesaria la URL para subir la imagen.");
+			 }
+			 if (documento.getUsuarioAlta() == null || documento.getUsuarioAlta().trim().isEmpty()) {
+				 throw new ExcepcionesCuadrillas("Es necesario el usuario para subir la imagen.");
+			 }			 
+			 new AgendaDAO().registraActividadDiariaDocumentos(uid, documento, null);
+			 respuesta.setCodigo(documento.getUrl());
+
+		 } catch  (ExcepcionesCuadrillas ex) {
+				LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
+				respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+		} catch (Exception ex) {
+		    	LogHandler.error(uid, this.getClass(), "consultaActividadDocumentos - Error: " + ex.getMessage(), ex);
+		    	respuesta.setUid(uid);
+				respuesta.setEstatus(false);
+				respuesta.setMensajeFuncional(ex.getMessage());
+				respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
+		return respuesta;
 	}
 }

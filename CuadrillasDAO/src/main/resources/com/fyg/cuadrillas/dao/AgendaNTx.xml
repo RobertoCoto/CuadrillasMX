@@ -106,6 +106,7 @@
 	<result column="consecutivo" property="consecutivo"/>
 	<result column="url" property="url"/>
 	<result column="estatus" property="estatus"/>
+	<result column="usuario_alta" property="usuarioAlta"/>
 </resultMap>
 
 <resultMap type="ActividadDiariaCoordenadas" id="actividadDiariaCoordenadas">
@@ -494,5 +495,12 @@ AND estatus = 'A'
 	FROM actividad_diaria
 	WHERE autorizacion = 'N'
 	AND  id_agenda_detalle = #{idAgendaDetalle}
+</select>
+
+<select id="existeTerminoActividadCampo" parameterType="ActividadDiariaCampo" resultType="int">
+	SELECT count(*)
+	FROM actividad_diaria
+	WHERE envio_autorizacion = 'S'
+	AND  id_actividad_diaria = #{idActividadDiaria}
 </select>
 </mapper>
