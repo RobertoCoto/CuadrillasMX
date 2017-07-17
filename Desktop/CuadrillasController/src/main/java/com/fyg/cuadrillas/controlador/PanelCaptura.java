@@ -441,6 +441,7 @@ public class PanelCaptura extends JApplet
  			        altaHuella.setEnabled(false);
  			        panelHuella.setVisible(false);
  			        btnAltaHuella.setEnabled(true);
+ 			       consultaHuella.setEnabled(true);
  			       detieneLector();
 				}
 			});
