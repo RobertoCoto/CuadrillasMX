@@ -392,6 +392,7 @@ public class PanelCaptura extends JApplet
 					btnVerificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							try {
+								JOptionPane.showMessageDialog(null,"Coloque su huella en el lector.");
 								comparaHuellas();
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
