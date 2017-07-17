@@ -16,6 +16,45 @@ $(document).ready(function(){
     $('#tiempoDestinado').click(function () {
         $(this).select();
     });
+ // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    var config1 = {
+        messages: {
+            default: 'Subir imagen',
+            replace: 'Reemplazar',
+            remove:  'Eliminar',
+            error:   'Error '
+        }
+    };
+
+    // Used events
+    var drEvent = $('#input-file-events1').dropify(config1);
+    var drEvent2 = $('#input-file-events2').dropify(config1);
+
+    drEvent.on('dropify.beforeClear', function(event, element){
+        return confirm("Desea eliminar imagen \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element){
+        alert('Archivo Eliminado');
+    });
+
+    drEvent.on('dropify.errors', function(event, element){
+        console.log('Con errores');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e){
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
     
 });
 var dataBckp;
@@ -33,14 +72,34 @@ var asyncLoop = function(o){
 }
 var usuarioRegistra, idActDiaria, datos;
 angular.module('tatei', ['ui.materialize'])
-
+	.service('fileUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(codigoActividad, url, usuarioAlta, uploadUrl){
+	    	$('#msload').show();
+	        var fd = new FormData();
+	        fd.append('codigoActividad', codigoActividad);
+	        fd.append('url', url);
+	        fd.append('usuarioAlta', usuarioAlta);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(aa){
+						console.log(aa);
+						$('#msload').hide();
+	        })
+	        .error(function(aa){
+						console.log(aa);
+						$('#msload').hide();
+	        });
+	    }
+	}])
     .controller('AppCtrl', function($scope, $http, $window) {
     	var map;
         var map2;
         var medida;
         var medida2;
-	    $scope.id = $window.idAgendaDetalle;
-		$scope.usuario = $window.user;
+	    $scope.id = 1;//$window.idAgendaDetalle;
+		$scope.usuario = 'test1';//$window.user;
         usuarioRegistra = $scope.usuario;
         idActDiaria =  $scope.id;
         
@@ -48,6 +107,14 @@ angular.module('tatei', ['ui.materialize'])
         $scope.toast = function (message, duration) {
             Materialize.toast(message, duration);
         }
+        
+        $scope.subirImagen = function(actividad) {
+	  
+			console.log('Archivo a subir: ' );
+			console.dir(actividad);
+			var uploadUrl = "/CuadrillasWEB/RegistraFotoActividad";
+			fileUpload.uploadFileToUrl(actividad.codigoActividad, "test", usuarioRegistra, uploadUrl);
+	      };
 
         $scope.initMap = function() {
                 medida = {
@@ -91,14 +158,14 @@ angular.module('tatei', ['ui.materialize'])
             url: 'http://localhost:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idActDiaria,
             }).then(function successCallback(response) {
                 //console.log(response);
-                //$('#msload').hide();
+                $('#msload').hide();
                 datos = response.data.actividadDiaria;
                 $scope.listaActividades = datos.actividadDiariaDetalle;
                 $scope.tramoInicialP = datos.coordenadasEsperado[0].direccion;
                 $scope.tramoFinalP = datos.coordenadasEsperado[datos.coordenadasEsperado.length-1].direccion;
 
                 
-                var coordenadasArray = response.data.actividadDiaria.coordenadasEsperado;
+                var coordenadasArray = response.data.actividadDiaria.coordenadasEsperado;/*
                 asyncLoop({
                     length : coordenadasArray.length,
                     forHSA : function(loop, i){
@@ -111,7 +178,7 @@ angular.module('tatei', ['ui.materialize'])
                         $('#msload').hide();
                     }    
                 });
-                
+                */
 
             }, function errorCallback(response) {
                 console.error(response);
@@ -342,6 +409,21 @@ angular.module('tatei', ['ui.materialize'])
         }
         $scope.guardarActividadDetalle = function(data) {
             console.info(data);
+            $scope.actividadesCat.forEach(function(element) {
+                if(element.codigo == data.codigoActividad) {
+                	data.descripcionActividad = element.descripcion;
+                }
+            }, this);
+            $scope.prioridadCat.forEach(function(element) {
+                if(element.codigo == data.codigoPrioridad) {
+                	data.descripcionPrioridad = element.descripcion;
+                }
+            }, this);
+            $scope.estadoCat.forEach(function(element) {
+                if(element.codigo == data.codigoEstado) {
+                	data.descripcionEstado = element.descripcion;
+                }
+            }, this);
             if(data.planeada == undefined) {
             	data.planeada = 'N';
             }
@@ -393,8 +475,7 @@ angular.module('tatei', ['ui.materialize'])
 	                    $('#edicionActividades').modal('close');
 	                    Materialize.toast(response.data.mensajeFuncional, 7000);
 	                    $.each($scope.listaActividades, function(i){
-	                        if($scope.listaActividades[i].codigoActividad === data.codigoActividad 
-	                        		&& $scope.listaActividades[i].observaciones === data.observaciones) {
+	                        if($scope.listaActividades[i].codigoActividad === data.codigoActividad) {
 	                        	$scope.listaActividades.splice(i,1);
 	                            return false;
 	                        }
@@ -532,3 +613,12 @@ angular.module('tatei', ['ui.materialize'])
         }
         $scope.openModal = false;
     });;
+    
+    function encodeImageFileAsURL(element) {
+    	  var file = element.files[0];
+    	  var reader = new FileReader();
+    	  reader.onloadend = function() {
+    	    console.log('RESULTADO', reader.result)
+    	  }
+    	  reader.readAsDataURL(file);
+    	}
