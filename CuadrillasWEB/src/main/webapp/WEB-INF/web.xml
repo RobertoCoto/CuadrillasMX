@@ -441,6 +441,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.actividad.RegistraFotoActividad</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ValidaEliminaAgendaDetalle</servlet-name>
+  	<display-name>ValidaEliminaAgendaDetalle</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.agenda.ValidaEliminaAgendaDetalle</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -732,5 +738,9 @@
 	<servlet-mapping>
 		<servlet-name>RegistraFotoActividad</servlet-name>
 		<url-pattern>/RegistraFotoActividad</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ValidaEliminaAgendaDetalle</servlet-name>
+		<url-pattern>/ValidaEliminaAgendaDetalle</url-pattern>
 	</servlet-mapping>
 </web-app>

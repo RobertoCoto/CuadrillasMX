@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.text.Normalizer.Form;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;

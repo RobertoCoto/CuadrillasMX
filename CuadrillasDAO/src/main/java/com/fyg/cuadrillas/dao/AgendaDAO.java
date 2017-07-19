@@ -1,6 +1,8 @@
 package com.fyg.cuadrillas.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -1133,6 +1135,60 @@ public class AgendaDAO {
 		}
 		finally {
 			FabricaConexiones.close(sessionTx);
+			FabricaConexiones.close(sessionNTx);
+		}
+		return respuesta;
+	}
+
+	public EncabezadoRespuesta consultaAgendaDetalleValidacion(String uid, AgendaDetalleDTO agenda) throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			final HashMap<String,Object> params = new HashMap<String, Object>();
+			params.put("id_agenda", agenda.getIdAgenda());
+			params.put("id_agenda_detalle", agenda.getIdAgendaDetalle());
+			
+			//Se hace una consulta a la tabla
+			@SuppressWarnings("unchecked")
+			List<HashMap<String,Object>> resultado = sessionNTx.selectList("AgendaDAO.consultaAgendaDetalleValidacion", params);
+			if ( resultado == null) {
+				throw new ExcepcionesCuadrillas("No existe datos para la Agenda Detalle solicitada.");
+			}
+			for ( HashMap<String,Object> row : resultado) {
+				System.out.println(row.get("fecha"));
+				System.out.println(row.get("estatus"));
+				System.out.println(row.get("fecha_ult_mod_ad"));
+				System.out.println(row.get("fecha_ult_mod_adde"));
+								
+				Date fecha = formateador.parse(row.get("fecha").toString());
+				Date fechaHoy = new Date();
+				if ( !row.get("estatus").toString().equals("A") ) {
+					throw new ExcepcionesCuadrillas("El detalle de la agenda no puede ser eliminado, ya esta inactivo.");
+				}
+				//Validacion de Fechas
+				if ( fecha.before(fechaHoy) || fecha.equals(fechaHoy) ) {
+					throw new ExcepcionesCuadrillas("El detalle de la agenda no puede ser eliminado, por la fecha de la actividad. Las actividades ya estan en proceso.");
+				}
+				if (row.get("fecha_ult_mod_ad") != null) {
+					throw new ExcepcionesCuadrillas("El detalle de la agenda no puede ser eliminado, ya existe captura de las actividades");
+				}
+				if (row.get("fecha_ult_mod_adde") != null) {
+					throw new ExcepcionesCuadrillas("El detalle de la agenda no puede ser eliminado, ya existe captura de las actividades");
+				}
+			}
+
+		} catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
 			FabricaConexiones.close(sessionNTx);
 		}
 		return respuesta;

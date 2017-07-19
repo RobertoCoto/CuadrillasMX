@@ -503,4 +503,16 @@ AND estatus = 'A'
 	WHERE envio_autorizacion = 'S'
 	AND  id_actividad_diaria = #{idActividadDiaria}
 </select>
+
+<select id="consultaAgendaDetalleValidacion" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select a.fecha, a.estatus, ad.fecha_ult_mod as fecha_ult_mod_ad, 
+		adde.fecha_ult_mod as fecha_ult_mod_adde, adde.codigo_actividad, adde.planeada
+	from agenda_detalle a
+	inner join actividad_diaria ad on ad.id_agenda_detalle = a.id_agenda_detalle and ad.estatus = 'A'
+	inner join actividad_diaria_detalle adde on adde.id_actividad_diaria = ad.id_actividad_diaria and adde.estatus = 'A'
+	where a.id_agenda =  #{id_agenda}
+	and a.id_agenda_detalle =  #{id_agenda_detalle}
+
+</select>
+
 </mapper>

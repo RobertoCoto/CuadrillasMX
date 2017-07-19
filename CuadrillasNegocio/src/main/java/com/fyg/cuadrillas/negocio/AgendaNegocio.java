@@ -113,6 +113,7 @@ public class AgendaNegocio {
 		LogHandler.debug(uid, this.getClass(), "altaAgenda - Datos Salida: " + respuesta);
 		return respuesta;
 	}
+
 	/**
 	 * Metodo para dar de baja la agenda
 	 * @param agenda recibe valores de agenda
@@ -696,6 +697,41 @@ public class AgendaNegocio {
 				respuesta.setMensajeTecnico(ex.getMessage());
 		}
 		LogHandler.debug(uid, this.getClass(), "consultaActividadDocumentos - Datos Salida: " + respuesta);
+		return respuesta;
+	}
+
+	/**
+	 * Metodo para validar la eliminacion del detalle la agenda de un contrato
+	 * @param agenda datos de la agenda
+	 * @return respuesta del registro
+	 */
+	public EncabezadoRespuesta validaEliminaAgendaDetalle(AgendaDetalleDTO agenda) {
+		//Primero generamos el identificador unico de la transaccion
+		String uid = GUIDGenerator.generateGUID(agenda);
+		//Mandamos a log el objeto de entrada
+		LogHandler.debug(uid, this.getClass(), "validaEliminaAgendaDetalle - Datos Entrada: " + agenda);
+		SimpleDateFormat formateador = new SimpleDateFormat("YYYY-mm-dd");
+		//Variable de resultado
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		try {
+			if (agenda.getIdAgenda() <= 0) {
+				throw new ExcepcionesCuadrillas("Es necesario el ID de la Agenda.");
+			}
+			if (agenda.getIdAgendaDetalle() == null || agenda.getIdAgendaDetalle() <= 0) {
+				throw new ExcepcionesCuadrillas("Es necesaria el ID DEtalle de la Agenda.");
+			}
+
+			AgendaDAO dao = new AgendaDAO();
+			respuesta = dao.consultaAgendaDetalleValidacion(uid, agenda);
+		}
+		catch  (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "validaEliminaAgendaDetalle - Error: " + ex.getMessage(), ex);
+			respuesta.setUid(uid);
+			respuesta.setEstatus(false);
+			respuesta.setMensajeFuncional(ex.getMessage());
+			respuesta.setMensajeTecnico(ex.getMessage());
+		}
+		LogHandler.debug(uid, this.getClass(), "validaEliminaAgendaDetalle - Datos Salida: " + respuesta);
 		return respuesta;
 	}
 }
