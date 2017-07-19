@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+	<head>
+    	<title> Reporte </title>
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">    	    	   
+  	</head>
+<style>
+.inpurError
+	{
+		background: #FF0000;
+	}
+	
+	input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(3); /* IE */
+  -moz-transform: scale(3); /* FF */
+  -webkit-transform: scale(3); /* Safari and Chrome */
+  -o-transform: scale(3); /* Opera */
+  padding: 10px;
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+}
+
+.responsive-input{
+  width: 100%;
+  resize: none;
+}
+</style>
+<style>
+.asterisco {
+   color: #F70505;
+   font-size: 120%
+}
+</style>
+<body ng-app="tatei"> 
+<div class="container">
+	<h2>Reportes</h2>
+	<div id="success" class="alert alert-success alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>AVISO!</strong> <span id="msgaviso"></span>
+                  </div>
+                  <div id="alert" class="alert alert-danger alert-dismissable fade in">
+                    <a href="" class="close" ng-click="hideAlerts()" data-dismiss="hideAlerts()" aria-label="close">&times;</a>
+                    <strong>ATENCIÓN!</strong> <span id="msgerror"></span>
+                  </div>
+		<div>
+		<div>
+			<form name="formReporte" id="formReporte" novalidate>
+				<div class="row">
+		 			<div class="col-sm-2">
+		                <div class="form-group form-group-sm">
+		                    <label for="fechaInicial" class="control-label">Fecha inicial</label>
+		                    <div class="input-group">
+		          				<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+		          				<input class="form-control"  name="fechaInicial" id="fechaInicial" placeholder="AAAA-MM-DD"/>
+		       				</div>
+		                </div>
+		            </div>
+		           	<div class="col-sm-2">
+		                <div class="form-group form-group-sm">
+		                    <label for="fechaFinal" class="control-label">Fecha final</label>
+		                    <div class="input-group">
+		          				<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+		          				<input class="form-control"  name="fechaFinal" id="fechaFinal" placeholder="AAAA-MM-DD"/>		          				
+		       				</div>
+		                </div>
+		            </div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12" class="table-responsive">
+						<table border=0 cellspacing=0 width="100%">
+            				<tr class="success" style="background:#dff0d8">
+			                	<th ng-repeat="header in encabezados" >
+			                	    {{ header }}
+			                	</th>
+            				</tr>
+            				<tr ng-repeat="item in datos">
+                				<td ng-repeat="header in encabezados">
+                    				{{ item[header]}}
+                				</td>
+            				</tr>
+		        		</table>
+   			    	</div>
+   			    </div>
+			     			     
+			    <div class="btn-group">
+			     <input class="btn botonLimpiar" type="submit" value="Limpiar" ng-click="limpiarCampos(formReporte)">
+			    </div>
+			    <div class="btn-group">
+			     <input class="btn botonGuardar"  type="submit" name="consultar" value="Consultar" data-ng-click="consultar()" id="consultar">
+			    </div>			    			    							   
+			</form>
+		</div>
+		</div>
+	</div>
+        <!-- Código fuente de AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   
+        <!-- Lodash: para procesamiento de arreglos y colecciones entre otros -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>	
+</body>
+</html>

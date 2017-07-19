@@ -171,8 +171,8 @@ var data;
             })
             .state('52', {
             	url: '/52',
-                templateUrl : 'reporte3 pendiente',
-                controller  : 'pendiente'
+                templateUrl : 'templates/reporte.html',
+                controller  : 'reporte'
             })
             .state('otherwise', {redirectTo : '/login'});
  	});
