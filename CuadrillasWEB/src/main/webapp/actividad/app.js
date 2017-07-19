@@ -520,9 +520,12 @@ angular.module('tatei', ['ui.materialize'])
             }).then(function mySuccess(response) {
                 console.info(response);
                 if(response.data.estatus === true) {
-                	Materialize.toast(response.data.mensajeFuncional, 7000,'',function(){$window.close()})
+                	$('#msload').show();
+                	Materialize.toast(response.data.mensajeFuncional, 2000,'',function(){$window.close()})
                 } else {
                 	$('#msload').hide();
+//                	$('#msload').show();
+//                	Materialize.toast(response.data.mensajeFuncional, 7000,'',function(){$window.close()})
                     Materialize.toast(response.data.mensajeFuncional, 7000);
                 }
 
