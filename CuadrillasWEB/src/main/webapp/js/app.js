@@ -2529,7 +2529,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     		  // se llena catalogo de actividades
     	      $http({
     	              method: 'GET',
-    	              url: '/CuadrillasWEB/ValidaAgendaDetalle',
+    	              url: '/CuadrillasWEB/ValidaEliminaAgendaDetalle',
     	              params: {
     	                'idAgenda'			: idAgenda,
     	                'idAgendaDetalle'	: idAgendaDetalle
