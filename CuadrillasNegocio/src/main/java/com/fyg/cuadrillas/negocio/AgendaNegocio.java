@@ -321,17 +321,20 @@ public class AgendaNegocio {
 					if (actividadDiaria.getCodigoActividad() == null || actividadDiaria.getCodigoActividad().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el codigo de la actividad.");
 					}
+					if (actividadDiaria.getCodigoEstado() == null || actividadDiaria.getCodigoEstado().trim().isEmpty()) {
+						throw new ExcepcionesCuadrillas("Es necesario el codigo del estado de la actividad.");
+					}
 					if (actividadDiaria.getCodigoListoVencido() == null
 							|| actividadDiaria.getCodigoListoVencido().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el codigo listo vencido.");
 					}
-					if (actividadDiaria.getNumeroPersonas() == null || actividadDiaria.getNumeroPersonas() == 0) {
+					if (actividadDiaria.getNumeroPersonas() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el numero de personas.");
 					}
-					if (actividadDiaria.getNumeroUnidades() == null || actividadDiaria.getNumeroUnidades() == 0) {
+					if (actividadDiaria.getNumeroUnidades() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el numero de unidades.");
 					}
-					if (actividadDiaria.getPorcentaje() == null || actividadDiaria.getPorcentaje() == 0) {
+					if (actividadDiaria.getPorcentaje() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el porcentaje avanzado.");
 					}
 					if (actividadDiaria.getObservaciones() == null || actividadDiaria.getObservaciones().trim().isEmpty()) {
@@ -343,6 +346,56 @@ public class AgendaNegocio {
 					if (!(actividadDiaria.getPlaneada().trim().equals("S")
 							|| actividadDiaria.getPlaneada().trim().equals("N"))) {
 						throw new ExcepcionesCuadrillas("El valor de la actividad planeada debe ser S o N.");
+					}
+					
+					//Validaciones por Codigo Estado Actividad
+					//COMPLETO
+					if (actividadDiaria.getCodigoEstado().trim().equals("COMP")) {						
+						if (actividadDiaria.getPorcentaje() != 100.0f) {
+							throw new ExcepcionesCuadrillas("La actividad esta COMPLETA, debe tener 100% de porcentaje avance.");
+						}
+						if (actividadDiaria.getNumeroPersonas() <= 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta COMPLETA, el numero de personas debe ser mayor a 0.");
+						}
+						if (actividadDiaria.getNumeroUnidades() <= 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta COMPLETA, el numero de unidades ML, M2, M3 debe ser mayor a 0.");
+						}
+					}
+					//NO INICIADA
+					if (actividadDiaria.getCodigoEstado().trim().equals("NOIN")) {						
+						if (actividadDiaria.getPorcentaje() != 0.0f) {
+							throw new ExcepcionesCuadrillas("La actividad esta NO INICIADA, debe tener 0% de porcentaje avance.");
+						}
+						if (actividadDiaria.getNumeroPersonas() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta NO INICIADA, el numero de personas debe ser  0.");
+						}
+						if (actividadDiaria.getNumeroUnidades() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta NO INICIADA, el numero de unidades ML, M2, M3 debe ser 0.");
+						}
+					}
+					//PROGRESO
+					if (actividadDiaria.getCodigoEstado().trim().equals("PROG")) {						
+						if (actividadDiaria.getPorcentaje() > 0.0f) {
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, debe tener 0% de porcentaje avance.");
+						}
+						if (actividadDiaria.getNumeroPersonas() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de personas debe ser  0.");
+						}
+						if (actividadDiaria.getNumeroUnidades() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de unidades ML, M2, M3 debe ser 0.");
+						}
+					}
+					//APLAZADA
+					if (actividadDiaria.getCodigoEstado().trim().equals("APLA")) {						
+						if (actividadDiaria.getPorcentaje() != 0.0f) {
+							throw new ExcepcionesCuadrillas("La actividad esta APLAZADA, debe tener 0% de porcentaje avance.");
+						}
+						if (actividadDiaria.getNumeroPersonas() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta APLAZADA, el numero de personas debe ser  0.");
+						}
+						if (actividadDiaria.getNumeroUnidades() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta APLAZADA, el numero de unidades ML, M2, M3 debe ser 0.");
+						}
 					}
 					AgendaDAO dao = new AgendaDAO();
 					respuesta = dao.registraActividadDiaria(uid, actividadDiaria);
