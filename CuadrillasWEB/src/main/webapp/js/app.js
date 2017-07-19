@@ -3627,9 +3627,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
 				cadena = "Favor de verificar: El número de serie." ;
 				error=true;
 			}	
-								
-			$('#alert').show();
-			$('#msgerror').text(cadena);
+				
+			if (error == true)
+			{
+				$('#alert').show();
+				$('#msgerror').text(cadena);
+			}
+			else
+			{
+				$('#alert').hide();
+			}
+			
 			return error;
 	    }
 	    
