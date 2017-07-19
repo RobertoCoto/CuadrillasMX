@@ -496,21 +496,22 @@ public List<EmpleadoDTO> consultaGeneralEmpleado(String uid)throws Exception {
 	    * @param empleadoHuella recibe valores de huella
 	    * @return regresa respuesta
 	    */
-	   public EmpleadoHuellaDTO consultaHuella(String uid, EmpleadoHuellaDTO empleadoHuella) throws Exception {
+	   @SuppressWarnings("unchecked")
+	public List<EmpleadoHuellaDTO> consultaHuella(String uid, EmpleadoHuellaDTO empleadoHuella) throws Exception {
 		   SqlSession sessionNTx = null;
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
 			respuesta.setMensajeFuncional("Consulta correcta.");
-			EmpleadoHuellaDTO huella = null;
+			List<EmpleadoHuellaDTO> huella = null;
 			try {
 				//Abrimos conexion Transaccional
 				LogHandler.debug(uid, this.getClass(), "Abriendo");
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();
 				LogHandler.debug(uid, this.getClass(), "Consultando");
 				//Se hace una consulta a la tabla contacto
-				huella = (EmpleadoHuellaDTO) sessionNTx.selectOne("empleadoDAO.consultaHuellaEmpleado", empleadoHuella);
-				if ( huella.equals(0)) {
+				huella = sessionNTx.selectList("empleadoDAO.consultaHuellaEmpleado", empleadoHuella);
+				if ( huella.size() == 0) {
 					throw new ExcepcionesCuadrillas("No existe registro de la huella seleccionada.");
 				}
 			} catch (Exception ex) {

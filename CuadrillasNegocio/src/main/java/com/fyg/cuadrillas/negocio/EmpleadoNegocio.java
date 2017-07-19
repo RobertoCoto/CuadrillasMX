@@ -723,20 +723,12 @@ public class EmpleadoNegocio {
 		respuesta.getHeader().setEstatus(true);
 		respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
 
-		EmpleadoHuellaDTO huella = null;
+		List<EmpleadoHuellaDTO> huella = null;
 
 	    try {
 	    	if (empleadoHuella.getIdEmpleado() == null)
 	    	{
 	    		throw new ExcepcionesCuadrillas("Es necesario el id del empleado para la busqueda.");
-	    	}
-	    	if (empleadoHuella.getCodigoMano() == null)
-	    	{
-	    		throw new ExcepcionesCuadrillas("Es necesario el codigo de la mano para la busqueda.");
-	    	}
-	    	if (empleadoHuella.getCodigoDedo() == null)
-	    	{
-	    		throw new ExcepcionesCuadrillas("Es necesario el codigo del dedo para la busqueda.");
 	    	}
 	    	huella = new EmpleadoDAO().consultaHuella(uid, empleadoHuella);
 	    	respuesta.setEmpleadoHuella(huella);
