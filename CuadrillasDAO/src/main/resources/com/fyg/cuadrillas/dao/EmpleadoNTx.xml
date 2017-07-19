@@ -168,7 +168,5 @@ FROM empleado_huella h
 LEFT JOIN catalogo ca ON ca.codigo = h.codigo_mano
 LEFT JOIN catalogo cat ON cat.codigo = h.codigo_dedo
 WHERE h.id_empleado = #{idEmpleado}
-AND h.codigo_mano = #{codigoMano}
-AND h.codigo_dedo = #{codigoDedo}
 </select>
 </mapper>

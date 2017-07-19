@@ -38,7 +38,9 @@ import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -54,6 +56,8 @@ import java.awt.BorderLayout;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+
 
 
 
@@ -263,7 +267,7 @@ public class PanelCaptura extends JApplet
 		    });
 			
 			//****************** Alta de Huella********************* */
-			btnAltaHuella = new JButton("   Alta   ");
+			btnAltaHuella = new JButton("Registra Huella");
 			btnAltaHuella.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
@@ -315,7 +319,7 @@ public class PanelCaptura extends JApplet
 			panelBotones.add(btnAltaHuella);
 			
 			//******************** Consulta de Huella ****************************/
-			consultaHuella = new JButton("Consulta");
+			consultaHuella = new JButton(" Verifica Huella ");
 			consultaHuella.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					 //******************** panel de consulta huella**********************/
@@ -323,13 +327,6 @@ public class PanelCaptura extends JApplet
 					consulta.setBorder(new TitledBorder(null,
 							"Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
                     
-					//combo de la mano
-					catalogoManoConsulta = new JComboBox();
-					consulta.add(catalogoManoConsulta);
-
-					//combo de los dedos
-					catalogoDedosConsulta = new JComboBox();
-					consulta.add(catalogoDedosConsulta);
 					
 					//consulta.setLayout(new SpringLayout()); 
 					imagenHuellaD = new JLabel();
@@ -339,69 +336,37 @@ public class PanelCaptura extends JApplet
 					imagenHuellaD.setLocation(700, 60);
 					btnAltaHuella.setEnabled(false);
 					consultaHuella.setEnabled(false);
-					inicioLector();
-		//************************* llenado de catalogo****************************//
-					try {
-						//si este ya tiene datos
-						catalogoManoConsulta.removeAllItems();
-						catalogoDedosConsulta.removeAllItems();
-			        	  //Llenando combo
-				    		String direccion =
-				    				"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
-				    		String salida  = getUrlContents(direccion);
-				    		JSONParser parser = new JSONParser();
-			    			Object obj = parser.parse(salida);
-			    			JSONObject jsonCatalogoMano = (JSONObject) obj;
-			    			JSONArray arrayCatalogoMano = (JSONArray) jsonCatalogoMano.get("catalogo");
-
-			    			for (int j = 0; j < arrayCatalogoMano.size(); j++) {
-			    				JSONObject mano = (JSONObject) arrayCatalogoMano.get(j);
-			    				String descripcion = (String) mano.get("descripcion");
-			    				catalogoManoConsulta.addItem(descripcion);
-			    			}
-			    			String direccionConsulta =
-			    					"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
-				    		String salidaCatalogo  = getUrlContents(direccionConsulta);
-				    		JSONParser parseo = new JSONParser();
-			    			Object objCatalogo = parseo.parse(salidaCatalogo);
-			    			JSONObject jsonCatalogoDedo = (JSONObject) objCatalogo;
-			    			JSONArray arrayCatalogoDedo = (JSONArray) jsonCatalogoDedo.get("catalogo");
-
-			    			for	(int k = 0; k < arrayCatalogoDedo.size(); k++) {
-			    				JSONObject dedo = (JSONObject) arrayCatalogoDedo.get(k);
-			    				String descripcionDedo = (String) dedo.get("descripcion");
-			    				catalogoDedosConsulta.addItem(descripcionDedo);
-			    			}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
 					
-					verificar = new JButton("Carga Template");
-					verificar.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							try {
-								cargaTemplate();
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					});
+		
+//					verificar = new JButton("Carga Template");
+//					verificar.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent arg0) {
+//							try {
+//								cargaTemplate();
+//							} catch (Exception e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//						}
+//					});
 					
-					btnVerificar = new JButton("Verifica Huella");
+					btnVerificar = new JButton("Iniciar");
+					
+					
 					btnVerificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							try {
 								JOptionPane.showMessageDialog(null,"Coloque su huella en el lector.");
-								comparaHuellas();
+								inicioLector();
+								verificaHuella();
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
 					});
-					btnVerificar.setEnabled(false);
-					consulta.add(verificar);
+					//btnVerificar.setEnabled(false);
+					//consulta.add(verificar);
 					consulta.add(btnVerificar);
 					consulta.add(imagenHuellaD);
 					getContentPane().add(consulta, BorderLayout.CENTER);
@@ -918,111 +883,104 @@ public class PanelCaptura extends JApplet
 		}
 	}
 	
-	public void cargaTemplate() {
-		String consulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
-   		String resul  = getUrlContents(consulta);
-   	    try {
-   	    	JSONParser parser = new JSONParser();
-   			Object obj = parser.parse(resul);
-   			JSONObject jsonCatalogoManoWS = (JSONObject) obj;
-   			JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS.get("catalogo");
-   			String codigoMano = null;
-				for (int j = 0; j < arrayCatalogoManoWS.size(); j++) {
-   				JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
-   				String descripcionWS = (String) manoWS.get("descripcion");
-   				if (descripcionWS.equals(catalogoManoConsulta.getSelectedItem())) {
-   					codigoMano = (String) manoWS.get("codigo");
-   					System.out.println("Seleccion Mano Codigo: " + codigoMano);
-   				}
-   			}
-				String direccionConsultaWS =
-						"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
-	    		String salidaCatalogoWS  = getUrlContents(direccionConsultaWS);
-	    		JSONParser parseoWS = new JSONParser();
-   			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
-   			JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
-   			JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS.get("catalogo");
-   			String codigoDedo = null;
-   			for	(int k = 0; k < arrayCatalogoDedoWS.size(); k++) {
-   				JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
-   				String descripcionDedoWS = (String) dedoWS.get("descripcion");
-
-   				if (descripcionDedoWS.equals(catalogoDedosConsulta.getSelectedItem())) {
-   					codigoDedo = (String) dedoWS.get("codigo");
-   					System.out.println("Seleccion Dedo: " + codigoDedo);
-   				}
-   			}
-   			
-   			//para consultar la huella
-   			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
-   			System.out.println("el id empleado es: " + idEmpleado);
-   			String consultaHuella = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado=" + idEmpleado 
-   					+ "&codigoMano=" + codigoMano + "&codigoDedo=" + codigoDedo;
-      		    String salidaHuella  = getUrlContents(consultaHuella);
-   			System.out.println(salidaHuella);
-   			
-   			BufferedImage imgHuella = null;
-				JSONParser parseoHuella = new JSONParser();
-				Object objHuella = parseoHuella.parse(salidaHuella);
-				JSONObject jsonHuella = (JSONObject) objHuella;
-				JSONObject arrayHuella = (JSONObject) jsonHuella.get("empleadoHuella");
-				
-				String rutImagen = (String) arrayHuella.get("huella");
-				
-				URL url= new URL(rutImagen);
-				URI d = url.toURI();
-				File rut = new File(d.getSchemeSpecificPart());
-				
-				FileInputStream stream = new FileInputStream(rut);
-				byte[] data = new byte[stream.available()];
-				stream.read(data);
-				stream.close();
-				
-				t.deserialize(data);
-				setTemplate(t);
-				btnVerificar.setEnabled(true);
-   			
-   	    } catch (Exception ex) {
-   	    	
-   	    }
-	}
-	
-	protected void comparaHuellas() {
+	protected void verificaHuella(){
 		capturer.addDataListener(new DPFPDataAdapter() {
 			@Override public void dataAcquired(final DPFPDataEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {	public void run() {
 					
 					JOptionPane.showMessageDialog(null,"La huella digital ha sido capturada.");
-					verificaHuella(e.getSample());
+					comparaHuella(e.getSample());
 				}});
 			}
 		});
 	}
 	
-	public void verificaHuella(DPFPSample sample) {
+	public void comparaHuella(DPFPSample sample) {
+		
 		// Process the sample and create a feature set for the enrollment purpose.
-				DPFPFeatureSet features = extractFeatures(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
-				// Check quality of the sample and start verification if it's good
-				dibujaHuella(convertSampleToBitmap(sample));
-				String nombreEmpleado = tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 2).toString();
-				String appP = tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 3).toString();
-				if (features != null)
-				{
-					// Compare the feature set with our template
-					DPFPVerificationResult result = 
-						verificator.verify(features, getTemplate());
+		DPFPFeatureSet features = extractFeatures(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
+		// Check quality of the sample and start verification if it's good
+		dibujaHuella(convertSampleToBitmap(sample));
+		DPFPVerificationResult result = null;
+		setTemplate(null);
+		String nombreEmpleado = tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 2).toString();
+		String appP = tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 3).toString();
+		 try {
+			//para consultar la huella
+	   			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
+	   			System.out.println("el id empleado es: " + idEmpleado);
+	   			String consultaHuellas = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado=" + idEmpleado ;
+	      		String salidaHuella  = getUrlContents(consultaHuellas);
+	      		boolean stats = false;
+	   			//System.out.println(salidaHuella);
+	   			
+	   			JSONParser parser = new JSONParser();
+	   			Object obj = parser.parse(salidaHuella);
+	   			JSONObject jsonHuellasWS = (JSONObject) obj;
+	   			JSONArray arrayHuellasWS = (JSONArray) jsonHuellasWS.get("empleadoHuella");
+	   			
+	   			for (int h=0;h<arrayHuellasWS.size();h++) {
+	   				JSONObject huellaWS = (JSONObject) arrayHuellasWS.get(h);
+	   				String tipoHuellaWS = (String) huellaWS.get("huella");
+	   				
+	   				
+	   				URL url= new URL(tipoHuellaWS);
+					URI d = url.toURI();
+					File rut = new File(d.getSchemeSpecificPart());
 					
-					if (result.isVerified()) {
-						JOptionPane.showMessageDialog(null,"Se ha verificado su identidad: " + nombreEmpleado + " " + appP );
+					List<String> rutas = new ArrayList<String>();
+					rutas.add(rut.toString());
+					
+					for (int r=0;r<rutas.size();r++) {
+						
+						FileInputStream stream = new FileInputStream(new File(rutas.get(r)));
+						byte[] data = new byte[stream.available()];
+						stream.read(data);
+						stream.close();
+						t.deserialize(data);
+						setTemplate(t);
+					 if (features != null) {
+						// Compare the feature set with our template
+						  result = 
+							verificator.verify(features, getTemplate());
+						
+						if (result.isVerified()) {
+							JOptionPane.showMessageDialog(null,"Se ha verificado su identidad: " + nombreEmpleado + " " + appP );
+							btnAltaHuella.setEnabled(true);
+							consultaHuella.setEnabled(true);
+							imagenHuellaD.setIcon(null);
+							consulta.setVisible(false);
+						    detieneLector();
+						    setTemplate(null);
+						    features = null;
+						    stats = true;
+						    break;
+						}  
+						
+							
+					 }
+					 if (!result.isVerified()) {
+					   JOptionPane.showMessageDialog(null,"La huella es incorrecta, revise por favor.");
+						
 						btnAltaHuella.setEnabled(true);
 						consultaHuella.setEnabled(true);
 						imagenHuellaD.setIcon(null);
+						
 						consulta.setVisible(false);
-					    detieneLector();
+						detieneLector();
+						return;
+					 }
+						
 					}
-					else
-						JOptionPane.showMessageDialog(null,"La huella es incorrecta, revise por favor.");
-				}
+					
+					 
+	   			}
+	   			
+	   			
+		 } catch (Exception ex) {
+			 
+		 }
+		
 	}
   	
 }

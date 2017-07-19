@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.dto.empleado;
 
+import java.util.List;
+
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ObjetoValor;
 
@@ -12,7 +14,7 @@ public class EmpleadoHuellaRespuesta extends ObjetoValor {
 	/** respuesta */
 	private EncabezadoRespuesta header;
 	/** catalogo */
-	private EmpleadoHuellaDTO empleadoHuella;
+	private List<EmpleadoHuellaDTO> empleadoHuella;
 	/**
 	 * Estatus
 	 */
@@ -43,10 +45,18 @@ public class EmpleadoHuellaRespuesta extends ObjetoValor {
 	public void setHeader(EncabezadoRespuesta header) {
 		this.header = header;
 	}
-	public EmpleadoHuellaDTO getEmpleadoHuella() {
+
+	/**
+	 * @return the empleadoHuella
+	 */
+	public List<EmpleadoHuellaDTO> getEmpleadoHuella() {
 		return empleadoHuella;
 	}
-	public void setEmpleadoHuella(EmpleadoHuellaDTO empleadoHuella) {
+
+	/**
+	 * @param empleadoHuella the empleadoHuella to set
+	 */
+	public void setEmpleadoHuella(List<EmpleadoHuellaDTO> empleadoHuella) {
 		this.empleadoHuella = empleadoHuella;
 	}
 }

@@ -22,16 +22,13 @@ public class ConsultaHuellaEmpleadoWS {
 	@GET
 	@Path("/empleado")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response consultaHuella(@QueryParam("idEmpleado")Integer idEmpleado,@QueryParam("codigoMano")String codigoMano
-			,@QueryParam("codigoDedo")String codigoDedo) {
+	public Response consultaHuella(@QueryParam("idEmpleado")Integer idEmpleado) {
 		EmpleadoHuellaRespuesta respuesta = new EmpleadoHuellaRespuesta();
 		Gson sg = new Gson();
 		try {
 			EmpleadoNegocio negocio = new EmpleadoNegocio();
 			EmpleadoHuellaDTO empleadoHuella = new EmpleadoHuellaDTO();
 			empleadoHuella.setIdEmpleado(idEmpleado);
-			empleadoHuella.setCodigoMano(codigoMano);
-			empleadoHuella.setCodigoDedo(codigoDedo);
 			respuesta = negocio.consultaHuella(empleadoHuella);
 		} catch (Exception ex) {
 			String result = sg.toJson(respuesta);
