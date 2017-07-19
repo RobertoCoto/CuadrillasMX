@@ -358,7 +358,7 @@ public class PanelCaptura extends JApplet
 							try {
 								JOptionPane.showMessageDialog(null,"Coloque su huella en el lector.");
 								inicioLector();
-								verificaHuella();
+								verificaHuella();							
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -712,7 +712,7 @@ public class PanelCaptura extends JApplet
   		imagenHuella.setIcon(new ImageIcon(
 			image.getScaledInstance(imagenHuella.getWidth(), imagenHuella.getHeight(), Image.SCALE_DEFAULT)));
 	}
-  //pinta la imagen en nuestro template
+    //pinta la imagen en nuestro template
   	public void dibujaHuella(Image image) {
   		imagenHuellaD.setIcon(new ImageIcon(
 			image.getScaledInstance(imagenHuellaD.getWidth(), imagenHuellaD.getHeight(), Image.SCALE_DEFAULT)));
@@ -721,7 +721,6 @@ public class PanelCaptura extends JApplet
 	protected Image convertSampleToBitmap(DPFPSample sample) {
 		return DPFPGlobal.getSampleConversionFactory().createImage(sample);
 	}
-	
 	//extrae las caracteristicas de la huella
   	protected DPFPFeatureSet extractFeatures(DPFPSample sample, DPFPDataPurpose purpose)
 	{
@@ -881,21 +880,42 @@ public class PanelCaptura extends JApplet
 			break;
 		}
 	}
+
+	boolean algo = false;
 	
-	protected void verificaHuella(){
-		capturer.addDataListener(new DPFPDataAdapter() {
-			@Override public void dataAcquired(final DPFPDataEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {	public void run() {
-					
-					JOptionPane.showMessageDialog(null,"La huella digital ha sido capturada.");
-					comparaHuella(e.getSample());
-				}});
+	protected void verificaHuella() {
+		
+		algo = true;
+		
+		System.out.println("addDataListener " + capturer.getListeners(DPFPDataAdapter.class).length);
+		
+		DPFPDataAdapter dataAdapter  = new DPFPDataAdapter() {
+			@Override 
+			public void dataAcquired(final DPFPDataEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {	
+					public void run() {		
+
+						if (algo) {
+							algo = false;
+							JOptionPane.showMessageDialog(null,"La huella digital ha sido capturada.");
+							comparaHuella(e.getSample());
+						} else {
+							return;
+						}
+					}
+				});
 			}
-		});
+		};
+		capturer.addDataListener(dataAdapter);
+
+		capturer.removeDataListener(dataAdapter);
+		System.out.println("remove listener");
 	}
 	
 	public void comparaHuella(DPFPSample sample) {
 		
+			
+		System.out.println("**************** Entra comparaHuella ");
 		// Process the sample and create a feature set for the enrollment purpose.
 		DPFPFeatureSet features = extractFeatures(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
 		// Check quality of the sample and start verification if it's good
@@ -918,6 +938,8 @@ public class PanelCaptura extends JApplet
 	   			JSONObject jsonHuellasWS = (JSONObject) obj;
 	   			JSONArray arrayHuellasWS = (JSONArray) jsonHuellasWS.get("empleadoHuella");
 	   			
+	   			System.out.println("arrayHuellasWS size: " + arrayHuellasWS.size() );
+
 	   			for (int h=0;h<arrayHuellasWS.size();h++) {
 	   				JSONObject huellaWS = (JSONObject) arrayHuellasWS.get(h);
 	   				String tipoHuellaWS = (String) huellaWS.get("huella");
@@ -929,7 +951,8 @@ public class PanelCaptura extends JApplet
 					
 					List<String> rutas = new ArrayList<String>();
 					rutas.add(rut.toString());
-					
+					System.out.println("rutas size: " + rutas.size() );					
+
 					for (int r=0;r<rutas.size();r++) {
 						
 						FileInputStream stream = new FileInputStream(new File(rutas.get(r)));
