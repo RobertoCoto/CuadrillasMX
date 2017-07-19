@@ -2416,6 +2416,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		  			mapaTemp.fecha = $scope.mapa.fecha;
 		  			mapaTemp.diaDesc = $scope.obtenerDiaDesc(fecha) + " " + $scope.mapa.fecha;
 		  			mapaTemp.observaciones = $("#observaciones").val();
+		  			mapaTemp.idAgendaDetalle = 0;
 					$scope.diasAgenda.push(mapaTemp);
 		  		}
 
@@ -2500,23 +2501,69 @@ app.directive('fileModel', ['$parse', function ($parse) {
       };
 
       //eliminar de las agendas
-      $scope.eliminarDiaAgenda = function(fecha)
+      $scope.eliminarDiaAgenda = function(fecha, idAgendaDetalle)
       {
     	  //console.info("Fecha");
     	  //console.info(fecha);
     	  //console.info($scope.diasAgenda);
-			for(var i=$scope.diasAgenda.length-1; i>=0; i--)
-			{
-				if ($scope.diasAgenda[i].fecha == fecha)
-				{
-					$('#observaciones').val($scope.diasAgenda[i].observaciones);
-					$scope.diasAgenda.splice(i,1);
-					break;
-				}
-			}
+    	  $('#msload').modal('show');
+    	  
+    	  if (idAgendaDetalle == 0 || idAgendaDetalle == undefined || idAgendaDetalle == 'undefined')
+    	  {
+    		  for(var i=$scope.diasAgenda.length-1; i>=0; i--)
+    		  {
+    			  if ($scope.diasAgenda[i].fecha == fecha)
+    			  {
+    				  $('#observaciones').val($scope.diasAgenda[i].observaciones);
+    				  $scope.diasAgenda.splice(i,1);
+    				  break;
+    			  }
+    		  }
 			
-			$scope.limpiarMarcadoresLectura();
-			$scope.colocarMarcadoresSeleccionados();
+    		  $scope.limpiarMarcadoresLectura();
+    		  $scope.colocarMarcadoresSeleccionados();
+    		  $('#msload').modal('hide');
+    	  }
+    	  else
+    	  {
+    		  // se llena catalogo de actividades
+    	      $http({
+    	              method: 'GET',
+    	              url: '/CuadrillasWEB/ValidaAgendaDetalle',
+    	              params: {
+    	                'idAgenda'			: idAgenda,
+    	                'idAgendaDetalle'	: idAgendaDetalle
+    	              },
+    	              data: { }
+    	       		}).then(function successfn(result) {
+    	       			if (result.data.header.estatus == true)
+    	       			{
+	    	          		  for(var i=$scope.diasAgenda.length-1; i>=0; i--)
+	    	        		  {
+	    	        			  if ($scope.diasAgenda[i].fecha == fecha)
+	    	        			  {
+	    	        				  $('#observaciones').val($scope.diasAgenda[i].observaciones);
+	    	        				  $scope.diasAgenda.splice(i,1);
+	    	        				  break;
+	    	        			  }
+	    	        		  }
+	    	    			
+	    	        		  $scope.limpiarMarcadoresLectura();
+	    	        		  $scope.colocarMarcadoresSeleccionados();    	       				
+    	       			}
+    	       			else
+    	       			{
+        	       			alert(response.data.header.mensajeFuncional);    	       				
+    	       			}
+    	       			
+    	       			$('#msload').modal('hide');
+    	          // console.log(result);
+    	       		}, function errorfn(response) {
+    	       			//console.error(response);
+    	       			alert(response.data.header.mensajeFuncional);
+    	       			$('#msload').modal('hide');
+    	       		});    		  
+    	  }
       };
 
       //valida agenda agregada
@@ -2792,7 +2839,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               data: { }
 	      }).then(function successfn(response) {
         	//console.info("***consulta");
-        	//console.info(response);
+        	console.info(response);
         	//alert(response.data.header.mensajeFuncional);
         	idAgenda = response.data.agenda.idAgenda;
         	$scope.procesarConsulta(response.data);        	
@@ -2970,6 +3017,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   			agendaTemp.fecha = fechaObj;
   			agendaTemp.diaDesc = $scope.obtenerDiaDesc(fechaObj) + " " + fechaObj;
   			agendaTemp.observaciones = objConsulta.agenda.diasAgenda[i].observaciones;
+  			agendaTemp.idAgendaDetalle = objConsulta.agenda.diasAgenda[i].idAgendaDetalle;
 			$scope.diasAgenda.push(agendaTemp);
 			
 			$scope.llenaObjetosSemanales(fechaObj);			

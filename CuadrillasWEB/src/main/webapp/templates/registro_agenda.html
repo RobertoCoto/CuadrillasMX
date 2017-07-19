@@ -221,7 +221,7 @@
 	                          				<span id="km"></span>
 	                        			</div>
 	                      			</div>
-	                    			<div class="tbl-content" style="height:590px;">
+	                    			<div class="tbl-content" style="height:590px; overflow-y: scroll; overflow-x:hidden;">
 	                      				<table cellpadding="0" cellspacing="0" border="0">
 	                        				<tbody id="tramos" width="493px">
 	                        				</tbody>
@@ -276,7 +276,7 @@
                         <td width="15%">{{direccion.diaDesc}}</td>
                         <td width="15%">{{direccion.metros}}</td>
                         <td width="63%">{{direccion.direccion}}</td>
-                        <td width="7%"><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarDiaAgenda(direccion.fecha)"></span></center></td>
+                        <td width="7%"><center><span class="fa fa-times fa-2x" aria-hidden="true" style="color: red; font-size: 2pd; cursor:pointer;" ng-click="eliminarDiaAgenda(direccion.fecha, direccion.idAgendaDetalle)"></span></center></td>
                       </tr>
                     </tbody>
                   </table>
@@ -297,7 +297,7 @@
                    				<span id="km2"></span>
                  			</div>
                			</div>
-             			<div class="tbl-content" style="height:590px;">
+             			<div class="tbl-content" style="height:590px; overflow-y: scroll; overflow-x:hidden;">
                				<table cellpadding="0" cellspacing="0" border="0">
                  				<tbody id="tramos2" width="493px">
                  				</tbody>
