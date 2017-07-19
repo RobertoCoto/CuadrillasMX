@@ -845,7 +845,6 @@ public class PanelCaptura extends JApplet
 			} catch(Exception f) {
 				
 			}
-			
 			//guarda huella
 			if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 				try {
