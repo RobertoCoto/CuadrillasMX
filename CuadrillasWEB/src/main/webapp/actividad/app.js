@@ -70,7 +70,7 @@ var asyncLoop = function(o){
     } 
     loop();
 }
-var usuarioRegistra, idActDiaria, datos;
+var usuarioRegistra, idActDiaria, datos, actividaddata;
 angular.module('tatei', ['ui.materialize'])
 	.service('fileUpload', ['$http', function ($http) {
 	    this.uploadFileToUrl = function(codigoActividad, url, usuarioAlta, uploadUrl){
@@ -98,8 +98,8 @@ angular.module('tatei', ['ui.materialize'])
         var map2;
         var medida;
         var medida2;
-	    $scope.id = 1;//$window.idAgendaDetalle;
-		$scope.usuario = 'test1';//$window.user;
+	    $scope.id = $window.idAgendaDetalle;
+		$scope.usuario = $window.user;
         usuarioRegistra = $scope.usuario;
         idActDiaria =  $scope.id;
         
@@ -151,21 +151,24 @@ angular.module('tatei', ['ui.materialize'])
         };
         $scope.initMap();
         $scope.listaActividades = [];
+        $scope.actividadMaster = {};
         $scope.consultaAgenda = function(idAgenda) {
 
             $http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idActDiaria,
+            url: '/CuadrillasWS/service/consultaActividadDiaria/actividad?idAgendaDetalle=' + idActDiaria,
             }).then(function successCallback(response) {
                 //console.log(response);
-                $('#msload').hide();
+                //$('#msload').hide();
                 datos = response.data.actividadDiaria;
                 $scope.listaActividades = datos.actividadDiariaDetalle;
                 $scope.tramoInicialP = datos.coordenadasEsperado[0].direccion;
                 $scope.tramoFinalP = datos.coordenadasEsperado[datos.coordenadasEsperado.length-1].direccion;
 
-                
-                var coordenadasArray = response.data.actividadDiaria.coordenadasEsperado;/*
+                actividaddata = response.data.actividadDiaria;
+                $scope.actividadMaster = actividaddata;
+                console.info(actividaddata);
+                var coordenadasArray = response.data.actividadDiaria.coordenadasEsperado;
                 asyncLoop({
                     length : coordenadasArray.length,
                     forHSA : function(loop, i){
@@ -178,7 +181,7 @@ angular.module('tatei', ['ui.materialize'])
                         $('#msload').hide();
                     }    
                 });
-                */
+                
 
             }, function errorCallback(response) {
                 console.error(response);
@@ -323,31 +326,42 @@ angular.module('tatei', ['ui.materialize'])
                     var direccion = 'SN';
                     geocoder.geocode({'location': latlng}, function(results, status) {
                       //console.log(results);
+                    	/*
+                    	 * direccion:""
+                    	 * idAgenda:0
+                    	 * idContrato:0
+                    	 * latitud:19.274
+                    	 * longitud:-98.9356
+                    	 * orden:1
+                    	 */
                       if (status === google.maps.GeocoderStatus.OK) {
                         if (results[1]) {
                           direccion =  results[0].formatted_address;
-                          /*var coordenadaP = {};
+                          console.log(direccion);
+                          var coordenadaP = {};
                           var coordenadasTemp = [];
                           coordenadaP.latitud = latLng.lat();
                           coordenadaP.longitud = latLng.lng();
                           coordenadaP.direccion = direccion;
-                          if($scope.contratoFocus.coordenadas && $scope.contratoFocus.coordenadas.length > 0) {
-														coordenadaP.orden = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].orden + 1;
-														if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
-															coordenadaP.idContrato = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato;
-														}
-														if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda){
-															coordenadaP.idAgenda = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda;
-														}
-                            $scope.contratoFocus.coordenadas.push(coordenadaP);
+                          coordenadaP.idAgenda = $scope.actividadMaster.idAgenda;
+                          if($scope.actividadMaster.coordenadasReal && $scope.actividadMaster.coordenadasReal.length > 0) {
+								coordenadaP.orden = $scope.actividadMaster.coordenadasReal[$scope.actividadMaster.coordenadasReal.length-1].orden + 1;
+//								if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
+//									coordenadaP.idContrato = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato;
+//								}
+//								if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda){
+//									coordenadaP.idAgenda = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda;
+//								}
+								$scope.actividadMaster.coordenadasReal.push(coordenadaP);
                           } else {
-														coordenadaP.orden = 1;
-														if($scope.contratoFocus.idContrato) {
-															coordenadaP.idContrato = $scope.contratoFocus.idContrato;
-														}
+								coordenadaP.orden = 1;
+//								if($scope.contratoFocus.idContrato) {
+//									coordenadaP.idContrato = $scope.contratoFocus.idContrato;
+//								}
                             coordenadasTemp.push(coordenadaP);
-                            $scope.contratoFocus.coordenadas = coordenadasTemp;
-                          } */
+                            $scope.actividadMaster.coordenadasReal = coordenadasTemp;
+                          } 
+                          console.log($scope.actividadMaster);
                           $scope.mLineaRecta2();
 
                         } else {
@@ -362,7 +376,7 @@ angular.module('tatei', ['ui.materialize'])
 					    $('#msload').hide();
                       }
                     });
-                $scope.mLineaRecta();
+                //$scope.mLineaRecta();
             };
             $scope.mLineaRecta = function() {
                 if (medida.mvcLine.getLength() > 1) {
@@ -399,7 +413,7 @@ angular.module('tatei', ['ui.materialize'])
             };
     })
     
-    .controller("ModalController", function ($scope, $http) {
+    .controller("ModalController", function ($scope, $http, $window) {
         $scope.readyCallback = function () {
             Materialize.toast("listo", 1000);
         }
@@ -435,7 +449,7 @@ angular.module('tatei', ['ui.materialize'])
             var jsonData = JSON.stringify(data);
             $http({
                 method: "GET",
-                url: "http://localhost:8080/CuadrillasWS/service/registraActividadDiaria/actividad",
+                url: "/CuadrillasWS/service/registraActividadDiaria/actividad",
                 params: {jsonRegistraActividad: jsonData}
 
             }).then(function mySuccess(response) {
@@ -466,7 +480,7 @@ angular.module('tatei', ['ui.materialize'])
 	            var jsonData = JSON.stringify(data);
 	            $http({
 	                method: "GET",
-	                url: "http://localhost:8080/CuadrillasWS/service/registraActividadDiaria/baja",
+	                url: "/CuadrillasWS/service/registraActividadDiaria/baja",
 	                params: {jsonEliminarActividad: jsonData}
 	
 	            }).then(function mySuccess(response) {
@@ -491,6 +505,31 @@ angular.module('tatei', ['ui.materialize'])
             	Materialize.toast("No es posible eliminar una actividad planeada.", 7000);
             }
         }
+        $scope.terminarCaptura = function() {
+        	$scope.actividadMaster.observaciones = $scope.observacionesGenerales2;//$('#observacionesGenerales').value
+        	$scope.actividadMaster.envioUsuarioAutorizacion = usuarioRegistra;
+            console.info($scope.actividadMaster);
+            ///CuadrillasWS/service/registraActividadDiaria/terminaCaptura?jsonTerminaActividad
+            var jsonData = JSON.stringify($scope.actividadMaster);
+            $('#msload').show();
+            $http({
+                method: "GET",
+                url: "/CuadrillasWS/service/registraActividadDiaria/terminaCaptura",
+                params: {jsonTerminaActividad: jsonData}
+
+            }).then(function mySuccess(response) {
+                console.info(response);
+                if(response.data.estatus === true) {
+                	Materialize.toast(response.data.mensajeFuncional, 7000,'',function(){$window.close()})
+                } else {
+                	$('#msload').hide();
+                    Materialize.toast(response.data.mensajeFuncional, 7000);
+                }
+
+            }, function myError(response) {
+                console.log(response);
+            });
+        }
         $scope.abrir = function(actividad) {
             dataBckp = actividad;
             //console.info(actividad);
@@ -506,7 +545,7 @@ angular.module('tatei', ['ui.materialize'])
             //Catalogo Atividad
             $http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ACTIVIDADE'
+            url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ACTIVIDADE'
             }).then(function successCallback(response) {
                 //console.log(response);
                 $scope.actividadesCat = response.data.catalogo;
@@ -514,14 +553,14 @@ angular.module('tatei', ['ui.materialize'])
                 //Catalogo Estado
                 $http({
                 method: 'GET',
-                url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
+                url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
                 }).then(function successCallback(response) {                    
                     $scope.estadoCat = response.data.catalogo;
 
                     //Catalogo Prioridad
                     $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=PRIO_ACT'
+                    url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=PRIO_ACT'
                     }).then(function successCallback(response) {
                         //console.log(response);
                         $scope.prioridadCat = response.data.catalogo;
@@ -529,7 +568,7 @@ angular.module('tatei', ['ui.materialize'])
                         //Catalogo Listo Vencido
                         $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LIST_VENC'
+                        url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LIST_VENC'
                         }).then(function successCallback(response) {
                             //console.log(response);
                             $scope.listoVencidoCat = response.data.catalogo;
@@ -565,7 +604,7 @@ angular.module('tatei', ['ui.materialize'])
             //Catalogo Atividad
             $http({
             method: 'GET',
-            url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ACTIVIDADE'
+            url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ACTIVIDADE'
             }).then(function successCallback(response) {
                 //console.log(response);
                 $scope.actividadesCat = response.data.catalogo;
@@ -573,14 +612,14 @@ angular.module('tatei', ['ui.materialize'])
                 //Catalogo Estado
                 $http({
                 method: 'GET',
-                url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
+                url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=ESTA_ACT'
                 }).then(function successCallback(response) {                    
                     $scope.estadoCat = response.data.catalogo;
 
                     //Catalogo Prioridad
                     $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=PRIO_ACT'
+                    url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=PRIO_ACT'
                     }).then(function successCallback(response) {
                         //console.log(response);
                         $scope.prioridadCat = response.data.catalogo;
@@ -588,7 +627,7 @@ angular.module('tatei', ['ui.materialize'])
                         //Catalogo Listo Vencido
                         $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LIST_VENC'
+                        url: '/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LIST_VENC'
                         }).then(function successCallback(response) {
                             //console.log(response);
                             $scope.listoVencidoCat = response.data.catalogo;

@@ -98,7 +98,7 @@
                             <div class="collapsible-body" style="padding: 10px;">
                                 <div class="row">
                                     <div class="col s10">
-                                    	<input  type="file" id="input-file-events" class="dropify-event" onchange="encodeImageFileAsURL(this)" />
+                                    	<!--input  type="file" id="input-file-events" class="dropify-event" onchange="encodeImageFileAsURL(this)" /-->
                                     </div>
                                     <div class="col s2">
                                     	<a class="btn-floating btn-large waves-effect waves-light green" data-target="edicionActividades" ng-click="nuevaActividad()"><i class="material-icons">add</i></a>
@@ -131,14 +131,14 @@
                                     <h6>Datos de la Actividad</h6>
                                     <div class="row">
                                         <form class="col s12" name="formEdicionActividades">
-                                        <div class="row">
+                                        <!--div class="row">
                                         	<div class="col s6">
                                         		<input  type="file" ng-model="actividad.imagen1" file-model="actividad.imagen1" id="input-file-events1" class="dropify-event" ng-change="subirImagen(actividad)" />
                                         	</div>
                                         	<div class="col s6">
                                         		<input  type="file" file-model="actividad.imagen2" id="input-file-events2" class="dropify-event" onchange="subirImagen(actividad)" />
                                         	</div>
-                                        </div>
+                                        </div -->
                                         <div class="row">
                                             <div class="input-field col s6">
                                                 <select id="actividadSelect" ng-model="actividad.codigoActividad" material-select watch>
@@ -208,13 +208,13 @@
                             <div class="collapsible-body" style="padding: 10px;">
                                 <div class="row">
                                     <div class="col s12">
-                                        <div class="input-field col s10">
+                                        <div class="input-field col s9">
                                                 <i class="material-icons prefix">comment</i>
-                                                <textarea id="observacionesGenerales" class="materialize-textarea"></textarea>
-                                                <label for="observacionesGenerales" class="active">Comentarios / Observaciones</label>
+                                                <textarea id="observacionesGenerales2" ng-model="observacionesGenerales2"class="materialize-textarea"></textarea>
+                                                <label for="observacionesGenerales2"  class="active">Comentarios / Observaciones</label>
                                             </div>
-                                            <div class="input-field col s2">
-                                                <a ng-click="" class="modal-action waves-effect waves-green  "><i class="material-icons left">done_all</i>Enviar</a>
+                                            <div class="input-field col s3">
+                                                <a ng-click="terminarCaptura()" class="modal-action waves-effect waves-green  "><i class="material-icons left">done_all</i>Enviar</a>
                                             </div>
                 
                                     </div>
