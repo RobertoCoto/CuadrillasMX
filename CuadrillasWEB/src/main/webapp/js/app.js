@@ -2558,14 +2558,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	       			}
     	       			else
     	       			{
-        	       			alert(response.data.header.mensajeFuncional);    	       				
+        	       			alert(response.data.mensajeFuncional);    	       				
     	       			}
     	       			
     	       			$('#msload').modal('hide');
     	          // console.log(result);
     	       		}, function errorfn(response) {
     	       			//console.error(response);
-    	       			alert(response.data.header.mensajeFuncional);
+    	       			alert(response.data.mensajeFuncional);
     	       			$('#msload').modal('hide');
     	       		});    		  
     	  }
