@@ -115,6 +115,7 @@
 		<result column="direccion" property="direccion"/>
 		<result column="latitud" property="latitud"/>
 		<result column="longitud" property="longitud"/>
+		<result column="usuario" property="usuarioAlta"/>
 		<result column="estatus" property="estatus"/>
 </resultMap>
 <select id="existeAgenda" parameterType="Agenda" resultType="int">

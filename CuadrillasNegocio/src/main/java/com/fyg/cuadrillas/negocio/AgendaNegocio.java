@@ -337,6 +337,9 @@ public class AgendaNegocio {
 					if (actividadDiaria.getPorcentaje() == null) {
 						throw new ExcepcionesCuadrillas("Es necesario el porcentaje avanzado.");
 					}
+					if (actividadDiaria.getTiempoDestinado() == null) {
+						throw new ExcepcionesCuadrillas("Es necesario el tiempo destinado.");
+					}
 					if (actividadDiaria.getObservaciones() == null || actividadDiaria.getObservaciones().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario una observacion.");
 					}
@@ -360,6 +363,9 @@ public class AgendaNegocio {
 						if (actividadDiaria.getNumeroUnidades() <= 0) {
 							throw new ExcepcionesCuadrillas("La actividad esta COMPLETA, el numero de unidades ML, M2, M3 debe ser mayor a 0.");
 						}
+						if (actividadDiaria.getTiempoDestinado() <= 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta COMPLETA, el tiempo destinado debe ser mayor a 0.");
+						}
 					}
 					//NO INICIADA
 					if (actividadDiaria.getCodigoEstado().trim().equals("NOIN")) {						
@@ -372,17 +378,23 @@ public class AgendaNegocio {
 						if (actividadDiaria.getNumeroUnidades() > 0) {
 							throw new ExcepcionesCuadrillas("La actividad esta NO INICIADA, el numero de unidades ML, M2, M3 debe ser 0.");
 						}
+						if (actividadDiaria.getTiempoDestinado() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta NO INICIADA, el tiempo destinado debe ser 0.");
+						}
 					}
 					//PROGRESO
 					if (actividadDiaria.getCodigoEstado().trim().equals("PROG")) {						
-						if (actividadDiaria.getPorcentaje() > 0.0f) {
-							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, debe tener 0% de porcentaje avance.");
+						if (actividadDiaria.getPorcentaje() == 0.0f) {
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, debe tener algo de porcentaje avance.");
 						}
 						if (actividadDiaria.getNumeroPersonas() > 0) {
-							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de personas debe ser  0.");
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de personas debe ser mayor  0.");
 						}
 						if (actividadDiaria.getNumeroUnidades() > 0) {
-							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de unidades ML, M2, M3 debe ser 0.");
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el numero de unidades ML, M2, M3 debe ser mayor 0.");
+						}
+						if (actividadDiaria.getTiempoDestinado() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta EN PROGRESO, el tiempo destinado debe ser mayor 0.");
 						}
 					}
 					//APLAZADA
@@ -395,6 +407,9 @@ public class AgendaNegocio {
 						}
 						if (actividadDiaria.getNumeroUnidades() > 0) {
 							throw new ExcepcionesCuadrillas("La actividad esta APLAZADA, el numero de unidades ML, M2, M3 debe ser 0.");
+						}
+						if (actividadDiaria.getTiempoDestinado() > 0) {
+							throw new ExcepcionesCuadrillas("La actividad esta APLAZADA, el tiempo destinado debe ser 0.");
 						}
 					}
 					AgendaDAO dao = new AgendaDAO();
@@ -690,6 +705,8 @@ public class AgendaNegocio {
 						if (coordenada.getDireccion() == null) {
 							coordenada.setDireccion("");
 						}
+						coordenada.setIdActividadDiaria(actividadDiaria.getIdActividadDiaria());
+						coordenada.setUsuarioAlta(actividadDiaria.getEnvioUsuarioAutorizacion());
 					}
 
 					AgendaDAO dao = new AgendaDAO();

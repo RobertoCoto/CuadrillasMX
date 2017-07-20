@@ -220,4 +220,16 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 	WHERE id_actividad_diaria = #{idActividadDiaria}
 </update>
 
+<insert id="registraAgendaCoordenadaCampo" parameterType="ActividadDiariaCoordenadas">
+INSERT INTO actividad_diaria_coordenadas
+		(
+			id_actividad_diaria,	orden,	direccion,
+			latitud,	longitud, usuario_alta,fecha_alta,	estatus
+		)
+	VALUES
+	 	(
+			#{idActividadDiaria}, #{orden},	#{direccion},
+			#{latitud},	#{longitud},#{usuarioAlta}, now(),'A'
+	 	)
+</insert>
 </mapper>
