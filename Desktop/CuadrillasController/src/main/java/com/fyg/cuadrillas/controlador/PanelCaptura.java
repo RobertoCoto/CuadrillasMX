@@ -58,18 +58,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /** se Cargan las librerias del lector*/
 import com.digitalpersona.onetouch.*;
 import com.digitalpersona.onetouch.capture.*;
@@ -77,6 +65,8 @@ import com.digitalpersona.onetouch.capture.event.*;
 import com.digitalpersona.onetouch.processing.*;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
+import com.fyg.cuadrillas.controlador.ObtieneUrl;
+import com.fyg.cuadrillas.controlador.ManejaJSON;
 
 public class PanelCaptura extends JApplet
 {
@@ -169,12 +159,13 @@ public class PanelCaptura extends JApplet
 				public void actionPerformed(ActionEvent arg0) {
 					JOptionPane.showMessageDialog(null, "Habilitando tabla empleados");
 					String url = "http://localhost:8080/CuadrillasWS/service/consultaEmpleado/";
-			        		String output  = getUrlContents(url);
+			        		String output  = new ObtieneUrl().getUrlContents(url);
 			        		try {
-			        			JSONParser parser = new JSONParser();
-			        			Object obj = parser.parse(output);
-			        			JSONObject jsonObject = (JSONObject) obj;
-			        			JSONArray arrayEmpleado = (JSONArray) jsonObject.get("empleado");
+			        			//llamada a la clase que convierte json
+			        		
+			        			JSONObject empleadoRegistro = new ManejaJSON().recibeJSON(output);
+			        			JSONArray arrayEmpleado = (JSONArray) empleadoRegistro.get("empleado");
+			        			
 			        			DefaultTableModel modelo = (DefaultTableModel) tablaEmpleados.getModel();
 			        			Object[] filas = new Object[modelo.getColumnCount()];
 			        			for (int i = 0; i < arrayEmpleado.size(); i++) {
@@ -269,6 +260,7 @@ public class PanelCaptura extends JApplet
 			//****************** Alta de Huella********************* */
 			btnAltaHuella = new JButton("Registra Huella");
 			btnAltaHuella.addActionListener(new ActionListener() {
+				@SuppressWarnings("unchecked")
 				public void actionPerformed(ActionEvent arg0) {
 					
 					//*************** se activa panel de huella**************************/
@@ -281,13 +273,12 @@ public class PanelCaptura extends JApplet
 						  //si este ya tiene datos
 						  cataMano.removeAllItems();
 						  cataDedos.removeAllItems();
+						  
 			        	  //Llenando combo
-				    		String direccion =
-				    				"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
-				    		String salida  = getUrlContents(direccion);
-				    		JSONParser parser = new JSONParser();
-			    			Object obj = parser.parse(salida);
-			    			JSONObject jsonCatalogoMano = (JSONObject) obj;
+				    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+				    		String salida  = new ObtieneUrl().getUrlContents(direccion);
+				    		
+			    			JSONObject jsonCatalogoMano =  new ManejaJSON().recibeJSON(salida);
 			    			JSONArray arrayCatalogoMano = (JSONArray) jsonCatalogoMano.get("catalogo");
 
 			    			for (int j = 0; j < arrayCatalogoMano.size(); j++) {
@@ -295,12 +286,10 @@ public class PanelCaptura extends JApplet
 			    				String descripcion = (String) mano.get("descripcion");
 			    				cataMano.addItem(descripcion);
 			    			}
-			    			String direccionConsulta =
-			    					"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
-				    		String salidaCatalogo  = getUrlContents(direccionConsulta);
-				    		JSONParser parseo = new JSONParser();
-			    			Object objCatalogo = parseo.parse(salidaCatalogo);
-			    			JSONObject jsonCatalogoDedo = (JSONObject) objCatalogo;
+			    			String direccionConsulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+				    		String salidaCatalogo  = new ObtieneUrl().getUrlContents(direccionConsulta);
+
+			    			JSONObject jsonCatalogoDedo = new ManejaJSON().recibeJSON(salidaCatalogo);
 			    			JSONArray arrayCatalogoDedo = (JSONArray) jsonCatalogoDedo.get("catalogo");
 
 			    			for	(int k = 0; k < arrayCatalogoDedo.size(); k++) {
@@ -322,13 +311,12 @@ public class PanelCaptura extends JApplet
 			consultaHuella = new JButton(" Verifica Huella ");
 			consultaHuella.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					
 					 //******************** panel de consulta huella**********************/
 					consulta = new JPanel();
 					consulta.setBorder(new TitledBorder(null,
 							"Consultar Huella", TitledBorder.LEADING, TitledBorder.TOP, null, null));
                     
-					
-					//consulta.setLayout(new SpringLayout()); 
 					imagenHuellaD = new JLabel();
 					Border borderD = BorderFactory.createLineBorder(Color.BLUE, 2);
 					imagenHuellaD.setBorder(borderD);
@@ -336,20 +324,7 @@ public class PanelCaptura extends JApplet
 					imagenHuellaD.setLocation(700, 60);
 					btnAltaHuella.setEnabled(false);
 					consultaHuella.setEnabled(false);
-					
-		
-//					verificar = new JButton("Carga Template");
-//					verificar.addActionListener(new ActionListener() {
-//						public void actionPerformed(ActionEvent arg0) {
-//							try {
-//								cargaTemplate();
-//							} catch (Exception e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//						}
-//					});
-					
+									
 					btnVerificar = new JButton("Iniciar");
 					
 					
@@ -365,17 +340,15 @@ public class PanelCaptura extends JApplet
 							}
 						}
 					});
-					//btnVerificar.setEnabled(false);
-					//consulta.add(verificar);
 					consulta.add(btnVerificar);
 					consulta.add(imagenHuellaD);
 					getContentPane().add(consulta, BorderLayout.CENTER);
 					
 					consulta.setVisible(true);
 					frame.pack();
-					 frame.setSize(1164, 698);
-            		    frame.setResizable(false);
-            		    frame.repaint();
+					frame.setSize(1164, 698);
+            		frame.setResizable(false);
+            		frame.repaint();
 				}
 			});
 			panelBotones.add(consultaHuella);
@@ -490,19 +463,20 @@ public class PanelCaptura extends JApplet
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
         		//url para consumir WS
-        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario="
-        		+ usuario + "&password=" + pass;
-        		String output  = getUrlContents(url);
+        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario=" + usuario + "&password=" + pass;
+        		String output  = new ObtieneUrl().getUrlContents(url);
         	    try {
-        	    	JSONParser parser = new JSONParser();
-        			Object obj = parser.parse(output);
-        			JSONObject jsonObject = (JSONObject) obj;
+        	    	
+        			JSONObject jsonObject = new ManejaJSON().recibeJSON(output);
         			System.out.println(jsonObject);
+        			
         			//Desglosando json
         			JSONObject arrayUsuario = (JSONObject) jsonObject.get("header");
         			JSONObject datosUsuario = (JSONObject) jsonObject.get("usuario");
+        			
     				Boolean estatus = (boolean) arrayUsuario.get("estatus");
     				String msg = (String) arrayUsuario.get("mensajeFuncional");
+    				
     				if (usuario.equals("") && pass.equals("")) {
             			JOptionPane.showMessageDialog(null, "Usuario y /o Contraseña Obligatorios", "Error Sesión", JOptionPane.ERROR_MESSAGE);
             		} else if (estatus.equals(false)) {
@@ -528,12 +502,12 @@ public class PanelCaptura extends JApplet
                 		//se muestra menuHuella applet
                		 	frame.pack();
                 		final JApplet applet = new PanelCaptura();
-                		 applet.init();
-                		 frame.getContentPane().add( applet );
-                		 frame.setSize(1164, 698);
-                		    frame.setResizable(false);
-                		    frame.repaint();
-                		 applet.start();
+                		applet.init();
+                		frame.getContentPane().add( applet );
+                		frame.setSize(1164, 698);
+                		frame.setResizable(false);
+                		frame.repaint();
+                		applet.start();
         			}
         	    } catch (Exception ex) {
         	    ex.printStackTrace();
@@ -564,44 +538,7 @@ public class PanelCaptura extends JApplet
     
   //-----------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------
-  	/**
-  	 * Consume WS con los parametros enviados
-  	 * @param theUrl obtiene la url
-  	 * @return regresa los datos
-  	 */
-  	  private static String getUrlContents(String theUrl)
-  	  {
-  	    StringBuilder content = new StringBuilder();
-
-  	    // many of these calls can throw exceptions, so i've just
-  	    // wrapped them all in one try/catch statement.
-  	    try
-  	    {
-  	      // create a url object
-  	      URL url = new URL(theUrl);
-
-  	      // create a urlconnection object
-  	      URLConnection urlConnection = url.openConnection();
-
-  	      // wrap the urlconnection in a bufferedreader
-  	      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-  	      String line;
-
-  	      // read from the urlconnection via the bufferedreader
-  	      while ((line = bufferedReader.readLine()) != null)
-  	      {
-  	        content.append(line + "\n");
-  	      }
-  	      bufferedReader.close();
-  	    }
-  	    catch (Exception e)
-  	    {
-  	      e.printStackTrace();
-  	    }
-  	    return content.toString();
-    
-  	  }
+  	
  /* iniciar desktop huellas*/
   	@Override
     public void init()
@@ -805,7 +742,7 @@ public class PanelCaptura extends JApplet
 		chooser.addChoosableFileFilter(new TemplateFileFilter());
 		while (true) {
 			String consulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
-    		String result  = getUrlContents(consulta);
+    		String result  = new ObtieneUrl().getUrlContents(consulta);
     		String codigoMano = null;
     		String codigoDedo = null;
     		
@@ -826,7 +763,7 @@ public class PanelCaptura extends JApplet
     			}
 				String direccionConsultaWS =
 						"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
-	    		String salidaCatalogoWS  = getUrlContents(direccionConsultaWS);
+	    		String salidaCatalogoWS  = new ObtieneUrl().getUrlContents(direccionConsultaWS);
 	    		JSONParser parseoWS = new JSONParser();
     			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
     			JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
@@ -868,7 +805,7 @@ public class PanelCaptura extends JApplet
 					String ruta = rut.toString();
 					String registraHuella = "http://localhost:8080/CuadrillasWS/service/registraHuella/huella?idEmpleado=" + idEmpleado
 	    					+ "&codigoMano=" + codigoMano + "&codigoDedo=" + codigoDedo + "&ruta=" + ruta;
-		    		String resultHuella  = getUrlContents(registraHuella);
+		    		String resultHuella  = new ObtieneUrl().getUrlContents(registraHuella);
 		    		System.out.println(resultHuella);
 				
 					
@@ -929,7 +866,7 @@ public class PanelCaptura extends JApplet
 	   			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 	   			System.out.println("el id empleado es: " + idEmpleado);
 	   			String consultaHuellas = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado=" + idEmpleado ;
-	      		String salidaHuella  = getUrlContents(consultaHuellas);
+	      		String salidaHuella  = new ObtieneUrl().getUrlContents(consultaHuellas);
 	      		boolean stats = false;
 	   			//System.out.println(salidaHuella);
 	   			
