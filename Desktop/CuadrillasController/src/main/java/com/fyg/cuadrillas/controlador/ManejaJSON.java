@@ -16,5 +16,4 @@ public class ManejaJSON {
 		}
 		return jsonObject;
 	}
-
 }
