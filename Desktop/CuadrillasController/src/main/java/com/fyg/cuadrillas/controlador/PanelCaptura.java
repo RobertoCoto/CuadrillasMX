@@ -158,7 +158,7 @@ public class PanelCaptura extends JApplet
 			btnRegistrarHuella.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JOptionPane.showMessageDialog(null, "Habilitando tabla empleados");
-					String url = "http://localhost:8080/CuadrillasWS/service/consultaEmpleado/";
+					String url = "consultaEmpleado/";
 			        		String output  = new ObtieneUrl().getUrlContents(url);
 			        		try {
 			        			//llamada a la clase que convierte json
@@ -275,7 +275,7 @@ public class PanelCaptura extends JApplet
 						  cataDedos.removeAllItems();
 						  
 			        	  //Llenando combo
-				    		String direccion = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+				    		String direccion = "consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
 				    		String salida  = new ObtieneUrl().getUrlContents(direccion);
 				    		
 			    			JSONObject jsonCatalogoMano =  new ManejaJSON().recibeJSON(salida);
@@ -286,7 +286,7 @@ public class PanelCaptura extends JApplet
 			    				String descripcion = (String) mano.get("descripcion");
 			    				cataMano.addItem(descripcion);
 			    			}
-			    			String direccionConsulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+			    			String direccionConsulta = "consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
 				    		String salidaCatalogo  = new ObtieneUrl().getUrlContents(direccionConsulta);
 
 			    			JSONObject jsonCatalogoDedo = new ManejaJSON().recibeJSON(salidaCatalogo);
@@ -463,7 +463,7 @@ public class PanelCaptura extends JApplet
         		String usuario = campoUsuario.getText();
         		String pass = campoContrasena.getText();
         		//url para consumir WS
-        		String url = "http://localhost:8080/CuadrillasWS/service/loginUsuario/user?usuario=" + usuario + "&password=" + pass;
+        		String url = "loginUsuario/user?usuario=" + usuario + "&password=" + pass;
         		String output  = new ObtieneUrl().getUrlContents(url);
         	    try {
         	    	

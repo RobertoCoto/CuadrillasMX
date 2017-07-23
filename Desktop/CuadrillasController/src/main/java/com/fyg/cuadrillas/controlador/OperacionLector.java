@@ -222,7 +222,7 @@ public class OperacionLector extends PanelCaptura {
 		JFileChooser chooser = new JFileChooser();
 		chooser.addChoosableFileFilter(new TemplateFileFilter());
 		while (true) {
-			String consulta = "http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+			String consulta = "consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
     		String result  = new ObtieneUrl().getUrlContents(consulta);
     		String codigoMano = null;
     		String codigoDedo = null;
@@ -243,7 +243,7 @@ public class OperacionLector extends PanelCaptura {
     				}
     			}
 				String direccionConsultaWS =
-						"http://localhost:8080/CuadrillasWS/service/consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+						"consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
 	    		String salidaCatalogoWS  = new ObtieneUrl().getUrlContents(direccionConsultaWS);
 	    		JSONParser parseoWS = new JSONParser();
     			Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
@@ -284,7 +284,7 @@ public class OperacionLector extends PanelCaptura {
 					
 					URL rut = file.toURI().toURL();
 					String ruta = rut.toString();
-					String registraHuella = "http://localhost:8080/CuadrillasWS/service/registraHuella/huella?idEmpleado=" + idEmpleado
+					String registraHuella = "registraHuella/huella?idEmpleado=" + idEmpleado
 	    					+ "&codigoMano=" + codigoMano + "&codigoDedo=" + codigoDedo + "&ruta=" + ruta;
 		    		String resultHuella  = new ObtieneUrl().getUrlContents(registraHuella);
 		    		System.out.println(resultHuella);
@@ -346,7 +346,7 @@ public class OperacionLector extends PanelCaptura {
 			//para consultar la huella
 	   			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(tablaEmpleados.getSelectedRow(), 0).toString());
 	   			System.out.println("el id empleado es: " + idEmpleado);
-	   			String consultaHuellas = "http://localhost:8080/CuadrillasWS/service/consultaHuella/empleado?idEmpleado=" + idEmpleado ;
+	   			String consultaHuellas = "consultaHuella/empleado?idEmpleado=" + idEmpleado ;
 	      		String salidaHuella  = new ObtieneUrl().getUrlContents(consultaHuellas);
 	      		boolean stats = false;
 	   			//System.out.println(salidaHuella);
