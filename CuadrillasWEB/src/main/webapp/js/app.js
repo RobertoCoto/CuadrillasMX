@@ -2506,6 +2506,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	  //console.info("Fecha");
     	  //console.info(fecha);
     	  //console.info($scope.diasAgenda);
+    	  //console.info("agendadetalle");
+    	  //console.info(idAgenda);
+    	  //console.info(idAgendaDetalle);
     	  $('#msload').modal('show');
     	  
     	  if (idAgendaDetalle == 0 || idAgendaDetalle == undefined || idAgendaDetalle == 'undefined')
@@ -2536,7 +2539,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	              },
     	              data: { }
     	       		}).then(function successfn(result) {
-    	       			if (result.data.header.estatus == true)
+    	       			//console.error("ddddd");
+    	       			//console.error(result);
+    	       			if (result.data.estatus == true)
     	       			{
 	    	          		  for(var i=$scope.diasAgenda.length-1; i>=0; i--)
 	    	        		  {
@@ -2553,14 +2558,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	       			}
     	       			else
     	       			{
-        	       			alert(response.data.header.mensajeFuncional);    	       				
+        	       			alert(response.data.mensajeFuncional);    	       				
     	       			}
     	       			
     	       			$('#msload').modal('hide');
     	          // console.log(result);
     	       		}, function errorfn(response) {
     	       			//console.error(response);
-    	       			alert(response.data.header.mensajeFuncional);
+    	       			alert(response.data.mensajeFuncional);
     	       			$('#msload').modal('hide');
     	       		});    		  
     	  }

@@ -1115,8 +1115,12 @@ public class AgendaDAO {
 				throw new ExcepcionesCuadrillas("Error al autorizar, la actividad ya se envio a autorizar.");
 			}
 
+			
 			//Abrimos conexion Transaccional
 			sessionTx = FabricaConexiones.obtenerSesionTx();
+			for (ActividadDiariaCoordenadasDTO actcoord : actividadDiaria.getCoordenadasReal()) {
+				sessionTx.insert("AgendaDAO.registraAgendaCoordenadaCampo", actcoord);
+			}
 	        int registros = sessionTx.update("AgendaDAO.terminaCapturaActividadCampo", actividadDiaria);
 			if ( registros == 0) {
 				throw new ExcepcionesCuadrillas("Error al autorizar la actividad.");
