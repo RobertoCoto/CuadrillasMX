@@ -374,7 +374,7 @@ public class PanelCaptura extends JApplet {
 		altaHuella = new JButton("Guardar Huella");
 		altaHuella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new OperacionLector().onSave();
+				new OperacionLector().guardaHuella();
 				new OperacionLector().enroller.clear();
 				JOptionPane.showMessageDialog(null,
 						"La huella ha sido registrada correctamente.");

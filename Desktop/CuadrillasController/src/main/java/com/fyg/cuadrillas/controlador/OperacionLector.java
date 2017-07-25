@@ -1,9 +1,11 @@
 package com.fyg.cuadrillas.controlador;
 
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,6 +16,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,7 +46,7 @@ import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class OperacionLector extends PanelCaptura {
 
 	/** Inicializa el lector */
@@ -493,5 +500,105 @@ public class OperacionLector extends PanelCaptura {
 			ex.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * Metodo para guardar la huella
+	 */
+	@SuppressWarnings({ "resource" })
+	public void guardaHuella() {
+		String consulta = "consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
+		String result = new ObtieneUrl().getUrlContents(consulta);
+		String codigoMano = null;
+		String codigoDedo = null;
+		
+		Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(
+				tablaEmpleados.getSelectedRow(), 0).toString());
+		try {
+			
+			JSONObject jsonCatalogoManoWS = new ManejaJSON().recibeJSON(result);
+			JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS
+					.get("catalogo");
+
+			for (int j = 0; j < arrayCatalogoManoWS.size(); j++) {
+				JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
+				String descripcionWS = (String) manoWS.get("descripcion");
+				if (descripcionWS.equals(cataMano.getSelectedItem())) {
+					codigoMano = (String) manoWS.get("codigo");
+					System.out.println("Seleccion Mano Codigo: "
+							+ codigoMano);
+				}
+			}
+			String direccionConsultaWS = "consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
+			String salidaCatalogoWS = new ObtieneUrl().getUrlContents(direccionConsultaWS);
+			
+			JSONObject jsonCatalogoDedoWS = new ManejaJSON().recibeJSON(salidaCatalogoWS);
+			JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS.get("catalogo");
+
+			for (int k = 0; k < arrayCatalogoDedoWS.size(); k++) {
+				JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
+				String descripcionDedoWS = (String) dedoWS
+						.get("descripcion");
+
+				if (descripcionDedoWS.equals(cataDedos.getSelectedItem())) {
+					codigoDedo = (String) dedoWS.get("codigo");
+					System.out.println("Seleccion Dedo: " + codigoDedo);
+				}
+			}
+
+			//FileInputStream imageInFile = new FileInputStream(fingerData);
+            byte imageData[] = new byte[(int) getTemplate().serialize().length];
+            //imageInFile.read(imageData);
+ 
+            // Converting Image byte array into Base64 String
+            String imageDataString = encodeImage(imageData);
+			
+            String registraHuella = "registraHuella/registraHuella";		
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+    		HttpPost postRequest = new HttpPost(new ObtieneUrl().getUrlContents(registraHuella));
+
+
+    		StringEntity input = new StringEntity("{"
+    				+ "\"idEmpleado\":" + idEmpleado
+    				+ ",\"fileEncoded\":\"" + imageDataString + "\""
+    				+ ",\"fileName\":\"" + "huella" + idEmpleado + codigoMano + codigoDedo  + "\""			
+    				+ ",\"codigoMano\":\"" + codigoMano  + "\""
+    				+ ",\"codigoDedo\":\"" + codigoDedo  + "\""
+    				+ "}");
+    		System.out.println("*****" + input);
+    		input.setContentType("application/json");
+    		postRequest.setEntity(input);
+
+    		HttpResponse response = httpClient.execute(postRequest);
+
+    		if (response.getStatusLine().getStatusCode() != 200) {
+    			throw new RuntimeException("Failed : HTTP error code : "
+    				+ response.getStatusLine().getStatusCode());
+    		}
+
+    		BufferedReader br = new BufferedReader(
+                            new InputStreamReader((response.getEntity().getContent())));
+
+    		String output;
+    		System.out.println("Output from Server .... \n");
+    		while ((output = br.readLine()) != null) {
+    			System.out.println(output);
+    		}
+
+    		httpClient.getConnectionManager().shutdown();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Encodes the byte array into base64 string
+	 *
+	 * @param imageByteArray - byte array
+	 * @return String a {@link java.lang.String}
+	 */
+	public static String encodeImage(byte[] imageByteArray) {
+		return Base64.encodeBase64URLSafeString(imageByteArray);
 	}
 }
