@@ -72,7 +72,7 @@ var asyncLoop = function(o){
 }
 var usuarioRegistra, idActDiaria, datos, actividaddata;
 angular.module('tatei', ['ui.materialize'])
-	.service('fileUpload', ['$http', function ($http) {
+	.service('fileUploadOld', ['$http', function ($http) {
 	    this.uploadFileToUrl = function(codigoActividad, url, usuarioAlta, uploadUrl){
 	    	$('#msload').show();
 	        var fd = new FormData();
@@ -93,6 +93,75 @@ angular.module('tatei', ['ui.materialize'])
 	        });
 	    }
 	}])
+	.service("uploadService", function($http, $q) {
+
+    return ({
+      upload: upload
+    });
+
+    function upload(archivo) {
+      var upl = $http({
+        method: 'POST',
+        url: '/CuadrillasWEB/RegistraFotoActividad', // /api/upload/tatei
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        data: {
+          upload: archivo
+        },
+        transformRequest: function(data, headersGetter) {
+          var formData = new FormData();
+          angular.forEach(data, function(value, key) {
+            formData.append(key, value);
+          });
+
+          var headers = headersGetter();
+          delete headers['Content-Type'];
+
+          return formData;
+        }
+      });
+      return upl.then(handleSuccess, handleError);
+
+    } // Fin de la funcion upload 
+
+    // ---
+    // Metodos privados
+    // ---
+  
+    function handleError(response, data) {
+      if (!angular.isObject(response.data) ||!response.data.message) {
+        return ($q.reject("Ocurrio un error desconocido."));
+      }
+
+      return ($q.reject(response.data.message));
+    }
+
+    function handleSuccess(response) {
+      return (response);
+    }
+
+  })
+  .directive("fileinput", [function() {
+    return {
+      scope: {
+        fileinput: "=",
+        filepreview: "="
+      },
+      link: function(scope, element, attributes) {
+        element.bind("change", function(changeEvent) {
+          scope.fileinput = changeEvent.target.files[0];
+          var reader = new FileReader();
+          reader.onload = function(loadEvent) {
+            scope.$apply(function() {
+              scope.filepreview = loadEvent.target.result;
+            });
+          }
+          reader.readAsDataURL(scope.fileinput);
+        });
+      }
+    }
+  }])
     .controller('AppCtrl', function($scope, $http, $window) {
     	var map;
         var map2;
@@ -654,7 +723,7 @@ angular.module('tatei', ['ui.materialize'])
 
         }
         $scope.openModal = false;
-    });;
+    });
     
     function encodeImageFileAsURL(element) {
     	  var file = element.files[0];
