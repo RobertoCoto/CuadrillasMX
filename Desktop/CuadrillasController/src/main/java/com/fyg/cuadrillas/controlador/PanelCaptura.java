@@ -179,6 +179,7 @@ public class PanelCaptura extends JApplet {
 	private DPFPTemplate template;
 	DPFPTemplate t = DPFPGlobal.getTemplateFactory().createTemplate();
 	
+	DPFPDataAdapter dataAdapter;
 	
 	/**
 	 * Metodo publico
@@ -868,7 +869,7 @@ public class PanelCaptura extends JApplet {
 	}
 
 	// guarda el template en un fichero
-	public void onSave() {
+	/*public void onSave() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.addChoosableFileFilter(new TemplateFileFilter());
 		while (true) {
@@ -958,7 +959,7 @@ public class PanelCaptura extends JApplet {
 			}
 			break;
 		}
-	}
+	}*/
 
 	boolean algo = false;
  /**
@@ -971,7 +972,7 @@ public class PanelCaptura extends JApplet {
 		System.out.println("addDataListener "
 				+ capturer.getListeners(DPFPDataAdapter.class).length);
 
-		DPFPDataAdapter dataAdapter = new DPFPDataAdapter() {
+		 dataAdapter = new DPFPDataAdapter() {
 			@Override
 			public void dataAcquired(final DPFPDataEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
@@ -1008,7 +1009,7 @@ public class PanelCaptura extends JApplet {
 		// Check quality of the sample and start verification if it's good
 		dibujaHuella(convertSampleToBitmap(sample));
 		DPFPVerificationResult result = null;
-		//setTemplate(null);
+		setTemplate(null);
 		String nombreEmpleado = tablaEmpleados.getValueAt(
 				tablaEmpleados.getSelectedRow(), 2).toString();
 		String appP = tablaEmpleados.getValueAt(
@@ -1066,6 +1067,7 @@ public class PanelCaptura extends JApplet {
 							consultaHuella.setEnabled(true);
 							imagenHuellaD.setIcon(null);
 							consulta.setVisible(false);
+							capturer.removeDataListener(dataAdapter);
 							detieneLector();
 							setTemplate(null);
 							features = null;
