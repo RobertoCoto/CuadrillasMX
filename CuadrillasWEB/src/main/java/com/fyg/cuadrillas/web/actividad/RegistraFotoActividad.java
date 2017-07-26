@@ -35,7 +35,7 @@ public class RegistraFotoActividad extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "C:/Sistema_TATEI/actividades/";
+	private static final String DESTINATION_DIR_PATH = "/home/hsamano/Sistema_TATEI/actividades/";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
@@ -87,6 +87,7 @@ public class RegistraFotoActividad extends HttpServlet {
 		Gson sg = new Gson();
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String dataJson = "";
 		String json = "";
@@ -145,14 +146,14 @@ public class RegistraFotoActividad extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			//convierte  a formato Json
-			out.println(sg.toJson(respuesta));
+			out.print(sg.toJson(respuesta));
 			out.flush();
 		} catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.setEstatus(false);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			out.println(sg.toJson(respuesta));
+			out.print(sg.toJson(respuesta));
 			out.flush();
 		}
 	}

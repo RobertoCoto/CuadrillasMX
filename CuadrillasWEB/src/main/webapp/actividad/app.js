@@ -1,3 +1,4 @@
+var drEvent, drEvent2;
 $(document).ready(function(){
     $('.collapsible');
     $('.modal').modal({
@@ -30,20 +31,20 @@ $(document).ready(function(){
     };
 
     // Used events
-    var drEvent = $('#input-file-events1').dropify(config1);
-    var drEvent2 = $('#input-file-events2').dropify(config1);
+    //drEvent = $('#input-file-events1').dropify(config1);
+    drEvent2 = $('#input-file-events2').dropify(config1);
 
-    drEvent.on('dropify.beforeClear', function(event, element){
-        return confirm("Desea eliminar imagen \"" + element.file.name + "\" ?");
-    });
-
-    drEvent.on('dropify.afterClear', function(event, element){
-        alert('Archivo Eliminado');
-    });
-
-    drEvent.on('dropify.errors', function(event, element){
-        console.log('Con errores');
-    });
+//    drEvent.on('dropify.beforeClear', function(event, element){
+//        return confirm("Desea eliminar imagen \"" + element.file.name + "\" ?");
+//    });
+//
+//    drEvent.on('dropify.afterClear', function(event, element){
+//        alert('Archivo Eliminado');
+//    });
+//
+//    drEvent.on('dropify.errors', function(event, element){
+//        console.log('Con errores');
+//    });
 
     var drDestroy = $('#input-file-to-destroy').dropify();
     drDestroy = drDestroy.data('dropify')
@@ -70,76 +71,137 @@ var asyncLoop = function(o){
     } 
     loop();
 }
-var usuarioRegistra, idActDiaria, datos, actividaddata;
+var usuarioRegistra, idActDiaria, datos, actividaddata, actividadDiariaCOD;
 angular.module('tatei', ['ui.materialize'])
 	.service('fileUploadOld', ['$http', function ($http) {
-	    this.uploadFileToUrl = function(codigoActividad, url, usuarioAlta, uploadUrl){
+	    this.uploadFileToUrl = function(url, usuarioAlta, uploadUrl){
+	    	var obj = {};
+	    	obj.codigoActividad = actividadDiariaCOD;
+	    	obj.idActividadDiaria = idActDiaria;
+	    	obj.usuarioAlta = usuarioAlta;
+	    	obj.url = url;
+	    	var json = JSON.stringify(obj);
 	    	$('#msload').show();
 	        var fd = new FormData();
-	        fd.append('codigoActividad', codigoActividad);
-	        fd.append('url', url);
-	        fd.append('usuarioAlta', usuarioAlta);
+	        fd.append('json', json);
+	        //fd.append('codigoActividad', codigoActividad);
+	        //fd.append('url', url);
+	        //fd.append('usuarioAlta', usuarioAlta);
 	        $http.post(uploadUrl, fd, {
 	            transformRequest: angular.identity,
 	            headers: {'Content-Type': undefined}
 	        })
-	        .success(function(aa){
-						console.log(aa);
-						$('#msload').hide();
-	        })
-	        .error(function(aa){
-						console.log(aa);
-						$('#msload').hide();
-	        });
+	        .then(function mySuccess(response) {
+                console.info(response);
+                alert(response.data.mensajeFuncional);
+                if(response.data.estatus) {
+                	if(url == 'img1') {
+                		$('#input-file-events1').hide();
+                		$('#img1').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
+                    	$('#img1').show();
+                	}
+                	
+                	if(url == 'img2') {
+                		$('#input-file-events2').hide();
+                		$('#img2').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
+                    	$('#img2').show();
+                	}
+                	
+                } else {
+                	if(url == 'img1') {
+                		$('#input-file-events1').show();
+                    	$('#img1').hide();
+                	}
+                	
+                	if(url == 'img2') {
+                		$('#input-file-events2').show();
+                    	$('#img2').hide();
+                	}
+                }
+                $('#msload').hide();
+            }, function myError(response) {
+                console.log(response);
+                if(response.data.mensajeFuncional) {
+                	alert(response.data.mensajeFuncional);
+                	if(url == 'img1') {
+                		drEvent = drEvent.data('dropify');
+                		drEvent.resetPreview();
+                		drEvent.clearElement();
+                		$('#input-file-events1').prop('data-default-file', '');
+                		$('#input-file-events1').show();
+                		//drEvent.clearElement();
+                    	$('#img1').hide();
+                	}
+                	
+                	if(url == 'img2') {
+                		drEvent2 = drEvent.data('dropify');
+                		drEvent2.resetPreview();
+                		drEvent2.clearElement();
+                		$('#input-file-events2').prop('data-default-file', '');
+                		$('#input-file-events2').show();
+                		//drEvent2.clearElement();
+                    	$('#img2').hide();
+                	}
+                }
+                $('#msload').hide();
+            });
 	    }
 	}])
 	.service("uploadService", function($http, $q) {
 
-    return ({
-      upload: upload
-    });
-
-    function upload(archivo) {
-      var upl = $http({
-        method: 'POST',
-        url: '/CuadrillasWEB/RegistraFotoActividad', // /api/upload/tatei
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        data: {
-          upload: archivo
-        },
-        transformRequest: function(data, headersGetter) {
-          var formData = new FormData();
-          angular.forEach(data, function(value, key) {
-            formData.append(key, value);
-          });
-
-          var headers = headersGetter();
-          delete headers['Content-Type'];
-
-          return formData;
-        }
-      });
-      return upl.then(handleSuccess, handleError);
-
-    } // Fin de la funcion upload 
-
-    // ---
-    // Metodos privados
-    // ---
-  
-    function handleError(response, data) {
-      if (!angular.isObject(response.data) ||!response.data.message) {
-        return ($q.reject("Ocurrio un error desconocido."));
-      }
-
-      return ($q.reject(response.data.message));
-    }
-
-    function handleSuccess(response) {
-      return (response);
-    }
+	    return ({
+	      upload: upload
+	    });
+	
+	    function upload(archivo) {
+	    	$('#msload').show();
+	    	var obj = {};
+	    	obj.codigoActividad = actividadDiariaCOD;
+	    	obj.idActividadDiaria = idActDiaria;
+	    	obj.usuarioAlta = usuarioRegistra;
+	    	//obj.url = indefined;//archivo.name;
+	    	var json = JSON.stringify(obj);
+	      var upl = $http({
+	        method: 'POST',
+	        url: '/CuadrillasWEB/RegistraFotoActividad', // /api/upload/tatei
+	        headers: {
+	          'Content-Type': undefined
+	        },
+	        data: {
+	          upload: archivo,
+	          json: json
+	        },
+	        transformRequest: function(data, headersGetter) {
+	          var formData = new FormData();
+	          angular.forEach(data, function(value, key) {
+	            formData.append(key, value);
+	          });
+	
+	          var headers = headersGetter();
+	          delete headers['Content-Type'];
+	
+	          return formData;
+	        }
+	      });
+	      return upl.then(handleSuccess, handleError);
+	
+	    } // Fin de la funcion upload 
+	
+	    // ---
+	    // Metodos privados
+	    // ---
+	  
+	    function handleError(response, data) {
+	      if (!angular.isObject(response.data) ||!response.data.mensajeFuncional) {
+	        return ($q.reject("Ocurrio un error desconocido."));
+	      }
+	
+	      return ($q.reject(response.data.mensajeFuncional));
+	    }
+	
+	    function handleSuccess(response) {
+	      return (response);
+	    }
 
   })
   .directive("fileinput", [function() {
@@ -162,7 +224,36 @@ angular.module('tatei', ['ui.materialize'])
       }
     }
   }])
-    .controller('AppCtrl', function($scope, $http, $window) {
+  .directive("ngUploadChange",function(){
+	  return{
+	        scope:{
+	            ngUploadChange:"&"
+	        },
+	        link:function($scope, $element, $attrs){
+	            $element.on("change",function(event){
+	                $scope.ngUploadChange({$event: event})
+	            })
+	            $scope.$on("$destroy",function(){
+	                $element.off();
+	            });
+	        }
+	    }
+	})
+	.controller("upload", ['$scope', '$http', 'uploadService', function($scope, $http, uploadService) {
+		$scope.actividad4Img = dataBckp;
+    $scope.$watch('file', function(newfile, oldfile,a,b) {
+      if(angular.equals(newfile, oldfile) ){
+        return;
+      }
+
+      uploadService.upload(newfile).then(function(res){
+    	$('#msload').hide();
+        console.log("resultado", res);
+      })
+    });
+
+  }])
+    .controller('AppCtrl', function($scope, $http, $window,fileUploadOld, uploadService) {
     	var map;
         var map2;
         var medida;
@@ -171,18 +262,18 @@ angular.module('tatei', ['ui.materialize'])
 		$scope.usuario = $window.user;
         usuarioRegistra = $scope.usuario;
         idActDiaria =  $scope.id;
-        
+      
         $('#msload').show();
         $scope.toast = function (message, duration) {
             Materialize.toast(message, duration);
         }
         
-        $scope.subirImagen = function(actividad) {
+        $scope.subirImagen = function(idComp) {
 	  
 			console.log('Archivo a subir: ' );
-			console.dir(actividad);
+			console.dir(idComp);
 			var uploadUrl = "/CuadrillasWEB/RegistraFotoActividad";
-			fileUpload.uploadFileToUrl(actividad.codigoActividad, "test", usuarioRegistra, uploadUrl);
+			fileUploadOld.uploadFileToUrl(idComp, usuarioRegistra, uploadUrl);
 	      };
 
         $scope.initMap = function() {
@@ -603,6 +694,14 @@ angular.module('tatei', ['ui.materialize'])
             });
         }
         $scope.abrir = function(actividad) {
+        	
+        	$('#images-container').show();
+        	$("#img1").val("");
+        	//$scope.f1 = true;
+            //$scope.f2 = true;
+            //$('#img1').show();
+            //$('#img2').show();
+        	actividadDiariaCOD = actividad.codigoActividad;
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
@@ -666,6 +765,8 @@ angular.module('tatei', ['ui.materialize'])
         $scope.nuevaActividad = function() {
             //console.info(actividad);
             $('#msload').show();
+            
+            $('#images-container').hide();
 
             $('#actividadSelect').prop('disabled', false);
 

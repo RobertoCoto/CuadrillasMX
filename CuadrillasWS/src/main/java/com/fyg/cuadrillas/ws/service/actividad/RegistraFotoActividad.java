@@ -20,7 +20,7 @@ public class RegistraFotoActividad {
 
 
 	/** The path to the folder where we want to store the uploaded files */
-	private static final String UPLOAD_FOLDER = "C:/Sistema_TATEI/actividades/";
+	private static final String UPLOAD_FOLDER = "/home/hsamano/Sistema_TATEI/actividades/";
 /*
 	@POST
 	@Path("/imagen")

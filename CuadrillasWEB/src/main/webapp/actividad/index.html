@@ -9,6 +9,7 @@
         
         <!-- Compiled and minified CSS -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/dropify.min.css">
         
         <style>
@@ -27,12 +28,21 @@
                 z-index: 9999;;
                 opacity: 0.9;
             }
+            input[type="file"] {
+			    display: none;
+			}
+			.custom-file-upload {
+			    border: 1px solid #ccc;
+			    display: inline-block;
+			    padding: 6px 12px;
+			    cursor: pointer;
+			}
 
         </style>
     </head>
 
     <body ng-app="tatei" ng-controller="AppCtrl">
-        <div id="msload" class="lmask bottom-sheet" style="width: 100%; height: 100%;">
+        <div id="msload" class="lmask bottom-sheet" style="width: 100%; height: 5000px;">
             <div class="modal-content">
                 <h5 class="green-text text-darken-4" style="text-align: center;">Espera un momento...</h5>
                 <div class="progress  light-green">
@@ -139,14 +149,30 @@
                                     <h6>Datos de la Actividad</h6>
                                     <div class="row">
                                         <form class="col s12" name="formEdicionActividades">
-                                        <!--div class="row">
-                                        	<div class="col s6">
-                                        		<input  type="file" ng-model="actividad.imagen1" file-model="actividad.imagen1" id="input-file-events1" class="dropify-event" ng-change="subirImagen(actividad)" />
+                                        <div class="row" ng-controller="upload" id="images-container">
+                                        	<div class="col s4">
+	                                        	<label for="img2" class="custom-file-upload">
+												    <i class="fa fa-cloud-upload"></i> Subir Imagen
+												</label>
+                                        		<input type="file" fileinput="file" filepreview="filepreview" id="img2"/>
+                                        		<img height="120px" width="120px" id="img1" class="img-responsive" ng-src="{{filepreview}}" class="img-responsive" ng-show="filepreview"/>
+                                        		<!-- input type="file"  ng-model="f1" file-model="f1" id="input-file-events1" data-show-remove="false" class="dropify-event" ng-upload-change="subirImagen('img1')" ng-show="f1"/>
+                                        		<img height="120px" width="120px" id="img1" class="img-responsive"/-->
+                                        		<!-- img height="120px" width="120px" ng-src="{{filepreview}}" class="img-responsive" ng-show="filepreview"/-->
+                                        		<!--input  type="file" ng-model="actividad.imagen1" file-model="actividad.imagen1" id="input-file-events1" class="dropify-event" ng-change="subirImagen(actividad)" /-->
                                         	</div>
-                                        	<div class="col s6">
-                                        		<input  type="file" file-model="actividad.imagen2" id="input-file-events2" class="dropify-event" onchange="subirImagen(actividad)" />
+                                        	<div class="col s8">
+	                                        	<div class="" ng-repeat="image in actividad.fotos">
+		                                        	<a target="_blank" href="/CuadrillasWEB/RevisaActividadDocumentos?url={{image.url}}">
+	                                        		<div class="chip">
+													    <img ng-src="/CuadrillasWEB/RevisaActividadDocumentos?url={{image.url}}">
+													    {{image.url}}
+													  </div>
+													 </a>
+												 </div>
+                                        		
                                         	</div>
-                                        </div -->
+                                        </div>
                                         <div class="row">
                                             <div class="input-field col s6">
                                                 <select id="actividadSelect" ng-model="actividad.codigoActividad" material-select watch>

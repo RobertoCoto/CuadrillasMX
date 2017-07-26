@@ -24,7 +24,7 @@ public class RevisaActividadDocumentos extends HttpServlet {
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
 	 */
-	private static final String DESTINATION_DIR_PATH =  "C:/Sistema_TATEI/actividades/";
+	private static final String DESTINATION_DIR_PATH =  "/home/hsamano/Sistema_TATEI/actividades/";
     /**
      * @see HttpServlet#HttpServlet()
      */
