@@ -35,7 +35,8 @@ public class RegistraFotoActividad extends HttpServlet {
 	/**
 	 * Directorio para almacenar la informacion.
 	 */
-	private static final String DESTINATION_DIR_PATH = "/home/hsamano/Sistema_TATEI/actividades/";
+	//private static final String DESTINATION_DIR_PATH = "/home/hsamano/Sistema_TATEI/actividades/";
+	private static final String DESTINATION_DIR_PATH = "C:/Sistema_TATEI/actividades/";
 
 	/**
 	 * Directorio para almacenar las imagenes de las incidencias.
