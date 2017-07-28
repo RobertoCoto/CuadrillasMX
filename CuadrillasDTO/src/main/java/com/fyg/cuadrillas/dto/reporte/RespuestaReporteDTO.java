@@ -15,6 +15,9 @@ public class RespuestaReporteDTO  extends ObjetoValor {
 	private EncabezadoRespuesta header;
 	/** reporte */
 	private List<ReporteDTO> reporte;
+	/** encabezado */
+	private List<String> encabezado;
+	
 	/**
 	 * @return the header
 	 */
@@ -38,6 +41,18 @@ public class RespuestaReporteDTO  extends ObjetoValor {
 	 */
 	public void setReporte(List<ReporteDTO> reporte) {
 		this.reporte = reporte;
+	}
+	/**
+	 * @return the encabezado
+	 */
+	public List<String> getEncabezado() {
+		return encabezado;
+	}
+	/**
+	 * @param encabezado the encabezado to set
+	 */
+	public void setEncabezado(List<String> encabezado) {
+		this.encabezado = encabezado;
 	}
 
 }

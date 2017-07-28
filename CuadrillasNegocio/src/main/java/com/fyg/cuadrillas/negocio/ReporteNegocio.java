@@ -1,5 +1,7 @@
 package com.fyg.cuadrillas.negocio;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
@@ -13,6 +15,7 @@ import com.fyg.cuadrillas.dto.reporte.RespuestaReporteDTO;
 
 public class ReporteNegocio {
 
+	public static final String ENC_ASISTENCIA = "ID EMPLEADO;NO EMPLEADO;NOMBRE EMPLEADO;FECHA_INGRESO;FECHA BAJA;CUADRILLA;PUESTO;FECHA ASISTENCIA;COMENTARIO;HORA ENTRADA;HORA SALIDA";
 	/**
 	 * Metodo para generar el reporte de Asistencia
 	 * @param peticion fechas reporte
@@ -34,6 +37,9 @@ public class ReporteNegocio {
 	    try {
 	    	reporte = new ReporteDAO().reporteAsistencia(uid, peticion);
 	    	respuesta.setReporte(reporte);
+	    	List<String> encabezado = 
+	    		     new ArrayList<String>(Arrays.asList(ENC_ASISTENCIA.split(";")));
+	    	respuesta.setEncabezado(encabezado);
 
 	    } catch  (ExcepcionesCuadrillas ex) {
 			LogHandler.error(uid, this.getClass(), "reporteAsistencia - Error: " + ex.getMessage(), ex);
