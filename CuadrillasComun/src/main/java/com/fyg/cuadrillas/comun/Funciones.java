@@ -85,7 +85,7 @@ public class Funciones {
 									methodSet = obj.getClass().getMethod( "set"
 									+ method.getName().replace( "get" , "").toUpperCase().charAt( 0 )
 									+ method.getName().replace( "get" , "").substring( 1 ), String.class );
-									methodSet.invoke( obj, new Object[] {""});
+									methodSet.invoke( obj, new Object[] {" "});
 								}
 							}
 
