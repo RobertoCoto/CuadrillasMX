@@ -1,8 +1,8 @@
-app.controller('reporte', function ($scope, $http, $q) {	
+app.controller('reporte', function ($scope, $http) {	
 	  // msload 
 		$('#success').hide();
 	    $('#alert').hide();
-	    $('#msload').modal('hide');
+	    //$('#msload').modal('show');
 	    
 	    var fechaInicioForm=$('input[name="fechaInicial"]');
 	    var fechaTerminoForm=$('input[name="fechaFinal"]');
@@ -22,15 +22,23 @@ app.controller('reporte', function ($scope, $http, $q) {
         });	    
 	    					
         $scope.consultar = function() {
-        	fechaInicial = $('#fechaInicial').val();
-        	fechaFinal = $('#fechaFinal').val();
+        	var fechaInicial = $('#fechaInicial').val();
+        	var fechaFinal = $('#fechaFinal').val();
+        	
+        	$scope.datos = {};
+			$scope.encabezados = [];
+        	
+        	if ($scope.validarCampos() == false)
+        	{
+        		return;
+        	}
+        	
         	$http({
                 method: 'GET',
-                url: '/CuadrillasWEB/ConsultaCatalogo',
-                params : {
-		 			"tipoCatalogo"	: 'PERFIL_EMP'//,
-		 			//"fechaInicial" 	: fechaInicial,
-		 			//"fechaFinal"	: fechaFinal
+                url: '/CuadrillasWEB/ReporteAsistencia',
+                params : {		 			
+		 			"fechaInicio" 	: fechaInicial,
+		 			"fechaFin"	: fechaFinal
 		 		},
 		 		data: {}
   		    }).then(function mySucces(result) {
@@ -38,19 +46,60 @@ app.controller('reporte', function ($scope, $http, $q) {
   				$('#alert').hide();
   				$('#success').hide();
   				//console.info(result.data.catalogo);
-  				$scope.encabezados = _getHeaders(result.data.catalogo);
-  				//console.info("encabezados");
+  				$scope.nombreColumnas = _getHeaders(result.data.reporte);
+  				$scope.encabezados = result.data.encabezado;
+  				//console.info("cabecera");
+  				//console.info($scope.nombreColumnas);
   				//console.info($scope.encabezados);
-  				$scope.datos = result.data.catalogo;                
+  				$scope.datos = result.data.reporte;                
   		    }, function myError(response) {
   		    	$('#msload').modal('hide');
   		        console.error(response);
   		        $('#alert').show();
   				$('#msgerror').text(response.data.header.mensajeFuncional);
   		    });	     
-        };                
+        };
         
-        $scope.consultar();
+        $scope.exportar = function() {
+        	var fechaInicial = $('#fechaInicial').val();
+        	var fechaFinal = $('#fechaFinal').val();
+        	
+        	$scope.datos = {};
+			$scope.encabezados = [];
+        	
+        	if ($scope.validarCampos() == false)
+        	{
+        		return;
+        	}
+        	
+        	$http({
+                method: 'GET',
+                url: '/CuadrillasWEB/ReporteAsistenciaExportar',
+                params : {		 			
+		 			"fechaInicio" 	: fechaInicial,
+		 			"fechaFin"	: fechaFinal
+		 		},
+		 		data: {}
+  		    }).then(function mySucces(result) {
+  		    	$('#msload').modal('hide');
+  				$('#alert').hide();
+  				$('#success').hide();
+  				//console.info(result.data.catalogo);
+  				$scope.nombreColumnas = _getHeaders(result.data.reporte);
+  				$scope.encabezados = result.data.encabezado;
+  				//console.info("cabecera");
+  				//console.info($scope.nombreColumnas);
+  				//console.info($scope.encabezados);
+  				$scope.datos = result.data.reporte;                
+  		    }, function myError(response) {
+  		    	$('#msload').modal('hide');
+  		        console.error(response);
+  		        $('#alert').show();
+  				$('#msgerror').text(response.data.header.mensajeFuncional);
+  		    });	     
+        };                        
+        
+        //$scope.consultar();
         
         function _getHeaders(items) {
             var headers = [];
@@ -86,5 +135,60 @@ app.controller('reporte', function ($scope, $http, $q) {
 			$('#fechaInicial').val('');
 			$('#fechaFinal').val('');
 		};
+		
+		$scope.validarCampos = function()
+		{
+	    	var correcto = true;
+        	var fechaInicial = $('#fechaInicial').val();
+        	var fechaFinal = $('#fechaFinal').val();
+        	var cadena = "";
+	    	
+        	if (fechaInicial == '' || fechaFinal == '')
+        	{
+        		cadena = "Deben ser capturadas las 2 fechas, favor de verificar."
+        		correcto = false;
+        	}
+        	
+        	if (correcto == true)
+        	{
+        		if(validate_fechaMayorQue(fechaInicial,fechaFinal))
+        		{
+        			//document.write("La fecha "+fechaFinal+" es superior a la fecha "+fechaInicial);
+        		}else{
+        			correcto = false;
+        			cadena = "La fecha "+fechaFinal+" debe ser mayor a la fecha "+fechaInicial + ", favor de verificar";
+        		}
+        	}
+        	
+							
+        	if (correcto == false)
+        	{
+				$('#alert').show();
+				$('#msgerror').text(cadena);
+        	}
+        	else
+        	{
+        		$('#alert').hide();
+        	}
+			return correcto;			
+			
+		};
+		
+		function validate_fechaMayorQue(fechaInicial,fechaFinal)
+        {
+        	//formato fechas aaaa-mm-dd
+            valuesStart=fechaInicial.split("-");
+            valuesEnd=fechaFinal.split("-");
+            
+ 
+            // Verificamos que la fecha no sea posterior a la actual
+            var dateStart=new Date(valuesStart[0],(valuesStart[1]-1),valuesStart[2]);
+            var dateEnd=new Date(valuesEnd[0],(valuesEnd[1]-1),valuesEnd[2]);
+            if(dateStart>=dateEnd)
+            {
+                return 0;
+            }
+            return 1;
+        }
 		 		 	 
 	});

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-mx">
 	<head>
-    	<title> Reporte </title>
+    	<title> Reporte de asistencia</title>
     	<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">    	    	   
@@ -43,7 +43,7 @@
 </style>
 <body ng-app="tatei"> 
 <div class="container">
-	<h2>Reportes</h2>
+	<h2>Reporte de asistencia</h2>
 	<div id="success" class="alert alert-success alert-dismissable fade in">
                     <a href="" class="close" ng-click="hideAlerts()"  data-dismiss="hideAlerts()" aria-label="close">&times;</a>
                     <strong>AVISO!</strong> <span id="msgaviso"></span>
@@ -84,7 +84,7 @@
 			                	</th>
             				</tr>
             				<tr ng-repeat="item in datos">
-                				<td ng-repeat="header in encabezados">
+                				<td ng-repeat="header in nombreColumnas">
                     				{{ item[header]}}
                 				</td>
             				</tr>
@@ -97,7 +97,10 @@
 			    </div>
 			    <div class="btn-group">
 			     <input class="btn botonGuardar"  type="submit" name="consultar" value="Consultar" data-ng-click="consultar()" id="consultar">
-			    </div>			    			    							   
+			    </div>
+			   	<div class="btn-group">
+			     <input class="btn botonGuardar"  type="submit" name="exportar" value="Exportar" data-ng-click="exportar()" id="exportar">
+			    </div>
 			</form>
 		</div>
 		</div>
