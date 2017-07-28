@@ -253,7 +253,7 @@ angular.module('tatei', ['ui.materialize'])
     });
 
   }])
-    .controller('AppCtrl', function($scope, $http, $window,fileUploadOld, uploadService) {
+    .controller('AppCtrl', function($scope, $http, $window,fileUploadOld, uploadService, $timeout) {
     	var map;
         var map2;
         var medida;
@@ -309,7 +309,10 @@ angular.module('tatei', ['ui.materialize'])
                     $scope.setMarcador(event.latLng);
                 });
         };
-        $scope.initMap();
+        $timeout(function(){
+        	$scope.initMap();
+        });
+
         $scope.listaActividades = [];
         $scope.actividadMaster = {};
         $scope.consultaAgenda = function(idAgenda) {
@@ -705,7 +708,7 @@ angular.module('tatei', ['ui.materialize'])
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
-
+            angular wait for script to load
             if(actividad.planeada == 'S') {
                 $('#actividadSelect').prop('disabled', 'disabled');
             } else {
