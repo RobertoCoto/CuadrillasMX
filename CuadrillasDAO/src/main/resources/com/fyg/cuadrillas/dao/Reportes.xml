@@ -6,7 +6,7 @@
 <select id="reporteAsistencia" parameterType="com.fyg.cuadrillas.dto.reporte.PeticionReporteDTO" resultType="com.fyg.cuadrillas.dto.reporte.ReporteDTO">
 	SELECT e.id_empleado AS idEmpleado,
 	   e.no_empleado AS noEmpleado,
-	   e.nombre + ' ' + e.apellido_pat + ' ' + e.apellido_mat AS nombreEmpleado,
+	   concat(e.nombre , ' ' , e.apellido_pat , ' ' , e.apellido_mat) AS nombreEmpleado,
 	   e.fecha_ingreso AS fechaIngreso,
 	   e.fecha_baja AS fechaBaja,
 	   c.nombre_cuadrilla AS nombreCuadrilla,
