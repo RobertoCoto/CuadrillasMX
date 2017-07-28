@@ -1,5 +1,6 @@
 package com.fyg.cuadrillas.comun;
 
+import java.lang.reflect.Method;
 import java.util.Date;
 
 public class Funciones {
@@ -63,4 +64,62 @@ public class Funciones {
 		 int cifras=(int) Math.pow(10,digitos);
 		 return (float) (Math.rint(numero*cifras)/cifras);
     }
+	
+
+	/**
+	 * Limpia objeto.
+	 *
+	 * @param obj :
+	 * @return Object
+	 */
+	public static  Object limpiaObjeto( Object obj) {
+
+		for ( Method method : obj.getClass().getMethods() ) {
+			if ( method.getName().startsWith( "get" ) ) {
+
+					try {
+							if (method.getGenericReturnType() ==  String.class ) {
+								if (method.invoke(obj) == null || method.invoke(obj).toString().isEmpty()) {
+
+									final java.lang.reflect.Method
+									methodSet = obj.getClass().getMethod( "set"
+									+ method.getName().replace( "get" , "").toUpperCase().charAt( 0 )
+									+ method.getName().replace( "get" , "").substring( 1 ), String.class );
+									methodSet.invoke( obj, new Object[] {""});
+								}
+							}
+
+							if (method.getGenericReturnType() ==  Boolean.class ) {
+								if (method.invoke(obj) == null ) {
+
+									final java.lang.reflect.Method
+									methodSet = obj.getClass().getMethod( "set"
+									+ method.getName().replace( "get" , "").toUpperCase().charAt( 0 )
+									+ method.getName().replace( "get" , "").substring( 1 ), Boolean.class );
+									methodSet.invoke( obj, new Object[] {false});
+								}
+
+							}
+
+							if (method.getGenericReturnType() ==  Integer.class ) {
+
+								if (method.invoke(obj) == null || method.invoke(obj).toString().isEmpty()) {
+
+									final java.lang.reflect.Method
+									methodSet = obj.getClass().getMethod( "set"
+									+ method.getName().replace( "get" , "").toUpperCase().charAt( 0 )
+									+ method.getName().replace( "get" , "").substring( 1 ), Integer.class );
+
+									methodSet.invoke( obj, new Object[] {0});
+								}
+							}
+						}
+						catch ( java.lang.Exception exception ) {
+							exception.printStackTrace();
+						}
+			}
+		}
+		return obj;
+
+	}
 }

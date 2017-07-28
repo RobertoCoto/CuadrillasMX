@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.fyg.cuadrillas.comun.EncabezadoRespuesta;
 import com.fyg.cuadrillas.comun.ExcepcionesCuadrillas;
+import com.fyg.cuadrillas.comun.Funciones;
 import com.fyg.cuadrillas.comun.LogHandler;
 import com.fyg.cuadrillas.dto.reporte.PeticionReporteDTO;
 import com.fyg.cuadrillas.dto.reporte.ReporteDTO;
@@ -33,6 +34,9 @@ public class ReporteDAO {
 			rows = sessionNTx.selectList("ReporteDAO.reporteAsistencia", peticion);
 			if ( rows.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen registros para el reporte.");
+			}
+			for (ReporteDTO row : rows) {
+				row = (ReporteDTO) Funciones.limpiaObjeto(row);
 			}
 		}
 		catch (Exception ex) {
