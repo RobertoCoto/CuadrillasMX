@@ -311,7 +311,7 @@ angular.module('tatei', ['ui.materialize'])
         };
         $timeout(function(){
         	$scope.initMap();
-        });
+        },1000);
 
         $scope.listaActividades = [];
         $scope.actividadMaster = {};
@@ -708,7 +708,7 @@ angular.module('tatei', ['ui.materialize'])
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
-            angular wait for script to load
+
             if(actividad.planeada == 'S') {
                 $('#actividadSelect').prop('disabled', 'disabled');
             } else {
