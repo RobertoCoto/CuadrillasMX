@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.fyg.cuadrillas.dao.Reportes">
+
+
+<select id="reporteAsistencia" parameterType="com.fyg.cuadrillas.dto.reporte.PeticionReporteDTO" resultType="com.fyg.cuadrillas.dto.reporte.ReporteDTO">
+	SELECT e.id_empleado AS idEmpleado,
+	   e.no_empleado AS noEmpleado,
+	   e.nombre + ' ' + e.apellido_pat + ' ' + e.apellido_mat AS nombreEmpleado,
+	   e.fecha_ingreso AS fechaIngreso,
+	   e.fecha_baja AS fechaBaja,
+	   c.nombre_cuadrilla AS nombreCuadrilla,
+	   cp.descripcion AS descPuesto,
+	   asi.fecha AS fechaAsistencia,
+	   asi.comentarios AS comentariosAsistencia,
+	   asi.hora_entrada AS horaEntradaAsistencia,
+	   asi.hora_salida AS horaSalidaAsistencia
+	FROM empleado e
+	left JOIN cuadrilla c ON c.id_cuadrilla = e.id_empleado
+	LEFT JOIN catalogo cp ON cp.tipo_catalogo = 'PERFIL_EMP' AND cp.codigo = e.codigo_puesto
+	LEFT JOIN asistencia asi ON asi.id_empleado = e.id_empleado AND asi.fecha >= #{fechaInicio} AND asi.fecha <![CDATA[<=]]>   #{fechaFin}
+	WHERE (e.fecha_baja IS NULL OR e.fecha_baja <![CDATA[<]]>   #{fechaInicio})
+	AND e.codigo_puesto != 'OFCE'
+
+</select>
+
+
+</mapper>

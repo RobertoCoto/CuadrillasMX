@@ -34,6 +34,7 @@
 	<typeAlias alias="ActividadDiariaDetalle" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaDetalleDTO"/>
 	<typeAlias alias="ActividadDiariaDocumentos" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaDocumentosDTO"/>
 	<typeAlias alias="ActividadDiariaCoordenadas" type="com.fyg.cuadrillas.dto.actividad.ActividadDiariaCoordenadasDTO"/>
+	<typeAlias alias="Reporte" type="com.fyg.cuadrillas.dto.reporte.ReporteDTO"/>
 </typeAliases>
 
 	<environments default="development">
@@ -66,5 +67,6 @@
 	<mapper resource="com/fyg/cuadrillas/dao/PermisoNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/BuzonNTx.xml" />
 	<mapper resource="com/fyg/cuadrillas/dao/AgendaNTx.xml" />
+	<mapper resource="com/fyg/cuadrillas/dao/Reportes.xml" />
 	</mappers>
 </configuration>
