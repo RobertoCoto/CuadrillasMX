@@ -22,7 +22,6 @@ import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaDTO;
 import com.fyg.cuadrillas.dto.asistencia.ConsultaHuella;
 import com.fyg.cuadrillas.dto.empleado.EmpleadoHuellaRespuesta;
 import com.fyg.cuadrillas.negocio.EmpleadoNegocio;
-import com.fyg.cuadrillas.dto.asistencia.VerifiHuella;
 import com.google.gson.Gson;
 import com.digitalpersona.onetouch.DPFPData;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
