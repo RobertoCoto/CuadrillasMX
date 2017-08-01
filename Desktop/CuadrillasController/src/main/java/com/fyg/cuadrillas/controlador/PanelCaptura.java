@@ -773,6 +773,7 @@ public class PanelCaptura extends JApplet {
 
 						JOptionPane.showMessageDialog(null,
 								"La huella digital ha sido capturada.");
+						
 						procesaHuella(e.getSample());
 					}
 				});
@@ -863,104 +864,11 @@ public class PanelCaptura extends JApplet {
 		firePropertyChange(TEMPLATE_PROPERTY, old, template);
 	}
 
-	// guarda el template en un fichero
-	/*public void onSave() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(new TemplateFileFilter());
-		while (true) {
-			String consulta = "consultaCatalogo/catalogo?tipoCatalogo=LADO_MAN";
-			String result = new ObtieneUrl().getUrlContents(consulta);
-			String codigoMano = null;
-			String codigoDedo = null;
-
-			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(
-					tablaEmpleados.getSelectedRow(), 0).toString());
-			try {
-				JSONParser parser = new JSONParser();
-				Object obj = parser.parse(result);
-				JSONObject jsonCatalogoManoWS = (JSONObject) obj;
-				JSONArray arrayCatalogoManoWS = (JSONArray) jsonCatalogoManoWS
-						.get("catalogo");
-
-				for (int j = 0; j < arrayCatalogoManoWS.size(); j++) {
-					JSONObject manoWS = (JSONObject) arrayCatalogoManoWS.get(j);
-					String descripcionWS = (String) manoWS.get("descripcion");
-					if (descripcionWS.equals(cataMano.getSelectedItem())) {
-						codigoMano = (String) manoWS.get("codigo");
-						System.out.println("Seleccion Mano Codigo: "
-								+ codigoMano);
-					}
-				}
-				String direccionConsultaWS = "consultaCatalogo/catalogo?tipoCatalogo=TIPO_DEDO";
-				String salidaCatalogoWS = new ObtieneUrl()
-						.getUrlContents(direccionConsultaWS);
-				JSONParser parseoWS = new JSONParser();
-				Object objCatalogoWS = parseoWS.parse(salidaCatalogoWS);
-				JSONObject jsonCatalogoDedoWS = (JSONObject) objCatalogoWS;
-				JSONArray arrayCatalogoDedoWS = (JSONArray) jsonCatalogoDedoWS
-						.get("catalogo");
-
-				for (int k = 0; k < arrayCatalogoDedoWS.size(); k++) {
-					JSONObject dedoWS = (JSONObject) arrayCatalogoDedoWS.get(k);
-					String descripcionDedoWS = (String) dedoWS
-							.get("descripcion");
-
-					if (descripcionDedoWS.equals(cataDedos.getSelectedItem())) {
-						codigoDedo = (String) dedoWS.get("codigo");
-						System.out.println("Seleccion Dedo: " + codigoDedo);
-					}
-				}
-			} catch (Exception f) {
-				f.printStackTrace();
-			}
-			// guarda huella
-			if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-				try {
-					File file = chooser.getSelectedFile();
-					//if (!file.toString().toLowerCase().endsWith(".fpt"))
-						file = new File(file.toString());
-					if (file.exists()) {
-						int choice = JOptionPane
-								.showConfirmDialog(
-										this,
-										String.format(
-												"File \"%1$s\" already exists.\nDo you want to replace it?",
-												file.toString()),
-										"Huella Guardada",
-										JOptionPane.YES_NO_CANCEL_OPTION);
-						if (choice == JOptionPane.NO_OPTION)
-							continue;
-						else if (choice == JOptionPane.CANCEL_OPTION)
-							break;
-					}
-					FileOutputStream stream = new FileOutputStream(file);
-					stream.write(getTemplate().serialize());
-					stream.close();
-
-					URL rut = file.toURI().toURL();
-					String ruta = rut.toString();
-					String registraHuella = "registraHuella/huella?idEmpleado="
-							+ idEmpleado + "&codigoMano=" + codigoMano
-							+ "&codigoDedo=" + codigoDedo + "&ruta=" + ruta;
-					String resultHuella = new ObtieneUrl()
-							.getUrlContents(registraHuella);
-					System.out.println(resultHuella);
-
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(this,
-							ex.getLocalizedMessage(), "Fingerprint saving",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			break;
-		}
-	}*/
-
 	boolean algo = false;
- /**
-  * Listener que activa el metodo de verificar Huella
-  */
-	protected void verificaHuella() {
+    /**
+    * Listener que activa el metodo de verificar Huella
+    */
+	/*protected void verificaHuella() {
 
 		algo = true;
 
@@ -972,15 +880,10 @@ public class PanelCaptura extends JApplet {
 			public void dataAcquired(final DPFPDataEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-
-						if (algo) {
-							algo = false;
-							JOptionPane.showMessageDialog(null,
-									"La huella digital ha sido capturada.");
-							comparaHuella(e.getSample());
-						} else {
-							return;
-						}
+						JOptionPane.showMessageDialog(null,
+								"La huella digital ha sido capturada.");
+						comparaHuella(e.getSample());
+						System.out.println("huella:" + e.getSample());
 					}
 				});
 			}
@@ -989,106 +892,75 @@ public class PanelCaptura extends JApplet {
 
 		//capturer.removeDataListener(dataAdapter);
 		System.out.println("remove listener");
-	}
+	}*/
+	
    /**
     * Metodo que compara la huella
     * @param sample recibe datos del lector
     */
-	public void comparaHuella(DPFPSample sample) {
-
-		System.out.println("**************** Entra comparaHuella ");
-		// Process the sample and create a feature set for the enrollment
-		// purpose.
-		DPFPFeatureSet features = extractFeatures(sample,
-				DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
-		// Check quality of the sample and start verification if it's good
-		dibujaHuella(convertSampleToBitmap(sample));
-		DPFPVerificationResult result = null;
-		setTemplate(null);
-		String nombreEmpleado = tablaEmpleados.getValueAt(
-				tablaEmpleados.getSelectedRow(), 2).toString();
-		String appP = tablaEmpleados.getValueAt(
-				tablaEmpleados.getSelectedRow(), 3).toString();
+	/*public void comparaHuella(DPFPSample sample) {
+		Properties prop = new Properties();
+		InputStream is = null;
 		try {
-			// para consultar la huella
-			Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(
-					tablaEmpleados.getSelectedRow(), 0).toString());
-			System.out.println("el id empleado es: " + idEmpleado);
-			String consultaHuellas = "consultaHuella/empleado?idEmpleado="
-					+ idEmpleado;
-			String salidaHuella = new ObtieneUrl()
-					.getUrlContents(consultaHuellas);
-			//boolean stats = false;
-			// System.out.println(salidaHuella);
+			
+			is = new FileInputStream("src/main/resources/com/fyg/cuadrillas/controlador/ServerConfig.properties");
+			prop.load(is);
+			
+			String servidor = prop.getProperty("servidor.direccion");
+			 
+			//FileInputStream imageInFile = new FileInputStream(fingerData);
+            byte imageData[] = sample.serialize();
+            //imageInFile.read(imageData);
+            dibujaHuella(convertSampleToBitmap(sample));
+            
+            DPFPFeatureSet features = extractFeatures(sample,DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
+            
+            // Converting Image byte array into Base64 String
+            String imageDataString = encodeImage(features.serialize());
+			
+            String sURL = servidor + "consultaHuella/verificaHuella";
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+    		HttpPost postRequest = new HttpPost(sURL);
 
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(salidaHuella);
-			JSONObject jsonHuellasWS = (JSONObject) obj;
-			JSONArray arrayHuellasWS = (JSONArray) jsonHuellasWS
-					.get("empleadoHuella");
 
-			System.out.println("arrayHuellasWS size: " + arrayHuellasWS.size());
+    		StringEntity input = new StringEntity("{"
+    				+ "\"idEmpleado\":" + "1"
+    				+ ",\"fileEncoded\":\"" + imageDataString + "\""
+                    + "}");
+    		System.out.println("*****" + input);
+    		input.setContentType("application/json");
+    		postRequest.setEntity(input);
 
-			for (int h = 0; h < arrayHuellasWS.size(); h++) {
-				JSONObject huellaWS = (JSONObject) arrayHuellasWS.get(h);
-				String tipoHuellaWS = (String) huellaWS.get("huella");
+    		HttpResponse response = httpClient.execute(postRequest);
 
-				
-				File rut = new File(DESTINATION_DIR_PATH + tipoHuellaWS);
-                  System.out.println(rut);
-				List<String> rutas = new ArrayList<String>();
-				rutas.add(rut.toString());
-				System.out.println("rutas size: " + rutas.size());
+    		if (response.getStatusLine().getStatusCode() != 200) {
+    			throw new RuntimeException("Failed : HTTP error code : "
+    				+ response.getStatusLine().getStatusCode());
+    		}
 
-				for (int r = 0; r < rutas.size(); r++) {
+    		BufferedReader br = new BufferedReader(
+                            new InputStreamReader((response.getEntity().getContent())));
 
-					FileInputStream stream = new FileInputStream(new File(
-							rutas.get(r)));
-					byte[] data = new byte[stream.available()];
-					stream.read(data);
-					stream.close();
-					t.deserialize(data);
-					setTemplate(t);
-					System.out.print(getTemplate());
-					if (features != null) {
-						// Compare the feature set with our template
-						result = verificator.verify(features, getTemplate());
+    		String output;
+    		System.out.println("Output from Server .... \n");
+    		while ((output = br.readLine()) != null) {
+    			System.out.println(output);
+    		}
 
-						if (result.isVerified()) {
-							JOptionPane.showMessageDialog(null,
-									"Se ha verificado su identidad: "
-											+ nombreEmpleado + " " + appP);
-							btnAltaHuella.setEnabled(true);
-							consultaHuella.setEnabled(true);
-							imagenHuellaD.setIcon(null);
-							consulta.setVisible(false);
-							capturer.removeDataListener(dataAdapter);
-							detieneLector();
-							setTemplate(null);
-							features = null;
-							//stats = true;
-							break;
-						}
-					}
-					if (!result.isVerified()) {
-						JOptionPane.showMessageDialog(null,
-								"La huella es incorrecta, revise por favor.");
+    		httpClient.getConnectionManager().shutdown();
+			
+		}  catch (MalformedURLException e) {
 
-						btnAltaHuella.setEnabled(true);
-						consultaHuella.setEnabled(true);
-						imagenHuellaD.setIcon(null);
+			e.printStackTrace();
 
-						consulta.setVisible(false);
-						detieneLector();
-						return;
-					}
-				}
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		  } catch (IOException e) {
 
-	}
+			e.printStackTrace();
+
+		  }
+		
+
+	}*/
 	
 	/**
 	 * Metodo para guardar la huella
@@ -1192,6 +1064,129 @@ public class PanelCaptura extends JApplet {
 		  }
 	}
 	
+	 /**
+	  * Listener que activa el metodo de verificar Huella
+	  */
+		protected void verificaHuella() {
+
+			algo = true;
+
+			System.out.println("addDataListener "
+					+ capturer.getListeners(DPFPDataAdapter.class).length);
+
+			 dataAdapter = new DPFPDataAdapter() {
+				@Override
+				public void dataAcquired(final DPFPDataEvent e) {
+					SwingUtilities.invokeLater(new Runnable() {
+						public void run() {
+
+							if (algo) {
+								algo = false;
+								JOptionPane.showMessageDialog(null,
+										"La huella digital ha sido capturada.");
+								comparaHuella(e.getSample());
+							} else {
+								return;
+							}
+						}
+					});
+				}
+			};
+			capturer.addDataListener(dataAdapter);
+
+			//capturer.removeDataListener(dataAdapter);
+			System.out.println("remove listener");
+		}
+	   /**
+	    * Metodo que compara la huella
+	    * @param sample recibe datos del lector
+	    */
+		public void comparaHuella(DPFPSample sample) {
+
+			System.out.println("**************** Entra comparaHuella ");
+			// Process the sample and create a feature set for the enrollment
+			// purpose.
+			DPFPFeatureSet features = extractFeatures(sample,
+					DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
+			// Check quality of the sample and start verification if it's good
+			dibujaHuella(convertSampleToBitmap(sample));
+			DPFPVerificationResult result = null;
+			setTemplate(null);
+			String nombreEmpleado = tablaEmpleados.getValueAt(
+					tablaEmpleados.getSelectedRow(), 2).toString();
+			String appP = tablaEmpleados.getValueAt(
+					tablaEmpleados.getSelectedRow(), 3).toString();
+			try {
+				// para consultar la huella
+				Integer idEmpleado = Integer.parseInt(tablaEmpleados.getValueAt(
+						tablaEmpleados.getSelectedRow(), 0).toString());
+				System.out.println("el id empleado es: " + idEmpleado);
+				String consultaHuellas = "consultaHuella/verificador?idEmpleado="
+						+ idEmpleado;
+				String salidaHuella = new ObtieneUrl()
+						.getUrlContents(consultaHuellas);
+				//boolean stats = false;
+				System.out.println(salidaHuella);
+				JSONParser parser = new JSONParser();
+				Object obj = parser.parse(salidaHuella);
+				JSONArray jsonHuellasWS = (JSONArray) obj;
+              
+				
+						
+
+			
+
+				for (int h = 0; h < jsonHuellasWS.size(); h++) {
+					
+					List<String> tipoHuellaWS = new ArrayList<String>();
+					tipoHuellaWS.add((String) jsonHuellasWS.get(h));
+                    
+                    for (int j= 0; j<tipoHuellaWS.size();j++) {
+                    	byte[] decodificaRuta = decodeImage(tipoHuellaWS.get(j));
+						t.deserialize(decodificaRuta);
+						setTemplate(t);
+						System.out.print(getTemplate());
+						if (features != null) {
+							// Compare the feature set with our template
+							result = verificator.verify(features, getTemplate());
+
+							if (result.isVerified()) {
+								JOptionPane.showMessageDialog(null,
+										"Se ha verificado su identidad: "
+												+ nombreEmpleado + " " + appP);
+								btnAltaHuella.setEnabled(true);
+								consultaHuella.setEnabled(true);
+								imagenHuellaD.setIcon(null);
+								consulta.setVisible(false);
+								capturer.removeDataListener(dataAdapter);
+								detieneLector();
+								setTemplate(null);
+								features = null;
+								//stats = true;
+								break;
+							}
+						}
+						if (!result.isVerified()) {
+							JOptionPane.showMessageDialog(null,
+									"La huella es incorrecta, revise por favor.");
+
+							btnAltaHuella.setEnabled(true);
+							consultaHuella.setEnabled(true);
+							imagenHuellaD.setIcon(null);
+
+							consulta.setVisible(false);
+							detieneLector();
+							return;
+						}
+                    }
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+		}
+		
+	
 	/**
 	 * Encodes the byte array into base64 string
 	 *
@@ -1200,5 +1195,14 @@ public class PanelCaptura extends JApplet {
 	 */
 	public static String encodeImage(byte[] imageByteArray) {
 		return Base64.encodeBase64URLSafeString(imageByteArray);
+	}
+	/**
+	 * Decodes the base64 string into byte array
+	 *
+	 * @param imageDataString - a {@link java.lang.String}
+	 * @return byte array
+	 */
+	public static byte[] decodeImage(String imageDataString) {
+		return Base64.decodeBase64(imageDataString);
 	}
 }

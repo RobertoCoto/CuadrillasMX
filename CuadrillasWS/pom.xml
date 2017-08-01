@@ -65,6 +65,27 @@
     <artifactId>commons-codec</artifactId>
     <version>1.9</version>
   </dependency>
+  
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpfpverification</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpfpenrollment</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpotapi</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpotjni</artifactId>
+	<version>1.0</version>
+</dependency>
   </dependencies>
   <build>
     <finalName>CuadrillasWS</finalName>

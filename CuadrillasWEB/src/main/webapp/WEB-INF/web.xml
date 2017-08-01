@@ -453,6 +453,12 @@
   	<description></description>
   	<servlet-class>com.fyg.cuadrillas.web.reportes.ReporteAsistencia</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ReporteAsistenciaExportar</servlet-name>
+  	<display-name>ReporteAsistenciaExportar</display-name>
+  	<description></description>
+  	<servlet-class>com.fyg.cuadrillas.web.reportes.ReporteAsistenciaExportar</servlet-class>
+  </servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/json/*</url-pattern>
@@ -752,5 +758,9 @@
 	<servlet-mapping>
 		<servlet-name>ReporteAsistencia</servlet-name>
 		<url-pattern>/ReporteAsistencia</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReporteAsistenciaExportar</servlet-name>
+		<url-pattern>/ReporteAsistenciaExportar</url-pattern>
 	</servlet-mapping>
 </web-app>
