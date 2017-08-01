@@ -1253,6 +1253,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	  		if (actualizacion)
 	  			return;
 
+	  		$scope.reiniciarPantalla();
 	  		actualizacion = true;
 	  		validado=false;
 	  		var value = e.date;
@@ -1755,10 +1756,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		// ***para limpiar toda la pantalla
   		$scope.reiniciarPantalla = function(cambiaCombo)
   		{
+  			  		
   			idAgenda = 0;
   			validado = false;
   	  		$scope.gridActividades = [];
+  	  		$("#actividades tbody tr").remove();  	  		
   	  		$scope.gridArticulos = [];
+  	  		$("#materiales tbody tr").remove();
   	  		$scope.gridActividadesSemana = [];
   	  		$scope.gridArticulosSemana = [];
   	  		$('#diaActividad').val("");
@@ -1777,6 +1781,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
   	  		$scope.mapaSemana = [];
   	  		$scope.mapa.gridCoordenadas = [];
   	  		$scope.diasAgenda = [];
+  	  		$("#diasAgenda tbody tr").remove();
   	  		
   	  		$scope.limpiarMarcadoresLectura();
   	  		$scope.limpiarMarcadores('1900-01-01');
