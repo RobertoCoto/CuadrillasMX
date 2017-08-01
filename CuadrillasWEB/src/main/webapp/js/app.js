@@ -1686,7 +1686,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 			  			//console.info($scope.mapa);
 			  			//console.info("coordenadas:" + dia);
 			  			//console.info($scope.mapa.gridCoordenadas);
-			  			if (dia != 0)
+			  			if (dia != 0 && $scope.mapa.gridCoordenadas != undefined && $scope.mapa.gridCoordenadas != 'undefined' && $scope.mapa.gridCoordenadas.length > 0 )
 			  			{			  				
 					      	asyncLoop({
 					    		length : $scope.mapa.gridCoordenadas.length,
