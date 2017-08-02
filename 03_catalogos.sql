@@ -173,7 +173,7 @@ VALUES('TIPO_SALID','TSAB',upper('Abandono'),'SISTEMAS', 'SISTEMAS',now(),now(),
 /*CATALOGO BAJA EMPLEADO CAUSA RENUNCIA*/
 
 INSERT INTO tipo_catalogo (tipo_catalogo,descripcion,administracion,fecha_alta,fecha_ult_mod,estatus)
-VALUES('CAUSA_RENU','BAJA EMPLEADO CAUSA RENUNCIA','N',now(),now(),'A');
+VALUES('CAUSA_RENU','BAJA EMPLEADO CAUSA RENUNCIA','S',now(),now(),'A');
 
 INSERT INTO catalogo(tipo_catalogo,codigo,descripcion, usuario_alta,usuario_ult_mod,fecha_alta,fecha_ult_mod,estatus)
 VALUES('CAUSA_RENU','CROE',upper('Otro Empleo'),'SISTEMAS', 'SISTEMAS',now(),now(),'A');

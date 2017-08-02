@@ -208,6 +208,13 @@ public class EmpleadoNegocio {
 					 throw new ExcepcionesCuadrillas(
 							 "No es posible generar el usuario contacte al Administrador del Sistema.");
 				}
+				usuario.setUsuario(
+							usuario.getUsuario().replace('á', 'a')
+							.replace('é', 'e')
+							.replace('í', 'i')
+							.replace('ó', 'o')
+							.replace('ú', 'u')
+						);
 				//Damos de alta el usuario
 				String encriptaContrasena = Encriptacion.obtenerEncriptacionSHA256(usuario.getUsuario());
 				//Se le asigna la contrasena encriptada

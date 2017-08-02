@@ -1,9 +1,6 @@
 package com.fyg.cuadrillas.web.reportes;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,21 +12,20 @@ import com.fyg.cuadrillas.dto.reporte.PeticionReporteDTO;
 import com.fyg.cuadrillas.dto.reporte.ReporteDTO;
 import com.fyg.cuadrillas.dto.reporte.RespuestaReporteDTO;
 import com.fyg.cuadrillas.negocio.ReporteNegocio;
-import com.google.gson.Gson;
 
 /**
  * Servlet implementation class ReporteAsistenciaExportar
  */
 public class ReporteAsistenciaExportar extends HttpServlet {
+	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
-   
 	/** ARCHIVOCSV. */
 	private static final String ARCHIVOCSV = "text/csv";
 	/** peticionSb. */
 	StringBuilder peticionSb = null;
 	/** responseXml */
 	String responseXml = null;
-	
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,9 +34,11 @@ public class ReporteAsistenciaExportar extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+   	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   	 * @param request para realizar la peticion
+   	 * @param response para dar una respuesta al servicio
+   	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		this.doPost(request, response);
@@ -48,11 +46,13 @@ public class ReporteAsistenciaExportar extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request para realizar la peticion
+	 * @param response para dar una respuesta al servicio
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		RespuestaReporteDTO respuesta = new RespuestaReporteDTO();
-		Gson sg = new Gson();		
+
 		final String delimitador = ",";
 		byte[] registrosByteArray = null;
 		try {
@@ -73,7 +73,7 @@ public class ReporteAsistenciaExportar extends HttpServlet {
 			} else {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
-			
+
 			StringBuilder sbRegistros = new StringBuilder();
 			//Encabezado
 			boolean primer = true;
@@ -83,7 +83,7 @@ public class ReporteAsistenciaExportar extends HttpServlet {
 					primer = false;
 				} else {
 					sbRegistros.append(delimitador).append(nombreColumna);
-				}				
+				}
 			}
 			sbRegistros.append("\n");
 			//Registros
@@ -96,24 +96,24 @@ public class ReporteAsistenciaExportar extends HttpServlet {
 				.append(registro.getNombreCuadrilla()).append(delimitador)
 				.append(registro.getDescPuesto()).append(delimitador)
 				.append(registro.getFechaAsistencia()).append(delimitador)
-				.append(registro.getComentariosAsistencia()).append(delimitador)				
+				.append(registro.getComentariosAsistencia()).append(delimitador)
 				.append(registro.getHoraEntradaAsistencia()).append(delimitador)
-				.append(registro.getHoraSalidaAsistencia()).append("\n");				
+				.append(registro.getHoraSalidaAsistencia()).append("\n");
 			}
-			
+
 			response.setContentType(ARCHIVOCSV);
 			response.setHeader("Content-Disposition",
 					"Attachment;Filename=\"ReporteAsistencia.csv\"");
 
 			registrosByteArray = sbRegistros.toString().getBytes();
 			response.getOutputStream().write(registrosByteArray);
-		
+
 		}  catch (Exception e) {
 			LogHandler.error("", this.getClass(), "Error servlet", e);
 			respuesta.getHeader().setMensajeFuncional("Error: " + e.getMessage());
 			respuesta.getHeader().setEstatus(false);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			
+
 		}
 	}
 

@@ -260,6 +260,9 @@ public class UsuarioDAO {
 			if ( listaUsuario.size() == 0) {
 				throw new ExcepcionesCuadrillas("No existen catalogos definidos.");
 			}
+			for (UsuarioDTO  usuario : listaUsuario) {
+				usuario.setUsuario(usuario.getUsuario() + " - " + usuario.getNombre() + " " + usuario.getApellidoPat() + " " + usuario.getApellidoMat());
+			}
 		} catch (Exception ex) {
 			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
 			throw new Exception(ex.getMessage());
