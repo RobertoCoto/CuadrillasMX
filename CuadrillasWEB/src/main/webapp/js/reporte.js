@@ -25,6 +25,8 @@ app.controller('reporte', function ($scope, $http) {
         	var fechaInicial = $('#fechaInicial').val();
         	var fechaFinal = $('#fechaFinal').val();
         	
+        	$('#msload').modal('show');
+        	
         	$scope.datos = {};
 			$scope.encabezados = [];
         	
@@ -64,14 +66,22 @@ app.controller('reporte', function ($scope, $http) {
         	var fechaInicial = $('#fechaInicial').val();
         	var fechaFinal = $('#fechaFinal').val();
         	
-        	$scope.datos = {};
-			$scope.encabezados = [];
+        	$('#msload').modal('show');        	
+//        	$scope.datos = {};
+//			$scope.encabezados = [];
+        	
         	
         	if ($scope.validarCampos() == false)
         	{
+        		$('#msload').modal('hide');
         		return;
         	}
         	
+        	//console.info("/CuadrillasWEB/ReporteAsistenciaExportar?fechaInicio="+ fechaInicial +"&fechaFin=" + fechaFinal);
+        	location.href="/CuadrillasWEB/ReporteAsistenciaExportar?fechaInicio="+ fechaInicial +"&fechaFin=" + fechaFinal;        	
+        	
+        	$('#msload').modal('hide');        		
+        	/*
         	$http({
                 method: 'GET',
                 url: '/CuadrillasWEB/ReporteAsistenciaExportar',
@@ -85,18 +95,19 @@ app.controller('reporte', function ($scope, $http) {
   				$('#alert').hide();
   				$('#success').hide();
   				//console.info(result.data.catalogo);
-  				$scope.nombreColumnas = _getHeaders(result.data.reporte);
-  				$scope.encabezados = result.data.encabezado;
+  				//$scope.nombreColumnas = _getHeaders(result.data.reporte);
+  				//$scope.encabezados = result.data.encabezado;
   				//console.info("cabecera");
   				//console.info($scope.nombreColumnas);
   				//console.info($scope.encabezados);
-  				$scope.datos = result.data.reporte;                
+  				//$scope.datos = result.data.reporte;                
   		    }, function myError(response) {
   		    	$('#msload').modal('hide');
   		        console.error(response);
   		        $('#alert').show();
   				$('#msgerror').text(response.data.header.mensajeFuncional);
-  		    });	     
+  		    });
+  		    */	     
         };                        
         
         //$scope.consultar();
