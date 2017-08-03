@@ -18,32 +18,30 @@
 <build>
  
         <plugins>
-            <plugin>
+        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler.plugin}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <!-- Clase Main -->
+                                    <mainClass>com.fyg.cuadrillas.controlador.PanelCaptura</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
- 			<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy-dependencies</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}/lib</outputDirectory>                           
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+        
         </plugins>
  
     </build>
@@ -70,11 +68,6 @@
     <artifactId>json-simple</artifactId>
     <version>1.1</version>
 </dependency>
-<dependency>
-		  <groupId>com.fyg.cuadrillas</groupId>
-  		  <artifactId>CuadrillasControllerDTO</artifactId>
-  		  <version>0.0.1-SNAPSHOT</version>
-	</dependency>
 	<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -116,5 +109,25 @@
 	    <artifactId>httpmime</artifactId>
 	    <version>4.5</version>
 	</dependency>
+	<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpfpverification</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpfpenrollment</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpotapi</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+	<groupId>com.digitalpersona.onetouch</groupId>
+	<artifactId>dpotjni</artifactId>
+	<version>1.0</version>
+</dependency>
   </dependencies>
 </project>

@@ -22,7 +22,8 @@ public class ObtieneUrl {
   	    // wrapped them all in one try/catch statement.
   	    try
   	    {
-  	    	is = new FileInputStream("src/main/resources/com/fyg/cuadrillas/controlador/ServerConfig.properties");
+  	    	//is = new FileInputStream("src/main/resources/com/fyg/cuadrillas/controlador/ServerConfig.properties");
+  	    	is = ObtieneUrl.class.getResourceAsStream("ServerConfig.properties");
 			prop.load(is);
 			
 			String servidor = prop.getProperty("servidor.direccion");

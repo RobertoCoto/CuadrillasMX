@@ -576,7 +576,7 @@ public class PanelCaptura extends JApplet {
 					JSONObject datosUsuario = (JSONObject) jsonObject
 							.get("usuario");
 
-					Boolean estatus = (boolean) arrayUsuario.get("estatus");
+					Boolean estatus = (Boolean) arrayUsuario.get("estatus");
 					String msg = (String) arrayUsuario.get("mensajeFuncional");
 
 					if (usuario.equals("") && pass.equals("")) {
