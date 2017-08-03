@@ -116,6 +116,36 @@ public class EmpleadoNegocio {
 			if (empleado.getFechaNacimiento() == null || empleado.getFechaNacimiento().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("La fecha de nacimiento es necesaria en el alta del empleado.");
 			}
+			String[] docObligatorios = "CDOM;CREL;IMSS;DRFC".split(";");
+			for (int i=0 ; i < docObligatorios.length; i++ ) {
+				String documento = docObligatorios[i].trim();
+				boolean obligatorio = false;
+				for (EmpleadoDocumentoDTO doc : empleado.getDocumentos()) {
+					if (doc.getCodigoEmpDoc().trim().equals(documento)) {
+						if (doc.getEstatus().equals("SI") ) {
+							obligatorio = true;
+						}
+					}
+				}
+				String mensaje = "El documento del empleado es obligatorio: ";
+				if (!obligatorio) {
+					if (documento.equals("CDOM")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Comprobante de Domicilio");
+					}
+					if (documento.equals("CREL")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Credencial de Elector");
+					}
+					if (documento.equals("IMSS")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Documentos IMSS");
+					}
+					if (documento.equals("DRFC")) {
+						throw new ExcepcionesCuadrillas(mensaje + "RFC");
+					}
+				}
+			}
+			
+			
+			
 			if (empleado.getNss() == null) {
 				empleado.setNss("");
 			}
@@ -389,6 +419,34 @@ public class EmpleadoNegocio {
 			if (empleado.getUsuarioAlta() == null || empleado.getUsuarioAlta().trim().isEmpty()) {
 				throw new ExcepcionesCuadrillas("El usuario es necesario en en la actualizacion del empleado.");
 			}
+			String[] docObligatorios = "CDOM;CREL;IMSS;DRFC".split(";");
+			for (int i=0 ; i < docObligatorios.length; i++ ) {
+				String documento = docObligatorios[i].trim();
+				boolean obligatorio = false;
+				for (EmpleadoDocumentoDTO doc : empleado.getDocumentos()) {
+					if (doc.getCodigoEmpDoc().trim().equals(documento)) {
+						if (doc.getEstatus().equals("SI") ) {
+							obligatorio = true;
+						}
+					}
+				}
+				String mensaje = "El documento del empleado es obligatorio: ";
+				if (!obligatorio) {
+					if (documento.equals("CDOM")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Comprobante de Domicilio");
+					}
+					if (documento.equals("CREL")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Credencial de Elector");
+					}
+					if (documento.equals("IMSS")) {
+						throw new ExcepcionesCuadrillas(mensaje + "Documentos IMSS");
+					}
+					if (documento.equals("DRFC")) {
+						throw new ExcepcionesCuadrillas(mensaje + "RFC");
+					}
+				}
+			}
+			
 			if (empleado.getNss() == null) {
 				empleado.setNss("");
 			}
