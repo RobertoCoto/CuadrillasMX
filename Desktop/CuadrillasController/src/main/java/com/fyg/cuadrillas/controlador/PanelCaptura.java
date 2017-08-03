@@ -658,8 +658,6 @@ public class PanelCaptura extends JApplet {
 		}
 	}
 
-	
-
 	// indica cuando el lector este activado
 	public void inicioLector() {
 		capturer.startCapture();
