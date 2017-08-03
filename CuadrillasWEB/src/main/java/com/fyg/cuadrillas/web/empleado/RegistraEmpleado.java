@@ -92,13 +92,6 @@ public class RegistraEmpleado extends HttpServlet {
 			Object obj = parser.parse(request.getParameter("documentoEmpleado"));
 			JSONObject jsonObject = (JSONObject) obj;
 
-			/* proxy fisa
-			System.setProperty("http.proxyHost", "169.169.4.85");
-	        System.setProperty("http.proxyPort", "8080");
-	        System.setProperty("https.proxyHost", "169.169.4.85");
-	        System.setProperty("https.proxyPort", "8080");
-	        */
-
 			//crea objeto de negocio
 			final EmpleadoNegocio negocio = new EmpleadoNegocio();
 
