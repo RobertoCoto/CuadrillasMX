@@ -1,39 +1,24 @@
 app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {  
 	
-//	//obtener el id enviado por GET
-//   $scope.obtainGet = function getGET(){
-//	   var loc = document.location.href;
-//	   var getString = loc.split('?')[1];
-//	   var GET = getString.split('&');
-//	   var get = {};
-//
-//	   for(var i = 0, l = GET.length; i < l; i++){
-//	      var tmp = GET[i].split('=');
-//	      get[tmp[0]] = unescape(decodeURI(tmp[1]));
-//	   }
-//	   return get;
-//	};
-//	$scope.get = $scope.obtainGet();
-
- // msload 
 		$('#success').hide();
 	    $('#alert').hide();
 	    $('#msload').modal('show');
 	    
   $scope.consultaEmpleado = function() {
+	  $scope.idUser = data.data.usuario.usuario;
 	  $('#msload').modal('show');
 				  $http({
 					  
 			method: 'GET',
-			url: '/CuadrillasWEB/ConsultaEmpleado',
+			url: '/CuadrillasWEB/ConsultaDatosUsuario',
 			params: {
-					"idEmpleado": "1", //aqui va ir variable que nos llegara del general
+					"user": $scope.idUser, //aqui va ir variable que nos llegara del general
 			     }
 			}).then(function (result) {
 				$('#msload').modal('hide');
 				$('#alert').hide();
 				$('#success').hide();
-				$scope.resultadoEmpleado = result.data.empleado;
+				$scope.resultadoEmpleado = result.data;
 			    console.log($scope.resultadoEmpleado);
 			}, function myError(response) {
 				$('#msload').modal('hide');
@@ -47,9 +32,10 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
   
     
 		    $scope.actualizar = function(user) {
+		    	$scope.idUser = data.data.usuario.idEmpleado;
 		    	$scope.user = {};
 		    if ($scope.cambioContra.$valid) {
-		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+		    	var confirmar = confirm("�Esta seguro de guardar los datos?"); 
     			if (!confirmar) 
     				{
     					 $('#alert').show();
@@ -68,7 +54,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 				 		"contrasenaAnterior": user.conAnterior,
 				 		"contrasenaNueva": user.nueva,
 				 		"repiteContrasena": user.repetirNueva,
-				 		"idEmpleado": "1" //aqui va ir la variable que nos llegara del general
+				 		"idEmpleado": $scope.idUser //aqui va ir la variable que nos llegara del general
 				         }
 				    }).then(function mySucces(response) {
 				    	$('#msload').modal('hide');
