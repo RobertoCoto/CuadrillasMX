@@ -445,34 +445,43 @@ app.directive('fileModel', ['$parse', function ($parse) {
                      };
 
                      $scope.remove = function(catalogo) {
-                       //console.info(catalogo);
-                       $('#msload').modal('show');
-                       $('#alert').hide();
-                       $('#success').hide();
-                       $http({
-                               method: 'GET',
-                               url: '/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
-                               params: {
-                                 "tipoCatalogo": tipoCataloPadre,
-                                 "codigo": catalogo.codigo,
-                                 "usuario": data.data.usuario.usuario
-                                }
-                       }).then(function successfn(response) {
-                           removeByAttr($scope.resultado2, 'codigo',catalogo.codigo);
-                             //console.info(response);
-                             $('#msload').modal('hide');
-                             $('#success').show();
-                             $('#msgaviso').text(response.data.mensajeFuncional);
-                       }, function errorfn(response) {
-                           console.error(response);
-                           //alert(response.data.mensajeFuncional);
-                           $('#msload').modal('hide');
-                           $('#alert').show();
-                           $('#msgerror').text(response.data.mensajeFuncional);
-                           //$scope.resultado2.push(objecto);
-                       });
+                    	 
+                    	var confirmar = confirm("¿Esta seguro de eliminar el catalogo?");
+     					if (!confirmar)
+     					{
+     						$('#alert').show();
+     						$('#msgerror').text('Se ha cancelado la operacion.');     						
+     						return false;
+     					}else  {
+     					      					
+		                       //console.info(catalogo);
+		                       $('#msload').modal('show');
+		                       $('#alert').hide();
+		                       $('#success').hide();
+		                       $http({
+		                               method: 'GET',
+		                               url: '/CuadrillasWEB/EliminarCatalogo',//?tipoCatalogo=VIALIDAD&codigo=SANLO&usuario=SISTEMAS',
+		                               params: {
+		                                 "tipoCatalogo": tipoCataloPadre,
+		                                 "codigo": catalogo.codigo,
+		                                 "usuario": data.data.usuario.usuario
+		                                }
+		                       }).then(function successfn(response) {
+		                           removeByAttr($scope.resultado2, 'codigo',catalogo.codigo);
+		                             //console.info(response);
+		                             $('#msload').modal('hide');
+		                             $('#success').show();
+		                             $('#msgaviso').text(response.data.mensajeFuncional);
+		                       }, function errorfn(response) {
+		                           console.error(response);
+		                           //alert(response.data.mensajeFuncional);
+		                           $('#msload').modal('hide');
+		                           $('#alert').show();
+		                           $('#msgerror').text(response.data.mensajeFuncional);
+		                           //$scope.resultado2.push(objecto);
+		                       });
 
-
+     					}
                      }
                     //console.log(result);
             });

@@ -68,7 +68,7 @@ app.controller('registraPermiso', function ($scope, $http,$filter, $window) {
 		    		$scope.fechaMaxima = $("#fechaSolicitudMaxima").val();
 		    		$scope.horaMin = $("#horaSolicitudMaxima").val();
 		    		$scope.horaMax = $("#horaSolicitudMinima").val();
-		    		var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+		    		var confirmar = confirm("Â¿Esta seguro de guardar los datos?"); 
 		    			if (!confirmar) 
 		    				{
 		    					 $('#alert').show();

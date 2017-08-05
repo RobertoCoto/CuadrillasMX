@@ -136,7 +136,7 @@ public class CatalogoDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("registro correcto.");
+			respuesta.setMensajeFuncional("Registro Correcto.");
 			try {
 				//Validamos si el catalogo ya existe
 				sessionNTx = FabricaConexiones.obtenerSesionNTx();

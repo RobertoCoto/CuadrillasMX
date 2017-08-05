@@ -56,7 +56,7 @@ public class HerramientasDAO {
 			EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 			respuesta.setUid(uid);
 			respuesta.setEstatus(true);
-			respuesta.setMensajeFuncional("registro correcto.");
+			respuesta.setMensajeFuncional("Registro Correcto.");
 			try {
 				//Abrimos conexion Transaccional
 				sessionTx = FabricaConexiones.obtenerSesionTx();

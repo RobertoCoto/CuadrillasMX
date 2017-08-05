@@ -81,7 +81,7 @@ app.controller('bajaEmpleado', function ($scope, $http, $window) {
 		    $scope.grabar = function(empleado) {
 		    	if ($scope.formBaja.$valid) {
 		    		$scope.empleado = {};
-			    	var confirmar = confirm("¿Esta seguro de dar de baja al empleado?"); 
+			    	var confirmar = confirm("Â¿Esta seguro de dar de baja al empleado?"); 
 	                  
 					if (!confirmar) 
 					{
