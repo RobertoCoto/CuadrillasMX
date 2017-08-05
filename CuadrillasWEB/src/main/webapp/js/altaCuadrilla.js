@@ -54,7 +54,7 @@ app.controller('adminCuad', function ($scope, $http) {
 				$scope.registrar = function(cuadrillas) {
 		    	$scope.cuadrillas = {};
 		    	if ($scope.formCuadrilla.$valid) {
-		    		var confirmar = confirm("�Esta seguro de registrar la cuadrilla?");
+		    		var confirmar = confirm("¿Esta seguro de registrar la cuadrilla?");
 					if (!confirmar)
 					{
 						 $('#alert').show();
@@ -181,7 +181,7 @@ app.controller('adminCuad', function ($scope, $http) {
 					}
 		    	//baja
 			$scope.bajaCuadrilla = function(datosCuadrilla) {
-		    		var confirmar = confirm(" �Esta seguro de dar de baja la cuadrilla? ");
+		    		var confirmar = confirm("¿Esta seguro de dar de baja la cuadrilla? ");
 
 		    		if (!confirmar)
 		    		{

@@ -70,7 +70,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 				//autoriza la actividad
 				$scope.autorizarActividad = function(actividad) {
 					$scope.comentario  = $('#comentarioActividad').val();
-					var confirmar = confirm("�Esta seguro de autorizar la actividad?"); 
+					var confirmar = confirm("¿Esta seguro de autorizar la actividad?"); 
 						if (!confirmar) 
 						{
 							 $('#alert').show();
@@ -107,7 +107,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 					
 					//para rechazar actividad
 					$scope.rechazarActividad = function(actividad) {
-						var confirmar = confirm("�Esta seguro de rechazar el permiso?"); 
+						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
 						if (!confirmar) 
 						{
 							 $('#alert').show();

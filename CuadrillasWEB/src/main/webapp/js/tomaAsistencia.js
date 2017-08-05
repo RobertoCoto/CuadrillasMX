@@ -95,7 +95,7 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
 					$('#msgerror').text("El comentario debe tener como minimo 10 caracteres");
 					return false;
 				}
-        	   var confirmar = confirm("¿Esta seguro de registrar la entrada?"); 
+        	   var confirmar = confirm("Â¿Esta seguro de registrar la entrada?"); 
                        
 						if (!confirmar) 
 						{
@@ -131,7 +131,7 @@ app.controller('entradaAsistencia', function ($scope, $http,$timeout) {
            
             $scope.salida = function(asistencia) {
             	
-            var confirmar = confirm("¿Esta seguro de registrar la salida?"); 
+            var confirmar = confirm("Â¿Esta seguro de registrar la salida?"); 
 
 				if (!confirmar) 
 				{

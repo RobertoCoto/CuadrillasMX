@@ -26,11 +26,11 @@ app.controller('adminDatos', function ($scope, $http) {
 				
 		 $scope.consultaUsuario();		
 		 	
-		 	//para actualizar contraseña
+		 	//para actualizar contraseï¿½a
 		    $scope.actualizar = function(user) {
 		    	$scope.user = {};
 		    	if ($scope.formCambioGeneral.$valid) {
-		    		var confirmar = confirm("¿Esta seguro de actualizar?"); 
+		    		var confirmar = confirm("Â¿Esta seguro de actualizar?"); 
 	    			if (!confirmar) 
 	    				{
 	    					 $('#alert').show();

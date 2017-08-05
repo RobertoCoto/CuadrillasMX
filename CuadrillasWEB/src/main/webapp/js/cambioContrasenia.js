@@ -49,7 +49,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 		    $scope.actualizar = function(user) {
 		    	$scope.user = {};
 		    if ($scope.cambioContra.$valid) {
-		    	var confirmar = confirm("¿Esta seguro de guardar los datos?"); 
+		    	var confirmar = confirm("Â¿Esta seguro de guardar los datos?"); 
     			if (!confirmar) 
     				{
     					 $('#alert').show();
