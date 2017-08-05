@@ -336,4 +336,34 @@ public class UsuarioDAO {
 		}
 		return usuarioExistente;
 	}
+	/**
+	 * Metodo para consultar los datos del user
+	 * @param uid unico
+	 * @param usuario recibe valores de usuario
+	 * @return regresa resultado de usuarios
+	 */
+	public UsuarioDTO consultaUsuarioDatos(String uid, UsuarioDTO usuario)throws Exception {
+		SqlSession sessionNTx = null;
+		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
+		respuesta.setUid(uid);
+		respuesta.setEstatus(true);
+		respuesta.setMensajeFuncional("Consulta correcta.");
+		UsuarioDTO usuarioDatos = null;
+		try {
+			//Abrimos conexion Transaccional
+			LogHandler.debug(uid, this.getClass(), "Abriendo");
+			sessionNTx = FabricaConexiones.obtenerSesionNTx();
+			//Se hace una consulta a la tabla contacto
+			LogHandler.debug(uid, this.getClass(), "Consultando");
+			usuarioDatos = (UsuarioDTO) sessionNTx.selectOne("UsuarioDAO.consultaUser", usuario);
+		}
+		catch (Exception ex) {
+			LogHandler.error(uid, this.getClass(), "Error: " + ex.getMessage(), ex);
+			throw new Exception(ex.getMessage());
+		}
+		finally {
+			FabricaConexiones.close(sessionNTx);
+		}
+		return usuarioDatos;
+	}
 }
