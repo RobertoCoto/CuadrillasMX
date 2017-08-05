@@ -415,4 +415,37 @@ public class UsuariosNegocio {
 			    LogHandler.debug(uid, this.getClass(), "loginUsuario - Datos Salida: " + respuesta);
 			    return respuesta;
 			}
+			/**
+			 * Metodo para consultar el usuario
+			 * @return regresa lista de usuarios
+			 */
+			public UsuarioRespuesta consultaUsuarioDatos(UsuarioDTO usuario) {
+				//Primero generamos el identificador unico de la transaccion
+				String uid = GUIDGenerator.generateGUID(new String(""));
+				//Mandamos a log el objeto de entrada
+				LogHandler.debug(uid, this.getClass(), "consultaListaUsuario - Daton Entrada: ");
+				//Variable de resultado
+				UsuarioRespuesta respuesta = new UsuarioRespuesta();
+				respuesta.setHeader( new EncabezadoRespuesta());
+				respuesta.getHeader().setUid(uid);
+				respuesta.getHeader().setEstatus(true);
+				respuesta.getHeader().setMensajeFuncional("Consulta correcta.");
+				UsuarioDTO usuarioDatos = null;
+				try {
+					usuarioDatos = new UsuarioDAO().consultaUsuarioDatos(uid,usuario);
+					respuesta.setUsuario(usuarioDatos);
+				} catch  (ExcepcionesCuadrillas ex) {
+					LogHandler.error(uid, this.getClass(), "consultaListaUsuario - Error: " + ex.getMessage(), ex);
+					respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+				} catch (Exception ex) {
+			    	LogHandler.error(uid, this.getClass(), "consultaListaUsuario - Error: " + ex.getMessage(), ex);
+			    	respuesta.getHeader().setEstatus(false);
+					respuesta.getHeader().setMensajeFuncional(ex.getMessage());
+					respuesta.getHeader().setMensajeTecnico(ex.getMessage());
+			    }
+			    LogHandler.debug(uid, this.getClass(), "consultaListaUsuario - Datos Salida: " + respuesta);
+				return respuesta;
+			}
 }
