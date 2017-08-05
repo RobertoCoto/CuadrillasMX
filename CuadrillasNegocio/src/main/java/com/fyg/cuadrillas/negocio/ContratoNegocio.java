@@ -313,9 +313,11 @@ public class ContratoNegocio {
 					if (contrato.getCodigoContrato() == null || contrato.getCodigoContrato().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesario el tipo de Contrato.");
 					}
+					/*
 					if (contrato.getCodigoVialidad() == null || contrato.getCodigoVialidad().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesaria la Vialidad para el Documento.");
 					}
+					*/
 					if (contrato.getCodigoEmpresa() == null || contrato.getCodigoEmpresa().trim().isEmpty()) {
 						throw new ExcepcionesCuadrillas("Es necesaria la Empresa para el Documento.");
 					}
