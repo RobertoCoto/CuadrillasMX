@@ -26,9 +26,24 @@
 SELECT estatus,usuario FROM usuario WHERE usuario = #{usuario}
 </select>
 
+<!-- Consulta user Contrasena -->
+<select id="consultaUser" parameterType="Usuario" resultMap="usuario">
+SELECT u.usuario,
+       u.id_perfil,
+	   u.id_empleado,
+	   u.nombre,
+	   u.apellido_pat,
+	   u.apellido_mat,
+	   p.nombre AS nombre_perfil
+	   FROM usuario u
+	   LEFT JOIN perfil p ON p.id_perfil = u.id_perfil
+	   WHERE usuario = #{usuario}
+</select>
+
 <!-- Consulta Usuario-->
 <select id="loginUsuario" parameterType="Usuario" resultMap="usuario">
 	SELECT
+	    u.id_empleado,
 		u.usuario,
 		u.nombre,
 		u.apellido_pat,
