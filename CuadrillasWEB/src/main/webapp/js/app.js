@@ -531,6 +531,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
               var a = undefined;
               var b = undefined;
               fechaInicioForm.datepicker({
+            	language: 'es',            	  
                 format: 'yyyy-mm-dd',
                 container: container,
                 todayHighlight: true,
@@ -546,6 +547,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   }
               });
               fechaTerminoForm.datepicker({
+            	language: 'es',            	  
                 format: 'yyyy-mm-dd',
                 container: container,
                 todayHighlight: true,
@@ -560,6 +562,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   }
               });
               fechaRegistroForm.datepicker({
+            	language: 'es',
                 format: 'yyyy-mm-dd',
                 container: container,
                 todayHighlight: true,
@@ -1233,6 +1236,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     	var diaActividad = $('input[name="diaActividad"]');
     	var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
 	    fecha.datepicker({
+	      language: 'es',	    	
 	      format: 'yyyy-mm-dd',
 	      container: container,
 	      todayHighlight: true,
@@ -1243,6 +1247,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 	      autoclose: true,
 	    });
 	    diaActividad.datepicker({
+	      language: 'es',	    	
 	      format: 'yyyy-mm-dd',
 	      language: "es",
 	      regional:"es",
@@ -3074,6 +3079,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
         
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
 	    $('#fecha').datepicker({
+	    	language: 'es',
 	    	format: 'yyyy-mm-dd',
 	        container: container,
 	        todayHighlight: true,

@@ -9,16 +9,18 @@ app.controller('reporte', function ($scope, $http) {
 	    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
 	    
 	    fechaInicioForm.datepicker({
+	    	language: 'es',
 	    	format: 'yyyy-mm-dd',
 	        container: container,
 	        todayHighlight: true,
-	        autoclose: true,
+	        autoclose: true
 	      });
         fechaTerminoForm.datepicker({
+        	language: 'es',
         	format: 'yyyy-mm-dd',
             container: container,
             todayHighlight: true,
-            autoclose: true,
+            autoclose: true
         });	    
 	    					
         $scope.consultar = function() {
@@ -32,6 +34,7 @@ app.controller('reporte', function ($scope, $http) {
         	
         	if ($scope.validarCampos() == false)
         	{
+        		$('#msload').modal('hide');
         		return;
         	}
         	
