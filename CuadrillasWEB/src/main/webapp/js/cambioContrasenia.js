@@ -5,20 +5,20 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 	    $('#msload').modal('show');
 	    
   $scope.consultaEmpleado = function() {
-	  $scope.idUser = data.data.usuario.usuario;
+	  $scope.UserData = data.data.usuario.usuario;
 	  $('#msload').modal('show');
 				  $http({
 					  
 			method: 'GET',
 			url: '/CuadrillasWEB/ConsultaDatosUsuario',
 			params: {
-					"user": $scope.idUser, //aqui va ir variable que nos llegara del general
+					"user": $scope.UserData, //aqui va ir variable que nos llegara del general
 			     }
 			}).then(function (result) {
 				$('#msload').modal('hide');
 				$('#alert').hide();
 				$('#success').hide();
-				$scope.resultadoEmpleado = result.data;
+				$scope.resultadoEmpleado = result.data.usuario;
 			    console.log($scope.resultadoEmpleado);
 			}, function myError(response) {
 				$('#msload').modal('hide');
