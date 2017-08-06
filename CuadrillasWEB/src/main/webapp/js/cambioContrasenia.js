@@ -4,7 +4,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 	    $('#alert').hide();
 	    $('#msload').modal('show');
 	    
-  $scope.consultaEmpleado = function() {
+  
 	  $scope.UserData = data.data.usuario.usuario;
 	  $('#msload').modal('show');
 				  $http({
@@ -18,19 +18,17 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 				$('#msload').modal('hide');
 				$('#alert').hide();
 				$('#success').hide();
-				$scope.resultadoEmpleado = result.data.usuario;
-			    console.log($scope.resultadoEmpleado);
+				$scope.resultadoUsuario = result.data;
+			    console.log($scope.resultadoUsuario);
 			}, function myError(response) {
 				$('#msload').modal('hide');
 			    console.error(response);
 			    $('#alert').show();
 				$('#msgerror').text(response.data.header.mensajeFuncional)
 			});
-	  };
 	  
-	  $scope.consultaEmpleado();
   
-    
+  
 		    $scope.actualizar = function(user) {
 		    	$scope.idUser = data.data.usuario.idEmpleado;
 		    	$scope.user = {};
