@@ -11,9 +11,9 @@
 				<br>
 				<div class="panel panel-default">
 					<div class="panel-body">
-					<div ng-repeat="user in resultadoUsuario">
+					<div >
 					 
-				<b>Nombre o Usuario: </b>{{user.nombre}} {{user.apellidoPat}} {{user.apellidoMat}} - {{user.usuario}}&nbsp <b>Perfil:</b> {{user.nombrePerfil}}
+				<b>Nombre o Usuario: </b>{{resultadoUsuario.nombre}} {{resultadoUsuario.apellidoPat}} {{resultadoUsuario.apellidoMat}} - {{resultadoUsuario.usuario}}&nbsp <b>Perfil:</b> {{resultadoUsuario.nombrePerfil}}
 				
 				</div>
 				<form ng-submit="actualizar(user)" name="cambioContra" novalidate>
