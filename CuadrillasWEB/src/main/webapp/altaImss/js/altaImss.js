@@ -21,7 +21,7 @@ app.controller('altaImss', function ($scope, $http, $window) {
  
 	    //para dar de alta el imss
  	 $scope.alta = function(imss) {
- 		var confirmar = confirm("¿Esta seguro de notificar al imss?"); 
+ 		var confirmar = confirm("Â¿Esta seguro de notificar al imss?"); 
 
  			if (!confirmar) 
  				{

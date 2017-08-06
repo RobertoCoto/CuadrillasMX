@@ -37,7 +37,7 @@ $scope.usuario = $window.user;
 		     $scope.aceptar = function(permiso) {
 		    	 $scope.permiso = {};
 		    	 
-                	var confirmar = confirm("¿Esta seguro de autorizar el permiso?"); 
+                	var confirmar = confirm("Â¿Esta seguro de autorizar el permiso?"); 
 
 		    		if (!confirmar) 
 		    			{
@@ -82,7 +82,7 @@ $scope.usuario = $window.user;
 		    
 		     $scope.rechazar = function(permiso) {
 		    	 $scope.permiso = {};
-						var confirmar = confirm("¿Esta seguro de rechazar el permiso?"); 
+						var confirmar = confirm("Â¿Esta seguro de rechazar el permiso?"); 
 						
 						if (!confirmar) 
 		    			{

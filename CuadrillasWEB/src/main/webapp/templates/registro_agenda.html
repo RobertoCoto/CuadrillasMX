@@ -35,7 +35,7 @@
             <div class="row">
               <div class="col-sm-5">
                 <div class="form-group form-group-sm">
-                  	<label class="control-label" for="vialidad">Vialidad</label>
+                  	<label class="control-label" for="vialidad">Vialidad / Contrato</label>
                 	<select id="cboContrato" class="form-control" placeholder="Contrato" ng-model="objContratos" ng-options="contrato as contrato.descripcionVialidad for contrato in contratosActivos" ng-change="reiniciarPantalla(1)"></select>                  
                 </div>
               </div>
@@ -253,12 +253,17 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-offset-9 col-sm-3">
-                        <button type="button" class="btn btn-success btn-block" id="agregarAgenda" name="agregarAgenda" ng-click="agregarAgenda()">Agregar agenda</button>
+                        <button type="button" class="btn btn-success btn-block" id="agregarAgenda" name="agregarAgenda" ng-click="agregarAgenda()">Agregar Agenda</button>
                       </div>
                     </div>
                   </div>
                 </div>
             </div>
+            <div class="panel panel-default" style="margin: 5px;">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Plan Total</h3>
+            </div>
+            <br>
             <div class="row">
               <div class="col-sm-12">
                 <div class="table-responsive">
@@ -305,14 +310,15 @@
              			</div>
              		</div>
            		</div>              
-              </div>
-              <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div id="map2" style="width:100%; height:550px"></div>
-                  </div>
                 </div>
-              </div>
+	              <div class="col-sm-6">
+	                <div class="row">
+	                  	<div class="col-sm-12">
+	                    		<div id="map2" style="width:100%; height:550px"></div>
+	                  		</div>
+	                	</div>
+	            	</div>
+            	</div>
             </div>
             <div class="row">            
               <div class="col-sm-2"><button type="button" class="btn btn-block btn-danger" style="margin: 25px;" ng-click="reiniciarPantalla()" id="limpiarTotal">Limpiar</button></div>
