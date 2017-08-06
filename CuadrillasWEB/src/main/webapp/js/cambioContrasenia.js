@@ -6,7 +6,6 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 	    
   
 	  $scope.UserData = data.data.usuario.usuario;
-	  $('#msload').modal('show');
 				  $http({
 					  
 			method: 'GET',
@@ -18,7 +17,7 @@ app.controller('cambioDatos',["$scope","$http", function ($scope,$http) {
 				$('#msload').modal('hide');
 				$('#alert').hide();
 				$('#success').hide();
-				$scope.resultadoUsuario = result.data;
+				$scope.resultadoUsuario = result.data.usuario;
 			    console.log($scope.resultadoUsuario);
 			}, function myError(response) {
 				$('#msload').modal('hide');
