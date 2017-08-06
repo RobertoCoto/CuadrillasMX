@@ -108,7 +108,9 @@ public class ContratoNegocio {
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));
 					System.out.println("Comparacion Fechas " + fechaInicio.before(fechaFin));
-					if ( !fechaInicio.before(fechaFin) ) {
+					System.out.println("Comparacion Fechas " + fechaInicio.after(fechaFin));
+					
+					if ( !fechaInicio.after(fechaFin) ) {
 						throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
 					}
 					//Calculo Dias Duracion
@@ -297,7 +299,7 @@ public class ContratoNegocio {
 				//Primero generamos el identificador unico de la transaccion
 				String uid = GUIDGenerator.generateGUID(contrato);
 				//Mandamos a log el objeto de entrada
-				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Entrada: " + contrato);
+				LogHandler.debug(uid, this.getClass(), "modificaContrato - Datos Entrada: " + contrato);
 				//Variable de resultado
 				EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 				try {
@@ -377,7 +379,7 @@ public class ContratoNegocio {
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));
 					System.out.println("Comparacion Fechas " + fechaInicio.before(fechaFin));
-					if (fechaInicio.before(fechaFin) ) {
+					if (fechaInicio.after(fechaFin) ) {
 						throw new ExcepcionesCuadrillas("La fecha inicio no puede ser igual o mayor a la fecha fin.");
 					}
 					//Calculo Dias Duracion
@@ -393,20 +395,20 @@ public class ContratoNegocio {
 					ContratoDAO dao = new ContratoDAO();
 					respuesta = dao.modificaContrato(uid, contrato);
 				} catch  (ExcepcionesCuadrillas ex) {
-					LogHandler.error(uid, this.getClass(), "altaContrato - Error: " + ex.getMessage(), ex);
+					LogHandler.error(uid, this.getClass(), "modificaContrato - Error: " + ex.getMessage(), ex);
 					respuesta.setUid(uid);
 					respuesta.setEstatus(false);
 					respuesta.setMensajeFuncional(ex.getMessage());
 					respuesta.setMensajeTecnico(ex.getMessage());
 				}
 				catch  (Exception ex) {
-					LogHandler.error(uid, this.getClass(), "altaContrato - Error: " + ex.getMessage(), ex);
+					LogHandler.error(uid, this.getClass(), "modificaContrato - Error: " + ex.getMessage(), ex);
 					respuesta.setUid(uid);
 					respuesta.setEstatus(false);
 					respuesta.setMensajeFuncional(ex.getMessage());
 					respuesta.setMensajeTecnico(ex.getMessage());
 				}
-				LogHandler.debug(uid, this.getClass(), "altaContrato - Datos Salida: " + respuesta);
+				LogHandler.debug(uid, this.getClass(), "modificaContrato - Datos Salida: " + respuesta);
 				return respuesta;
 	}
 	/**

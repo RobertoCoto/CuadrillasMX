@@ -67,7 +67,8 @@ id_cuadrilla = #{idCuadrilla},
 observaciones = #{observaciones},
 metros = #{metros},
 usuario_ult_mod = #{usuarioUltMod},
-fecha_ult_mod =  now()
+fecha_ult_mod =  now(),
+estatus = #{estatus}
 WHERE id_contrato = #{idContrato}
 AND estatus = 'A'
 </update>

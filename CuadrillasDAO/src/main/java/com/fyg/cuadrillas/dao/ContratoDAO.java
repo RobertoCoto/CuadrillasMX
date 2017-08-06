@@ -26,7 +26,7 @@ public class ContratoDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("El contrato ah sido registrado correctamente.");
+		respuesta.setMensajeFuncional("El contrato fue registrado correctamente.");
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
@@ -282,7 +282,7 @@ public class ContratoDAO {
 		EncabezadoRespuesta respuesta = new EncabezadoRespuesta();
 		respuesta.setUid(uid);
 		respuesta.setEstatus(true);
-		respuesta.setMensajeFuncional("el contrato se ha modificado correctamente.");
+		respuesta.setMensajeFuncional("El Contrato se ha modificado correctamente.");
 		try {
 			//Validamos si ya existe un contrato
 			sessionNTx = FabricaConexiones.obtenerSesionNTx();
