@@ -27,13 +27,13 @@ VALUES
 	INSERT INTO contrato_coordenadas
 		(
 			id_contrato,	orden,	direccion,
-			latitud,	longitud,	fecha_alta,	estatus
+			latitud,	longitud,	fecha_alta,	estatus, tramo
 		)
 	VALUES
 	<foreach collection="list" item="element" index="index" separator=",">
 	 	(
 	 	 	#{element.idContrato},	 #{element.orden},	#{element.direccion},
-			#{element.latitud},	#{element.longitud}, now(),	'A'
+			#{element.latitud},	#{element.longitud}, now(),	'A', #{element.tramo}
 	 	)
 	</foreach>
 </insert>

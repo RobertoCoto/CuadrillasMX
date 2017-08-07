@@ -99,6 +99,10 @@ public class ContratoNegocio {
 						if (coordenada.getDireccion() == null) {
 							coordenada.setDireccion("");
 						}
+						if (coordenada.getTramo() == 0) {
+							throw new ExcepcionesCuadrillas("El tramo en la coordenada es incorrecto.");
+						}
+						
 					}
 					SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -370,11 +374,14 @@ public class ContratoNegocio {
 						if (coordenada.getDireccion() == null) {
 							coordenada.setDireccion("");
 						}
+						if (coordenada.getTramo() == 0) {
+							throw new ExcepcionesCuadrillas("El tramo en la coordenada es incorrecto.");
+						}
 					}
 					SimpleDateFormat formateador = new SimpleDateFormat("YYYY-mm-dd");
 
-					Date fechaInicio = formateador.parse(contrato.getFechaInicio());
 					Date fechaFin = formateador.parse(contrato.getFechaFin());
+					Date fechaInicio = formateador.parse(contrato.getFechaInicio());
 
 					//Validacion de Fechas
 					System.out.println("Comparacion Fechas " + fechaInicio.compareTo(fechaFin));

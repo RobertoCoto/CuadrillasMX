@@ -20,6 +20,8 @@ public class CoordenadaDTO extends ObjetoValor {
 	private Float latitud;
 	/** longitud */
 	private Float longitud;
+	/** tramo */
+	private int tramo;
 
 	/**
 	 * @return the idContrato
@@ -104,5 +106,17 @@ public class CoordenadaDTO extends ObjetoValor {
 	 */
 	public void setIdAgendaDetalle(Integer idAgendaDetalle) {
 		this.idAgendaDetalle = idAgendaDetalle;
+	}
+	/**
+	 * @return the tramo
+	 */
+	public int getTramo() {
+		return tramo;
+	}
+	/**
+	 * @param tramo the tramo to set
+	 */
+	public void setTramo(int tramo) {
+		this.tramo = tramo;
 	}
 }

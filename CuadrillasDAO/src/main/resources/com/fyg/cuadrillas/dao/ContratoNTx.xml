@@ -39,6 +39,7 @@
 	<result column="direccion" property="direccion"/>
 	<result column="latitud" property="latitud"/>
 	<result column="longitud" property="longitud"/>
+	<result column="tramo" property="tramo"/>
 </resultMap>
 
 <resultMap type="ContratoDocumento" id="contratoDocumento">
@@ -117,7 +118,8 @@
 		latitud,
 		longitud,
 		fecha_alta,
-		estatus
+		estatus,
+		tramo
 	FROM contrato_coordenadas
 	WHERE estatus = 'A'
 	<if test="idContrato !=null">

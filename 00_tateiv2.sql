@@ -280,6 +280,7 @@ DROP TABLE IF EXISTS herramienta;
 		direccion VARCHAR(150) NOT NULL,
 		latitud FLOAT NOT NULL,
 		longitud FLOAT NOT NULL,
+		tramo INT NOT NULL DEFAULT 1,
 		fecha_alta DATETIME NOT NULL,
 		estatus CHAR(1) NOT NULL CHECK(estatus IN('A','I')),
 		PRIMARY KEY(id_coordenada),
