@@ -204,19 +204,19 @@
                   		<div class="col-sm-12 ">
 							<div style="width:470px; height: 270px; overflow-y: scroll; overflow-x:hidden;">
 				                <div class="table-responsive">
-				                  <table class="table table-bordered" id="diasAgenda">
+				                  <table class="table table-bordered" id="tramos">
 				                    <thead>
 				                      <tr class="success">
-				                        <td width="20%">Distancia</td>
-				                        <td width="60%">Tramo</td>
-				                        <td width="20%">Editar</td>
+				                        <!-- <td width="20%">Distancia</td> -->
+				                        <td width="83%">Dirección</td>
+				                        <td width="17%">Editar</td>
 				                      </tr>
 				                    </thead>
 				                    <tbody>
-				                      <tr ng-repeat="direccion in tramos">
-				                        <td width="20%">{{direccion.metros}}</td>
-				                        <td width="70%">{{direccion.direccion}}</td>
-				                        <td width="10%"><button type="button" class="btn botonEditar" ng-click="editarTramo(direccion.tramo)">Editar</button></td>
+				                      <tr ng-repeat="tramos in tramosEncabezado">
+				                        <!-- <td width="20%">{{tramos.metros}}</td> -->
+				                        <td width="83%">{{tramos.direccion}}</td>
+				                        <td width="17%"><button type="button" class="btn botonEditar" ng-click="editarTramo(tramos.tramo)">Editar</button></td>
 				                      </tr>
 				                    </tbody>
 				                  </table>

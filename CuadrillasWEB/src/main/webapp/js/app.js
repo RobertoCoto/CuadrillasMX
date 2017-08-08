@@ -524,6 +524,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
               $('#mainPanel').hide();
               $('#alert').hide();
               $('#success').hide();
+              $scope.tramos = []; //lrss contratos
+              $scope.tramosEncabezado = []; //lrss contratos
               var fechaInicioForm=$('input[name="fechaInicio"]');
               var fechaTerminoForm=$('input[name="fechaTermino"]');
               var fechaRegistroForm=$('input[name="fechaRegistro"]');
@@ -696,6 +698,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.initMap();
                     $scope.limpiarMarcadores();
                     $scope.formContrato.$setPristine();
+                    $scope.tramos = []; //lrss contratos
+                    $scope.tramosEncabezado = []; //lrss contratos
                   }
 
                   $scope.cancelar = function() {
@@ -710,6 +714,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.limpiarMarcadores();
 					$('form')[0].reset();
 					$scope.formContrato.$setPristine();
+					$scope.tramos = []; //lrss contratos
+					$scope.tramosEncabezado = []; //lrss contratos
                   }
                   
                   $scope.limpiarContratopo = function() {
@@ -724,11 +730,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       $('form')[0].reset();
                       $scope.formContrato.$setPristine();
                       $scope.consultaContratos();
+                      $scope.tramos = []; //lrss contratos
+                      $scope.tramosEncabezado = []; //lrss contratos
                 	  };
                   
                   $scope.altaContrato = function() {
                     console.log($scope.contratoFocus);
                     $scope.contratoFocus.codigoVialidad = "";
+                    $scope.contratoFocus.coordenadas = $scope.tramos; //lrss contratos
 					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
 					var contrato = $scope.contratoAdjunto;
 					var json = JSON.stringify($scope.contratoFocus);
@@ -744,9 +753,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $('#nuevoContrato').show();
                     
 					$('#linkContrato').empty();
-                    console.log($scope.contratoFocus);
+					$scope.contratoFocus.coordenadas = $scope.tramos; //lrss contratos                    
                     $scope.contratoFocus.codigoVialidad = "";
 					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+					console.log($scope.contratoFocus);
 					var json = JSON.stringify($scope.contratoFocus);
 					var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
 					fileUpload.uploadFileToUrl(null, json, uploadUrl);
@@ -771,7 +781,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   }
 
                   $scope.consultaContratos = function() {
-										$scope.edicionMap = false;
+					$scope.edicionMap = false;
                     $('#msload').modal('show');
                     //setTimeout(function () {
                       $http({
@@ -805,15 +815,15 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   $scope.editarContrato = function(contrato) {
                 	  
                     $scope.contratoFocus = contrato;
-										console.info(contrato);
+					console.info(contrato);
 										
-										$('#contratoFile').hide();
-										$('#linkContrato').show();
-										$('#showDocument').show();
-										$('#agregarDocumento').show();
-										$('#addDocument').show();
-										$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
-										//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
+					$('#contratoFile').hide();
+					$('#linkContrato').show();
+					$('#showDocument').show();
+					$('#agregarDocumento').show();
+					$('#addDocument').show();
+					$('#linkContrato').append('<br><a class="btn btn-default btn-block" target="_blank" href="/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato +'">Ver Contrato</a>' );
+					//'http://localhost:8080/CuadrillasWEB/ConsultaContratoDocumento?idContrato=' + contrato.idContrato
                     $('#mainPanel').show();
                     $('#nuevoContrato').hide();
                     $('#panelContratos').hide();
@@ -822,7 +832,44 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $scope.initMap();
 					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
 					console.log(coordenadasArray);
-					$('#msload').modal('show');
+					
+					//lrss contratos
+					$scope.tramos = coordenadasArray;
+					
+					//se llena el arreglo de tramos
+					var maxTramo = 0;
+					for (var i=0; i < $scope.tramos.length; i++)
+					{
+						if ($scope.tramos[i].tramo > maxTramo)
+						{
+							maxTramo = $scope.tramos[i].tramo; 
+						}
+					}
+					
+					//se actualiza la variable global de tramos
+					tramo = maxTramo + 1;
+					
+					//se llena el arreglo de tramos
+                	if (coordenadasArray != undefined && coordenadasArray != 'undefined' && coordenadasArray.length > 0)
+                	{       
+                		var tramoAgregado = 0;
+                		for (var i=0; i<$scope.tramos.length; i++)
+                		{
+                			if (tramoAgregado != $scope.tramos[i].tramo)
+                			{
+                				tramoAgregado = $scope.tramos[i].tramo;
+                				var coordenadasTemp = {};
+                				coordenadasTemp.direccion = $scope.contratoFocus.coordenadas[i].direccion;
+                				coordenadasTemp.tramo = $scope.contratoFocus.coordenadas[i].tramo;
+                				coordenadasTemp.metros = 0; //no viene en el objeto
+                				$scope.tramosEncabezado.push(coordenadasTemp);
+                				
+                			}
+	        			}
+                	}
+						
+						
+					/*$('#msload').modal('show');
 					asyncLoop({
 						length : coordenadasArray.length,
 						forHSA : function(loop, i){
@@ -835,16 +882,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
 							$('#msload').modal('hide');
 						}    
 					});
-					/*
-                    for (let i = 0; i < coordenadasArray.length; i++) {
-						asycronouseProcess(function() {
-							$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
-						});
-						//$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
-					} */
-					
 					$scope.edicionMap = true;
-					$("#tramos").empty();
+					$("#tramos").empty();*/
 														
                   };
 
@@ -950,7 +989,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     });
                   }, 2000); */
 
-									$scope.setMarcadorEdicion = function(latLng, direccion) {
+				$scope.setMarcadorEdicion = function(latLng, direccion) {
+										//alert("edita");										
 										//$('#msload').modal('show');
                     var geocoder = new google.maps.Geocoder;
                     var img_mark = 'altaContrato/mark.png';
@@ -973,7 +1013,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   }
 
                   $scope.setMarcador = function(latLng) {
-										$('#msload').modal('show');
+                	  //alert("nuevo");
+					$('#msload').modal('show');
                     var geocoder = new google.maps.Geocoder;
                     var img_mark = 'altaContrato/mark.png';
                     var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
@@ -1002,6 +1043,16 @@ app.directive('fileModel', ['$parse', function ($parse) {
                           coordenadaP.latitud = latLng.lat();
                           coordenadaP.longitud = latLng.lng();
                           coordenadaP.direccion = direccion;
+                          //lrss contratos
+                          if (!edicionTramo)                         
+                          {
+                        	  coordenadaP.tramo = tramo;
+                          }
+                          else
+                          {
+                        	  coordenadaP.tramo = numTramoEdicion;
+                          }
+                          
                           if($scope.contratoFocus.coordenadas && $scope.contratoFocus.coordenadas.length > 0) {
 														coordenadaP.orden = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].orden + 1;
 														if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
@@ -1099,7 +1150,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 													if($scope.edicionMap){
 														$scope.setMarcador(event.latLng);
 													} else {
-														$scope.setMarcadorEdicion(event.latLng);
+														$scope.setMarcador(event.latLng);
 													}
 												}
                     });
@@ -1209,6 +1260,117 @@ app.directive('fileModel', ['$parse', function ($parse) {
                       //document.getElementById('lineLength').innerHTML = '';
                       //document.getElementById('polyArea').innerHTML = '';
                   }
+                  
+                  //para agregar tramos compuesto por varios puntos de direccion lrss contratos
+                  var tramo = 1;
+                  var edicionTramo = false;
+                  var numTramoEdicion = 0;
+                  $scope.agregarTramo = function(){
+                	  //console.info("agregar");
+                	  //console.info($scope.contratoFocus.coordenadas);
+                	  if ($scope.contratoFocus.coordenadas != undefined && $scope.contratoFocus.coordenadas != 'undefined' && $scope.contratoFocus.coordenadas.length > 0)
+                	  {                		  
+                		  
+                		  //se llena el arreglo para llenar el grid de tramos
+            			  var coordenadasTemp = {};
+            			  coordenadasTemp.direccion = $scope.contratoFocus.coordenadas[0].direccion;
+                		  coordenadasTemp.tramo = $scope.contratoFocus.coordenadas[0].tramo;
+                		  coordenadasTemp.metros = $scope.contratoFocus.metros.toFixed(2);
+                		  $scope.tramosEncabezado.push(coordenadasTemp);
+            		  
+                		  //se llena el arreglo de tramos
+                		  for(var i=0; i<$scope.contratoFocus.coordenadas.length; i++)
+                		  {
+                			  var coordenadasTemp1 = {};
+                    		  coordenadasTemp1.direccion = $scope.contratoFocus.coordenadas[i].direccion;
+                    		  coordenadasTemp1.tramo = $scope.contratoFocus.coordenadas[i].tramo;
+                    		  coordenadasTemp1.latitud = $scope.contratoFocus.coordenadas[i].latitud;
+                    		  coordenadasTemp1.longitud = $scope.contratoFocus.coordenadas[i].longitud;
+                    		  coordenadasTemp1.idContrato = $scope.contratoFocus.coordenadas[i].idContrato;
+                    		  coordenadasTemp1.orden = $scope.contratoFocus.coordenadas[i].orden;
+                    		  
+                    		  $scope.tramos.push(coordenadasTemp1);
+                		  }
+            		  
+                		  $scope.contratoFocus.coordenadas = [];
+                		  $scope.limpiarMarcadores();
+                		  if (!edicionTramo)
+                		  {
+                			  tramo ++;
+                		  }
+                		  else
+                		  {
+                			  edicionTramo = false;
+                		  }
+                		                  		  
+                		  //console.info ("tramos");
+                		  //console.info($scope.tramos);
+                		  //console.info($scope.tramosEncabezado);
+                	  }
+                  };
+                  
+                  //editar tramo
+                  $scope.editarTramo = function(tramo)
+                  {
+                	  edicionTramo = true;
+                	  numTramoEdicion = tramo;
+                	  $scope.limpiarMarcadores();                	  
+                	  $scope.contratoFocus.coordenadas = [];
+
+                	  //console.info ("tramos");
+                	  //console.info(tramo);
+                	  //console.info($scope.tramos);
+                	  if ($scope.tramos != undefined && $scope.tramos != 'undefined' && $scope.tramos.length > 0)
+                	  {
+                		  	for (var i=0; i<$scope.tramos.length; i++)
+                		  	{
+                		  		//console.info ("encuentra tramo");
+                		  		//console.info($scope.tramos[i]);
+                		  		if ($scope.tramos[i].tramo == tramo)
+                		  		{                		  			
+                		  			$scope.contratoFocus.coordenadas.push($scope.tramos[i]);
+                		  		}
+							}
+                		  	
+							//console.info($scope.contratoFocus.coordenadas);
+							
+							var coordenadasArray = $scope.ordenCoordenadas($scope.contratoFocus.coordenadas);
+							console.log(coordenadasArray);
+							$('#msload').modal('show');
+							asyncLoop({
+								length : coordenadasArray.length,
+								forHSA : function(loop, i){
+									setTimeout(function(){
+										$scope.setDireccionEnReversaEditar(coordenadasArray[i].latitud, coordenadasArray[i].longitud, coordenadasArray[i].direccion);
+										loop();
+									},1500);
+								},
+								callback : function(){
+									$('#msload').modal('hide');
+								}    
+							});
+							
+							//se elimina el renglon del modelo de tramos
+				  			for(var indice=$scope.tramosEncabezado.length-1; indice>=0; indice--)
+				  			{
+				  				if ( $scope.tramosEncabezado[indice].tramo == tramo)
+				  				{                		  			
+				  					$scope.tramosEncabezado.splice(indice,1);
+				  				}
+				  			}
+				  			
+				  			//se elimina del arreglo de tramos
+				  			for(var indice=$scope.tramos.length-1; indice>=0; indice--)
+				  			{
+				  				if ( $scope.tramos[indice].tramo == tramo)
+				  				{                		  			
+				  					$scope.tramos.splice(indice,1);
+				  				}
+				  			}
+
+                	  }
+                  }
+                  
             });
 
 
