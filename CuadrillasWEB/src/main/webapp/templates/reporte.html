@@ -76,19 +76,21 @@
 		            </div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12 col-md-12" class="table-responsive">
-						<table border=0 cellspacing=0 width="100%">
-            				<tr class="success" style="background:#dff0d8">
-			                	<th ng-repeat="header in encabezados" >
-			                	    {{ header }}
-			                	</th>
-            				</tr>
-            				<tr ng-repeat="item in datos">
-                				<td ng-repeat="header in nombreColumnas">
-                    				{{ item[header]}}
-                				</td>
-            				</tr>
-		        		</table>
+					<div style="width:100px;height:100px;overflow:scroll;">
+						<div class="col-sm-12 col-md-12" class="table-responsive">
+							<table border=0 cellspacing=0 width="100%">
+	            				<tr class="success" style="background:#dff0d8">
+				                	<th ng-repeat="header in encabezados" >
+				                	    {{ header }}
+				                	</th>
+	            				</tr>
+	            				<tr ng-repeat="item in datos">
+	                				<td ng-repeat="header in nombreColumnas">
+	                    				{{ item[header]}}
+	                				</td>
+	            				</tr>
+			        		</table>
+	   			    	</div>
    			    	</div>
    			    </div>
 			     			     
