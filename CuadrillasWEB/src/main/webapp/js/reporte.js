@@ -84,33 +84,7 @@ app.controller('reporte', function ($scope, $http) {
         	location.href="/CuadrillasWEB/ReporteAsistenciaExportar?fechaInicio="+ fechaInicial +"&fechaFin=" + fechaFinal;        	
         	
         	$('#msload').modal('hide');        		
-        	/*
-        	$http({
-                method: 'GET',
-                url: '/CuadrillasWEB/ReporteAsistenciaExportar',
-                params : {		 			
-		 			"fechaInicio" 	: fechaInicial,
-		 			"fechaFin"	: fechaFinal
-		 		},
-		 		data: {}
-  		    }).then(function mySucces(result) {
-  		    	$('#msload').modal('hide');
-  				$('#alert').hide();
-  				$('#success').hide();
-  				//console.info(result.data.catalogo);
-  				//$scope.nombreColumnas = _getHeaders(result.data.reporte);
-  				//$scope.encabezados = result.data.encabezado;
-  				//console.info("cabecera");
-  				//console.info($scope.nombreColumnas);
-  				//console.info($scope.encabezados);
-  				//$scope.datos = result.data.reporte;                
-  		    }, function myError(response) {
-  		    	$('#msload').modal('hide');
-  		        console.error(response);
-  		        $('#alert').show();
-  				$('#msgerror').text(response.data.header.mensajeFuncional);
-  		    });
-  		    */	     
+
         };                        
         
         //$scope.consultar();
