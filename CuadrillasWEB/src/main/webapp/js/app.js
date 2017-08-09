@@ -830,7 +830,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                     $("#estatus").prop('disabled', false);
                     $scope.nContrato = false;
                     $scope.initMap();
-					var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
+					//var coordenadasArray = $scope.ordenCoordenadas(contrato.coordenadas);
+					var coordenadasArray = contrato.coordenadas;
 					console.log(coordenadasArray);
 					
 					//lrss contratos
@@ -1334,7 +1335,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 		  	
 							//console.info($scope.contratoFocus.coordenadas);
 							
-							var coordenadasArray = $scope.ordenCoordenadas($scope.contratoFocus.coordenadas);
+							//var coordenadasArray = $scope.ordenCoordenadas($scope.contratoFocus.coordenadas);
+							var coordenadasArray = $scope.contratoFocus.coordenadas;
 							console.log(coordenadasArray);
 							$('#msload').modal('show');
 							asyncLoop({
