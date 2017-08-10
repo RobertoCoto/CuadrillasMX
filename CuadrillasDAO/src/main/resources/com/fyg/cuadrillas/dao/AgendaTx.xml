@@ -199,7 +199,7 @@ WHERE id_agenda_detalle = #{id_agenda_detalle}
 </update>
 
 <update id="bajaActividadDiariaDetalle" parameterType="ActividadDiariaDetalle">
-	DELETE actividad_diaria_detalle
+	DELETE FROM actividad_diaria_detalle
 	WHERE id_actividad_diaria = #{idActividadDiaria}
 	AND codigo_actividad = #{codigoActividad}
 	AND estatus = 'A'
