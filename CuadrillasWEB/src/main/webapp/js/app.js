@@ -2142,7 +2142,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             });
 
             google.maps.event.addListener(marcador, "dragend", function() {
-            	alert(medida.mvcLine.getLength());
+            	//alert(medida.mvcLine.getLength());
                 if (medida.mvcLine.getLength() > 1) {
                     $scope.calculaDistancia();
                 }
@@ -3230,8 +3230,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
   		
   		
       //para inicializar los mapas
-      $scope.initMap();
-      $scope.initMap2();
+		setTimeout(function(){
+			$scope.initMap();
+	    },1000);		
+		
+	    setTimeout(function(){			
+	    	$scope.initMap2();
+	    },1000);
     });    
     //FIN REGISTRO AGENDA SEMANAL
 

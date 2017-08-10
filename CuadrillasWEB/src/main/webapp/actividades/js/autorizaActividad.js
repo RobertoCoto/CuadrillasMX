@@ -7,7 +7,7 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 	 var medida2;
 	
 
-	$scope.id = $window.idActividadDiaria;
+	$scope.id = 1;//$window.idActividadDiaria;	
 	$scope.usuario = $window.user;
 	$scope.fecha = $window.fechaTarea;	
 	var metros_div = 1;
@@ -87,6 +87,10 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
            		+ "</tr>") );
 			// $('#msload').modal('hide');
 	        $scope.mLineaRectaEdita();
+	        
+            if (medida.mvcLine.getLength() > 1) {
+                $scope.calculaDistancia();
+            }	        
 
 	        //se suman los tramos de todos los dias de las coordenadas REALES
 	        var metrosTotales = 0;
@@ -122,6 +126,10 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
            		+ "</tr>") );
 			// $('#msload').modal('hide');
 	        $scope.mLineaRectaLectura();
+	        
+            if (medida2.mvcLine.getLength() > 1) {
+                $scope.calculaDistancia2();
+            }	        
 
 	        //se suman los tramos de todos los dias de las coordenadas ESPERADAS
 	        var metrosTotales = 0;
@@ -192,6 +200,25 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
          var unidad_de_medida = " metros";
          $( "#km" ).text(km.toFixed(2) + ' mts');
          $( "#txtkm" ).text('Distancia');
+         // console.log('Distancia total:' + length.toFixed(0) + ' metros ' +
+			// km.toFixed(3));
+     };
+
+
+     $scope.calculaDistancia2 = function() {
+         var length = 0;
+         if (medida2.mvcPolygon.getLength() > 1) {
+             length = google.maps.geometry.spherical.computeLength(medida2.line.getPath());
+         }
+         var area = 0;
+         if (medida2.mvcPolygon.getLength() > 2) {
+             area = google.maps.geometry.spherical.computeArea(medida2.polygon.getPath());
+         }
+     // lM = document.forms["mb"].elements["mode"][0].checked;
+         var km = length / metros_div;
+         var unidad_de_medida = " metros";
+         $( "#km2" ).text(km.toFixed(2) + ' mts');
+         $( "#txtkm2" ).text('Distancia');
          // console.log('Distancia total:' + length.toFixed(0) + ' metros ' +
 			// km.toFixed(3));
      };
@@ -564,9 +591,14 @@ app.controller('autorizaActividad', function ($scope, $http, $window) {
 				return "progress-bar progress-bar-danger";
 		};
  
-     //se muestran los mapas
-     $scope.initMap();
-     $scope.initMap2();
+		//se muestran los mapas
+		setTimeout(function(){
+			$scope.initMap();
+	    },1000);		
+		
+	    setTimeout(function(){			
+	    	$scope.initMap2();
+	    },1000);
 	});
 
     // FIN AUTORIZA ACTIVIDAD
