@@ -748,36 +748,37 @@ app.directive('fileModel', ['$parse', function ($parse) {
                   };
 
                   $scope.guardaContrato = function() {
-                    $('#mainPanel').hide();
-                    $('#panelContratos').show();
-                    $('#nuevoContrato').show();
-                    
-					$('#linkContrato').empty();
-					$scope.contratoFocus.coordenadas = $scope.tramos; //lrss contratos                    
-                    $scope.contratoFocus.codigoVialidad = "";
-					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
-					console.log($scope.contratoFocus);
-					var json = JSON.stringify($scope.contratoFocus);
-					var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
-					fileUpload.uploadFileToUrl(null, json, uploadUrl);
-										/*var dataObj = {
-											JSONModificaContrato: json
-										}
-										var config = {
-				                headers : {
-				                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-				                }
-				            }
-										$http.post('http://localhost:8080/CuadrillasWEB/ActualizaContrato', json, config)
-				            .success(function (data, status, headers, config) {
-				                console.info(data);
-				            })
-				            .error(function (data, status, header, config) {
-				                console.info(data);
-				            });*/
-                    $scope.contratoFocus = {}; //para el final
-					$scope.consultaContratos();
-
+                    if (confirm('¿Estas seguro?')) { 
+                                $('#mainPanel').hide();
+                                $('#panelContratos').show();
+                                $('#nuevoContrato').show();
+                                
+            					$('#linkContrato').empty();
+            					$scope.contratoFocus.coordenadas = $scope.tramos; //lrss contratos                    
+                                $scope.contratoFocus.codigoVialidad = "";
+            					$scope.contratoFocus.usuarioAlta = data.data.usuario.usuario;
+            					console.log($scope.contratoFocus);
+            					var json = JSON.stringify($scope.contratoFocus);
+            					var uploadUrl = "/CuadrillasWEB/ActualizaContrato";
+            					fileUpload.uploadFileToUrl(null, json, uploadUrl);
+            										/*var dataObj = {
+            											JSONModificaContrato: json
+            										}
+            										var config = {
+            				                headers : {
+            				                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            				                }
+            				            }
+            										$http.post('http://localhost:8080/CuadrillasWEB/ActualizaContrato', json, config)
+            				            .success(function (data, status, headers, config) {
+            				                console.info(data);
+            				            })
+            				            .error(function (data, status, header, config) {
+            				                console.info(data);
+            				            });*/
+                                $scope.contratoFocus = {}; //para el final
+            					$scope.consultaContratos();
+                    }
                   }
 
                   $scope.consultaContratos = function() {

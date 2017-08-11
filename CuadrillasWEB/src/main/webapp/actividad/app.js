@@ -73,135 +73,135 @@ var asyncLoop = function(o){
 }
 var usuarioRegistra, idActDiaria, datos, actividaddata, actividadDiariaCOD;
 angular.module('tatei', ['ui.materialize'])
-	.service('fileUploadOld', ['$http', function ($http) {
-	    this.uploadFileToUrl = function(url, usuarioAlta, uploadUrl){
-	    	var obj = {};
-	    	obj.codigoActividad = actividadDiariaCOD;
-	    	obj.idActividadDiaria = idActDiaria;
-	    	obj.usuarioAlta = usuarioAlta;
-	    	obj.url = url;
-	    	var json = JSON.stringify(obj);
-	    	$('#msload').show();
-	        var fd = new FormData();
-	        fd.append('json', json);
-	        //fd.append('codigoActividad', codigoActividad);
-	        //fd.append('url', url);
-	        //fd.append('usuarioAlta', usuarioAlta);
-	        $http.post(uploadUrl, fd, {
-	            transformRequest: angular.identity,
-	            headers: {'Content-Type': undefined}
-	        })
-	        .then(function mySuccess(response) {
+  .service('fileUploadOld', ['$http', function ($http) {
+      this.uploadFileToUrl = function(url, usuarioAlta, uploadUrl){
+        var obj = {};
+        obj.codigoActividad = actividadDiariaCOD;
+        obj.idActividadDiaria = idActDiaria;
+        obj.usuarioAlta = usuarioAlta;
+        obj.url = url;
+        var json = JSON.stringify(obj);
+        $('#msload').show();
+          var fd = new FormData();
+          fd.append('json', json);
+          //fd.append('codigoActividad', codigoActividad);
+          //fd.append('url', url);
+          //fd.append('usuarioAlta', usuarioAlta);
+          $http.post(uploadUrl, fd, {
+              transformRequest: angular.identity,
+              headers: {'Content-Type': undefined}
+          })
+          .then(function mySuccess(response) {
                 console.info(response);
                 alert(response.data.mensajeFuncional);
                 if(response.data.estatus) {
-                	if(url == 'img1') {
-                		$('#input-file-events1').hide();
-                		$('#img1').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
-                    	$('#img1').show();
-                	}
-                	
-                	if(url == 'img2') {
-                		$('#input-file-events2').hide();
-                		$('#img2').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
-                    	$('#img2').show();
-                	}
-                	
+                  if(url == 'img1') {
+                    $('#input-file-events1').hide();
+                    $('#img1').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
+                      $('#img1').show();
+                  }
+                  
+                  if(url == 'img2') {
+                    $('#input-file-events2').hide();
+                    $('#img2').prop('src', '/CuadrillasWEB/RevisaActividadDocumentos?url=img2');
+                      $('#img2').show();
+                  }
+                  
                 } else {
-                	if(url == 'img1') {
-                		$('#input-file-events1').show();
-                    	$('#img1').hide();
-                	}
-                	
-                	if(url == 'img2') {
-                		$('#input-file-events2').show();
-                    	$('#img2').hide();
-                	}
+                  if(url == 'img1') {
+                    $('#input-file-events1').show();
+                      $('#img1').hide();
+                  }
+                  
+                  if(url == 'img2') {
+                    $('#input-file-events2').show();
+                      $('#img2').hide();
+                  }
                 }
                 $('#msload').hide();
             }, function myError(response) {
                 console.log(response);
                 if(response.data.mensajeFuncional) {
-                	alert(response.data.mensajeFuncional);
-                	if(url == 'img1') {
-                		drEvent = drEvent.data('dropify');
-                		drEvent.resetPreview();
-                		drEvent.clearElement();
-                		$('#input-file-events1').prop('data-default-file', '');
-                		$('#input-file-events1').show();
-                		//drEvent.clearElement();
-                    	$('#img1').hide();
-                	}
-                	
-                	if(url == 'img2') {
-                		drEvent2 = drEvent.data('dropify');
-                		drEvent2.resetPreview();
-                		drEvent2.clearElement();
-                		$('#input-file-events2').prop('data-default-file', '');
-                		$('#input-file-events2').show();
-                		//drEvent2.clearElement();
-                    	$('#img2').hide();
-                	}
+                  alert(response.data.mensajeFuncional);
+                  if(url == 'img1') {
+                    drEvent = drEvent.data('dropify');
+                    drEvent.resetPreview();
+                    drEvent.clearElement();
+                    $('#input-file-events1').prop('data-default-file', '');
+                    $('#input-file-events1').show();
+                    //drEvent.clearElement();
+                      $('#img1').hide();
+                  }
+                  
+                  if(url == 'img2') {
+                    drEvent2 = drEvent.data('dropify');
+                    drEvent2.resetPreview();
+                    drEvent2.clearElement();
+                    $('#input-file-events2').prop('data-default-file', '');
+                    $('#input-file-events2').show();
+                    //drEvent2.clearElement();
+                      $('#img2').hide();
+                  }
                 }
                 $('#msload').hide();
             });
-	    }
-	}])
-	.service("uploadService", function($http, $q) {
+      }
+  }])
+  .service("uploadService", function($http, $q) {
 
-	    return ({
-	      upload: upload
-	    });
-	
-	    function upload(archivo) {
-	    	$('#msload').show();
-	    	var obj = {};
-	    	obj.codigoActividad = actividadDiariaCOD;
-	    	obj.idActividadDiaria = idActDiaria;
-	    	obj.usuarioAlta = usuarioRegistra;
-	    	//obj.url = indefined;//archivo.name;
-	    	var json = JSON.stringify(obj);
-	      var upl = $http({
-	        method: 'POST',
-	        url: '/CuadrillasWEB/RegistraFotoActividad', // /api/upload/tatei
-	        headers: {
-	          'Content-Type': undefined
-	        },
-	        data: {
-	          upload: archivo,
-	          json: json
-	        },
-	        transformRequest: function(data, headersGetter) {
-	          var formData = new FormData();
-	          angular.forEach(data, function(value, key) {
-	            formData.append(key, value);
-	          });
-	
-	          var headers = headersGetter();
-	          delete headers['Content-Type'];
-	
-	          return formData;
-	        }
-	      });
-	      return upl.then(handleSuccess, handleError);
-	
-	    } // Fin de la funcion upload 
-	
-	    // ---
-	    // Metodos privados
-	    // ---
-	  
-	    function handleError(response, data) {
-	      if (!angular.isObject(response.data) ||!response.data.mensajeFuncional) {
-	        return ($q.reject("Ocurrio un error desconocido."));
-	      }
-	
-	      return ($q.reject(response.data.mensajeFuncional));
-	    }
-	
-	    function handleSuccess(response) {
-	      return (response);
-	    }
+      return ({
+        upload: upload
+      });
+  
+      function upload(archivo) {
+        $('#msload').show();
+        var obj = {};
+        obj.codigoActividad = actividadDiariaCOD;
+        obj.idActividadDiaria = idActDiaria;
+        obj.usuarioAlta = usuarioRegistra;
+        //obj.url = indefined;//archivo.name;
+        var json = JSON.stringify(obj);
+        var upl = $http({
+          method: 'POST',
+          url: '/CuadrillasWEB/RegistraFotoActividad', // /api/upload/tatei
+          headers: {
+            'Content-Type': undefined
+          },
+          data: {
+            upload: archivo,
+            json: json
+          },
+          transformRequest: function(data, headersGetter) {
+            var formData = new FormData();
+            angular.forEach(data, function(value, key) {
+              formData.append(key, value);
+            });
+  
+            var headers = headersGetter();
+            delete headers['Content-Type'];
+  
+            return formData;
+          }
+        });
+        return upl.then(handleSuccess, handleError);
+  
+      } // Fin de la funcion upload 
+  
+      // ---
+      // Metodos privados
+      // ---
+    
+      function handleError(response, data) {
+        if (!angular.isObject(response.data) ||!response.data.mensajeFuncional) {
+          return ($q.reject("Ocurrio un error desconocido."));
+        }
+  
+        return ($q.reject(response.data.mensajeFuncional));
+      }
+  
+      function handleSuccess(response) {
+        return (response);
+      }
 
   })
   .directive("fileinput", [function() {
@@ -225,41 +225,41 @@ angular.module('tatei', ['ui.materialize'])
     }
   }])
   .directive("ngUploadChange",function(){
-	  return{
-	        scope:{
-	            ngUploadChange:"&"
-	        },
-	        link:function($scope, $element, $attrs){
-	            $element.on("change",function(event){
-	                $scope.ngUploadChange({$event: event})
-	            })
-	            $scope.$on("$destroy",function(){
-	                $element.off();
-	            });
-	        }
-	    }
-	})
-	.controller("upload", ['$scope', '$http', 'uploadService', function($scope, $http, uploadService) {
-		$scope.actividad4Img = dataBckp;
+    return{
+          scope:{
+              ngUploadChange:"&"
+          },
+          link:function($scope, $element, $attrs){
+              $element.on("change",function(event){
+                  $scope.ngUploadChange({$event: event})
+              })
+              $scope.$on("$destroy",function(){
+                  $element.off();
+              });
+          }
+      }
+  })
+  .controller("upload", ['$scope', '$http', 'uploadService', function($scope, $http, uploadService) {
+    $scope.actividad4Img = dataBckp;
     $scope.$watch('file', function(newfile, oldfile,a,b) {
       if(angular.equals(newfile, oldfile) ){
         return;
       }
 
       uploadService.upload(newfile).then(function(res){
-    	$('#msload').hide();
+      $('#msload').hide();
         console.log("resultado", res);
       })
     });
 
   }])
     .controller('AppCtrl', function($scope, $http, $window,fileUploadOld, uploadService, $timeout) {
-    	var map;
+      var map;
         var map2;
         var medida;
         var medida2;
-	    $scope.id = $window.idAgendaDetalle;
-		$scope.usuario = $window.user;
+      $scope.id = $window.idAgendaDetalle;
+    $scope.usuario = $window.user;
         usuarioRegistra = $scope.usuario;
         idActDiaria =  $scope.id;
       
@@ -269,12 +269,12 @@ angular.module('tatei', ['ui.materialize'])
         }
         
         $scope.subirImagen = function(idComp) {
-	  
-			console.log('Archivo a subir: ' );
-			console.dir(idComp);
-			var uploadUrl = "/CuadrillasWEB/RegistraFotoActividad";
-			fileUploadOld.uploadFileToUrl(idComp, usuarioRegistra, uploadUrl);
-	      };
+    
+      console.log('Archivo a subir: ' );
+      console.dir(idComp);
+      var uploadUrl = "/CuadrillasWEB/RegistraFotoActividad";
+      fileUploadOld.uploadFileToUrl(idComp, usuarioRegistra, uploadUrl);
+        };
 
         $scope.initMap = function() {
                 medida = {
@@ -310,7 +310,7 @@ angular.module('tatei', ['ui.materialize'])
                 });
         };
         $timeout(function(){
-        	$scope.initMap();
+          $scope.initMap();
         },1000);
 
         $scope.listaActividades = [];
@@ -384,9 +384,9 @@ angular.module('tatei', ['ui.materialize'])
                                 //}, 100);
         }
         //***marcadores edicion map1
-		$scope.setMarcadorEdicion = function(latLng, direccion) {
+    $scope.setMarcadorEdicion = function(latLng, direccion) {
 
-			// $('#msload').show();
+      // $('#msload').show();
             var geocoder = new google.maps.Geocoder;
             var img_mark = 'mark.png';
             var marcador = new google.maps.Marker({map: map, position: latLng, icon: img_mark, draggable: false});
@@ -398,14 +398,14 @@ angular.module('tatei', ['ui.materialize'])
             //var direccion = 'SN';
             /* console.log(results);
             $( "#tramos" ).append( $( "<tr class=\"tr\" width=\"493px\">"
-            		+ "<td class=\"td\" width=\"30px\"> </td>"
-            		+ "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
-            		+ "</tr>") );
-			// $('#msload').hide();*/
-	        $scope.mLineaRectaEdita();
+                + "<td class=\"td\" width=\"30px\"> </td>"
+                + "<td class=\"td\" width=\"463px\">"+ direccion +" </td>"
+                + "</tr>") );
+      // $('#msload').hide();*/
+          $scope.mLineaRectaEdita();
 
-	        //var km = $scope.mapa.metros / metros_div;
-	        //var unidad_de_medida = "metros";
+          //var km = $scope.mapa.metros / metros_div;
+          //var unidad_de_medida = "metros";
 
         };
         $scope.mLineaRectaEdita = function() {
@@ -473,7 +473,7 @@ angular.module('tatei', ['ui.materialize'])
           }
         };
         $scope.setMarcador = function(latLng) {
-					$('#msload').show();
+          $('#msload').show();
                     var geocoder = new google.maps.Geocoder;
                     var img_mark = 'mark.png';
                     var marcador = new google.maps.Marker({map: map2, position: latLng, icon: img_mark, draggable: false});
@@ -489,14 +489,14 @@ angular.module('tatei', ['ui.materialize'])
                     var direccion = 'SN';
                     geocoder.geocode({'location': latlng}, function(results, status) {
                       //console.log(results);
-                    	/*
-                    	 * direccion:""
-                    	 * idAgenda:0
-                    	 * idContrato:0
-                    	 * latitud:19.274
-                    	 * longitud:-98.9356
-                    	 * orden:1
-                    	 */
+                      /*
+                       * direccion:""
+                       * idAgenda:0
+                       * idContrato:0
+                       * latitud:19.274
+                       * longitud:-98.9356
+                       * orden:1
+                       */
                       if (status === google.maps.GeocoderStatus.OK) {
                         if (results[1]) {
                           direccion =  results[0].formatted_address;
@@ -508,19 +508,19 @@ angular.module('tatei', ['ui.materialize'])
                           coordenadaP.direccion = direccion;
                           coordenadaP.idAgenda = $scope.actividadMaster.idAgenda;
                           if($scope.actividadMaster.coordenadasReal && $scope.actividadMaster.coordenadasReal.length > 0) {
-								coordenadaP.orden = $scope.actividadMaster.coordenadasReal[$scope.actividadMaster.coordenadasReal.length-1].orden + 1;
-//								if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
-//									coordenadaP.idContrato = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato;
-//								}
-//								if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda){
-//									coordenadaP.idAgenda = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda;
-//								}
-								$scope.actividadMaster.coordenadasReal.push(coordenadaP);
+                coordenadaP.orden = $scope.actividadMaster.coordenadasReal[$scope.actividadMaster.coordenadasReal.length-1].orden + 1;
+//                if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato){
+//                  coordenadaP.idContrato = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idContrato;
+//                }
+//                if($scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda){
+//                  coordenadaP.idAgenda = $scope.contratoFocus.coordenadas[$scope.contratoFocus.coordenadas.length-1].idAgenda;
+//                }
+                $scope.actividadMaster.coordenadasReal.push(coordenadaP);
                           } else {
-								coordenadaP.orden = 1;
-//								if($scope.contratoFocus.idContrato) {
-//									coordenadaP.idContrato = $scope.contratoFocus.idContrato;
-//								}
+                coordenadaP.orden = 1;
+//                if($scope.contratoFocus.idContrato) {
+//                  coordenadaP.idContrato = $scope.contratoFocus.idContrato;
+//                }
                             coordenadasTemp.push(coordenadaP);
                             $scope.actividadMaster.coordenadasReal = coordenadasTemp;
                           } 
@@ -532,11 +532,11 @@ angular.module('tatei', ['ui.materialize'])
                           alert('No se encontro una direccion disponible.')
                           //alert('No se encontraron resultados');
                         }
-						$('#msload').hide();
+            $('#msload').hide();
                       } else {
                         alert('Problemas en la geolocalizacion debido ' + status + '')
                         //alert('Geocoder fallo debido al estatus: ' + status);
-					    $('#msload').hide();
+              $('#msload').hide();
                       }
                     });
                 //$scope.mLineaRecta();
@@ -586,125 +586,131 @@ angular.module('tatei', ['ui.materialize'])
         }
         $scope.guardarActividadDetalle = function(data) {
             console.info(data);
-            $scope.actividadesCat.forEach(function(element) {
-                if(element.codigo == data.codigoActividad) {
-                	data.descripcionActividad = element.descripcion;
-                }
-            }, this);
-            $scope.prioridadCat.forEach(function(element) {
-                if(element.codigo == data.codigoPrioridad) {
-                	data.descripcionPrioridad = element.descripcion;
-                }
-            }, this);
-            $scope.estadoCat.forEach(function(element) {
-                if(element.codigo == data.codigoEstado) {
-                	data.descripcionEstado = element.descripcion;
-                }
-            }, this);
-            if(data.planeada == undefined) {
-            	data.planeada = 'N';
-            }
-            data.usuarioAlta = usuarioRegistra;
-            if(data.porcentaje > 100) {
-                data.porcentaje = 100;
-            }
-           
-            var jsonData = JSON.stringify(data);
-            $http({
-                method: "GET",
-                url: "/CuadrillasWS/service/registraActividadDiaria/actividad",
-                params: {jsonRegistraActividad: jsonData}
+            if (confirm('¿Estas seguro?')) { 
+              $scope.actividadesCat.forEach(function(element) {
+                  if(element.codigo == data.codigoActividad) {
+                    data.descripcionActividad = element.descripcion;
+                  }
+              }, this);
+              $scope.prioridadCat.forEach(function(element) {
+                  if(element.codigo == data.codigoPrioridad) {
+                    data.descripcionPrioridad = element.descripcion;
+                  }
+              }, this);
+              $scope.estadoCat.forEach(function(element) {
+                  if(element.codigo == data.codigoEstado) {
+                    data.descripcionEstado = element.descripcion;
+                  }
+              }, this);
+              if(data.planeada == undefined) {
+                data.planeada = 'N';
+              }
+              data.usuarioAlta = usuarioRegistra;
+              if(data.porcentaje > 100) {
+                  data.porcentaje = 100;
+              }
+             
+              var jsonData = JSON.stringify(data);
+              $http({
+                  method: "GET",
+                  url: "/CuadrillasWS/service/registraActividadDiaria/actividad",
+                  params: {jsonRegistraActividad: jsonData}
 
-            }).then(function mySuccess(response) {
-                console.info(response);
-                if(response.data.estatus === true) {
-                    $('#edicionActividades').modal('close');
-                    Materialize.toast(response.data.mensajeFuncional, 7000);
-                    if(data.n) {
-                    	$scope.listaActividades.push(data);
-                    }
-                    dataBckp = data;
-                } else {
-                    data = dataBckp;
-                    Materialize.toast(response.data.mensajeFuncional, 7000);
-                }
+              }).then(function mySuccess(response) {
+                  console.info(response);
+                  if(response.data.estatus === true) {
+                      $('#edicionActividades').modal('close');
+                      Materialize.toast(response.data.mensajeFuncional, 7000);
+                      if(data.n) {
+                        $scope.listaActividades.push(data);
+                      }
+                      dataBckp = data;
+                  } else {
+                      data = dataBckp;
+                      Materialize.toast(response.data.mensajeFuncional, 7000);
+                  }
 
-            }, function myError(response) {
-                console.log(response);
-            });
+              }, function myError(response) {
+                  console.log(response);
+              });
+            }
         }
         $scope.eliminarActividadDetalle = function(data) {
             console.info(data);
             if(data.planeada == 'N') {
+              if (confirm('¿Estas seguro?')) { 
 
-	            data.usuarioUltMod = usuarioRegistra;
-	            
-	           
-	            var jsonData = JSON.stringify(data);
-	            $http({
-	                method: "GET",
-	                url: "/CuadrillasWS/service/registraActividadDiaria/baja",
-	                params: {jsonEliminarActividad: jsonData}
-	
-	            }).then(function mySuccess(response) {
-	                console.info(response);
-	                if(response.data.estatus === true) {
-	                    $('#edicionActividades').modal('close');
-	                    Materialize.toast(response.data.mensajeFuncional, 7000);
-	                    $.each($scope.listaActividades, function(i){
-	                        if($scope.listaActividades[i].codigoActividad === data.codigoActividad) {
-	                        	$scope.listaActividades.splice(i,1);
-	                            return false;
-	                        }
-	                    });
-	                } else {
-	                    Materialize.toast(response.data.mensajeFuncional, 7000);
-	                }
-	
-	            }, function myError(response) {
-	                console.log(response);
-	            });
+                  data.usuarioUltMod = usuarioRegistra;
+                  
+                 
+                  var jsonData = JSON.stringify(data);
+                  $http({
+                      method: "GET",
+                      url: "/CuadrillasWS/service/registraActividadDiaria/baja",
+                      params: {jsonEliminarActividad: jsonData}
+      
+                  }).then(function mySuccess(response) {
+                      console.info(response);
+                      if(response.data.estatus === true) {
+                          $('#edicionActividades').modal('close');
+                          Materialize.toast(response.data.mensajeFuncional, 7000);
+                          $.each($scope.listaActividades, function(i){
+                              if($scope.listaActividades[i].codigoActividad === data.codigoActividad) {
+                                $scope.listaActividades.splice(i,1);
+                                  return false;
+                              }
+                          });
+                      } else {
+                          Materialize.toast(response.data.mensajeFuncional, 7000);
+                      }
+      
+                  }, function myError(response) {
+                      console.log(response);
+                  });
+                }
             } else if( data.planeada == 'S') {
-            	Materialize.toast("No es posible eliminar una actividad planeada.", 7000);
+              Materialize.toast("No es posible eliminar una actividad planeada.", 7000);
             }
         }
         $scope.terminarCaptura = function() {
-        	$scope.actividadMaster.observaciones = $scope.observacionesGenerales2;//$('#observacionesGenerales').value
-        	$scope.actividadMaster.envioUsuarioAutorizacion = usuarioRegistra;
-            console.info($scope.actividadMaster);
-            ///CuadrillasWS/service/registraActividadDiaria/terminaCaptura?jsonTerminaActividad
-            var jsonData = JSON.stringify($scope.actividadMaster);
-            $('#msload').show();
-            $http({
-                method: "GET",
-                url: "/CuadrillasWS/service/registraActividadDiaria/terminaCaptura",
-                params: {jsonTerminaActividad: jsonData}
+          if (confirm('¿Estas seguro?')) { 
+            $scope.actividadMaster.observaciones = $scope.observacionesGenerales2;//$('#observacionesGenerales').value
+            $scope.actividadMaster.envioUsuarioAutorizacion = usuarioRegistra;
+              console.info($scope.actividadMaster);
+              ///CuadrillasWS/service/registraActividadDiaria/terminaCaptura?jsonTerminaActividad
+              var jsonData = JSON.stringify($scope.actividadMaster);
+              $('#msload').show();
+              $http({
+                  method: "GET",
+                  url: "/CuadrillasWS/service/registraActividadDiaria/terminaCaptura",
+                  params: {jsonTerminaActividad: jsonData}
 
-            }).then(function mySuccess(response) {
-                console.info(response);
-                if(response.data.estatus === true) {
-                	$('#msload').show();
-                	Materialize.toast(response.data.mensajeFuncional, 2000,'',function(){$window.close()})
-                } else {
-                	$('#msload').hide();
-//                	$('#msload').show();
-//                	Materialize.toast(response.data.mensajeFuncional, 7000,'',function(){$window.close()})
-                    Materialize.toast(response.data.mensajeFuncional, 7000);
-                }
+              }).then(function mySuccess(response) {
+                  console.info(response);
+                  if(response.data.estatus === true) {
+                    $('#msload').show();
+                    Materialize.toast(response.data.mensajeFuncional, 2000,'',function(){$window.close()})
+                  } else {
+                    $('#msload').hide();
+  //                  $('#msload').show();
+  //                  Materialize.toast(response.data.mensajeFuncional, 7000,'',function(){$window.close()})
+                      Materialize.toast(response.data.mensajeFuncional, 7000);
+                  }
 
-            }, function myError(response) {
-                console.log(response);
-            });
+              }, function myError(response) {
+                  console.log(response);
+              });
+            }
         }
         $scope.abrir = function(actividad) {
-        	
-        	$('#images-container').show();
-        	$("#img1").val("");
-        	//$scope.f1 = true;
+          
+          $('#images-container').show();
+          $("#img1").val("");
+          //$scope.f1 = true;
             //$scope.f2 = true;
             //$('#img1').show();
             //$('#img2').show();
-        	actividadDiariaCOD = actividad.codigoActividad;
+          actividadDiariaCOD = actividad.codigoActividad;
             dataBckp = actividad;
             //console.info(actividad);
             $('#msload').show();
@@ -830,10 +836,11 @@ angular.module('tatei', ['ui.materialize'])
     });
     
     function encodeImageFileAsURL(element) {
-    	  var file = element.files[0];
-    	  var reader = new FileReader();
-    	  reader.onloadend = function() {
-    	    console.log('RESULTADO', reader.result)
-    	  }
-    	  reader.readAsDataURL(file);
-    	}
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+          console.log('RESULTADO', reader.result)
+        }
+        reader.readAsDataURL(file);
+      }
+      
