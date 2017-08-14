@@ -85,6 +85,7 @@ public class ConsultaHuellaEmpleadoWS {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response verifHuella(@QueryParam("idEmpleado")Integer idEmpleado) {
 		EmpleadoHuellaRespuesta respuesta = new EmpleadoHuellaRespuesta();
+		Gson sg = new Gson();
 		String huellaEmpleado = null;
 		try {
 			EmpleadoNegocio negocio = new EmpleadoNegocio();
@@ -94,7 +95,10 @@ public class ConsultaHuellaEmpleadoWS {
 
 			huellaEmpleado = convierte64(respuesta.getEmpleadoHuella());
 		} catch (Exception ex) {
-			String result = huellaEmpleado;
+			String result =null;
+			if(huellaEmpleado == null) {
+				result = sg.toJson(respuesta);
+			} 
 			return Response.serverError().entity(result).build();
 		}
 		String result = huellaEmpleado;
@@ -122,6 +126,7 @@ public class ConsultaHuellaEmpleadoWS {
     	           ex.printStackTrace();
                 }
 		  }
+		
 		
 		return array.toString();
 	}
